@@ -18,69 +18,736 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(ref SDLGPUDevice device, SDLGPUBuffer* buffer, ref byte text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLDialogFileFilter* pfilters = &filters)
 			{
-				fixed (byte* ptext = &text)
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, (byte*)ptext);
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(ref SDLGPUDevice device, SDLGPUBuffer* buffer, ReadOnlySpan<byte> text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* ptext = text)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, (byte*)ptext);
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(ref SDLGPUDevice device, SDLGPUBuffer* buffer, string text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
 				byte* pStr0 = null;
 				int pStrSize0 = 0;
-				if (text != null)
+				if (defaultLocation != null)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
 						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -90,10 +757,10 @@ namespace Hexa.NET.SDL3
 						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 						pStr0 = pStrStack0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, pStr0);
+				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -102,69 +769,108 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(SDLGPUDevice* device, ref SDLGPUBuffer buffer, ref byte text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
 		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* ptext = &text)
+				fixed (byte* pdefaultLocation = &defaultLocation)
 				{
-					SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(SDLGPUDevice* device, ref SDLGPUBuffer buffer, ReadOnlySpan<byte> text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
 		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* ptext = text)
+				fixed (byte* pdefaultLocation = defaultLocation)
 				{
-					SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(SDLGPUDevice* device, ref SDLGPUBuffer buffer, string text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
 		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			fixed (SDLWindow* pwindow = &window)
 			{
 				byte* pStr0 = null;
 				int pStrSize0 = 0;
-				if (text != null)
+				if (defaultLocation != null)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
 						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -174,10 +880,10 @@ namespace Hexa.NET.SDL3
 						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 						pStr0 = pStrStack0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, pStr0);
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -186,77 +892,854 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(ref SDLGPUDevice device, ref SDLGPUBuffer buffer, ref byte text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				fixed (byte* pdefaultLocation = &defaultLocation)
 				{
-					fixed (byte* ptext = &text)
+					ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
-						SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(ref SDLGPUDevice device, ref SDLGPUBuffer buffer, ReadOnlySpan<byte> text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					fixed (byte* ptext = text)
+					fixed (byte* pdefaultLocation = defaultLocation)
 					{
-						SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, (byte*)ptext);
+						ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBufferName(ref SDLGPUDevice device, ref SDLGPUBuffer buffer, string text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
 					byte* pStr0 = null;
 					int pStrSize0 = 0;
-					if (text != null)
+					if (defaultLocation != null)
 					{
-						pStrSize0 = Utils.GetByteCountUTF8(text);
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 						if (pStrSize0 >= Utils.MaxStackallocSize)
 						{
 							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -266,10 +1749,10 @@ namespace Hexa.NET.SDL3
 							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 							pStr0 = pStrStack0;
 						}
-						int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 						pStr0[pStrOffset0] = 0;
 					}
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, pStr0);
+					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
 						Utils.Free(pStr0);
@@ -279,434 +1762,116 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUTextureNameNative(SDLGPUDevice* device, SDLGPUTexture* texture, byte* text)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTexture*, byte*, void>)funcTable[848])(device, texture, text);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[848])((nint)device, (nint)texture, (nint)text);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUTextureName(SDLGPUDevice* device, SDLGPUTexture* texture, byte* text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
 		{
-			SetGPUTextureNameNative(device, texture, text);
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(ref SDLGPUDevice device, SDLGPUTexture* texture, byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(SDLGPUDevice* device, ref SDLGPUTexture texture, byte* text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(ref SDLGPUDevice device, ref SDLGPUTexture texture, byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, text);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(SDLGPUDevice* device, SDLGPUTexture* texture, ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				SetGPUTextureNameNative(device, texture, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(SDLGPUDevice* device, SDLGPUTexture* texture, ReadOnlySpan<byte> text)
-		{
-			fixed (byte* ptext = text)
-			{
-				SetGPUTextureNameNative(device, texture, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(SDLGPUDevice* device, SDLGPUTexture* texture, string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SetGPUTextureNameNative(device, texture, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(ref SDLGPUDevice device, SDLGPUTexture* texture, ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(ref SDLGPUDevice device, SDLGPUTexture* texture, ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(ref SDLGPUDevice device, SDLGPUTexture* texture, string text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (byte* pdefaultLocation = &defaultLocation)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUTextureNameNative((SDLGPUDevice*)pdevice, texture, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(SDLGPUDevice* device, ref SDLGPUTexture texture, ref byte text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				fixed (byte* ptext = &text)
-				{
-					SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(SDLGPUDevice* device, ref SDLGPUTexture texture, ReadOnlySpan<byte> text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				fixed (byte* ptext = text)
-				{
-					SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, (byte*)ptext);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(SDLGPUDevice* device, ref SDLGPUTexture texture, string text)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetGPUTextureNameNative(device, (SDLGPUTexture*)ptexture, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUTextureName(ref SDLGPUDevice device, ref SDLGPUTexture texture, ref byte text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
-				{
-					fixed (byte* ptext = &text)
-					{
-						SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, (byte*)ptext);
+						ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUTextureName(ref SDLGPUDevice device, ref SDLGPUTexture texture, ReadOnlySpan<byte> text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					fixed (byte* ptext = text)
+					fixed (byte* pdefaultLocation = defaultLocation)
 					{
-						SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, (byte*)ptext);
+						ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets an arbitrary string constant to label a texture.<br/>
-		/// You should use SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUTexture instead of this function to avoid thread safety<br/>
-		/// issues.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// texture is not simultaneously used by any other thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUTextureName(ref SDLGPUDevice device, ref SDLGPUTexture texture, string text)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
 					byte* pStr0 = null;
 					int pStrSize0 = 0;
-					if (text != null)
+					if (defaultLocation != null)
 					{
-						pStrSize0 = Utils.GetByteCountUTF8(text);
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 						if (pStrSize0 >= Utils.MaxStackallocSize)
 						{
 							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -716,10 +1881,10 @@ namespace Hexa.NET.SDL3
 							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 							pStr0 = pStrStack0;
 						}
-						int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 						pStr0[pStrOffset0] = 0;
 					}
-					SetGPUTextureNameNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture, pStr0);
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
 						Utils.Free(pStr0);
@@ -729,87 +1894,642 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = defaultLocation)
+					{
+						ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (defaultLocation != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = defaultLocation)
+					{
+						ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (defaultLocation != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void InsertGPUDebugLabelNative(SDLGPUCommandBuffer* commandBuffer, byte* text)
+		internal static void ShowOpenFolderDialogNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] byte allowMany)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte*, void>)funcTable[849])(commandBuffer, text);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, byte*, byte, void>)funcTable[617])(callback, userdata, window, defaultLocation, allowMany);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[849])((nint)commandBuffer, (nint)text);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte, void>)funcTable[617])((nint)callback, (nint)userdata, (nint)window, (nint)defaultLocation, allowMany);
 			#endif
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void InsertGPUDebugLabel(SDLGPUCommandBuffer* commandBuffer, byte* text)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			InsertGPUDebugLabelNative(commandBuffer, text);
+			ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)window, defaultLocation, allowMany ? (byte)1 : (byte)0);
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void InsertGPUDebugLabel(ref SDLGPUCommandBuffer commandBuffer, byte* text)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			ShowOpenFolderDialogNative(callback, (void*)userdata, (SDLWindow*)window, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, text);
+				ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, defaultLocation, allowMany ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void InsertGPUDebugLabel(SDLGPUCommandBuffer* commandBuffer, ref byte text)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (byte* ptext = &text)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				InsertGPUDebugLabelNative(commandBuffer, (byte*)ptext);
+				ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, defaultLocation, allowMany ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void InsertGPUDebugLabel(SDLGPUCommandBuffer* commandBuffer, ReadOnlySpan<byte> text)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (byte* ptext = text)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				InsertGPUDebugLabelNative(commandBuffer, (byte*)ptext);
+				ShowOpenFolderDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, defaultLocation, allowMany ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void InsertGPUDebugLabel(SDLGPUCommandBuffer* commandBuffer, string text)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (text != null)
+			if (defaultLocation != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -819,10 +2539,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			InsertGPUDebugLabelNative(commandBuffer, pStr0);
+			ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)window, pStr0, allowMany ? (byte)1 : (byte)0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -830,204 +2550,100 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void InsertGPUDebugLabel(ref SDLGPUCommandBuffer commandBuffer, ref byte text)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (byte* pdefaultLocation = &defaultLocation)
 			{
-				fixed (byte* ptext = &text)
-				{
-					InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)ptext);
-				}
+				ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void InsertGPUDebugLabel(ref SDLGPUCommandBuffer commandBuffer, ReadOnlySpan<byte> text)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (byte* pdefaultLocation = defaultLocation)
 			{
-				fixed (byte* ptext = text)
-				{
-					InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)ptext);
-				}
+				ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Inserts an arbitrary string label into the command buffer callstream.<br/>
-		/// Useful for debugging.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void InsertGPUDebugLabel(ref SDLGPUCommandBuffer commandBuffer, string text)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				InsertGPUDebugLabelNative((SDLGPUCommandBuffer*)pcommandBuffer, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUDebugGroupNative(SDLGPUCommandBuffer* commandBuffer, byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte*, void>)funcTable[850])(commandBuffer, name);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[850])((nint)commandBuffer, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer, byte* name)
-		{
-			PushGPUDebugGroupNative(commandBuffer, name);
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer, byte* name)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, name);
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer, ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				PushGPUDebugGroupNative(commandBuffer, (byte*)pname);
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer, ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				PushGPUDebugGroupNative(commandBuffer, (byte*)pname);
-			}
-		}
-
-		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer, string name)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (name != null)
+			if (defaultLocation != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -1037,10 +2653,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			PushGPUDebugGroupNative(commandBuffer, pStr0);
+			ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, pStr0, allowMany ? (byte)1 : (byte)0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1048,78 +2664,336 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void PushGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer, ref byte name)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (byte* pdefaultLocation = &defaultLocation)
 			{
-				fixed (byte* pname = &name)
+				ShowOpenFolderDialogNative(callback, (void*)userdata, (SDLWindow*)window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowOpenFolderDialogNative(callback, (void*)userdata, (SDLWindow*)window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)pname);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowOpenFolderDialogNative(callback, (void*)userdata, (SDLWindow*)window, pStr0, allowMany ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, pStr0, allowMany ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void PushGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer, ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* pname = name)
+				fixed (byte* pdefaultLocation = defaultLocation)
 				{
-					PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, (byte*)pname);
+					ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Begins a debug group with an arbitary name.<br/>
-		/// Used for denoting groups of calls when viewing the command buffer<br/>
-		/// callstream in a graphics debugging tool.<br/>
-		/// Each call to SDL_PushGPUDebugGroup must have a corresponding call to<br/>
-		/// SDL_PopGPUDebugGroup.<br/>
-		/// On some backends (e.g. Metal), pushing a debug group during a<br/>
-		/// render/blit/compute pass will create a group that is scoped to the native<br/>
-		/// pass rather than the command buffer. For best results, if you push a debug<br/>
-		/// group during a pass, always pop it in the same pass.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void PushGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer, string name)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLWindow* pwindow = &window)
 			{
 				byte* pStr0 = null;
 				int pStrSize0 = 0;
-				if (name != null)
+				if (defaultLocation != null)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
 						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -1129,10 +3003,10 @@ namespace Hexa.NET.SDL3
 						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 						pStr0 = pStrStack0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				PushGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer, pStr0);
+				ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, pStr0, allowMany ? (byte)1 : (byte)0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -1141,3889 +3015,2013 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PopGPUDebugGroupNative(SDLGPUCommandBuffer* commandBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, void>)funcTable[851])(commandBuffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[851])((nint)commandBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PopGPUDebugGroup(SDLGPUCommandBuffer* commandBuffer)
-		{
-			PopGPUDebugGroupNative(commandBuffer);
-		}
-
-		/// <summary>
-		/// Ends the most-recently pushed debug group.<br/>
-		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void PopGPUDebugGroup(ref SDLGPUCommandBuffer commandBuffer)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				PopGPUDebugGroupNative((SDLGPUCommandBuffer*)pcommandBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUTextureNative(SDLGPUDevice* device, SDLGPUTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTexture*, void>)funcTable[852])(device, texture);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[852])((nint)device, (nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUTexture(SDLGPUDevice* device, SDLGPUTexture* texture)
-		{
-			ReleaseGPUTextureNative(device, texture);
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUTexture(ref SDLGPUDevice device, SDLGPUTexture* texture)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUTextureNative((SDLGPUDevice*)pdevice, texture);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUTexture(SDLGPUDevice* device, ref SDLGPUTexture texture)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				ReleaseGPUTextureNative(device, (SDLGPUTexture*)ptexture);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given texture as soon as it is safe to do so.<br/>
-		/// You must not reference the texture after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUTexture(ref SDLGPUDevice device, ref SDLGPUTexture texture)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
+				fixed (byte* pdefaultLocation = &defaultLocation)
 				{
-					ReleaseGPUTextureNative((SDLGPUDevice*)pdevice, (SDLGPUTexture*)ptexture);
+					ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUSamplerNative(SDLGPUDevice* device, SDLGPUSampler* sampler)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUSampler*, void>)funcTable[853])(device, sampler);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[853])((nint)device, (nint)sampler);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUSampler(SDLGPUDevice* device, SDLGPUSampler* sampler)
-		{
-			ReleaseGPUSamplerNative(device, sampler);
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUSampler(ref SDLGPUDevice device, SDLGPUSampler* sampler)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				ReleaseGPUSamplerNative((SDLGPUDevice*)pdevice, sampler);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUSampler(SDLGPUDevice* device, ref SDLGPUSampler sampler)
-		{
-			fixed (SDLGPUSampler* psampler = &sampler)
-			{
-				ReleaseGPUSamplerNative(device, (SDLGPUSampler*)psampler);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given sampler as soon as it is safe to do so.<br/>
-		/// You must not reference the sampler after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUSampler(ref SDLGPUDevice device, ref SDLGPUSampler sampler)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUSampler* psampler = &sampler)
+				fixed (byte* pdefaultLocation = defaultLocation)
 				{
-					ReleaseGPUSamplerNative((SDLGPUDevice*)pdevice, (SDLGPUSampler*)psampler);
+					ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUBufferNative(SDLGPUDevice* device, SDLGPUBuffer* buffer)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBuffer*, void>)funcTable[854])(device, buffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[854])((nint)device, (nint)buffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUBuffer(SDLGPUDevice* device, SDLGPUBuffer* buffer)
-		{
-			ReleaseGPUBufferNative(device, buffer);
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUBuffer(ref SDLGPUDevice device, SDLGPUBuffer* buffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				ReleaseGPUBufferNative((SDLGPUDevice*)pdevice, buffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUBuffer(SDLGPUDevice* device, ref SDLGPUBuffer buffer)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				ReleaseGPUBufferNative(device, (SDLGPUBuffer*)pbuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUBuffer(ref SDLGPUDevice device, ref SDLGPUBuffer buffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
 				{
-					ReleaseGPUBufferNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUTransferBufferNative(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, void>)funcTable[855])(device, transferBuffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[855])((nint)device, (nint)transferBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUTransferBuffer(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer)
-		{
-			ReleaseGPUTransferBufferNative(device, transferBuffer);
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUTransferBuffer(ref SDLGPUDevice device, SDLGPUTransferBuffer* transferBuffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUTransferBuffer(SDLGPUDevice* device, ref SDLGPUTransferBuffer transferBuffer)
-		{
-			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
-			{
-				ReleaseGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given transfer buffer as soon as it is safe to do so.<br/>
-		/// You must not reference the transfer buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUTransferBuffer(ref SDLGPUDevice device, ref SDLGPUTransferBuffer transferBuffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
-				{
-					ReleaseGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUComputePipelineNative(SDLGPUDevice* device, SDLGPUComputePipeline* computePipeline)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipeline*, void>)funcTable[856])(device, computePipeline);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[856])((nint)device, (nint)computePipeline);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUComputePipeline(SDLGPUDevice* device, SDLGPUComputePipeline* computePipeline)
-		{
-			ReleaseGPUComputePipelineNative(device, computePipeline);
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUComputePipeline(ref SDLGPUDevice device, SDLGPUComputePipeline* computePipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUComputePipelineNative((SDLGPUDevice*)pdevice, computePipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUComputePipeline(SDLGPUDevice* device, ref SDLGPUComputePipeline computePipeline)
-		{
-			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
-			{
-				ReleaseGPUComputePipelineNative(device, (SDLGPUComputePipeline*)pcomputePipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given compute pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the compute pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUComputePipeline(ref SDLGPUDevice device, ref SDLGPUComputePipeline computePipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
-				{
-					ReleaseGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipeline*)pcomputePipeline);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUShaderNative(SDLGPUDevice* device, SDLGPUShader* shader)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShader*, void>)funcTable[857])(device, shader);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[857])((nint)device, (nint)shader);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUShader(SDLGPUDevice* device, SDLGPUShader* shader)
-		{
-			ReleaseGPUShaderNative(device, shader);
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUShader(ref SDLGPUDevice device, SDLGPUShader* shader)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUShaderNative((SDLGPUDevice*)pdevice, shader);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUShader(SDLGPUDevice* device, ref SDLGPUShader shader)
-		{
-			fixed (SDLGPUShader* pshader = &shader)
-			{
-				ReleaseGPUShaderNative(device, (SDLGPUShader*)pshader);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given shader as soon as it is safe to do so.<br/>
-		/// You must not reference the shader after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUShader(ref SDLGPUDevice device, ref SDLGPUShader shader)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUShader* pshader = &shader)
-				{
-					ReleaseGPUShaderNative((SDLGPUDevice*)pdevice, (SDLGPUShader*)pshader);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUGraphicsPipelineNative(SDLGPUDevice* device, SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUGraphicsPipeline*, void>)funcTable[858])(device, graphicsPipeline);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[858])((nint)device, (nint)graphicsPipeline);
-			#endif
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUGraphicsPipeline(SDLGPUDevice* device, SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			ReleaseGPUGraphicsPipelineNative(device, graphicsPipeline);
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUGraphicsPipeline(ref SDLGPUDevice device, SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, graphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUGraphicsPipeline(SDLGPUDevice* device, ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-			{
-				ReleaseGPUGraphicsPipelineNative(device, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Frees the given graphics pipeline as soon as it is safe to do so.<br/>
-		/// You must not reference the graphics pipeline after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUGraphicsPipeline(ref SDLGPUDevice device, ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-				{
-					ReleaseGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
-		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
-		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
-		/// where one is dedicated to render and compute passes and the other is<br/>
-		/// dedicated to copy passes and other preparatory work such as generating<br/>
-		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
-		/// total amount of passes overall which improves rendering performance.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUCommandBuffer* AcquireGPUCommandBufferNative(SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUCommandBuffer*>)funcTable[859])(device);
-			#else
-			return (SDLGPUCommandBuffer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[859])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
-		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
-		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
-		/// where one is dedicated to render and compute passes and the other is<br/>
-		/// dedicated to copy passes and other preparatory work such as generating<br/>
-		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
-		/// total amount of passes overall which improves rendering performance.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUCommandBuffer* AcquireGPUCommandBuffer(SDLGPUDevice* device)
-		{
-			SDLGPUCommandBuffer* ret = AcquireGPUCommandBufferNative(device);
-			return ret;
-		}
-
-		/// <summary>
-		/// Acquire a command buffer.<br/>
-		/// This command buffer is managed by the implementation and should not be<br/>
-		/// freed by the user. The command buffer may only be used on the thread it was<br/>
-		/// acquired on. The command buffer should be submitted on the thread it was<br/>
-		/// acquired on.<br/>
-		/// It is valid to acquire multiple command buffers on the same thread at once.<br/>
-		/// In fact a common design pattern is to acquire two command buffers per frame<br/>
-		/// where one is dedicated to render and compute passes and the other is<br/>
-		/// dedicated to copy passes and other preparatory work such as generating<br/>
-		/// mipmaps. Interleaving commands between the two command buffers reduces the<br/>
-		/// total amount of passes overall which improves rendering performance.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUCommandBuffer* AcquireGPUCommandBuffer(ref SDLGPUDevice device)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUCommandBuffer* ret = AcquireGPUCommandBufferNative((SDLGPUDevice*)pdevice);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUVertexUniformDataNative(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[860])(commandBuffer, slotIndex, data, length);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[860])((nint)commandBuffer, slotIndex, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUVertexUniformData(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			PushGPUVertexUniformDataNative(commandBuffer, slotIndex, data, length);
-		}
-
-		/// <summary>
-		/// Pushes data to a vertex uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUVertexUniformData(ref SDLGPUCommandBuffer commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				PushGPUVertexUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
-			}
-		}
-
-		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUFragmentUniformDataNative(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[861])(commandBuffer, slotIndex, data, length);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[861])((nint)commandBuffer, slotIndex, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUFragmentUniformData(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			PushGPUFragmentUniformDataNative(commandBuffer, slotIndex, data, length);
-		}
-
-		/// <summary>
-		/// Pushes data to a fragment uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUFragmentUniformData(ref SDLGPUCommandBuffer commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				PushGPUFragmentUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
-			}
-		}
-
-		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PushGPUComputeUniformDataNative(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, uint, void*, uint, void>)funcTable[862])(commandBuffer, slotIndex, data, length);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[862])((nint)commandBuffer, slotIndex, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUComputeUniformData(SDLGPUCommandBuffer* commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			PushGPUComputeUniformDataNative(commandBuffer, slotIndex, data, length);
-		}
-
-		/// <summary>
-		/// Pushes data to a uniform slot on the command buffer.<br/>
-		/// Subsequent draw calls will use this uniform data.<br/>
-		/// The data being pushed must respect std140 layout conventions. In practical<br/>
-		/// terms this means you must ensure that vec3 and vec4 fields are 16-byte<br/>
-		/// aligned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PushGPUComputeUniformData(ref SDLGPUCommandBuffer commandBuffer, uint slotIndex, void* data, uint length)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				PushGPUComputeUniformDataNative((SDLGPUCommandBuffer*)pcommandBuffer, slotIndex, data, length);
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPURenderPass* BeginGPURenderPassNative(SDLGPUCommandBuffer* commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUColorTargetInfo*, uint, SDLGPUDepthStencilTargetInfo*, SDLGPURenderPass*>)funcTable[863])(commandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
-			#else
-			return (SDLGPURenderPass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, nint>)funcTable[863])((nint)commandBuffer, (nint)colorTargetInfos, numColorTargets, (nint)depthStencilTargetInfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPURenderPass* BeginGPURenderPass(SDLGPUCommandBuffer* commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
-		{
-			SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPURenderPass* BeginGPURenderPass(ref SDLGPUCommandBuffer commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, colorTargetInfos, numColorTargets, depthStencilTargetInfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPURenderPass* BeginGPURenderPass(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUColorTargetInfo colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
-		{
-			fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
-			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, depthStencilTargetInfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPURenderPass* BeginGPURenderPass(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUColorTargetInfo colorTargetInfos, uint numColorTargets, SDLGPUDepthStencilTargetInfo* depthStencilTargetInfo)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
-				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, depthStencilTargetInfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPURenderPass* BeginGPURenderPass(SDLGPUCommandBuffer* commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
-		{
-			fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
-			{
-				SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, colorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPURenderPass* BeginGPURenderPass(ref SDLGPUCommandBuffer commandBuffer, SDLGPUColorTargetInfo* colorTargetInfos, uint numColorTargets, ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
-				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, colorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPURenderPass* BeginGPURenderPass(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUColorTargetInfo colorTargetInfos, uint numColorTargets, ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
-		{
-			fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
-			{
-				fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
-				{
-					SDLGPURenderPass* ret = BeginGPURenderPassNative(commandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a render pass on a command buffer.<br/>
-		/// A render pass consists of a set of texture subresources (or depth slices in<br/>
-		/// the 3D texture case) which will be rendered to during the render pass,<br/>
-		/// along with corresponding clear values and load/store operations. All<br/>
-		/// operations related to graphics pipelines must take place inside of a render<br/>
-		/// pass. A default viewport and scissor state are automatically set when this<br/>
-		/// is called. You cannot begin another render pass, or begin a compute pass or<br/>
-		/// copy pass until you have ended the render pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPURenderPass* BeginGPURenderPass(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUColorTargetInfo colorTargetInfos, uint numColorTargets, ref SDLGPUDepthStencilTargetInfo depthStencilTargetInfo)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUColorTargetInfo* pcolorTargetInfos = &colorTargetInfos)
-				{
-					fixed (SDLGPUDepthStencilTargetInfo* pdepthStencilTargetInfo = &depthStencilTargetInfo)
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
-						SDLGPURenderPass* ret = BeginGPURenderPassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUColorTargetInfo*)pcolorTargetInfos, numColorTargets, (SDLGPUDepthStencilTargetInfo*)pdepthStencilTargetInfo);
-						return ret;
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
 				}
-			}
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUGraphicsPipelineNative(SDLGPURenderPass* renderPass, SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUGraphicsPipeline*, void>)funcTable[864])(renderPass, graphicsPipeline);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[864])((nint)renderPass, (nint)graphicsPipeline);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUGraphicsPipeline(SDLGPURenderPass* renderPass, SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			BindGPUGraphicsPipelineNative(renderPass, graphicsPipeline);
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUGraphicsPipeline(ref SDLGPURenderPass renderPass, SDLGPUGraphicsPipeline* graphicsPipeline)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUGraphicsPipelineNative((SDLGPURenderPass*)prenderPass, graphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUGraphicsPipeline(SDLGPURenderPass* renderPass, ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
-			{
-				BindGPUGraphicsPipelineNative(renderPass, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
-			}
-		}
-
-		/// <summary>
-		/// Binds a graphics pipeline on a render pass to be used in rendering.<br/>
-		/// A graphics pipeline must be bound before making any draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUGraphicsPipeline(ref SDLGPURenderPass renderPass, ref SDLGPUGraphicsPipeline graphicsPipeline)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUGraphicsPipeline* pgraphicsPipeline = &graphicsPipeline)
+				ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					BindGPUGraphicsPipelineNative((SDLGPURenderPass*)prenderPass, (SDLGPUGraphicsPipeline*)pgraphicsPipeline);
+					Utils.Free(pStr0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUViewportNative(SDLGPURenderPass* renderPass, SDLGPUViewport* viewport)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUViewport*, void>)funcTable[865])(renderPass, viewport);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[865])((nint)renderPass, (nint)viewport);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUViewport(SDLGPURenderPass* renderPass, SDLGPUViewport* viewport)
-		{
-			SetGPUViewportNative(renderPass, viewport);
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUViewport(ref SDLGPURenderPass renderPass, SDLGPUViewport* viewport)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SetGPUViewportNative((SDLGPURenderPass*)prenderPass, viewport);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUViewport(SDLGPURenderPass* renderPass, ref SDLGPUViewport viewport)
-		{
-			fixed (SDLGPUViewport* pviewport = &viewport)
-			{
-				SetGPUViewportNative(renderPass, (SDLGPUViewport*)pviewport);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current viewport state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUViewport(ref SDLGPURenderPass renderPass, ref SDLGPUViewport viewport)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUViewport* pviewport = &viewport)
+				fixed (byte* pdefaultLocation = &defaultLocation)
 				{
-					SetGPUViewportNative((SDLGPURenderPass*)prenderPass, (SDLGPUViewport*)pviewport);
+					ShowOpenFolderDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUScissorNative(SDLGPURenderPass* renderPass, SDLRect* scissor)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLRect*, void>)funcTable[866])(renderPass, scissor);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[866])((nint)renderPass, (nint)scissor);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUScissor(SDLGPURenderPass* renderPass, SDLRect* scissor)
-		{
-			SetGPUScissorNative(renderPass, scissor);
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUScissor(ref SDLGPURenderPass renderPass, SDLRect* scissor)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SetGPUScissorNative((SDLGPURenderPass*)prenderPass, scissor);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUScissor(SDLGPURenderPass* renderPass, ref SDLRect scissor)
-		{
-			fixed (SDLRect* pscissor = &scissor)
-			{
-				SetGPUScissorNative(renderPass, (SDLRect*)pscissor);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current scissor state on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUScissor(ref SDLGPURenderPass renderPass, ref SDLRect scissor)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLRect* pscissor = &scissor)
+				fixed (byte* pdefaultLocation = defaultLocation)
 				{
-					SetGPUScissorNative((SDLGPURenderPass*)prenderPass, (SDLRect*)pscissor);
+					ShowOpenFolderDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUBlendConstantsNative(SDLGPURenderPass* renderPass, SDLFColor blendConstants)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLFColor, void>)funcTable[867])(renderPass, blendConstants);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLFColor, void>)funcTable[867])((nint)renderPass, blendConstants);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUBlendConstants(SDLGPURenderPass* renderPass, SDLFColor blendConstants)
-		{
-			SetGPUBlendConstantsNative(renderPass, blendConstants);
-		}
-
-		/// <summary>
-		/// Sets the current blend constants on a command buffer.<br/>
-		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetGPUBlendConstants(ref SDLGPURenderPass renderPass, SDLFColor blendConstants)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SetGPUBlendConstantsNative((SDLGPURenderPass*)prenderPass, blendConstants);
-			}
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUStencilReferenceNative(SDLGPURenderPass* renderPass, byte reference)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, byte, void>)funcTable[868])(renderPass, reference);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, byte, void>)funcTable[868])((nint)renderPass, reference);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUStencilReference(SDLGPURenderPass* renderPass, byte reference)
-		{
-			SetGPUStencilReferenceNative(renderPass, reference);
-		}
-
-		/// <summary>
-		/// Sets the current stencil reference value on a command buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUStencilReference(ref SDLGPURenderPass renderPass, byte reference)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				SetGPUStencilReferenceNative((SDLGPURenderPass*)prenderPass, reference);
-			}
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexBuffersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBufferBinding* bindings, uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBufferBinding*, uint, void>)funcTable[869])(renderPass, firstSlot, bindings, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[869])((nint)renderPass, firstSlot, (nint)bindings, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUVertexBuffers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBufferBinding* bindings, uint numBindings)
-		{
-			BindGPUVertexBuffersNative(renderPass, firstSlot, bindings, numBindings);
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUVertexBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUBufferBinding* bindings, uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUVertexBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, bindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUVertexBuffers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUBufferBinding bindings, uint numBindings)
-		{
-			fixed (SDLGPUBufferBinding* pbindings = &bindings)
-			{
-				BindGPUVertexBuffersNative(renderPass, firstSlot, (SDLGPUBufferBinding*)pbindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds vertex buffers on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUVertexBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUBufferBinding bindings, uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBufferBinding* pbindings = &bindings)
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
 				{
-					BindGPUVertexBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBufferBinding*)pbindings, numBindings);
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFolderDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFolderDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFolderDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFolderDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create and launch a file dialog with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
+		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
+		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
+		/// If non-NULL, the array of filters must remain valid at least until the<br/>
+		/// callback is invoked.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
+		/// array of filters, if it exists.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
+		/// be modal for.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
+		/// start the dialog at.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
+		/// more than one entry.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
+		/// should have.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
+		/// should have.<br/>
+		/// Note that each platform may or may not support any of the properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowFileDialogWithProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUIndexBufferNative(SDLGPURenderPass* renderPass, SDLGPUBufferBinding* binding, SDLGPUIndexElementSize indexElementSize)
+		internal static void ShowFileDialogWithPropertiesNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_FileDialogType")] SDLFileDialogType type, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBufferBinding*, SDLGPUIndexElementSize, void>)funcTable[870])(renderPass, binding, indexElementSize);
+			((delegate* unmanaged[Cdecl]<SDLFileDialogType, delegate*<void*, byte**, int, void>, void*, uint, void>)funcTable[618])(type, callback, userdata, props);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUIndexElementSize, void>)funcTable[870])((nint)renderPass, (nint)binding, indexElementSize);
+			((delegate* unmanaged[Cdecl]<SDLFileDialogType, nint, nint, uint, void>)funcTable[618])(type, (nint)callback, (nint)userdata, props);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
+		/// Create and launch a file dialog with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
+		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
+		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
+		/// If non-NULL, the array of filters must remain valid at least until the<br/>
+		/// callback is invoked.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
+		/// array of filters, if it exists.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
+		/// be modal for.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
+		/// start the dialog at.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
+		/// more than one entry.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
+		/// should have.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
+		/// should have.<br/>
+		/// Note that each platform may or may not support any of the properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUIndexBuffer(SDLGPURenderPass* renderPass, SDLGPUBufferBinding* binding, SDLGPUIndexElementSize indexElementSize)
+		[NativeName(NativeNameType.Func, "SDL_ShowFileDialogWithProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowFileDialogWithProperties([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_FileDialogType")] SDLFileDialogType type, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
-			BindGPUIndexBufferNative(renderPass, binding, indexElementSize);
+			ShowFileDialogWithPropertiesNative(type, callback, userdata, props);
 		}
 
 		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
+		/// Create and launch a file dialog with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
+		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
+		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
+		/// If non-NULL, the array of filters must remain valid at least until the<br/>
+		/// callback is invoked.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
+		/// array of filters, if it exists.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
+		/// be modal for.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
+		/// start the dialog at.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
+		/// more than one entry.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
+		/// should have.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
+		/// should have.<br/>
+		/// Note that each platform may or may not support any of the properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUIndexBuffer(ref SDLGPURenderPass renderPass, SDLGPUBufferBinding* binding, SDLGPUIndexElementSize indexElementSize)
+		[NativeName(NativeNameType.Func, "SDL_ShowFileDialogWithProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowFileDialogWithProperties([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_FileDialogType")] SDLFileDialogType type, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUIndexBufferNative((SDLGPURenderPass*)prenderPass, binding, indexElementSize);
-			}
+			ShowFileDialogWithPropertiesNative(type, (delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, props);
 		}
 
 		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
+		/// Create and launch a file dialog with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
+		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
+		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
+		/// If non-NULL, the array of filters must remain valid at least until the<br/>
+		/// callback is invoked.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
+		/// array of filters, if it exists.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
+		/// be modal for.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
+		/// start the dialog at.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
+		/// more than one entry.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
+		/// should have.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
+		/// should have.<br/>
+		/// Note that each platform may or may not support any of the properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUIndexBuffer(SDLGPURenderPass* renderPass, ref SDLGPUBufferBinding binding, SDLGPUIndexElementSize indexElementSize)
+		[NativeName(NativeNameType.Func, "SDL_ShowFileDialogWithProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowFileDialogWithProperties([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_FileDialogType")] SDLFileDialogType type, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
-			fixed (SDLGPUBufferBinding* pbinding = &binding)
-			{
-				BindGPUIndexBufferNative(renderPass, (SDLGPUBufferBinding*)pbinding, indexElementSize);
-			}
+			ShowFileDialogWithPropertiesNative(type, callback, (void*)userdata, props);
 		}
 
 		/// <summary>
-		/// Binds an index buffer on a command buffer for use with subsequent draw<br/>
-		/// calls.<br/>
+		/// Create and launch a file dialog with the specified properties.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
+		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
+		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
+		/// If non-NULL, the array of filters must remain valid at least until the<br/>
+		/// callback is invoked.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
+		/// array of filters, if it exists.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
+		/// be modal for.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
+		/// start the dialog at.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
+		/// more than one entry.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
+		/// should have.<br/>
+		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
+		/// should have.<br/>
+		/// Note that each platform may or may not support any of the properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUIndexBuffer(ref SDLGPURenderPass renderPass, ref SDLGPUBufferBinding binding, SDLGPUIndexElementSize indexElementSize)
+		[NativeName(NativeNameType.Func, "SDL_ShowFileDialogWithProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowFileDialogWithProperties([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_FileDialogType")] SDLFileDialogType type, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBufferBinding* pbinding = &binding)
-				{
-					BindGPUIndexBufferNative((SDLGPURenderPass*)prenderPass, (SDLGPUBufferBinding*)pbinding, indexElementSize);
-				}
-			}
+			ShowFileDialogWithPropertiesNative(type, (delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, props);
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexSamplersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		internal static void GUIDToStringNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char *")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[871])(renderPass, firstSlot, textureSamplerBindings, numBindings);
+			((delegate* unmanaged[Cdecl]<SdlGuid, byte*, int, void>)funcTable[619])(guid, pszGUID, cbGUID);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[871])((nint)renderPass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			((delegate* unmanaged[Cdecl]<SdlGuid, nint, int, void>)funcTable[619])(guid, (nint)pszGUID, cbGUID);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexSamplers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GUIDToString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char *")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
-			BindGPUVertexSamplersNative(renderPass, firstSlot, textureSamplerBindings, numBindings);
+			GUIDToStringNative(guid, pszGUID, cbGUID);
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexSamplers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GUIDToString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char *")] ref byte pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (byte* ppszGUID = &pszGUID)
 			{
-				BindGPUVertexSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, textureSamplerBindings, numBindings);
+				GUIDToStringNative(guid, (byte*)ppszGUID, cbGUID);
 			}
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Get an ASCII string representation for a given SDL_GUID.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUVertexSamplers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
-		{
-			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-			{
-				BindGPUVertexSamplersNative(renderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the vertex shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexSamplers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GUIDToString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char *")] ref string pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pszGUID != null)
 			{
-				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+				pStrSize0 = Utils.GetByteCountUTF8(pszGUID);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					BindGPUVertexSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pszGUID, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			GUIDToStringNative(guid, pStr0, cbGUID);
+			pszGUID = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
 			}
 		}
 
 		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexStorageTexturesNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		internal static SdlGuid StringToGUIDNative([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] byte* pchGUID)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTexture**, uint, void>)funcTable[872])(renderPass, firstSlot, storageTextures, numBindings);
+			return ((delegate* unmanaged[Cdecl]<byte*, SdlGuid>)funcTable[620])(pchGUID);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[872])((nint)renderPass, firstSlot, (nint)storageTextures, numBindings);
+			return (SdlGuid)((delegate* unmanaged[Cdecl]<nint, SdlGuid>)funcTable[620])((nint)pchGUID);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexStorageTextures(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid StringToGUID([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] byte* pchGUID)
 		{
-			BindGPUVertexStorageTexturesNative(renderPass, firstSlot, storageTextures, numBindings);
+			SdlGuid ret = StringToGUIDNative(pchGUID);
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexStorageTextures(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid StringToGUID([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] in byte pchGUID)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (byte* ppchGUID = &pchGUID)
 			{
-				BindGPUVertexStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, storageTextures, numBindings);
+				SdlGuid ret = StringToGUIDNative((byte*)ppchGUID);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexStorageTextures(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid StringToGUID([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pchGUID)
 		{
-			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+			fixed (byte* ppchGUID = pchGUID)
 			{
-				BindGPUVertexStorageTexturesNative(renderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+				SdlGuid ret = StringToGUIDNative((byte*)ppchGUID);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds storage textures for use on the vertex shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
+		/// Convert a GUID string into a SDL_GUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexStorageTextures(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_StringToGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid StringToGUID([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "char const *")] string pchGUID)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pchGUID != null)
 			{
-				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+				pStrSize0 = Utils.GetByteCountUTF8(pchGUID);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					BindGPUVertexStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pchGUID, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
+			SdlGuid ret = StringToGUIDNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// On some platforms, retrieving power supply details might be expensive. If<br/>
+		/// you want to display continuous status you could call this function every<br/>
+		/// minute or so.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUVertexStorageBuffersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		internal static SDLPowerState GetPowerInfoNative([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBuffer**, uint, void>)funcTable[873])(renderPass, firstSlot, storageBuffers, numBindings);
+			return ((delegate* unmanaged[Cdecl]<int*, int*, SDLPowerState>)funcTable[621])(seconds, percent);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[873])((nint)renderPass, firstSlot, (nint)storageBuffers, numBindings);
+			return (SDLPowerState)((delegate* unmanaged[Cdecl]<nint, nint, SDLPowerState>)funcTable[621])((nint)seconds, (nint)percent);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// On some platforms, retrieving power supply details might be expensive. If<br/>
+		/// you want to display continuous status you could call this function every<br/>
+		/// minute or so.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexStorageBuffers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
 		{
-			BindGPUVertexStorageBuffersNative(renderPass, firstSlot, storageBuffers, numBindings);
+			SDLPowerState ret = GetPowerInfoNative(seconds, percent);
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// On some platforms, retrieving power supply details might be expensive. If<br/>
+		/// you want to display continuous status you could call this function every<br/>
+		/// minute or so.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexStorageBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] ref int seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (int* pseconds = &seconds)
 			{
-				BindGPUVertexStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, storageBuffers, numBindings);
+				SDLPowerState ret = GetPowerInfoNative((int*)pseconds, percent);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// On some platforms, retrieving power supply details might be expensive. If<br/>
+		/// you want to display continuous status you could call this function every<br/>
+		/// minute or so.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexStorageBuffers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] ref int percent)
 		{
-			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			fixed (int* ppercent = &percent)
 			{
-				BindGPUVertexStorageBuffersNative(renderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				SDLPowerState ret = GetPowerInfoNative(seconds, (int*)ppercent);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the vertex shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// On some platforms, retrieving power supply details might be expensive. If<br/>
+		/// you want to display continuous status you could call this function every<br/>
+		/// minute or so.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUVertexStorageBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int *")] ref int seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] ref int percent)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (int* pseconds = &seconds)
 			{
-				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				fixed (int* ppercent = &percent)
 				{
-					BindGPUVertexStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+					SDLPowerState ret = GetPowerInfoNative((int*)pseconds, (int*)ppercent);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get a list of currently connected sensors.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensors")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUFragmentSamplersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		internal static int* GetSensorsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[874])(renderPass, firstSlot, textureSamplerBindings, numBindings);
+			return ((delegate* unmanaged[Cdecl]<int*, int*>)funcTable[622])(count);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[874])((nint)renderPass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			return (int*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[622])((nint)count);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get a list of currently connected sensors.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentSamplers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetSensors")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID *")]
+		public static int* GetSensors([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
-			BindGPUFragmentSamplersNative(renderPass, firstSlot, textureSamplerBindings, numBindings);
+			int* ret = GetSensorsNative(count);
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get a list of currently connected sensors.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentSamplers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetSensors")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID *")]
+		public static int* GetSensors([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (int* pcount = &count)
 			{
-				BindGPUFragmentSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, textureSamplerBindings, numBindings);
+				int* ret = GetSensorsNative((int*)pcount);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentSamplers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
-		{
-			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-			{
-				BindGPUFragmentSamplersNative(renderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the fragment shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUFragmentSamplers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-				{
-					BindGPUFragmentSamplersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUFragmentStorageTexturesNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		internal static byte* GetSensorNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUTexture**, uint, void>)funcTable[875])(renderPass, firstSlot, storageTextures, numBindings);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[623])(instanceId);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[875])((nint)renderPass, firstSlot, (nint)storageTextures, numBindings);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[623])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentStorageTextures(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetSensorNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
 		{
-			BindGPUFragmentStorageTexturesNative(renderPass, firstSlot, storageTextures, numBindings);
+			byte* ret = GetSensorNameForIDNative(instanceId);
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentStorageTextures(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetSensorNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				BindGPUFragmentStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, storageTextures, numBindings);
-			}
+			string ret = Utils.DecodeStringUTF8(GetSensorNameForIDNative(instanceId));
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the type of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentStorageTextures(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
-		{
-			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
-			{
-				BindGPUFragmentStorageTexturesNative(renderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures for use on the fragment shader.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUFragmentStorageTextures(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
-				{
-					BindGPUFragmentStorageTexturesNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUFragmentStorageBuffersNative(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		internal static SDLSensorType GetSensorTypeForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, SDLGPUBuffer**, uint, void>)funcTable[876])(renderPass, firstSlot, storageBuffers, numBindings);
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[624])(instanceId);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[876])((nint)renderPass, firstSlot, (nint)storageBuffers, numBindings);
+			return (SDLSensorType)((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[624])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the type of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentStorageBuffers(SDLGPURenderPass* renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetSensorTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		public static SDLSensorType GetSensorTypeForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
 		{
-			BindGPUFragmentStorageBuffersNative(renderPass, firstSlot, storageBuffers, numBindings);
+			SDLSensorType ret = GetSensorTypeForIDNative(instanceId);
+			return ret;
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentStorageBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableTypeForID")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSensorNonPortableTypeForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[625])(instanceId);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[625])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// This can be called before any sensors are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableTypeForID")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSensorNonPortableTypeForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			int ret = GetSensorNonPortableTypeForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a sensor for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenSensor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Sensor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensor* OpenSensorNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[626])(instanceId);
+			#else
+			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[626])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a sensor for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenSensor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Sensor *")]
+		public static SDLSensorPtr OpenSensor([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			SDLSensorPtr ret = OpenSensorNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the SDL_Sensor associated with an instance ID.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Sensor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensor* GetSensorFromIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[627])(instanceId);
+			#else
+			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[627])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Return the SDL_Sensor associated with an instance ID.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Sensor *")]
+		public static SDLSensorPtr GetSensorFromID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		{
+			SDLSensorPtr ret = GetSensorFromIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetSensorPropertiesNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, uint>)funcTable[628])(sensor);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[628])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetSensorProperties([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor)
+		{
+			uint ret = GetSensorPropertiesNative((SDLSensor*)sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetSensorProperties([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
 			{
-				BindGPUFragmentStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, storageBuffers, numBindings);
+				uint ret = GetSensorPropertiesNative((SDLSensor*)psensor);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the implementation dependent name of a sensor.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentStorageBuffers(SDLGPURenderPass* renderPass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetSensorNameNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
 		{
-			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, byte*>)funcTable[629])(sensor);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[629])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetSensorName([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor)
+		{
+			byte* ret = GetSensorNameNative((SDLSensor*)sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetSensorNameS([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor)
+		{
+			string ret = Utils.DecodeStringUTF8(GetSensorNameNative((SDLSensor*)sensor));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetSensorName([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
 			{
-				BindGPUFragmentStorageBuffersNative(renderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				byte* ret = GetSensorNameNative((SDLSensor*)psensor);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Binds storage buffers for use on the fragment shader.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_GRAPHICS_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
+		/// Get the implementation dependent name of a sensor.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUFragmentStorageBuffers(ref SDLGPURenderPass renderPass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetSensorName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetSensorNameS([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
 		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
+			fixed (SDLSensor* psensor = &sensor)
 			{
-				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				string ret = Utils.DecodeStringUTF8(GetSensorNameNative((SDLSensor*)psensor));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorType")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensorType GetSensorTypeNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, SDLSensorType>)funcTable[630])(sensor);
+			#else
+			return (SDLSensorType)((delegate* unmanaged[Cdecl]<nint, SDLSensorType>)funcTable[630])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorType")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		public static SDLSensorType GetSensorType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor)
+		{
+			SDLSensorType ret = GetSensorTypeNative((SDLSensor*)sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorType")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
+		public static SDLSensorType GetSensorType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				SDLSensorType ret = GetSensorTypeNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableType")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSensorNonPortableTypeNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[631])(sensor);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[631])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableType")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSensorNonPortableType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor)
+		{
+			int ret = GetSensorNonPortableTypeNative((SDLSensor*)sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorNonPortableType")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSensorNonPortableType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = GetSensorNonPortableTypeNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSensorIDNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[632])(sensor);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[632])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
+		public static int GetSensorID([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor)
+		{
+			int ret = GetSensorIDNative((SDLSensor*)sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorID")]
+		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
+		public static int GetSensorID([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = GetSensorIDNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetSensorDataNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, float*, int, byte>)funcTable[633])(sensor, data, numValues);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[633])((nint)sensor, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSensorData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			byte ret = GetSensorDataNative((SDLSensor*)sensor, data, numValues);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSensorData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				byte ret = GetSensorDataNative((SDLSensor*)psensor, data, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSensorData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				byte ret = GetSensorDataNative((SDLSensor*)sensor, (float*)pdata, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSensorData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float *")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (float* pdata = &data)
 				{
-					BindGPUFragmentStorageBuffersNative((SDLGPURenderPass*)prenderPass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+					byte ret = GetSensorDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state with an index buffer and instancing<br/>
+		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseSensor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CloseSensorNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSensor*, void>)funcTable[634])(sensor);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[634])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseSensor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseSensor([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] SDLSensorPtr sensor)
+		{
+			CloseSensorNative((SDLSensor*)sensor);
+		}
+
+		/// <summary>
+		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseSensor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseSensor([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor *")] ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				CloseSensorNative((SDLSensor*)psensor);
+			}
+		}
+
+		/// <summary>
+		/// Update the current state of the open sensors.<br/>
+		/// This is called automatically by the event loop if sensor events are<br/>
 		/// enabled.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
-		/// built-in variables consistently, so if your shader depends on them, the<br/>
-		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
-		/// the correlating parameter in the draw calls.<br/>
-		/// <br/>
+		/// This needs to be called from the thread that initialized the sensor<br/>
+		/// subsystem.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateSensors")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DrawGPUIndexedPrimitivesNative(SDLGPURenderPass* renderPass, uint numIndices, uint numInstances, uint firstIndex, int vertexOffset, uint firstInstance)
+		internal static void UpdateSensorsNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, int, uint, void>)funcTable[877])(renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[635])();
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, int, uint, void>)funcTable[877])((nint)renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[635])();
 			#endif
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state with an index buffer and instancing<br/>
+		/// Update the current state of the open sensors.<br/>
+		/// This is called automatically by the event loop if sensor events are<br/>
 		/// enabled.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
-		/// built-in variables consistently, so if your shader depends on them, the<br/>
-		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
-		/// the correlating parameter in the draw calls.<br/>
-		/// <br/>
+		/// This needs to be called from the thread that initialized the sensor<br/>
+		/// subsystem.<br/>
 		/// <br/>
 		/// </summary>
-		public static void DrawGPUIndexedPrimitives(SDLGPURenderPass* renderPass, uint numIndices, uint numInstances, uint firstIndex, int vertexOffset, uint firstInstance)
+		[NativeName(NativeNameType.Func, "SDL_UpdateSensors")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UpdateSensors()
 		{
-			DrawGPUIndexedPrimitivesNative(renderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
+			UpdateSensorsNative();
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state with an index buffer and instancing<br/>
-		/// enabled.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
-		/// built-in variables consistently, so if your shader depends on them, the<br/>
-		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
-		/// the correlating parameter in the draw calls.<br/>
+		/// Locking for atomic access to the joystick API.<br/>
+		/// The SDL joystick functions are thread-safe, however you can lock the<br/>
+		/// joysticks while processing to guarantee that the joystick list won't change<br/>
+		/// and joystick and gamepad events will not be delivered.<br/>
 		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static void DrawGPUIndexedPrimitives(ref SDLGPURenderPass renderPass, uint numIndices, uint numInstances, uint firstIndex, int vertexOffset, uint firstInstance)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				DrawGPUIndexedPrimitivesNative((SDLGPURenderPass*)prenderPass, numIndices, numInstances, firstIndex, vertexOffset, firstInstance);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
-		/// built-in variables consistently, so if your shader depends on them, the<br/>
-		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
-		/// the correlating parameter in the draw calls.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DrawGPUPrimitivesNative(SDLGPURenderPass* renderPass, uint numVertices, uint numInstances, uint firstVertex, uint firstInstance)
+		internal static void LockJoysticksNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, uint, void>)funcTable[878])(renderPass, numVertices, numInstances, firstVertex, firstInstance);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[636])();
 			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, void>)funcTable[878])((nint)renderPass, numVertices, numInstances, firstVertex, firstInstance);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[636])();
 			#endif
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
-		/// built-in variables consistently, so if your shader depends on them, the<br/>
-		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
-		/// the correlating parameter in the draw calls.<br/>
+		/// Locking for atomic access to the joystick API.<br/>
+		/// The SDL joystick functions are thread-safe, however you can lock the<br/>
+		/// joysticks while processing to guarantee that the joystick list won't change<br/>
+		/// and joystick and gamepad events will not be delivered.<br/>
 		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static void DrawGPUPrimitives(SDLGPURenderPass* renderPass, uint numVertices, uint numInstances, uint firstVertex, uint firstInstance)
+		[NativeName(NativeNameType.Func, "SDL_LockJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockJoysticks()
 		{
-			DrawGPUPrimitivesNative(renderPass, numVertices, numInstances, firstVertex, firstInstance);
+			LockJoysticksNative();
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state.<br/>
-		/// You must not call this function before binding a graphics pipeline.<br/>
-		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
-		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
-		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
-		/// built-in variables consistently, so if your shader depends on them, the<br/>
-		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
-		/// the correlating parameter in the draw calls.<br/>
+		/// Unlocking for atomic access to the joystick API.<br/>
 		/// <br/>
+		/// This should be called from the same thread that called<br/>
+		/// SDL_LockJoysticks().<br/>
 		/// <br/>
 		/// </summary>
-		public static void DrawGPUPrimitives(ref SDLGPURenderPass renderPass, uint numVertices, uint numInstances, uint firstVertex, uint firstInstance)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				DrawGPUPrimitivesNative((SDLGPURenderPass*)prenderPass, numVertices, numInstances, firstVertex, firstInstance);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DrawGPUPrimitivesIndirectNative(SDLGPURenderPass* renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		internal static void UnlockJoysticksNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[879])(renderPass, buffer, offset, drawCount);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[637])();
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[879])((nint)renderPass, (nint)buffer, offset, drawCount);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[637])();
 			#endif
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
+		/// Unlocking for atomic access to the joystick API.<br/>
 		/// <br/>
+		/// This should be called from the same thread that called<br/>
+		/// SDL_LockJoysticks().<br/>
 		/// <br/>
 		/// </summary>
-		public static void DrawGPUPrimitivesIndirect(SDLGPURenderPass* renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		[NativeName(NativeNameType.Func, "SDL_UnlockJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockJoysticks()
 		{
-			DrawGPUPrimitivesIndirectNative(renderPass, buffer, offset, drawCount);
+			UnlockJoysticksNative();
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
+		/// Return whether a joystick is currently connected.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void DrawGPUPrimitivesIndirect(ref SDLGPURenderPass renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, buffer, offset, drawCount);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DrawGPUPrimitivesIndirect(SDLGPURenderPass* renderPass, ref SDLGPUBuffer buffer, uint offset, uint drawCount)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				DrawGPUPrimitivesIndirectNative(renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state and with draw parameters set from a<br/>
-		/// buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
-		/// function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DrawGPUPrimitivesIndirect(ref SDLGPURenderPass renderPass, ref SDLGPUBuffer buffer, uint offset, uint drawCount)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasJoystick")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DrawGPUIndexedPrimitivesIndirectNative(SDLGPURenderPass* renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		internal static byte HasJoystickNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[880])(renderPass, buffer, offset, drawCount);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[638])();
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[880])((nint)renderPass, (nint)buffer, offset, drawCount);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[638])();
 			#endif
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
+		/// Return whether a joystick is currently connected.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void DrawGPUIndexedPrimitivesIndirect(SDLGPURenderPass* renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
+		[NativeName(NativeNameType.Func, "SDL_HasJoystick")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasJoystick()
 		{
-			DrawGPUIndexedPrimitivesIndirectNative(renderPass, buffer, offset, drawCount);
+			byte ret = HasJoystickNative();
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
+		/// Get a list of currently connected joysticks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void DrawGPUIndexedPrimitivesIndirect(ref SDLGPURenderPass renderPass, SDLGPUBuffer* buffer, uint offset, uint drawCount)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, buffer, offset, drawCount);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DrawGPUIndexedPrimitivesIndirect(SDLGPURenderPass* renderPass, ref SDLGPUBuffer buffer, uint offset, uint drawCount)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				DrawGPUIndexedPrimitivesIndirectNative(renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
-			}
-		}
-
-		/// <summary>
-		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
-		/// draw parameters set from a buffer.<br/>
-		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
-		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
-		/// this function before binding a graphics pipeline.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DrawGPUIndexedPrimitivesIndirect(ref SDLGPURenderPass renderPass, ref SDLGPUBuffer buffer, uint offset, uint drawCount)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Ends the given render pass.<br/>
-		/// All bound graphics state on the render pass command buffer is unset. The<br/>
-		/// render pass handle is now invalid.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoysticks")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void EndGPURenderPassNative(SDLGPURenderPass* renderPass)
+		internal static int* GetJoysticksNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, void>)funcTable[881])(renderPass);
+			return ((delegate* unmanaged[Cdecl]<int*, int*>)funcTable[639])(count);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[881])((nint)renderPass);
+			return (int*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[639])((nint)count);
 			#endif
 		}
 
 		/// <summary>
-		/// Ends the given render pass.<br/>
-		/// All bound graphics state on the render pass command buffer is unset. The<br/>
-		/// render pass handle is now invalid.<br/>
+		/// Get a list of currently connected joysticks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void EndGPURenderPass(SDLGPURenderPass* renderPass)
+		[NativeName(NativeNameType.Func, "SDL_GetJoysticks")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
+		public static int* GetJoysticks([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
-			EndGPURenderPassNative(renderPass);
-		}
-
-		/// <summary>
-		/// Ends the given render pass.<br/>
-		/// All bound graphics state on the render pass command buffer is unset. The<br/>
-		/// render pass handle is now invalid.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void EndGPURenderPass(ref SDLGPURenderPass renderPass)
-		{
-			fixed (SDLGPURenderPass* prenderPass = &renderPass)
-			{
-				EndGPURenderPassNative((SDLGPURenderPass*)prenderPass);
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUComputePass* BeginGPUComputePassNative(SDLGPUCommandBuffer* commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUStorageTextureReadWriteBinding*, uint, SDLGPUStorageBufferReadWriteBinding*, uint, SDLGPUComputePass*>)funcTable[882])(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
-			#else
-			return (SDLGPUComputePass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, uint, nint>)funcTable[882])((nint)commandBuffer, (nint)storageTextureBindings, numStorageTextureBindings, (nint)storageBufferBindings, numStorageBufferBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePass* BeginGPUComputePass(SDLGPUCommandBuffer* commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
-		{
-			SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+			int* ret = GetJoysticksNative(count);
 			return ret;
 		}
 
 		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
+		/// Get a list of currently connected joysticks.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUComputePass* BeginGPUComputePass(ref SDLGPUCommandBuffer commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
+		[NativeName(NativeNameType.Func, "SDL_GetJoysticks")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
+		public static int* GetJoysticks([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (int* pcount = &count)
 			{
-				SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
+				int* ret = GetJoysticksNative((int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUComputePass* BeginGPUComputePass(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
-			{
-				SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePass* BeginGPUComputePass(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, uint numStorageTextureBindings, SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
-				{
-					SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePass* BeginGPUComputePass(SDLGPUCommandBuffer* commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
-			{
-				SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePass* BeginGPUComputePass(ref SDLGPUCommandBuffer commandBuffer, SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, uint numStorageTextureBindings, ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
-				{
-					SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePass* BeginGPUComputePass(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, uint numStorageTextureBindings, ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
-			{
-				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
-				{
-					SDLGPUComputePass* ret = BeginGPUComputePassNative(commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a compute pass on a command buffer.<br/>
-		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
-		/// may be written to by compute pipelines. These textures and buffers must<br/>
-		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
-		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
-		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
-		/// texture in the compute pass. All operations related to compute pipelines<br/>
-		/// must take place inside of a compute pass. You must not begin another<br/>
-		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
-		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
-		/// implicitly synchronized. This means you may cause data races by both<br/>
-		/// reading and writing a resource region in a compute pass, or by writing<br/>
-		/// multiple times to a resource region. If your compute work depends on<br/>
-		/// reading the completed output from a previous dispatch, you MUST end the<br/>
-		/// current compute pass and begin a new one before you can safely access the<br/>
-		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
-		/// texture in the same compute pass is only supported by specific texture<br/>
-		/// formats. Make sure you check the format support!<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePass* BeginGPUComputePass(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUStorageTextureReadWriteBinding storageTextureBindings, uint numStorageTextureBindings, ref SDLGPUStorageBufferReadWriteBinding storageBufferBindings, uint numStorageBufferBindings)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
-				{
-					fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
-					{
-						SDLGPUComputePass* ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUComputePipelineNative(SDLGPUComputePass* computePass, SDLGPUComputePipeline* computePipeline)
+		internal static byte* GetJoystickNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUComputePipeline*, void>)funcTable[883])(computePass, computePipeline);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[640])(instanceId);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[883])((nint)computePass, (nint)computePipeline);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[640])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void BindGPUComputePipeline(SDLGPUComputePass* computePass, SDLGPUComputePipeline* computePipeline)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			BindGPUComputePipelineNative(computePass, computePipeline);
-		}
-
-		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputePipeline(ref SDLGPUComputePass computePass, SDLGPUComputePipeline* computePipeline)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, computePipeline);
-			}
-		}
-
-		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputePipeline(SDLGPUComputePass* computePass, ref SDLGPUComputePipeline computePipeline)
-		{
-			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
-			{
-				BindGPUComputePipelineNative(computePass, (SDLGPUComputePipeline*)pcomputePipeline);
-			}
-		}
-
-		/// <summary>
-		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputePipeline(ref SDLGPUComputePass computePass, ref SDLGPUComputePipeline computePipeline)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
-				{
-					BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, (SDLGPUComputePipeline*)pcomputePipeline);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the compute shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUComputeSamplersNative(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[884])(computePass, firstSlot, textureSamplerBindings, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[884])((nint)computePass, firstSlot, (nint)textureSamplerBindings, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the compute shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeSamplers(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
-		{
-			BindGPUComputeSamplersNative(computePass, firstSlot, textureSamplerBindings, numBindings);
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the compute shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeSamplers(ref SDLGPUComputePass computePass, uint firstSlot, SDLGPUTextureSamplerBinding* textureSamplerBindings, uint numBindings)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, textureSamplerBindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the compute shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeSamplers(SDLGPUComputePass* computePass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
-		{
-			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-			{
-				BindGPUComputeSamplersNative(computePass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds texture-sampler pairs for use on the compute shader.<br/>
-		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeSamplers(ref SDLGPUComputePass computePass, uint firstSlot, ref SDLGPUTextureSamplerBinding textureSamplerBindings, uint numBindings)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
-				{
-					BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUComputeStorageTexturesNative(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTexture**, uint, void>)funcTable[885])(computePass, firstSlot, storageTextures, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[885])((nint)computePass, firstSlot, (nint)storageTextures, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeStorageTextures(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
-		{
-			BindGPUComputeStorageTexturesNative(computePass, firstSlot, storageTextures, numBindings);
-		}
-
-		/// <summary>
-		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeStorageTextures(ref SDLGPUComputePass computePass, uint firstSlot, SDLGPUTexture** storageTextures, uint numBindings)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)pcomputePass, firstSlot, storageTextures, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeStorageTextures(SDLGPUComputePass* computePass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
-		{
-			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
-			{
-				BindGPUComputeStorageTexturesNative(computePass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
-		/// These textures must have been created with<br/>
-		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeStorageTextures(ref SDLGPUComputePass computePass, uint firstSlot, ref SDLGPUTexture* storageTextures, uint numBindings)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
-				{
-					BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BindGPUComputeStorageBuffersNative(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUBuffer**, uint, void>)funcTable[886])(computePass, firstSlot, storageBuffers, numBindings);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[886])((nint)computePass, firstSlot, (nint)storageBuffers, numBindings);
-			#endif
-		}
-
-		/// <summary>
-		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeStorageBuffers(SDLGPUComputePass* computePass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
-		{
-			BindGPUComputeStorageBuffersNative(computePass, firstSlot, storageBuffers, numBindings);
-		}
-
-		/// <summary>
-		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeStorageBuffers(ref SDLGPUComputePass computePass, uint firstSlot, SDLGPUBuffer** storageBuffers, uint numBindings)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)pcomputePass, firstSlot, storageBuffers, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeStorageBuffers(SDLGPUComputePass* computePass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
-		{
-			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
-			{
-				BindGPUComputeStorageBuffersNative(computePass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
-			}
-		}
-
-		/// <summary>
-		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
-		/// These buffers must have been created with<br/>
-		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
-		/// Be sure your shader is set up according to the requirements documented in<br/>
-		/// SDL_CreateGPUShader().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BindGPUComputeStorageBuffers(ref SDLGPUComputePass computePass, uint firstSlot, ref SDLGPUBuffer* storageBuffers, uint numBindings)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
-				{
-					BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Dispatches compute work.<br/>
-		/// You must not call this function before binding a compute pipeline.<br/>
-		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
-		/// the dispatches write to the same resource region as each other, there is no<br/>
-		/// guarantee of which order the writes will occur. If the write order matters,<br/>
-		/// you MUST end the compute pass and begin another one.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DispatchGPUComputeNative(SDLGPUComputePass* computePass, uint groupcountX, uint groupcountY, uint groupcountZ)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, uint, uint, void>)funcTable[887])(computePass, groupcountX, groupcountY, groupcountZ);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, void>)funcTable[887])((nint)computePass, groupcountX, groupcountY, groupcountZ);
-			#endif
-		}
-
-		/// <summary>
-		/// Dispatches compute work.<br/>
-		/// You must not call this function before binding a compute pipeline.<br/>
-		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
-		/// the dispatches write to the same resource region as each other, there is no<br/>
-		/// guarantee of which order the writes will occur. If the write order matters,<br/>
-		/// you MUST end the compute pass and begin another one.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DispatchGPUCompute(SDLGPUComputePass* computePass, uint groupcountX, uint groupcountY, uint groupcountZ)
-		{
-			DispatchGPUComputeNative(computePass, groupcountX, groupcountY, groupcountZ);
-		}
-
-		/// <summary>
-		/// Dispatches compute work.<br/>
-		/// You must not call this function before binding a compute pipeline.<br/>
-		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
-		/// the dispatches write to the same resource region as each other, there is no<br/>
-		/// guarantee of which order the writes will occur. If the write order matters,<br/>
-		/// you MUST end the compute pass and begin another one.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DispatchGPUCompute(ref SDLGPUComputePass computePass, uint groupcountX, uint groupcountY, uint groupcountZ)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				DispatchGPUComputeNative((SDLGPUComputePass*)pcomputePass, groupcountX, groupcountY, groupcountZ);
-			}
-		}
-
-		/// <summary>
-		/// Dispatches compute work with parameters set from a buffer.<br/>
-		/// The buffer layout should match the layout of<br/>
-		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
-		/// binding a compute pipeline.<br/>
-		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
-		/// the dispatches write to the same resource region as each other, there is no<br/>
-		/// guarantee of which order the writes will occur. If the write order matters,<br/>
-		/// you MUST end the compute pass and begin another one.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DispatchGPUComputeIndirectNative(SDLGPUComputePass* computePass, SDLGPUBuffer* buffer, uint offset)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUBuffer*, uint, void>)funcTable[888])(computePass, buffer, offset);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)funcTable[888])((nint)computePass, (nint)buffer, offset);
-			#endif
-		}
-
-		/// <summary>
-		/// Dispatches compute work with parameters set from a buffer.<br/>
-		/// The buffer layout should match the layout of<br/>
-		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
-		/// binding a compute pipeline.<br/>
-		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
-		/// the dispatches write to the same resource region as each other, there is no<br/>
-		/// guarantee of which order the writes will occur. If the write order matters,<br/>
-		/// you MUST end the compute pass and begin another one.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DispatchGPUComputeIndirect(SDLGPUComputePass* computePass, SDLGPUBuffer* buffer, uint offset)
-		{
-			DispatchGPUComputeIndirectNative(computePass, buffer, offset);
-		}
-
-		/// <summary>
-		/// Dispatches compute work with parameters set from a buffer.<br/>
-		/// The buffer layout should match the layout of<br/>
-		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
-		/// binding a compute pipeline.<br/>
-		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
-		/// the dispatches write to the same resource region as each other, there is no<br/>
-		/// guarantee of which order the writes will occur. If the write order matters,<br/>
-		/// you MUST end the compute pass and begin another one.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DispatchGPUComputeIndirect(ref SDLGPUComputePass computePass, SDLGPUBuffer* buffer, uint offset)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				DispatchGPUComputeIndirectNative((SDLGPUComputePass*)pcomputePass, buffer, offset);
-			}
-		}
-
-		/// <summary>
-		/// Dispatches compute work with parameters set from a buffer.<br/>
-		/// The buffer layout should match the layout of<br/>
-		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
-		/// binding a compute pipeline.<br/>
-		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
-		/// the dispatches write to the same resource region as each other, there is no<br/>
-		/// guarantee of which order the writes will occur. If the write order matters,<br/>
-		/// you MUST end the compute pass and begin another one.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DispatchGPUComputeIndirect(SDLGPUComputePass* computePass, ref SDLGPUBuffer buffer, uint offset)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				DispatchGPUComputeIndirectNative(computePass, (SDLGPUBuffer*)pbuffer, offset);
-			}
-		}
-
-		/// <summary>
-		/// Dispatches compute work with parameters set from a buffer.<br/>
-		/// The buffer layout should match the layout of<br/>
-		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
-		/// binding a compute pipeline.<br/>
-		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
-		/// the dispatches write to the same resource region as each other, there is no<br/>
-		/// guarantee of which order the writes will occur. If the write order matters,<br/>
-		/// you MUST end the compute pass and begin another one.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DispatchGPUComputeIndirect(ref SDLGPUComputePass computePass, ref SDLGPUBuffer buffer, uint offset)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					DispatchGPUComputeIndirectNative((SDLGPUComputePass*)pcomputePass, (SDLGPUBuffer*)pbuffer, offset);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Ends the current compute pass.<br/>
-		/// All bound compute state on the command buffer is unset. The compute pass<br/>
-		/// handle is now invalid.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void EndGPUComputePassNative(SDLGPUComputePass* computePass)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, void>)funcTable[889])(computePass);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[889])((nint)computePass);
-			#endif
-		}
-
-		/// <summary>
-		/// Ends the current compute pass.<br/>
-		/// All bound compute state on the command buffer is unset. The compute pass<br/>
-		/// handle is now invalid.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void EndGPUComputePass(SDLGPUComputePass* computePass)
-		{
-			EndGPUComputePassNative(computePass);
-		}
-
-		/// <summary>
-		/// Ends the current compute pass.<br/>
-		/// All bound compute state on the command buffer is unset. The compute pass<br/>
-		/// handle is now invalid.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void EndGPUComputePass(ref SDLGPUComputePass computePass)
-		{
-			fixed (SDLGPUComputePass* pcomputePass = &computePass)
-			{
-				EndGPUComputePassNative((SDLGPUComputePass*)pcomputePass);
-			}
-		}
-
-		/// <summary>
-		/// Maps a transfer buffer into application address space.<br/>
-		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
-		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
-		/// returned pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MapGPUTransferBufferNative(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer, byte cycle)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, byte, void*>)funcTable[890])(device, transferBuffer, cycle);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, byte, nint>)funcTable[890])((nint)device, (nint)transferBuffer, cycle);
-			#endif
-		}
-
-		/// <summary>
-		/// Maps a transfer buffer into application address space.<br/>
-		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
-		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
-		/// returned pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* MapGPUTransferBuffer(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer, bool cycle)
-		{
-			void* ret = MapGPUTransferBufferNative(device, transferBuffer, cycle ? (byte)1 : (byte)0);
+			byte* ret = GetJoystickNameForIDNative(instanceId);
 			return ret;
 		}
 
 		/// <summary>
-		/// Maps a transfer buffer into application address space.<br/>
-		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
-		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
-		/// returned pointer.<br/>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* MapGPUTransferBuffer(ref SDLGPUDevice device, SDLGPUTransferBuffer* transferBuffer, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer, cycle ? (byte)1 : (byte)0);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Maps a transfer buffer into application address space.<br/>
-		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
-		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
-		/// returned pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* MapGPUTransferBuffer(SDLGPUDevice* device, ref SDLGPUTransferBuffer transferBuffer, bool cycle)
-		{
-			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
-			{
-				void* ret = MapGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer, cycle ? (byte)1 : (byte)0);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Maps a transfer buffer into application address space.<br/>
-		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
-		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
-		/// returned pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* MapGPUTransferBuffer(ref SDLGPUDevice device, ref SDLGPUTransferBuffer transferBuffer, bool cycle)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
-				{
-					void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer, cycle ? (byte)1 : (byte)0);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Unmaps a previously mapped transfer buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnmapGPUTransferBufferNative(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, void>)funcTable[891])(device, transferBuffer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[891])((nint)device, (nint)transferBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Unmaps a previously mapped transfer buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnmapGPUTransferBuffer(SDLGPUDevice* device, SDLGPUTransferBuffer* transferBuffer)
-		{
-			UnmapGPUTransferBufferNative(device, transferBuffer);
-		}
-
-		/// <summary>
-		/// Unmaps a previously mapped transfer buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnmapGPUTransferBuffer(ref SDLGPUDevice device, SDLGPUTransferBuffer* transferBuffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				UnmapGPUTransferBufferNative((SDLGPUDevice*)pdevice, transferBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Unmaps a previously mapped transfer buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnmapGPUTransferBuffer(SDLGPUDevice* device, ref SDLGPUTransferBuffer transferBuffer)
-		{
-			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
-			{
-				UnmapGPUTransferBufferNative(device, (SDLGPUTransferBuffer*)ptransferBuffer);
-			}
-		}
-
-		/// <summary>
-		/// Unmaps a previously mapped transfer buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnmapGPUTransferBuffer(ref SDLGPUDevice device, ref SDLGPUTransferBuffer transferBuffer)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
-				{
-					UnmapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Begins a copy pass on a command buffer.<br/>
-		/// All operations related to copying to or from buffers or textures take place<br/>
-		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
-		/// or compute pass before ending the copy pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUCopyPass* BeginGPUCopyPassNative(SDLGPUCommandBuffer* commandBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUCopyPass*>)funcTable[892])(commandBuffer);
-			#else
-			return (SDLGPUCopyPass*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[892])((nint)commandBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Begins a copy pass on a command buffer.<br/>
-		/// All operations related to copying to or from buffers or textures take place<br/>
-		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
-		/// or compute pass before ending the copy pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUCopyPass* BeginGPUCopyPass(SDLGPUCommandBuffer* commandBuffer)
-		{
-			SDLGPUCopyPass* ret = BeginGPUCopyPassNative(commandBuffer);
+			string ret = Utils.DecodeStringUTF8(GetJoystickNameForIDNative(instanceId));
 			return ret;
 		}
 
 		/// <summary>
-		/// Begins a copy pass on a command buffer.<br/>
-		/// All operations related to copying to or from buffers or textures take place<br/>
-		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
-		/// or compute pass before ending the copy pass.<br/>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUCopyPass* BeginGPUCopyPass(ref SDLGPUCommandBuffer commandBuffer)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				SDLGPUCopyPass* ret = BeginGPUCopyPassNative((SDLGPUCommandBuffer*)pcommandBuffer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPathForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UploadToGPUTextureNative(SDLGPUCopyPass* copyPass, SDLGPUTextureTransferInfo* source, SDLGPUTextureRegion* destination, byte cycle)
+		internal static byte* GetJoystickPathForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureTransferInfo*, SDLGPUTextureRegion*, byte, void>)funcTable[893])(copyPass, source, destination, cycle);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[641])(instanceId);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, byte, void>)funcTable[893])((nint)copyPass, (nint)source, (nint)destination, cycle);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[641])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UploadToGPUTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureTransferInfo* source, SDLGPUTextureRegion* destination, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPathForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickPathForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			UploadToGPUTextureNative(copyPass, source, destination, cycle ? (byte)1 : (byte)0);
+			byte* ret = GetJoystickPathForIDNative(instanceId);
+			return ret;
 		}
 
 		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UploadToGPUTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureTransferInfo* source, SDLGPUTextureRegion* destination, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPathForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickPathForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination, cycle ? (byte)1 : (byte)0);
-			}
+			string ret = Utils.DecodeStringUTF8(GetJoystickPathForIDNative(instanceId));
+			return ret;
 		}
 
 		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
+		/// Get the player index of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UploadToGPUTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureTransferInfo source, SDLGPUTextureRegion* destination, bool cycle)
-		{
-			fixed (SDLGPUTextureTransferInfo* psource = &source)
-			{
-				UploadToGPUTextureNative(copyPass, (SDLGPUTextureTransferInfo*)psource, destination, cycle ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureTransferInfo source, SDLGPUTextureRegion* destination, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureTransferInfo* psource = &source)
-				{
-					UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)psource, destination, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureTransferInfo* source, ref SDLGPUTextureRegion destination, bool cycle)
-		{
-			fixed (SDLGPUTextureRegion* pdestination = &destination)
-			{
-				UploadToGPUTextureNative(copyPass, source, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureTransferInfo* source, ref SDLGPUTextureRegion destination, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureRegion* pdestination = &destination)
-				{
-					UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureTransferInfo source, ref SDLGPUTextureRegion destination, bool cycle)
-		{
-			fixed (SDLGPUTextureTransferInfo* psource = &source)
-			{
-				fixed (SDLGPUTextureRegion* pdestination = &destination)
-				{
-					UploadToGPUTextureNative(copyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a texture.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
-		/// size of the texture format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureTransferInfo source, ref SDLGPUTextureRegion destination, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureTransferInfo* psource = &source)
-				{
-					fixed (SDLGPUTextureRegion* pdestination = &destination)
-					{
-						UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndexForID")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UploadToGPUBufferNative(SDLGPUCopyPass* copyPass, SDLGPUTransferBufferLocation* source, SDLGPUBufferRegion* destination, byte cycle)
+		internal static int GetJoystickPlayerIndexForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTransferBufferLocation*, SDLGPUBufferRegion*, byte, void>)funcTable[894])(copyPass, source, destination, cycle);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[642])(instanceId);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, byte, void>)funcTable[894])((nint)copyPass, (nint)source, (nint)destination, cycle);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[642])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
+		/// Get the player index of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UploadToGPUBuffer(SDLGPUCopyPass* copyPass, SDLGPUTransferBufferLocation* source, SDLGPUBufferRegion* destination, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndexForID")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetJoystickPlayerIndexForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			UploadToGPUBufferNative(copyPass, source, destination, cycle ? (byte)1 : (byte)0);
+			int ret = GetJoystickPlayerIndexForIDNative(instanceId);
+			return ret;
 		}
 
 		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
+		/// Get the implementation-dependent GUID of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UploadToGPUBuffer(ref SDLGPUCopyPass copyPass, SDLGPUTransferBufferLocation* source, SDLGPUBufferRegion* destination, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination, cycle ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUTransferBufferLocation source, SDLGPUBufferRegion* destination, bool cycle)
-		{
-			fixed (SDLGPUTransferBufferLocation* psource = &source)
-			{
-				UploadToGPUBufferNative(copyPass, (SDLGPUTransferBufferLocation*)psource, destination, cycle ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUTransferBufferLocation source, SDLGPUBufferRegion* destination, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTransferBufferLocation* psource = &source)
-				{
-					UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)psource, destination, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUBuffer(SDLGPUCopyPass* copyPass, SDLGPUTransferBufferLocation* source, ref SDLGPUBufferRegion destination, bool cycle)
-		{
-			fixed (SDLGPUBufferRegion* pdestination = &destination)
-			{
-				UploadToGPUBufferNative(copyPass, source, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUBuffer(ref SDLGPUCopyPass copyPass, SDLGPUTransferBufferLocation* source, ref SDLGPUBufferRegion destination, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUBufferRegion* pdestination = &destination)
-				{
-					UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUTransferBufferLocation source, ref SDLGPUBufferRegion destination, bool cycle)
-		{
-			fixed (SDLGPUTransferBufferLocation* psource = &source)
-			{
-				fixed (SDLGPUBufferRegion* pdestination = &destination)
-				{
-					UploadToGPUBufferNative(copyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Uploads data from a transfer buffer to a buffer.<br/>
-		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
-		/// finished in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UploadToGPUBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUTransferBufferLocation source, ref SDLGPUBufferRegion destination, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTransferBufferLocation* psource = &source)
-				{
-					fixed (SDLGPUBufferRegion* pdestination = &destination)
-					{
-						UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CopyGPUTextureToTextureNative(SDLGPUCopyPass* copyPass, SDLGPUTextureLocation* source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, byte cycle)
+		internal static SdlGuid GetJoystickGUIDForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureLocation*, SDLGPUTextureLocation*, uint, uint, uint, byte, void>)funcTable[895])(copyPass, source, destination, w, h, d, cycle);
+			return ((delegate* unmanaged[Cdecl]<int, SdlGuid>)funcTable[643])(instanceId);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, uint, uint, uint, byte, void>)funcTable[895])((nint)copyPass, (nint)source, (nint)destination, w, h, d, cycle);
+			return (SdlGuid)((delegate* unmanaged[Cdecl]<int, SdlGuid>)funcTable[643])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
+		/// Get the implementation-dependent GUID of a joystick.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void CopyGPUTextureToTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureLocation* source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid GetJoystickGUIDForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			CopyGPUTextureToTextureNative(copyPass, source, destination, w, h, d, cycle ? (byte)1 : (byte)0);
+			SdlGuid ret = GetJoystickGUIDForIDNative(instanceId);
+			return ret;
 		}
 
 		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
+		/// Get the USB vendor ID of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the vendor ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void CopyGPUTextureToTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureLocation* source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination, w, h, d, cycle ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUTextureToTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureLocation source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, bool cycle)
-		{
-			fixed (SDLGPUTextureLocation* psource = &source)
-			{
-				CopyGPUTextureToTextureNative(copyPass, (SDLGPUTextureLocation*)psource, destination, w, h, d, cycle ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUTextureToTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureLocation source, SDLGPUTextureLocation* destination, uint w, uint h, uint d, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureLocation* psource = &source)
-				{
-					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)psource, destination, w, h, d, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUTextureToTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureLocation* source, ref SDLGPUTextureLocation destination, uint w, uint h, uint d, bool cycle)
-		{
-			fixed (SDLGPUTextureLocation* pdestination = &destination)
-			{
-				CopyGPUTextureToTextureNative(copyPass, source, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUTextureToTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureLocation* source, ref SDLGPUTextureLocation destination, uint w, uint h, uint d, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureLocation* pdestination = &destination)
-				{
-					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUTextureToTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureLocation source, ref SDLGPUTextureLocation destination, uint w, uint h, uint d, bool cycle)
-		{
-			fixed (SDLGPUTextureLocation* psource = &source)
-			{
-				fixed (SDLGPUTextureLocation* pdestination = &destination)
-				{
-					CopyGPUTextureToTextureNative(copyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a texture-to-texture copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUTextureToTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureLocation source, ref SDLGPUTextureLocation destination, uint w, uint h, uint d, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureLocation* psource = &source)
-				{
-					fixed (SDLGPUTextureLocation* pdestination = &destination)
-					{
-						CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendorForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CopyGPUBufferToBufferNative(SDLGPUCopyPass* copyPass, SDLGPUBufferLocation* source, SDLGPUBufferLocation* destination, uint size, byte cycle)
+		internal static ushort GetJoystickVendorForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUBufferLocation*, SDLGPUBufferLocation*, uint, byte, void>)funcTable[896])(copyPass, source, destination, size, cycle);
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[644])(instanceId);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, uint, byte, void>)funcTable[896])((nint)copyPass, (nint)source, (nint)destination, size, cycle);
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[644])(instanceId);
 			#endif
 		}
 
 		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
+		/// Get the USB vendor ID of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the vendor ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void CopyGPUBufferToBuffer(SDLGPUCopyPass* copyPass, SDLGPUBufferLocation* source, SDLGPUBufferLocation* destination, uint size, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendorForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickVendorForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			CopyGPUBufferToBufferNative(copyPass, source, destination, size, cycle ? (byte)1 : (byte)0);
+			ushort ret = GetJoystickVendorForIDNative(instanceId);
+			return ret;
 		}
 
 		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
+		/// Get the USB product ID of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the product ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void CopyGPUBufferToBuffer(ref SDLGPUCopyPass copyPass, SDLGPUBufferLocation* source, SDLGPUBufferLocation* destination, uint size, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickProductForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination, size, cycle ? (byte)1 : (byte)0);
-			}
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[645])(instanceId);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[645])(instanceId);
+			#endif
 		}
 
 		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
+		/// Get the USB product ID of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the product ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void CopyGPUBufferToBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUBufferLocation source, SDLGPUBufferLocation* destination, uint size, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProductForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			fixed (SDLGPUBufferLocation* psource = &source)
-			{
-				CopyGPUBufferToBufferNative(copyPass, (SDLGPUBufferLocation*)psource, destination, size, cycle ? (byte)1 : (byte)0);
-			}
+			ushort ret = GetJoystickProductForIDNative(instanceId);
+			return ret;
 		}
 
 		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
+		/// Get the product version of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the product version<br/>
+		/// isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void CopyGPUBufferToBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUBufferLocation source, SDLGPUBufferLocation* destination, uint size, bool cycle)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersionForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickProductVersionForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUBufferLocation* psource = &source)
-				{
-					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)psource, destination, size, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUBufferToBuffer(SDLGPUCopyPass* copyPass, SDLGPUBufferLocation* source, ref SDLGPUBufferLocation destination, uint size, bool cycle)
-		{
-			fixed (SDLGPUBufferLocation* pdestination = &destination)
-			{
-				CopyGPUBufferToBufferNative(copyPass, source, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
-			}
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[646])(instanceId);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[646])(instanceId);
+			#endif
 		}
 	}
 }

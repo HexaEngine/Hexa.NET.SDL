@@ -20,7 +20,6 @@ namespace Hexa.NET.SDL2
 	/// The values in this enumeration are based on the USB usage page standard:<br/>
 	/// https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLScancode : int
 	{
 		Unknown = unchecked(0),

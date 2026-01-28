@@ -23,56 +23,75 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureCreateInfo
 	{
 		/// <summary>
 		/// The base dimensionality of the texture. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTextureType")]
 		public SDLGPUTextureType Type;
 
 		/// <summary>
 		/// The pixel format of the texture. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
 		public SDLGPUTextureFormat Format;
 
 		/// <summary>
 		/// How the texture is intended to be used by the client. <br/>
 		/// </summary>
-		public SDLGPUTextureUsageFlags Usage;
+		[NativeName(NativeNameType.Field, "usage")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTextureUsageFlags")]
+		public uint Usage;
 
 		/// <summary>
 		/// The width of the texture. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "width")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Width;
 
 		/// <summary>
 		/// The height of the texture. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "height")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Height;
 
 		/// <summary>
 		/// The layer count or depth of the texture. This value is treated as a layer count on 2D array textures, and as a depth value on 3D textures. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "layer_count_or_depth")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint LayerCountOrDepth;
 
 		/// <summary>
 		/// The number of mip levels in the texture. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "num_levels")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumLevels;
 
 		/// <summary>
 		/// The number of samples per texel. Only applies if the texture is used as a render target. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sample_count")]
+		[NativeName(NativeNameType.Type, "SDL_GPUSampleCount")]
 		public SDLGPUSampleCount SampleCount;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "props")]
+		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 
-		public unsafe SDLGPUTextureCreateInfo(SDLGPUTextureType type = default, SDLGPUTextureFormat format = default, SDLGPUTextureUsageFlags usage = default, uint width = default, uint height = default, uint layerCountOrDepth = default, uint numLevels = default, SDLGPUSampleCount sampleCount = default, uint props = default)
+		public unsafe SDLGPUTextureCreateInfo(SDLGPUTextureType type = default, SDLGPUTextureFormat format = default, uint usage = default, uint width = default, uint height = default, uint layerCountOrDepth = default, uint numLevels = default, SDLGPUSampleCount sampleCount = default, uint props = default)
 		{
 			Type = type;
 			Format = format;
@@ -86,6 +105,91 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of a texture.<br/>
+	/// Usage flags can be bitwise OR'd together for combinations of usages. Note<br/>
+	/// that certain usage combinations are invalid, for example SAMPLER and<br/>
+	/// GRAPHICS_STORAGE.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTextureCreateInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTextureCreateInfoPtr : IEquatable<SDLGPUTextureCreateInfoPtr>
+	{
+		public SDLGPUTextureCreateInfoPtr(SDLGPUTextureCreateInfo* handle) { Handle = handle; }
+
+		public SDLGPUTextureCreateInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTextureCreateInfoPtr Null => new SDLGPUTextureCreateInfoPtr(null);
+
+		public SDLGPUTextureCreateInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTextureCreateInfoPtr(SDLGPUTextureCreateInfo* handle) => new SDLGPUTextureCreateInfoPtr(handle);
+
+		public static implicit operator SDLGPUTextureCreateInfo*(SDLGPUTextureCreateInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTextureCreateInfoPtr left, SDLGPUTextureCreateInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTextureCreateInfoPtr left, SDLGPUTextureCreateInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTextureCreateInfoPtr left, SDLGPUTextureCreateInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTextureCreateInfoPtr left, SDLGPUTextureCreateInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTextureCreateInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTextureCreateInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTextureCreateInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The base dimensionality of the texture. <br/>
+		/// </summary>
+		public ref SDLGPUTextureType Type => ref Unsafe.AsRef<SDLGPUTextureType>(&Handle->Type);
+		/// <summary>
+		/// The pixel format of the texture. <br/>
+		/// </summary>
+		public ref SDLGPUTextureFormat Format => ref Unsafe.AsRef<SDLGPUTextureFormat>(&Handle->Format);
+		/// <summary>
+		/// How the texture is intended to be used by the client. <br/>
+		/// </summary>
+		public ref uint Usage => ref Unsafe.AsRef<uint>(&Handle->Usage);
+		/// <summary>
+		/// The width of the texture. <br/>
+		/// </summary>
+		public ref uint Width => ref Unsafe.AsRef<uint>(&Handle->Width);
+		/// <summary>
+		/// The height of the texture. <br/>
+		/// </summary>
+		public ref uint Height => ref Unsafe.AsRef<uint>(&Handle->Height);
+		/// <summary>
+		/// The layer count or depth of the texture. This value is treated as a layer count on 2D array textures, and as a depth value on 3D textures. <br/>
+		/// </summary>
+		public ref uint LayerCountOrDepth => ref Unsafe.AsRef<uint>(&Handle->LayerCountOrDepth);
+		/// <summary>
+		/// The number of mip levels in the texture. <br/>
+		/// </summary>
+		public ref uint NumLevels => ref Unsafe.AsRef<uint>(&Handle->NumLevels);
+		/// <summary>
+		/// The number of samples per texel. Only applies if the texture is used as a render target. <br/>
+		/// </summary>
+		public ref SDLGPUSampleCount SampleCount => ref Unsafe.AsRef<SDLGPUSampleCount>(&Handle->SampleCount);
+		/// <summary>
+		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
+		/// </summary>
+		public ref uint Props => ref Unsafe.AsRef<uint>(&Handle->Props);
 	}
 
 }

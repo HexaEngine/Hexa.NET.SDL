@@ -20,58 +20,81 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUColorTargetBlendState")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUColorTargetBlendState
 	{
 		/// <summary>
 		/// The value to be multiplied by the source RGB value. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "src_color_blendfactor")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBlendFactor")]
 		public SDLGPUBlendFactor SrcColorBlendfactor;
 
 		/// <summary>
 		/// The value to be multiplied by the destination RGB value. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "dst_color_blendfactor")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBlendFactor")]
 		public SDLGPUBlendFactor DstColorBlendfactor;
 
 		/// <summary>
 		/// The blend operation for the RGB components. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "color_blend_op")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBlendOp")]
 		public SDLGPUBlendOp ColorBlendOp;
 
 		/// <summary>
 		/// The value to be multiplied by the source alpha. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "src_alpha_blendfactor")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBlendFactor")]
 		public SDLGPUBlendFactor SrcAlphaBlendfactor;
 
 		/// <summary>
 		/// The value to be multiplied by the destination alpha. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "dst_alpha_blendfactor")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBlendFactor")]
 		public SDLGPUBlendFactor DstAlphaBlendfactor;
 
 		/// <summary>
 		/// The blend operation for the alpha component. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "alpha_blend_op")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBlendOp")]
 		public SDLGPUBlendOp AlphaBlendOp;
 
 		/// <summary>
 		/// A bitmask specifying which of the RGBA components are enabled for writing. Writes to all channels if enable_color_write_mask is false. <br/>
 		/// </summary>
-		public SDLGPUColorComponentFlags ColorWriteMask;
+		[NativeName(NativeNameType.Field, "color_write_mask")]
+		[NativeName(NativeNameType.Type, "SDL_GPUColorComponentFlags")]
+		public byte ColorWriteMask;
 
 		/// <summary>
 		/// Whether blending is enabled for the color target. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "enable_blend")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte EnableBlend;
 
 		/// <summary>
 		/// Whether the color write mask is enabled. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "enable_color_write_mask")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte EnableColorWriteMask;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
 
-		public unsafe SDLGPUColorTargetBlendState(SDLGPUBlendFactor srcColorBlendfactor = default, SDLGPUBlendFactor dstColorBlendfactor = default, SDLGPUBlendOp colorBlendOp = default, SDLGPUBlendFactor srcAlphaBlendfactor = default, SDLGPUBlendFactor dstAlphaBlendfactor = default, SDLGPUBlendOp alphaBlendOp = default, SDLGPUColorComponentFlags colorWriteMask = default, bool enableBlend = default, bool enableColorWriteMask = default, byte padding1 = default, byte padding2 = default)
+		public unsafe SDLGPUColorTargetBlendState(SDLGPUBlendFactor srcColorBlendfactor = default, SDLGPUBlendFactor dstColorBlendfactor = default, SDLGPUBlendOp colorBlendOp = default, SDLGPUBlendFactor srcAlphaBlendfactor = default, SDLGPUBlendFactor dstAlphaBlendfactor = default, SDLGPUBlendOp alphaBlendOp = default, byte colorWriteMask = default, bool enableBlend = default, bool enableColorWriteMask = default, byte padding1 = default, byte padding2 = default)
 		{
 			SrcColorBlendfactor = srcColorBlendfactor;
 			DstColorBlendfactor = dstColorBlendfactor;

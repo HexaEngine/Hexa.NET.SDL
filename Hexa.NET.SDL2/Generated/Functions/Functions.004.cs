@@ -18,6 +18,2507 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLAudioSpec* LoadWAVRWNative(SDLRWops* src, int freesrc, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, SDLAudioSpec*, byte**, uint*, SDLAudioSpec*>)funcTable[227])(src, freesrc, spec, audioBuf, audioLen);
+			#else
+			return (SDLAudioSpec*)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, nint, nint>)funcTable[227])((nint)src, freesrc, (nint)spec, (nint)audioBuf, (nint)audioLen);
+			#endif
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(SDLRWopsPtr src, int freesrc, SDLAudioSpecPtr spec, byte** audioBuf, uint* audioLen)
+		{
+			SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)src, freesrc, (SDLAudioSpec*)spec, audioBuf, audioLen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(ref SDLRWops src, int freesrc, SDLAudioSpecPtr spec, byte** audioBuf, uint* audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)spec, audioBuf, audioLen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(SDLRWopsPtr src, int freesrc, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)src, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(ref SDLRWops src, int freesrc, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(SDLRWopsPtr src, int freesrc, SDLAudioSpecPtr spec, ref byte* audioBuf, uint* audioLen)
+		{
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)src, freesrc, (SDLAudioSpec*)spec, (byte**)paudioBuf, audioLen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(ref SDLRWops src, int freesrc, SDLAudioSpecPtr spec, ref byte* audioBuf, uint* audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)spec, (byte**)paudioBuf, audioLen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(SDLRWopsPtr src, int freesrc, ref SDLAudioSpec spec, ref byte* audioBuf, uint* audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(ref SDLRWops src, int freesrc, ref SDLAudioSpec spec, ref byte* audioBuf, uint* audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(SDLRWopsPtr src, int freesrc, SDLAudioSpecPtr spec, byte** audioBuf, ref uint audioLen)
+		{
+			fixed (uint* paudioLen = &audioLen)
+			{
+				SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)src, freesrc, (SDLAudioSpec*)spec, audioBuf, (uint*)paudioLen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(ref SDLRWops src, int freesrc, SDLAudioSpecPtr spec, byte** audioBuf, ref uint audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)spec, audioBuf, (uint*)paudioLen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(SDLRWopsPtr src, int freesrc, ref SDLAudioSpec spec, byte** audioBuf, ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)src, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(ref SDLRWops src, int freesrc, ref SDLAudioSpec spec, byte** audioBuf, ref uint audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(SDLRWopsPtr src, int freesrc, SDLAudioSpecPtr spec, ref byte* audioBuf, ref uint audioLen)
+		{
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)src, freesrc, (SDLAudioSpec*)spec, (byte**)paudioBuf, (uint*)paudioLen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(ref SDLRWops src, int freesrc, SDLAudioSpecPtr spec, ref byte* audioBuf, ref uint audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)spec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(SDLRWopsPtr src, int freesrc, ref SDLAudioSpec spec, ref byte* audioBuf, ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioSpecPtr LoadWAVRW(ref SDLRWops src, int freesrc, ref SDLAudioSpec spec, ref byte* audioBuf, ref uint audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						fixed (uint* paudioLen = &audioLen)
+						{
+							SDLAudioSpecPtr ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
+		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
+		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
+		/// this function with a NULL pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FreeWAVNative(byte* audioBuf)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[228])(audioBuf);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[228])((nint)audioBuf);
+			#endif
+		}
+
+		/// <summary>
+		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
+		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
+		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
+		/// this function with a NULL pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeWAV(byte* audioBuf)
+		{
+			FreeWAVNative(audioBuf);
+		}
+
+		/// <summary>
+		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
+		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
+		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
+		/// this function with a NULL pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeWAV(ref byte audioBuf)
+		{
+			fixed (byte* paudioBuf = &audioBuf)
+			{
+				FreeWAVNative((byte*)paudioBuf);
+			}
+		}
+
+		/// <summary>
+		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
+		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
+		/// be initialized with source and destination information.<br/>
+		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
+		/// called before the application fills in the final buffer information.<br/>
+		/// Once this function has returned successfully, and reported that a<br/>
+		/// conversion is necessary, the application fills in the rest of the fields in<br/>
+		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
+		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int BuildAudioCVTNative(SDLAudioCVT* cvt, ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, ushort, byte, int, ushort, byte, int, int>)funcTable[229])(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, byte, int, ushort, byte, int, int>)funcTable[229])((nint)cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			#endif
+		}
+
+		/// <summary>
+		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
+		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
+		/// be initialized with source and destination information.<br/>
+		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
+		/// called before the application fills in the final buffer information.<br/>
+		/// Once this function has returned successfully, and reported that a<br/>
+		/// conversion is necessary, the application fills in the rest of the fields in<br/>
+		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
+		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int BuildAudioCVT(SDLAudioCVT* cvt, ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
+		{
+			int ret = BuildAudioCVTNative(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			return ret;
+		}
+
+		/// <summary>
+		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
+		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
+		/// be initialized with source and destination information.<br/>
+		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
+		/// called before the application fills in the final buffer information.<br/>
+		/// Once this function has returned successfully, and reported that a<br/>
+		/// conversion is necessary, the application fills in the rest of the fields in<br/>
+		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
+		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int BuildAudioCVT(ref SDLAudioCVT cvt, ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
+		{
+			fixed (SDLAudioCVT* pcvt = &cvt)
+			{
+				int ret = BuildAudioCVTNative((SDLAudioCVT*)pcvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert audio data to a desired audio format.<br/>
+		/// This function does the actual audio data conversion, after the application<br/>
+		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
+		/// then filled in the buffer details.<br/>
+		/// Once the application has initialized the `cvt` structure using<br/>
+		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
+		/// data in the source format, this function will convert the buffer, in-place,<br/>
+		/// to the desired format.<br/>
+		/// The data conversion may go through several passes; any given pass may<br/>
+		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
+		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
+		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
+		/// buffer will be both the source and destination, converting as necessary<br/>
+		/// in-place, the application must allocate a buffer that will fully contain<br/>
+		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
+		/// returns, the application should set the `cvt->len` field to the size, in<br/>
+		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
+		/// cvt->len_mult` bytes long for the `buf` field.<br/>
+		/// The source data should be copied into this buffer before the call to<br/>
+		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
+		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
+		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
+		/// this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int ConvertAudioNative(SDLAudioCVT* cvt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, int>)funcTable[230])(cvt);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[230])((nint)cvt);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert audio data to a desired audio format.<br/>
+		/// This function does the actual audio data conversion, after the application<br/>
+		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
+		/// then filled in the buffer details.<br/>
+		/// Once the application has initialized the `cvt` structure using<br/>
+		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
+		/// data in the source format, this function will convert the buffer, in-place,<br/>
+		/// to the desired format.<br/>
+		/// The data conversion may go through several passes; any given pass may<br/>
+		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
+		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
+		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
+		/// buffer will be both the source and destination, converting as necessary<br/>
+		/// in-place, the application must allocate a buffer that will fully contain<br/>
+		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
+		/// returns, the application should set the `cvt->len` field to the size, in<br/>
+		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
+		/// cvt->len_mult` bytes long for the `buf` field.<br/>
+		/// The source data should be copied into this buffer before the call to<br/>
+		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
+		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
+		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
+		/// this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ConvertAudio(SDLAudioCVT* cvt)
+		{
+			int ret = ConvertAudioNative(cvt);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert audio data to a desired audio format.<br/>
+		/// This function does the actual audio data conversion, after the application<br/>
+		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
+		/// then filled in the buffer details.<br/>
+		/// Once the application has initialized the `cvt` structure using<br/>
+		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
+		/// data in the source format, this function will convert the buffer, in-place,<br/>
+		/// to the desired format.<br/>
+		/// The data conversion may go through several passes; any given pass may<br/>
+		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
+		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
+		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
+		/// buffer will be both the source and destination, converting as necessary<br/>
+		/// in-place, the application must allocate a buffer that will fully contain<br/>
+		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
+		/// returns, the application should set the `cvt->len` field to the size, in<br/>
+		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
+		/// cvt->len_mult` bytes long for the `buf` field.<br/>
+		/// The source data should be copied into this buffer before the call to<br/>
+		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
+		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
+		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
+		/// this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ConvertAudio(ref SDLAudioCVT cvt)
+		{
+			fixed (SDLAudioCVT* pcvt = &cvt)
+			{
+				int ret = ConvertAudioNative((SDLAudioCVT*)pcvt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a new audio stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLAudioStream* NewAudioStreamNative(ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, SDLAudioStream*>)funcTable[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			#else
+			return (SDLAudioStream*)((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, nint>)funcTable[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a new audio stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLAudioStream* NewAudioStream(ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
+		{
+			SDLAudioStream* ret = NewAudioStreamNative(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			return ret;
+		}
+
+		/// <summary>
+		/// Add data to be converted/resampled to the stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AudioStreamPutNative(SDLAudioStream* stream, void* buf, int len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[232])(stream, buf, len);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[232])((nint)stream, (nint)buf, len);
+			#endif
+		}
+
+		/// <summary>
+		/// Add data to be converted/resampled to the stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamPut(SDLAudioStream* stream, void* buf, int len)
+		{
+			int ret = AudioStreamPutNative(stream, buf, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Add data to be converted/resampled to the stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamPut(ref SDLAudioStream stream, void* buf, int len)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				int ret = AudioStreamPutNative((SDLAudioStream*)pstream, buf, len);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add data to be converted/resampled to the stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamPut(SDLAudioStream* stream, nint buf, int len)
+		{
+			int ret = AudioStreamPutNative(stream, (void*)buf, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Add data to be converted/resampled to the stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamPut(ref SDLAudioStream stream, nint buf, int len)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				int ret = AudioStreamPutNative((SDLAudioStream*)pstream, (void*)buf, len);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get converted/resampled data from the stream<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AudioStreamGetNative(SDLAudioStream* stream, void* buf, int len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[233])(stream, buf, len);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[233])((nint)stream, (nint)buf, len);
+			#endif
+		}
+
+		/// <summary>
+		/// Get converted/resampled data from the stream<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamGet(SDLAudioStream* stream, void* buf, int len)
+		{
+			int ret = AudioStreamGetNative(stream, buf, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get converted/resampled data from the stream<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamGet(ref SDLAudioStream stream, void* buf, int len)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				int ret = AudioStreamGetNative((SDLAudioStream*)pstream, buf, len);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get converted/resampled data from the stream<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamGet(SDLAudioStream* stream, nint buf, int len)
+		{
+			int ret = AudioStreamGetNative(stream, (void*)buf, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get converted/resampled data from the stream<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamGet(ref SDLAudioStream stream, nint buf, int len)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				int ret = AudioStreamGetNative((SDLAudioStream*)pstream, (void*)buf, len);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of converted/resampled bytes available.<br/>
+		/// The stream may be buffering data behind the scenes until it has enough to<br/>
+		/// resample correctly, so this number might be lower than what you expect, or<br/>
+		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AudioStreamAvailableNative(SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[234])(stream);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[234])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of converted/resampled bytes available.<br/>
+		/// The stream may be buffering data behind the scenes until it has enough to<br/>
+		/// resample correctly, so this number might be lower than what you expect, or<br/>
+		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamAvailable(SDLAudioStream* stream)
+		{
+			int ret = AudioStreamAvailableNative(stream);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of converted/resampled bytes available.<br/>
+		/// The stream may be buffering data behind the scenes until it has enough to<br/>
+		/// resample correctly, so this number might be lower than what you expect, or<br/>
+		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamAvailable(ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				int ret = AudioStreamAvailableNative((SDLAudioStream*)pstream);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Tell the stream that you're done sending data, and anything being buffered<br/>
+		/// should be converted/resampled and made available immediately.<br/>
+		/// It is legal to add more data to a stream after flushing, but there will be<br/>
+		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
+		/// input, so the complete output becomes available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AudioStreamFlushNative(SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[235])(stream);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[235])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Tell the stream that you're done sending data, and anything being buffered<br/>
+		/// should be converted/resampled and made available immediately.<br/>
+		/// It is legal to add more data to a stream after flushing, but there will be<br/>
+		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
+		/// input, so the complete output becomes available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamFlush(SDLAudioStream* stream)
+		{
+			int ret = AudioStreamFlushNative(stream);
+			return ret;
+		}
+
+		/// <summary>
+		/// Tell the stream that you're done sending data, and anything being buffered<br/>
+		/// should be converted/resampled and made available immediately.<br/>
+		/// It is legal to add more data to a stream after flushing, but there will be<br/>
+		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
+		/// input, so the complete output becomes available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AudioStreamFlush(ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				int ret = AudioStreamFlushNative((SDLAudioStream*)pstream);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Clear any pending data in the stream without converting it<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void AudioStreamClearNative(SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[236])(stream);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[236])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Clear any pending data in the stream without converting it<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void AudioStreamClear(SDLAudioStream* stream)
+		{
+			AudioStreamClearNative(stream);
+		}
+
+		/// <summary>
+		/// Clear any pending data in the stream without converting it<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void AudioStreamClear(ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				AudioStreamClearNative((SDLAudioStream*)pstream);
+			}
+		}
+
+		/// <summary>
+		/// Free an audio stream<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FreeAudioStreamNative(SDLAudioStream* stream)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[237])(stream);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[237])((nint)stream);
+			#endif
+		}
+
+		/// <summary>
+		/// Free an audio stream<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeAudioStream(SDLAudioStream* stream)
+		{
+			FreeAudioStreamNative(stream);
+		}
+
+		/// <summary>
+		/// Free an audio stream<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeAudioStream(ref SDLAudioStream stream)
+		{
+			fixed (SDLAudioStream* pstream = &stream)
+			{
+				FreeAudioStreamNative((SDLAudioStream*)pstream);
+			}
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void MixAudioNative(byte* dst, byte* src, uint len, int volume)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, byte*, uint, int, void>)funcTable[238])(dst, src, len, volume);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, int, void>)funcTable[238])((nint)dst, (nint)src, len, volume);
+			#endif
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(byte* dst, byte* src, uint len, int volume)
+		{
+			MixAudioNative(dst, src, len, volume);
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(ref byte dst, byte* src, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				MixAudioNative((byte*)pdst, src, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(byte* dst, in byte src, uint len, int volume)
+		{
+			fixed (byte* psrc = &src)
+			{
+				MixAudioNative(dst, (byte*)psrc, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(ref byte dst, in byte src, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					MixAudioNative((byte*)pdst, (byte*)psrc, len, volume);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void MixAudioFormatNative(byte* dst, byte* src, ushort format, uint len, int volume)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)funcTable[239])(dst, src, format, len, volume);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, ushort, uint, int, void>)funcTable[239])((nint)dst, (nint)src, format, len, volume);
+			#endif
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudioFormat(byte* dst, byte* src, ushort format, uint len, int volume)
+		{
+			MixAudioFormatNative(dst, src, format, len, volume);
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudioFormat(ref byte dst, byte* src, ushort format, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				MixAudioFormatNative((byte*)pdst, src, format, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudioFormat(byte* dst, in byte src, ushort format, uint len, int volume)
+		{
+			fixed (byte* psrc = &src)
+			{
+				MixAudioFormatNative(dst, (byte*)psrc, format, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudioFormat(ref byte dst, in byte src, ushort format, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					MixAudioFormatNative((byte*)pdst, (byte*)psrc, format, len, volume);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Queue more audio on non-callback devices.<br/>
+		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
+		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
+		/// -1 to signify an error if you use it with capture devices.<br/>
+		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
+		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
+		/// method), or you can supply no callback, and then SDL will expect you to<br/>
+		/// supply data at regular intervals (push method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Queued data will drain to the device as<br/>
+		/// necessary without further intervention from you. If the device needs audio<br/>
+		/// but there is not enough queued, it will play silence to make up the<br/>
+		/// difference. This means you will have skips in your audio playback if you<br/>
+		/// aren't routinely queueing sufficient data.<br/>
+		/// This function copies the supplied data, so you are safe to free it when the<br/>
+		/// function returns. This function is thread-safe, but queueing to the same<br/>
+		/// device from two threads at once does not promise which buffer will be<br/>
+		/// queued first.<br/>
+		/// You may not queue audio on a device that is using an application-supplied<br/>
+		/// callback; doing so returns an error. You have to use the audio callback or<br/>
+		/// queue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
+		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
+		/// before queuing audio.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int QueueAudioNative(uint dev, void* data, uint len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)funcTable[240])(dev, data, len);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, uint, int>)funcTable[240])(dev, (nint)data, len);
+			#endif
+		}
+
+		/// <summary>
+		/// Queue more audio on non-callback devices.<br/>
+		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
+		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
+		/// -1 to signify an error if you use it with capture devices.<br/>
+		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
+		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
+		/// method), or you can supply no callback, and then SDL will expect you to<br/>
+		/// supply data at regular intervals (push method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Queued data will drain to the device as<br/>
+		/// necessary without further intervention from you. If the device needs audio<br/>
+		/// but there is not enough queued, it will play silence to make up the<br/>
+		/// difference. This means you will have skips in your audio playback if you<br/>
+		/// aren't routinely queueing sufficient data.<br/>
+		/// This function copies the supplied data, so you are safe to free it when the<br/>
+		/// function returns. This function is thread-safe, but queueing to the same<br/>
+		/// device from two threads at once does not promise which buffer will be<br/>
+		/// queued first.<br/>
+		/// You may not queue audio on a device that is using an application-supplied<br/>
+		/// callback; doing so returns an error. You have to use the audio callback or<br/>
+		/// queue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
+		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
+		/// before queuing audio.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueueAudio(uint dev, void* data, uint len)
+		{
+			int ret = QueueAudioNative(dev, data, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Queue more audio on non-callback devices.<br/>
+		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
+		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
+		/// -1 to signify an error if you use it with capture devices.<br/>
+		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
+		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
+		/// method), or you can supply no callback, and then SDL will expect you to<br/>
+		/// supply data at regular intervals (push method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Queued data will drain to the device as<br/>
+		/// necessary without further intervention from you. If the device needs audio<br/>
+		/// but there is not enough queued, it will play silence to make up the<br/>
+		/// difference. This means you will have skips in your audio playback if you<br/>
+		/// aren't routinely queueing sufficient data.<br/>
+		/// This function copies the supplied data, so you are safe to free it when the<br/>
+		/// function returns. This function is thread-safe, but queueing to the same<br/>
+		/// device from two threads at once does not promise which buffer will be<br/>
+		/// queued first.<br/>
+		/// You may not queue audio on a device that is using an application-supplied<br/>
+		/// callback; doing so returns an error. You have to use the audio callback or<br/>
+		/// queue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
+		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
+		/// before queuing audio.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueueAudio(uint dev, nint data, uint len)
+		{
+			int ret = QueueAudioNative(dev, (void*)data, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Dequeue more audio on non-callback devices.<br/>
+		/// If you are looking to queue audio for output on a non-callback playback<br/>
+		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
+		/// return 0 if you use it with playback devices.<br/>
+		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
+		/// supply a callback that SDL triggers with some frequency as the device<br/>
+		/// records more audio data, (push method), or you can supply no callback, and<br/>
+		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
+		/// method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Data from the device will keep queuing as<br/>
+		/// necessary without further intervention from you. This means you will<br/>
+		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
+		/// Capture devices will not queue data when paused; if you are expecting to<br/>
+		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
+		/// to stop the capture device from queueing more data. This can be useful<br/>
+		/// during, say, level loading times. When unpaused, capture devices will start<br/>
+		/// queueing data from that point, having flushed any capturable data available<br/>
+		/// while paused.<br/>
+		/// This function is thread-safe, but dequeueing from the same device from two<br/>
+		/// threads at once does not promise which thread will dequeue data first.<br/>
+		/// You may not dequeue audio from a device that is using an<br/>
+		/// application-supplied callback; doing so returns an error. You have to use<br/>
+		/// the audio callback, or dequeue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint DequeueAudioNative(uint dev, void* data, uint len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)funcTable[241])(dev, data, len);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint, uint>)funcTable[241])(dev, (nint)data, len);
+			#endif
+		}
+
+		/// <summary>
+		/// Dequeue more audio on non-callback devices.<br/>
+		/// If you are looking to queue audio for output on a non-callback playback<br/>
+		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
+		/// return 0 if you use it with playback devices.<br/>
+		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
+		/// supply a callback that SDL triggers with some frequency as the device<br/>
+		/// records more audio data, (push method), or you can supply no callback, and<br/>
+		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
+		/// method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Data from the device will keep queuing as<br/>
+		/// necessary without further intervention from you. This means you will<br/>
+		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
+		/// Capture devices will not queue data when paused; if you are expecting to<br/>
+		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
+		/// to stop the capture device from queueing more data. This can be useful<br/>
+		/// during, say, level loading times. When unpaused, capture devices will start<br/>
+		/// queueing data from that point, having flushed any capturable data available<br/>
+		/// while paused.<br/>
+		/// This function is thread-safe, but dequeueing from the same device from two<br/>
+		/// threads at once does not promise which thread will dequeue data first.<br/>
+		/// You may not dequeue audio from a device that is using an<br/>
+		/// application-supplied callback; doing so returns an error. You have to use<br/>
+		/// the audio callback, or dequeue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint DequeueAudio(uint dev, void* data, uint len)
+		{
+			uint ret = DequeueAudioNative(dev, data, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Dequeue more audio on non-callback devices.<br/>
+		/// If you are looking to queue audio for output on a non-callback playback<br/>
+		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
+		/// return 0 if you use it with playback devices.<br/>
+		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
+		/// supply a callback that SDL triggers with some frequency as the device<br/>
+		/// records more audio data, (push method), or you can supply no callback, and<br/>
+		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
+		/// method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Data from the device will keep queuing as<br/>
+		/// necessary without further intervention from you. This means you will<br/>
+		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
+		/// Capture devices will not queue data when paused; if you are expecting to<br/>
+		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
+		/// to stop the capture device from queueing more data. This can be useful<br/>
+		/// during, say, level loading times. When unpaused, capture devices will start<br/>
+		/// queueing data from that point, having flushed any capturable data available<br/>
+		/// while paused.<br/>
+		/// This function is thread-safe, but dequeueing from the same device from two<br/>
+		/// threads at once does not promise which thread will dequeue data first.<br/>
+		/// You may not dequeue audio from a device that is using an<br/>
+		/// application-supplied callback; doing so returns an error. You have to use<br/>
+		/// the audio callback, or dequeue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint DequeueAudio(uint dev, nint data, uint len)
+		{
+			uint ret = DequeueAudioNative(dev, (void*)data, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of bytes of still-queued audio.<br/>
+		/// For playback devices: this is the number of bytes that have been queued for<br/>
+		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
+		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
+		/// byte boundary of what has been played. It's possible that we just gave the<br/>
+		/// hardware several kilobytes right before you called this function, but it<br/>
+		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
+		/// For capture devices, this is the number of bytes that have been captured by<br/>
+		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
+		/// time, so this only informs of the lower-bound of available data.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetQueuedAudioSizeNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of bytes of still-queued audio.<br/>
+		/// For playback devices: this is the number of bytes that have been queued for<br/>
+		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
+		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
+		/// byte boundary of what has been played. It's possible that we just gave the<br/>
+		/// hardware several kilobytes right before you called this function, but it<br/>
+		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
+		/// For capture devices, this is the number of bytes that have been captured by<br/>
+		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
+		/// time, so this only informs of the lower-bound of available data.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetQueuedAudioSize(uint dev)
+		{
+			uint ret = GetQueuedAudioSizeNative(dev);
+			return ret;
+		}
+
+		/// <summary>
+		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
+		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
+		/// output devices, the hardware will start playing silence if more audio isn't<br/>
+		/// queued. For capture devices, the hardware will start filling the empty<br/>
+		/// queue with new data if the capture device isn't paused.<br/>
+		/// This will not prevent playback of queued audio that's already been sent to<br/>
+		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
+		/// of a second of audio that might still be heard. This can be useful if you<br/>
+		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
+		/// during a level change in your game.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
+		/// queue; SDL handles locking internally for this function.<br/>
+		/// This function always succeeds and thus returns void.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ClearQueuedAudioNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
+		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
+		/// output devices, the hardware will start playing silence if more audio isn't<br/>
+		/// queued. For capture devices, the hardware will start filling the empty<br/>
+		/// queue with new data if the capture device isn't paused.<br/>
+		/// This will not prevent playback of queued audio that's already been sent to<br/>
+		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
+		/// of a second of audio that might still be heard. This can be useful if you<br/>
+		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
+		/// during a level change in your game.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
+		/// queue; SDL handles locking internally for this function.<br/>
+		/// This function always succeeds and thus returns void.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ClearQueuedAudio(uint dev)
+		{
+			ClearQueuedAudioNative(dev);
+		}
+
+		/// <summary>
+		/// This function is a legacy means of locking the audio device.<br/>
+		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
+		/// is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_LockAudioDevice(1);<br/>
+		/// ```<br/>
+		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockAudioNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
+			#endif
+		}
+
+		/// <summary>
+		/// This function is a legacy means of locking the audio device.<br/>
+		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
+		/// is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_LockAudioDevice(1);<br/>
+		/// ```<br/>
+		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LockAudio()
+		{
+			LockAudioNative();
+		}
+
+		/// <summary>
+		/// Use this function to lock out the audio callback function for a specified<br/>
+		/// device.<br/>
+		/// The lock manipulated by these functions protects the audio callback<br/>
+		/// function specified in SDL_OpenAudioDevice(). During a<br/>
+		/// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed<br/>
+		/// that the callback function for that device is not running, even if the<br/>
+		/// device is not paused. While a device is locked, any other unpaused,<br/>
+		/// unlocked devices may still run their callbacks.<br/>
+		/// Calling this function from inside your audio callback is unnecessary. SDL<br/>
+		/// obtains this lock before calling your function, and releases it when the<br/>
+		/// function returns.<br/>
+		/// You should not hold the lock longer than absolutely necessary. If you hold<br/>
+		/// it too long, you'll experience dropouts in your audio playback. Ideally,<br/>
+		/// your application locks the device, sets a few variables and unlocks again.<br/>
+		/// Do not do heavy work while holding the lock for a device.<br/>
+		/// It is safe to lock the audio device multiple times, as long as you unlock<br/>
+		/// it an equivalent number of times. The callback will not run until the<br/>
+		/// device has been unlocked completely in this way. If your application fails<br/>
+		/// to unlock the device appropriately, your callback will never run, you might<br/>
+		/// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably<br/>
+		/// deadlock.<br/>
+		/// Internally, the audio device lock is a mutex; if you lock from two threads<br/>
+		/// at once, not only will you block the audio callback, you'll block the other<br/>
+		/// thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockAudioDeviceNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
+			#endif
+		}
+
+		/// <summary>
 		/// Use this function to lock out the audio callback function for a specified<br/>
 		/// device.<br/>
 		/// The lock manipulated by these functions protects the audio callback<br/>
@@ -235,7 +2736,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetClipboardText(ref byte text)
+		public static int SetClipboardText(in byte text)
 		{
 			fixed (byte* ptext = &text)
 			{
@@ -400,7 +2901,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetPrimarySelectionText(ref byte text)
+		public static int SetPrimarySelectionText(in byte text)
 		{
 			fixed (byte* ptext = &text)
 			{
@@ -1243,6 +3744,21 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
+		/// Reallocate memory obtained from SDL_SIMDAlloc<br/>
+		/// It is not valid to use this function on a pointer from anything but<br/>
+		/// SDL_SIMDAlloc(). It can't be used on pointers from malloc, realloc,<br/>
+		/// SDL_malloc, memalign, new[], etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SIMDRealloc(nint mem, nuint len)
+		{
+			void* ret = SIMDReallocNative((void*)mem, len);
+			return ret;
+		}
+
+		/// <summary>
 		/// Deallocate memory obtained from SDL_SIMDAlloc<br/>
 		/// It is not valid to use this function on a pointer from anything but<br/>
 		/// SDL_SIMDAlloc() or SDL_SIMDRealloc(). It can't be used on pointers from<br/>
@@ -1283,6 +3799,25 @@ namespace Hexa.NET.SDL2
 		public static void SIMDFree(void* ptr)
 		{
 			SIMDFreeNative(ptr);
+		}
+
+		/// <summary>
+		/// Deallocate memory obtained from SDL_SIMDAlloc<br/>
+		/// It is not valid to use this function on a pointer from anything but<br/>
+		/// SDL_SIMDAlloc() or SDL_SIMDRealloc(). It can't be used on pointers from<br/>
+		/// malloc, realloc, SDL_malloc, memalign, new[], etc.<br/>
+		/// However, SDL_SIMDFree(NULL) is a legal no-op.<br/>
+		/// The memory pointed to by `ptr` is no longer valid for access upon return,<br/>
+		/// and may be returned to the system or reused by a future allocation. The<br/>
+		/// pointer passed to this function is no longer safe to dereference once this<br/>
+		/// function returns, and should be discarded.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SIMDFree(nint ptr)
+		{
+			SIMDFreeNative((void*)ptr);
 		}
 
 		/// <summary>
@@ -2022,9 +4557,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLPixelFormat* AllocFormat(uint pixelFormat)
+		public static SDLPixelFormatPtr AllocFormat(uint pixelFormat)
 		{
-			SDLPixelFormat* ret = AllocFormatNative(pixelFormat);
+			SDLPixelFormatPtr ret = AllocFormatNative(pixelFormat);
 			return ret;
 		}
 
@@ -2050,9 +4585,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void FreeFormat(SDLPixelFormat* format)
+		public static void FreeFormat(SDLPixelFormatPtr format)
 		{
-			FreeFormatNative(format);
+			FreeFormatNative((SDLPixelFormat*)format);
 		}
 
 		/// <summary>
@@ -2093,9 +4628,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLPalette* AllocPalette(int ncolors)
+		public static SDLPalettePtr AllocPalette(int ncolors)
 		{
-			SDLPalette* ret = AllocPaletteNative(ncolors);
+			SDLPalettePtr ret = AllocPaletteNative(ncolors);
 			return ret;
 		}
 
@@ -2121,9 +4656,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetPixelFormatPalette(SDLPixelFormat* format, SDLPalette* palette)
+		public static int SetPixelFormatPalette(SDLPixelFormatPtr format, SDLPalettePtr palette)
 		{
-			int ret = SetPixelFormatPaletteNative(format, palette);
+			int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)format, (SDLPalette*)palette);
 			return ret;
 		}
 
@@ -2133,11 +4668,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetPixelFormatPalette(ref SDLPixelFormat format, SDLPalette* palette)
+		public static int SetPixelFormatPalette(ref SDLPixelFormat format, SDLPalettePtr palette)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
-				int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)pformat, palette);
+				int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)pformat, (SDLPalette*)palette);
 				return ret;
 			}
 		}
@@ -2148,11 +4683,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetPixelFormatPalette(SDLPixelFormat* format, ref SDLPalette palette)
+		public static int SetPixelFormatPalette(SDLPixelFormatPtr format, ref SDLPalette palette)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
-				int ret = SetPixelFormatPaletteNative(format, (SDLPalette*)ppalette);
+				int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)format, (SDLPalette*)ppalette);
 				return ret;
 			}
 		}
@@ -2197,9 +4732,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetPaletteColors(SDLPalette* palette, SDLColor* colors, int firstcolor, int ncolors)
+		public static int SetPaletteColors(SDLPalettePtr palette, SDLColorPtr colors, int firstcolor, int ncolors)
 		{
-			int ret = SetPaletteColorsNative(palette, colors, firstcolor, ncolors);
+			int ret = SetPaletteColorsNative((SDLPalette*)palette, (SDLColor*)colors, firstcolor, ncolors);
 			return ret;
 		}
 
@@ -2209,11 +4744,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetPaletteColors(ref SDLPalette palette, SDLColor* colors, int firstcolor, int ncolors)
+		public static int SetPaletteColors(ref SDLPalette palette, SDLColorPtr colors, int firstcolor, int ncolors)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
-				int ret = SetPaletteColorsNative((SDLPalette*)ppalette, colors, firstcolor, ncolors);
+				int ret = SetPaletteColorsNative((SDLPalette*)ppalette, (SDLColor*)colors, firstcolor, ncolors);
 				return ret;
 			}
 		}
@@ -2224,11 +4759,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetPaletteColors(SDLPalette* palette, ref SDLColor colors, int firstcolor, int ncolors)
+		public static int SetPaletteColors(SDLPalettePtr palette, in SDLColor colors, int firstcolor, int ncolors)
 		{
 			fixed (SDLColor* pcolors = &colors)
 			{
-				int ret = SetPaletteColorsNative(palette, (SDLColor*)pcolors, firstcolor, ncolors);
+				int ret = SetPaletteColorsNative((SDLPalette*)palette, (SDLColor*)pcolors, firstcolor, ncolors);
 				return ret;
 			}
 		}
@@ -2239,7 +4774,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetPaletteColors(ref SDLPalette palette, ref SDLColor colors, int firstcolor, int ncolors)
+		public static int SetPaletteColors(ref SDLPalette palette, in SDLColor colors, int firstcolor, int ncolors)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
@@ -2273,9 +4808,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void FreePalette(SDLPalette* palette)
+		public static void FreePalette(SDLPalettePtr palette)
 		{
-			FreePaletteNative(palette);
+			FreePaletteNative((SDLPalette*)palette);
 		}
 
 		/// <summary>
@@ -2336,9 +4871,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint MapRGB(SDLPixelFormat* format, byte r, byte g, byte b)
+		public static uint MapRGB(SDLPixelFormatPtr format, byte r, byte g, byte b)
 		{
-			uint ret = MapRGBNative(format, r, g, b);
+			uint ret = MapRGBNative((SDLPixelFormat*)format, r, g, b);
 			return ret;
 		}
 
@@ -2359,7 +4894,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint MapRGB(ref SDLPixelFormat format, byte r, byte g, byte b)
+		public static uint MapRGB(in SDLPixelFormat format, byte r, byte g, byte b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -2412,9 +4947,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint MapRGBA(SDLPixelFormat* format, byte r, byte g, byte b, byte a)
+		public static uint MapRGBA(SDLPixelFormatPtr format, byte r, byte g, byte b, byte a)
 		{
-			uint ret = MapRGBANative(format, r, g, b, a);
+			uint ret = MapRGBANative((SDLPixelFormat*)format, r, g, b, a);
 			return ret;
 		}
 
@@ -2435,7 +4970,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint MapRGBA(ref SDLPixelFormat format, byte r, byte g, byte b, byte a)
+		public static uint MapRGBA(in SDLPixelFormat format, byte r, byte g, byte b, byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -2474,9 +5009,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void GetRGB(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b)
+		public static void GetRGB(uint pixel, SDLPixelFormatPtr format, byte* r, byte* g, byte* b)
 		{
-			GetRGBNative(pixel, format, r, g, b);
+			GetRGBNative(pixel, (SDLPixelFormat*)format, r, g, b);
 		}
 
 		/// <summary>
@@ -2489,2540 +5024,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void GetRGB(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, byte* b)
+		public static void GetRGB(uint pixel, in SDLPixelFormat format, byte* r, byte* g, byte* b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, b);
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				GetRGBNative(pixel, format, (byte*)pr, g, b);
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, byte* b)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, byte* b)
-		{
-			fixed (byte* pg = &g)
-			{
-				GetRGBNative(pixel, format, r, (byte*)pg, b);
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, byte* b)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					GetRGBNative(pixel, format, (byte*)pr, (byte*)pg, b);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, byte* b)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, SDLPixelFormat* format, byte* r, byte* g, ref byte b)
-		{
-			fixed (byte* pb = &b)
-			{
-				GetRGBNative(pixel, format, r, g, (byte*)pb);
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, ref byte b)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pb = &b)
-				{
-					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					GetRGBNative(pixel, format, (byte*)pr, g, (byte*)pb);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, ref byte b)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, ref byte b)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					GetRGBNative(pixel, format, r, (byte*)pg, (byte*)pb);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, ref byte b)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBNative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGB(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, ref byte b)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetRGBANative(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b, byte* a)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, byte*, void>)funcTable[291])(pixel, format, r, g, b, a);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, void>)funcTable[291])(pixel, (nint)format, (nint)r, (nint)g, (nint)b, (nint)a);
-			#endif
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b, byte* a)
-		{
-			GetRGBANative(pixel, format, r, g, b, a);
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, byte* b, byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, a);
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, byte* b, byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				GetRGBANative(pixel, format, (byte*)pr, g, b, a);
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, byte* b, byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, a);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, byte* b, byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				GetRGBANative(pixel, format, r, (byte*)pg, b, a);
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, byte* b, byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, a);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, byte* b, byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, a);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, byte* b, byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, byte* g, ref byte b, byte* a)
-		{
-			fixed (byte* pb = &b)
-			{
-				GetRGBANative(pixel, format, r, g, (byte*)pb, a);
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, ref byte b, byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pb = &b)
-				{
-					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, a);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, ref byte b, byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					GetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, a);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, ref byte b, byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, ref byte b, byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					GetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, a);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, ref byte b, byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, ref byte b, byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, ref byte b, byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, a);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b, ref byte a)
-		{
-			fixed (byte* pa = &a)
-			{
-				GetRGBANative(pixel, format, r, g, b, (byte*)pa);
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, byte* b, ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, byte* b, ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, (byte*)pr, g, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, byte* b, ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, byte* b, ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, r, (byte*)pg, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, byte* b, ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, byte* b, ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, byte* b, ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, byte* g, ref byte b, ref byte a)
-		{
-			fixed (byte* pb = &b)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, r, g, (byte*)pb, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, ref byte b, ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, ref byte b, ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, ref byte b, ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, ref byte b, ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, ref byte b, ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, ref byte b, ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, ref byte b, ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							fixed (byte* pa = &a)
-							{
-								GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CalculateGammaRampNative(float gamma, ushort* ramp)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, ushort*, void>)funcTable[292])(gamma, ramp);
-			#else
-			((delegate* unmanaged[Cdecl]<float, nint, void>)funcTable[292])(gamma, (nint)ramp);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CalculateGammaRamp(float gamma, ushort* ramp)
-		{
-			CalculateGammaRampNative(gamma, ramp);
-		}
-
-		/// <summary>
-		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CalculateGammaRamp(float gamma, ref ushort ramp)
-		{
-			fixed (ushort* pramp = &ramp)
-			{
-				CalculateGammaRampNative(gamma, (ushort*)pramp);
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasIntersectionNative(SDLRect* a, SDLRect* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLBool>)funcTable[293])(a, b);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[293])((nint)a, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersection(SDLRect* a, SDLRect* b)
-		{
-			SDLBool ret = HasIntersectionNative(a, b);
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersection(ref SDLRect a, SDLRect* b)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				SDLBool ret = HasIntersectionNative((SDLRect*)pa, b);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersection(SDLRect* a, ref SDLRect b)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				SDLBool ret = HasIntersectionNative(a, (SDLRect*)pb);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersection(ref SDLRect a, ref SDLRect b)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					SDLBool ret = HasIntersectionNative((SDLRect*)pa, (SDLRect*)pb);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IntersectRectNative(SDLRect* a, SDLRect* b, SDLRect* result)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, SDLBool>)funcTable[294])(a, b, result);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, SDLBool>)funcTable[294])((nint)a, (nint)b, (nint)result);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRect(SDLRect* a, SDLRect* b, SDLRect* result)
-		{
-			SDLBool ret = IntersectRectNative(a, b, result);
-			return ret;
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRect(ref SDLRect a, SDLRect* b, SDLRect* result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				SDLBool ret = IntersectRectNative((SDLRect*)pa, b, result);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRect(SDLRect* a, ref SDLRect b, SDLRect* result)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				SDLBool ret = IntersectRectNative(a, (SDLRect*)pb, result);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRect(ref SDLRect a, ref SDLRect b, SDLRect* result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)pb, result);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRect(SDLRect* a, SDLRect* b, ref SDLRect result)
-		{
-			fixed (SDLRect* presult = &result)
-			{
-				SDLBool ret = IntersectRectNative(a, b, (SDLRect*)presult);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRect(ref SDLRect a, SDLRect* b, ref SDLRect result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					SDLBool ret = IntersectRectNative((SDLRect*)pa, b, (SDLRect*)presult);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRect(SDLRect* a, ref SDLRect b, ref SDLRect result)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					SDLBool ret = IntersectRectNative(a, (SDLRect*)pb, (SDLRect*)presult);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of two rectangles.<br/>
-		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRect(ref SDLRect a, ref SDLRect b, ref SDLRect result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					fixed (SDLRect* presult = &result)
-					{
-						SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnionRectNative(SDLRect* a, SDLRect* b, SDLRect* result)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, void>)funcTable[295])(a, b, result);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[295])((nint)a, (nint)b, (nint)result);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnionRect(SDLRect* a, SDLRect* b, SDLRect* result)
-		{
-			UnionRectNative(a, b, result);
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnionRect(ref SDLRect a, SDLRect* b, SDLRect* result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				UnionRectNative((SDLRect*)pa, b, result);
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnionRect(SDLRect* a, ref SDLRect b, SDLRect* result)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				UnionRectNative(a, (SDLRect*)pb, result);
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnionRect(ref SDLRect a, ref SDLRect b, SDLRect* result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					UnionRectNative((SDLRect*)pa, (SDLRect*)pb, result);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnionRect(SDLRect* a, SDLRect* b, ref SDLRect result)
-		{
-			fixed (SDLRect* presult = &result)
-			{
-				UnionRectNative(a, b, (SDLRect*)presult);
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnionRect(ref SDLRect a, SDLRect* b, ref SDLRect result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					UnionRectNative((SDLRect*)pa, b, (SDLRect*)presult);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnionRect(SDLRect* a, ref SDLRect b, ref SDLRect result)
-		{
-			fixed (SDLRect* pb = &b)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					UnionRectNative(a, (SDLRect*)pb, (SDLRect*)presult);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the union of two rectangles.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnionRect(ref SDLRect a, ref SDLRect b, ref SDLRect result)
-		{
-			fixed (SDLRect* pa = &a)
-			{
-				fixed (SDLRect* pb = &b)
-				{
-					fixed (SDLRect* presult = &result)
-					{
-						UnionRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool EnclosePointsNative(SDLPoint* points, int count, SDLRect* clip, SDLRect* result)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPoint*, int, SDLRect*, SDLRect*, SDLBool>)funcTable[296])(points, count, clip, result);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, SDLBool>)funcTable[296])((nint)points, count, (nint)clip, (nint)result);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool EnclosePoints(SDLPoint* points, int count, SDLRect* clip, SDLRect* result)
-		{
-			SDLBool ret = EnclosePointsNative(points, count, clip, result);
-			return ret;
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool EnclosePoints(ref SDLPoint points, int count, SDLRect* clip, SDLRect* result)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, clip, result);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool EnclosePoints(SDLPoint* points, int count, ref SDLRect clip, SDLRect* result)
-		{
-			fixed (SDLRect* pclip = &clip)
-			{
-				SDLBool ret = EnclosePointsNative(points, count, (SDLRect*)pclip, result);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool EnclosePoints(ref SDLPoint points, int count, ref SDLRect clip, SDLRect* result)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				fixed (SDLRect* pclip = &clip)
-				{
-					SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, result);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool EnclosePoints(SDLPoint* points, int count, SDLRect* clip, ref SDLRect result)
-		{
-			fixed (SDLRect* presult = &result)
-			{
-				SDLBool ret = EnclosePointsNative(points, count, clip, (SDLRect*)presult);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool EnclosePoints(ref SDLPoint points, int count, SDLRect* clip, ref SDLRect result)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, clip, (SDLRect*)presult);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool EnclosePoints(SDLPoint* points, int count, ref SDLRect clip, ref SDLRect result)
-		{
-			fixed (SDLRect* pclip = &clip)
-			{
-				fixed (SDLRect* presult = &result)
-				{
-					SDLBool ret = EnclosePointsNative(points, count, (SDLRect*)pclip, (SDLRect*)presult);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate a minimal rectangle enclosing a set of points.<br/>
-		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
-		/// considered.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool EnclosePoints(ref SDLPoint points, int count, ref SDLRect clip, ref SDLRect result)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				fixed (SDLRect* pclip = &clip)
-				{
-					fixed (SDLRect* presult = &result)
-					{
-						SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, (SDLRect*)presult);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IntersectRectAndLineNative(SDLRect* rect, int* x1, int* y1, int* x2, int* y2)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, int*, int*, int*, int*, SDLBool>)funcTable[297])(rect, x1, y1, x2, y2);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, SDLBool>)funcTable[297])((nint)rect, (nint)x1, (nint)y1, (nint)x2, (nint)y2);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, int* x2, int* y2)
-		{
-			SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, x2, y2);
-			return ret;
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, int* x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, y2);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, int* x2, int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, x2, y2);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, int* x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, y2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, int* x2, int* y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, x2, y2);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, int* x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, y2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, int* x2, int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, y2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, int* x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, y2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, ref int x2, int* y2)
-		{
-			fixed (int* px2 = &x2)
-			{
-				SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, (int*)px2, y2);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, ref int x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px2 = &x2)
-				{
-					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, y2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, ref int x2, int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, y2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, ref int x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, y2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, ref int x2, int* y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, y2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, ref int x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, y2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, ref int x2, int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, y2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, ref int x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* px2 = &x2)
-						{
-							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, y2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, int* x2, ref int y2)
-		{
-			fixed (int* py2 = &y2)
-			{
-				SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, x2, (int*)py2);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, int* x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py2 = &y2)
-				{
-					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, (int*)py2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, int* x2, ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py2 = &y2)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, x2, (int*)py2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, int* x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, int* x2, ref int y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				fixed (int* py2 = &y2)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, x2, (int*)py2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, int* x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, int* x2, ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, int* x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* py2 = &y2)
-						{
-							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, (int*)py2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, ref int x2, ref int y2)
-		{
-			fixed (int* px2 = &x2)
-			{
-				fixed (int* py2 = &y2)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, (int*)px2, (int*)py2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, ref int x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, ref int x2, ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, ref int x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, (int*)py2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, ref int x2, ref int y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, ref int x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, (int*)py2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, ref int x2, ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, ref int x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* px2 = &x2)
-						{
-							fixed (int* py2 = &y2)
-							{
-								SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasIntersectionFNative(SDLFRect* a, SDLFRect* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLBool>)funcTable[298])(a, b);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[298])((nint)a, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersectionF(SDLFRect* a, SDLFRect* b)
-		{
-			SDLBool ret = HasIntersectionFNative(a, b);
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersectionF(ref SDLFRect a, SDLFRect* b)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, b);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersectionF(SDLFRect* a, ref SDLFRect b)
-		{
-			fixed (SDLFRect* pb = &b)
-			{
-				SDLBool ret = HasIntersectionFNative(a, (SDLFRect*)pb);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersectionF(ref SDLFRect a, ref SDLFRect b)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* pb = &b)
-				{
-					SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, (SDLFRect*)pb);
-					return ret;
-				}
 			}
 		}
 	}

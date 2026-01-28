@@ -22,42 +22,57 @@ namespace Hexa.NET.SDL3
 	/// returned as a linked list from SDL_GetAssertionReport().<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AssertData")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAssertData
 	{
 		/// <summary>
 		/// true if app should always continue when assertion is triggered. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "always_ignore")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte AlwaysIgnore;
 
 		/// <summary>
 		/// Number of times this assertion has been triggered. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "trigger_count")]
+		[NativeName(NativeNameType.Type, "unsigned int")]
 		public uint TriggerCount;
 
 		/// <summary>
 		/// A string of this assert's test code. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "condition")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Condition;
 
 		/// <summary>
 		/// The source file where this assert lives. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "filename")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Filename;
 
 		/// <summary>
 		/// The line in `filename` where this assert lives. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "linenum")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Linenum;
 
 		/// <summary>
 		/// The name of the function where this assert lives. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "function")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Function;
 
 		/// <summary>
 		/// next item in the linked list. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "next")]
+		[NativeName(NativeNameType.Type, "SDL_AssertData const *")]
 		public unsafe SDLAssertData* Next;
 
 
@@ -73,6 +88,82 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Information about an assertion failure.<br/>
+	/// This structure is filled in with information about a triggered assertion,<br/>
+	/// used by the assertion handler, then added to the assertion report. This is<br/>
+	/// returned as a linked list from SDL_GetAssertionReport().<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_AssertData")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAssertDataPtr : IEquatable<SDLAssertDataPtr>
+	{
+		public SDLAssertDataPtr(SDLAssertData* handle) { Handle = handle; }
+
+		public SDLAssertData* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAssertDataPtr Null => new SDLAssertDataPtr(null);
+
+		public SDLAssertData this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAssertDataPtr(SDLAssertData* handle) => new SDLAssertDataPtr(handle);
+
+		public static implicit operator SDLAssertData*(SDLAssertDataPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAssertDataPtr left, SDLAssertDataPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAssertDataPtr left, SDLAssertDataPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAssertDataPtr left, SDLAssertData* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAssertDataPtr left, SDLAssertData* right) => left.Handle != right;
+
+		public bool Equals(SDLAssertDataPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAssertDataPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAssertDataPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// true if app should always continue when assertion is triggered. <br/>
+		/// </summary>
+		public ref bool AlwaysIgnore => ref Unsafe.AsRef<bool>(&Handle->AlwaysIgnore);
+		/// <summary>
+		/// Number of times this assertion has been triggered. <br/>
+		/// </summary>
+		public ref uint TriggerCount => ref Unsafe.AsRef<uint>(&Handle->TriggerCount);
+		/// <summary>
+		/// A string of this assert's test code. <br/>
+		/// </summary>
+		public byte* Condition { get => Handle->Condition; set => Handle->Condition = value; }
+		/// <summary>
+		/// The source file where this assert lives. <br/>
+		/// </summary>
+		public byte* Filename { get => Handle->Filename; set => Handle->Filename = value; }
+		/// <summary>
+		/// The line in `filename` where this assert lives. <br/>
+		/// </summary>
+		public ref int Linenum => ref Unsafe.AsRef<int>(&Handle->Linenum);
+		/// <summary>
+		/// The name of the function where this assert lives. <br/>
+		/// </summary>
+		public byte* Function { get => Handle->Function; set => Handle->Function = value; }
+		/// <summary>
+		/// next item in the linked list. <br/>
+		/// </summary>
+		public ref SDLAssertDataPtr Next => ref Unsafe.AsRef<SDLAssertDataPtr>(&Handle->Next);
 	}
 
 }

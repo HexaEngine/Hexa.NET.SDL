@@ -18,27 +18,35 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_GPUStoreOp")]
 	public enum SDLGPUStoreOp : int
 	{
 		/// <summary>
 		/// The contents generated during the render pass will be written to memory. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STOREOP_STORE")]
+		[NativeName(NativeNameType.Value, "0")]
 		Store = unchecked(0),
 
 		/// <summary>
 		/// The contents generated during the render pass are not needed and may be discarded. The contents will be undefined. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STOREOP_DONT_CARE")]
+		[NativeName(NativeNameType.Value, "1")]
 		DontCare = unchecked(1),
 
 		/// <summary>
 		/// The multisample contents generated during the render pass will be resolved to a non-multisample texture. The contents in the multisample texture may then be discarded and will be undefined. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STOREOP_RESOLVE")]
+		[NativeName(NativeNameType.Value, "2")]
 		Resolve = unchecked(2),
 
 		/// <summary>
 		/// The multisample contents generated during the render pass will be resolved to a non-multisample texture. The contents in the multisample texture will be written to memory. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_STOREOP_RESOLVE_AND_STORE")]
+		[NativeName(NativeNameType.Value, "3")]
 		ResolveAndStore = unchecked(3),
 	}
 }

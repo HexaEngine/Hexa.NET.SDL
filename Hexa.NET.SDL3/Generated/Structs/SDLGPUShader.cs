@@ -15,16 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a compiled shader object.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUShader")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUShader
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUShader")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUShaderPtr : IEquatable<SDLGPUShaderPtr>
+	{
+		public SDLGPUShaderPtr(SDLGPUShader* handle) { Handle = handle; }
+
+		public SDLGPUShader* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUShaderPtr Null => new SDLGPUShaderPtr(null);
+
+		public SDLGPUShader this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUShaderPtr(SDLGPUShader* handle) => new SDLGPUShaderPtr(handle);
+
+		public static implicit operator SDLGPUShader*(SDLGPUShaderPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUShaderPtr left, SDLGPUShaderPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUShaderPtr left, SDLGPUShaderPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUShaderPtr left, SDLGPUShader* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUShaderPtr left, SDLGPUShader* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUShaderPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUShaderPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUShaderPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

@@ -19,11 +19,18 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_FileDialogType")]
 	[Flags]
 	public enum SDLFileDialogType : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_FILEDIALOG_OPENFILE")]
+		[NativeName(NativeNameType.Value, "0")]
 		Openfile = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_FILEDIALOG_SAVEFILE")]
+		[NativeName(NativeNameType.Value, "1")]
 		Savefile = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_FILEDIALOG_OPENFOLDER")]
+		[NativeName(NativeNameType.Value, "2")]
 		Openfolder = unchecked(2),
 	}
 }

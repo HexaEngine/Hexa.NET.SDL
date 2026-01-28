@@ -20,12 +20,21 @@ namespace Hexa.NET.SDL3
 	/// color which uses the SDL_PIXELFORMAT_RGBA128_FLOAT format<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_FColor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLFColor
 	{
+		[NativeName(NativeNameType.Field, "r")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float R;
+		[NativeName(NativeNameType.Field, "g")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float G;
+		[NativeName(NativeNameType.Field, "b")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float B;
+		[NativeName(NativeNameType.Field, "a")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float A;
 
 		public unsafe SDLFColor(float r = default, float g = default, float b = default, float a = default)
@@ -37,6 +46,56 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The bits of this structure can be directly reinterpreted as a float-packed<br/>
+	/// color which uses the SDL_PIXELFORMAT_RGBA128_FLOAT format<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_FColor")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLFColorPtr : IEquatable<SDLFColorPtr>
+	{
+		public SDLFColorPtr(SDLFColor* handle) { Handle = handle; }
+
+		public SDLFColor* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLFColorPtr Null => new SDLFColorPtr(null);
+
+		public SDLFColor this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLFColorPtr(SDLFColor* handle) => new SDLFColorPtr(handle);
+
+		public static implicit operator SDLFColor*(SDLFColorPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLFColorPtr left, SDLFColorPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLFColorPtr left, SDLFColorPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLFColorPtr left, SDLFColor* right) => left.Handle == right;
+
+		public static bool operator !=(SDLFColorPtr left, SDLFColor* right) => left.Handle != right;
+
+		public bool Equals(SDLFColorPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLFColorPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLFColorPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref float R => ref Unsafe.AsRef<float>(&Handle->R);
+		public ref float G => ref Unsafe.AsRef<float>(&Handle->G);
+		public ref float B => ref Unsafe.AsRef<float>(&Handle->B);
+		public ref float A => ref Unsafe.AsRef<float>(&Handle->A);
 	}
 
 }

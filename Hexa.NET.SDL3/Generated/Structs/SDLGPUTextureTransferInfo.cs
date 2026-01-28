@@ -18,34 +18,52 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// A structure specifying parameters related to transferring data to or from a<br/>
 	/// texture.<br/>
+	/// If either of `pixels_per_row` or `rows_per_layer` is zero, then width and<br/>
+	/// height of passed SDL_GPUTextureRegion to SDL_UploadToGPUTexture or<br/>
+	/// SDL_DownloadFromGPUTexture are used as default values respectively and data<br/>
+	/// is considered to be tightly packed.<br/>
+	/// **WARNING**: Direct3D 12 requires texture data row pitch to be 256 byte<br/>
+	/// aligned, and offsets to be aligned to 512 bytes. If they are not, SDL will<br/>
+	/// make a temporary copy of the data that is properly aligned, but this adds<br/>
+	/// overhead to the transfer process. Apps can avoid this by aligning their<br/>
+	/// data appropriately, or using a different GPU backend than Direct3D 12.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureTransferInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureTransferInfo
 	{
 		/// <summary>
 		/// The transfer buffer used in the transfer operation. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "transfer_buffer")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
 		public unsafe SDLGPUTransferBuffer* TransferBuffer;
 
 		/// <summary>
 		/// The starting byte of the image data in the transfer buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "offset")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 		/// <summary>
 		/// The number of pixels from one row to the next. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pixels_per_row")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint PixelsPerRow;
 
 		/// <summary>
 		/// The number of rows from one layer/depth-slice to the next. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "rows_per_layer")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint RowsPerLayer;
 
 
-		public unsafe SDLGPUTextureTransferInfo(SDLGPUTransferBuffer* transferBuffer = default, uint offset = default, uint pixelsPerRow = default, uint rowsPerLayer = default)
+		public unsafe SDLGPUTextureTransferInfo(SDLGPUTransferBufferPtr transferBuffer = default, uint offset = default, uint pixelsPerRow = default, uint rowsPerLayer = default)
 		{
 			TransferBuffer = transferBuffer;
 			Offset = offset;
@@ -54,6 +72,78 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying parameters related to transferring data to or from a<br/>
+	/// texture.<br/>
+	/// If either of `pixels_per_row` or `rows_per_layer` is zero, then width and<br/>
+	/// height of passed SDL_GPUTextureRegion to SDL_UploadToGPUTexture or<br/>
+	/// SDL_DownloadFromGPUTexture are used as default values respectively and data<br/>
+	/// is considered to be tightly packed.<br/>
+	/// **WARNING**: Direct3D 12 requires texture data row pitch to be 256 byte<br/>
+	/// aligned, and offsets to be aligned to 512 bytes. If they are not, SDL will<br/>
+	/// make a temporary copy of the data that is properly aligned, but this adds<br/>
+	/// overhead to the transfer process. Apps can avoid this by aligning their<br/>
+	/// data appropriately, or using a different GPU backend than Direct3D 12.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTextureTransferInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTextureTransferInfoPtr : IEquatable<SDLGPUTextureTransferInfoPtr>
+	{
+		public SDLGPUTextureTransferInfoPtr(SDLGPUTextureTransferInfo* handle) { Handle = handle; }
+
+		public SDLGPUTextureTransferInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTextureTransferInfoPtr Null => new SDLGPUTextureTransferInfoPtr(null);
+
+		public SDLGPUTextureTransferInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTextureTransferInfoPtr(SDLGPUTextureTransferInfo* handle) => new SDLGPUTextureTransferInfoPtr(handle);
+
+		public static implicit operator SDLGPUTextureTransferInfo*(SDLGPUTextureTransferInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTextureTransferInfoPtr left, SDLGPUTextureTransferInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTextureTransferInfoPtr left, SDLGPUTextureTransferInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTextureTransferInfoPtr left, SDLGPUTextureTransferInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTextureTransferInfoPtr left, SDLGPUTextureTransferInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTextureTransferInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTextureTransferInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTextureTransferInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The transfer buffer used in the transfer operation. <br/>
+		/// </summary>
+		public ref SDLGPUTransferBufferPtr TransferBuffer => ref Unsafe.AsRef<SDLGPUTransferBufferPtr>(&Handle->TransferBuffer);
+		/// <summary>
+		/// The starting byte of the image data in the transfer buffer. <br/>
+		/// </summary>
+		public ref uint Offset => ref Unsafe.AsRef<uint>(&Handle->Offset);
+		/// <summary>
+		/// The number of pixels from one row to the next. <br/>
+		/// </summary>
+		public ref uint PixelsPerRow => ref Unsafe.AsRef<uint>(&Handle->PixelsPerRow);
+		/// <summary>
+		/// The number of rows from one layer/depth-slice to the next. <br/>
+		/// </summary>
+		public ref uint RowsPerLayer => ref Unsafe.AsRef<uint>(&Handle->RowsPerLayer);
 	}
 
 }

@@ -18,6 +18,2673 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// This works exactly like strnlen() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Counts up to a maximum of `maxlen` bytes in `str`, excluding the null<br/>
+		/// terminator.<br/>
+		/// If you need the length of a UTF-8 string, consider using SDL_utf8strnlen().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strnlen")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint StrnlenNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint, nuint>)funcTable[61])(str, maxlen);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint, nuint>)funcTable[61])((nint)str, maxlen);
+			#endif
+		}
+
+		/// <summary>
+		/// This works exactly like strnlen() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Counts up to a maximum of `maxlen` bytes in `str`, excluding the null<br/>
+		/// terminator.<br/>
+		/// If you need the length of a UTF-8 string, consider using SDL_utf8strnlen().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strnlen")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strnlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			nuint ret = StrnlenNative(str, maxlen);
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like strnlen() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Counts up to a maximum of `maxlen` bytes in `str`, excluding the null<br/>
+		/// terminator.<br/>
+		/// If you need the length of a UTF-8 string, consider using SDL_utf8strnlen().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strnlen")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strnlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr = &str)
+			{
+				nuint ret = StrnlenNative((byte*)pstr, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like strnlen() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Counts up to a maximum of `maxlen` bytes in `str`, excluding the null<br/>
+		/// terminator.<br/>
+		/// If you need the length of a UTF-8 string, consider using SDL_utf8strnlen().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strnlen")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strnlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr = str)
+			{
+				nuint ret = StrnlenNative((byte*)pstr, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like strnlen() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Counts up to a maximum of `maxlen` bytes in `str`, excluding the null<br/>
+		/// terminator.<br/>
+		/// If you need the length of a UTF-8 string, consider using SDL_utf8strnlen().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strnlen")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strnlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = StrnlenNative(pStr0, maxlen);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint StrlcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[62])(dst, src, maxlen);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[62])((nint)dst, (nint)src, maxlen);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			nuint ret = StrlcpyNative(dst, src, maxlen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				nuint ret = StrlcpyNative((byte*)pdst, src, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (dst != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(dst);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = StrlcpyNative(pStr0, src, maxlen);
+			dst = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] in byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* psrc = &src)
+			{
+				nuint ret = StrlcpyNative(dst, (byte*)psrc, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* psrc = src)
+			{
+				nuint ret = StrlcpyNative(dst, (byte*)psrc, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (src != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(src);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = StrlcpyNative(dst, pStr0, maxlen);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] in byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					nuint ret = StrlcpyNative((byte*)pdst, (byte*)psrc, maxlen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = src)
+				{
+					nuint ret = StrlcpyNative((byte*)pdst, (byte*)psrc, maxlen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a string.<br/>
+		/// This function copies up to `maxlen` - 1 characters from `src` to `dst`,<br/>
+		/// then appends a null terminator.<br/>
+		/// If `maxlen` is 0, no characters are copied and no null terminator is<br/>
+		/// written.<br/>
+		/// If you want to copy an UTF-8 string but need to ensure that multi-byte<br/>
+		/// sequences are not truncated, consider using SDL_utf8strlcpy().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (dst != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(dst);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (src != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(src);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			nuint ret = StrlcpyNative(pStr0, pStr1, maxlen);
+			dst = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint Utf8StrlcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[63])(dst, src, dstBytes);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[63])((nint)dst, (nint)src, dstBytes);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			nuint ret = Utf8StrlcpyNative(dst, src, dstBytes);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				nuint ret = Utf8StrlcpyNative((byte*)pdst, src, dstBytes);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (dst != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(dst);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = Utf8StrlcpyNative(pStr0, src, dstBytes);
+			dst = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] in byte src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			fixed (byte* psrc = &src)
+			{
+				nuint ret = Utf8StrlcpyNative(dst, (byte*)psrc, dstBytes);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			fixed (byte* psrc = src)
+			{
+				nuint ret = Utf8StrlcpyNative(dst, (byte*)psrc, dstBytes);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (src != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(src);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = Utf8StrlcpyNative(dst, pStr0, dstBytes);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] in byte src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					nuint ret = Utf8StrlcpyNative((byte*)pdst, (byte*)psrc, dstBytes);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = src)
+				{
+					nuint ret = Utf8StrlcpyNative((byte*)pdst, (byte*)psrc, dstBytes);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy an UTF-8 string.<br/>
+		/// This function copies up to `dst_bytes` - 1 bytes from `src` to `dst` while<br/>
+		/// also ensuring that the string written to `dst` does not end in a truncated<br/>
+		/// multi-byte sequence. Finally, it appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// Note that unlike SDL_strlcpy(), this function returns the number of bytes<br/>
+		/// written, not the length of `src`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (dst != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(dst);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (src != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(src);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			nuint ret = Utf8StrlcpyNative(pStr0, pStr1, dstBytes);
+			dst = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint StrlcatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[64])(dst, src, maxlen);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[64])((nint)dst, (nint)src, maxlen);
+			#endif
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			nuint ret = StrlcatNative(dst, src, maxlen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				nuint ret = StrlcatNative((byte*)pdst, src, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (dst != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(dst);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = StrlcatNative(pStr0, src, maxlen);
+			dst = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] in byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* psrc = &src)
+			{
+				nuint ret = StrlcatNative(dst, (byte*)psrc, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* psrc = src)
+			{
+				nuint ret = StrlcatNative(dst, (byte*)psrc, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (src != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(src);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = StrlcatNative(dst, pStr0, maxlen);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] in byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					nuint ret = StrlcatNative((byte*)pdst, (byte*)psrc, maxlen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = src)
+				{
+					nuint ret = StrlcatNative((byte*)pdst, (byte*)psrc, maxlen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Concatenate strings.<br/>
+		/// This function appends up to `maxlen` - SDL_strlen(dst) - 1 characters from<br/>
+		/// `src` to the end of the string in `dst`, then appends a null terminator.<br/>
+		/// `src` and `dst` must not overlap.<br/>
+		/// If `maxlen` - SDL_strlen(dst) - 1 is less than or equal to 0, then `dst` is<br/>
+		/// unmodified.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlcat")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "char const *")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (dst != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(dst);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (src != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(src);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			nuint ret = StrlcatNative(pStr0, pStr1, maxlen);
+			dst = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrdupNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[65])(str);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[65])((nint)str);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str)
+		{
+			byte* ret = StrdupNative(str);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str)
+		{
+			string ret = Utils.DecodeStringUTF8(StrdupNative(str));
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrdupNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrdupNative((byte*)pstr));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrdupNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrdupNative((byte*)pstr));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrdupNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, using<br/>
+		/// SDL_malloc, and then makes a copy of the string into this space.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strdup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrdupNative(pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrndupNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint, byte*>)funcTable[66])(str, maxlen);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[66])((nint)str, maxlen);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strndup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* ret = StrndupNative(str, maxlen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrndupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			string ret = Utils.DecodeStringUTF8(StrndupNative(str, maxlen));
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strndup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrndupNative((byte*)pstr, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrndupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrndupNative((byte*)pstr, maxlen));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strndup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrndupNative((byte*)pstr, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrndupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrndupNative((byte*)pstr, maxlen));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strndup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrndupNative(pStr0, maxlen);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a copy of a string, up to n characters.<br/>
+		/// This allocates enough space for a null-terminated copy of `str`, up to<br/>
+		/// `maxlen` bytes, using SDL_malloc, and then makes a copy of the string into<br/>
+		/// this space.<br/>
+		/// If the string is longer than `maxlen` bytes, the returned string will be<br/>
+		/// `maxlen` bytes long, plus a null-terminator character that isn't included<br/>
+		/// in the count.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strndup")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrndupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrndupNative(pStr0, maxlen));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Reverse a string's contents.<br/>
+		/// This reverses a null-terminated string in-place. Only the content of the<br/>
+		/// string is reversed; the null-terminator character remains at the end of the<br/>
+		/// reversed string.<br/>
+		/// **WARNING**: This function reverses the _bytes_ of the string, not the<br/>
+		/// codepoints. If `str` is a UTF-8 string with Unicode codepoints > 127, this<br/>
+		/// will ruin the string data. You should only use this function on strings<br/>
+		/// that are completely comprised of low ASCII characters.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrev")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrrevNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[67])(str);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[67])((nint)str);
+			#endif
+		}
+
+		/// <summary>
+		/// Reverse a string's contents.<br/>
+		/// This reverses a null-terminated string in-place. Only the content of the<br/>
+		/// string is reversed; the null-terminator character remains at the end of the<br/>
+		/// reversed string.<br/>
+		/// **WARNING**: This function reverses the _bytes_ of the string, not the<br/>
+		/// codepoints. If `str` is a UTF-8 string with Unicode codepoints > 127, this<br/>
+		/// will ruin the string data. You should only use this function on strings<br/>
+		/// that are completely comprised of low ASCII characters.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrev")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strrev([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			byte* ret = StrrevNative(str);
+			return ret;
+		}
+
+		/// <summary>
+		/// Reverse a string's contents.<br/>
+		/// This reverses a null-terminated string in-place. Only the content of the<br/>
+		/// string is reversed; the null-terminator character remains at the end of the<br/>
+		/// reversed string.<br/>
+		/// **WARNING**: This function reverses the _bytes_ of the string, not the<br/>
+		/// codepoints. If `str` is a UTF-8 string with Unicode codepoints > 127, this<br/>
+		/// will ruin the string data. You should only use this function on strings<br/>
+		/// that are completely comprised of low ASCII characters.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrev")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrrevS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			string ret = Utils.DecodeStringUTF8(StrrevNative(str));
+			return ret;
+		}
+
+		/// <summary>
+		/// Reverse a string's contents.<br/>
+		/// This reverses a null-terminated string in-place. Only the content of the<br/>
+		/// string is reversed; the null-terminator character remains at the end of the<br/>
+		/// reversed string.<br/>
+		/// **WARNING**: This function reverses the _bytes_ of the string, not the<br/>
+		/// codepoints. If `str` is a UTF-8 string with Unicode codepoints > 127, this<br/>
+		/// will ruin the string data. You should only use this function on strings<br/>
+		/// that are completely comprised of low ASCII characters.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrev")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strrev([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrrevNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Reverse a string's contents.<br/>
+		/// This reverses a null-terminated string in-place. Only the content of the<br/>
+		/// string is reversed; the null-terminator character remains at the end of the<br/>
+		/// reversed string.<br/>
+		/// **WARNING**: This function reverses the _bytes_ of the string, not the<br/>
+		/// codepoints. If `str` is a UTF-8 string with Unicode codepoints > 127, this<br/>
+		/// will ruin the string data. You should only use this function on strings<br/>
+		/// that are completely comprised of low ASCII characters.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrev")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrrevS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrrevNative((byte*)pstr));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Reverse a string's contents.<br/>
+		/// This reverses a null-terminated string in-place. Only the content of the<br/>
+		/// string is reversed; the null-terminator character remains at the end of the<br/>
+		/// reversed string.<br/>
+		/// **WARNING**: This function reverses the _bytes_ of the string, not the<br/>
+		/// codepoints. If `str` is a UTF-8 string with Unicode codepoints > 127, this<br/>
+		/// will ruin the string data. You should only use this function on strings<br/>
+		/// that are completely comprised of low ASCII characters.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrev")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strrev([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrrevNative(pStr0);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Reverse a string's contents.<br/>
+		/// This reverses a null-terminated string in-place. Only the content of the<br/>
+		/// string is reversed; the null-terminator character remains at the end of the<br/>
+		/// reversed string.<br/>
+		/// **WARNING**: This function reverses the _bytes_ of the string, not the<br/>
+		/// codepoints. If `str` is a UTF-8 string with Unicode codepoints > 127, this<br/>
+		/// will ruin the string data. You should only use this function on strings<br/>
+		/// that are completely comprised of low ASCII characters.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrev")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrrevS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrrevNative(pStr0));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a string to uppercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to uppercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their<br/>
+		/// uppercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strupr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StruprNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[68])(str);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[68])((nint)str);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert a string to uppercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to uppercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their<br/>
+		/// uppercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strupr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strupr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			byte* ret = StruprNative(str);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a string to uppercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to uppercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their<br/>
+		/// uppercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strupr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StruprS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			string ret = Utils.DecodeStringUTF8(StruprNative(str));
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a string to uppercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to uppercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their<br/>
+		/// uppercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strupr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strupr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StruprNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a string to uppercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to uppercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their<br/>
+		/// uppercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strupr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StruprS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StruprNative((byte*)pstr));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a string to uppercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to uppercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their<br/>
+		/// uppercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strupr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strupr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StruprNative(pStr0);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a string to uppercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to uppercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their<br/>
+		/// uppercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strupr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StruprS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StruprNative(pStr0));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a string to lowercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to lowercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'A' through 'Z' to their<br/>
+		/// lowercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlwr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrlwrNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[69])(str);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[69])((nint)str);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert a string to lowercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to lowercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'A' through 'Z' to their<br/>
+		/// lowercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlwr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strlwr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			byte* ret = StrlwrNative(str);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a string to lowercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to lowercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'A' through 'Z' to their<br/>
+		/// lowercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlwr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrlwrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str)
+		{
+			string ret = Utils.DecodeStringUTF8(StrlwrNative(str));
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a string to lowercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to lowercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'A' through 'Z' to their<br/>
+		/// lowercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlwr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strlwr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrlwrNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a string to lowercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to lowercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'A' through 'Z' to their<br/>
+		/// lowercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlwr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrlwrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrlwrNative((byte*)pstr));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a string to lowercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to lowercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'A' through 'Z' to their<br/>
+		/// lowercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlwr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strlwr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrlwrNative(pStr0);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a string to lowercase.<br/>
+		/// **WARNING**: Regardless of system locale, this will only convert ASCII<br/>
+		/// values 'A' through 'Z' to lowercase.<br/>
+		/// This function operates on a null-terminated string of bytes--even if it is<br/>
+		/// malformed UTF-8!--and converts ASCII characters 'A' through 'Z' to their<br/>
+		/// lowercase equivalents in-place, returning the original `str` pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strlwr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrlwrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrlwrNative(pStr0));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrchrNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[70])(str, c);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[70])((nint)str, c);
+			#endif
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strchr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			byte* ret = StrchrNative(str, c);
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrchrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			string ret = Utils.DecodeStringUTF8(StrchrNative(str, c));
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strchr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrchrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strchr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrchrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strchr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrchrNative(pStr0, c);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific byte.<br/>
+		/// The search ends once it finds the requested byte value, or a null<br/>
+		/// terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrchrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrchrNative(pStr0, c));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrrchrNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[71])(str, c);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[71])((nint)str, c);
+			#endif
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strrchr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			byte* ret = StrrchrNative(str, c);
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrrchrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			string ret = Utils.DecodeStringUTF8(StrrchrNative(str, c));
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strrchr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrrchrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strrchr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrrchrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strrchr([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrrchrNative(pStr0, c);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the last instance of a specific byte.<br/>
+		/// The search must go until it finds a null terminator byte to end the string.<br/>
+		/// Note that this looks for _bytes_, not _characters_, so you cannot match<br/>
+		/// against a Unicode codepoint > 255, regardless of character encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strrchr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrrchrS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrrchrNative(pStr0, c));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
 		/// Search a string for the first instance of a specific substring.<br/>
 		/// The search ends once it finds the requested substring, or a null terminator<br/>
 		/// byte to end the string.<br/>
@@ -28,7 +2695,366 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrstrS(byte* haystack, string needle)
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrstrNative([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[72])(haystack, needle);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[72])((nint)haystack, (nint)needle);
+			#endif
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			byte* ret = StrstrNative(haystack, needle);
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, needle));
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				byte* ret = StrstrNative((byte*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative((byte*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				byte* ret = StrstrNative((byte*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative((byte*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrstrNative(pStr0, needle);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrstrNative(pStr0, needle));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle)
+		{
+			fixed (byte* pneedle = &needle)
+			{
+				byte* ret = StrstrNative(haystack, (byte*)pneedle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle)
+		{
+			fixed (byte* pneedle = &needle)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, (byte*)pneedle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* pneedle = needle)
+			{
+				byte* ret = StrstrNative(haystack, (byte*)pneedle);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* pneedle = needle)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, (byte*)pneedle));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (needle != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(needle, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrstrNative(haystack, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Search a string for the first instance of a specific substring.<br/>
+		/// The search ends once it finds the requested substring, or a null terminator<br/>
+		/// byte to end the string.<br/>
+		/// Note that this looks for strings of _bytes_, not _characters_, so it's<br/>
+		/// legal to search for malformed and incomplete UTF-8 sequences.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -66,7 +3092,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strstr(ref byte haystack, ref byte needle)
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -89,7 +3117,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrstrS(ref byte haystack, ref byte needle)
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -112,7 +3142,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strstr(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle)
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -135,7 +3167,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrstrS(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle)
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -158,7 +3192,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strstr(string haystack, string needle)
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -217,7 +3253,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrstrS(string haystack, string needle)
+		[NativeName(NativeNameType.Func, "SDL_strstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -278,8 +3316,10 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrnstrNative(byte* haystack, byte* needle, nuint maxlen)
+		internal static byte* StrnstrNative([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, byte*>)funcTable[73])(haystack, needle, maxlen);
@@ -301,7 +3341,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(byte* haystack, byte* needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			byte* ret = StrnstrNative(haystack, needle, maxlen);
 			return ret;
@@ -320,7 +3362,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(byte* haystack, byte* needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			string ret = Utils.DecodeStringUTF8(StrnstrNative(haystack, needle, maxlen));
 			return ret;
@@ -339,7 +3383,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(ref byte haystack, byte* needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -361,7 +3407,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(ref byte haystack, byte* needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -383,7 +3431,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(ReadOnlySpan<byte> haystack, byte* needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -405,7 +3455,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(ReadOnlySpan<byte> haystack, byte* needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -427,7 +3479,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(string haystack, byte* needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -467,7 +3521,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(string haystack, byte* needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -507,7 +3563,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(byte* haystack, ref byte needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* pneedle = &needle)
 			{
@@ -529,7 +3587,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(byte* haystack, ref byte needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* pneedle = &needle)
 			{
@@ -551,7 +3611,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(byte* haystack, ReadOnlySpan<byte> needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* pneedle = needle)
 			{
@@ -573,7 +3635,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(byte* haystack, ReadOnlySpan<byte> needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* pneedle = needle)
 			{
@@ -595,7 +3659,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(byte* haystack, string needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -635,7 +3701,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(byte* haystack, string needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -675,7 +3743,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(ref byte haystack, ref byte needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -700,7 +3770,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(ref byte haystack, ref byte needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -725,7 +3797,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -750,7 +3824,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -775,7 +3851,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strnstr(string haystack, string needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strnstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -836,7 +3914,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrnstrS(string haystack, string needle, nuint maxlen)
+		[NativeName(NativeNameType.Func, "SDL_strnstr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrnstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -903,8 +3983,10 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrcasestrNative(byte* haystack, byte* needle)
+		internal static byte* StrcasestrNative([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[74])(haystack, needle);
@@ -932,7 +4014,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(byte* haystack, byte* needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			byte* ret = StrcasestrNative(haystack, needle);
 			return ret;
@@ -957,7 +4041,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(byte* haystack, byte* needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			string ret = Utils.DecodeStringUTF8(StrcasestrNative(haystack, needle));
 			return ret;
@@ -982,7 +4068,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(ref byte haystack, byte* needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -1010,7 +4098,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(ref byte haystack, byte* needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -1038,7 +4128,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(ReadOnlySpan<byte> haystack, byte* needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -1066,7 +4158,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(ReadOnlySpan<byte> haystack, byte* needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -1094,7 +4188,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(string haystack, byte* needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1140,7 +4236,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(string haystack, byte* needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] byte* needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1186,7 +4284,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(byte* haystack, ref byte needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle)
 		{
 			fixed (byte* pneedle = &needle)
 			{
@@ -1214,7 +4314,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(byte* haystack, ref byte needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle)
 		{
 			fixed (byte* pneedle = &needle)
 			{
@@ -1242,7 +4344,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(byte* haystack, ReadOnlySpan<byte> needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle)
 		{
 			fixed (byte* pneedle = needle)
 			{
@@ -1270,7 +4374,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(byte* haystack, ReadOnlySpan<byte> needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle)
 		{
 			fixed (byte* pneedle = needle)
 			{
@@ -1298,7 +4404,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(byte* haystack, string needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1344,7 +4452,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(byte* haystack, string needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] byte* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1390,7 +4500,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(ref byte haystack, ref byte needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -1421,7 +4533,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(ref byte haystack, ref byte needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] in byte haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] in byte needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -1452,7 +4566,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -1483,7 +4599,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> needle)
 		{
 			fixed (byte* phaystack = haystack)
 			{
@@ -1514,7 +4632,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* Strcasestr(string haystack, string needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strcasestr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1581,7 +4701,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrcasestrS(string haystack, string needle)
+		[NativeName(NativeNameType.Func, "SDL_strcasestr")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrcasestrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "char const *")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "char const *")] string needle)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1647,8 +4769,10 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrtokRNative(byte* str, byte* delim, byte** saveptr)
+		internal static byte* StrtokRNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] byte* delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte**, byte*>)funcTable[75])(str, delim, saveptr);
@@ -1675,7 +4799,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* StrtokR(byte* str, byte* delim, byte** saveptr)
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* StrtokR([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] byte* delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			byte* ret = StrtokRNative(str, delim, saveptr);
 			return ret;
@@ -1699,7 +4825,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrtokRS(byte* str, byte* delim, byte** saveptr)
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrtokRS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] byte* delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			string ret = Utils.DecodeStringUTF8(StrtokRNative(str, delim, saveptr));
 			return ret;
@@ -1723,7 +4851,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* StrtokR(ref byte str, byte* delim, byte** saveptr)
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* StrtokR([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] byte* delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -1750,7 +4880,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrtokRS(ref byte str, byte* delim, byte** saveptr)
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrtokRS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref byte str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] byte* delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -1777,7 +4909,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* StrtokR(ref string str, byte* delim, byte** saveptr)
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* StrtokR([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] byte* delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1823,7 +4957,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrtokRS(ref string str, byte* delim, byte** saveptr)
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrtokRS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] ref string str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] byte* delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1869,7 +5005,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* StrtokR(byte* str, ref byte delim, byte** saveptr)
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* StrtokR([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] in byte delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			fixed (byte* pdelim = &delim)
 			{
@@ -1896,3125 +5034,14 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string StrtokRS(byte* str, ref byte delim, byte** saveptr)
+		[NativeName(NativeNameType.Func, "SDL_strtok_r")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrtokRS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char *")] byte* str, [NativeName(NativeNameType.Param, "delim")] [NativeName(NativeNameType.Type, "char const *")] in byte delim, [NativeName(NativeNameType.Param, "saveptr")] [NativeName(NativeNameType.Type, "char * *")] byte** saveptr)
 		{
 			fixed (byte* pdelim = &delim)
 			{
 				string ret = Utils.DecodeStringUTF8(StrtokRNative(str, (byte*)pdelim, saveptr));
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(byte* str, ReadOnlySpan<byte> delim, byte** saveptr)
-		{
-			fixed (byte* pdelim = delim)
-			{
-				byte* ret = StrtokRNative(str, (byte*)pdelim, saveptr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(byte* str, ReadOnlySpan<byte> delim, byte** saveptr)
-		{
-			fixed (byte* pdelim = delim)
-			{
-				string ret = Utils.DecodeStringUTF8(StrtokRNative(str, (byte*)pdelim, saveptr));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(byte* str, string delim, byte** saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (delim != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(delim);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(delim, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = StrtokRNative(str, pStr0, saveptr);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(byte* str, string delim, byte** saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (delim != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(delim);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(delim, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(StrtokRNative(str, pStr0, saveptr));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(ref byte str, ref byte delim, byte** saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte* pdelim = &delim)
-				{
-					byte* ret = StrtokRNative((byte*)pstr, (byte*)pdelim, saveptr);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(ref byte str, ref byte delim, byte** saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte* pdelim = &delim)
-				{
-					string ret = Utils.DecodeStringUTF8(StrtokRNative((byte*)pstr, (byte*)pdelim, saveptr));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(ref byte str, ReadOnlySpan<byte> delim, byte** saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte* pdelim = delim)
-				{
-					byte* ret = StrtokRNative((byte*)pstr, (byte*)pdelim, saveptr);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(ref byte str, ReadOnlySpan<byte> delim, byte** saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte* pdelim = delim)
-				{
-					string ret = Utils.DecodeStringUTF8(StrtokRNative((byte*)pstr, (byte*)pdelim, saveptr));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(ref string str, string delim, byte** saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (delim != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(delim);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(delim, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* ret = StrtokRNative(pStr0, pStr1, saveptr);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(ref string str, string delim, byte** saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (delim != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(delim);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(delim, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(StrtokRNative(pStr0, pStr1, saveptr));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(byte* str, byte* delim, ref byte* saveptr)
-		{
-			fixed (byte** psaveptr = &saveptr)
-			{
-				byte* ret = StrtokRNative(str, delim, (byte**)psaveptr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(byte* str, byte* delim, ref byte* saveptr)
-		{
-			fixed (byte** psaveptr = &saveptr)
-			{
-				string ret = Utils.DecodeStringUTF8(StrtokRNative(str, delim, (byte**)psaveptr));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(ref byte str, byte* delim, ref byte* saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte** psaveptr = &saveptr)
-				{
-					byte* ret = StrtokRNative((byte*)pstr, delim, (byte**)psaveptr);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(ref byte str, byte* delim, ref byte* saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte** psaveptr = &saveptr)
-				{
-					string ret = Utils.DecodeStringUTF8(StrtokRNative((byte*)pstr, delim, (byte**)psaveptr));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(ref string str, byte* delim, ref byte* saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (byte** psaveptr = &saveptr)
-			{
-				byte* ret = StrtokRNative(pStr0, delim, (byte**)psaveptr);
-				str = Utils.DecodeStringUTF8(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(ref string str, byte* delim, ref byte* saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (byte** psaveptr = &saveptr)
-			{
-				string ret = Utils.DecodeStringUTF8(StrtokRNative(pStr0, delim, (byte**)psaveptr));
-				str = Utils.DecodeStringUTF8(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(byte* str, ref byte delim, ref byte* saveptr)
-		{
-			fixed (byte* pdelim = &delim)
-			{
-				fixed (byte** psaveptr = &saveptr)
-				{
-					byte* ret = StrtokRNative(str, (byte*)pdelim, (byte**)psaveptr);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(byte* str, ref byte delim, ref byte* saveptr)
-		{
-			fixed (byte* pdelim = &delim)
-			{
-				fixed (byte** psaveptr = &saveptr)
-				{
-					string ret = Utils.DecodeStringUTF8(StrtokRNative(str, (byte*)pdelim, (byte**)psaveptr));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(byte* str, ReadOnlySpan<byte> delim, ref byte* saveptr)
-		{
-			fixed (byte* pdelim = delim)
-			{
-				fixed (byte** psaveptr = &saveptr)
-				{
-					byte* ret = StrtokRNative(str, (byte*)pdelim, (byte**)psaveptr);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(byte* str, ReadOnlySpan<byte> delim, ref byte* saveptr)
-		{
-			fixed (byte* pdelim = delim)
-			{
-				fixed (byte** psaveptr = &saveptr)
-				{
-					string ret = Utils.DecodeStringUTF8(StrtokRNative(str, (byte*)pdelim, (byte**)psaveptr));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(byte* str, string delim, ref byte* saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (delim != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(delim);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(delim, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (byte** psaveptr = &saveptr)
-			{
-				byte* ret = StrtokRNative(str, pStr0, (byte**)psaveptr);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(byte* str, string delim, ref byte* saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (delim != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(delim);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(delim, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (byte** psaveptr = &saveptr)
-			{
-				string ret = Utils.DecodeStringUTF8(StrtokRNative(str, pStr0, (byte**)psaveptr));
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(ref byte str, ref byte delim, ref byte* saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte* pdelim = &delim)
-				{
-					fixed (byte** psaveptr = &saveptr)
-					{
-						byte* ret = StrtokRNative((byte*)pstr, (byte*)pdelim, (byte**)psaveptr);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(ref byte str, ref byte delim, ref byte* saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte* pdelim = &delim)
-				{
-					fixed (byte** psaveptr = &saveptr)
-					{
-						string ret = Utils.DecodeStringUTF8(StrtokRNative((byte*)pstr, (byte*)pdelim, (byte**)psaveptr));
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(ref byte str, ReadOnlySpan<byte> delim, ref byte* saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte* pdelim = delim)
-				{
-					fixed (byte** psaveptr = &saveptr)
-					{
-						byte* ret = StrtokRNative((byte*)pstr, (byte*)pdelim, (byte**)psaveptr);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(ref byte str, ReadOnlySpan<byte> delim, ref byte* saveptr)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte* pdelim = delim)
-				{
-					fixed (byte** psaveptr = &saveptr)
-					{
-						string ret = Utils.DecodeStringUTF8(StrtokRNative((byte*)pstr, (byte*)pdelim, (byte**)psaveptr));
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* StrtokR(ref string str, string delim, ref byte* saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (delim != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(delim);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(delim, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			fixed (byte** psaveptr = &saveptr)
-			{
-				byte* ret = StrtokRNative(pStr0, pStr1, (byte**)psaveptr);
-				str = Utils.DecodeStringUTF8(pStr0);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This works exactly like strtok_r() but doesn't require access to a C<br/>
-		/// runtime.<br/>
-		/// Break a string up into a series of tokens.<br/>
-		/// To start tokenizing a new string, `str` should be the non-NULL address of<br/>
-		/// the string to start tokenizing. Future calls to get the next token from the<br/>
-		/// same string should specify a NULL.<br/>
-		/// Note that this function will overwrite pieces of `str` with null chars to<br/>
-		/// split it into tokens. This function cannot be used with const/read-only<br/>
-		/// strings!<br/>
-		/// `saveptr` just needs to point to a `char *` that can be overwritten; SDL<br/>
-		/// will use this to save tokenizing state between calls. It is initialized if<br/>
-		/// `str` is non-NULL, and used to resume tokenizing when `str` is NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string StrtokRS(ref string str, string delim, ref byte* saveptr)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (delim != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(delim);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(delim, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			fixed (byte** psaveptr = &saveptr)
-			{
-				string ret = Utils.DecodeStringUTF8(StrtokRNative(pStr0, pStr1, (byte**)psaveptr));
-				str = Utils.DecodeStringUTF8(pStr0);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strlen().<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint Utf8StrlenNative(byte* str)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, nuint>)funcTable[76])(str);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint>)funcTable[76])((nint)str);
-			#endif
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strlen().<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Utf8Strlen(byte* str)
-		{
-			nuint ret = Utf8StrlenNative(str);
-			return ret;
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strlen().<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Utf8Strlen(ref byte str)
-		{
-			fixed (byte* pstr = &str)
-			{
-				nuint ret = Utf8StrlenNative((byte*)pstr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strlen().<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Utf8Strlen(ReadOnlySpan<byte> str)
-		{
-			fixed (byte* pstr = str)
-			{
-				nuint ret = Utf8StrlenNative((byte*)pstr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strlen().<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Utf8Strlen(string str)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			nuint ret = Utf8StrlenNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string, up to n bytes.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strnlen().<br/>
-		/// The counting stops at `bytes` bytes (not codepoints!). This seems<br/>
-		/// counterintuitive, but makes it easy to express the total size of the<br/>
-		/// string's buffer.<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint Utf8StrnlenNative(byte* str, nuint bytes)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, nuint, nuint>)funcTable[77])(str, bytes);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint, nuint>)funcTable[77])((nint)str, bytes);
-			#endif
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string, up to n bytes.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strnlen().<br/>
-		/// The counting stops at `bytes` bytes (not codepoints!). This seems<br/>
-		/// counterintuitive, but makes it easy to express the total size of the<br/>
-		/// string's buffer.<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Utf8Strnlen(byte* str, nuint bytes)
-		{
-			nuint ret = Utf8StrnlenNative(str, bytes);
-			return ret;
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string, up to n bytes.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strnlen().<br/>
-		/// The counting stops at `bytes` bytes (not codepoints!). This seems<br/>
-		/// counterintuitive, but makes it easy to express the total size of the<br/>
-		/// string's buffer.<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Utf8Strnlen(ref byte str, nuint bytes)
-		{
-			fixed (byte* pstr = &str)
-			{
-				nuint ret = Utf8StrnlenNative((byte*)pstr, bytes);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string, up to n bytes.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strnlen().<br/>
-		/// The counting stops at `bytes` bytes (not codepoints!). This seems<br/>
-		/// counterintuitive, but makes it easy to express the total size of the<br/>
-		/// string's buffer.<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Utf8Strnlen(ReadOnlySpan<byte> str, nuint bytes)
-		{
-			fixed (byte* pstr = str)
-			{
-				nuint ret = Utf8StrnlenNative((byte*)pstr, bytes);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Count the number of codepoints in a UTF-8 string, up to n bytes.<br/>
-		/// Counts the _codepoints_, not _bytes_, in `str`, excluding the null<br/>
-		/// terminator.<br/>
-		/// If you need to count the bytes in a string instead, consider using<br/>
-		/// SDL_strnlen().<br/>
-		/// The counting stops at `bytes` bytes (not codepoints!). This seems<br/>
-		/// counterintuitive, but makes it easy to express the total size of the<br/>
-		/// string's buffer.<br/>
-		/// Since this handles Unicode, it expects the strings to be well-formed UTF-8<br/>
-		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
-		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
-		/// CHARACTER), so a malformed or incomplete UTF-8 sequence might increase the<br/>
-		/// count by several replacement characters.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Utf8Strnlen(string str, nuint bytes)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			nuint ret = Utf8StrnlenNative(pStr0, bytes);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* ItoaNative(int value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*, int, byte*>)funcTable[78])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint, int, nint>)funcTable[78])(value, (nint)str, radix);
-			#endif
-		}
-
-		/// <summary>
-		/// Convert an integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Itoa(int value, byte* str, int radix)
-		{
-			byte* ret = ItoaNative(value, str, radix);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string ItoaS(int value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(ItoaNative(value, str, radix));
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Itoa(int value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = ItoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert an integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string ItoaS(int value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(ItoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert an integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Itoa(int value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = ItoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string ItoaS(int value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(ItoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an unsigned integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* UitoaNative(uint value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, byte*>)funcTable[79])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, int, nint>)funcTable[79])(value, (nint)str, radix);
-			#endif
-		}
-
-		/// <summary>
-		/// Convert an unsigned integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Uitoa(uint value, byte* str, int radix)
-		{
-			byte* ret = UitoaNative(value, str, radix);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an unsigned integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string UitoaS(uint value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(UitoaNative(value, str, radix));
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an unsigned integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Uitoa(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = UitoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert an unsigned integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string UitoaS(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(UitoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert an unsigned integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Uitoa(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = UitoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an unsigned integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string UitoaS(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(UitoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert a long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* LltoaNative(long value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, byte*, int, byte*>)funcTable[80])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<long, nint, int, nint>)funcTable[80])(value, (nint)str, radix);
-			#endif
-		}
-
-		/// <summary>
-		/// Convert a long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Lltoa(long value, byte* str, int radix)
-		{
-			byte* ret = LltoaNative(value, str, radix);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert a long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string LltoaS(long value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(LltoaNative(value, str, radix));
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert a long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Lltoa(long value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = LltoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert a long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string LltoaS(long value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(LltoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert a long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Lltoa(long value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = LltoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert a long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget possible negative<br/>
-		/// signs, null terminator bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string LltoaS(long value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(LltoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an unsigned long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* UlltoaNative(ulong value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, byte*, int, byte*>)funcTable[81])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<ulong, nint, int, nint>)funcTable[81])(value, (nint)str, radix);
-			#endif
-		}
-
-		/// <summary>
-		/// Convert an unsigned long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Ulltoa(ulong value, byte* str, int radix)
-		{
-			byte* ret = UlltoaNative(value, str, radix);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an unsigned long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string UlltoaS(ulong value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(UlltoaNative(value, str, radix));
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an unsigned long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Ulltoa(ulong value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = UlltoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert an unsigned long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string UlltoaS(ulong value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(UlltoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert an unsigned long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* Ulltoa(ulong value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = UlltoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert an unsigned long long integer into a string.<br/>
-		/// This requires a radix to specified for string format. Specifying 10<br/>
-		/// produces a decimal number, 16 hexidecimal, etc. Must be in the range of 2<br/>
-		/// to 36.<br/>
-		/// Note that this function will overflow a buffer if `str` is not large enough<br/>
-		/// to hold the output! It may be safer to use SDL_snprintf to clamp output, or<br/>
-		/// SDL_asprintf to allocate a buffer. Otherwise, it doesn't hurt to allocate<br/>
-		/// much more space than you expect to use (and don't forget null terminator<br/>
-		/// bytes, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string UlltoaS(ulong value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(UlltoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse an `int` from a string.<br/>
-		/// The result of calling `SDL_atoi(str)` is equivalent to<br/>
-		/// `(int)SDL_strtol(str, NULL, 10)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AtoiNative(byte* str)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[82])(str);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[82])((nint)str);
-			#endif
-		}
-
-		/// <summary>
-		/// Parse an `int` from a string.<br/>
-		/// The result of calling `SDL_atoi(str)` is equivalent to<br/>
-		/// `(int)SDL_strtol(str, NULL, 10)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Atoi(byte* str)
-		{
-			int ret = AtoiNative(str);
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse an `int` from a string.<br/>
-		/// The result of calling `SDL_atoi(str)` is equivalent to<br/>
-		/// `(int)SDL_strtol(str, NULL, 10)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Atoi(ref byte str)
-		{
-			fixed (byte* pstr = &str)
-			{
-				int ret = AtoiNative((byte*)pstr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse an `int` from a string.<br/>
-		/// The result of calling `SDL_atoi(str)` is equivalent to<br/>
-		/// `(int)SDL_strtol(str, NULL, 10)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Atoi(ReadOnlySpan<byte> str)
-		{
-			fixed (byte* pstr = str)
-			{
-				int ret = AtoiNative((byte*)pstr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse an `int` from a string.<br/>
-		/// The result of calling `SDL_atoi(str)` is equivalent to<br/>
-		/// `(int)SDL_strtol(str, NULL, 10)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Atoi(string str)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = AtoiNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse a `double` from a string.<br/>
-		/// The result of calling `SDL_atof(str)` is equivalent to `SDL_strtod(str,<br/>
-		/// NULL)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double AtofNative(byte* str)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, double>)funcTable[83])(str);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<nint, double>)funcTable[83])((nint)str);
-			#endif
-		}
-
-		/// <summary>
-		/// Parse a `double` from a string.<br/>
-		/// The result of calling `SDL_atof(str)` is equivalent to `SDL_strtod(str,<br/>
-		/// NULL)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Atof(byte* str)
-		{
-			double ret = AtofNative(str);
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse a `double` from a string.<br/>
-		/// The result of calling `SDL_atof(str)` is equivalent to `SDL_strtod(str,<br/>
-		/// NULL)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Atof(ref byte str)
-		{
-			fixed (byte* pstr = &str)
-			{
-				double ret = AtofNative((byte*)pstr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `double` from a string.<br/>
-		/// The result of calling `SDL_atof(str)` is equivalent to `SDL_strtod(str,<br/>
-		/// NULL)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Atof(ReadOnlySpan<byte> str)
-		{
-			fixed (byte* pstr = str)
-			{
-				double ret = AtofNative((byte*)pstr);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `double` from a string.<br/>
-		/// The result of calling `SDL_atof(str)` is equivalent to `SDL_strtod(str,<br/>
-		/// NULL)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Atof(string str)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			double ret = AtofNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int StrtolNative(byte* str, byte** endp, int baseValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte**, int, int>)funcTable[84])(str, endp, baseValue);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[84])((nint)str, (nint)endp, baseValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Strtol(byte* str, byte** endp, int baseValue)
-		{
-			int ret = StrtolNative(str, endp, baseValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Strtol(ref byte str, byte** endp, int baseValue)
-		{
-			fixed (byte* pstr = &str)
-			{
-				int ret = StrtolNative((byte*)pstr, endp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Strtol(ReadOnlySpan<byte> str, byte** endp, int baseValue)
-		{
-			fixed (byte* pstr = str)
-			{
-				int ret = StrtolNative((byte*)pstr, endp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Strtol(string str, byte** endp, int baseValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = StrtolNative(pStr0, endp, baseValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Strtol(byte* str, ref byte* endp, int baseValue)
-		{
-			fixed (byte** pendp = &endp)
-			{
-				int ret = StrtolNative(str, (byte**)pendp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Strtol(ref byte str, ref byte* endp, int baseValue)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte** pendp = &endp)
-				{
-					int ret = StrtolNative((byte*)pstr, (byte**)pendp, baseValue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Strtol(ReadOnlySpan<byte> str, ref byte* endp, int baseValue)
-		{
-			fixed (byte* pstr = str)
-			{
-				fixed (byte** pendp = &endp)
-				{
-					int ret = StrtolNative((byte*)pstr, (byte**)pendp, baseValue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long`, the result is clamped to<br/>
-		/// the minimum and maximum representable `long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Strtol(string str, ref byte* endp, int baseValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (byte** pendp = &endp)
-			{
-				int ret = StrtolNative(pStr0, (byte**)pendp, baseValue);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint StrtoulNative(byte* str, byte** endp, int baseValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte**, int, uint>)funcTable[85])(str, endp, baseValue);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, int, uint>)funcTable[85])((nint)str, (nint)endp, baseValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint Strtoul(byte* str, byte** endp, int baseValue)
-		{
-			uint ret = StrtoulNative(str, endp, baseValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint Strtoul(ref byte str, byte** endp, int baseValue)
-		{
-			fixed (byte* pstr = &str)
-			{
-				uint ret = StrtoulNative((byte*)pstr, endp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint Strtoul(ReadOnlySpan<byte> str, byte** endp, int baseValue)
-		{
-			fixed (byte* pstr = str)
-			{
-				uint ret = StrtoulNative((byte*)pstr, endp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint Strtoul(string str, byte** endp, int baseValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			uint ret = StrtoulNative(pStr0, endp, baseValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint Strtoul(byte* str, ref byte* endp, int baseValue)
-		{
-			fixed (byte** pendp = &endp)
-			{
-				uint ret = StrtoulNative(str, (byte**)pendp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint Strtoul(ref byte str, ref byte* endp, int baseValue)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte** pendp = &endp)
-				{
-					uint ret = StrtoulNative((byte*)pstr, (byte**)pendp, baseValue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint Strtoul(ReadOnlySpan<byte> str, ref byte* endp, int baseValue)
-		{
-			fixed (byte* pstr = str)
-			{
-				fixed (byte** pendp = &endp)
-				{
-					uint ret = StrtoulNative((byte*)pstr, (byte**)pendp, baseValue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Parse an `unsigned long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside an `unsigned long`, the result is<br/>
-		/// clamped to the maximum representable `unsigned long` value.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint Strtoul(string str, ref byte* endp, int baseValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (byte** pendp = &endp)
-			{
-				uint ret = StrtoulNative(pStr0, (byte**)pendp, baseValue);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long long`, the result is<br/>
-		/// clamped to the minimum and maximum representable `long long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long StrtollNative(byte* str, byte** endp, int baseValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte**, int, long>)funcTable[86])(str, endp, baseValue);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, nint, int, long>)funcTable[86])((nint)str, (nint)endp, baseValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Parse a `long long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long long`, the result is<br/>
-		/// clamped to the minimum and maximum representable `long long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long Strtoll(byte* str, byte** endp, int baseValue)
-		{
-			long ret = StrtollNative(str, endp, baseValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse a `long long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long long`, the result is<br/>
-		/// clamped to the minimum and maximum representable `long long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long Strtoll(ref byte str, byte** endp, int baseValue)
-		{
-			fixed (byte* pstr = &str)
-			{
-				long ret = StrtollNative((byte*)pstr, endp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long long`, the result is<br/>
-		/// clamped to the minimum and maximum representable `long long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long Strtoll(ReadOnlySpan<byte> str, byte** endp, int baseValue)
-		{
-			fixed (byte* pstr = str)
-			{
-				long ret = StrtollNative((byte*)pstr, endp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long long`, the result is<br/>
-		/// clamped to the minimum and maximum representable `long long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long Strtoll(string str, byte** endp, int baseValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			long ret = StrtollNative(pStr0, endp, baseValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Parse a `long long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long long`, the result is<br/>
-		/// clamped to the minimum and maximum representable `long long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long Strtoll(byte* str, ref byte* endp, int baseValue)
-		{
-			fixed (byte** pendp = &endp)
-			{
-				long ret = StrtollNative(str, (byte**)pendp, baseValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long long`, the result is<br/>
-		/// clamped to the minimum and maximum representable `long long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long Strtoll(ref byte str, ref byte* endp, int baseValue)
-		{
-			fixed (byte* pstr = &str)
-			{
-				fixed (byte** pendp = &endp)
-				{
-					long ret = StrtollNative((byte*)pstr, (byte**)pendp, baseValue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Parse a `long long` from a string.<br/>
-		/// If `str` starts with whitespace, then those whitespace characters are<br/>
-		/// skipped before attempting to parse the number.<br/>
-		/// If the parsed number does not fit inside a `long long`, the result is<br/>
-		/// clamped to the minimum and maximum representable `long long` values.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long Strtoll(ReadOnlySpan<byte> str, ref byte* endp, int baseValue)
-		{
-			fixed (byte* pstr = str)
-			{
-				fixed (byte** pendp = &endp)
-				{
-					long ret = StrtollNative((byte*)pstr, (byte**)pendp, baseValue);
-					return ret;
-				}
 			}
 		}
 	}

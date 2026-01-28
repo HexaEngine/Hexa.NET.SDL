@@ -15,18 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An abstract interface for filesystem access.<br/>
-	/// This is an opaque datatype. One can create this object using standard SDL<br/>
-	/// functions like SDL_OpenTitleStorage or SDL_OpenUserStorage, etc, or create<br/>
-	/// an object with a custom implementation using SDL_OpenStorage.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Storage")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLStorage
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Storage")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLStoragePtr : IEquatable<SDLStoragePtr>
+	{
+		public SDLStoragePtr(SDLStorage* handle) { Handle = handle; }
+
+		public SDLStorage* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLStoragePtr Null => new SDLStoragePtr(null);
+
+		public SDLStorage this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLStoragePtr(SDLStorage* handle) => new SDLStoragePtr(handle);
+
+		public static implicit operator SDLStorage*(SDLStoragePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLStoragePtr left, SDLStoragePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLStoragePtr left, SDLStoragePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLStoragePtr left, SDLStorage* right) => left.Handle == right;
+
+		public static bool operator !=(SDLStoragePtr left, SDLStorage* right) => left.Handle != right;
+
+		public bool Equals(SDLStoragePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLStoragePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLStoragePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

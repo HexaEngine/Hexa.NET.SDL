@@ -16,7 +16,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Pressure-sensitive pen proximity event structure (event.pmotion.*)<br/>
+	/// Pressure-sensitive pen proximity event structure (event.pproximity.*)<br/>
 	/// When a pen becomes visible to the system (it is close enough to a tablet,<br/>
 	/// etc), SDL will send an SDL_EVENT_PEN_PROXIMITY_IN event with the new pen's<br/>
 	/// ID. This ID is valid until the pen leaves proximity again (has been removed<br/>
@@ -25,30 +25,43 @@ namespace Hexa.NET.SDL3
 	/// Note that "proximity" means "close enough for the tablet to know the tool<br/>
 	/// is there." The pen touching and lifting off from the tablet while not<br/>
 	/// leaving the area are handled by SDL_EVENT_PEN_DOWN and SDL_EVENT_PEN_UP.<br/>
+	/// Not all platforms have a window associated with the pen during proximity<br/>
+	/// events. Some wait until motion/button/etc events to offer this info.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_PenProximityEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPenProximityEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_PEN_PROXIMITY_IN or SDL_EVENT_PEN_PROXIMITY_OUT <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The window with pen focus, if any <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "windowID")]
+		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The pen instance id <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_PenID")]
 		public uint Which;
 
 

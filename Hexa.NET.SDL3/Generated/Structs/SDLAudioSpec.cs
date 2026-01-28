@@ -20,22 +20,29 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AudioSpec")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAudioSpec
 	{
 		/// <summary>
 		/// Audio data format <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_AudioFormat")]
 		public SDLAudioFormat Format;
 
 		/// <summary>
 		/// Number of channels: 1 mono, 2 stereo, etc <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "channels")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Channels;
 
 		/// <summary>
 		/// sample rate: sample frames per second <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "freq")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Freq;
 
 
@@ -47,6 +54,64 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Format specifier for audio data.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_AudioSpec")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAudioSpecPtr : IEquatable<SDLAudioSpecPtr>
+	{
+		public SDLAudioSpecPtr(SDLAudioSpec* handle) { Handle = handle; }
+
+		public SDLAudioSpec* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAudioSpecPtr Null => new SDLAudioSpecPtr(null);
+
+		public SDLAudioSpec this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAudioSpecPtr(SDLAudioSpec* handle) => new SDLAudioSpecPtr(handle);
+
+		public static implicit operator SDLAudioSpec*(SDLAudioSpecPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAudioSpecPtr left, SDLAudioSpecPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAudioSpecPtr left, SDLAudioSpecPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAudioSpecPtr left, SDLAudioSpec* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAudioSpecPtr left, SDLAudioSpec* right) => left.Handle != right;
+
+		public bool Equals(SDLAudioSpecPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAudioSpecPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAudioSpecPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Audio data format <br/>
+		/// </summary>
+		public ref SDLAudioFormat Format => ref Unsafe.AsRef<SDLAudioFormat>(&Handle->Format);
+		/// <summary>
+		/// Number of channels: 1 mono, 2 stereo, etc <br/>
+		/// </summary>
+		public ref int Channels => ref Unsafe.AsRef<int>(&Handle->Channels);
+		/// <summary>
+		/// sample rate: sample frames per second <br/>
+		/// </summary>
+		public ref int Freq => ref Unsafe.AsRef<int>(&Handle->Freq);
 	}
 
 }

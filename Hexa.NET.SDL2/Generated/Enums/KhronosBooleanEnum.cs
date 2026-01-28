@@ -17,7 +17,6 @@ namespace Hexa.NET.SDL2
 	/// Values other than zero should be considered to be true.  Therefore<br/>
 	/// comparisons should not be made against KHRONOS_TRUE.<br/>
 	/// </summary>
-	[Flags]
 	public enum KhronosBooleanEnum : int
 	{
 		False = unchecked(0),

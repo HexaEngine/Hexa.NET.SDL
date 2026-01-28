@@ -19,38 +19,59 @@ namespace Hexa.NET.SDL3
 	/// Gamepad axis motion event structure (event.gaxis.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GamepadAxisEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGamepadAxisEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_GAMEPAD_AXIS_MOTION <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 		/// <summary>
 		/// The gamepad axis (SDL_GamepadAxis) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "axis")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Axis;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
+		[NativeName(NativeNameType.Field, "padding3")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 		/// <summary>
 		/// The axis value (range: -32768 to 32767) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "value")]
+		[NativeName(NativeNameType.Type, "Sint16")]
 		public short Value;
 
+		[NativeName(NativeNameType.Field, "padding4")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Padding4;
 
 		public unsafe SDLGamepadAxisEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, int which = default, byte axis = default, byte padding1 = default, byte padding2 = default, byte padding3 = default, short value = default, ushort padding4 = default)

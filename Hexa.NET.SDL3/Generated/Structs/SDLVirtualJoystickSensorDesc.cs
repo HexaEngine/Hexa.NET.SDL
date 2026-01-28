@@ -20,17 +20,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_VirtualJoystickSensorDesc")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVirtualJoystickSensorDesc
 	{
 		/// <summary>
 		/// the type of this sensor <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_SensorType")]
 		public SDLSensorType Type;
 
 		/// <summary>
 		/// the update frequency of this sensor, may be 0.0f <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "rate")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Rate;
 
 
@@ -41,6 +46,60 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The structure that describes a virtual joystick sensor.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_VirtualJoystickSensorDesc")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLVirtualJoystickSensorDescPtr : IEquatable<SDLVirtualJoystickSensorDescPtr>
+	{
+		public SDLVirtualJoystickSensorDescPtr(SDLVirtualJoystickSensorDesc* handle) { Handle = handle; }
+
+		public SDLVirtualJoystickSensorDesc* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLVirtualJoystickSensorDescPtr Null => new SDLVirtualJoystickSensorDescPtr(null);
+
+		public SDLVirtualJoystickSensorDesc this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLVirtualJoystickSensorDescPtr(SDLVirtualJoystickSensorDesc* handle) => new SDLVirtualJoystickSensorDescPtr(handle);
+
+		public static implicit operator SDLVirtualJoystickSensorDesc*(SDLVirtualJoystickSensorDescPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLVirtualJoystickSensorDescPtr left, SDLVirtualJoystickSensorDescPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLVirtualJoystickSensorDescPtr left, SDLVirtualJoystickSensorDescPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLVirtualJoystickSensorDescPtr left, SDLVirtualJoystickSensorDesc* right) => left.Handle == right;
+
+		public static bool operator !=(SDLVirtualJoystickSensorDescPtr left, SDLVirtualJoystickSensorDesc* right) => left.Handle != right;
+
+		public bool Equals(SDLVirtualJoystickSensorDescPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLVirtualJoystickSensorDescPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLVirtualJoystickSensorDescPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// the type of this sensor <br/>
+		/// </summary>
+		public ref SDLSensorType Type => ref Unsafe.AsRef<SDLSensorType>(&Handle->Type);
+		/// <summary>
+		/// the update frequency of this sensor, may be 0.0f <br/>
+		/// </summary>
+		public ref float Rate => ref Unsafe.AsRef<float>(&Handle->Rate);
 	}
 
 }

@@ -15,6 +15,7 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	[NativeName(NativeNameType.StructOrClass, "SDL_GLContextState")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGLContextState
 	{

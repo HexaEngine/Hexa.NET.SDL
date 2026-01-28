@@ -19,33 +19,46 @@ namespace Hexa.NET.SDL3
 	/// Window state change event data (event.window.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_WindowEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLWindowEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_WINDOW_* <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The associated window <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "windowID")]
+		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 		/// <summary>
 		/// event dependent data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "data1")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Data1;
 
 		/// <summary>
 		/// event dependent data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "data2")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Data2;
 
 

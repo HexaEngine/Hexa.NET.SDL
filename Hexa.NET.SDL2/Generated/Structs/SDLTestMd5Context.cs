@@ -331,4 +331,91 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// Data structure for MD5 (Message-Digest) computation <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestMd5ContextPtr : IEquatable<SDLTestMd5ContextPtr>
+	{
+		public SDLTestMd5ContextPtr(SDLTestMd5Context* handle) { Handle = handle; }
+
+		public SDLTestMd5Context* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestMd5ContextPtr Null => new SDLTestMd5ContextPtr(null);
+
+		public SDLTestMd5Context this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestMd5ContextPtr(SDLTestMd5Context* handle) => new SDLTestMd5ContextPtr(handle);
+
+		public static implicit operator SDLTestMd5Context*(SDLTestMd5ContextPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestMd5ContextPtr left, SDLTestMd5ContextPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestMd5ContextPtr left, SDLTestMd5ContextPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestMd5ContextPtr left, SDLTestMd5Context* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestMd5ContextPtr left, SDLTestMd5Context* right) => left.Handle != right;
+
+		public bool Equals(SDLTestMd5ContextPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestMd5ContextPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestMd5ContextPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// number of _bits_ handled mod 2^64 <br/>
+		/// </summary>
+		public unsafe Span<uint> I
+		
+		{
+			get
+			{
+				return new Span<uint>(&Handle->I_0, 2);
+			}
+		}
+		/// <summary>
+		/// scratch buffer <br/>
+		/// </summary>
+		public unsafe Span<uint> Buf
+		
+		{
+			get
+			{
+				return new Span<uint>(&Handle->Buf_0, 4);
+			}
+		}
+		/// <summary>
+		/// input buffer <br/>
+		/// </summary>
+		public unsafe Span<byte> In
+		
+		{
+			get
+			{
+				return new Span<byte>(&Handle->In_0, 64);
+			}
+		}
+		/// <summary>
+		/// actual digest after Md5Final call <br/>
+		/// </summary>
+		public unsafe Span<byte> Digest
+		
+		{
+			get
+			{
+				return new Span<byte>(&Handle->Digest_0, 16);
+			}
+		}
+	}
+
 }

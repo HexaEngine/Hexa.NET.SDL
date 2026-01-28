@@ -19,28 +19,39 @@ namespace Hexa.NET.SDL3
 	/// Sensor event structure (event.sensor.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_SensorEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSensorEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_SENSOR_UPDATE <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The instance ID of the sensor <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_SensorID")]
 		public int Which;
 
 		/// <summary>
 		/// Up to 6 values from the sensor - additional values can be queried using SDL_GetSensorData() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "data")]
+		[NativeName(NativeNameType.Type, "float[6]")]
 		public float Data_0;
 		public float Data_1;
 		public float Data_2;
@@ -51,6 +62,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// The timestamp of the sensor reading in nanoseconds, not necessarily synchronized with the system clock <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sensor_timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong SensorTimestamp;
 
 

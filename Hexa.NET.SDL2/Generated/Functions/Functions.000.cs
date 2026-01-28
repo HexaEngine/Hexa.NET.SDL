@@ -119,6 +119,12 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
+		public static void* Realloc(nint mem, nuint size)
+		{
+			void* ret = ReallocNative((void*)mem, size);
+			return ret;
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void FreeNative(void* mem)
 		{
@@ -132,6 +138,11 @@ namespace Hexa.NET.SDL2
 		public static void Free(void* mem)
 		{
 			FreeNative(mem);
+		}
+
+		public static void Free(nint mem)
+		{
+			FreeNative((void*)mem);
 		}
 
 		/// <summary>
@@ -185,13 +196,163 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetMemoryFunctionsNative(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
+		internal static int SetMemoryFunctionsNative(delegate*<nuint, void*> mallocFunc, delegate*<nuint, nuint, void*> callocFunc, delegate*<void*, nuint, void*> reallocFunc, delegate*<void*, void> freeFunc)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<nuint, void*>, delegate*<nuint, nuint, void*>, delegate*<void*, nuint, void*>, delegate*<void*, void>, int>)funcTable[7])((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ((delegate* unmanaged[Cdecl]<delegate*<nuint, void*>, delegate*<nuint, nuint, void*>, delegate*<void*, nuint, void*>, delegate*<void*, void>, int>)funcTable[7])(mallocFunc, callocFunc, reallocFunc, freeFunc);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[7])((nint)Utils.GetFunctionPointerForDelegate(mallocFunc), (nint)Utils.GetFunctionPointerForDelegate(callocFunc), (nint)Utils.GetFunctionPointerForDelegate(reallocFunc), (nint)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[7])((nint)mallocFunc, (nint)callocFunc, (nint)reallocFunc, (nint)freeFunc);
 			#endif
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(delegate*<nuint, void*> mallocFunc, delegate*<nuint, nuint, void*> callocFunc, delegate*<void*, nuint, void*> reallocFunc, delegate*<void*, void> freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, freeFunc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, delegate*<nuint, nuint, void*> callocFunc, delegate*<void*, nuint, void*> reallocFunc, delegate*<void*, void> freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), callocFunc, reallocFunc, freeFunc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(delegate*<nuint, void*> mallocFunc, SDLCallocFunc callocFunc, delegate*<void*, nuint, void*> reallocFunc, delegate*<void*, void> freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative(mallocFunc, (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), reallocFunc, freeFunc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, delegate*<void*, nuint, void*> reallocFunc, delegate*<void*, void> freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), reallocFunc, freeFunc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(delegate*<nuint, void*> mallocFunc, delegate*<nuint, nuint, void*> callocFunc, SDLReallocFunc reallocFunc, delegate*<void*, void> freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative(mallocFunc, callocFunc, (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), freeFunc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, delegate*<nuint, nuint, void*> callocFunc, SDLReallocFunc reallocFunc, delegate*<void*, void> freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), callocFunc, (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), freeFunc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(delegate*<nuint, void*> mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, delegate*<void*, void> freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative(mallocFunc, (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), freeFunc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, delegate*<void*, void> freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), freeFunc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(delegate*<nuint, void*> mallocFunc, delegate*<nuint, nuint, void*> callocFunc, delegate*<void*, nuint, void*> reallocFunc, SDLFreeFunc freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, delegate*<nuint, nuint, void*> callocFunc, delegate*<void*, nuint, void*> reallocFunc, SDLFreeFunc freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), callocFunc, reallocFunc, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(delegate*<nuint, void*> mallocFunc, SDLCallocFunc callocFunc, delegate*<void*, nuint, void*> reallocFunc, SDLFreeFunc freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative(mallocFunc, (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), reallocFunc, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, delegate*<void*, nuint, void*> reallocFunc, SDLFreeFunc freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), reallocFunc, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(delegate*<nuint, void*> mallocFunc, delegate*<nuint, nuint, void*> callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative(mallocFunc, callocFunc, (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, delegate*<nuint, nuint, void*> callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), callocFunc, (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ret;
+		}
+
+		/// <summary>
+		/// Replace SDL's memory allocation functions with a custom set<br/>
+		/// <br/>
+		/// </summary>
+		public static int SetMemoryFunctions(delegate*<nuint, void*> mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
+		{
+			int ret = SetMemoryFunctionsNative(mallocFunc, (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ret;
 		}
 
 		/// <summary>
@@ -200,7 +361,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
 		{
-			int ret = SetMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, freeFunc);
+			int ret = SetMemoryFunctionsNative((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
 			return ret;
 		}
 
@@ -250,7 +411,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Getenv(ref byte name)
+		public static byte* Getenv(in byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -259,7 +420,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string GetenvS(ref byte name)
+		public static string GetenvS(in byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -356,7 +517,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Setenv(ref byte name, byte* value, int overwrite)
+		public static int Setenv(in byte name, byte* value, int overwrite)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -401,7 +562,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Setenv(byte* name, ref byte value, int overwrite)
+		public static int Setenv(byte* name, in byte value, int overwrite)
 		{
 			fixed (byte* pvalue = &value)
 			{
@@ -446,7 +607,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Setenv(ref byte name, ref byte value, int overwrite)
+		public static int Setenv(in byte name, in byte value, int overwrite)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -519,33 +680,90 @@ namespace Hexa.NET.SDL2
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QsortNative(void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
+		internal static void QsortNative(void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void*, nuint, nuint, delegate*<void*, void*, int>, void>)funcTable[11])(baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
+			((delegate* unmanaged[Cdecl]<void*, nuint, nuint, delegate*<void*, void*, int>, void>)funcTable[11])(baseValue, nmemb, size, compare);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nuint, nuint, nint, void>)funcTable[11])((nint)baseValue, nmemb, size, (nint)Utils.GetFunctionPointerForDelegate(compare));
+			((delegate* unmanaged[Cdecl]<nint, nuint, nuint, nint, void>)funcTable[11])((nint)baseValue, nmemb, size, (nint)compare);
 			#endif
 		}
 
-		public static void Qsort(void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
+		public static void Qsort(void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
 		{
 			QsortNative(baseValue, nmemb, size, compare);
 		}
 
+		public static void Qsort(nint baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		{
+			QsortNative((void*)baseValue, nmemb, size, compare);
+		}
+
+		public static void Qsort(void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
+		{
+			QsortNative(baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
+		}
+
+		public static void Qsort(nint baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
+		{
+			QsortNative((void*)baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* BsearchNative(void* key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
+		internal static void* BsearchNative(void* key, void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, nuint, delegate*<void*, void*, int>, void*>)funcTable[12])(key, baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
+			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, nuint, delegate*<void*, void*, int>, void*>)funcTable[12])(key, baseValue, nmemb, size, compare);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nint, nint>)funcTable[12])((nint)key, (nint)baseValue, nmemb, size, (nint)Utils.GetFunctionPointerForDelegate(compare));
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nint, nint>)funcTable[12])((nint)key, (nint)baseValue, nmemb, size, (nint)compare);
 			#endif
+		}
+
+		public static void* Bsearch(void* key, void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		{
+			void* ret = BsearchNative(key, baseValue, nmemb, size, compare);
+			return ret;
+		}
+
+		public static void* Bsearch(nint key, void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		{
+			void* ret = BsearchNative((void*)key, baseValue, nmemb, size, compare);
+			return ret;
+		}
+
+		public static void* Bsearch(void* key, nint baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		{
+			void* ret = BsearchNative(key, (void*)baseValue, nmemb, size, compare);
+			return ret;
+		}
+
+		public static void* Bsearch(nint key, nint baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
+		{
+			void* ret = BsearchNative((void*)key, (void*)baseValue, nmemb, size, compare);
+			return ret;
 		}
 
 		public static void* Bsearch(void* key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
 		{
-			void* ret = BsearchNative(key, baseValue, nmemb, size, compare);
+			void* ret = BsearchNative(key, baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
+			return ret;
+		}
+
+		public static void* Bsearch(nint key, void* baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
+		{
+			void* ret = BsearchNative((void*)key, baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
+			return ret;
+		}
+
+		public static void* Bsearch(void* key, nint baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
+		{
+			void* ret = BsearchNative(key, (void*)baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
+			return ret;
+		}
+
+		public static void* Bsearch(nint key, nint baseValue, nuint nmemb, nuint size, SDLCompareCallback compare)
+		{
+			void* ret = BsearchNative((void*)key, (void*)baseValue, nmemb, size, (delegate*<void*, void*, int>)Utils.GetFunctionPointerForDelegate(compare));
 			return ret;
 		}
 
@@ -805,6 +1023,12 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
+		public static ushort Crc16(ushort crc, nint data, nuint len)
+		{
+			ushort ret = Crc16Native(crc, (void*)data, len);
+			return ret;
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint Crc32Native(uint crc, void* data, nuint len)
 		{
@@ -818,6 +1042,12 @@ namespace Hexa.NET.SDL2
 		public static uint Crc32(uint crc, void* data, nuint len)
 		{
 			uint ret = Crc32Native(crc, data, len);
+			return ret;
+		}
+
+		public static uint Crc32(uint crc, nint data, nuint len)
+		{
+			uint ret = Crc32Native(crc, (void*)data, len);
 			return ret;
 		}
 
@@ -837,6 +1067,12 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
+		public static void* Memset(nint dst, int c, nuint len)
+		{
+			void* ret = MemsetNative((void*)dst, c, len);
+			return ret;
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* MemcpyNative(void* dst, void* src, nuint len)
 		{
@@ -850,6 +1086,24 @@ namespace Hexa.NET.SDL2
 		public static void* Memcpy(void* dst, void* src, nuint len)
 		{
 			void* ret = MemcpyNative(dst, src, len);
+			return ret;
+		}
+
+		public static void* Memcpy(nint dst, void* src, nuint len)
+		{
+			void* ret = MemcpyNative((void*)dst, src, len);
+			return ret;
+		}
+
+		public static void* Memcpy(void* dst, nint src, nuint len)
+		{
+			void* ret = MemcpyNative(dst, (void*)src, len);
+			return ret;
+		}
+
+		public static void* Memcpy(nint dst, nint src, nuint len)
+		{
+			void* ret = MemcpyNative((void*)dst, (void*)src, len);
 			return ret;
 		}
 
@@ -869,6 +1123,24 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
+		public static void* Memmove(nint dst, void* src, nuint len)
+		{
+			void* ret = MemmoveNative((void*)dst, src, len);
+			return ret;
+		}
+
+		public static void* Memmove(void* dst, nint src, nuint len)
+		{
+			void* ret = MemmoveNative(dst, (void*)src, len);
+			return ret;
+		}
+
+		public static void* Memmove(nint dst, nint src, nuint len)
+		{
+			void* ret = MemmoveNative((void*)dst, (void*)src, len);
+			return ret;
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int MemcmpNative(void* s1, void* s2, nuint len)
 		{
@@ -882,6 +1154,24 @@ namespace Hexa.NET.SDL2
 		public static int Memcmp(void* s1, void* s2, nuint len)
 		{
 			int ret = MemcmpNative(s1, s2, len);
+			return ret;
+		}
+
+		public static int Memcmp(nint s1, void* s2, nuint len)
+		{
+			int ret = MemcmpNative((void*)s1, s2, len);
+			return ret;
+		}
+
+		public static int Memcmp(void* s1, nint s2, nuint len)
+		{
+			int ret = MemcmpNative(s1, (void*)s2, len);
+			return ret;
+		}
+
+		public static int Memcmp(nint s1, nint s2, nuint len)
+		{
+			int ret = MemcmpNative((void*)s1, (void*)s2, len);
 			return ret;
 		}
 
@@ -901,7 +1191,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Wcslen(ref char wstr)
+		public static nuint Wcslen(in char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -981,7 +1271,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Wcslcpy(char* dst, ref char src, nuint maxlen)
+		public static nuint Wcslcpy(char* dst, in char src, nuint maxlen)
 		{
 			fixed (char* psrc = &src)
 			{
@@ -1008,7 +1298,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Wcslcpy(ref char dst, ref char src, nuint maxlen)
+		public static nuint Wcslcpy(ref char dst, in char src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
@@ -1116,7 +1406,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Wcslcat(char* dst, ref char src, nuint maxlen)
+		public static nuint Wcslcat(char* dst, in char src, nuint maxlen)
 		{
 			fixed (char* psrc = &src)
 			{
@@ -1143,7 +1433,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Wcslcat(ref char dst, ref char src, nuint maxlen)
+		public static nuint Wcslcat(ref char dst, in char src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
@@ -1220,7 +1510,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static char* Wcsdup(ref char wstr)
+		public static char* Wcsdup(in char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -1229,7 +1519,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string WcsdupS(ref char wstr)
+		public static string WcsdupS(in char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -1296,7 +1586,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static char* Wcsstr(ref char haystack, char* needle)
+		public static char* Wcsstr(in char haystack, char* needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -1305,7 +1595,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string WcsstrS(ref char haystack, char* needle)
+		public static string WcsstrS(in char haystack, char* needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -1350,7 +1640,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static char* Wcsstr(char* haystack, ref char needle)
+		public static char* Wcsstr(char* haystack, in char needle)
 		{
 			fixed (char* pneedle = &needle)
 			{
@@ -1359,7 +1649,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string WcsstrS(char* haystack, ref char needle)
+		public static string WcsstrS(char* haystack, in char needle)
 		{
 			fixed (char* pneedle = &needle)
 			{
@@ -1404,7 +1694,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static char* Wcsstr(ref char haystack, ref char needle)
+		public static char* Wcsstr(in char haystack, in char needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -1416,7 +1706,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string WcsstrS(ref char haystack, ref char needle)
+		public static string WcsstrS(in char haystack, in char needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -1492,7 +1782,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Wcscmp(ref char str1, char* str2)
+		public static int Wcscmp(in char str1, char* str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1519,7 +1809,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Wcscmp(char* str1, ref char str2)
+		public static int Wcscmp(char* str1, in char str2)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -1546,7 +1836,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Wcscmp(ref char str1, ref char str2)
+		public static int Wcscmp(in char str1, in char str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1598,7 +1888,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Wcsncmp(ref char str1, char* str2, nuint maxlen)
+		public static int Wcsncmp(in char str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1625,7 +1915,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Wcsncmp(char* str1, ref char str2, nuint maxlen)
+		public static int Wcsncmp(char* str1, in char str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -1652,7 +1942,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Wcsncmp(ref char str1, ref char str2, nuint maxlen)
+		public static int Wcsncmp(in char str1, in char str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1704,7 +1994,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Wcscasecmp(ref char str1, char* str2)
+		public static int Wcscasecmp(in char str1, char* str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1731,7 +2021,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Wcscasecmp(char* str1, ref char str2)
+		public static int Wcscasecmp(char* str1, in char str2)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -1758,7 +2048,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Wcscasecmp(ref char str1, ref char str2)
+		public static int Wcscasecmp(in char str1, in char str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1810,7 +2100,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Wcsncasecmp(ref char str1, char* str2, nuint len)
+		public static int Wcsncasecmp(in char str1, char* str2, nuint len)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1837,7 +2127,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Wcsncasecmp(char* str1, ref char str2, nuint len)
+		public static int Wcsncasecmp(char* str1, in char str2, nuint len)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -1864,7 +2154,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Wcsncasecmp(ref char str1, ref char str2, nuint len)
+		public static int Wcsncasecmp(in char str1, in char str2, nuint len)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -1916,7 +2206,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Strlen(ref byte str)
+		public static nuint Strlen(in byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -2014,7 +2304,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Strlcpy(byte* dst, ref byte src, nuint maxlen)
+		public static nuint Strlcpy(byte* dst, in byte src, nuint maxlen)
 		{
 			fixed (byte* psrc = &src)
 			{
@@ -2059,7 +2349,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Strlcpy(ref byte dst, ref byte src, nuint maxlen)
+		public static nuint Strlcpy(ref byte dst, in byte src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -2185,7 +2475,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Utf8Strlcpy(byte* dst, ref byte src, nuint dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, in byte src, nuint dstBytes)
 		{
 			fixed (byte* psrc = &src)
 			{
@@ -2230,7 +2520,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Utf8Strlcpy(ref byte dst, ref byte src, nuint dstBytes)
+		public static nuint Utf8Strlcpy(ref byte dst, in byte src, nuint dstBytes)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -2356,7 +2646,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Strlcat(byte* dst, ref byte src, nuint maxlen)
+		public static nuint Strlcat(byte* dst, in byte src, nuint maxlen)
 		{
 			fixed (byte* psrc = &src)
 			{
@@ -2401,7 +2691,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Strlcat(ref byte dst, ref byte src, nuint maxlen)
+		public static nuint Strlcat(ref byte dst, in byte src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
@@ -2496,7 +2786,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strdup(ref byte str)
+		public static byte* Strdup(in byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -2505,7 +2795,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrdupS(ref byte str)
+		public static string StrdupS(in byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -2896,7 +3186,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strchr(ref byte str, int c)
+		public static byte* Strchr(in byte str, int c)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -2905,7 +3195,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrchrS(ref byte str, int c)
+		public static string StrchrS(in byte str, int c)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -3008,7 +3298,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strrchr(ref byte str, int c)
+		public static byte* Strrchr(in byte str, int c)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -3017,7 +3307,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrrchrS(ref byte str, int c)
+		public static string StrrchrS(in byte str, int c)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -3120,7 +3410,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strstr(ref byte haystack, byte* needle)
+		public static byte* Strstr(in byte haystack, byte* needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -3129,7 +3419,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrstrS(ref byte haystack, byte* needle)
+		public static string StrstrS(in byte haystack, byte* needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -3210,7 +3500,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strstr(byte* haystack, ref byte needle)
+		public static byte* Strstr(byte* haystack, in byte needle)
 		{
 			fixed (byte* pneedle = &needle)
 			{
@@ -3219,7 +3509,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrstrS(byte* haystack, ref byte needle)
+		public static string StrstrS(byte* haystack, in byte needle)
 		{
 			fixed (byte* pneedle = &needle)
 			{
@@ -3300,7 +3590,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strstr(ref byte haystack, ref byte needle)
+		public static byte* Strstr(in byte haystack, in byte needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -3312,7 +3602,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrstrS(ref byte haystack, ref byte needle)
+		public static string StrstrS(in byte haystack, in byte needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -3466,7 +3756,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strcasestr(ref byte haystack, byte* needle)
+		public static byte* Strcasestr(in byte haystack, byte* needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -3475,7 +3765,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrcasestrS(ref byte haystack, byte* needle)
+		public static string StrcasestrS(in byte haystack, byte* needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -3556,7 +3846,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strcasestr(byte* haystack, ref byte needle)
+		public static byte* Strcasestr(byte* haystack, in byte needle)
 		{
 			fixed (byte* pneedle = &needle)
 			{
@@ -3565,7 +3855,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrcasestrS(byte* haystack, ref byte needle)
+		public static string StrcasestrS(byte* haystack, in byte needle)
 		{
 			fixed (byte* pneedle = &needle)
 			{
@@ -3646,7 +3936,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strcasestr(ref byte haystack, ref byte needle)
+		public static byte* Strcasestr(in byte haystack, in byte needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -3658,7 +3948,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrcasestrS(ref byte haystack, ref byte needle)
+		public static string StrcasestrS(in byte haystack, in byte needle)
 		{
 			fixed (byte* phaystack = &haystack)
 			{
@@ -3886,7 +4176,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strtokr(byte* s1, ref byte s2, byte** saveptr)
+		public static byte* Strtokr(byte* s1, in byte s2, byte** saveptr)
 		{
 			fixed (byte* ps2 = &s2)
 			{
@@ -3895,7 +4185,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrtokrS(byte* s1, ref byte s2, byte** saveptr)
+		public static string StrtokrS(byte* s1, in byte s2, byte** saveptr)
 		{
 			fixed (byte* ps2 = &s2)
 			{
@@ -3976,7 +4266,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static byte* Strtokr(ref byte s1, ref byte s2, byte** saveptr)
+		public static byte* Strtokr(ref byte s1, in byte s2, byte** saveptr)
 		{
 			fixed (byte* ps1 = &s1)
 			{
@@ -3988,7 +4278,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrtokrS(ref byte s1, ref byte s2, byte** saveptr)
+		public static string StrtokrS(ref byte s1, in byte s2, byte** saveptr)
 		{
 			fixed (byte* ps1 = &s1)
 			{
@@ -4226,7 +4516,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static byte* Strtokr(byte* s1, ref byte s2, ref byte* saveptr)
+		public static byte* Strtokr(byte* s1, in byte s2, ref byte* saveptr)
 		{
 			fixed (byte* ps2 = &s2)
 			{
@@ -4238,7 +4528,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrtokrS(byte* s1, ref byte s2, ref byte* saveptr)
+		public static string StrtokrS(byte* s1, in byte s2, ref byte* saveptr)
 		{
 			fixed (byte* ps2 = &s2)
 			{
@@ -4334,7 +4624,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static byte* Strtokr(ref byte s1, ref byte s2, ref byte* saveptr)
+		public static byte* Strtokr(ref byte s1, in byte s2, ref byte* saveptr)
 		{
 			fixed (byte* ps1 = &s1)
 			{
@@ -4349,7 +4639,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static string StrtokrS(ref byte s1, ref byte s2, ref byte* saveptr)
+		public static string StrtokrS(ref byte s1, in byte s2, ref byte* saveptr)
 		{
 			fixed (byte* ps1 = &s1)
 			{
@@ -4514,7 +4804,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Utf8Strlen(ref byte str)
+		public static nuint Utf8Strlen(in byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4575,7 +4865,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static nuint Utf8Strnlen(ref byte str, nuint bytes)
+		public static nuint Utf8Strnlen(in byte str, nuint bytes)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4723,294 +5013,6 @@ namespace Hexa.NET.SDL2
 			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, byte*>)funcTable[59])(value, str, radix);
 			#else
 			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, int, nint>)funcTable[59])(value, (nint)str, radix);
-			#endif
-		}
-
-		public static byte* Uitoa(uint value, byte* str, int radix)
-		{
-			byte* ret = UitoaNative(value, str, radix);
-			return ret;
-		}
-
-		public static string UitoaS(uint value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(UitoaNative(value, str, radix));
-			return ret;
-		}
-
-		public static byte* Uitoa(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = UitoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		public static string UitoaS(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(UitoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		public static byte* Uitoa(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = UitoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		public static string UitoaS(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(UitoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* LtoaNative(int value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*, int, byte*>)funcTable[60])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint, int, nint>)funcTable[60])(value, (nint)str, radix);
-			#endif
-		}
-
-		public static byte* Ltoa(int value, byte* str, int radix)
-		{
-			byte* ret = LtoaNative(value, str, radix);
-			return ret;
-		}
-
-		public static string LtoaS(int value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(LtoaNative(value, str, radix));
-			return ret;
-		}
-
-		public static byte* Ltoa(int value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = LtoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		public static string LtoaS(int value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(LtoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		public static byte* Ltoa(int value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = LtoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		public static string LtoaS(int value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(LtoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* UltoaNative(uint value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, byte*>)funcTable[61])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, int, nint>)funcTable[61])(value, (nint)str, radix);
-			#endif
-		}
-
-		public static byte* Ultoa(uint value, byte* str, int radix)
-		{
-			byte* ret = UltoaNative(value, str, radix);
-			return ret;
-		}
-
-		public static string UltoaS(uint value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(UltoaNative(value, str, radix));
-			return ret;
-		}
-
-		public static byte* Ultoa(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = UltoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		public static string UltoaS(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(UltoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		public static byte* Ultoa(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = UltoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		public static string UltoaS(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(UltoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* LltoaNative(long value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, byte*, int, byte*>)funcTable[62])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<long, nint, int, nint>)funcTable[62])(value, (nint)str, radix);
 			#endif
 		}
 	}

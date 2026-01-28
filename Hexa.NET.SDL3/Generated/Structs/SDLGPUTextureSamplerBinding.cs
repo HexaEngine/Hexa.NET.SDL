@@ -20,27 +20,86 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureSamplerBinding")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureSamplerBinding
 	{
 		/// <summary>
 		/// The texture to bind. Must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "texture")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The sampler to bind. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sampler")]
+		[NativeName(NativeNameType.Type, "SDL_GPUSampler *")]
 		public unsafe SDLGPUSampler* Sampler;
 
 
-		public unsafe SDLGPUTextureSamplerBinding(SDLGPUTexture* texture = default, SDLGPUSampler* sampler = default)
+		public unsafe SDLGPUTextureSamplerBinding(SDLGPUTexturePtr texture = default, SDLGPUSamplerPtr sampler = default)
 		{
 			Texture = texture;
 			Sampler = sampler;
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying parameters in a sampler binding call.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTextureSamplerBinding")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTextureSamplerBindingPtr : IEquatable<SDLGPUTextureSamplerBindingPtr>
+	{
+		public SDLGPUTextureSamplerBindingPtr(SDLGPUTextureSamplerBinding* handle) { Handle = handle; }
+
+		public SDLGPUTextureSamplerBinding* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTextureSamplerBindingPtr Null => new SDLGPUTextureSamplerBindingPtr(null);
+
+		public SDLGPUTextureSamplerBinding this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTextureSamplerBindingPtr(SDLGPUTextureSamplerBinding* handle) => new SDLGPUTextureSamplerBindingPtr(handle);
+
+		public static implicit operator SDLGPUTextureSamplerBinding*(SDLGPUTextureSamplerBindingPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTextureSamplerBindingPtr left, SDLGPUTextureSamplerBindingPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTextureSamplerBindingPtr left, SDLGPUTextureSamplerBindingPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTextureSamplerBindingPtr left, SDLGPUTextureSamplerBinding* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTextureSamplerBindingPtr left, SDLGPUTextureSamplerBinding* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTextureSamplerBindingPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTextureSamplerBindingPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTextureSamplerBindingPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The texture to bind. Must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER. <br/>
+		/// </summary>
+		public ref SDLGPUTexturePtr Texture => ref Unsafe.AsRef<SDLGPUTexturePtr>(&Handle->Texture);
+		/// <summary>
+		/// The sampler to bind. <br/>
+		/// </summary>
+		public ref SDLGPUSamplerPtr Sampler => ref Unsafe.AsRef<SDLGPUSamplerPtr>(&Handle->Sampler);
 	}
 
 }

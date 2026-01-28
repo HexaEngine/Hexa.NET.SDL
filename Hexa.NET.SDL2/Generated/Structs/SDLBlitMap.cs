@@ -22,4 +22,44 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLBlitMapPtr : IEquatable<SDLBlitMapPtr>
+	{
+		public SDLBlitMapPtr(SDLBlitMap* handle) { Handle = handle; }
+
+		public SDLBlitMap* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLBlitMapPtr Null => new SDLBlitMapPtr(null);
+
+		public SDLBlitMap this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLBlitMapPtr(SDLBlitMap* handle) => new SDLBlitMapPtr(handle);
+
+		public static implicit operator SDLBlitMap*(SDLBlitMapPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLBlitMapPtr left, SDLBlitMapPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLBlitMapPtr left, SDLBlitMapPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLBlitMapPtr left, SDLBlitMap* right) => left.Handle == right;
+
+		public static bool operator !=(SDLBlitMapPtr left, SDLBlitMap* right) => left.Handle != right;
+
+		public bool Equals(SDLBlitMapPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLBlitMapPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLBlitMapPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
 }

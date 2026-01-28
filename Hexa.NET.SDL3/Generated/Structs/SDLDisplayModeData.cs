@@ -15,17 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// Internal display mode data.<br/>
-	/// This lives as a field in SDL_DisplayMode, as opaque data.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_DisplayModeData")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDisplayModeData
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_DisplayModeData")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLDisplayModeDataPtr : IEquatable<SDLDisplayModeDataPtr>
+	{
+		public SDLDisplayModeDataPtr(SDLDisplayModeData* handle) { Handle = handle; }
+
+		public SDLDisplayModeData* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLDisplayModeDataPtr Null => new SDLDisplayModeDataPtr(null);
+
+		public SDLDisplayModeData this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLDisplayModeDataPtr(SDLDisplayModeData* handle) => new SDLDisplayModeDataPtr(handle);
+
+		public static implicit operator SDLDisplayModeData*(SDLDisplayModeDataPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLDisplayModeDataPtr left, SDLDisplayModeDataPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLDisplayModeDataPtr left, SDLDisplayModeDataPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLDisplayModeDataPtr left, SDLDisplayModeData* right) => left.Handle == right;
+
+		public static bool operator !=(SDLDisplayModeDataPtr left, SDLDisplayModeData* right) => left.Handle != right;
+
+		public bool Equals(SDLDisplayModeDataPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLDisplayModeDataPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLDisplayModeDataPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

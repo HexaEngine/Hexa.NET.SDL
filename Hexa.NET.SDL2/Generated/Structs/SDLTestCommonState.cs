@@ -96,7 +96,7 @@ namespace Hexa.NET.SDL2
 		public SDLRect Confine;
 
 
-		public unsafe SDLTestCommonState(byte** argv = default, uint flags = default, uint verbose = default, byte* videodriver = default, int display = default, byte* windowTitle = default, byte* windowIcon = default, uint windowFlags = default, SDLBool flashOnFocusLoss = default, int windowX = default, int windowY = default, int windowW = default, int windowH = default, int windowMinw = default, int windowMinh = default, int windowMaxw = default, int windowMaxh = default, int logicalW = default, int logicalH = default, float scale = default, int depth = default, int refreshRate = default, int numWindows = default, SDLWindow** windows = default, byte* renderdriver = default, uint renderFlags = default, SDLBool skipRenderer = default, SDLRenderer** renderers = default, SDLTexture** targets = default, byte* audiodriver = default, SDLAudioSpec audiospec = default, int glRedSize = default, int glGreenSize = default, int glBlueSize = default, int glAlphaSize = default, int glBufferSize = default, int glDepthSize = default, int glStencilSize = default, int glDoubleBuffer = default, int glAccumRedSize = default, int glAccumGreenSize = default, int glAccumBlueSize = default, int glAccumAlphaSize = default, int glStereo = default, int glMultisamplebuffers = default, int glMultisamplesamples = default, int glRetainedBacking = default, int glAccelerated = default, int glMajorVersion = default, int glMinorVersion = default, int glDebug = default, int glProfileMask = default, SDLRect confine = default)
+		public unsafe SDLTestCommonState(byte** argv = default, uint flags = default, uint verbose = default, byte* videodriver = default, int display = default, byte* windowTitle = default, byte* windowIcon = default, uint windowFlags = default, SDLBool flashOnFocusLoss = default, int windowX = default, int windowY = default, int windowW = default, int windowH = default, int windowMinw = default, int windowMinh = default, int windowMaxw = default, int windowMaxh = default, int logicalW = default, int logicalH = default, float scale = default, int depth = default, int refreshRate = default, int numWindows = default, SDLWindowPtrPtr windows = default, byte* renderdriver = default, uint renderFlags = default, SDLBool skipRenderer = default, SDLRendererPtrPtr renderers = default, SDLTexturePtrPtr targets = default, byte* audiodriver = default, SDLAudioSpec audiospec = default, int glRedSize = default, int glGreenSize = default, int glBlueSize = default, int glAlphaSize = default, int glBufferSize = default, int glDepthSize = default, int glStencilSize = default, int glDoubleBuffer = default, int glAccumRedSize = default, int glAccumGreenSize = default, int glAccumBlueSize = default, int glAccumAlphaSize = default, int glStereo = default, int glMultisamplebuffers = default, int glMultisamplesamples = default, int glRetainedBacking = default, int glAccelerated = default, int glMajorVersion = default, int glMinorVersion = default, int glDebug = default, int glProfileMask = default, SDLRect confine = default)
 		{
 			Argv = argv;
 			Flags = flags;
@@ -154,6 +154,117 @@ namespace Hexa.NET.SDL2
 		}
 
 
+	}
+
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestCommonStatePtr : IEquatable<SDLTestCommonStatePtr>
+	{
+		public SDLTestCommonStatePtr(SDLTestCommonState* handle) { Handle = handle; }
+
+		public SDLTestCommonState* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestCommonStatePtr Null => new SDLTestCommonStatePtr(null);
+
+		public SDLTestCommonState this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestCommonStatePtr(SDLTestCommonState* handle) => new SDLTestCommonStatePtr(handle);
+
+		public static implicit operator SDLTestCommonState*(SDLTestCommonStatePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestCommonStatePtr left, SDLTestCommonStatePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestCommonStatePtr left, SDLTestCommonStatePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestCommonStatePtr left, SDLTestCommonState* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestCommonStatePtr left, SDLTestCommonState* right) => left.Handle != right;
+
+		public bool Equals(SDLTestCommonStatePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestCommonStatePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestCommonStatePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// SDL init flags <br/>
+		/// </summary>
+		public byte** Argv { get => Handle->Argv; set => Handle->Argv = value; }
+		public ref uint Flags => ref Unsafe.AsRef<uint>(&Handle->Flags);
+		public ref uint Verbose => ref Unsafe.AsRef<uint>(&Handle->Verbose);
+		/// <summary>
+		/// Video info <br/>
+		/// </summary>
+		public byte* Videodriver { get => Handle->Videodriver; set => Handle->Videodriver = value; }
+		public ref int Display => ref Unsafe.AsRef<int>(&Handle->Display);
+		public byte* WindowTitle { get => Handle->WindowTitle; set => Handle->WindowTitle = value; }
+		public byte* WindowIcon { get => Handle->WindowIcon; set => Handle->WindowIcon = value; }
+		public ref uint WindowFlags => ref Unsafe.AsRef<uint>(&Handle->WindowFlags);
+		public ref SDLBool FlashOnFocusLoss => ref Unsafe.AsRef<SDLBool>(&Handle->FlashOnFocusLoss);
+		public ref int WindowX => ref Unsafe.AsRef<int>(&Handle->WindowX);
+		public ref int WindowY => ref Unsafe.AsRef<int>(&Handle->WindowY);
+		public ref int WindowW => ref Unsafe.AsRef<int>(&Handle->WindowW);
+		public ref int WindowH => ref Unsafe.AsRef<int>(&Handle->WindowH);
+		public ref int WindowMinW => ref Unsafe.AsRef<int>(&Handle->WindowMinW);
+		public ref int WindowMinH => ref Unsafe.AsRef<int>(&Handle->WindowMinH);
+		public ref int WindowMaxW => ref Unsafe.AsRef<int>(&Handle->WindowMaxW);
+		public ref int WindowMaxH => ref Unsafe.AsRef<int>(&Handle->WindowMaxH);
+		public ref int LogicalW => ref Unsafe.AsRef<int>(&Handle->LogicalW);
+		public ref int LogicalH => ref Unsafe.AsRef<int>(&Handle->LogicalH);
+		public ref float Scale => ref Unsafe.AsRef<float>(&Handle->Scale);
+		public ref int Depth => ref Unsafe.AsRef<int>(&Handle->Depth);
+		public ref int RefreshRate => ref Unsafe.AsRef<int>(&Handle->RefreshRate);
+		public ref int NumWindows => ref Unsafe.AsRef<int>(&Handle->NumWindows);
+		public ref SDLWindowPtrPtr Windows => ref Unsafe.AsRef<SDLWindowPtrPtr>(&Handle->Windows);
+		/// <summary>
+		/// Renderer info <br/>
+		/// </summary>
+		public byte* Renderdriver { get => Handle->Renderdriver; set => Handle->Renderdriver = value; }
+		public ref uint RenderFlags => ref Unsafe.AsRef<uint>(&Handle->RenderFlags);
+		public ref SDLBool SkipRenderer => ref Unsafe.AsRef<SDLBool>(&Handle->SkipRenderer);
+		public ref SDLRendererPtrPtr Renderers => ref Unsafe.AsRef<SDLRendererPtrPtr>(&Handle->Renderers);
+		public ref SDLTexturePtrPtr Targets => ref Unsafe.AsRef<SDLTexturePtrPtr>(&Handle->Targets);
+		/// <summary>
+		/// Audio info <br/>
+		/// </summary>
+		public byte* Audiodriver { get => Handle->Audiodriver; set => Handle->Audiodriver = value; }
+		public ref SDLAudioSpec Audiospec => ref Unsafe.AsRef<SDLAudioSpec>(&Handle->Audiospec);
+		/// <summary>
+		/// GL settings <br/>
+		/// </summary>
+		public ref int GlRedSize => ref Unsafe.AsRef<int>(&Handle->GlRedSize);
+		public ref int GlGreenSize => ref Unsafe.AsRef<int>(&Handle->GlGreenSize);
+		public ref int GlBlueSize => ref Unsafe.AsRef<int>(&Handle->GlBlueSize);
+		public ref int GlAlphaSize => ref Unsafe.AsRef<int>(&Handle->GlAlphaSize);
+		public ref int GlBufferSize => ref Unsafe.AsRef<int>(&Handle->GlBufferSize);
+		public ref int GlDepthSize => ref Unsafe.AsRef<int>(&Handle->GlDepthSize);
+		public ref int GlStencilSize => ref Unsafe.AsRef<int>(&Handle->GlStencilSize);
+		public ref int GlDoubleBuffer => ref Unsafe.AsRef<int>(&Handle->GlDoubleBuffer);
+		public ref int GlAccumRedSize => ref Unsafe.AsRef<int>(&Handle->GlAccumRedSize);
+		public ref int GlAccumGreenSize => ref Unsafe.AsRef<int>(&Handle->GlAccumGreenSize);
+		public ref int GlAccumBlueSize => ref Unsafe.AsRef<int>(&Handle->GlAccumBlueSize);
+		public ref int GlAccumAlphaSize => ref Unsafe.AsRef<int>(&Handle->GlAccumAlphaSize);
+		public ref int GlStereo => ref Unsafe.AsRef<int>(&Handle->GlStereo);
+		public ref int GlMultisamplebuffers => ref Unsafe.AsRef<int>(&Handle->GlMultisamplebuffers);
+		public ref int GlMultisamplesamples => ref Unsafe.AsRef<int>(&Handle->GlMultisamplesamples);
+		public ref int GlRetainedBacking => ref Unsafe.AsRef<int>(&Handle->GlRetainedBacking);
+		public ref int GlAccelerated => ref Unsafe.AsRef<int>(&Handle->GlAccelerated);
+		public ref int GlMajorVersion => ref Unsafe.AsRef<int>(&Handle->GlMajorVersion);
+		public ref int GlMinorVersion => ref Unsafe.AsRef<int>(&Handle->GlMinorVersion);
+		public ref int GlDebug => ref Unsafe.AsRef<int>(&Handle->GlDebug);
+		public ref int GlProfileMask => ref Unsafe.AsRef<int>(&Handle->GlProfileMask);
+		/// <summary>
+		/// Additional fields added in 2.0.18 <br/>
+		/// </summary>
+		public ref SDLRect Confine => ref Unsafe.AsRef<SDLRect>(&Handle->Confine);
 	}
 
 }

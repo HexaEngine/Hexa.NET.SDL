@@ -16,37 +16,49 @@ namespace Hexa.NET.SDL3
 	/// SDL_IOStream status, set by a read or write operation.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_IOStatus")]
 	public enum SDLIOStatus : int
 	{
 		/// <summary>
 		/// Everything is ready (no errors and not EOF). <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_IO_STATUS_READY")]
+		[NativeName(NativeNameType.Value, "0")]
 		Ready = unchecked(0),
 
 		/// <summary>
 		/// Read or write I/O error <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_IO_STATUS_ERROR")]
+		[NativeName(NativeNameType.Value, "1")]
 		Error = unchecked(1),
 
 		/// <summary>
 		/// End of file <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_IO_STATUS_EOF")]
+		[NativeName(NativeNameType.Value, "2")]
 		Eof = unchecked(2),
 
 		/// <summary>
 		/// Non blocking I/O, not ready <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_IO_STATUS_NOT_READY")]
+		[NativeName(NativeNameType.Value, "3")]
 		NotReady = unchecked(3),
 
 		/// <summary>
 		/// Tried to write a read-only buffer <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_IO_STATUS_READONLY")]
+		[NativeName(NativeNameType.Value, "4")]
 		Readonly = unchecked(4),
 
 		/// <summary>
 		/// Tried to read a write-only buffer <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_IO_STATUS_WRITEONLY")]
+		[NativeName(NativeNameType.Value, "5")]
 		Writeonly = unchecked(5),
 	}
 }

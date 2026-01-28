@@ -16,11 +16,18 @@ namespace Hexa.NET.SDL3
 	/// An enumeration of hint priorities.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_HintPriority")]
 	[Flags]
 	public enum SDLHintPriority : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_HINT_DEFAULT")]
+		[NativeName(NativeNameType.Value, "0")]
 		Default = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_HINT_NORMAL")]
+		[NativeName(NativeNameType.Value, "1")]
 		Normal = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_HINT_OVERRIDE")]
+		[NativeName(NativeNameType.Value, "2")]
 		Override = unchecked(2),
 	}
 }

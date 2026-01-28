@@ -49,7 +49,7 @@ namespace Hexa.NET.SDL2
 		public unsafe SDLMessageBoxColorScheme* ColorScheme;
 
 
-		public unsafe SDLMessageBoxData(uint flags = default, SDLWindow* window = default, byte* title = default, byte* message = default, int numbuttons = default, SDLMessageBoxButtonData* buttons = default, SDLMessageBoxColorScheme* colorScheme = default)
+		public unsafe SDLMessageBoxData(uint flags = default, SDLWindowPtr window = default, byte* title = default, byte* message = default, int numbuttons = default, SDLMessageBoxButtonDataPtr buttons = default, SDLMessageBoxColorSchemePtr colorScheme = default)
 		{
 			Flags = flags;
 			Window = window;
@@ -61,6 +61,71 @@ namespace Hexa.NET.SDL2
 		}
 
 
+	}
+
+	/// <summary>
+	/// MessageBox structure containing title, text, window, etc.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLMessageBoxDataPtr : IEquatable<SDLMessageBoxDataPtr>
+	{
+		public SDLMessageBoxDataPtr(SDLMessageBoxData* handle) { Handle = handle; }
+
+		public SDLMessageBoxData* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLMessageBoxDataPtr Null => new SDLMessageBoxDataPtr(null);
+
+		public SDLMessageBoxData this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLMessageBoxDataPtr(SDLMessageBoxData* handle) => new SDLMessageBoxDataPtr(handle);
+
+		public static implicit operator SDLMessageBoxData*(SDLMessageBoxDataPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLMessageBoxDataPtr left, SDLMessageBoxDataPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLMessageBoxDataPtr left, SDLMessageBoxDataPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLMessageBoxDataPtr left, SDLMessageBoxData* right) => left.Handle == right;
+
+		public static bool operator !=(SDLMessageBoxDataPtr left, SDLMessageBoxData* right) => left.Handle != right;
+
+		public bool Equals(SDLMessageBoxDataPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLMessageBoxDataPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLMessageBoxDataPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// SDL_MessageBoxFlags <br/>
+		/// </summary>
+		public ref uint Flags => ref Unsafe.AsRef<uint>(&Handle->Flags);
+		/// <summary>
+		/// Parent window, can be NULL <br/>
+		/// </summary>
+		public ref SDLWindowPtr Window => ref Unsafe.AsRef<SDLWindowPtr>(&Handle->Window);
+		/// <summary>
+		/// UTF-8 title <br/>
+		/// </summary>
+		public byte* Title { get => Handle->Title; set => Handle->Title = value; }
+		/// <summary>
+		/// UTF-8 message text <br/>
+		/// </summary>
+		public byte* Message { get => Handle->Message; set => Handle->Message = value; }
+		public ref int Numbuttons => ref Unsafe.AsRef<int>(&Handle->Numbuttons);
+		public ref SDLMessageBoxButtonDataPtr Buttons => ref Unsafe.AsRef<SDLMessageBoxButtonDataPtr>(&Handle->Buttons);
+		/// <summary>
+		/// SDL_MessageBoxColorScheme, can be NULL to use system settings <br/>
+		/// </summary>
+		public ref SDLMessageBoxColorSchemePtr ColorScheme => ref Unsafe.AsRef<SDLMessageBoxColorSchemePtr>(&Handle->ColorScheme);
 	}
 
 }

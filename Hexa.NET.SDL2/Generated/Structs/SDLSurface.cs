@@ -84,7 +84,7 @@ namespace Hexa.NET.SDL2
 		public int Refcount;
 
 
-		public unsafe SDLSurface(uint flags = default, SDLPixelFormat* format = default, int w = default, int h = default, int pitch = default, void* pixels = default, void* userdata = default, int locked = default, void* listBlitmap = default, SDLRect clipRect = default, SDLBlitMap* map = default, int refcount = default)
+		public unsafe SDLSurface(uint flags = default, SDLPixelFormatPtr format = default, int w = default, int h = default, int pitch = default, void* pixels = default, void* userdata = default, int locked = default, void* listBlitmap = default, SDLRect clipRect = default, SDLBlitMapPtr map = default, int refcount = default)
 		{
 			Flags = flags;
 			Format = format;
@@ -101,6 +101,144 @@ namespace Hexa.NET.SDL2
 		}
 
 
+	}
+
+	/// <summary>
+	/// A collection of pixels used in software blitting.<br/>
+	/// This structure should be treated as read-only, except for `pixels`, which,<br/>
+	/// if not NULL, contains the raw pixel data for the surface.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLSurfacePtr : IEquatable<SDLSurfacePtr>
+	{
+		public SDLSurfacePtr(SDLSurface* handle) { Handle = handle; }
+
+		public SDLSurface* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLSurfacePtr Null => new SDLSurfacePtr(null);
+
+		public SDLSurface this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLSurfacePtr(SDLSurface* handle) => new SDLSurfacePtr(handle);
+
+		public static implicit operator SDLSurface*(SDLSurfacePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLSurfacePtr left, SDLSurfacePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLSurfacePtr left, SDLSurfacePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLSurfacePtr left, SDLSurface* right) => left.Handle == right;
+
+		public static bool operator !=(SDLSurfacePtr left, SDLSurface* right) => left.Handle != right;
+
+		public bool Equals(SDLSurfacePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLSurfacePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLSurfacePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Read-only <br/>
+		/// </summary>
+		public ref uint Flags => ref Unsafe.AsRef<uint>(&Handle->Flags);
+		/// <summary>
+		/// Read-only <br/>
+		/// </summary>
+		public ref SDLPixelFormatPtr Format => ref Unsafe.AsRef<SDLPixelFormatPtr>(&Handle->Format);
+		/// <summary>
+		/// Read-only <br/>
+		/// </summary>
+		public ref int W => ref Unsafe.AsRef<int>(&Handle->W);
+		/// <summary>
+		/// Read-only <br/>
+		/// </summary>
+		public ref int H => ref Unsafe.AsRef<int>(&Handle->H);
+		/// <summary>
+		/// Read-only <br/>
+		/// </summary>
+		public ref int Pitch => ref Unsafe.AsRef<int>(&Handle->Pitch);
+		/// <summary>
+		/// Read-write <br/>
+		/// </summary>
+		public void* Pixels { get => Handle->Pixels; set => Handle->Pixels = value; }
+		/// <summary>
+		/// Read-write <br/>
+		/// </summary>
+		public void* Userdata { get => Handle->Userdata; set => Handle->Userdata = value; }
+		/// <summary>
+		/// Read-only <br/>
+		/// </summary>
+		public ref int Locked => ref Unsafe.AsRef<int>(&Handle->Locked);
+		/// <summary>
+		/// Private <br/>
+		/// </summary>
+		public void* ListBlitmap { get => Handle->ListBlitmap; set => Handle->ListBlitmap = value; }
+		/// <summary>
+		/// Read-only <br/>
+		/// </summary>
+		public ref SDLRect ClipRect => ref Unsafe.AsRef<SDLRect>(&Handle->ClipRect);
+		/// <summary>
+		/// Private <br/>
+		/// </summary>
+		public ref SDLBlitMapPtr Map => ref Unsafe.AsRef<SDLBlitMapPtr>(&Handle->Map);
+		/// <summary>
+		/// Read-mostly <br/>
+		/// </summary>
+		public ref int Refcount => ref Unsafe.AsRef<int>(&Handle->Refcount);
+	}
+
+	/// <summary>
+	/// A collection of pixels used in software blitting.<br/>
+	/// This structure should be treated as read-only, except for `pixels`, which,<br/>
+	/// if not NULL, contains the raw pixel data for the surface.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLSurfacePtrPtr : IEquatable<SDLSurfacePtrPtr>
+	{
+		public SDLSurfacePtrPtr(SDLSurface** handle) { Handle = handle; }
+
+		public SDLSurface** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLSurfacePtrPtr Null => new SDLSurfacePtrPtr(null);
+
+		public SDLSurface* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLSurfacePtrPtr(SDLSurface** handle) => new SDLSurfacePtrPtr(handle);
+
+		public static implicit operator SDLSurface**(SDLSurfacePtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLSurfacePtrPtr left, SDLSurfacePtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLSurfacePtrPtr left, SDLSurfacePtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLSurfacePtrPtr left, SDLSurface** right) => left.Handle == right;
+
+		public static bool operator !=(SDLSurfacePtrPtr left, SDLSurface** right) => left.Handle != right;
+
+		public bool Equals(SDLSurfacePtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLSurfacePtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLSurfacePtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

@@ -18,6 +18,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Holds information about a single test case.<br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDLTest_TestCaseReference")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestTestCaseReference
 	{
@@ -26,12 +27,16 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// Func2Stress <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "testCase")]
+		[NativeName(NativeNameType.Type, "SDLTest_TestCaseFp")]
 		public unsafe void* TestCase;
 		/// <summary>
 		/// !<br/>
 		/// <<br/>
 		/// Short name (or function name) "Func2Stress" <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "name")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Name;
 
 		/// <summary>
@@ -39,6 +44,8 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// Long name or full description "This test pushes func2() to the limit." <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "description")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Description;
 
 		/// <summary>
@@ -46,18 +53,64 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// Set to TEST_ENABLED or TEST_DISABLED (test won't be run) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "enabled")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Enabled;
 
 
-		public unsafe SDLTestTestCaseReference(SDLTestTestCaseFp testCase = default, byte* name = default, byte* description = default, int enabled = default)
+		public unsafe SDLTestTestCaseReference(delegate*<void*, int> testCase = default, byte* name = default, byte* description = default, int enabled = default)
 		{
-			TestCase = (delegate*<void*, int>)Marshal.GetFunctionPointerForDelegate(testCase);
+			TestCase = (delegate*<void*, int>)testCase;
 			Name = name;
 			Description = description;
 			Enabled = enabled;
 		}
 
 
+	}
+
+	/// <summary>
+	/// Holds information about a single test case.<br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDLTest_TestCaseReference")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestTestCaseReferencePtrPtr : IEquatable<SDLTestTestCaseReferencePtrPtr>
+	{
+		public SDLTestTestCaseReferencePtrPtr(SDLTestTestCaseReference** handle) { Handle = handle; }
+
+		public SDLTestTestCaseReference** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestTestCaseReferencePtrPtr Null => new SDLTestTestCaseReferencePtrPtr(null);
+
+		public SDLTestTestCaseReference* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestTestCaseReferencePtrPtr(SDLTestTestCaseReference** handle) => new SDLTestTestCaseReferencePtrPtr(handle);
+
+		public static implicit operator SDLTestTestCaseReference**(SDLTestTestCaseReferencePtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestTestCaseReferencePtrPtr left, SDLTestTestCaseReferencePtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestTestCaseReferencePtrPtr left, SDLTestTestCaseReferencePtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestTestCaseReferencePtrPtr left, SDLTestTestCaseReference** right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestTestCaseReferencePtrPtr left, SDLTestTestCaseReference** right) => left.Handle != right;
+
+		public bool Equals(SDLTestTestCaseReferencePtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestTestCaseReferencePtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestTestCaseReferencePtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

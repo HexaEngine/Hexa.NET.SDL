@@ -34,4 +34,50 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// The structure that defines a point (floating point)<br/>
+	/// <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLFPointPtr : IEquatable<SDLFPointPtr>
+	{
+		public SDLFPointPtr(SDLFPoint* handle) { Handle = handle; }
+
+		public SDLFPoint* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLFPointPtr Null => new SDLFPointPtr(null);
+
+		public SDLFPoint this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLFPointPtr(SDLFPoint* handle) => new SDLFPointPtr(handle);
+
+		public static implicit operator SDLFPoint*(SDLFPointPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLFPointPtr left, SDLFPointPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLFPointPtr left, SDLFPointPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLFPointPtr left, SDLFPoint* right) => left.Handle == right;
+
+		public static bool operator !=(SDLFPointPtr left, SDLFPoint* right) => left.Handle != right;
+
+		public bool Equals(SDLFPointPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLFPointPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLFPointPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref float X => ref Unsafe.AsRef<float>(&Handle->X);
+		public ref float Y => ref Unsafe.AsRef<float>(&Handle->Y);
+	}
+
 }

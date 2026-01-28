@@ -16,18 +16,31 @@ namespace Hexa.NET.SDL3
 	/// The scaling mode.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_ScaleMode")]
 	public enum SDLScaleMode : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_SCALEMODE_INVALID")]
+		[NativeName(NativeNameType.Value, "-1")]
 		Invalid = unchecked(-1),
 		/// <summary>
 		/// nearest pixel sampling <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_SCALEMODE_NEAREST")]
+		[NativeName(NativeNameType.Value, "0")]
 		Nearest = unchecked(0),
 
 		/// <summary>
 		/// linear filtering <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_SCALEMODE_LINEAR")]
+		[NativeName(NativeNameType.Value, "1")]
 		Linear = unchecked(1),
+
+		/// <summary>
+		/// nearest pixel sampling with improved scaling for pixel art, available since SDL 3.4.0 <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_SCALEMODE_PIXELART")]
+		[NativeName(NativeNameType.Value, "2")]
+		Pixelart = unchecked(2),
 	}
 }

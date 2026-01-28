@@ -21,17 +21,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUColorTargetDescription")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUColorTargetDescription
 	{
 		/// <summary>
 		/// The pixel format of the texture to be used as a color target. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
 		public SDLGPUTextureFormat Format;
 
 		/// <summary>
 		/// The blend state to be used for the color target. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "blend_state")]
+		[NativeName(NativeNameType.Type, "SDL_GPUColorTargetBlendState")]
 		public SDLGPUColorTargetBlendState BlendState;
 
 
@@ -42,6 +47,61 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of color targets used in a graphics<br/>
+	/// pipeline.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUColorTargetDescription")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUColorTargetDescriptionPtr : IEquatable<SDLGPUColorTargetDescriptionPtr>
+	{
+		public SDLGPUColorTargetDescriptionPtr(SDLGPUColorTargetDescription* handle) { Handle = handle; }
+
+		public SDLGPUColorTargetDescription* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUColorTargetDescriptionPtr Null => new SDLGPUColorTargetDescriptionPtr(null);
+
+		public SDLGPUColorTargetDescription this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUColorTargetDescriptionPtr(SDLGPUColorTargetDescription* handle) => new SDLGPUColorTargetDescriptionPtr(handle);
+
+		public static implicit operator SDLGPUColorTargetDescription*(SDLGPUColorTargetDescriptionPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUColorTargetDescriptionPtr left, SDLGPUColorTargetDescriptionPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUColorTargetDescriptionPtr left, SDLGPUColorTargetDescriptionPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUColorTargetDescriptionPtr left, SDLGPUColorTargetDescription* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUColorTargetDescriptionPtr left, SDLGPUColorTargetDescription* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUColorTargetDescriptionPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUColorTargetDescriptionPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUColorTargetDescriptionPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The pixel format of the texture to be used as a color target. <br/>
+		/// </summary>
+		public ref SDLGPUTextureFormat Format => ref Unsafe.AsRef<SDLGPUTextureFormat>(&Handle->Format);
+		/// <summary>
+		/// The blend state to be used for the color target. <br/>
+		/// </summary>
+		public ref SDLGPUColorTargetBlendState BlendState => ref Unsafe.AsRef<SDLGPUColorTargetBlendState>(&Handle->BlendState);
 	}
 
 }

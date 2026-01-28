@@ -37,4 +37,51 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestTextWindowPtr : IEquatable<SDLTestTextWindowPtr>
+	{
+		public SDLTestTextWindowPtr(SDLTestTextWindow* handle) { Handle = handle; }
+
+		public SDLTestTextWindow* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestTextWindowPtr Null => new SDLTestTextWindowPtr(null);
+
+		public SDLTestTextWindow this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestTextWindowPtr(SDLTestTextWindow* handle) => new SDLTestTextWindowPtr(handle);
+
+		public static implicit operator SDLTestTextWindow*(SDLTestTextWindowPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestTextWindowPtr left, SDLTestTextWindowPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestTextWindowPtr left, SDLTestTextWindowPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestTextWindowPtr left, SDLTestTextWindow* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestTextWindowPtr left, SDLTestTextWindow* right) => left.Handle != right;
+
+		public bool Equals(SDLTestTextWindowPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestTextWindowPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestTextWindowPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref SDLRect Rect => ref Unsafe.AsRef<SDLRect>(&Handle->Rect);
+		public ref int Current => ref Unsafe.AsRef<int>(&Handle->Current);
+		public ref int Numlines => ref Unsafe.AsRef<int>(&Handle->Numlines);
+		public byte** Lines { get => Handle->Lines; set => Handle->Lines = value; }
+	}
+
 }

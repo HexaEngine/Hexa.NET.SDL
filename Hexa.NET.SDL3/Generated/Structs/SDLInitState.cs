@@ -19,7 +19,7 @@ namespace Hexa.NET.SDL3
 	/// A structure used for thread-safe initialization and shutdown.<br/>
 	/// Here is an example of using this:<br/>
 	/// ```c<br/>
-	/// static SDL_AtomicInitState init;<br/>
+	/// static SDL_InitState init;<br/>
 	/// bool InitSystem(void)<br/>
 	/// {<br/>
 	/// if (!SDL_ShouldInit(<br/>
@@ -70,11 +70,18 @@ namespace Hexa.NET.SDL3
 	/// code.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_InitState")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLInitState
 	{
+		[NativeName(NativeNameType.Field, "status")]
+		[NativeName(NativeNameType.Type, "SDL_AtomicInt")]
 		public SDLAtomicInt Status;
+		[NativeName(NativeNameType.Field, "thread")]
+		[NativeName(NativeNameType.Type, "SDL_ThreadID")]
 		public ulong Thread;
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Reserved;
 
 		public unsafe SDLInitState(SDLAtomicInt status = default, ulong thread = default, void* reserved = default)
@@ -85,6 +92,105 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure used for thread-safe initialization and shutdown.<br/>
+	/// Here is an example of using this:<br/>
+	/// ```c<br/>
+	/// static SDL_InitState init;<br/>
+	/// bool InitSystem(void)<br/>
+	/// {<br/>
+	/// if (!SDL_ShouldInit(<br/>
+	/// &init<br/>
+	/// )) {<br/>
+	/// // The system is initialized<br/>
+	/// return true;<br/>
+	/// }<br/>
+	/// // At this point, you should not leave this function without calling SDL_SetInitialized()<br/>
+	/// bool initialized = DoInitTasks();<br/>
+	/// SDL_SetInitialized(<br/>
+	/// &init<br/>
+	/// , initialized);<br/>
+	/// return initialized;<br/>
+	/// }<br/>
+	/// bool UseSubsystem(void)<br/>
+	/// {<br/>
+	/// if (SDL_ShouldInit(<br/>
+	/// &init<br/>
+	/// )) {<br/>
+	/// // Error, the subsystem isn't initialized<br/>
+	/// SDL_SetInitialized(<br/>
+	/// &init<br/>
+	/// , false);<br/>
+	/// return false;<br/>
+	/// }<br/>
+	/// // Do work using the initialized subsystem<br/>
+	/// return true;<br/>
+	/// }<br/>
+	/// void QuitSystem(void)<br/>
+	/// {<br/>
+	/// if (!SDL_ShouldQuit(<br/>
+	/// &init<br/>
+	/// )) {<br/>
+	/// // The system is not initialized<br/>
+	/// return;<br/>
+	/// }<br/>
+	/// // At this point, you should not leave this function without calling SDL_SetInitialized()<br/>
+	/// DoQuitTasks();<br/>
+	/// SDL_SetInitialized(<br/>
+	/// &init<br/>
+	/// , false);<br/>
+	/// }<br/>
+	/// ```<br/>
+	/// Note that this doesn't protect any resources created during initialization,<br/>
+	/// or guarantee that nobody is using those resources during cleanup. You<br/>
+	/// should use other mechanisms to protect those, if that's a concern for your<br/>
+	/// code.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_InitState")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLInitStatePtr : IEquatable<SDLInitStatePtr>
+	{
+		public SDLInitStatePtr(SDLInitState* handle) { Handle = handle; }
+
+		public SDLInitState* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLInitStatePtr Null => new SDLInitStatePtr(null);
+
+		public SDLInitState this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLInitStatePtr(SDLInitState* handle) => new SDLInitStatePtr(handle);
+
+		public static implicit operator SDLInitState*(SDLInitStatePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLInitStatePtr left, SDLInitStatePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLInitStatePtr left, SDLInitStatePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLInitStatePtr left, SDLInitState* right) => left.Handle == right;
+
+		public static bool operator !=(SDLInitStatePtr left, SDLInitState* right) => left.Handle != right;
+
+		public bool Equals(SDLInitStatePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLInitStatePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLInitStatePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref SDLAtomicInt Status => ref Unsafe.AsRef<SDLAtomicInt>(&Handle->Status);
+		public ref ulong Thread => ref Unsafe.AsRef<ulong>(&Handle->Thread);
+		public void* Reserved { get => Handle->Reserved; set => Handle->Reserved = value; }
 	}
 
 }

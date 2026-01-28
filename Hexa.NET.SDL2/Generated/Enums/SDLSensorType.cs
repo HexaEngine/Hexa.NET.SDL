@@ -48,7 +48,6 @@ namespace Hexa.NET.SDL2
 	/// The gyroscope axis data is not changed when the device is rotated.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
 	public enum SDLSensorType : int
 	{
 		/// <summary>

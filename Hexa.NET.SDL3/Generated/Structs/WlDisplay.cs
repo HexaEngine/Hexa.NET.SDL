@@ -15,6 +15,7 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	[NativeName(NativeNameType.StructOrClass, "wl_display")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct WlDisplay
 	{

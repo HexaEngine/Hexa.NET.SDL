@@ -18,6 +18,3221 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Get the current state of a button on a game controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte GameControllerGetButton(ref SDLGameController gamecontroller, SDLGameControllerButton button)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				byte ret = GameControllerGetButtonNative((SDLGameController*)pgamecontroller, button);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of touchpads on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerGetNumTouchpadsNative(SDLGameController* gamecontroller)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int>)funcTable[592])(gamecontroller);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[592])((nint)gamecontroller);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of touchpads on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetNumTouchpads(SDLGameController* gamecontroller)
+		{
+			int ret = GameControllerGetNumTouchpadsNative(gamecontroller);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of touchpads on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetNumTouchpads(ref SDLGameController gamecontroller)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerGetNumTouchpadsNative((SDLGameController*)pgamecontroller);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
+		/// controller.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerGetNumTouchpadFingersNative(SDLGameController* gamecontroller, int touchpad)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int, int>)funcTable[593])(gamecontroller, touchpad);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[593])((nint)gamecontroller, touchpad);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
+		/// controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetNumTouchpadFingers(SDLGameController* gamecontroller, int touchpad)
+		{
+			int ret = GameControllerGetNumTouchpadFingersNative(gamecontroller, touchpad);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
+		/// controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetNumTouchpadFingers(ref SDLGameController gamecontroller, int touchpad)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerGetNumTouchpadFingersNative((SDLGameController*)pgamecontroller, touchpad);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerGetTouchpadFingerNative(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, float* pressure)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int, int, byte*, float*, float*, float*, int>)funcTable[594])(gamecontroller, touchpad, finger, state, x, y, pressure);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, nint, nint, int>)funcTable[594])((nint)gamecontroller, touchpad, finger, (nint)state, (nint)x, (nint)y, (nint)pressure);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, float* pressure)
+		{
+			int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, y, pressure);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, float* pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, y, pressure);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, float* x, float* y, float* pressure)
+		{
+			fixed (byte* pstate = &state)
+			{
+				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, y, pressure);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, float* x, float* y, float* pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (byte* pstate = &state)
+				{
+					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, y, pressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, ref float x, float* y, float* pressure)
+		{
+			fixed (float* px = &x)
+			{
+				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, y, pressure);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, ref float x, float* y, float* pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* px = &x)
+				{
+					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, y, pressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, ref float x, float* y, float* pressure)
+		{
+			fixed (byte* pstate = &state)
+			{
+				fixed (float* px = &x)
+				{
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, pressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, ref float x, float* y, float* pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (byte* pstate = &state)
+				{
+					fixed (float* px = &x)
+					{
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, pressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, ref float y, float* pressure)
+		{
+			fixed (float* py = &y)
+			{
+				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, (float*)py, pressure);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, float* x, ref float y, float* pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* py = &y)
+				{
+					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, (float*)py, pressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, float* x, ref float y, float* pressure)
+		{
+			fixed (byte* pstate = &state)
+			{
+				fixed (float* py = &y)
+				{
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, pressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, float* x, ref float y, float* pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (byte* pstate = &state)
+				{
+					fixed (float* py = &y)
+					{
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, pressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, ref float x, ref float y, float* pressure)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
+				{
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, (float*)py, pressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, ref float x, ref float y, float* pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
+					{
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, (float*)py, pressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, ref float x, ref float y, float* pressure)
+		{
+			fixed (byte* pstate = &state)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
+					{
+						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, pressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, ref float x, ref float y, float* pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (byte* pstate = &state)
+				{
+					fixed (float* px = &x)
+					{
+						fixed (float* py = &y)
+						{
+							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, pressure);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, ref float pressure)
+		{
+			fixed (float* ppressure = &pressure)
+			{
+				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, y, (float*)ppressure);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, ref float pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* ppressure = &pressure)
+				{
+					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, y, (float*)ppressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, float* x, float* y, ref float pressure)
+		{
+			fixed (byte* pstate = &state)
+			{
+				fixed (float* ppressure = &pressure)
+				{
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, y, (float*)ppressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, float* x, float* y, ref float pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (byte* pstate = &state)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, y, (float*)ppressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, ref float x, float* y, ref float pressure)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* ppressure = &pressure)
+				{
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, y, (float*)ppressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, ref float x, float* y, ref float pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, y, (float*)ppressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, ref float x, float* y, ref float pressure)
+		{
+			fixed (byte* pstate = &state)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, (float*)ppressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, ref float x, float* y, ref float pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (byte* pstate = &state)
+				{
+					fixed (float* px = &x)
+					{
+						fixed (float* ppressure = &pressure)
+						{
+							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, (float*)ppressure);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, ref float y, ref float pressure)
+		{
+			fixed (float* py = &y)
+			{
+				fixed (float* ppressure = &pressure)
+				{
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, (float*)py, (float*)ppressure);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, float* x, ref float y, ref float pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* py = &y)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, (float*)py, (float*)ppressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, float* x, ref float y, ref float pressure)
+		{
+			fixed (byte* pstate = &state)
+			{
+				fixed (float* py = &y)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, (float*)ppressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, float* x, ref float y, ref float pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (byte* pstate = &state)
+				{
+					fixed (float* py = &y)
+					{
+						fixed (float* ppressure = &pressure)
+						{
+							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, (float*)ppressure);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, ref float x, ref float y, ref float pressure)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
+				{
+					fixed (float* ppressure = &pressure)
+					{
+						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, (float*)py, (float*)ppressure);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, ref float x, ref float y, ref float pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
+					{
+						fixed (float* ppressure = &pressure)
+						{
+							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, (float*)py, (float*)ppressure);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, ref float x, ref float y, ref float pressure)
+		{
+			fixed (byte* pstate = &state)
+			{
+				fixed (float* px = &x)
+				{
+					fixed (float* py = &y)
+					{
+						fixed (float* ppressure = &pressure)
+						{
+							int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, (float*)ppressure);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a finger on a touchpad on a game controller.<br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, ref float x, ref float y, ref float pressure)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (byte* pstate = &state)
+				{
+					fixed (float* px = &x)
+					{
+						fixed (float* py = &y)
+						{
+							fixed (float* ppressure = &pressure)
+							{
+								int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, (float*)ppressure);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return whether a game controller has a particular sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GameControllerHasSensorNative(SDLGameController* gamecontroller, SDLSensorType type)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool>)funcTable[595])(gamecontroller, type);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, SDLBool>)funcTable[595])((nint)gamecontroller, type);
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether a game controller has a particular sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerHasSensor(SDLGameController* gamecontroller, SDLSensorType type)
+		{
+			SDLBool ret = GameControllerHasSensorNative(gamecontroller, type);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return whether a game controller has a particular sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerHasSensor(ref SDLGameController gamecontroller, SDLSensorType type)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				SDLBool ret = GameControllerHasSensorNative((SDLGameController*)pgamecontroller, type);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set whether data reporting for a game controller sensor is enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerSetSensorEnabledNative(SDLGameController* gamecontroller, SDLSensorType type, SDLBool enabled)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool, int>)funcTable[596])(gamecontroller, type, enabled);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, SDLBool, int>)funcTable[596])((nint)gamecontroller, type, enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Set whether data reporting for a game controller sensor is enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerSetSensorEnabled(SDLGameController* gamecontroller, SDLSensorType type, SDLBool enabled)
+		{
+			int ret = GameControllerSetSensorEnabledNative(gamecontroller, type, enabled);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set whether data reporting for a game controller sensor is enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerSetSensorEnabled(ref SDLGameController gamecontroller, SDLSensorType type, SDLBool enabled)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerSetSensorEnabledNative((SDLGameController*)pgamecontroller, type, enabled);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether sensor data reporting is enabled for a game controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GameControllerIsSensorEnabledNative(SDLGameController* gamecontroller, SDLSensorType type)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool>)funcTable[597])(gamecontroller, type);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, SDLBool>)funcTable[597])((nint)gamecontroller, type);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether sensor data reporting is enabled for a game controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerIsSensorEnabled(SDLGameController* gamecontroller, SDLSensorType type)
+		{
+			SDLBool ret = GameControllerIsSensorEnabledNative(gamecontroller, type);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether sensor data reporting is enabled for a game controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerIsSensorEnabled(ref SDLGameController gamecontroller, SDLSensorType type)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				SDLBool ret = GameControllerIsSensorEnabledNative((SDLGameController*)pgamecontroller, type);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the data rate (number of events per second) of a game controller<br/>
+		/// sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static float GameControllerGetSensorDataRateNative(SDLGameController* gamecontroller, SDLSensorType type)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, float>)funcTable[598])(gamecontroller, type);
+			#else
+			return (float)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, float>)funcTable[598])((nint)gamecontroller, type);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the data rate (number of events per second) of a game controller<br/>
+		/// sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static float GameControllerGetSensorDataRate(SDLGameController* gamecontroller, SDLSensorType type)
+		{
+			float ret = GameControllerGetSensorDataRateNative(gamecontroller, type);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the data rate (number of events per second) of a game controller<br/>
+		/// sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static float GameControllerGetSensorDataRate(ref SDLGameController gamecontroller, SDLSensorType type)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				float ret = GameControllerGetSensorDataRateNative((SDLGameController*)pgamecontroller, type);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerGetSensorDataNative(SDLGameController* gamecontroller, SDLSensorType type, float* data, int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, float*, int, int>)funcTable[599])(gamecontroller, type, data, numValues);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, nint, int, int>)funcTable[599])((nint)gamecontroller, type, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorData(SDLGameController* gamecontroller, SDLSensorType type, float* data, int numValues)
+		{
+			int ret = GameControllerGetSensorDataNative(gamecontroller, type, data, numValues);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorData(ref SDLGameController gamecontroller, SDLSensorType type, float* data, int numValues)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerGetSensorDataNative((SDLGameController*)pgamecontroller, type, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorData(SDLGameController* gamecontroller, SDLSensorType type, ref float data, int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				int ret = GameControllerGetSensorDataNative(gamecontroller, type, (float*)pdata, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorData(ref SDLGameController gamecontroller, SDLSensorType type, ref float data, int numValues)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = GameControllerGetSensorDataNative((SDLGameController*)pgamecontroller, type, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerGetSensorDataWithTimestampNative(SDLGameController* gamecontroller, SDLSensorType type, ulong* timestamp, float* data, int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, ulong*, float*, int, int>)funcTable[600])(gamecontroller, type, timestamp, data, numValues);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, nint, nint, int, int>)funcTable[600])((nint)gamecontroller, type, (nint)timestamp, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorDataWithTimestamp(SDLGameController* gamecontroller, SDLSensorType type, ulong* timestamp, float* data, int numValues)
+		{
+			int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, timestamp, data, numValues);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorDataWithTimestamp(ref SDLGameController gamecontroller, SDLSensorType type, ulong* timestamp, float* data, int numValues)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, timestamp, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorDataWithTimestamp(SDLGameController* gamecontroller, SDLSensorType type, ref ulong timestamp, float* data, int numValues)
+		{
+			fixed (ulong* ptimestamp = &timestamp)
+			{
+				int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, (ulong*)ptimestamp, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorDataWithTimestamp(ref SDLGameController gamecontroller, SDLSensorType type, ref ulong timestamp, float* data, int numValues)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (ulong* ptimestamp = &timestamp)
+				{
+					int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, (ulong*)ptimestamp, data, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorDataWithTimestamp(SDLGameController* gamecontroller, SDLSensorType type, ulong* timestamp, ref float data, int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, timestamp, (float*)pdata, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorDataWithTimestamp(ref SDLGameController gamecontroller, SDLSensorType type, ulong* timestamp, ref float data, int numValues)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, timestamp, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorDataWithTimestamp(SDLGameController* gamecontroller, SDLSensorType type, ref ulong timestamp, ref float data, int numValues)
+		{
+			fixed (ulong* ptimestamp = &timestamp)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, (ulong*)ptimestamp, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a game controller sensor with the timestamp of the<br/>
+		/// last update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// See SDL_sensor.h for the details for each type of sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerGetSensorDataWithTimestamp(ref SDLGameController gamecontroller, SDLSensorType type, ref ulong timestamp, ref float data, int numValues)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				fixed (ulong* ptimestamp = &timestamp)
+				{
+					fixed (float* pdata = &data)
+					{
+						int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, (ulong*)ptimestamp, (float*)pdata, numValues);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Start a rumble effect on a game controller.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerRumbleNative(SDLGameController* gamecontroller, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort, ushort, uint, int>)funcTable[601])(gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, int>)funcTable[601])((nint)gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			#endif
+		}
+
+		/// <summary>
+		/// Start a rumble effect on a game controller.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerRumble(SDLGameController* gamecontroller, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
+		{
+			int ret = GameControllerRumbleNative(gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			return ret;
+		}
+
+		/// <summary>
+		/// Start a rumble effect on a game controller.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerRumble(ref SDLGameController gamecontroller, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerRumbleNative((SDLGameController*)pgamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the game controller's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use<br/>
+		/// SDL_GameControllerRumble() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerRumbleTriggersNative(SDLGameController* gamecontroller, ushort leftRumble, ushort rightRumble, uint durationMs)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort, ushort, uint, int>)funcTable[602])(gamecontroller, leftRumble, rightRumble, durationMs);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, int>)funcTable[602])((nint)gamecontroller, leftRumble, rightRumble, durationMs);
+			#endif
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the game controller's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use<br/>
+		/// SDL_GameControllerRumble() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerRumbleTriggers(SDLGameController* gamecontroller, ushort leftRumble, ushort rightRumble, uint durationMs)
+		{
+			int ret = GameControllerRumbleTriggersNative(gamecontroller, leftRumble, rightRumble, durationMs);
+			return ret;
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the game controller's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use<br/>
+		/// SDL_GameControllerRumble() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerRumbleTriggers(ref SDLGameController gamecontroller, ushort leftRumble, ushort rightRumble, uint durationMs)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerRumbleTriggersNative((SDLGameController*)pgamecontroller, leftRumble, rightRumble, durationMs);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether a game controller has an LED.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GameControllerHasLEDNative(SDLGameController* gamecontroller)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)funcTable[603])(gamecontroller);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[603])((nint)gamecontroller);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether a game controller has an LED.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerHasLED(SDLGameController* gamecontroller)
+		{
+			SDLBool ret = GameControllerHasLEDNative(gamecontroller);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether a game controller has an LED.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerHasLED(ref SDLGameController gamecontroller)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				SDLBool ret = GameControllerHasLEDNative((SDLGameController*)pgamecontroller);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether a game controller has rumble support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GameControllerHasRumbleNative(SDLGameController* gamecontroller)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)funcTable[604])(gamecontroller);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[604])((nint)gamecontroller);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether a game controller has rumble support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerHasRumble(SDLGameController* gamecontroller)
+		{
+			SDLBool ret = GameControllerHasRumbleNative(gamecontroller);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether a game controller has rumble support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerHasRumble(ref SDLGameController gamecontroller)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				SDLBool ret = GameControllerHasRumbleNative((SDLGameController*)pgamecontroller);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether a game controller has rumble support on triggers.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GameControllerHasRumbleTriggersNative(SDLGameController* gamecontroller)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)funcTable[605])(gamecontroller);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[605])((nint)gamecontroller);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether a game controller has rumble support on triggers.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerHasRumbleTriggers(SDLGameController* gamecontroller)
+		{
+			SDLBool ret = GameControllerHasRumbleTriggersNative(gamecontroller);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether a game controller has rumble support on triggers.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GameControllerHasRumbleTriggers(ref SDLGameController gamecontroller)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				SDLBool ret = GameControllerHasRumbleTriggersNative((SDLGameController*)pgamecontroller);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a game controller's LED color.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerSetLEDNative(SDLGameController* gamecontroller, byte red, byte green, byte blue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, byte, byte, byte, int>)funcTable[606])(gamecontroller, red, green, blue);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)funcTable[606])((nint)gamecontroller, red, green, blue);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a game controller's LED color.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerSetLED(SDLGameController* gamecontroller, byte red, byte green, byte blue)
+		{
+			int ret = GameControllerSetLEDNative(gamecontroller, red, green, blue);
+			return ret;
+		}
+
+		/// <summary>
+		/// Update a game controller's LED color.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerSetLED(ref SDLGameController gamecontroller, byte red, byte green, byte blue)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerSetLEDNative((SDLGameController*)pgamecontroller, red, green, blue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a controller specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerSendEffectNative(SDLGameController* gamecontroller, void* data, int size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, void*, int, int>)funcTable[607])(gamecontroller, data, size);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[607])((nint)gamecontroller, (nint)data, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a controller specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerSendEffect(SDLGameController* gamecontroller, void* data, int size)
+		{
+			int ret = GameControllerSendEffectNative(gamecontroller, data, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Send a controller specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerSendEffect(ref SDLGameController gamecontroller, void* data, int size)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerSendEffectNative((SDLGameController*)pgamecontroller, data, size);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a controller specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerSendEffect(SDLGameController* gamecontroller, nint data, int size)
+		{
+			int ret = GameControllerSendEffectNative(gamecontroller, (void*)data, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Send a controller specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerSendEffect(ref SDLGameController gamecontroller, nint data, int size)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				int ret = GameControllerSendEffectNative((SDLGameController*)pgamecontroller, (void*)data, size);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Close a game controller previously opened with SDL_GameControllerOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GameControllerCloseNative(SDLGameController* gamecontroller)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGameController*, void>)funcTable[608])(gamecontroller);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[608])((nint)gamecontroller);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a game controller previously opened with SDL_GameControllerOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GameControllerClose(SDLGameController* gamecontroller)
+		{
+			GameControllerCloseNative(gamecontroller);
+		}
+
+		/// <summary>
+		/// Close a game controller previously opened with SDL_GameControllerOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GameControllerClose(ref SDLGameController gamecontroller)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				GameControllerCloseNative((SDLGameController*)pgamecontroller);
+			}
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GameControllerGetAppleSFSymbolsNameForButtonNative(SDLGameController* gamecontroller, SDLGameControllerButton button)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerButton, byte*>)funcTable[609])(gamecontroller, button);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGameControllerButton, nint>)funcTable[609])((nint)gamecontroller, button);
+			#endif
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GameControllerGetAppleSFSymbolsNameForButton(SDLGameController* gamecontroller, SDLGameControllerButton button)
+		{
+			byte* ret = GameControllerGetAppleSFSymbolsNameForButtonNative(gamecontroller, button);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GameControllerGetAppleSFSymbolsNameForButtonS(SDLGameController* gamecontroller, SDLGameControllerButton button)
+		{
+			string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForButtonNative(gamecontroller, button));
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GameControllerGetAppleSFSymbolsNameForButton(ref SDLGameController gamecontroller, SDLGameControllerButton button)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				byte* ret = GameControllerGetAppleSFSymbolsNameForButtonNative((SDLGameController*)pgamecontroller, button);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GameControllerGetAppleSFSymbolsNameForButtonS(ref SDLGameController gamecontroller, SDLGameControllerButton button)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForButtonNative((SDLGameController*)pgamecontroller, button));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GameControllerGetAppleSFSymbolsNameForAxisNative(SDLGameController* gamecontroller, SDLGameControllerAxis axis)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerAxis, byte*>)funcTable[610])(gamecontroller, axis);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGameControllerAxis, nint>)funcTable[610])((nint)gamecontroller, axis);
+			#endif
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GameControllerGetAppleSFSymbolsNameForAxis(SDLGameController* gamecontroller, SDLGameControllerAxis axis)
+		{
+			byte* ret = GameControllerGetAppleSFSymbolsNameForAxisNative(gamecontroller, axis);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GameControllerGetAppleSFSymbolsNameForAxisS(SDLGameController* gamecontroller, SDLGameControllerAxis axis)
+		{
+			string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForAxisNative(gamecontroller, axis));
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GameControllerGetAppleSFSymbolsNameForAxis(ref SDLGameController gamecontroller, SDLGameControllerAxis axis)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				byte* ret = GameControllerGetAppleSFSymbolsNameForAxisNative((SDLGameController*)pgamecontroller, axis);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
+		/// platforms.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GameControllerGetAppleSFSymbolsNameForAxisS(ref SDLGameController gamecontroller, SDLGameControllerAxis axis)
+		{
+			fixed (SDLGameController* pgamecontroller = &gamecontroller)
+			{
+				string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForAxisNative((SDLGameController*)pgamecontroller, axis));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of registered touch devices.<br/>
+		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
+		/// Therefore SDL_GetNumTouchDevices() may return 0 although devices are<br/>
+		/// available. After using all devices at least once the number will be<br/>
+		/// correct.<br/>
+		/// This was fixed for Android in SDL 2.0.1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumTouchDevicesNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[611])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[611])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of registered touch devices.<br/>
+		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
+		/// Therefore SDL_GetNumTouchDevices() may return 0 although devices are<br/>
+		/// available. After using all devices at least once the number will be<br/>
+		/// correct.<br/>
+		/// This was fixed for Android in SDL 2.0.1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetNumTouchDevices()
+		{
+			int ret = GetNumTouchDevicesNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the touch ID with the given index.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long GetTouchDeviceNative(int index)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, long>)funcTable[612])(index);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<int, long>)funcTable[612])(index);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the touch ID with the given index.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long GetTouchDevice(int index)
+		{
+			long ret = GetTouchDeviceNative(index);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the touch device name as reported from the driver or NULL if the index<br/>
+		/// is invalid.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetTouchNameNative(int index)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[613])(index);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[613])(index);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the touch device name as reported from the driver or NULL if the index<br/>
+		/// is invalid.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetTouchName(int index)
+		{
+			byte* ret = GetTouchNameNative(index);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the touch device name as reported from the driver or NULL if the index<br/>
+		/// is invalid.<br/>
+		/// <br/>
+		/// </summary>
+		public static string GetTouchNameS(int index)
+		{
+			string ret = Utils.DecodeStringUTF8(GetTouchNameNative(index));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of the given touch device.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTouchDeviceType GetTouchDeviceTypeNative(long touchID)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[614])(touchID);
+			#else
+			return (SDLTouchDeviceType)((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[614])(touchID);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of the given touch device.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTouchDeviceType GetTouchDeviceType(long touchID)
+		{
+			SDLTouchDeviceType ret = GetTouchDeviceTypeNative(touchID);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of active fingers for a given touch device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumTouchFingersNative(long touchID)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, int>)funcTable[615])(touchID);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<long, int>)funcTable[615])(touchID);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of active fingers for a given touch device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetNumTouchFingers(long touchID)
+		{
+			int ret = GetNumTouchFingersNative(touchID);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the finger object for specified touch device ID and finger index.<br/>
+		/// The returned resource is owned by SDL and should not be deallocated.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLFinger* GetTouchFingerNative(long touchID, int index)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, int, SDLFinger*>)funcTable[616])(touchID, index);
+			#else
+			return (SDLFinger*)((delegate* unmanaged[Cdecl]<long, int, nint>)funcTable[616])(touchID, index);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the finger object for specified touch device ID and finger index.<br/>
+		/// The returned resource is owned by SDL and should not be deallocated.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLFingerPtr GetTouchFinger(long touchID, int index)
+		{
+			SDLFingerPtr ret = GetTouchFingerNative(touchID, index);
+			return ret;
+		}
+
+		/// <summary>
+		/// Begin recording a gesture on a specified touch device or all touch devices.<br/>
+		/// If the parameter `touchId` is -1 (i.e., all devices), this function will<br/>
+		/// always return 1, regardless of whether there actually are any devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RecordGestureNative(long touchId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, int>)funcTable[617])(touchId);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<long, int>)funcTable[617])(touchId);
+			#endif
+		}
+
+		/// <summary>
+		/// Begin recording a gesture on a specified touch device or all touch devices.<br/>
+		/// If the parameter `touchId` is -1 (i.e., all devices), this function will<br/>
+		/// always return 1, regardless of whether there actually are any devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RecordGesture(long touchId)
+		{
+			int ret = RecordGestureNative(touchId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Save all currently loaded Dollar Gesture templates.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SaveAllDollarTemplatesNative(SDLRWops* dst)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int>)funcTable[618])(dst);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[618])((nint)dst);
+			#endif
+		}
+
+		/// <summary>
+		/// Save all currently loaded Dollar Gesture templates.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SaveAllDollarTemplates(SDLRWopsPtr dst)
+		{
+			int ret = SaveAllDollarTemplatesNative((SDLRWops*)dst);
+			return ret;
+		}
+
+		/// <summary>
+		/// Save all currently loaded Dollar Gesture templates.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SaveAllDollarTemplates(ref SDLRWops dst)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				int ret = SaveAllDollarTemplatesNative((SDLRWops*)pdst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Save a currently loaded Dollar Gesture template.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SaveDollarTemplateNative(long gestureId, SDLRWops* dst)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, SDLRWops*, int>)funcTable[619])(gestureId, dst);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<long, nint, int>)funcTable[619])(gestureId, (nint)dst);
+			#endif
+		}
+
+		/// <summary>
+		/// Save a currently loaded Dollar Gesture template.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SaveDollarTemplate(long gestureId, SDLRWopsPtr dst)
+		{
+			int ret = SaveDollarTemplateNative(gestureId, (SDLRWops*)dst);
+			return ret;
+		}
+
+		/// <summary>
+		/// Save a currently loaded Dollar Gesture template.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SaveDollarTemplate(long gestureId, ref SDLRWops dst)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				int ret = SaveDollarTemplateNative(gestureId, (SDLRWops*)pdst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load Dollar Gesture templates from a file.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int LoadDollarTemplatesNative(long touchId, SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, SDLRWops*, int>)funcTable[620])(touchId, src);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<long, nint, int>)funcTable[620])(touchId, (nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Load Dollar Gesture templates from a file.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LoadDollarTemplates(long touchId, SDLRWopsPtr src)
+		{
+			int ret = LoadDollarTemplatesNative(touchId, (SDLRWops*)src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load Dollar Gesture templates from a file.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LoadDollarTemplates(long touchId, ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				int ret = LoadDollarTemplatesNative(touchId, (SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Pump the event loop, gathering events from the input devices.<br/>
+		/// This function updates the event queue and internal input device state.<br/>
+		/// **WARNING**: This should only be run in the thread that initialized the<br/>
+		/// video subsystem, and for extra safety, you should consider only doing those<br/>
+		/// things on the main thread in any case.<br/>
+		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
+		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
+		/// would ever be placed on the queue. Often the need for calls to<br/>
+		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
+		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
+		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
+		/// call SDL_PumpEvents() to force an event queue update.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void PumpEventsNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[621])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[621])();
+			#endif
+		}
+
+		/// <summary>
+		/// Pump the event loop, gathering events from the input devices.<br/>
+		/// This function updates the event queue and internal input device state.<br/>
+		/// **WARNING**: This should only be run in the thread that initialized the<br/>
+		/// video subsystem, and for extra safety, you should consider only doing those<br/>
+		/// things on the main thread in any case.<br/>
+		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
+		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
+		/// would ever be placed on the queue. Often the need for calls to<br/>
+		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
+		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
+		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
+		/// call SDL_PumpEvents() to force an event queue update.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void PumpEvents()
+		{
+			PumpEventsNative();
+		}
+
+		/// <summary>
+		/// Check the event queue for messages and optionally return them.<br/>
+		/// `action` may be any of the following:<br/>
+		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
+		/// event queue.<br/>
+		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will _not_ be removed from the queue.<br/>
+		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will be removed from the queue.<br/>
+		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
+		/// Otherwise, the events may not be ready to be filtered when you call<br/>
+		/// SDL_PeepEvents().<br/>
+		/// This function is thread-safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int PeepEventsNative(SDLEvent* events, int numevents, SDLEventaction action, uint minType, uint maxType)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, SDLEventaction, uint, uint, int>)funcTable[622])(events, numevents, action, minType, maxType);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, SDLEventaction, uint, uint, int>)funcTable[622])((nint)events, numevents, action, minType, maxType);
+			#endif
+		}
+
+		/// <summary>
+		/// Check the event queue for messages and optionally return them.<br/>
+		/// `action` may be any of the following:<br/>
+		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
+		/// event queue.<br/>
+		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will _not_ be removed from the queue.<br/>
+		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will be removed from the queue.<br/>
+		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
+		/// Otherwise, the events may not be ready to be filtered when you call<br/>
+		/// SDL_PeepEvents().<br/>
+		/// This function is thread-safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PeepEvents(SDLEventPtr events, int numevents, SDLEventaction action, uint minType, uint maxType)
+		{
+			int ret = PeepEventsNative((SDLEvent*)events, numevents, action, minType, maxType);
+			return ret;
+		}
+
+		/// <summary>
+		/// Check the event queue for messages and optionally return them.<br/>
+		/// `action` may be any of the following:<br/>
+		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
+		/// event queue.<br/>
+		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will _not_ be removed from the queue.<br/>
+		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will be removed from the queue.<br/>
+		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
+		/// Otherwise, the events may not be ready to be filtered when you call<br/>
+		/// SDL_PeepEvents().<br/>
+		/// This function is thread-safe.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PeepEvents(ref SDLEvent events, int numevents, SDLEventaction action, uint minType, uint maxType)
+		{
+			fixed (SDLEvent* pevents = &events)
+			{
+				int ret = PeepEventsNative((SDLEvent*)pevents, numevents, action, minType, maxType);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Check for the existence of a certain event type in the event queue.<br/>
+		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasEventNative(uint type)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLBool>)funcTable[623])(type);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<uint, SDLBool>)funcTable[623])(type);
+			#endif
+		}
+
+		/// <summary>
+		/// Check for the existence of a certain event type in the event queue.<br/>
+		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasEvent(uint type)
+		{
+			SDLBool ret = HasEventNative(type);
+			return ret;
+		}
+
+		/// <summary>
+		/// Check for the existence of certain event types in the event queue.<br/>
+		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasEventsNative(uint minType, uint maxType)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint, SDLBool>)funcTable[624])(minType, maxType);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<uint, uint, SDLBool>)funcTable[624])(minType, maxType);
+			#endif
+		}
+
+		/// <summary>
+		/// Check for the existence of certain event types in the event queue.<br/>
+		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasEvents(uint minType, uint maxType)
+		{
+			SDLBool ret = HasEventsNative(minType, maxType);
+			return ret;
+		}
+
+		/// <summary>
+		/// Clear events of a specific type from the event queue.<br/>
+		/// This will unconditionally remove any events from the queue that match<br/>
+		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
+		/// instead.<br/>
+		/// It's also normal to just ignore events you don't care about in your event<br/>
+		/// loop without calling this function.<br/>
+		/// This function only affects currently queued events. If you want to make<br/>
+		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
+		/// on the main thread immediately before the flush call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FlushEventNative(uint type)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[625])(type);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[625])(type);
+			#endif
+		}
+
+		/// <summary>
+		/// Clear events of a specific type from the event queue.<br/>
+		/// This will unconditionally remove any events from the queue that match<br/>
+		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
+		/// instead.<br/>
+		/// It's also normal to just ignore events you don't care about in your event<br/>
+		/// loop without calling this function.<br/>
+		/// This function only affects currently queued events. If you want to make<br/>
+		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
+		/// on the main thread immediately before the flush call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FlushEvent(uint type)
+		{
+			FlushEventNative(type);
+		}
+
+		/// <summary>
+		/// Clear events of a range of types from the event queue.<br/>
+		/// This will unconditionally remove any events from the queue that are in the<br/>
+		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
+		/// event type, use SDL_FlushEvent() instead.<br/>
+		/// It's also normal to just ignore events you don't care about in your event<br/>
+		/// loop without calling this function.<br/>
+		/// This function only affects currently queued events. If you want to make<br/>
+		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
+		/// on the main thread immediately before the flush call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FlushEventsNative(uint minType, uint maxType)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[626])(minType, maxType);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[626])(minType, maxType);
+			#endif
+		}
+
+		/// <summary>
+		/// Clear events of a range of types from the event queue.<br/>
+		/// This will unconditionally remove any events from the queue that are in the<br/>
+		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
+		/// event type, use SDL_FlushEvent() instead.<br/>
+		/// It's also normal to just ignore events you don't care about in your event<br/>
+		/// loop without calling this function.<br/>
+		/// This function only affects currently queued events. If you want to make<br/>
+		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
+		/// on the main thread immediately before the flush call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FlushEvents(uint minType, uint maxType)
+		{
+			FlushEventsNative(minType, maxType);
+		}
+
+		/// <summary>
+		/// Poll for currently pending events.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
+		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
+		/// to follow.<br/>
+		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
+		/// but will not remove it from the queue.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that set the video mode.<br/>
+		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
+		/// be done from the main loop and does not suspend the main loop while waiting<br/>
+		/// on an event to be posted.<br/>
+		/// The common practice is to fully process the event queue once every frame,<br/>
+		/// usually as a first step before updating the game's state:<br/>
+		/// ```c<br/>
+		/// while (game_is_still_running) {<br/>
+		/// SDL_Event event;<br/>
+		/// while (SDL_PollEvent(<br/>
+		/// &event<br/>
+		/// )) {  // poll until all events are handled!<br/>
+		/// // decide what to do with this event.<br/>
+		/// }<br/>
+		/// // update game state, draw the current frame<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int PollEventNative(SDLEvent* evnt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)funcTable[627])(evnt);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[627])((nint)evnt);
+			#endif
+		}
+
+		/// <summary>
+		/// Poll for currently pending events.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
+		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
+		/// to follow.<br/>
+		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
+		/// but will not remove it from the queue.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that set the video mode.<br/>
+		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
+		/// be done from the main loop and does not suspend the main loop while waiting<br/>
+		/// on an event to be posted.<br/>
+		/// The common practice is to fully process the event queue once every frame,<br/>
+		/// usually as a first step before updating the game's state:<br/>
+		/// ```c<br/>
+		/// while (game_is_still_running) {<br/>
+		/// SDL_Event event;<br/>
+		/// while (SDL_PollEvent(<br/>
+		/// &event<br/>
+		/// )) {  // poll until all events are handled!<br/>
+		/// // decide what to do with this event.<br/>
+		/// }<br/>
+		/// // update game state, draw the current frame<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PollEvent(SDLEventPtr evnt)
+		{
+			int ret = PollEventNative((SDLEvent*)evnt);
+			return ret;
+		}
+
+		/// <summary>
+		/// Poll for currently pending events.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
+		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
+		/// to follow.<br/>
+		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
+		/// but will not remove it from the queue.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that set the video mode.<br/>
+		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
+		/// be done from the main loop and does not suspend the main loop while waiting<br/>
+		/// on an event to be posted.<br/>
+		/// The common practice is to fully process the event queue once every frame,<br/>
+		/// usually as a first step before updating the game's state:<br/>
+		/// ```c<br/>
+		/// while (game_is_still_running) {<br/>
+		/// SDL_Event event;<br/>
+		/// while (SDL_PollEvent(<br/>
+		/// &event<br/>
+		/// )) {  // poll until all events are handled!<br/>
+		/// // decide what to do with this event.<br/>
+		/// }<br/>
+		/// // update game state, draw the current frame<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PollEvent(ref SDLEvent evnt)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				int ret = PollEventNative((SDLEvent*)pevnt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int WaitEventNative(SDLEvent* evnt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)funcTable[628])(evnt);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[628])((nint)evnt);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int WaitEvent(SDLEventPtr evnt)
+		{
+			int ret = WaitEventNative((SDLEvent*)evnt);
+			return ret;
+		}
+
+		/// <summary>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int WaitEvent(ref SDLEvent evnt)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				int ret = WaitEventNative((SDLEvent*)pevnt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int WaitEventTimeoutNative(SDLEvent* evnt, int timeout)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, int>)funcTable[629])(evnt, timeout);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[629])((nint)evnt, timeout);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int WaitEventTimeout(SDLEventPtr evnt, int timeout)
+		{
+			int ret = WaitEventTimeoutNative((SDLEvent*)evnt, timeout);
+			return ret;
+		}
+
+		/// <summary>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int WaitEventTimeout(ref SDLEvent evnt, int timeout)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				int ret = WaitEventTimeoutNative((SDLEvent*)pevnt, timeout);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// This function is thread-safe, and can be called from other threads safely.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int PushEventNative(SDLEvent* evnt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)funcTable[630])(evnt);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[630])((nint)evnt);
+			#endif
+		}
+
+		/// <summary>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// This function is thread-safe, and can be called from other threads safely.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PushEvent(SDLEventPtr evnt)
+		{
+			int ret = PushEventNative((SDLEvent*)evnt);
+			return ret;
+		}
+
+		/// <summary>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// This function is thread-safe, and can be called from other threads safely.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PushEvent(ref SDLEvent evnt)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				int ret = PushEventNative((SDLEvent*)pevnt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they change internal state and<br/>
+		/// are posted to the internal event queue.<br/>
+		/// If the filter function returns 1 when called, then the event will be added<br/>
+		/// to the internal queue. If it returns 0, then the event will be dropped from<br/>
+		/// the queue, but the internal state will still be updated. This allows<br/>
+		/// selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
+		/// event filter is only called when the window manager desires to close the<br/>
+		/// application window. If the event filter returns 1, then the window will be<br/>
+		/// closed, otherwise the window will remain open if possible.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_EventState().<br/>
+		/// Note: If you just want to inspect events without filtering, you should use<br/>
+		/// SDL_AddEventWatch() instead.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetEventFilterNative(delegate*<void*, SDLEvent*, int> filter, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[631])(filter, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[631])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they change internal state and<br/>
+		/// are posted to the internal event queue.<br/>
+		/// If the filter function returns 1 when called, then the event will be added<br/>
+		/// to the internal queue. If it returns 0, then the event will be dropped from<br/>
+		/// the queue, but the internal state will still be updated. This allows<br/>
+		/// selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
+		/// event filter is only called when the window manager desires to close the<br/>
+		/// application window. If the event filter returns 1, then the window will be<br/>
+		/// closed, otherwise the window will remain open if possible.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_EventState().<br/>
+		/// Note: If you just want to inspect events without filtering, you should use<br/>
+		/// SDL_AddEventWatch() instead.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetEventFilter(delegate*<void*, SDLEvent*, int> filter, void* userdata)
+		{
+			SetEventFilterNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they change internal state and<br/>
+		/// are posted to the internal event queue.<br/>
+		/// If the filter function returns 1 when called, then the event will be added<br/>
+		/// to the internal queue. If it returns 0, then the event will be dropped from<br/>
+		/// the queue, but the internal state will still be updated. This allows<br/>
+		/// selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
+		/// event filter is only called when the window manager desires to close the<br/>
+		/// application window. If the event filter returns 1, then the window will be<br/>
+		/// closed, otherwise the window will remain open if possible.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_EventState().<br/>
+		/// Note: If you just want to inspect events without filtering, you should use<br/>
+		/// SDL_AddEventWatch() instead.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetEventFilter(SDLEventFilter filter, void* userdata)
+		{
+			SetEventFilterNative((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they change internal state and<br/>
+		/// are posted to the internal event queue.<br/>
+		/// If the filter function returns 1 when called, then the event will be added<br/>
+		/// to the internal queue. If it returns 0, then the event will be dropped from<br/>
+		/// the queue, but the internal state will still be updated. This allows<br/>
+		/// selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
+		/// event filter is only called when the window manager desires to close the<br/>
+		/// application window. If the event filter returns 1, then the window will be<br/>
+		/// closed, otherwise the window will remain open if possible.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_EventState().<br/>
+		/// Note: If you just want to inspect events without filtering, you should use<br/>
+		/// SDL_AddEventWatch() instead.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetEventFilter(delegate*<void*, SDLEvent*, int> filter, nint userdata)
+		{
+			SetEventFilterNative(filter, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they change internal state and<br/>
+		/// are posted to the internal event queue.<br/>
+		/// If the filter function returns 1 when called, then the event will be added<br/>
+		/// to the internal queue. If it returns 0, then the event will be dropped from<br/>
+		/// the queue, but the internal state will still be updated. This allows<br/>
+		/// selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
+		/// event filter is only called when the window manager desires to close the<br/>
+		/// application window. If the event filter returns 1, then the window will be<br/>
+		/// closed, otherwise the window will remain open if possible.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_EventState().<br/>
+		/// Note: If you just want to inspect events without filtering, you should use<br/>
+		/// SDL_AddEventWatch() instead.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetEventFilter(SDLEventFilter filter, nint userdata)
+		{
+			SetEventFilterNative((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Query the current event filter.<br/>
+		/// This function can be used to "chain" filters, by saving the existing filter<br/>
+		/// before replacing it with a function that will call that saved filter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GetEventFilterNative(delegate*<void*, SDLEvent*, int>* filter, void** userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>*, void**, SDLBool>)funcTable[632])(filter, userdata);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[632])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Query the current event filter.<br/>
+		/// This function can be used to "chain" filters, by saving the existing filter<br/>
+		/// before replacing it with a function that will call that saved filter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GetEventFilter(delegate*<void*, SDLEvent*, int>* filter, void** userdata)
+		{
+			SDLBool ret = GetEventFilterNative(filter, userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query the current event filter.<br/>
+		/// This function can be used to "chain" filters, by saving the existing filter<br/>
+		/// before replacing it with a function that will call that saved filter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GetEventFilter(delegate*<void*, SDLEvent*, int>* filter, ref nint userdata)
+		{
+			fixed (nint* puserdata = &userdata)
+			{
+				SDLBool ret = GetEventFilterNative(filter, (void**)puserdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void AddEventWatchNative(delegate*<void*, SDLEvent*, int> filter, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[633])(filter, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[633])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void AddEventWatch(delegate*<void*, SDLEvent*, int> filter, void* userdata)
+		{
+			AddEventWatchNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void AddEventWatch(SDLEventFilter filter, void* userdata)
+		{
+			AddEventWatchNative((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void AddEventWatch(delegate*<void*, SDLEvent*, int> filter, nint userdata)
+		{
+			AddEventWatchNative(filter, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void AddEventWatch(SDLEventFilter filter, nint userdata)
+		{
+			AddEventWatchNative((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DelEventWatchNative(delegate*<void*, SDLEvent*, int> filter, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[634])(filter, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[634])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DelEventWatch(delegate*<void*, SDLEvent*, int> filter, void* userdata)
+		{
+			DelEventWatchNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DelEventWatch(SDLEventFilter filter, void* userdata)
+		{
+			DelEventWatchNative((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DelEventWatch(delegate*<void*, SDLEvent*, int> filter, nint userdata)
+		{
+			DelEventWatchNative(filter, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DelEventWatch(SDLEventFilter filter, nint userdata)
+		{
+			DelEventWatchNative((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns 0.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FilterEventsNative(delegate*<void*, SDLEvent*, int> filter, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[635])(filter, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[635])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns 0.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FilterEvents(delegate*<void*, SDLEvent*, int> filter, void* userdata)
+		{
+			FilterEventsNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns 0.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FilterEvents(SDLEventFilter filter, void* userdata)
+		{
+			FilterEventsNative((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns 0.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FilterEvents(delegate*<void*, SDLEvent*, int> filter, nint userdata)
+		{
+			FilterEventsNative(filter, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns 0.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FilterEvents(SDLEventFilter filter, nint userdata)
+		{
+			FilterEventsNative((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Set the state of processing events by type.<br/>
+		/// `state` may be any of the following:<br/>
+		/// - `SDL_QUERY`: returns the current processing state of the specified event<br/>
+		/// - `SDL_IGNORE` (aka `SDL_DISABLE`): the event will automatically be dropped<br/>
+		/// from the event queue and will not be filtered<br/>
+		/// - `SDL_ENABLE`: the event will be processed normally<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte EventStateNative(uint type, int state)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int, byte>)funcTable[636])(type, state);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, int, byte>)funcTable[636])(type, state);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of processing events by type.<br/>
+		/// `state` may be any of the following:<br/>
+		/// - `SDL_QUERY`: returns the current processing state of the specified event<br/>
+		/// - `SDL_IGNORE` (aka `SDL_DISABLE`): the event will automatically be dropped<br/>
+		/// from the event queue and will not be filtered<br/>
+		/// - `SDL_ENABLE`: the event will be processed normally<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte EventState(uint type, int state)
+		{
+			byte ret = EventStateNative(type, state);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a set of user-defined events, and return the beginning event<br/>
+		/// number for that set of events.<br/>
+		/// Calling this function with `numevents` <br/>
+		/// <<br/>
+		/// = 0 is an error and will return<br/>
+		/// (Uint32)-1.<br/>
+		/// Note, (Uint32)-1 means the maximum unsigned 32-bit integer value (or<br/>
+		/// 0xFFFFFFFF), but is clearer to write.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint RegisterEventsNative(int numevents)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[637])(numevents);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[637])(numevents);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a set of user-defined events, and return the beginning event<br/>
+		/// number for that set of events.<br/>
+		/// Calling this function with `numevents` <br/>
+		/// <<br/>
+		/// = 0 is an error and will return<br/>
+		/// (Uint32)-1.<br/>
+		/// Note, (Uint32)-1 means the maximum unsigned 32-bit integer value (or<br/>
+		/// 0xFFFFFFFF), but is clearer to write.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint RegisterEvents(int numevents)
+		{
+			uint ret = RegisterEventsNative(numevents);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the directory where the application was run from.<br/>
+		/// This is not necessarily a fast call, so you should call this once near<br/>
+		/// startup and save the string if you need it.<br/>
+		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
+		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetBasePathNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[638])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[638])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the directory where the application was run from.<br/>
+		/// This is not necessarily a fast call, so you should call this once near<br/>
+		/// startup and save the string if you need it.<br/>
+		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
+		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetBasePath()
+		{
+			byte* ret = GetBasePathNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the directory where the application was run from.<br/>
+		/// This is not necessarily a fast call, so you should call this once near<br/>
+		/// startup and save the string if you need it.<br/>
+		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
+		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetBasePathS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetBasePathNative());
+			return ret;
+		}
+
+		/// <summary>
 		/// Get the user-and-app-specific path where files can be written.<br/>
 		/// Get the "pref dir". This is meant to be where users can write personal<br/>
 		/// files (preferences and save games, etc) that are specific to your<br/>
@@ -68,7 +3283,182 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetPrefPath(ref byte org, byte* app)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPrefPathNative(byte* org, byte* app)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[639])(org, app);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[639])((nint)org, (nint)app);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPrefPath(byte* org, byte* app)
+		{
+			byte* ret = GetPrefPathNative(org, app);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrefPathS(byte* org, byte* app)
+		{
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, app));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPrefPath(in byte org, byte* app)
 		{
 			fixed (byte* porg = &org)
 			{
@@ -128,7 +3518,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetPrefPathS(ref byte org, byte* app)
+		public static string GetPrefPathS(in byte org, byte* app)
 		{
 			fixed (byte* porg = &org)
 			{
@@ -464,7 +3854,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetPrefPath(byte* org, ref byte app)
+		public static byte* GetPrefPath(byte* org, in byte app)
 		{
 			fixed (byte* papp = &app)
 			{
@@ -524,7 +3914,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetPrefPathS(byte* org, ref byte app)
+		public static string GetPrefPathS(byte* org, in byte app)
 		{
 			fixed (byte* papp = &app)
 			{
@@ -860,7 +4250,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetPrefPath(ref byte org, ref byte app)
+		public static byte* GetPrefPath(in byte org, in byte app)
 		{
 			fixed (byte* porg = &org)
 			{
@@ -923,7 +4313,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetPrefPathS(ref byte org, ref byte app)
+		public static string GetPrefPathS(in byte org, in byte app)
 		{
 			fixed (byte* porg = &org)
 			{
@@ -1627,3403 +5017,6 @@ namespace Hexa.NET.SDL2
 		public static void HapticClose(SDLHaptic* haptic)
 		{
 			HapticCloseNative(haptic);
-		}
-
-		/// <summary>
-		/// Close a haptic device previously opened with SDL_HapticOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void HapticClose(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				HapticCloseNative((SDLHaptic*)phaptic);
-			}
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_HapticNumEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticNumEffectsNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[650])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[650])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_HapticNumEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNumEffects(SDLHaptic* haptic)
-		{
-			int ret = HapticNumEffectsNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_HapticNumEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNumEffects(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticNumEffectsNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticNumEffectsPlayingNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[651])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[651])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNumEffectsPlaying(SDLHaptic* haptic)
-		{
-			int ret = HapticNumEffectsPlayingNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNumEffectsPlaying(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticNumEffectsPlayingNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint HapticQueryNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[652])(haptic);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[652])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint HapticQuery(SDLHaptic* haptic)
-		{
-			uint ret = HapticQueryNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint HapticQuery(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				uint ret = HapticQueryNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticNumAxesNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[653])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[653])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNumAxes(SDLHaptic* haptic)
-		{
-			int ret = HapticNumAxesNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNumAxes(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticNumAxesNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticEffectSupportedNative(SDLHaptic* haptic, SDLHapticEffect* effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[654])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[654])((nint)haptic, (nint)effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticEffectSupported(SDLHaptic* haptic, SDLHapticEffect* effect)
-		{
-			int ret = HapticEffectSupportedNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticEffectSupported(ref SDLHaptic haptic, SDLHapticEffect* effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticEffectSupported(SDLHaptic* haptic, ref SDLHapticEffect effect)
-		{
-			fixed (SDLHapticEffect* peffect = &effect)
-			{
-				int ret = HapticEffectSupportedNative(haptic, (SDLHapticEffect*)peffect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticEffectSupported(ref SDLHaptic haptic, ref SDLHapticEffect effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* peffect = &effect)
-				{
-					int ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticNewEffectNative(SDLHaptic* haptic, SDLHapticEffect* effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[655])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[655])((nint)haptic, (nint)effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNewEffect(SDLHaptic* haptic, SDLHapticEffect* effect)
-		{
-			int ret = HapticNewEffectNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNewEffect(ref SDLHaptic haptic, SDLHapticEffect* effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticNewEffectNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNewEffect(SDLHaptic* haptic, ref SDLHapticEffect effect)
-		{
-			fixed (SDLHapticEffect* peffect = &effect)
-			{
-				int ret = HapticNewEffectNative(haptic, (SDLHapticEffect*)peffect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticNewEffect(ref SDLHaptic haptic, ref SDLHapticEffect effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* peffect = &effect)
-				{
-					int ret = HapticNewEffectNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticUpdateEffectNative(SDLHaptic* haptic, int effect, SDLHapticEffect* data)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, SDLHapticEffect*, int>)funcTable[656])(haptic, effect, data);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, int>)funcTable[656])((nint)haptic, effect, (nint)data);
-			#endif
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticUpdateEffect(SDLHaptic* haptic, int effect, SDLHapticEffect* data)
-		{
-			int ret = HapticUpdateEffectNative(haptic, effect, data);
-			return ret;
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticUpdateEffect(ref SDLHaptic haptic, int effect, SDLHapticEffect* data)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticUpdateEffectNative((SDLHaptic*)phaptic, effect, data);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticUpdateEffect(SDLHaptic* haptic, int effect, ref SDLHapticEffect data)
-		{
-			fixed (SDLHapticEffect* pdata = &data)
-			{
-				int ret = HapticUpdateEffectNative(haptic, effect, (SDLHapticEffect*)pdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticUpdateEffect(ref SDLHaptic haptic, int effect, ref SDLHapticEffect data)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* pdata = &data)
-				{
-					int ret = HapticUpdateEffectNative((SDLHaptic*)phaptic, effect, (SDLHapticEffect*)pdata);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRunEffectNative(SDLHaptic* haptic, int effect, uint iterations)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, uint, int>)funcTable[657])(haptic, effect, iterations);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, uint, int>)funcTable[657])((nint)haptic, effect, iterations);
-			#endif
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRunEffect(SDLHaptic* haptic, int effect, uint iterations)
-		{
-			int ret = HapticRunEffectNative(haptic, effect, iterations);
-			return ret;
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRunEffect(ref SDLHaptic haptic, int effect, uint iterations)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRunEffectNative((SDLHaptic*)phaptic, effect, iterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// *<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticStopEffectNative(SDLHaptic* haptic, int effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[658])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[658])((nint)haptic, effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// *<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticStopEffect(SDLHaptic* haptic, int effect)
-		{
-			int ret = HapticStopEffectNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// *<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticStopEffect(ref SDLHaptic haptic, int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticStopEffectNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HapticDestroyEffectNative(SDLHaptic* haptic, int effect)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHaptic*, int, void>)funcTable[659])(haptic, effect);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[659])((nint)haptic, effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void HapticDestroyEffect(SDLHaptic* haptic, int effect)
-		{
-			HapticDestroyEffectNative(haptic, effect);
-		}
-
-		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void HapticDestroyEffect(ref SDLHaptic haptic, int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				HapticDestroyEffectNative((SDLHaptic*)phaptic, effect);
-			}
-		}
-
-		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticGetEffectStatusNative(SDLHaptic* haptic, int effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[660])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[660])((nint)haptic, effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticGetEffectStatus(SDLHaptic* haptic, int effect)
-		{
-			int ret = HapticGetEffectStatusNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticGetEffectStatus(ref SDLHaptic haptic, int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticGetEffectStatusNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_HapticSetGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticSetGainNative(SDLHaptic* haptic, int gain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[661])(haptic, gain);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[661])((nint)haptic, gain);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_HapticSetGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticSetGain(SDLHaptic* haptic, int gain)
-		{
-			int ret = HapticSetGainNative(haptic, gain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_HapticSetGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticSetGain(ref SDLHaptic haptic, int gain)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticSetGainNative((SDLHaptic*)phaptic, gain);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticSetAutocenterNative(SDLHaptic* haptic, int autocenter)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[662])(haptic, autocenter);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[662])((nint)haptic, autocenter);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticSetAutocenter(SDLHaptic* haptic, int autocenter)
-		{
-			int ret = HapticSetAutocenterNative(haptic, autocenter);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticSetAutocenter(ref SDLHaptic haptic, int autocenter)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticSetAutocenterNative((SDLHaptic*)phaptic, autocenter);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call<br/>
-		/// SDL_HapticUnpause() to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticPauseNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[663])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[663])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call<br/>
-		/// SDL_HapticUnpause() to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticPause(SDLHaptic* haptic)
-		{
-			int ret = HapticPauseNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call<br/>
-		/// SDL_HapticUnpause() to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticPause(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticPauseNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Unpause a haptic device.<br/>
-		/// Call to unpause after SDL_HapticPause().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticUnpauseNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[664])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[664])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Unpause a haptic device.<br/>
-		/// Call to unpause after SDL_HapticPause().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticUnpause(SDLHaptic* haptic)
-		{
-			int ret = HapticUnpauseNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Unpause a haptic device.<br/>
-		/// Call to unpause after SDL_HapticPause().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticUnpause(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticUnpauseNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticStopAllNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[665])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[665])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticStopAll(SDLHaptic* haptic)
-		{
-			int ret = HapticStopAllNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticStopAll(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticStopAllNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumbleSupportedNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[666])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[666])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRumbleSupported(SDLHaptic* haptic)
-		{
-			int ret = HapticRumbleSupportedNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRumbleSupported(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumbleSupportedNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumbleInitNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[667])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[667])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRumbleInit(SDLHaptic* haptic)
-		{
-			int ret = HapticRumbleInitNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRumbleInit(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumbleInitNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumblePlayNative(SDLHaptic* haptic, float strength, uint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, float, uint, int>)funcTable[668])(haptic, strength, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, uint, int>)funcTable[668])((nint)haptic, strength, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRumblePlay(SDLHaptic* haptic, float strength, uint length)
-		{
-			int ret = HapticRumblePlayNative(haptic, strength, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRumblePlay(ref SDLHaptic haptic, float strength, uint length)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumblePlayNative((SDLHaptic*)phaptic, strength, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumbleStopNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[669])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[669])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRumbleStop(SDLHaptic* haptic)
-		{
-			int ret = HapticRumbleStopNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HapticRumbleStop(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumbleStopNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Initialize the HIDAPI library.<br/>
-		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
-		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
-		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
-		/// be called at the beginning of execution however, if there is a chance of<br/>
-		/// HIDAPI handles being opened by different threads simultaneously.<br/>
-		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidInitNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[670])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[670])();
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize the HIDAPI library.<br/>
-		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
-		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
-		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
-		/// be called at the beginning of execution however, if there is a chance of<br/>
-		/// HIDAPI handles being opened by different threads simultaneously.<br/>
-		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidInit()
-		{
-			int ret = HidInitNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Finalize the HIDAPI library.<br/>
-		/// This function frees all of the static data associated with HIDAPI. It<br/>
-		/// should be called at the end of execution to avoid memory leaks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidExitNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[671])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[671])();
-			#endif
-		}
-
-		/// <summary>
-		/// Finalize the HIDAPI library.<br/>
-		/// This function frees all of the static data associated with HIDAPI. It<br/>
-		/// should be called at the end of execution to avoid memory leaks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidExit()
-		{
-			int ret = HidExitNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Check to see if devices may have been added or removed.<br/>
-		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
-		/// to see if there have been any system device changes since the last call to<br/>
-		/// this function. A change in the counter returned doesn't necessarily mean<br/>
-		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
-		/// updated device list.<br/>
-		/// Calling this function for the first time may cause a thread or other system<br/>
-		/// resource to be allocated to track device change notifications.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint HidDeviceChangeCountNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[672])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[672])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check to see if devices may have been added or removed.<br/>
-		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
-		/// to see if there have been any system device changes since the last call to<br/>
-		/// this function. A change in the counter returned doesn't necessarily mean<br/>
-		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
-		/// updated device list.<br/>
-		/// Calling this function for the first time may cause a thread or other system<br/>
-		/// resource to be allocated to track device change notifications.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint HidDeviceChangeCount()
-		{
-			uint ret = HidDeviceChangeCountNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate the HID Devices.<br/>
-		/// This function returns a linked list of all the HID devices attached to the<br/>
-		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
-		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
-		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
-		/// devices will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDeviceInfo* HidEnumerateNative(ushort vendorId, ushort productId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLHidDeviceInfo*>)funcTable[673])(vendorId, productId);
-			#else
-			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint>)funcTable[673])(vendorId, productId);
-			#endif
-		}
-
-		/// <summary>
-		/// Enumerate the HID Devices.<br/>
-		/// This function returns a linked list of all the HID devices attached to the<br/>
-		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
-		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
-		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
-		/// devices will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDeviceInfo* HidEnumerate(ushort vendorId, ushort productId)
-		{
-			SDLHidDeviceInfo* ret = HidEnumerateNative(vendorId, productId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Free an enumeration Linked List<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HidFreeEnumerationNative(SDLHidDeviceInfo* devs)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHidDeviceInfo*, void>)funcTable[674])(devs);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[674])((nint)devs);
-			#endif
-		}
-
-		/// <summary>
-		/// Free an enumeration Linked List<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void HidFreeEnumeration(SDLHidDeviceInfo* devs)
-		{
-			HidFreeEnumerationNative(devs);
-		}
-
-		/// <summary>
-		/// Free an enumeration Linked List<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void HidFreeEnumeration(ref SDLHidDeviceInfo devs)
-		{
-			fixed (SDLHidDeviceInfo* pdevs = &devs)
-			{
-				HidFreeEnumerationNative((SDLHidDeviceInfo*)pdevs);
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDevice* HidOpenNative(ushort vendorId, ushort productId, char* serialNumber)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, char*, SDLHidDevice*>)funcTable[675])(vendorId, productId, serialNumber);
-			#else
-			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint, nint>)funcTable[675])(vendorId, productId, (nint)serialNumber);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDevice* HidOpen(ushort vendorId, ushort productId, char* serialNumber)
-		{
-			SDLHidDevice* ret = HidOpenNative(vendorId, productId, serialNumber);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDevice* HidOpen(ushort vendorId, ushort productId, ref char serialNumber)
-		{
-			fixed (char* pserialNumber = &serialNumber)
-			{
-				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDevice* HidOpen(ushort vendorId, ushort productId, ReadOnlySpan<char> serialNumber)
-		{
-			fixed (char* pserialNumber = serialNumber)
-			{
-				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDevice* HidOpen(ushort vendorId, ushort productId, string serialNumber)
-		{
-			fixed (char* pserialNumber = serialNumber)
-			{
-				SDLHidDevice* ret = HidOpenNative(vendorId, productId, pserialNumber);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDevice* HidOpenPathNative(byte* path, int bExclusive)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLHidDevice*>)funcTable[676])(path, bExclusive);
-			#else
-			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[676])((nint)path, bExclusive);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDevice* HidOpenPath(byte* path, int bExclusive)
-		{
-			SDLHidDevice* ret = HidOpenPathNative(path, bExclusive);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDevice* HidOpenPath(ref byte path, int bExclusive)
-		{
-			fixed (byte* ppath = &path)
-			{
-				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath, bExclusive);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDevice* HidOpenPath(ReadOnlySpan<byte> path, int bExclusive)
-		{
-			fixed (byte* ppath = path)
-			{
-				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath, bExclusive);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHidDevice* HidOpenPath(string path, int bExclusive)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLHidDevice* ret = HidOpenPathNative(pStr0, bExclusive);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidWriteNative(SDLHidDevice* dev, byte* data, nuint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[677])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[677])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidWrite(SDLHidDevice* dev, byte* data, nuint length)
-		{
-			int ret = HidWriteNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidWrite(ref SDLHidDevice dev, byte* data, nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidWriteNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidWrite(SDLHidDevice* dev, ref byte data, nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidWriteNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidWrite(ref SDLHidDevice dev, ref byte data, nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidReadTimeoutNative(SDLHidDevice* dev, byte* data, nuint length, int milliseconds)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int, int>)funcTable[678])(dev, data, length, milliseconds);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int, int>)funcTable[678])((nint)dev, (nint)data, length, milliseconds);
-			#endif
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidReadTimeout(SDLHidDevice* dev, byte* data, nuint length, int milliseconds)
-		{
-			int ret = HidReadTimeoutNative(dev, data, length, milliseconds);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidReadTimeout(ref SDLHidDevice dev, byte* data, nuint length, int milliseconds)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidReadTimeout(SDLHidDevice* dev, ref byte data, nuint length, int milliseconds)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidReadTimeout(ref SDLHidDevice dev, ref byte data, nuint length, int milliseconds)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidReadNative(SDLHidDevice* dev, byte* data, nuint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[679])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[679])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidRead(SDLHidDevice* dev, byte* data, nuint length)
-		{
-			int ret = HidReadNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidRead(ref SDLHidDevice dev, byte* data, nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidReadNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidRead(SDLHidDevice* dev, ref byte data, nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidReadNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidRead(ref SDLHidDevice dev, ref byte data, nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidSetNonblockingNative(SDLHidDevice* dev, int nonblock)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, int>)funcTable[680])(dev, nonblock);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[680])((nint)dev, nonblock);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidSetNonblocking(SDLHidDevice* dev, int nonblock)
-		{
-			int ret = HidSetNonblockingNative(dev, nonblock);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidSetNonblocking(ref SDLHidDevice dev, int nonblock)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidSetNonblockingNative((SDLHidDevice*)pdev, nonblock);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidSendFeatureReportNative(SDLHidDevice* dev, byte* data, nuint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[681])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[681])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidSendFeatureReport(SDLHidDevice* dev, byte* data, nuint length)
-		{
-			int ret = HidSendFeatureReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidSendFeatureReport(ref SDLHidDevice dev, byte* data, nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidSendFeatureReport(SDLHidDevice* dev, ref byte data, nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidSendFeatureReport(ref SDLHidDevice dev, ref byte data, nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetFeatureReportNative(SDLHidDevice* dev, byte* data, nuint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[682])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[682])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetFeatureReport(SDLHidDevice* dev, byte* data, nuint length)
-		{
-			int ret = HidGetFeatureReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetFeatureReport(ref SDLHidDevice dev, byte* data, nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetFeatureReport(SDLHidDevice* dev, ref byte data, nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidGetFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetFeatureReport(ref SDLHidDevice dev, ref byte data, nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HidCloseNative(SDLHidDevice* dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHidDevice*, void>)funcTable[683])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[683])((nint)dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void HidClose(SDLHidDevice* dev)
-		{
-			HidCloseNative(dev);
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void HidClose(ref SDLHidDevice dev)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				HidCloseNative((SDLHidDevice*)pdev);
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetManufacturerStringNative(SDLHidDevice* dev, char* str, nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[684])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[684])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetManufacturerString(SDLHidDevice* dev, char* str, nuint maxlen)
-		{
-			int ret = HidGetManufacturerStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetManufacturerString(ref SDLHidDevice dev, char* str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetManufacturerString(SDLHidDevice* dev, ref char str, nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetManufacturerString(SDLHidDevice* dev, ref string str, nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetManufacturerStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetManufacturerString(ref SDLHidDevice dev, ref char str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetManufacturerString(ref SDLHidDevice dev, ref string str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetProductStringNative(SDLHidDevice* dev, char* str, nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[685])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[685])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetProductString(SDLHidDevice* dev, char* str, nuint maxlen)
-		{
-			int ret = HidGetProductStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetProductString(ref SDLHidDevice dev, char* str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetProductString(SDLHidDevice* dev, ref char str, nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetProductStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetProductString(SDLHidDevice* dev, ref string str, nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetProductStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetProductString(ref SDLHidDevice dev, ref char str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetProductString(ref SDLHidDevice dev, ref string str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetSerialNumberStringNative(SDLHidDevice* dev, char* str, nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[686])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[686])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetSerialNumberString(SDLHidDevice* dev, char* str, nuint maxlen)
-		{
-			int ret = HidGetSerialNumberStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetSerialNumberString(ref SDLHidDevice dev, char* str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetSerialNumberString(SDLHidDevice* dev, ref char str, nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetSerialNumberString(SDLHidDevice* dev, ref string str, nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetSerialNumberStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetSerialNumberString(ref SDLHidDevice dev, ref char str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetSerialNumberString(ref SDLHidDevice dev, ref string str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetIndexedStringNative(SDLHidDevice* dev, int stringIndex, char* str, nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, char*, nuint, int>)funcTable[687])(dev, stringIndex, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, nuint, int>)funcTable[687])((nint)dev, stringIndex, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetIndexedString(SDLHidDevice* dev, int stringIndex, char* str, nuint maxlen)
-		{
-			int ret = HidGetIndexedStringNative(dev, stringIndex, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetIndexedString(ref SDLHidDevice dev, int stringIndex, char* str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetIndexedString(SDLHidDevice* dev, int stringIndex, ref char str, nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetIndexedString(SDLHidDevice* dev, int stringIndex, ref string str, nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetIndexedString(ref SDLHidDevice dev, int stringIndex, ref char str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int HidGetIndexedString(ref SDLHidDevice dev, int stringIndex, ref string str, nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HidBleScanNative(SDLBool active)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLBool, void>)funcTable[688])(active);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLBool, void>)funcTable[688])(active);
-			#endif
-		}
-
-		/// <summary>
-		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void HidBleScan(SDLBool active)
-		{
-			HidBleScanNative(active);
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool SetHintWithPriorityNative(byte* name, byte* value, SDLHintPriority priority)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLHintPriority, SDLBool>)funcTable[689])(name, value, priority);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLHintPriority, SDLBool>)funcTable[689])((nint)name, (nint)value, priority);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(byte* name, byte* value, SDLHintPriority priority)
-		{
-			SDLBool ret = SetHintWithPriorityNative(name, value, priority);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(ref byte name, byte* value, SDLHintPriority priority)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = SetHintWithPriorityNative((byte*)pname, value, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(ReadOnlySpan<byte> name, byte* value, SDLHintPriority priority)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLBool ret = SetHintWithPriorityNative((byte*)pname, value, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(string name, byte* value, SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintWithPriorityNative(pStr0, value, priority);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(byte* name, ref byte value, SDLHintPriority priority)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				SDLBool ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(byte* name, ReadOnlySpan<byte> value, SDLHintPriority priority)
-		{
-			fixed (byte* pvalue = value)
-			{
-				SDLBool ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(byte* name, string value, SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintWithPriorityNative(name, pStr0, priority);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(ref byte name, ref byte value, SDLHintPriority priority)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					SDLBool ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(ReadOnlySpan<byte> name, ReadOnlySpan<byte> value, SDLHintPriority priority)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pvalue = value)
-				{
-					SDLBool ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHintWithPriority(string name, string value, SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			SDLBool ret = SetHintWithPriorityNative(pStr0, pStr1, priority);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool SetHintNative(byte* name, byte* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLBool>)funcTable[690])(name, value);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[690])((nint)name, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(byte* name, byte* value)
-		{
-			SDLBool ret = SetHintNative(name, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(ref byte name, byte* value)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = SetHintNative((byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(ReadOnlySpan<byte> name, byte* value)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLBool ret = SetHintNative((byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(string name, byte* value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintNative(pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(byte* name, ref byte value)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				SDLBool ret = SetHintNative(name, (byte*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(byte* name, ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pvalue = value)
-			{
-				SDLBool ret = SetHintNative(name, (byte*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(byte* name, string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintNative(name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(ref byte name, ref byte value)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					SDLBool ret = SetHintNative((byte*)pname, (byte*)pvalue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(ReadOnlySpan<byte> name, ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pvalue = value)
-				{
-					SDLBool ret = SetHintNative((byte*)pname, (byte*)pvalue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(string name, string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			SDLBool ret = SetHintNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool ResetHintNative(byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)funcTable[691])(name);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[691])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool ResetHint(byte* name)
-		{
-			SDLBool ret = ResetHintNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool ResetHint(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = ResetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool ResetHint(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLBool ret = ResetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool ResetHint(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = ResetHintNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset all hints to the default values.<br/>
-		/// This will reset all hints to the value of the associated environment<br/>
-		/// variable, or NULL if the environment isn't set. Callbacks will be called<br/>
-		/// normally with this change.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetHintsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[692])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[692])();
-			#endif
-		}
-
-		/// <summary>
-		/// Reset all hints to the default values.<br/>
-		/// This will reset all hints to the value of the associated environment<br/>
-		/// variable, or NULL if the environment isn't set. Callbacks will be called<br/>
-		/// normally with this change.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ResetHints()
-		{
-			ResetHintsNative();
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetHintNative(byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[693])(name);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[693])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHint(byte* name)
-		{
-			byte* ret = GetHintNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHintS(byte* name)
-		{
-			string ret = Utils.DecodeStringUTF8(GetHintNative(name));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHint(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHintS(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHint(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
 		}
 	}
 }

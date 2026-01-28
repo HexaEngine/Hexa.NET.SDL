@@ -25,4 +25,47 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// The SDL mutex structure, defined in SDL_sysmutex.c <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLMutexPtr : IEquatable<SDLMutexPtr>
+	{
+		public SDLMutexPtr(SDLMutex* handle) { Handle = handle; }
+
+		public SDLMutex* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLMutexPtr Null => new SDLMutexPtr(null);
+
+		public SDLMutex this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLMutexPtr(SDLMutex* handle) => new SDLMutexPtr(handle);
+
+		public static implicit operator SDLMutex*(SDLMutexPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLMutexPtr left, SDLMutexPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLMutexPtr left, SDLMutexPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLMutexPtr left, SDLMutex* right) => left.Handle == right;
+
+		public static bool operator !=(SDLMutexPtr left, SDLMutex* right) => left.Handle != right;
+
+		public bool Equals(SDLMutexPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLMutexPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLMutexPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
 }

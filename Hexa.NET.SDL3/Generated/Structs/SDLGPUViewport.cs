@@ -20,37 +20,50 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUViewport")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUViewport
 	{
 		/// <summary>
 		/// The left offset of the viewport. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// The top offset of the viewport. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// The width of the viewport. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "w")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float W;
 
 		/// <summary>
 		/// The height of the viewport. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "h")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float H;
 
 		/// <summary>
 		/// The minimum depth of the viewport. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "min_depth")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float MinDepth;
 
 		/// <summary>
 		/// The maximum depth of the viewport. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "max_depth")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float MaxDepth;
 
 
@@ -65,6 +78,76 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying a viewport.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUViewport")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUViewportPtr : IEquatable<SDLGPUViewportPtr>
+	{
+		public SDLGPUViewportPtr(SDLGPUViewport* handle) { Handle = handle; }
+
+		public SDLGPUViewport* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUViewportPtr Null => new SDLGPUViewportPtr(null);
+
+		public SDLGPUViewport this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUViewportPtr(SDLGPUViewport* handle) => new SDLGPUViewportPtr(handle);
+
+		public static implicit operator SDLGPUViewport*(SDLGPUViewportPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUViewportPtr left, SDLGPUViewportPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUViewportPtr left, SDLGPUViewportPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUViewportPtr left, SDLGPUViewport* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUViewportPtr left, SDLGPUViewport* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUViewportPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUViewportPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUViewportPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The left offset of the viewport. <br/>
+		/// </summary>
+		public ref float X => ref Unsafe.AsRef<float>(&Handle->X);
+		/// <summary>
+		/// The top offset of the viewport. <br/>
+		/// </summary>
+		public ref float Y => ref Unsafe.AsRef<float>(&Handle->Y);
+		/// <summary>
+		/// The width of the viewport. <br/>
+		/// </summary>
+		public ref float W => ref Unsafe.AsRef<float>(&Handle->W);
+		/// <summary>
+		/// The height of the viewport. <br/>
+		/// </summary>
+		public ref float H => ref Unsafe.AsRef<float>(&Handle->H);
+		/// <summary>
+		/// The minimum depth of the viewport. <br/>
+		/// </summary>
+		public ref float MinDepth => ref Unsafe.AsRef<float>(&Handle->MinDepth);
+		/// <summary>
+		/// The maximum depth of the viewport. <br/>
+		/// </summary>
+		public ref float MaxDepth => ref Unsafe.AsRef<float>(&Handle->MaxDepth);
 	}
 
 }

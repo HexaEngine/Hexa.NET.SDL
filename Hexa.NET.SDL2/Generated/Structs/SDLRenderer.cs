@@ -25,4 +25,90 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// A structure representing rendering state<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLRendererPtrPtr : IEquatable<SDLRendererPtrPtr>
+	{
+		public SDLRendererPtrPtr(SDLRenderer** handle) { Handle = handle; }
+
+		public SDLRenderer** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLRendererPtrPtr Null => new SDLRendererPtrPtr(null);
+
+		public SDLRenderer* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLRendererPtrPtr(SDLRenderer** handle) => new SDLRendererPtrPtr(handle);
+
+		public static implicit operator SDLRenderer**(SDLRendererPtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLRendererPtrPtr left, SDLRendererPtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLRendererPtrPtr left, SDLRendererPtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLRendererPtrPtr left, SDLRenderer** right) => left.Handle == right;
+
+		public static bool operator !=(SDLRendererPtrPtr left, SDLRenderer** right) => left.Handle != right;
+
+		public bool Equals(SDLRendererPtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLRendererPtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLRendererPtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
+	/// <summary>
+	/// A structure representing rendering state<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLRendererPtr : IEquatable<SDLRendererPtr>
+	{
+		public SDLRendererPtr(SDLRenderer* handle) { Handle = handle; }
+
+		public SDLRenderer* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLRendererPtr Null => new SDLRendererPtr(null);
+
+		public SDLRenderer this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLRendererPtr(SDLRenderer* handle) => new SDLRendererPtr(handle);
+
+		public static implicit operator SDLRenderer*(SDLRendererPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLRendererPtr left, SDLRendererPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLRendererPtr left, SDLRendererPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLRendererPtr left, SDLRenderer* right) => left.Handle == right;
+
+		public static bool operator !=(SDLRendererPtr left, SDLRenderer* right) => left.Handle != right;
+
+		public bool Equals(SDLRendererPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLRendererPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLRendererPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
 }

@@ -25,4 +25,47 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// The SDL condition variable structure, defined in SDL_syscond.c <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLCondPtr : IEquatable<SDLCondPtr>
+	{
+		public SDLCondPtr(SDLCond* handle) { Handle = handle; }
+
+		public SDLCond* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLCondPtr Null => new SDLCondPtr(null);
+
+		public SDLCond this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLCondPtr(SDLCond* handle) => new SDLCondPtr(handle);
+
+		public static implicit operator SDLCond*(SDLCondPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLCondPtr left, SDLCondPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLCondPtr left, SDLCondPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLCondPtr left, SDLCond* right) => left.Handle == right;
+
+		public static bool operator !=(SDLCondPtr left, SDLCond* right) => left.Handle != right;
+
+		public bool Equals(SDLCondPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLCondPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLCondPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
 }

@@ -17,10 +17,15 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_GPUShaderStage")]
 	[Flags]
 	public enum SDLGPUShaderStage : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SHADERSTAGE_VERTEX")]
+		[NativeName(NativeNameType.Value, "0")]
 		Vertex = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SHADERSTAGE_FRAGMENT")]
+		[NativeName(NativeNameType.Value, "1")]
 		Fragment = unchecked(1),
 	}
 }

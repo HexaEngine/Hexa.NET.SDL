@@ -16,7 +16,6 @@ namespace Hexa.NET.SDL2
 	/// Possible return values from the SDL_HitTest callback.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
 	public enum SDLHitTestResult : int
 	{
 		/// <summary>

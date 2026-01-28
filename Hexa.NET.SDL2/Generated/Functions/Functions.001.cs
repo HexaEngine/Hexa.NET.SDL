@@ -17,6 +17,294 @@ namespace Hexa.NET.SDL2
 	public unsafe partial class SDL
 	{
 
+		public static byte* Uitoa(uint value, byte* str, int radix)
+		{
+			byte* ret = UitoaNative(value, str, radix);
+			return ret;
+		}
+
+		public static string UitoaS(uint value, byte* str, int radix)
+		{
+			string ret = Utils.DecodeStringUTF8(UitoaNative(value, str, radix));
+			return ret;
+		}
+
+		public static byte* Uitoa(uint value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = UitoaNative(value, (byte*)pstr, radix);
+				return ret;
+			}
+		}
+
+		public static string UitoaS(uint value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(UitoaNative(value, (byte*)pstr, radix));
+				return ret;
+			}
+		}
+
+		public static byte* Uitoa(uint value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = UitoaNative(value, pStr0, radix);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string UitoaS(uint value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(UitoaNative(value, pStr0, radix));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* LtoaNative(int value, byte* str, int radix)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*, int, byte*>)funcTable[60])(value, str, radix);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint, int, nint>)funcTable[60])(value, (nint)str, radix);
+			#endif
+		}
+
+		public static byte* Ltoa(int value, byte* str, int radix)
+		{
+			byte* ret = LtoaNative(value, str, radix);
+			return ret;
+		}
+
+		public static string LtoaS(int value, byte* str, int radix)
+		{
+			string ret = Utils.DecodeStringUTF8(LtoaNative(value, str, radix));
+			return ret;
+		}
+
+		public static byte* Ltoa(int value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = LtoaNative(value, (byte*)pstr, radix);
+				return ret;
+			}
+		}
+
+		public static string LtoaS(int value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(LtoaNative(value, (byte*)pstr, radix));
+				return ret;
+			}
+		}
+
+		public static byte* Ltoa(int value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = LtoaNative(value, pStr0, radix);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string LtoaS(int value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(LtoaNative(value, pStr0, radix));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* UltoaNative(uint value, byte* str, int radix)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, byte*>)funcTable[61])(value, str, radix);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, int, nint>)funcTable[61])(value, (nint)str, radix);
+			#endif
+		}
+
+		public static byte* Ultoa(uint value, byte* str, int radix)
+		{
+			byte* ret = UltoaNative(value, str, radix);
+			return ret;
+		}
+
+		public static string UltoaS(uint value, byte* str, int radix)
+		{
+			string ret = Utils.DecodeStringUTF8(UltoaNative(value, str, radix));
+			return ret;
+		}
+
+		public static byte* Ultoa(uint value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = UltoaNative(value, (byte*)pstr, radix);
+				return ret;
+			}
+		}
+
+		public static string UltoaS(uint value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(UltoaNative(value, (byte*)pstr, radix));
+				return ret;
+			}
+		}
+
+		public static byte* Ultoa(uint value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = UltoaNative(value, pStr0, radix);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string UltoaS(uint value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(UltoaNative(value, pStr0, radix));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* LltoaNative(long value, byte* str, int radix)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, byte*, int, byte*>)funcTable[62])(value, str, radix);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<long, nint, int, nint>)funcTable[62])(value, (nint)str, radix);
+			#endif
+		}
+
 		public static byte* Lltoa(long value, byte* str, int radix)
 		{
 			byte* ret = LltoaNative(value, str, radix);
@@ -215,7 +503,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Atoi(ref byte str)
+		public static int Atoi(in byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -276,7 +564,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static double Atof(ref byte str)
+		public static double Atof(in byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -337,7 +625,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strtol(ref byte str, byte** endp, int baseValue)
+		public static int Strtol(in byte str, byte** endp, int baseValue)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -391,7 +679,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Strtol(ref byte str, ref byte* endp, int baseValue)
+		public static int Strtol(in byte str, ref byte* endp, int baseValue)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -461,7 +749,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static uint Strtoul(ref byte str, byte** endp, int baseValue)
+		public static uint Strtoul(in byte str, byte** endp, int baseValue)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -515,7 +803,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static uint Strtoul(ref byte str, ref byte* endp, int baseValue)
+		public static uint Strtoul(in byte str, ref byte* endp, int baseValue)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -585,7 +873,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static long Strtoll(ref byte str, byte** endp, int baseValue)
+		public static long Strtoll(in byte str, byte** endp, int baseValue)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -639,7 +927,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static long Strtoll(ref byte str, ref byte* endp, int baseValue)
+		public static long Strtoll(in byte str, ref byte* endp, int baseValue)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -709,7 +997,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static ulong Strtoull(ref byte str, byte** endp, int baseValue)
+		public static ulong Strtoull(in byte str, byte** endp, int baseValue)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -763,7 +1051,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static ulong Strtoull(ref byte str, ref byte* endp, int baseValue)
+		public static ulong Strtoull(in byte str, ref byte* endp, int baseValue)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -833,7 +1121,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static double Strtod(ref byte str, byte** endp)
+		public static double Strtod(in byte str, byte** endp)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -887,7 +1175,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static double Strtod(ref byte str, ref byte* endp)
+		public static double Strtod(in byte str, ref byte* endp)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -957,7 +1245,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strcmp(ref byte str1, byte* str2)
+		public static int Strcmp(in byte str1, byte* str2)
 		{
 			fixed (byte* pstr1 = &str1)
 			{
@@ -1002,7 +1290,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strcmp(byte* str1, ref byte str2)
+		public static int Strcmp(byte* str1, in byte str2)
 		{
 			fixed (byte* pstr2 = &str2)
 			{
@@ -1047,7 +1335,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strcmp(ref byte str1, ref byte str2)
+		public static int Strcmp(in byte str1, in byte str2)
 		{
 			fixed (byte* pstr1 = &str1)
 			{
@@ -1135,7 +1423,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strncmp(ref byte str1, byte* str2, nuint maxlen)
+		public static int Strncmp(in byte str1, byte* str2, nuint maxlen)
 		{
 			fixed (byte* pstr1 = &str1)
 			{
@@ -1180,7 +1468,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strncmp(byte* str1, ref byte str2, nuint maxlen)
+		public static int Strncmp(byte* str1, in byte str2, nuint maxlen)
 		{
 			fixed (byte* pstr2 = &str2)
 			{
@@ -1225,7 +1513,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strncmp(ref byte str1, ref byte str2, nuint maxlen)
+		public static int Strncmp(in byte str1, in byte str2, nuint maxlen)
 		{
 			fixed (byte* pstr1 = &str1)
 			{
@@ -1313,7 +1601,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strcasecmp(ref byte str1, byte* str2)
+		public static int Strcasecmp(in byte str1, byte* str2)
 		{
 			fixed (byte* pstr1 = &str1)
 			{
@@ -1358,7 +1646,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strcasecmp(byte* str1, ref byte str2)
+		public static int Strcasecmp(byte* str1, in byte str2)
 		{
 			fixed (byte* pstr2 = &str2)
 			{
@@ -1403,7 +1691,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strcasecmp(ref byte str1, ref byte str2)
+		public static int Strcasecmp(in byte str1, in byte str2)
 		{
 			fixed (byte* pstr1 = &str1)
 			{
@@ -1491,7 +1779,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strncasecmp(ref byte str1, byte* str2, nuint len)
+		public static int Strncasecmp(in byte str1, byte* str2, nuint len)
 		{
 			fixed (byte* pstr1 = &str1)
 			{
@@ -1536,7 +1824,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strncasecmp(byte* str1, ref byte str2, nuint len)
+		public static int Strncasecmp(byte* str1, in byte str2, nuint len)
 		{
 			fixed (byte* pstr2 = &str2)
 			{
@@ -1581,7 +1869,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Strncasecmp(ref byte str1, ref byte str2, nuint len)
+		public static int Strncasecmp(in byte str1, in byte str2, nuint len)
 		{
 			fixed (byte* pstr1 = &str1)
 			{
@@ -1669,7 +1957,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Sscanf(ref byte text, byte* fmt)
+		public static int Sscanf(in byte text, byte* fmt)
 		{
 			fixed (byte* ptext = &text)
 			{
@@ -1714,7 +2002,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Sscanf(byte* text, ref byte fmt)
+		public static int Sscanf(byte* text, in byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -1759,7 +2047,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Sscanf(ref byte text, ref byte fmt)
+		public static int Sscanf(in byte text, in byte fmt)
 		{
 			fixed (byte* ptext = &text)
 			{
@@ -1847,7 +2135,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Vsscanf(ref byte text, byte* fmt, nint ap)
+		public static int Vsscanf(in byte text, byte* fmt, nint ap)
 		{
 			fixed (byte* ptext = &text)
 			{
@@ -1892,7 +2180,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Vsscanf(byte* text, ref byte fmt, nint ap)
+		public static int Vsscanf(byte* text, in byte fmt, nint ap)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -1937,7 +2225,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Vsscanf(ref byte text, ref byte fmt, nint ap)
+		public static int Vsscanf(in byte text, in byte fmt, nint ap)
 		{
 			fixed (byte* ptext = &text)
 			{
@@ -2062,7 +2350,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Snprintf(byte* text, nuint maxlen, ref byte fmt)
+		public static int Snprintf(byte* text, nuint maxlen, in byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -2107,7 +2395,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Snprintf(ref byte text, nuint maxlen, ref byte fmt)
+		public static int Snprintf(ref byte text, nuint maxlen, in byte fmt)
 		{
 			fixed (byte* ptext = &text)
 			{
@@ -2233,7 +2521,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Vsnprintf(byte* text, nuint maxlen, ref byte fmt, nint ap)
+		public static int Vsnprintf(byte* text, nuint maxlen, in byte fmt, nint ap)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -2278,7 +2566,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Vsnprintf(ref byte text, nuint maxlen, ref byte fmt, nint ap)
+		public static int Vsnprintf(ref byte text, nuint maxlen, in byte fmt, nint ap)
 		{
 			fixed (byte* ptext = &text)
 			{
@@ -2376,7 +2664,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Asprintf(byte** strp, ref byte fmt)
+		public static int Asprintf(byte** strp, in byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -2421,7 +2709,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Asprintf(ref byte* strp, ref byte fmt)
+		public static int Asprintf(ref byte* strp, in byte fmt)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -2500,7 +2788,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int Vasprintf(byte** strp, ref byte fmt, nint ap)
+		public static int Vasprintf(byte** strp, in byte fmt, nint ap)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -2545,7 +2833,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static int Vasprintf(ref byte* strp, ref byte fmt, nint ap)
+		public static int Vasprintf(ref byte* strp, in byte fmt, nint ap)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -3304,40 +3592,40 @@ namespace Hexa.NET.SDL2
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIconv IconvOpenNative(byte* tocode, byte* fromcode)
+		internal static SDLIconvT IconvOpenNative(byte* tocode, byte* fromcode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLIconv>)funcTable[123])(tocode, fromcode);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLIconvT>)funcTable[123])(tocode, fromcode);
 			#else
-			return (SDLIconv)((delegate* unmanaged[Cdecl]<nint, nint, SDLIconv>)funcTable[123])((nint)tocode, (nint)fromcode);
+			return (SDLIconvT)((delegate* unmanaged[Cdecl]<nint, nint, SDLIconvT>)funcTable[123])((nint)tocode, (nint)fromcode);
 			#endif
 		}
 
-		public static SDLIconv IconvOpen(byte* tocode, byte* fromcode)
+		public static SDLIconvT IconvOpen(byte* tocode, byte* fromcode)
 		{
-			SDLIconv ret = IconvOpenNative(tocode, fromcode);
+			SDLIconvT ret = IconvOpenNative(tocode, fromcode);
 			return ret;
 		}
 
-		public static SDLIconv IconvOpen(ref byte tocode, byte* fromcode)
+		public static SDLIconvT IconvOpen(in byte tocode, byte* fromcode)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
-				SDLIconv ret = IconvOpenNative((byte*)ptocode, fromcode);
+				SDLIconvT ret = IconvOpenNative((byte*)ptocode, fromcode);
 				return ret;
 			}
 		}
 
-		public static SDLIconv IconvOpen(ReadOnlySpan<byte> tocode, byte* fromcode)
+		public static SDLIconvT IconvOpen(ReadOnlySpan<byte> tocode, byte* fromcode)
 		{
 			fixed (byte* ptocode = tocode)
 			{
-				SDLIconv ret = IconvOpenNative((byte*)ptocode, fromcode);
+				SDLIconvT ret = IconvOpenNative((byte*)ptocode, fromcode);
 				return ret;
 			}
 		}
 
-		public static SDLIconv IconvOpen(string tocode, byte* fromcode)
+		public static SDLIconvT IconvOpen(string tocode, byte* fromcode)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3356,7 +3644,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLIconv ret = IconvOpenNative(pStr0, fromcode);
+			SDLIconvT ret = IconvOpenNative(pStr0, fromcode);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -3364,25 +3652,25 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static SDLIconv IconvOpen(byte* tocode, ref byte fromcode)
+		public static SDLIconvT IconvOpen(byte* tocode, in byte fromcode)
 		{
 			fixed (byte* pfromcode = &fromcode)
 			{
-				SDLIconv ret = IconvOpenNative(tocode, (byte*)pfromcode);
+				SDLIconvT ret = IconvOpenNative(tocode, (byte*)pfromcode);
 				return ret;
 			}
 		}
 
-		public static SDLIconv IconvOpen(byte* tocode, ReadOnlySpan<byte> fromcode)
+		public static SDLIconvT IconvOpen(byte* tocode, ReadOnlySpan<byte> fromcode)
 		{
 			fixed (byte* pfromcode = fromcode)
 			{
-				SDLIconv ret = IconvOpenNative(tocode, (byte*)pfromcode);
+				SDLIconvT ret = IconvOpenNative(tocode, (byte*)pfromcode);
 				return ret;
 			}
 		}
 
-		public static SDLIconv IconvOpen(byte* tocode, string fromcode)
+		public static SDLIconvT IconvOpen(byte* tocode, string fromcode)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3401,7 +3689,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLIconv ret = IconvOpenNative(tocode, pStr0);
+			SDLIconvT ret = IconvOpenNative(tocode, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -3409,31 +3697,31 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		public static SDLIconv IconvOpen(ref byte tocode, ref byte fromcode)
+		public static SDLIconvT IconvOpen(in byte tocode, in byte fromcode)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
 				fixed (byte* pfromcode = &fromcode)
 				{
-					SDLIconv ret = IconvOpenNative((byte*)ptocode, (byte*)pfromcode);
+					SDLIconvT ret = IconvOpenNative((byte*)ptocode, (byte*)pfromcode);
 					return ret;
 				}
 			}
 		}
 
-		public static SDLIconv IconvOpen(ReadOnlySpan<byte> tocode, ReadOnlySpan<byte> fromcode)
+		public static SDLIconvT IconvOpen(ReadOnlySpan<byte> tocode, ReadOnlySpan<byte> fromcode)
 		{
 			fixed (byte* ptocode = tocode)
 			{
 				fixed (byte* pfromcode = fromcode)
 				{
-					SDLIconv ret = IconvOpenNative((byte*)ptocode, (byte*)pfromcode);
+					SDLIconvT ret = IconvOpenNative((byte*)ptocode, (byte*)pfromcode);
 					return ret;
 				}
 			}
 		}
 
-		public static SDLIconv IconvOpen(string tocode, string fromcode)
+		public static SDLIconvT IconvOpen(string tocode, string fromcode)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3469,7 +3757,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			SDLIconv ret = IconvOpenNative(pStr0, pStr1);
+			SDLIconvT ret = IconvOpenNative(pStr0, pStr1);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -3482,38 +3770,38 @@ namespace Hexa.NET.SDL2
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IconvCloseNative(SDLIconv cd)
+		internal static int IconvCloseNative(SDLIconvT cd)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIconv, int>)funcTable[124])(cd);
+			return ((delegate* unmanaged[Cdecl]<SDLIconvT, int>)funcTable[124])(cd);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLIconv, int>)funcTable[124])(cd);
+			return (int)((delegate* unmanaged[Cdecl]<SDLIconvT, int>)funcTable[124])(cd);
 			#endif
 		}
 
-		public static int IconvClose(SDLIconv cd)
+		public static int IconvClose(SDLIconvT cd)
 		{
 			int ret = IconvCloseNative(cd);
 			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint IconvNative(SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
+		internal static nuint IconvNative(SDLIconvT cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIconv, byte**, nuint*, byte**, nuint*, nuint>)funcTable[125])(cd, inbuf, inbytesleft, outbuf, outbytesleft);
+			return ((delegate* unmanaged[Cdecl]<SDLIconvT, byte**, nuint*, byte**, nuint*, nuint>)funcTable[125])(cd, inbuf, inbytesleft, outbuf, outbytesleft);
 			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<SDLIconv, nint, nint, nint, nint, nuint>)funcTable[125])(cd, (nint)inbuf, (nint)inbytesleft, (nint)outbuf, (nint)outbytesleft);
+			return (nuint)((delegate* unmanaged[Cdecl]<SDLIconvT, nint, nint, nint, nint, nuint>)funcTable[125])(cd, (nint)inbuf, (nint)inbytesleft, (nint)outbuf, (nint)outbytesleft);
 			#endif
 		}
 
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			nuint ret = IconvNative(cd, inbuf, inbytesleft, outbuf, outbytesleft);
 			return ret;
 		}
 
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -3522,7 +3810,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -3531,7 +3819,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -3543,7 +3831,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** poutbuf = &outbuf)
 			{
@@ -3552,7 +3840,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -3564,7 +3852,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -3576,7 +3864,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -3591,7 +3879,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* poutbytesleft = &outbytesleft)
 			{
@@ -3600,7 +3888,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -3612,7 +3900,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -3624,7 +3912,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -3639,7 +3927,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** poutbuf = &outbuf)
 			{
@@ -3651,7 +3939,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -3666,7 +3954,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -3681,7 +3969,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(SDLIconvT cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -3741,7 +4029,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* IconvString(ref byte tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
+		public static byte* IconvString(in byte tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
@@ -3755,7 +4043,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static string IconvStringS(ref byte tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
+		public static string IconvStringS(in byte tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
@@ -3861,7 +4149,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* IconvString(byte* tocode, ref byte fromcode, byte* inbuf, nuint inbytesleft)
+		public static byte* IconvString(byte* tocode, in byte fromcode, byte* inbuf, nuint inbytesleft)
 		{
 			fixed (byte* pfromcode = &fromcode)
 			{
@@ -3875,7 +4163,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static string IconvStringS(byte* tocode, ref byte fromcode, byte* inbuf, nuint inbytesleft)
+		public static string IconvStringS(byte* tocode, in byte fromcode, byte* inbuf, nuint inbytesleft)
 		{
 			fixed (byte* pfromcode = &fromcode)
 			{
@@ -3981,7 +4269,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* IconvString(ref byte tocode, ref byte fromcode, byte* inbuf, nuint inbytesleft)
+		public static byte* IconvString(in byte tocode, in byte fromcode, byte* inbuf, nuint inbytesleft)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
@@ -3998,7 +4286,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static string IconvStringS(ref byte tocode, ref byte fromcode, byte* inbuf, nuint inbytesleft)
+		public static string IconvStringS(in byte tocode, in byte fromcode, byte* inbuf, nuint inbytesleft)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
@@ -4155,7 +4443,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* IconvString(byte* tocode, byte* fromcode, ref byte inbuf, nuint inbytesleft)
+		public static byte* IconvString(byte* tocode, byte* fromcode, in byte inbuf, nuint inbytesleft)
 		{
 			fixed (byte* pinbuf = &inbuf)
 			{
@@ -4169,7 +4457,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static string IconvStringS(byte* tocode, byte* fromcode, ref byte inbuf, nuint inbytesleft)
+		public static string IconvStringS(byte* tocode, byte* fromcode, in byte inbuf, nuint inbytesleft)
 		{
 			fixed (byte* pinbuf = &inbuf)
 			{
@@ -4275,7 +4563,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* IconvString(ref byte tocode, byte* fromcode, ref byte inbuf, nuint inbytesleft)
+		public static byte* IconvString(in byte tocode, byte* fromcode, in byte inbuf, nuint inbytesleft)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
@@ -4292,7 +4580,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static string IconvStringS(ref byte tocode, byte* fromcode, ref byte inbuf, nuint inbytesleft)
+		public static string IconvStringS(in byte tocode, byte* fromcode, in byte inbuf, nuint inbytesleft)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
@@ -4449,7 +4737,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* IconvString(byte* tocode, ref byte fromcode, ref byte inbuf, nuint inbytesleft)
+		public static byte* IconvString(byte* tocode, in byte fromcode, in byte inbuf, nuint inbytesleft)
 		{
 			fixed (byte* pfromcode = &fromcode)
 			{
@@ -4466,7 +4754,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static string IconvStringS(byte* tocode, ref byte fromcode, ref byte inbuf, nuint inbytesleft)
+		public static string IconvStringS(byte* tocode, in byte fromcode, in byte inbuf, nuint inbytesleft)
 		{
 			fixed (byte* pfromcode = &fromcode)
 			{
@@ -4623,7 +4911,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* IconvString(ref byte tocode, ref byte fromcode, ref byte inbuf, nuint inbytesleft)
+		public static byte* IconvString(in byte tocode, in byte fromcode, in byte inbuf, nuint inbytesleft)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
@@ -4643,7 +4931,7 @@ namespace Hexa.NET.SDL2
 		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
 		/// <br/>
 		/// </summary>
-		public static string IconvStringS(ref byte tocode, ref byte fromcode, ref byte inbuf, nuint inbytesleft)
+		public static string IconvStringS(in byte tocode, in byte fromcode, in byte inbuf, nuint inbytesleft)
 		{
 			fixed (byte* ptocode = &tocode)
 			{
@@ -4765,284 +5053,6 @@ namespace Hexa.NET.SDL2
 			{
 				Utils.Free(pStr1);
 			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(string tocode, string fromcode, string inbuf, nuint inbytesleft)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tocode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tocode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (fromcode != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* pStr2 = null;
-			int pStrSize2 = 0;
-			if (inbuf != null)
-			{
-				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
-				if (pStrSize2 >= Utils.MaxStackallocSize)
-				{
-					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
-				}
-				else
-				{
-					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
-					pStr2 = pStrStack2;
-				}
-				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
-				pStr2[pStrOffset2] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, pStr1, pStr2, inbytesleft));
-			if (pStrSize2 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr2);
-			}
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int MainNative(int argc, byte** argv)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte**, int>)funcTable[127])(argc, argv);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[127])(argc, (nint)argv);
-			#endif
-		}
-
-		public static int Main(int argc, byte** argv)
-		{
-			int ret = MainNative(argc, argv);
-			return ret;
-		}
-
-		public static int Main(int argc, string[] argv)
-		{
-			byte** pStrArray0 = null;
-			int pStrArray0Size = Utils.GetByteCountArray(argv);
-			if (argv != null)
-			{
-				if (pStrArray0Size > Utils.MaxStackallocSize)
-				{
-					pStrArray0 = (byte**)Utils.Alloc<byte>(pStrArray0Size);
-				}
-				else
-				{
-					byte* pStrArray0Stack = stackalloc byte[pStrArray0Size];
-					pStrArray0 = (byte**)pStrArray0Stack;
-				}
-			}
-			for (int i = 0; i < argv.Length; i++)
-			{
-				pStrArray0[i] = (byte*)Utils.StringToUTF8Ptr(argv[i]);
-			}
-			int ret = MainNative(argc, pStrArray0);
-			for (int i = 0; i < argv.Length; i++)
-			{
-				Utils.Free(pStrArray0[i]);
-			}
-			if (pStrArray0Size >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStrArray0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Circumvent failure of SDL_Init() when not using SDL_main() as an entry<br/>
-		/// point.<br/>
-		/// This function is defined in SDL_main.h, along with the preprocessor rule to<br/>
-		/// redefine main() as SDL_main(). Thus to ensure that your main() function<br/>
-		/// will not be changed it is necessary to define SDL_MAIN_HANDLED before<br/>
-		/// including SDL.h.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetMainReadyNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
-			#endif
-		}
-
-		/// <summary>
-		/// Circumvent failure of SDL_Init() when not using SDL_main() as an entry<br/>
-		/// point.<br/>
-		/// This function is defined in SDL_main.h, along with the preprocessor rule to<br/>
-		/// redefine main() as SDL_main(). Thus to ensure that your main() function<br/>
-		/// will not be changed it is necessary to define SDL_MAIN_HANDLED before<br/>
-		/// including SDL.h.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetMainReady()
-		{
-			SetMainReadyNative();
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RegisterAppNative(byte* name, uint style, void* hInst)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, uint, void*, int>)funcTable[129])(name, style, hInst);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, uint, nint, int>)funcTable[129])((nint)name, style, (nint)hInst);
-			#endif
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RegisterApp(byte* name, uint style, void* hInst)
-		{
-			int ret = RegisterAppNative(name, style, hInst);
-			return ret;
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RegisterApp(ref byte name, uint style, void* hInst)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = RegisterAppNative((byte*)pname, style, hInst);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RegisterApp(ReadOnlySpan<byte> name, uint style, void* hInst)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = RegisterAppNative((byte*)pname, style, hInst);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RegisterApp(string name, uint style, void* hInst)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = RegisterAppNative(pStr0, style, hInst);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);

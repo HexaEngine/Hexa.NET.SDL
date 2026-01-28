@@ -24,27 +24,36 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_HapticLeftRight")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticLeftRight
 	{
 		/// <summary>
 		/// SDL_HAPTIC_LEFTRIGHT <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_HapticEffectType")]
 		public ushort Type;
 
 		/// <summary>
 		/// Duration of the effect in milliseconds. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "length")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Length;
 
 		/// <summary>
 		/// Control of the large controller motor. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "large_magnitude")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort LargeMagnitude;
 
 		/// <summary>
 		/// Control of the small controller motor. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "small_magnitude")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort SmallMagnitude;
 
 

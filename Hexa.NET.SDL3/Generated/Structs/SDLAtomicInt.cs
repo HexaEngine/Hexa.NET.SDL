@@ -34,9 +34,12 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AtomicInt")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAtomicInt
 	{
+		[NativeName(NativeNameType.Field, "value")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Value;
 
 		public unsafe SDLAtomicInt(int value = default)
@@ -45,6 +48,67 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A type representing an atomic integer value.<br/>
+	/// This can be used to manage a value that is synchronized across multiple<br/>
+	/// CPUs without a race condition; when an app sets a value with<br/>
+	/// SDL_SetAtomicInt all other threads, regardless of the CPU it is running on,<br/>
+	/// will see that value when retrieved with SDL_GetAtomicInt, regardless of CPU<br/>
+	/// caches, etc.<br/>
+	/// This is also useful for atomic compare-and-swap operations: a thread can<br/>
+	/// change the value as long as its current value matches expectations. When<br/>
+	/// done in a loop, one can guarantee data consistency across threads without a<br/>
+	/// lock (but the usual warnings apply: if you don't know what you're doing, or<br/>
+	/// you don't do it carefully, you can confidently cause any number of<br/>
+	/// disasters with this, so in most cases, you _should_ use a mutex instead of<br/>
+	/// this!).<br/>
+	/// This is a struct so people don't accidentally use numeric operations on it<br/>
+	/// directly. You have to use SDL atomic functions.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_AtomicInt")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAtomicIntPtr : IEquatable<SDLAtomicIntPtr>
+	{
+		public SDLAtomicIntPtr(SDLAtomicInt* handle) { Handle = handle; }
+
+		public SDLAtomicInt* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAtomicIntPtr Null => new SDLAtomicIntPtr(null);
+
+		public SDLAtomicInt this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAtomicIntPtr(SDLAtomicInt* handle) => new SDLAtomicIntPtr(handle);
+
+		public static implicit operator SDLAtomicInt*(SDLAtomicIntPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAtomicIntPtr left, SDLAtomicIntPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAtomicIntPtr left, SDLAtomicIntPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAtomicIntPtr left, SDLAtomicInt* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAtomicIntPtr left, SDLAtomicInt* right) => left.Handle != right;
+
+		public bool Equals(SDLAtomicIntPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAtomicIntPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAtomicIntPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref int Value => ref Unsafe.AsRef<int>(&Handle->Value);
 	}
 
 }

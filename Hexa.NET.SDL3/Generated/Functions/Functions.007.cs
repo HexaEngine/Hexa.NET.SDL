@@ -18,73 +18,43 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
-		/// SDL_IOStream is using to access the filesystem.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
+		/// Set the SDL error message for the current thread.<br/>
+		/// Calling this function will replace any previous error message that was set.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLIOStream* IOFromFile(string file, string mode)
+		[NativeName(NativeNameType.Func, "SDL_SetErrorV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetErrorV([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				byte ret = SetErrorVNative((byte*)pfmt, ap);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the SDL error message for the current thread.<br/>
+		/// Calling this function will replace any previous error message that was set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetErrorV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetErrorV([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (file != null)
+			if (fmt != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -94,14 +64,1855 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetErrorVNative(pStr0, ap);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an error indicating that memory allocation failed.<br/>
+		/// This function does not do any memory allocation.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OutOfMemory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte OutOfMemoryNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[199])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[199])();
+			#endif
+		}
+
+		/// <summary>
+		/// Set an error indicating that memory allocation failed.<br/>
+		/// This function does not do any memory allocation.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OutOfMemory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool OutOfMemory()
+		{
+			byte ret = OutOfMemoryNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Retrieve a message about the last error that occurred on the current<br/>
+		/// thread.<br/>
+		/// It is possible for multiple errors to occur before calling SDL_GetError().<br/>
+		/// Only the last error is returned.<br/>
+		/// The message is only applicable when an SDL function has signaled an error.<br/>
+		/// You must check the return values of SDL function calls to determine when to<br/>
+		/// appropriately call SDL_GetError(). You should *not* use the results of<br/>
+		/// SDL_GetError() to decide if an error has occurred! Sometimes SDL will set<br/>
+		/// an error string even when reporting success.<br/>
+		/// SDL will *not* clear the error string for successful API calls. You *must*<br/>
+		/// check return values for failure cases before you can assume the error<br/>
+		/// string applies.<br/>
+		/// Error strings are set per-thread, so an error set in a different thread<br/>
+		/// will not interfere with the current thread's operation.<br/>
+		/// The returned value is a thread-local string which will remain valid until<br/>
+		/// the current thread's error string is changed. The caller should make a copy<br/>
+		/// if the value is needed after the next SDL API call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetError")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetErrorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[200])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[200])();
+			#endif
+		}
+
+		/// <summary>
+		/// Retrieve a message about the last error that occurred on the current<br/>
+		/// thread.<br/>
+		/// It is possible for multiple errors to occur before calling SDL_GetError().<br/>
+		/// Only the last error is returned.<br/>
+		/// The message is only applicable when an SDL function has signaled an error.<br/>
+		/// You must check the return values of SDL function calls to determine when to<br/>
+		/// appropriately call SDL_GetError(). You should *not* use the results of<br/>
+		/// SDL_GetError() to decide if an error has occurred! Sometimes SDL will set<br/>
+		/// an error string even when reporting success.<br/>
+		/// SDL will *not* clear the error string for successful API calls. You *must*<br/>
+		/// check return values for failure cases before you can assume the error<br/>
+		/// string applies.<br/>
+		/// Error strings are set per-thread, so an error set in a different thread<br/>
+		/// will not interfere with the current thread's operation.<br/>
+		/// The returned value is a thread-local string which will remain valid until<br/>
+		/// the current thread's error string is changed. The caller should make a copy<br/>
+		/// if the value is needed after the next SDL API call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetError")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetError()
+		{
+			byte* ret = GetErrorNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Retrieve a message about the last error that occurred on the current<br/>
+		/// thread.<br/>
+		/// It is possible for multiple errors to occur before calling SDL_GetError().<br/>
+		/// Only the last error is returned.<br/>
+		/// The message is only applicable when an SDL function has signaled an error.<br/>
+		/// You must check the return values of SDL function calls to determine when to<br/>
+		/// appropriately call SDL_GetError(). You should *not* use the results of<br/>
+		/// SDL_GetError() to decide if an error has occurred! Sometimes SDL will set<br/>
+		/// an error string even when reporting success.<br/>
+		/// SDL will *not* clear the error string for successful API calls. You *must*<br/>
+		/// check return values for failure cases before you can assume the error<br/>
+		/// string applies.<br/>
+		/// Error strings are set per-thread, so an error set in a different thread<br/>
+		/// will not interfere with the current thread's operation.<br/>
+		/// The returned value is a thread-local string which will remain valid until<br/>
+		/// the current thread's error string is changed. The caller should make a copy<br/>
+		/// if the value is needed after the next SDL API call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetError")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetErrorS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetErrorNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Clear any previous error message for this thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ClearErrorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[201])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[201])();
+			#endif
+		}
+
+		/// <summary>
+		/// Clear any previous error message for this thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearError()
+		{
+			byte ret = ClearErrorNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the global SDL properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetGlobalPropertiesNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[202])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[202])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the global SDL properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetGlobalProperties()
+		{
+			uint ret = GetGlobalPropertiesNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a group of properties.<br/>
+		/// All properties are automatically destroyed when SDL_Quit() is called.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint CreatePropertiesNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[203])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[203])();
+			#endif
+		}
+
+		/// <summary>
+		/// Create a group of properties.<br/>
+		/// All properties are automatically destroyed when SDL_Quit() is called.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint CreateProperties()
+		{
+			uint ret = CreatePropertiesNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a group of properties.<br/>
+		/// Copy all the properties from one group of properties to another, with the<br/>
+		/// exception of properties requiring cleanup (set using<br/>
+		/// SDL_SetPointerPropertyWithCleanup()), which will not be copied. Any<br/>
+		/// property that already exists on `dst` will be overwritten.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread. This<br/>
+		/// function acquires simultaneous mutex locks on both the source<br/>
+		/// and destination property sets.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CopyPropertiesNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint src, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint dst)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[204])(src, dst);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[204])(src, dst);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a group of properties.<br/>
+		/// Copy all the properties from one group of properties to another, with the<br/>
+		/// exception of properties requiring cleanup (set using<br/>
+		/// SDL_SetPointerPropertyWithCleanup()), which will not be copied. Any<br/>
+		/// property that already exists on `dst` will be overwritten.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread. This<br/>
+		/// function acquires simultaneous mutex locks on both the source<br/>
+		/// and destination property sets.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyProperties([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint src, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint dst)
+		{
+			byte ret = CopyPropertiesNative(src, dst);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Lock a group of properties.<br/>
+		/// Obtain a multi-threaded lock for these properties. Other threads will wait<br/>
+		/// while trying to lock these properties until they are unlocked. Properties<br/>
+		/// must be unlocked before they are destroyed.<br/>
+		/// The lock is automatically taken when setting individual properties, this<br/>
+		/// function is only needed when you want to set several properties atomically<br/>
+		/// or want to guarantee that properties being queried aren't freed in another<br/>
+		/// thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte LockPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[205])(props);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[205])(props);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock a group of properties.<br/>
+		/// Obtain a multi-threaded lock for these properties. Other threads will wait<br/>
+		/// while trying to lock these properties until they are unlocked. Properties<br/>
+		/// must be unlocked before they are destroyed.<br/>
+		/// The lock is automatically taken when setting individual properties, this<br/>
+		/// function is only needed when you want to set several properties atomically<br/>
+		/// or want to guarantee that properties being queried aren't freed in another<br/>
+		/// thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LockProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			byte ret = LockPropertiesNative(props);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Unlock a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[206])(props);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[206])(props);
+			#endif
+		}
+
+		/// <summary>
+		/// Unlock a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			UnlockPropertiesNative(props);
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetPointerPropertyWithCleanupNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, void*, delegate*<void*, void*, void>, void*, byte>)funcTable[207])(props, name, value, cleanup, userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, byte>)funcTable[207])(props, (nint)name, (nint)value, (nint)cleanup, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, value, cleanup, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, cleanup, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, cleanup, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, value, cleanup, userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, (void*)value, cleanup, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, (void*)value, cleanup, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, (void*)value, cleanup, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, (void*)value, cleanup, userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, (void*)value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, (void*)value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, (void*)value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, (void*)value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, value, cleanup, (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, cleanup, (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, cleanup, (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, value, cleanup, (void*)userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, (void*)value, cleanup, (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, (void*)value, cleanup, (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, (void*)value, cleanup, (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] delegate*<void*, void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, (void*)value, cleanup, (void*)userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, (void*)value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, (void*)value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, (void*)value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties with a cleanup function<br/>
+		/// that is called when the property is deleted.<br/>
+		/// The cleanup function is also called if setting the property fails for any<br/>
+		/// reason.<br/>
+		/// For simply setting basic data types, like numbers, bools, or strings, use<br/>
+		/// SDL_SetNumberProperty, SDL_SetBooleanProperty, or SDL_SetStringProperty<br/>
+		/// instead, as those functions will handle cleanup on your behalf. This<br/>
+		/// function is only for more complex, custom data.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, (void*)value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetPointerPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, void*, byte>)funcTable[208])(props, name, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[208])(props, (nint)name, (nint)value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		{
+			byte ret = SetPointerPropertyNative(props, name, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyNative(props, pStr0, value);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value)
+		{
+			byte ret = SetPointerPropertyNative(props, name, (void*)value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetPointerPropertyNative(props, (byte*)pname, (void*)value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetPointerPropertyNative(props, (byte*)pname, (void*)value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPointerPropertyNative(props, pStr0, (void*)value);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetStringPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, byte>)funcTable[209])(props, name, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[209])(props, (nint)name, (nint)value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		{
+			byte ret = SetStringPropertyNative(props, name, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetStringPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetStringPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetStringPropertyNative(props, pStr0, value);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] in byte value)
+		{
+			fixed (byte* pvalue = &value)
+			{
+				byte ret = SetStringPropertyNative(props, name, (byte*)pvalue);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
+		{
+			fixed (byte* pvalue = value)
+			{
+				byte ret = SetStringPropertyNative(props, name, (byte*)pvalue);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (value != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(value);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetStringPropertyNative(props, name, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] in byte value)
+		{
+			fixed (byte* pname = &name)
+			{
+				fixed (byte* pvalue = &value)
+				{
+					byte ret = SetStringPropertyNative(props, (byte*)pname, (byte*)pvalue);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
+		{
+			fixed (byte* pname = name)
+			{
+				fixed (byte* pvalue = value)
+				{
+					byte ret = SetStringPropertyNative(props, (byte*)pname, (byte*)pvalue);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set a string property in a group of properties.<br/>
+		/// This function makes a copy of the string; the caller does not have to<br/>
+		/// preserve the data after this call completes.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
 			byte* pStr1 = null;
 			int pStrSize1 = 0;
-			if (mode != null)
+			if (value != null)
 			{
-				pStrSize1 = Utils.GetByteCountUTF8(mode);
+				pStrSize1 = Utils.GetByteCountUTF8(value);
 				if (pStrSize1 >= Utils.MaxStackallocSize)
 				{
 					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
@@ -111,10 +1922,1446 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
 					pStr1 = pStrStack1;
 				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(mode, pStr1, pStrSize1);
+				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			SDLIOStream* ret = IOFromFileNative(pStr0, pStr1);
+			byte ret = SetStringPropertyNative(props, pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an integer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetNumberPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, long, byte>)funcTable[210])(props, name, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, long, byte>)funcTable[210])(props, (nint)name, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an integer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
+		{
+			byte ret = SetNumberPropertyNative(props, name, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an integer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetNumberPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set an integer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetNumberPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set an integer property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetNumberPropertyNative(props, pStr0, value);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a floating point property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetFloatPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, float, byte>)funcTable[211])(props, name, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, float, byte>)funcTable[211])(props, (nint)name, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a floating point property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		{
+			byte ret = SetFloatPropertyNative(props, name, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a floating point property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetFloatPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a floating point property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetFloatPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a floating point property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetFloatPropertyNative(props, pStr0, value);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a boolean property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetBooleanPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "bool")] byte value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte, byte>)funcTable[212])(props, name, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, byte, byte>)funcTable[212])(props, (nint)name, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a boolean property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "bool")] bool value)
+		{
+			byte ret = SetBooleanPropertyNative(props, name, value ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a boolean property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "bool")] bool value)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = SetBooleanPropertyNative(props, (byte*)pname, value ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a boolean property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "bool")] bool value)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = SetBooleanPropertyNative(props, (byte*)pname, value ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set a boolean property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "bool")] bool value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetBooleanPropertyNative(props, pStr0, value ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Return whether a property exists in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HasPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte>)funcTable[213])(props, name);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, byte>)funcTable[213])(props, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether a property exists in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			byte ret = HasPropertyNative(props, name);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Return whether a property exists in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = HasPropertyNative(props, (byte*)pname);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Return whether a property exists in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = HasPropertyNative(props, (byte*)pname);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Return whether a property exists in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = HasPropertyNative(props, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the type of a property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPropertyType GetPropertyTypeNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, SDLPropertyType>)funcTable[214])(props, name);
+			#else
+			return (SDLPropertyType)((delegate* unmanaged[Cdecl]<uint, nint, SDLPropertyType>)funcTable[214])(props, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
+		public static SDLPropertyType GetPropertyType([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			SDLPropertyType ret = GetPropertyTypeNative(props, name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
+		public static SDLPropertyType GetPropertyType([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLPropertyType ret = GetPropertyTypeNative(props, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the type of a property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
+		public static SDLPropertyType GetPropertyType([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLPropertyType ret = GetPropertyTypeNative(props, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the type of a property in a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
+		public static SDLPropertyType GetPropertyType([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLPropertyType ret = GetPropertyTypeNative(props, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* GetPointerPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, void*, void*>)funcTable[215])(props, name, defaultValue);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint>)funcTable[215])(props, (nint)name, (nint)defaultValue);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
+		{
+			void* ret = GetPointerPropertyNative(props, name, defaultValue);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
+		{
+			fixed (byte* pname = &name)
+			{
+				void* ret = GetPointerPropertyNative(props, (byte*)pname, defaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
+		{
+			fixed (byte* pname = name)
+			{
+				void* ret = GetPointerPropertyNative(props, (byte*)pname, defaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			void* ret = GetPointerPropertyNative(props, pStr0, defaultValue);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] nint defaultValue)
+		{
+			void* ret = GetPointerPropertyNative(props, name, (void*)defaultValue);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] nint defaultValue)
+		{
+			fixed (byte* pname = &name)
+			{
+				void* ret = GetPointerPropertyNative(props, (byte*)pname, (void*)defaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] nint defaultValue)
+		{
+			fixed (byte* pname = name)
+			{
+				void* ret = GetPointerPropertyNative(props, (byte*)pname, (void*)defaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a pointer property from a group of properties.<br/>
+		/// By convention, the names of properties that SDL exposes on objects will<br/>
+		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
+		/// "SDL.internal.". These should be considered read-only and should not be<br/>
+		/// modified by applications.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetPointerProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] nint defaultValue)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			void* ret = GetPointerPropertyNative(props, pStr0, (void*)defaultValue);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetStringPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, byte*>)funcTable[216])(props, name, defaultValue);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint>)funcTable[216])(props, (nint)name, (nint)defaultValue);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			byte* ret = GetStringPropertyNative(props, name, defaultValue);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, name, defaultValue));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte* ret = GetStringPropertyNative(props, (byte*)pname, defaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			fixed (byte* pname = &name)
+			{
+				string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, (byte*)pname, defaultValue));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			fixed (byte* pname = name)
+			{
+				byte* ret = GetStringPropertyNative(props, (byte*)pname, defaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			fixed (byte* pname = name)
+			{
+				string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, (byte*)pname, defaultValue));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = GetStringPropertyNative(props, pStr0, defaultValue);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, pStr0, defaultValue));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultValue)
+		{
+			fixed (byte* pdefaultValue = &defaultValue)
+			{
+				byte* ret = GetStringPropertyNative(props, name, (byte*)pdefaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultValue)
+		{
+			fixed (byte* pdefaultValue = &defaultValue)
+			{
+				string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, name, (byte*)pdefaultValue));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultValue)
+		{
+			fixed (byte* pdefaultValue = defaultValue)
+			{
+				byte* ret = GetStringPropertyNative(props, name, (byte*)pdefaultValue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultValue)
+		{
+			fixed (byte* pdefaultValue = defaultValue)
+			{
+				string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, name, (byte*)pdefaultValue));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] string defaultValue)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultValue != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultValue);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultValue, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = GetStringPropertyNative(props, name, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] string defaultValue)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultValue != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultValue);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultValue, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, name, pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultValue)
+		{
+			fixed (byte* pname = &name)
+			{
+				fixed (byte* pdefaultValue = &defaultValue)
+				{
+					byte* ret = GetStringPropertyNative(props, (byte*)pname, (byte*)pdefaultValue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultValue)
+		{
+			fixed (byte* pname = &name)
+			{
+				fixed (byte* pdefaultValue = &defaultValue)
+				{
+					string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, (byte*)pname, (byte*)pdefaultValue));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultValue)
+		{
+			fixed (byte* pname = name)
+			{
+				fixed (byte* pdefaultValue = defaultValue)
+				{
+					byte* ret = GetStringPropertyNative(props, (byte*)pname, (byte*)pdefaultValue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultValue)
+		{
+			fixed (byte* pname = name)
+			{
+				fixed (byte* pdefaultValue = defaultValue)
+				{
+					string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, (byte*)pname, (byte*)pdefaultValue));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a string property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] string defaultValue)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (defaultValue != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(defaultValue);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(defaultValue, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = GetStringPropertyNative(props, pStr0, pStr1);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -127,862 +3374,27 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Use this function to prepare a read-write memory buffer for use with<br/>
-		/// SDL_IOStream.<br/>
-		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
-		/// certain size, for both read and write access.<br/>
-		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
-		/// provide must remain valid until you close the stream. Closing the stream<br/>
-		/// will not free the original buffer.<br/>
-		/// If you need to make sure the SDL_IOStream never writes to the memory<br/>
-		/// buffer, you should use SDL_IOFromConstMem() with a read-only buffer of<br/>
-		/// memory instead.<br/>
-		/// The following properties will be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
-		/// was passed to this function.<br/>
-		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
-		/// that was passed to this function.<br/>
+		/// Get a string property from a group of properties.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// It is safe to call this function from any thread, although<br/>
+		/// the data returned is not protected and could potentially be<br/>
+		/// freed if you call SDL_SetStringProperty() or<br/>
+		/// SDL_ClearProperty() on these properties from another thread.<br/>
+		/// If you need to avoid this, use SDL_LockProperties() and<br/>
+		/// SDL_UnlockProperties().<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* IOFromMemNative(void* mem, nuint size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, nuint, SDLIOStream*>)funcTable[263])(mem, size);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[263])((nint)mem, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-write memory buffer for use with<br/>
-		/// SDL_IOStream.<br/>
-		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
-		/// certain size, for both read and write access.<br/>
-		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
-		/// provide must remain valid until you close the stream. Closing the stream<br/>
-		/// will not free the original buffer.<br/>
-		/// If you need to make sure the SDL_IOStream never writes to the memory<br/>
-		/// buffer, you should use SDL_IOFromConstMem() with a read-only buffer of<br/>
-		/// memory instead.<br/>
-		/// The following properties will be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
-		/// was passed to this function.<br/>
-		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
-		/// that was passed to this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* IOFromMem(void* mem, nuint size)
-		{
-			SDLIOStream* ret = IOFromMemNative(mem, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-only memory buffer for use with<br/>
-		/// SDL_IOStream.<br/>
-		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
-		/// certain size. It assumes the memory area is not writable.<br/>
-		/// Attempting to write to this SDL_IOStream stream will report an error<br/>
-		/// without writing to the memory buffer.<br/>
-		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
-		/// provide must remain valid until you close the stream. Closing the stream<br/>
-		/// will not free the original buffer.<br/>
-		/// If you need to write to a memory buffer, you should use SDL_IOFromMem()<br/>
-		/// with a writable buffer of memory instead.<br/>
-		/// The following properties will be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
-		/// was passed to this function.<br/>
-		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
-		/// that was passed to this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* IOFromConstMemNative(void* mem, nuint size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, nuint, SDLIOStream*>)funcTable[264])(mem, size);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[264])((nint)mem, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-only memory buffer for use with<br/>
-		/// SDL_IOStream.<br/>
-		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
-		/// certain size. It assumes the memory area is not writable.<br/>
-		/// Attempting to write to this SDL_IOStream stream will report an error<br/>
-		/// without writing to the memory buffer.<br/>
-		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
-		/// provide must remain valid until you close the stream. Closing the stream<br/>
-		/// will not free the original buffer.<br/>
-		/// If you need to write to a memory buffer, you should use SDL_IOFromMem()<br/>
-		/// with a writable buffer of memory instead.<br/>
-		/// The following properties will be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
-		/// was passed to this function.<br/>
-		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
-		/// that was passed to this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* IOFromConstMem(void* mem, nuint size)
-		{
-			SDLIOStream* ret = IOFromConstMemNative(mem, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to create an SDL_IOStream that is backed by dynamically<br/>
-		/// allocated memory.<br/>
-		/// This supports the following properties to provide access to the memory and<br/>
-		/// control over allocations:<br/>
-		/// - `SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER`: a pointer to the internal<br/>
-		/// memory of the stream. This can be set to NULL to transfer ownership of<br/>
-		/// the memory to the application, which should free the memory with<br/>
-		/// SDL_free(). If this is done, the next operation on the stream must be<br/>
-		/// SDL_CloseIO().<br/>
-		/// - `SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER`: memory will be allocated in<br/>
-		/// multiples of this size, defaulting to 1024.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* IOFromDynamicMemNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*>)funcTable[265])();
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint>)funcTable[265])();
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to create an SDL_IOStream that is backed by dynamically<br/>
-		/// allocated memory.<br/>
-		/// This supports the following properties to provide access to the memory and<br/>
-		/// control over allocations:<br/>
-		/// - `SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER`: a pointer to the internal<br/>
-		/// memory of the stream. This can be set to NULL to transfer ownership of<br/>
-		/// the memory to the application, which should free the memory with<br/>
-		/// SDL_free(). If this is done, the next operation on the stream must be<br/>
-		/// SDL_CloseIO().<br/>
-		/// - `SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER`: memory will be allocated in<br/>
-		/// multiples of this size, defaulting to 1024.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* IOFromDynamicMem()
-		{
-			SDLIOStream* ret = IOFromDynamicMemNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a custom SDL_IOStream.<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_IOStream implementation. If you just need an SDL_IOStream to<br/>
-		/// read/write a common data source, you should use the built-in<br/>
-		/// implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.<br/>
-		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
-		/// it around after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* OpenIONative(SDLIOStreamInterface* iface, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStreamInterface*, void*, SDLIOStream*>)funcTable[266])(iface, userdata);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[266])((nint)iface, (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a custom SDL_IOStream.<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_IOStream implementation. If you just need an SDL_IOStream to<br/>
-		/// read/write a common data source, you should use the built-in<br/>
-		/// implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.<br/>
-		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
-		/// it around after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* OpenIO(SDLIOStreamInterface* iface, void* userdata)
-		{
-			SDLIOStream* ret = OpenIONative(iface, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a custom SDL_IOStream.<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_IOStream implementation. If you just need an SDL_IOStream to<br/>
-		/// read/write a common data source, you should use the built-in<br/>
-		/// implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.<br/>
-		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
-		/// it around after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* OpenIO(ref SDLIOStreamInterface iface, void* userdata)
-		{
-			fixed (SDLIOStreamInterface* piface = &iface)
-			{
-				SDLIOStream* ret = OpenIONative((SDLIOStreamInterface*)piface, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_IOStream structure.<br/>
-		/// SDL_CloseIO() closes and cleans up the SDL_IOStream stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_IOStream itself. This<br/>
-		/// returns true on success, or false if the stream failed to flush to its<br/>
-		/// output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream for any reason, this function<br/>
-		/// reports an error, but the SDL_IOStream is still invalid once this function<br/>
-		/// returns.<br/>
-		/// This call flushes any buffered writes to the operating system, but there<br/>
-		/// are no guarantees that those writes have gone to physical media; they might<br/>
-		/// be in the OS's file cache, waiting to go to disk later. If it's absolutely<br/>
-		/// crucial that writes go to disk immediately, so they are definitely stored<br/>
-		/// even if the power fails before the file cache would have caught up, one<br/>
-		/// should call SDL_FlushIO() before closing. Note that flushing takes time and<br/>
-		/// makes the system and your app operate less efficiently, so do so sparingly.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CloseIONative(SDLIOStream* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte>)funcTable[267])(context);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[267])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_IOStream structure.<br/>
-		/// SDL_CloseIO() closes and cleans up the SDL_IOStream stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_IOStream itself. This<br/>
-		/// returns true on success, or false if the stream failed to flush to its<br/>
-		/// output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream for any reason, this function<br/>
-		/// reports an error, but the SDL_IOStream is still invalid once this function<br/>
-		/// returns.<br/>
-		/// This call flushes any buffered writes to the operating system, but there<br/>
-		/// are no guarantees that those writes have gone to physical media; they might<br/>
-		/// be in the OS's file cache, waiting to go to disk later. If it's absolutely<br/>
-		/// crucial that writes go to disk immediately, so they are definitely stored<br/>
-		/// even if the power fails before the file cache would have caught up, one<br/>
-		/// should call SDL_FlushIO() before closing. Note that flushing takes time and<br/>
-		/// makes the system and your app operate less efficiently, so do so sparingly.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CloseIO(SDLIOStream* context)
-		{
-			byte ret = CloseIONative(context);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_IOStream structure.<br/>
-		/// SDL_CloseIO() closes and cleans up the SDL_IOStream stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_IOStream itself. This<br/>
-		/// returns true on success, or false if the stream failed to flush to its<br/>
-		/// output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream for any reason, this function<br/>
-		/// reports an error, but the SDL_IOStream is still invalid once this function<br/>
-		/// returns.<br/>
-		/// This call flushes any buffered writes to the operating system, but there<br/>
-		/// are no guarantees that those writes have gone to physical media; they might<br/>
-		/// be in the OS's file cache, waiting to go to disk later. If it's absolutely<br/>
-		/// crucial that writes go to disk immediately, so they are definitely stored<br/>
-		/// even if the power fails before the file cache would have caught up, one<br/>
-		/// should call SDL_FlushIO() before closing. Note that flushing takes time and<br/>
-		/// makes the system and your app operate less efficiently, so do so sparingly.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CloseIO(ref SDLIOStream context)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				byte ret = CloseIONative((SDLIOStream*)pcontext);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the properties associated with an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetIOPropertiesNative(SDLIOStream* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, uint>)funcTable[268])(context);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[268])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetIOProperties(SDLIOStream* context)
-		{
-			uint ret = GetIOPropertiesNative(context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetIOProperties(ref SDLIOStream context)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				uint ret = GetIOPropertiesNative((SDLIOStream*)pcontext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the stream status of an SDL_IOStream.<br/>
-		/// This information can be useful to decide if a short read or write was due<br/>
-		/// to an error, an EOF, or a non-blocking operation that isn't yet ready to<br/>
-		/// complete.<br/>
-		/// An SDL_IOStream's status is only expected to change after a SDL_ReadIO or<br/>
-		/// SDL_WriteIO call; don't expect it to change if you just call this query<br/>
-		/// function in a tight loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStatus GetIOStatusNative(SDLIOStream* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, SDLIOStatus>)funcTable[269])(context);
-			#else
-			return (SDLIOStatus)((delegate* unmanaged[Cdecl]<nint, SDLIOStatus>)funcTable[269])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Query the stream status of an SDL_IOStream.<br/>
-		/// This information can be useful to decide if a short read or write was due<br/>
-		/// to an error, an EOF, or a non-blocking operation that isn't yet ready to<br/>
-		/// complete.<br/>
-		/// An SDL_IOStream's status is only expected to change after a SDL_ReadIO or<br/>
-		/// SDL_WriteIO call; don't expect it to change if you just call this query<br/>
-		/// function in a tight loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStatus GetIOStatus(SDLIOStream* context)
-		{
-			SDLIOStatus ret = GetIOStatusNative(context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query the stream status of an SDL_IOStream.<br/>
-		/// This information can be useful to decide if a short read or write was due<br/>
-		/// to an error, an EOF, or a non-blocking operation that isn't yet ready to<br/>
-		/// complete.<br/>
-		/// An SDL_IOStream's status is only expected to change after a SDL_ReadIO or<br/>
-		/// SDL_WriteIO call; don't expect it to change if you just call this query<br/>
-		/// function in a tight loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStatus GetIOStatus(ref SDLIOStream context)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				SDLIOStatus ret = GetIOStatusNative((SDLIOStream*)pcontext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to get the size of the data stream in an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long GetIOSizeNative(SDLIOStream* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long>)funcTable[270])(context);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[270])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the size of the data stream in an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static long GetIOSize(SDLIOStream* context)
-		{
-			long ret = GetIOSizeNative(context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the size of the data stream in an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static long GetIOSize(ref SDLIOStream context)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				long ret = GetIOSizeNative((SDLIOStream*)pcontext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Seek within an SDL_IOStream data stream.<br/>
-		/// This function seeks to byte `offset`, relative to `whence`.<br/>
-		/// `whence` may be any of the following values:<br/>
-		/// - `SDL_IO_SEEK_SET`: seek from the beginning of data<br/>
-		/// - `SDL_IO_SEEK_CUR`: seek relative to current read point<br/>
-		/// - `SDL_IO_SEEK_END`: seek relative to the end of data<br/>
-		/// If this stream can not seek, it will return -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long SeekIONative(SDLIOStream* context, long offset, SDLIOWhence whence)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long, SDLIOWhence, long>)funcTable[271])(context, offset, whence);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long, SDLIOWhence, long>)funcTable[271])((nint)context, offset, whence);
-			#endif
-		}
-
-		/// <summary>
-		/// Seek within an SDL_IOStream data stream.<br/>
-		/// This function seeks to byte `offset`, relative to `whence`.<br/>
-		/// `whence` may be any of the following values:<br/>
-		/// - `SDL_IO_SEEK_SET`: seek from the beginning of data<br/>
-		/// - `SDL_IO_SEEK_CUR`: seek relative to current read point<br/>
-		/// - `SDL_IO_SEEK_END`: seek relative to the end of data<br/>
-		/// If this stream can not seek, it will return -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long SeekIO(SDLIOStream* context, long offset, SDLIOWhence whence)
-		{
-			long ret = SeekIONative(context, offset, whence);
-			return ret;
-		}
-
-		/// <summary>
-		/// Seek within an SDL_IOStream data stream.<br/>
-		/// This function seeks to byte `offset`, relative to `whence`.<br/>
-		/// `whence` may be any of the following values:<br/>
-		/// - `SDL_IO_SEEK_SET`: seek from the beginning of data<br/>
-		/// - `SDL_IO_SEEK_CUR`: seek relative to current read point<br/>
-		/// - `SDL_IO_SEEK_END`: seek relative to the end of data<br/>
-		/// If this stream can not seek, it will return -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long SeekIO(ref SDLIOStream context, long offset, SDLIOWhence whence)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				long ret = SeekIONative((SDLIOStream*)pcontext, offset, whence);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Determine the current read/write offset in an SDL_IOStream data stream.<br/>
-		/// SDL_TellIO is actually a wrapper function that calls the SDL_IOStream's<br/>
-		/// `seek` method, with an offset of 0 bytes from `SDL_IO_SEEK_CUR`, to<br/>
-		/// simplify application development.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long TellIONative(SDLIOStream* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long>)funcTable[272])(context);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[272])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Determine the current read/write offset in an SDL_IOStream data stream.<br/>
-		/// SDL_TellIO is actually a wrapper function that calls the SDL_IOStream's<br/>
-		/// `seek` method, with an offset of 0 bytes from `SDL_IO_SEEK_CUR`, to<br/>
-		/// simplify application development.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long TellIO(SDLIOStream* context)
-		{
-			long ret = TellIONative(context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine the current read/write offset in an SDL_IOStream data stream.<br/>
-		/// SDL_TellIO is actually a wrapper function that calls the SDL_IOStream's<br/>
-		/// `seek` method, with an offset of 0 bytes from `SDL_IO_SEEK_CUR`, to<br/>
-		/// simplify application development.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long TellIO(ref SDLIOStream context)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				long ret = TellIONative((SDLIOStream*)pcontext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read from a data source.<br/>
-		/// This function reads up `size` bytes from the data source to the area<br/>
-		/// pointed at by `ptr`. This function may read less bytes than requested.<br/>
-		/// This function will return zero when the data stream is completely read, and<br/>
-		/// SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and<br/>
-		/// the stream is not at EOF, SDL_GetIOStatus() will return a different error<br/>
-		/// value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint ReadIONative(SDLIOStream* context, void* ptr, nuint size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, void*, nuint, nuint>)funcTable[273])(context, ptr, size);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[273])((nint)context, (nint)ptr, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Read from a data source.<br/>
-		/// This function reads up `size` bytes from the data source to the area<br/>
-		/// pointed at by `ptr`. This function may read less bytes than requested.<br/>
-		/// This function will return zero when the data stream is completely read, and<br/>
-		/// SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and<br/>
-		/// the stream is not at EOF, SDL_GetIOStatus() will return a different error<br/>
-		/// value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint ReadIO(SDLIOStream* context, void* ptr, nuint size)
-		{
-			nuint ret = ReadIONative(context, ptr, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read from a data source.<br/>
-		/// This function reads up `size` bytes from the data source to the area<br/>
-		/// pointed at by `ptr`. This function may read less bytes than requested.<br/>
-		/// This function will return zero when the data stream is completely read, and<br/>
-		/// SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and<br/>
-		/// the stream is not at EOF, SDL_GetIOStatus() will return a different error<br/>
-		/// value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint ReadIO(ref SDLIOStream context, void* ptr, nuint size)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				nuint ret = ReadIONative((SDLIOStream*)pcontext, ptr, size);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write to an SDL_IOStream data stream.<br/>
-		/// This function writes exactly `size` bytes from the area pointed at by `ptr`<br/>
-		/// to the stream. If this fails for any reason, it'll return less than `size`<br/>
-		/// to demonstrate how far the write progressed. On success, it returns `size`.<br/>
-		/// On error, this function still attempts to write as much as possible, so it<br/>
-		/// might return a positive value less than the requested write size.<br/>
-		/// The caller can use SDL_GetIOStatus() to determine if the problem is<br/>
-		/// recoverable, such as a non-blocking write that can simply be retried later,<br/>
-		/// or a fatal error.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteIONative(SDLIOStream* context, void* ptr, nuint size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, void*, nuint, nuint>)funcTable[274])(context, ptr, size);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[274])((nint)context, (nint)ptr, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Write to an SDL_IOStream data stream.<br/>
-		/// This function writes exactly `size` bytes from the area pointed at by `ptr`<br/>
-		/// to the stream. If this fails for any reason, it'll return less than `size`<br/>
-		/// to demonstrate how far the write progressed. On success, it returns `size`.<br/>
-		/// On error, this function still attempts to write as much as possible, so it<br/>
-		/// might return a positive value less than the requested write size.<br/>
-		/// The caller can use SDL_GetIOStatus() to determine if the problem is<br/>
-		/// recoverable, such as a non-blocking write that can simply be retried later,<br/>
-		/// or a fatal error.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteIO(SDLIOStream* context, void* ptr, nuint size)
-		{
-			nuint ret = WriteIONative(context, ptr, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write to an SDL_IOStream data stream.<br/>
-		/// This function writes exactly `size` bytes from the area pointed at by `ptr`<br/>
-		/// to the stream. If this fails for any reason, it'll return less than `size`<br/>
-		/// to demonstrate how far the write progressed. On success, it returns `size`.<br/>
-		/// On error, this function still attempts to write as much as possible, so it<br/>
-		/// might return a positive value less than the requested write size.<br/>
-		/// The caller can use SDL_GetIOStatus() to determine if the problem is<br/>
-		/// recoverable, such as a non-blocking write that can simply be retried later,<br/>
-		/// or a fatal error.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteIO(ref SDLIOStream context, void* ptr, nuint size)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				nuint ret = WriteIONative((SDLIOStream*)pcontext, ptr, size);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint IOprintfNative(SDLIOStream* context, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte*, nuint>)funcTable[275])(context, fmt);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint>)funcTable[275])((nint)context, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOprintf(SDLIOStream* context, byte* fmt)
-		{
-			nuint ret = IOprintfNative(context, fmt);
-			return ret;
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOprintf(ref SDLIOStream context, byte* fmt)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				nuint ret = IOprintfNative((SDLIOStream*)pcontext, fmt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOprintf(SDLIOStream* context, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				nuint ret = IOprintfNative(context, (byte*)pfmt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOprintf(SDLIOStream* context, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				nuint ret = IOprintfNative(context, (byte*)pfmt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOprintf(SDLIOStream* context, string fmt)
+		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] string defaultValue)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (fmt != null)
+			if (name != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				pStrSize0 = Utils.GetByteCountUTF8(name);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -992,10 +3404,31 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			nuint ret = IOprintfNative(context, pStr0);
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (defaultValue != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(defaultValue);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(defaultValue, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, pStr0, pStr1));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1004,190 +3437,106 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
+		/// Get a number property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a number property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOprintf(ref SDLIOStream context, ref byte fmt)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				fixed (byte* pfmt = &fmt)
-				{
-					nuint ret = IOprintfNative((SDLIOStream*)pcontext, (byte*)pfmt);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static nuint IOprintf(ref SDLIOStream context, ReadOnlySpan<byte> fmt)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				fixed (byte* pfmt = fmt)
-				{
-					nuint ret = IOprintfNative((SDLIOStream*)pcontext, (byte*)pfmt);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOprintf(ref SDLIOStream context, string fmt)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (fmt != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(fmt);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				nuint ret = IOprintfNative((SDLIOStream*)pcontext, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint IOvprintfNative(SDLIOStream* context, byte* fmt, nint ap)
+		internal static long GetNumberPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte*, nint, nuint>)funcTable[276])(context, fmt, ap);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, long, long>)funcTable[217])(props, name, defaultValue);
 			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nint, nuint>)funcTable[276])((nint)context, (nint)fmt, ap);
+			return (long)((delegate* unmanaged[Cdecl]<uint, nint, long, long>)funcTable[217])(props, (nint)name, defaultValue);
 			#endif
 		}
 
 		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
+		/// Get a number property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a number property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static nuint IOvprintf(SDLIOStream* context, byte* fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long GetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
 		{
-			nuint ret = IOvprintfNative(context, fmt, ap);
+			long ret = GetNumberPropertyNative(props, name, defaultValue);
 			return ret;
 		}
 
 		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
+		/// Get a number property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a number property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static nuint IOvprintf(ref SDLIOStream context, byte* fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long GetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
 		{
-			fixed (SDLIOStream* pcontext = &context)
+			fixed (byte* pname = &name)
 			{
-				nuint ret = IOvprintfNative((SDLIOStream*)pcontext, fmt, ap);
+				long ret = GetNumberPropertyNative(props, (byte*)pname, defaultValue);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
+		/// Get a number property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a number property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static nuint IOvprintf(SDLIOStream* context, ref byte fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long GetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
 		{
-			fixed (byte* pfmt = &fmt)
+			fixed (byte* pname = name)
 			{
-				nuint ret = IOvprintfNative(context, (byte*)pfmt, ap);
+				long ret = GetNumberPropertyNative(props, (byte*)pname, defaultValue);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
+		/// Get a number property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a number property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOvprintf(SDLIOStream* context, ReadOnlySpan<byte> fmt, nint ap)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				nuint ret = IOvprintfNative(context, (byte*)pfmt, ap);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static nuint IOvprintf(SDLIOStream* context, string fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long GetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (fmt != null)
+			if (name != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				pStrSize0 = Utils.GetByteCountUTF8(name);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -1197,10 +3546,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			nuint ret = IOvprintfNative(context, pStr0, ap);
+			long ret = GetNumberPropertyNative(props, pStr0, defaultValue);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1209,351 +3558,106 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
+		/// Get a floating point property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a floating point property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOvprintf(ref SDLIOStream context, ref byte fmt, nint ap)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				fixed (byte* pfmt = &fmt)
-				{
-					nuint ret = IOvprintfNative((SDLIOStream*)pcontext, (byte*)pfmt, ap);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static nuint IOvprintf(ref SDLIOStream context, ReadOnlySpan<byte> fmt, nint ap)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				fixed (byte* pfmt = fmt)
-				{
-					nuint ret = IOvprintfNative((SDLIOStream*)pcontext, (byte*)pfmt, ap);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Print to an SDL_IOStream data stream.<br/>
-		/// This function does formatted printing to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint IOvprintf(ref SDLIOStream context, string fmt, nint ap)
-		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (fmt != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(fmt);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				nuint ret = IOvprintfNative((SDLIOStream*)pcontext, pStr0, ap);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Flush any buffered data in the stream.<br/>
-		/// This function makes sure that any buffered data is written to the stream.<br/>
-		/// Normally this isn't necessary but if the stream is a pipe or socket it<br/>
-		/// guarantees that any pending data is sent.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "float")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FlushIONative(SDLIOStream* context)
+		internal static float GetFloatPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte>)funcTable[277])(context);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, float, float>)funcTable[218])(props, name, defaultValue);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[277])((nint)context);
+			return (float)((delegate* unmanaged[Cdecl]<uint, nint, float, float>)funcTable[218])(props, (nint)name, defaultValue);
 			#endif
 		}
 
 		/// <summary>
-		/// Flush any buffered data in the stream.<br/>
-		/// This function makes sure that any buffered data is written to the stream.<br/>
-		/// Normally this isn't necessary but if the stream is a pipe or socket it<br/>
-		/// guarantees that any pending data is sent.<br/>
+		/// Get a floating point property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a floating point property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FlushIO(SDLIOStream* context)
-		{
-			byte ret = FlushIONative(context);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Flush any buffered data in the stream.<br/>
-		/// This function makes sure that any buffered data is written to the stream.<br/>
-		/// Normally this isn't necessary but if the stream is a pipe or socket it<br/>
-		/// guarantees that any pending data is sent.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool FlushIO(ref SDLIOStream context)
+		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float GetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
 		{
-			fixed (SDLIOStream* pcontext = &context)
-			{
-				byte ret = FlushIONative((SDLIOStream*)pcontext);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* LoadFileIONative(SDLIOStream* src, nuint* datasize, byte closeio)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, nuint*, byte, void*>)funcTable[278])(src, datasize, closeio);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, byte, nint>)funcTable[278])((nint)src, (nint)datasize, closeio);
-			#endif
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFileIO(SDLIOStream* src, nuint* datasize, bool closeio)
-		{
-			void* ret = LoadFileIONative(src, datasize, closeio ? (byte)1 : (byte)0);
+			float ret = GetFloatPropertyNative(props, name, defaultValue);
 			return ret;
 		}
 
 		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
+		/// Get a floating point property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a floating point property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* LoadFileIO(ref SDLIOStream src, nuint* datasize, bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float GetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
 		{
-			fixed (SDLIOStream* psrc = &src)
+			fixed (byte* pname = &name)
 			{
-				void* ret = LoadFileIONative((SDLIOStream*)psrc, datasize, closeio ? (byte)1 : (byte)0);
+				float ret = GetFloatPropertyNative(props, (byte*)pname, defaultValue);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
+		/// Get a floating point property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a floating point property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* LoadFileIO(SDLIOStream* src, ref nuint datasize, bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float GetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
 		{
-			fixed (nuint* pdatasize = &datasize)
+			fixed (byte* pname = name)
 			{
-				void* ret = LoadFileIONative(src, (nuint*)pdatasize, closeio ? (byte)1 : (byte)0);
+				float ret = GetFloatPropertyNative(props, (byte*)pname, defaultValue);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
+		/// Get a floating point property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a floating point property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFileIO(ref SDLIOStream src, ref nuint datasize, bool closeio)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileIONative((SDLIOStream*)psrc, (nuint*)pdatasize, closeio ? (byte)1 : (byte)0);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* LoadFileNative(byte* file, nuint* datasize)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, nuint*, void*>)funcTable[279])(file, datasize);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[279])((nint)file, (nint)datasize);
-			#endif
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(byte* file, nuint* datasize)
-		{
-			void* ret = LoadFileNative(file, datasize);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(ref byte file, nuint* datasize)
-		{
-			fixed (byte* pfile = &file)
-			{
-				void* ret = LoadFileNative((byte*)pfile, datasize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(ReadOnlySpan<byte> file, nuint* datasize)
-		{
-			fixed (byte* pfile = file)
-			{
-				void* ret = LoadFileNative((byte*)pfile, datasize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(string file, nuint* datasize)
+		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float GetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (file != null)
+			if (name != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
+				pStrSize0 = Utils.GetByteCountUTF8(name);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -1563,10 +3667,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			void* ret = LoadFileNative(pStr0, datasize);
+			float ret = GetFloatPropertyNative(props, pStr0, defaultValue);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1575,93 +3679,106 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
+		/// Get a boolean property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a boolean property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* LoadFile(byte* file, ref nuint datasize)
+		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetBooleanPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] byte defaultValue)
 		{
-			fixed (nuint* pdatasize = &datasize)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte, byte>)funcTable[219])(props, name, defaultValue);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, byte, byte>)funcTable[219])(props, (nint)name, defaultValue);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a boolean property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a boolean property.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] bool defaultValue)
+		{
+			byte ret = GetBooleanPropertyNative(props, name, defaultValue ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get a boolean property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a boolean property.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] bool defaultValue)
+		{
+			fixed (byte* pname = &name)
 			{
-				void* ret = LoadFileNative(file, (nuint*)pdatasize);
-				return ret;
+				byte ret = GetBooleanPropertyNative(props, (byte*)pname, defaultValue ? (byte)1 : (byte)0);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
+		/// Get a boolean property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a boolean property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* LoadFile(ref byte file, ref nuint datasize)
+		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] bool defaultValue)
 		{
-			fixed (byte* pfile = &file)
+			fixed (byte* pname = name)
 			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileNative((byte*)pfile, (nuint*)pdatasize);
-					return ret;
-				}
+				byte ret = GetBooleanPropertyNative(props, (byte*)pname, defaultValue ? (byte)1 : (byte)0);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
+		/// Get a boolean property from a group of properties.<br/>
+		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
+		/// is a boolean property.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(ReadOnlySpan<byte> file, ref nuint datasize)
-		{
-			fixed (byte* pfile = file)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileNative((byte*)pfile, (nuint*)pdatasize);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* LoadFile(string file, ref nuint datasize)
+		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "bool")] bool defaultValue)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (file != null)
+			if (name != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
+				pStrSize0 = Utils.GetByteCountUTF8(name);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -1671,163 +3788,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = LoadFileNative(pStr0, (nuint*)pdatasize);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Save all the data into an SDL data stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SaveFileIONative(SDLIOStream* src, void* data, nuint datasize, byte closeio)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, void*, nuint, byte, byte>)funcTable[280])(src, data, datasize, closeio);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nuint, byte, byte>)funcTable[280])((nint)src, (nint)data, datasize, closeio);
-			#endif
-		}
-
-		/// <summary>
-		/// Save all the data into an SDL data stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SaveFileIO(SDLIOStream* src, void* data, nuint datasize, bool closeio)
-		{
-			byte ret = SaveFileIONative(src, data, datasize, closeio ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Save all the data into an SDL data stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SaveFileIO(ref SDLIOStream src, void* data, nuint datasize, bool closeio)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = SaveFileIONative((SDLIOStream*)psrc, data, datasize, closeio ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Save all the data into a file path.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SaveFileNative(byte* file, void* data, nuint datasize)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, void*, nuint, byte>)funcTable[281])(file, data, datasize);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nuint, byte>)funcTable[281])((nint)file, (nint)data, datasize);
-			#endif
-		}
-
-		/// <summary>
-		/// Save all the data into a file path.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SaveFile(byte* file, void* data, nuint datasize)
-		{
-			byte ret = SaveFileNative(file, data, datasize);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Save all the data into a file path.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SaveFile(ref byte file, void* data, nuint datasize)
-		{
-			fixed (byte* pfile = &file)
-			{
-				byte ret = SaveFileNative((byte*)pfile, data, datasize);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Save all the data into a file path.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SaveFile(ReadOnlySpan<byte> file, void* data, nuint datasize)
-		{
-			fixed (byte* pfile = file)
-			{
-				byte ret = SaveFileNative((byte*)pfile, data, datasize);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Save all the data into a file path.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SaveFile(string file, void* data, nuint datasize)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SaveFileNative(pStr0, data, datasize);
+			byte ret = GetBooleanPropertyNative(props, pStr0, defaultValue ? (byte)1 : (byte)0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1836,3190 +3800,1255 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Use this function to read a byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU8Native(SDLIOStream* src, byte* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte*, byte>)funcTable[282])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[282])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU8(SDLIOStream* src, byte* value)
-		{
-			byte ret = ReadU8Native(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU8(ref SDLIOStream src, byte* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadU8Native((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU8(SDLIOStream* src, ref byte value)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				byte ret = ReadU8Native(src, (byte*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU8(ref SDLIOStream src, ref byte value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					byte ret = ReadU8Native((SDLIOStream*)psrc, (byte*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read a signed byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadS8Native(SDLIOStream* src, sbyte* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, sbyte*, byte>)funcTable[283])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[283])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read a signed byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS8(SDLIOStream* src, sbyte* value)
-		{
-			byte ret = ReadS8Native(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read a signed byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS8(ref SDLIOStream src, sbyte* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadS8Native((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read a signed byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS8(SDLIOStream* src, ref sbyte value)
-		{
-			fixed (sbyte* pvalue = &value)
-			{
-				byte ret = ReadS8Native(src, (sbyte*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read a signed byte from an SDL_IOStream.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS8(ref SDLIOStream src, ref sbyte value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (sbyte* pvalue = &value)
-				{
-					byte ret = ReadS8Native((SDLIOStream*)psrc, (sbyte*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU16LENative(SDLIOStream* src, ushort* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, ushort*, byte>)funcTable[284])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[284])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU16LE(SDLIOStream* src, ushort* value)
-		{
-			byte ret = ReadU16LENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU16LE(ref SDLIOStream src, ushort* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadU16LENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU16LE(SDLIOStream* src, ref ushort value)
-		{
-			fixed (ushort* pvalue = &value)
-			{
-				byte ret = ReadU16LENative(src, (ushort*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU16LE(ref SDLIOStream src, ref ushort value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (ushort* pvalue = &value)
-				{
-					byte ret = ReadU16LENative((SDLIOStream*)psrc, (ushort*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadS16LENative(SDLIOStream* src, short* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, short*, byte>)funcTable[285])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[285])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS16LE(SDLIOStream* src, short* value)
-		{
-			byte ret = ReadS16LENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS16LE(ref SDLIOStream src, short* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadS16LENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS16LE(SDLIOStream* src, ref short value)
-		{
-			fixed (short* pvalue = &value)
-			{
-				byte ret = ReadS16LENative(src, (short*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS16LE(ref SDLIOStream src, ref short value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (short* pvalue = &value)
-				{
-					byte ret = ReadS16LENative((SDLIOStream*)psrc, (short*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU16BENative(SDLIOStream* src, ushort* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, ushort*, byte>)funcTable[286])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[286])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU16BE(SDLIOStream* src, ushort* value)
-		{
-			byte ret = ReadU16BENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU16BE(ref SDLIOStream src, ushort* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadU16BENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU16BE(SDLIOStream* src, ref ushort value)
-		{
-			fixed (ushort* pvalue = &value)
-			{
-				byte ret = ReadU16BENative(src, (ushort*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU16BE(ref SDLIOStream src, ref ushort value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (ushort* pvalue = &value)
-				{
-					byte ret = ReadU16BENative((SDLIOStream*)psrc, (ushort*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadS16BENative(SDLIOStream* src, short* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, short*, byte>)funcTable[287])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[287])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS16BE(SDLIOStream* src, short* value)
-		{
-			byte ret = ReadS16BENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS16BE(ref SDLIOStream src, short* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadS16BENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS16BE(SDLIOStream* src, ref short value)
-		{
-			fixed (short* pvalue = &value)
-			{
-				byte ret = ReadS16BENative(src, (short*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS16BE(ref SDLIOStream src, ref short value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (short* pvalue = &value)
-				{
-					byte ret = ReadS16BENative((SDLIOStream*)psrc, (short*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU32LENative(SDLIOStream* src, uint* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, uint*, byte>)funcTable[288])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[288])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU32LE(SDLIOStream* src, uint* value)
-		{
-			byte ret = ReadU32LENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU32LE(ref SDLIOStream src, uint* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadU32LENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU32LE(SDLIOStream* src, ref uint value)
-		{
-			fixed (uint* pvalue = &value)
-			{
-				byte ret = ReadU32LENative(src, (uint*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU32LE(ref SDLIOStream src, ref uint value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (uint* pvalue = &value)
-				{
-					byte ret = ReadU32LENative((SDLIOStream*)psrc, (uint*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadS32LENative(SDLIOStream* src, int* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, int*, byte>)funcTable[289])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[289])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS32LE(SDLIOStream* src, int* value)
-		{
-			byte ret = ReadS32LENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS32LE(ref SDLIOStream src, int* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadS32LENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS32LE(SDLIOStream* src, ref int value)
-		{
-			fixed (int* pvalue = &value)
-			{
-				byte ret = ReadS32LENative(src, (int*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS32LE(ref SDLIOStream src, ref int value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (int* pvalue = &value)
-				{
-					byte ret = ReadS32LENative((SDLIOStream*)psrc, (int*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU32BENative(SDLIOStream* src, uint* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, uint*, byte>)funcTable[290])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[290])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU32BE(SDLIOStream* src, uint* value)
-		{
-			byte ret = ReadU32BENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU32BE(ref SDLIOStream src, uint* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadU32BENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU32BE(SDLIOStream* src, ref uint value)
-		{
-			fixed (uint* pvalue = &value)
-			{
-				byte ret = ReadU32BENative(src, (uint*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU32BE(ref SDLIOStream src, ref uint value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (uint* pvalue = &value)
-				{
-					byte ret = ReadU32BENative((SDLIOStream*)psrc, (uint*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadS32BENative(SDLIOStream* src, int* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, int*, byte>)funcTable[291])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[291])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS32BE(SDLIOStream* src, int* value)
-		{
-			byte ret = ReadS32BENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS32BE(ref SDLIOStream src, int* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadS32BENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS32BE(SDLIOStream* src, ref int value)
-		{
-			fixed (int* pvalue = &value)
-			{
-				byte ret = ReadS32BENative(src, (int*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS32BE(ref SDLIOStream src, ref int value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (int* pvalue = &value)
-				{
-					byte ret = ReadS32BENative((SDLIOStream*)psrc, (int*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU64LENative(SDLIOStream* src, ulong* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, ulong*, byte>)funcTable[292])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[292])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU64LE(SDLIOStream* src, ulong* value)
-		{
-			byte ret = ReadU64LENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU64LE(ref SDLIOStream src, ulong* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadU64LENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU64LE(SDLIOStream* src, ref ulong value)
-		{
-			fixed (ulong* pvalue = &value)
-			{
-				byte ret = ReadU64LENative(src, (ulong*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU64LE(ref SDLIOStream src, ref ulong value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (ulong* pvalue = &value)
-				{
-					byte ret = ReadU64LENative((SDLIOStream*)psrc, (ulong*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadS64LENative(SDLIOStream* src, long* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long*, byte>)funcTable[293])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[293])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS64LE(SDLIOStream* src, long* value)
-		{
-			byte ret = ReadS64LENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS64LE(ref SDLIOStream src, long* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadS64LENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS64LE(SDLIOStream* src, ref long value)
-		{
-			fixed (long* pvalue = &value)
-			{
-				byte ret = ReadS64LENative(src, (long*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an<br/>
-		/// SDL_IOStream and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS64LE(ref SDLIOStream src, ref long value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (long* pvalue = &value)
-				{
-					byte ret = ReadS64LENative((SDLIOStream*)psrc, (long*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU64BENative(SDLIOStream* src, ulong* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, ulong*, byte>)funcTable[294])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[294])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU64BE(SDLIOStream* src, ulong* value)
-		{
-			byte ret = ReadU64BENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU64BE(ref SDLIOStream src, ulong* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadU64BENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU64BE(SDLIOStream* src, ref ulong value)
-		{
-			fixed (ulong* pvalue = &value)
-			{
-				byte ret = ReadU64BENative(src, (ulong*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadU64BE(ref SDLIOStream src, ref ulong value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (ulong* pvalue = &value)
-				{
-					byte ret = ReadU64BENative((SDLIOStream*)psrc, (ulong*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadS64BENative(SDLIOStream* src, long* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long*, byte>)funcTable[295])(src, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[295])((nint)src, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS64BE(SDLIOStream* src, long* value)
-		{
-			byte ret = ReadS64BENative(src, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS64BE(ref SDLIOStream src, long* value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = ReadS64BENative((SDLIOStream*)psrc, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS64BE(SDLIOStream* src, ref long value)
-		{
-			fixed (long* pvalue = &value)
-			{
-				byte ret = ReadS64BENative(src, (long*)pvalue);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_IOStream<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// This function will return false when the data stream is completely read,<br/>
-		/// and SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If false is returned<br/>
-		/// and the stream is not at EOF, SDL_GetIOStatus() will return a different<br/>
-		/// error value and SDL_GetError() will offer a human-readable message.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadS64BE(ref SDLIOStream src, ref long value)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (long* pvalue = &value)
-				{
-					byte ret = ReadS64BENative((SDLIOStream*)psrc, (long*)pvalue);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteU8Native(SDLIOStream* dst, byte value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, byte>)funcTable[296])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[296])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU8(SDLIOStream* dst, byte value)
-		{
-			byte ret = WriteU8Native(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU8(ref SDLIOStream dst, byte value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteU8Native((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write a signed byte to an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteS8Native(SDLIOStream* dst, sbyte value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, sbyte, byte>)funcTable[297])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, sbyte, byte>)funcTable[297])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write a signed byte to an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS8(SDLIOStream* dst, sbyte value)
-		{
-			byte ret = WriteS8Native(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write a signed byte to an SDL_IOStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS8(ref SDLIOStream dst, sbyte value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteS8Native((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteU16LENative(SDLIOStream* dst, ushort value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, ushort, byte>)funcTable[298])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, byte>)funcTable[298])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU16LE(SDLIOStream* dst, ushort value)
-		{
-			byte ret = WriteU16LENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU16LE(ref SDLIOStream dst, ushort value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteU16LENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteS16LENative(SDLIOStream* dst, short value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, short, byte>)funcTable[299])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, short, byte>)funcTable[299])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS16LE(SDLIOStream* dst, short value)
-		{
-			byte ret = WriteS16LENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS16LE(ref SDLIOStream dst, short value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteS16LENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteU16BENative(SDLIOStream* dst, ushort value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, ushort, byte>)funcTable[300])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, byte>)funcTable[300])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU16BE(SDLIOStream* dst, ushort value)
-		{
-			byte ret = WriteU16BENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU16BE(ref SDLIOStream dst, ushort value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteU16BENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteS16BENative(SDLIOStream* dst, short value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, short, byte>)funcTable[301])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, short, byte>)funcTable[301])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS16BE(SDLIOStream* dst, short value)
-		{
-			byte ret = WriteS16BENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS16BE(ref SDLIOStream dst, short value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteS16BENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteU32LENative(SDLIOStream* dst, uint value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, uint, byte>)funcTable[302])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[302])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU32LE(SDLIOStream* dst, uint value)
-		{
-			byte ret = WriteU32LENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU32LE(ref SDLIOStream dst, uint value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteU32LENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteS32LENative(SDLIOStream* dst, int value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, int, byte>)funcTable[303])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[303])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS32LE(SDLIOStream* dst, int value)
-		{
-			byte ret = WriteS32LENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS32LE(ref SDLIOStream dst, int value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteS32LENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteU32BENative(SDLIOStream* dst, uint value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, uint, byte>)funcTable[304])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[304])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU32BE(SDLIOStream* dst, uint value)
-		{
-			byte ret = WriteU32BENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU32BE(ref SDLIOStream dst, uint value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteU32BENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteS32BENative(SDLIOStream* dst, int value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, int, byte>)funcTable[305])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[305])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS32BE(SDLIOStream* dst, int value)
-		{
-			byte ret = WriteS32BENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS32BE(ref SDLIOStream dst, int value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteS32BENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteU64LENative(SDLIOStream* dst, ulong value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, ulong, byte>)funcTable[306])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, ulong, byte>)funcTable[306])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU64LE(SDLIOStream* dst, ulong value)
-		{
-			byte ret = WriteU64LENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU64LE(ref SDLIOStream dst, ulong value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteU64LENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteS64LENative(SDLIOStream* dst, long value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long, byte>)funcTable[307])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, long, byte>)funcTable[307])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS64LE(SDLIOStream* dst, long value)
-		{
-			byte ret = WriteS64LENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS64LE(ref SDLIOStream dst, long value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteS64LENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteU64BENative(SDLIOStream* dst, ulong value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, ulong, byte>)funcTable[308])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, ulong, byte>)funcTable[308])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU64BE(SDLIOStream* dst, ulong value)
-		{
-			byte ret = WriteU64BENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteU64BE(ref SDLIOStream dst, ulong value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteU64BENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteS64BENative(SDLIOStream* dst, long value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long, byte>)funcTable[309])(dst, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, long, byte>)funcTable[309])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS64BE(SDLIOStream* dst, long value)
-		{
-			byte ret = WriteS64BENative(dst, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to an SDL_IOStream as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteS64BE(ref SDLIOStream dst, long value)
-		{
-			fixed (SDLIOStream* pdst = &dst)
-			{
-				byte ret = WriteS64BENative((SDLIOStream*)pdst, value);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to get the number of built-in audio drivers.<br/>
-		/// This function returns a hardcoded number. This never returns a negative<br/>
-		/// value; if there are no drivers compiled into this build of SDL, this<br/>
-		/// function returns zero. The presence of a driver in this list does not mean<br/>
-		/// it will function, it just means SDL is capable of interacting with that<br/>
-		/// interface. For example, a build of SDL might have esound support, but if<br/>
-		/// there's no esound server available, SDL's esound driver would fail if used.<br/>
-		/// By default, SDL tries all drivers, in its preferred order, until one is<br/>
-		/// found to be usable.<br/>
+		/// Clear a property from a group of properties.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumAudioDriversNative()
+		internal static byte ClearPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[310])();
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte>)funcTable[220])(props, name);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[310])();
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, byte>)funcTable[220])(props, (nint)name);
 			#endif
 		}
 
 		/// <summary>
-		/// Use this function to get the number of built-in audio drivers.<br/>
-		/// This function returns a hardcoded number. This never returns a negative<br/>
-		/// value; if there are no drivers compiled into this build of SDL, this<br/>
-		/// function returns zero. The presence of a driver in this list does not mean<br/>
-		/// it will function, it just means SDL is capable of interacting with that<br/>
-		/// interface. For example, a build of SDL might have esound support, but if<br/>
-		/// there's no esound server available, SDL's esound driver would fail if used.<br/>
-		/// By default, SDL tries all drivers, in its preferred order, until one is<br/>
-		/// found to be usable.<br/>
+		/// Clear a property from a group of properties.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			byte ret = ClearPropertyNative(props, name);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Clear a property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int GetNumAudioDrivers()
+		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name)
 		{
-			int ret = GetNumAudioDriversNative();
+			fixed (byte* pname = &name)
+			{
+				byte ret = ClearPropertyNative(props, (byte*)pname);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Clear a property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = ClearPropertyNative(props, (byte*)pname);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Clear a property from a group of properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = ClearPropertyNative(props, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate the properties contained in a group of properties.<br/>
+		/// The callback function is called for each property in the group of<br/>
+		/// properties. The properties are locked during enumeration.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte EnumeratePropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumeratePropertiesCallback")] delegate*<void*, uint, byte*, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, delegate*<void*, uint, byte*, void>, void*, byte>)funcTable[221])(props, callback, userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[221])(props, (nint)callback, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Enumerate the properties contained in a group of properties.<br/>
+		/// The callback function is called for each property in the group of<br/>
+		/// properties. The properties are locked during enumeration.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumeratePropertiesCallback")] delegate*<void*, uint, byte*, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = EnumeratePropertiesNative(props, callback, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate the properties contained in a group of properties.<br/>
+		/// The callback function is called for each property in the group of<br/>
+		/// properties. The properties are locked during enumeration.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumeratePropertiesCallback")] SDLEnumeratePropertiesCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = EnumeratePropertiesNative(props, (delegate*<void*, uint, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate the properties contained in a group of properties.<br/>
+		/// The callback function is called for each property in the group of<br/>
+		/// properties. The properties are locked during enumeration.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumeratePropertiesCallback")] delegate*<void*, uint, byte*, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = EnumeratePropertiesNative(props, callback, (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate the properties contained in a group of properties.<br/>
+		/// The callback function is called for each property in the group of<br/>
+		/// properties. The properties are locked during enumeration.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumeratePropertiesCallback")] SDLEnumeratePropertiesCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = EnumeratePropertiesNative(props, (delegate*<void*, uint, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Destroy a group of properties.<br/>
+		/// All properties are deleted and their cleanup functions will be called, if<br/>
+		/// any.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should not be called while these properties are<br/>
+		/// locked or other threads might be setting or getting values<br/>
+		/// from these properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[222])(props);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[222])(props);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a group of properties.<br/>
+		/// All properties are deleted and their cleanup functions will be called, if<br/>
+		/// any.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should not be called while these properties are<br/>
+		/// locked or other threads might be setting or getting values<br/>
+		/// from these properties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyProperties")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			DestroyPropertiesNative(props);
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLThread* CreateThreadRuntimeNative([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, void*, delegate*<void>, delegate*<void>, SDLThread*>)funcTable[223])(fn, name, data, pfnBeginThread, pfnEndThread);
+			#else
+			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, nint>)funcTable[223])((nint)fn, (nint)name, (nint)data, (nint)pfnBeginThread, (nint)pfnEndThread);
+			#endif
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, name, data, pfnBeginThread, pfnEndThread);
 			return ret;
 		}
 
 		/// <summary>
-		/// Use this function to get the name of a built in audio driver.<br/>
-		/// The list of audio drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "wasapi". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetAudioDriverNative(int index)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[311])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[311])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in audio driver.<br/>
-		/// The list of audio drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "wasapi". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetAudioDriver(int index)
-		{
-			byte* ret = GetAudioDriverNative(index);
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, pfnBeginThread, pfnEndThread);
 			return ret;
 		}
 
 		/// <summary>
-		/// Use this function to get the name of a built in audio driver.<br/>
-		/// The list of audio drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "wasapi". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetAudioDriverS(int index)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			string ret = Utils.DecodeStringUTF8(GetAudioDriverNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of the current audio driver.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "wasapi". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetCurrentAudioDriverNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[312])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[312])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of the current audio driver.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "wasapi". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetCurrentAudioDriver()
-		{
-			byte* ret = GetCurrentAudioDriverNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of the current audio driver.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "wasapi". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static string GetCurrentAudioDriverS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetCurrentAudioDriverNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of currently-connected audio playback devices.<br/>
-		/// This returns of list of available devices that play sound, perhaps to<br/>
-		/// speakers or headphones ("playback" devices). If you want devices that<br/>
-		/// record audio, like a microphone ("recording" devices), use<br/>
-		/// SDL_GetAudioRecordingDevices() instead.<br/>
-		/// This only returns a list of physical devices; it will not have any device<br/>
-		/// IDs returned by SDL_OpenAudioDevice().<br/>
-		/// If this function returns NULL, to signify an error, `*count` will be set to<br/>
-		/// zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint* GetAudioPlaybackDevicesNative(int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[313])(count);
-			#else
-			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[313])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of currently-connected audio playback devices.<br/>
-		/// This returns of list of available devices that play sound, perhaps to<br/>
-		/// speakers or headphones ("playback" devices). If you want devices that<br/>
-		/// record audio, like a microphone ("recording" devices), use<br/>
-		/// SDL_GetAudioRecordingDevices() instead.<br/>
-		/// This only returns a list of physical devices; it will not have any device<br/>
-		/// IDs returned by SDL_OpenAudioDevice().<br/>
-		/// If this function returns NULL, to signify an error, `*count` will be set to<br/>
-		/// zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint* GetAudioPlaybackDevices(int* count)
-		{
-			uint* ret = GetAudioPlaybackDevicesNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of currently-connected audio playback devices.<br/>
-		/// This returns of list of available devices that play sound, perhaps to<br/>
-		/// speakers or headphones ("playback" devices). If you want devices that<br/>
-		/// record audio, like a microphone ("recording" devices), use<br/>
-		/// SDL_GetAudioRecordingDevices() instead.<br/>
-		/// This only returns a list of physical devices; it will not have any device<br/>
-		/// IDs returned by SDL_OpenAudioDevice().<br/>
-		/// If this function returns NULL, to signify an error, `*count` will be set to<br/>
-		/// zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint* GetAudioPlaybackDevices(ref int count)
-		{
-			fixed (int* pcount = &count)
+			fixed (byte* pname = &name)
 			{
-				uint* ret = GetAudioPlaybackDevicesNative((int*)pcount);
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, data, pfnBeginThread, pfnEndThread);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get a list of currently-connected audio recording devices.<br/>
-		/// This returns of list of available devices that record audio, like a<br/>
-		/// microphone ("recording" devices). If you want devices that play sound,<br/>
-		/// perhaps to speakers or headphones ("playback" devices), use<br/>
-		/// SDL_GetAudioPlaybackDevices() instead.<br/>
-		/// This only returns a list of physical devices; it will not have any device<br/>
-		/// IDs returned by SDL_OpenAudioDevice().<br/>
-		/// If this function returns NULL, to signify an error, `*count` will be set to<br/>
-		/// zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint* GetAudioRecordingDevicesNative(int* count)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[314])(count);
-			#else
-			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[314])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of currently-connected audio recording devices.<br/>
-		/// This returns of list of available devices that record audio, like a<br/>
-		/// microphone ("recording" devices). If you want devices that play sound,<br/>
-		/// perhaps to speakers or headphones ("playback" devices), use<br/>
-		/// SDL_GetAudioPlaybackDevices() instead.<br/>
-		/// This only returns a list of physical devices; it will not have any device<br/>
-		/// IDs returned by SDL_OpenAudioDevice().<br/>
-		/// If this function returns NULL, to signify an error, `*count` will be set to<br/>
-		/// zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint* GetAudioRecordingDevices(int* count)
-		{
-			uint* ret = GetAudioRecordingDevicesNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of currently-connected audio recording devices.<br/>
-		/// This returns of list of available devices that record audio, like a<br/>
-		/// microphone ("recording" devices). If you want devices that play sound,<br/>
-		/// perhaps to speakers or headphones ("playback" devices), use<br/>
-		/// SDL_GetAudioPlaybackDevices() instead.<br/>
-		/// This only returns a list of physical devices; it will not have any device<br/>
-		/// IDs returned by SDL_OpenAudioDevice().<br/>
-		/// If this function returns NULL, to signify an error, `*count` will be set to<br/>
-		/// zero.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint* GetAudioRecordingDevices(ref int count)
-		{
-			fixed (int* pcount = &count)
+			fixed (byte* pname = name)
 			{
-				uint* ret = GetAudioRecordingDevicesNative((int*)pcount);
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, data, pfnBeginThread, pfnEndThread);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the human-readable name of a specific audio device.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetAudioDeviceNameNative(uint devid)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[315])(devid);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[315])(devid);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the human-readable name of a specific audio device.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetAudioDeviceName(uint devid)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			byte* ret = GetAudioDeviceNameNative(devid);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the human-readable name of a specific audio device.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetAudioDeviceNameS(uint devid)
-		{
-			string ret = Utils.DecodeStringUTF8(GetAudioDeviceNameNative(devid));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current audio format of a specific audio device.<br/>
-		/// For an opened device, this will report the format the device is currently<br/>
-		/// using. If the device isn't yet opened, this will report the device's<br/>
-		/// preferred format (or a reasonable default if this can't be determined).<br/>
-		/// You may also specify SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK or<br/>
-		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING here, which is useful for getting a<br/>
-		/// reasonable recommendation before opening the system-recommended default<br/>
-		/// device.<br/>
-		/// You can also use this to request the current device buffer size. This is<br/>
-		/// specified in sample frames and represents the amount of data SDL will feed<br/>
-		/// to the physical hardware in each chunk. This can be converted to<br/>
-		/// milliseconds of audio with the following equation:<br/>
-		/// `ms = (int) ((((Sint64) frames) * 1000) / spec.freq);`<br/>
-		/// Buffer size is only important if you need low-level control over the audio<br/>
-		/// playback timing. Most apps do not need this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetAudioDeviceFormatNative(uint devid, SDLAudioSpec* spec, int* sampleFrames)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioSpec*, int*, byte>)funcTable[316])(devid, spec, sampleFrames);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[316])(devid, (nint)spec, (nint)sampleFrames);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current audio format of a specific audio device.<br/>
-		/// For an opened device, this will report the format the device is currently<br/>
-		/// using. If the device isn't yet opened, this will report the device's<br/>
-		/// preferred format (or a reasonable default if this can't be determined).<br/>
-		/// You may also specify SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK or<br/>
-		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING here, which is useful for getting a<br/>
-		/// reasonable recommendation before opening the system-recommended default<br/>
-		/// device.<br/>
-		/// You can also use this to request the current device buffer size. This is<br/>
-		/// specified in sample frames and represents the amount of data SDL will feed<br/>
-		/// to the physical hardware in each chunk. This can be converted to<br/>
-		/// milliseconds of audio with the following equation:<br/>
-		/// `ms = (int) ((((Sint64) frames) * 1000) / spec.freq);`<br/>
-		/// Buffer size is only important if you need low-level control over the audio<br/>
-		/// playback timing. Most apps do not need this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioDeviceFormat(uint devid, SDLAudioSpec* spec, int* sampleFrames)
-		{
-			byte ret = GetAudioDeviceFormatNative(devid, spec, sampleFrames);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the current audio format of a specific audio device.<br/>
-		/// For an opened device, this will report the format the device is currently<br/>
-		/// using. If the device isn't yet opened, this will report the device's<br/>
-		/// preferred format (or a reasonable default if this can't be determined).<br/>
-		/// You may also specify SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK or<br/>
-		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING here, which is useful for getting a<br/>
-		/// reasonable recommendation before opening the system-recommended default<br/>
-		/// device.<br/>
-		/// You can also use this to request the current device buffer size. This is<br/>
-		/// specified in sample frames and represents the amount of data SDL will feed<br/>
-		/// to the physical hardware in each chunk. This can be converted to<br/>
-		/// milliseconds of audio with the following equation:<br/>
-		/// `ms = (int) ((((Sint64) frames) * 1000) / spec.freq);`<br/>
-		/// Buffer size is only important if you need low-level control over the audio<br/>
-		/// playback timing. Most apps do not need this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioDeviceFormat(uint devid, ref SDLAudioSpec spec, int* sampleFrames)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
 			{
-				byte ret = GetAudioDeviceFormatNative(devid, (SDLAudioSpec*)pspec, sampleFrames);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current audio format of a specific audio device.<br/>
-		/// For an opened device, this will report the format the device is currently<br/>
-		/// using. If the device isn't yet opened, this will report the device's<br/>
-		/// preferred format (or a reasonable default if this can't be determined).<br/>
-		/// You may also specify SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK or<br/>
-		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING here, which is useful for getting a<br/>
-		/// reasonable recommendation before opening the system-recommended default<br/>
-		/// device.<br/>
-		/// You can also use this to request the current device buffer size. This is<br/>
-		/// specified in sample frames and represents the amount of data SDL will feed<br/>
-		/// to the physical hardware in each chunk. This can be converted to<br/>
-		/// milliseconds of audio with the following equation:<br/>
-		/// `ms = (int) ((((Sint64) frames) * 1000) / spec.freq);`<br/>
-		/// Buffer size is only important if you need low-level control over the audio<br/>
-		/// playback timing. Most apps do not need this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioDeviceFormat(uint devid, SDLAudioSpec* spec, ref int sampleFrames)
-		{
-			fixed (int* psampleFrames = &sampleFrames)
-			{
-				byte ret = GetAudioDeviceFormatNative(devid, spec, (int*)psampleFrames);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current audio format of a specific audio device.<br/>
-		/// For an opened device, this will report the format the device is currently<br/>
-		/// using. If the device isn't yet opened, this will report the device's<br/>
-		/// preferred format (or a reasonable default if this can't be determined).<br/>
-		/// You may also specify SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK or<br/>
-		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING here, which is useful for getting a<br/>
-		/// reasonable recommendation before opening the system-recommended default<br/>
-		/// device.<br/>
-		/// You can also use this to request the current device buffer size. This is<br/>
-		/// specified in sample frames and represents the amount of data SDL will feed<br/>
-		/// to the physical hardware in each chunk. This can be converted to<br/>
-		/// milliseconds of audio with the following equation:<br/>
-		/// `ms = (int) ((((Sint64) frames) * 1000) / spec.freq);`<br/>
-		/// Buffer size is only important if you need low-level control over the audio<br/>
-		/// playback timing. Most apps do not need this.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioDeviceFormat(uint devid, ref SDLAudioSpec spec, ref int sampleFrames)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				fixed (int* psampleFrames = &sampleFrames)
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					byte ret = GetAudioDeviceFormatNative(devid, (SDLAudioSpec*)pspec, (int*)psampleFrames);
-					return ret != 0;
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-		}
-
-		/// <summary>
-		/// Get the current channel map of an audio device.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio devices usually have no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int* GetAudioDeviceChannelMapNative(uint devid, int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int*, int*>)funcTable[317])(devid, count);
-			#else
-			return (int*)((delegate* unmanaged[Cdecl]<uint, nint, nint>)funcTable[317])(devid, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current channel map of an audio device.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio devices usually have no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioDeviceChannelMap(uint devid, int* count)
-		{
-			int* ret = GetAudioDeviceChannelMapNative(devid, count);
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, pStr0, data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the current channel map of an audio device.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio devices usually have no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int* GetAudioDeviceChannelMap(uint devid, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			fixed (int* pcount = &count)
+			fixed (byte* pname = &name)
 			{
-				int* ret = GetAudioDeviceChannelMapNative(devid, (int*)pcount);
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, pfnBeginThread, pfnEndThread);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// You can open both playback and recording devices through this function.<br/>
-		/// Playback devices will take data from bound audio streams, mix it, and send<br/>
-		/// it to the hardware. Recording devices will feed any bound audio streams<br/>
-		/// with a copy of any incoming data.<br/>
-		/// An opened audio device starts out with no audio streams bound. To start<br/>
-		/// audio playing, bind a stream and supply audio data to it. Unlike SDL2,<br/>
-		/// there is no audio callback; you only bind audio streams and make sure they<br/>
-		/// have data flowing into them (however, you can simulate SDL2's semantics<br/>
-		/// fairly closely by using SDL_OpenAudioDeviceStream instead of this<br/>
-		/// function).<br/>
-		/// If you don't care about opening a specific device, pass a `devid` of either<br/>
-		/// `SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK` or<br/>
-		/// `SDL_AUDIO_DEVICE_DEFAULT_RECORDING`. In this case, SDL will try to pick<br/>
-		/// the most reasonable default, and may also switch between physical devices<br/>
-		/// seamlessly later, if the most reasonable default changes during the<br/>
-		/// lifetime of this opened device (user changed the default in the OS's system<br/>
-		/// preferences, the default got unplugged so the system jumped to a new<br/>
-		/// default, the user plugged in headphones on a mobile device, etc). Unless<br/>
-		/// you have a good reason to choose a specific device, this is probably what<br/>
-		/// you want.<br/>
-		/// You may request a specific format for the audio device, but there is no<br/>
-		/// promise the device will honor that request for several reasons. As such,<br/>
-		/// it's only meant to be a hint as to what data your app will provide. Audio<br/>
-		/// streams will accept data in whatever format you specify and manage<br/>
-		/// conversion for you as appropriate. SDL_GetAudioDeviceFormat can tell you<br/>
-		/// the preferred format for the device before opening and the actual format<br/>
-		/// the device is using after opening.<br/>
-		/// It's legal to open the same device ID more than once; each successful open<br/>
-		/// will generate a new logical SDL_AudioDeviceID that is managed separately<br/>
-		/// from others on the same physical device. This allows libraries to open a<br/>
-		/// device separately from the main app and bind its own streams without<br/>
-		/// conflicting.<br/>
-		/// It is also legal to open a device ID returned by a previous call to this<br/>
-		/// function; doing so just creates another logical device on the same physical<br/>
-		/// device. This may be useful for making logical groupings of audio streams.<br/>
-		/// This function returns the opened device ID on success. This is a new,<br/>
-		/// unique SDL_AudioDeviceID that represents a logical device.<br/>
-		/// Some backends might offer arbitrary devices (for example, a networked audio<br/>
-		/// protocol that can connect to an arbitrary server). For these, as a change<br/>
-		/// from SDL2, you should open a default device ID and use an SDL hint to<br/>
-		/// specify the target if you care, or otherwise let the backend figure out a<br/>
-		/// reasonable default. Most backends don't offer anything like this, and often<br/>
-		/// this would be an end user setting an environment variable for their custom<br/>
-		/// need, and not something an application should specifically manage.<br/>
-		/// When done with an audio device, possibly at the end of the app's life, one<br/>
-		/// should call SDL_CloseAudioDevice() on the returned device id.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint OpenAudioDeviceNative(uint devid, SDLAudioSpec* spec)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioSpec*, uint>)funcTable[318])(devid, spec);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint>)funcTable[318])(devid, (nint)spec);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// You can open both playback and recording devices through this function.<br/>
-		/// Playback devices will take data from bound audio streams, mix it, and send<br/>
-		/// it to the hardware. Recording devices will feed any bound audio streams<br/>
-		/// with a copy of any incoming data.<br/>
-		/// An opened audio device starts out with no audio streams bound. To start<br/>
-		/// audio playing, bind a stream and supply audio data to it. Unlike SDL2,<br/>
-		/// there is no audio callback; you only bind audio streams and make sure they<br/>
-		/// have data flowing into them (however, you can simulate SDL2's semantics<br/>
-		/// fairly closely by using SDL_OpenAudioDeviceStream instead of this<br/>
-		/// function).<br/>
-		/// If you don't care about opening a specific device, pass a `devid` of either<br/>
-		/// `SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK` or<br/>
-		/// `SDL_AUDIO_DEVICE_DEFAULT_RECORDING`. In this case, SDL will try to pick<br/>
-		/// the most reasonable default, and may also switch between physical devices<br/>
-		/// seamlessly later, if the most reasonable default changes during the<br/>
-		/// lifetime of this opened device (user changed the default in the OS's system<br/>
-		/// preferences, the default got unplugged so the system jumped to a new<br/>
-		/// default, the user plugged in headphones on a mobile device, etc). Unless<br/>
-		/// you have a good reason to choose a specific device, this is probably what<br/>
-		/// you want.<br/>
-		/// You may request a specific format for the audio device, but there is no<br/>
-		/// promise the device will honor that request for several reasons. As such,<br/>
-		/// it's only meant to be a hint as to what data your app will provide. Audio<br/>
-		/// streams will accept data in whatever format you specify and manage<br/>
-		/// conversion for you as appropriate. SDL_GetAudioDeviceFormat can tell you<br/>
-		/// the preferred format for the device before opening and the actual format<br/>
-		/// the device is using after opening.<br/>
-		/// It's legal to open the same device ID more than once; each successful open<br/>
-		/// will generate a new logical SDL_AudioDeviceID that is managed separately<br/>
-		/// from others on the same physical device. This allows libraries to open a<br/>
-		/// device separately from the main app and bind its own streams without<br/>
-		/// conflicting.<br/>
-		/// It is also legal to open a device ID returned by a previous call to this<br/>
-		/// function; doing so just creates another logical device on the same physical<br/>
-		/// device. This may be useful for making logical groupings of audio streams.<br/>
-		/// This function returns the opened device ID on success. This is a new,<br/>
-		/// unique SDL_AudioDeviceID that represents a logical device.<br/>
-		/// Some backends might offer arbitrary devices (for example, a networked audio<br/>
-		/// protocol that can connect to an arbitrary server). For these, as a change<br/>
-		/// from SDL2, you should open a default device ID and use an SDL hint to<br/>
-		/// specify the target if you care, or otherwise let the backend figure out a<br/>
-		/// reasonable default. Most backends don't offer anything like this, and often<br/>
-		/// this would be an end user setting an environment variable for their custom<br/>
-		/// need, and not something an application should specifically manage.<br/>
-		/// When done with an audio device, possibly at the end of the app's life, one<br/>
-		/// should call SDL_CloseAudioDevice() on the returned device id.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint OpenAudioDevice(uint devid, SDLAudioSpec* spec)
-		{
-			uint ret = OpenAudioDeviceNative(devid, spec);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// You can open both playback and recording devices through this function.<br/>
-		/// Playback devices will take data from bound audio streams, mix it, and send<br/>
-		/// it to the hardware. Recording devices will feed any bound audio streams<br/>
-		/// with a copy of any incoming data.<br/>
-		/// An opened audio device starts out with no audio streams bound. To start<br/>
-		/// audio playing, bind a stream and supply audio data to it. Unlike SDL2,<br/>
-		/// there is no audio callback; you only bind audio streams and make sure they<br/>
-		/// have data flowing into them (however, you can simulate SDL2's semantics<br/>
-		/// fairly closely by using SDL_OpenAudioDeviceStream instead of this<br/>
-		/// function).<br/>
-		/// If you don't care about opening a specific device, pass a `devid` of either<br/>
-		/// `SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK` or<br/>
-		/// `SDL_AUDIO_DEVICE_DEFAULT_RECORDING`. In this case, SDL will try to pick<br/>
-		/// the most reasonable default, and may also switch between physical devices<br/>
-		/// seamlessly later, if the most reasonable default changes during the<br/>
-		/// lifetime of this opened device (user changed the default in the OS's system<br/>
-		/// preferences, the default got unplugged so the system jumped to a new<br/>
-		/// default, the user plugged in headphones on a mobile device, etc). Unless<br/>
-		/// you have a good reason to choose a specific device, this is probably what<br/>
-		/// you want.<br/>
-		/// You may request a specific format for the audio device, but there is no<br/>
-		/// promise the device will honor that request for several reasons. As such,<br/>
-		/// it's only meant to be a hint as to what data your app will provide. Audio<br/>
-		/// streams will accept data in whatever format you specify and manage<br/>
-		/// conversion for you as appropriate. SDL_GetAudioDeviceFormat can tell you<br/>
-		/// the preferred format for the device before opening and the actual format<br/>
-		/// the device is using after opening.<br/>
-		/// It's legal to open the same device ID more than once; each successful open<br/>
-		/// will generate a new logical SDL_AudioDeviceID that is managed separately<br/>
-		/// from others on the same physical device. This allows libraries to open a<br/>
-		/// device separately from the main app and bind its own streams without<br/>
-		/// conflicting.<br/>
-		/// It is also legal to open a device ID returned by a previous call to this<br/>
-		/// function; doing so just creates another logical device on the same physical<br/>
-		/// device. This may be useful for making logical groupings of audio streams.<br/>
-		/// This function returns the opened device ID on success. This is a new,<br/>
-		/// unique SDL_AudioDeviceID that represents a logical device.<br/>
-		/// Some backends might offer arbitrary devices (for example, a networked audio<br/>
-		/// protocol that can connect to an arbitrary server). For these, as a change<br/>
-		/// from SDL2, you should open a default device ID and use an SDL hint to<br/>
-		/// specify the target if you care, or otherwise let the backend figure out a<br/>
-		/// reasonable default. Most backends don't offer anything like this, and often<br/>
-		/// this would be an end user setting an environment variable for their custom<br/>
-		/// need, and not something an application should specifically manage.<br/>
-		/// When done with an audio device, possibly at the end of the app's life, one<br/>
-		/// should call SDL_CloseAudioDevice() on the returned device id.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint OpenAudioDevice(uint devid, ref SDLAudioSpec spec)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
+			fixed (byte* pname = name)
 			{
-				uint ret = OpenAudioDeviceNative(devid, (SDLAudioSpec*)pspec);
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, pfnBeginThread, pfnEndThread);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Determine if an audio device is physical (instead of logical).<br/>
-		/// An SDL_AudioDeviceID that represents physical hardware is a physical<br/>
-		/// device; there is one for each piece of hardware that SDL can see. Logical<br/>
-		/// devices are created by calling SDL_OpenAudioDevice or<br/>
-		/// SDL_OpenAudioDeviceStream, and while each is associated with a physical<br/>
-		/// device, there can be any number of logical devices on one physical device.<br/>
-		/// For the most part, logical and physical IDs are interchangeable--if you try<br/>
-		/// to open a logical device, SDL understands to assign that effort to the<br/>
-		/// underlying physical device, etc. However, it might be useful to know if an<br/>
-		/// arbitrary device ID is physical or logical. This function reports which.<br/>
-		/// This function may return either true or false for invalid device IDs.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte IsAudioDevicePhysicalNative(uint devid)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[319])(devid);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[319])(devid);
-			#endif
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
 		}
 
 		/// <summary>
-		/// Determine if an audio device is physical (instead of logical).<br/>
-		/// An SDL_AudioDeviceID that represents physical hardware is a physical<br/>
-		/// device; there is one for each piece of hardware that SDL can see. Logical<br/>
-		/// devices are created by calling SDL_OpenAudioDevice or<br/>
-		/// SDL_OpenAudioDeviceStream, and while each is associated with a physical<br/>
-		/// device, there can be any number of logical devices on one physical device.<br/>
-		/// For the most part, logical and physical IDs are interchangeable--if you try<br/>
-		/// to open a logical device, SDL understands to assign that effort to the<br/>
-		/// underlying physical device, etc. However, it might be useful to know if an<br/>
-		/// arbitrary device ID is physical or logical. This function reports which.<br/>
-		/// This function may return either true or false for invalid device IDs.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static bool IsAudioDevicePhysical(uint devid)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			byte ret = IsAudioDevicePhysicalNative(devid);
-			return ret != 0;
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, name, (void*)data, pfnBeginThread, pfnEndThread);
+			return ret;
 		}
 
 		/// <summary>
-		/// Determine if an audio device is a playback device (instead of recording).<br/>
-		/// This function may return either true or false for invalid device IDs.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte IsAudioDevicePlaybackNative(uint devid)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[320])(devid);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[320])(devid);
-			#endif
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, (void*)data, pfnBeginThread, pfnEndThread);
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, pStr0, (void*)data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, (void*)data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, name, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, pStr0, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, name, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, pStr0, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, name, data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, pStr0, data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, name, (void*)data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, (void*)data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, (void*)data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, (void*)data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, pStr0, (void*)data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, (void*)data, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
 		}
 	}
 }

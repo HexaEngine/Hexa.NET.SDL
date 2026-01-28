@@ -26,77 +26,106 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_HapticCustom")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticCustom
 	{
 		/// <summary>
 		/// SDL_HAPTIC_CUSTOM <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_HapticEffectType")]
 		public ushort Type;
 
 		/// <summary>
 		/// Direction of the effect. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "direction")]
+		[NativeName(NativeNameType.Type, "SDL_HapticDirection")]
 		public SDLHapticDirection Direction;
 
 		/// <summary>
 		/// Duration of the effect. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "length")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Length;
 
 		/// <summary>
 		/// Delay before starting the effect. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "delay")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Delay;
 
 		/// <summary>
 		/// Button that triggers the effect. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "button")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Button;
 
 		/// <summary>
 		/// How soon it can be triggered again after button. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "interval")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Interval;
 
 		/// <summary>
 		/// Axes to use, minimum of one. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "channels")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Channels;
 
 		/// <summary>
 		/// Sample periods. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "period")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Period;
 
 		/// <summary>
 		/// Amount of samples. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "samples")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Samples;
 
 		/// <summary>
 		/// Should contain channels*samples items. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "data")]
+		[NativeName(NativeNameType.Type, "Uint16 *")]
 		public unsafe ushort* Data;
 
 		/// <summary>
 		/// Duration of the attack. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "attack_length")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort AttackLength;
 
 		/// <summary>
 		/// Level at the start of the attack. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "attack_level")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort AttackLevel;
 
 		/// <summary>
 		/// Duration of the fade. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "fade_length")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort FadeLength;
 
 		/// <summary>
 		/// Level at the end of the fade. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "fade_level")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort FadeLevel;
 
 

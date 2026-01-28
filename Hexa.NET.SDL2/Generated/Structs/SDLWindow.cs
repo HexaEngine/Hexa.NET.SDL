@@ -15,15 +15,91 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	/// <summary>
-	/// The opaque type used to identify a window.<br/>
-	/// <br/>
-	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLWindow
 	{
 
 
+	}
+
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLWindowPtr : IEquatable<SDLWindowPtr>
+	{
+		public SDLWindowPtr(SDLWindow* handle) { Handle = handle; }
+
+		public SDLWindow* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLWindowPtr Null => new SDLWindowPtr(null);
+
+		public SDLWindow this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLWindowPtr(SDLWindow* handle) => new SDLWindowPtr(handle);
+
+		public static implicit operator SDLWindow*(SDLWindowPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLWindowPtr left, SDLWindowPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLWindowPtr left, SDLWindowPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLWindowPtr left, SDLWindow* right) => left.Handle == right;
+
+		public static bool operator !=(SDLWindowPtr left, SDLWindow* right) => left.Handle != right;
+
+		public bool Equals(SDLWindowPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLWindowPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLWindowPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLWindowPtrPtr : IEquatable<SDLWindowPtrPtr>
+	{
+		public SDLWindowPtrPtr(SDLWindow** handle) { Handle = handle; }
+
+		public SDLWindow** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLWindowPtrPtr Null => new SDLWindowPtrPtr(null);
+
+		public SDLWindow* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLWindowPtrPtr(SDLWindow** handle) => new SDLWindowPtrPtr(handle);
+
+		public static implicit operator SDLWindow**(SDLWindowPtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLWindowPtrPtr left, SDLWindowPtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLWindowPtrPtr left, SDLWindowPtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLWindowPtrPtr left, SDLWindow** right) => left.Handle == right;
+
+		public static bool operator !=(SDLWindowPtrPtr left, SDLWindow** right) => left.Handle != right;
+
+		public bool Equals(SDLWindowPtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLWindowPtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLWindowPtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

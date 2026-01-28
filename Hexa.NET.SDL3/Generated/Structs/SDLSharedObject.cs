@@ -15,16 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque datatype that represents a loaded shared object.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_SharedObject")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSharedObject
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_SharedObject")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLSharedObjectPtr : IEquatable<SDLSharedObjectPtr>
+	{
+		public SDLSharedObjectPtr(SDLSharedObject* handle) { Handle = handle; }
+
+		public SDLSharedObject* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLSharedObjectPtr Null => new SDLSharedObjectPtr(null);
+
+		public SDLSharedObject this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLSharedObjectPtr(SDLSharedObject* handle) => new SDLSharedObjectPtr(handle);
+
+		public static implicit operator SDLSharedObject*(SDLSharedObjectPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLSharedObjectPtr left, SDLSharedObjectPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLSharedObjectPtr left, SDLSharedObjectPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLSharedObjectPtr left, SDLSharedObject* right) => left.Handle == right;
+
+		public static bool operator !=(SDLSharedObjectPtr left, SDLSharedObject* right) => left.Handle != right;
+
+		public bool Equals(SDLSharedObjectPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLSharedObjectPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLSharedObjectPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

@@ -15,15 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing the SDL_GPU context.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUDevice")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUDevice
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUDevice")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUDevicePtr : IEquatable<SDLGPUDevicePtr>
+	{
+		public SDLGPUDevicePtr(SDLGPUDevice* handle) { Handle = handle; }
+
+		public SDLGPUDevice* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUDevicePtr Null => new SDLGPUDevicePtr(null);
+
+		public SDLGPUDevice this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUDevicePtr(SDLGPUDevice* handle) => new SDLGPUDevicePtr(handle);
+
+		public static implicit operator SDLGPUDevice*(SDLGPUDevicePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUDevicePtr left, SDLGPUDevicePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUDevicePtr left, SDLGPUDevicePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUDevicePtr left, SDLGPUDevice* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUDevicePtr left, SDLGPUDevice* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUDevicePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUDevicePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUDevicePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

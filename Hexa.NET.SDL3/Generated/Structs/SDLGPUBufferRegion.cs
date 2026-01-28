@@ -21,26 +21,33 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBufferRegion")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBufferRegion
 	{
 		/// <summary>
 		/// The buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "buffer")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
 		public unsafe SDLGPUBuffer* Buffer;
 
 		/// <summary>
 		/// The starting byte within the buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "offset")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 		/// <summary>
 		/// The size in bytes of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "size")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Size;
 
 
-		public unsafe SDLGPUBufferRegion(SDLGPUBuffer* buffer = default, uint offset = default, uint size = default)
+		public unsafe SDLGPUBufferRegion(SDLGPUBufferPtr buffer = default, uint offset = default, uint size = default)
 		{
 			Buffer = buffer;
 			Offset = offset;
@@ -48,6 +55,65 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying a region of a buffer.<br/>
+	/// Used when transferring data to or from buffers.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUBufferRegion")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUBufferRegionPtr : IEquatable<SDLGPUBufferRegionPtr>
+	{
+		public SDLGPUBufferRegionPtr(SDLGPUBufferRegion* handle) { Handle = handle; }
+
+		public SDLGPUBufferRegion* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUBufferRegionPtr Null => new SDLGPUBufferRegionPtr(null);
+
+		public SDLGPUBufferRegion this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUBufferRegionPtr(SDLGPUBufferRegion* handle) => new SDLGPUBufferRegionPtr(handle);
+
+		public static implicit operator SDLGPUBufferRegion*(SDLGPUBufferRegionPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUBufferRegionPtr left, SDLGPUBufferRegionPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUBufferRegionPtr left, SDLGPUBufferRegionPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUBufferRegionPtr left, SDLGPUBufferRegion* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUBufferRegionPtr left, SDLGPUBufferRegion* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUBufferRegionPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUBufferRegionPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUBufferRegionPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The buffer. <br/>
+		/// </summary>
+		public ref SDLGPUBufferPtr Buffer => ref Unsafe.AsRef<SDLGPUBufferPtr>(&Handle->Buffer);
+		/// <summary>
+		/// The starting byte within the buffer. <br/>
+		/// </summary>
+		public ref uint Offset => ref Unsafe.AsRef<uint>(&Handle->Offset);
+		/// <summary>
+		/// The size in bytes of the region. <br/>
+		/// </summary>
+		public ref uint Size => ref Unsafe.AsRef<uint>(&Handle->Size);
 	}
 
 }

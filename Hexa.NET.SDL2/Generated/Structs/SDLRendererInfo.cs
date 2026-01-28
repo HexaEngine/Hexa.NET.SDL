@@ -126,4 +126,78 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// Information on the capabilities of a render driver or context.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLRendererInfoPtr : IEquatable<SDLRendererInfoPtr>
+	{
+		public SDLRendererInfoPtr(SDLRendererInfo* handle) { Handle = handle; }
+
+		public SDLRendererInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLRendererInfoPtr Null => new SDLRendererInfoPtr(null);
+
+		public SDLRendererInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLRendererInfoPtr(SDLRendererInfo* handle) => new SDLRendererInfoPtr(handle);
+
+		public static implicit operator SDLRendererInfo*(SDLRendererInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLRendererInfoPtr left, SDLRendererInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLRendererInfoPtr left, SDLRendererInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLRendererInfoPtr left, SDLRendererInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLRendererInfoPtr left, SDLRendererInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLRendererInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLRendererInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLRendererInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The name of the renderer <br/>
+		/// </summary>
+		public byte* Name { get => Handle->Name; set => Handle->Name = value; }
+		/// <summary>
+		/// Supported SDL_RendererFlags <br/>
+		/// </summary>
+		public ref uint Flags => ref Unsafe.AsRef<uint>(&Handle->Flags);
+		/// <summary>
+		/// The number of available texture formats <br/>
+		/// </summary>
+		public ref uint NumTextureFormats => ref Unsafe.AsRef<uint>(&Handle->NumTextureFormats);
+		/// <summary>
+		/// The available texture formats <br/>
+		/// </summary>
+		public unsafe Span<uint> TextureFormats
+		
+		{
+			get
+			{
+				return new Span<uint>(&Handle->TextureFormats_0, 16);
+			}
+		}
+		/// <summary>
+		/// The maximum texture width <br/>
+		/// </summary>
+		public ref int MaxTextureWidth => ref Unsafe.AsRef<int>(&Handle->MaxTextureWidth);
+		/// <summary>
+		/// The maximum texture height <br/>
+		/// </summary>
+		public ref int MaxTextureHeight => ref Unsafe.AsRef<int>(&Handle->MaxTextureHeight);
+	}
+
 }

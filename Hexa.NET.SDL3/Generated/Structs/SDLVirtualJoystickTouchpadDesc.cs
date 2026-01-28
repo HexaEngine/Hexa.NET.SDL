@@ -20,14 +20,19 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_VirtualJoystickTouchpadDesc")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVirtualJoystickTouchpadDesc
 	{
 		/// <summary>
 		/// the number of simultaneous fingers on this touchpad <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "nfingers")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Nfingers;
 
+		[NativeName(NativeNameType.Field, "padding")]
+		[NativeName(NativeNameType.Type, "Uint16[3]")]
 		public ushort Padding_0;
 		public ushort Padding_1;
 		public ushort Padding_2;
@@ -55,6 +60,64 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The structure that describes a virtual joystick touchpad.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_VirtualJoystickTouchpadDesc")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLVirtualJoystickTouchpadDescPtr : IEquatable<SDLVirtualJoystickTouchpadDescPtr>
+	{
+		public SDLVirtualJoystickTouchpadDescPtr(SDLVirtualJoystickTouchpadDesc* handle) { Handle = handle; }
+
+		public SDLVirtualJoystickTouchpadDesc* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLVirtualJoystickTouchpadDescPtr Null => new SDLVirtualJoystickTouchpadDescPtr(null);
+
+		public SDLVirtualJoystickTouchpadDesc this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLVirtualJoystickTouchpadDescPtr(SDLVirtualJoystickTouchpadDesc* handle) => new SDLVirtualJoystickTouchpadDescPtr(handle);
+
+		public static implicit operator SDLVirtualJoystickTouchpadDesc*(SDLVirtualJoystickTouchpadDescPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLVirtualJoystickTouchpadDescPtr left, SDLVirtualJoystickTouchpadDescPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLVirtualJoystickTouchpadDescPtr left, SDLVirtualJoystickTouchpadDescPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLVirtualJoystickTouchpadDescPtr left, SDLVirtualJoystickTouchpadDesc* right) => left.Handle == right;
+
+		public static bool operator !=(SDLVirtualJoystickTouchpadDescPtr left, SDLVirtualJoystickTouchpadDesc* right) => left.Handle != right;
+
+		public bool Equals(SDLVirtualJoystickTouchpadDescPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLVirtualJoystickTouchpadDescPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLVirtualJoystickTouchpadDescPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// the number of simultaneous fingers on this touchpad <br/>
+		/// </summary>
+		public ref ushort Nfingers => ref Unsafe.AsRef<ushort>(&Handle->Nfingers);
+		public unsafe Span<ushort> Padding
+		
+		{
+			get
+			{
+				return new Span<ushort>(&Handle->Padding_0, 3);
+			}
+		}
 	}
 
 }

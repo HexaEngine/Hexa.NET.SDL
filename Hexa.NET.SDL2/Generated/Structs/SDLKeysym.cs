@@ -34,7 +34,7 @@ namespace Hexa.NET.SDL2
 		public int Sym;
 
 		/// <summary>
-		/// current key modifiers <br/>
+		/// current key modifiers - see SDL_Keymod for details <br/>
 		/// </summary>
 		public ushort Mod;
 

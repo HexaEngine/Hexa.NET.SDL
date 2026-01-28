@@ -19,51 +19,68 @@ namespace Hexa.NET.SDL3
 	/// Information about a completed asynchronous I/O request.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AsyncIOOutcome")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAsyncIOOutcome
 	{
 		/// <summary>
 		/// what generated this task. This pointer will be invalid if it was closed! <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "asyncio")]
+		[NativeName(NativeNameType.Type, "SDL_AsyncIO *")]
 		public unsafe SDLAsyncIO* Asyncio;
 
 		/// <summary>
 		/// What sort of task was this? Read, write, etc? <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_AsyncIOTaskType")]
 		public SDLAsyncIOTaskType Type;
 
 		/// <summary>
 		/// the result of the work (success, failure, cancellation). <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "result")]
+		[NativeName(NativeNameType.Type, "SDL_AsyncIOResult")]
 		public SDLAsyncIOResult Result;
 
 		/// <summary>
 		/// buffer where data was read/written. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "buffer")]
+		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Buffer;
 
 		/// <summary>
 		/// offset in the SDL_AsyncIO where data was read/written. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "offset")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Offset;
 
 		/// <summary>
 		/// number of bytes the task was to read/write. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "bytes_requested")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong BytesRequested;
 
 		/// <summary>
 		/// actual number of bytes that were read/written. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "bytes_transferred")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong BytesTransferred;
 
 		/// <summary>
 		/// pointer provided by the app when starting the task <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "userdata")]
+		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Userdata;
 
 
-		public unsafe SDLAsyncIOOutcome(SDLAsyncIO* asyncio = default, SDLAsyncIOTaskType type = default, SDLAsyncIOResult result = default, void* buffer = default, ulong offset = default, ulong bytesRequested = default, ulong bytesTransferred = default, void* userdata = default)
+		public unsafe SDLAsyncIOOutcome(SDLAsyncIOPtr asyncio = default, SDLAsyncIOTaskType type = default, SDLAsyncIOResult result = default, void* buffer = default, ulong offset = default, ulong bytesRequested = default, ulong bytesTransferred = default, void* userdata = default)
 		{
 			Asyncio = asyncio;
 			Type = type;
@@ -76,6 +93,83 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Information about a completed asynchronous I/O request.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_AsyncIOOutcome")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAsyncIOOutcomePtr : IEquatable<SDLAsyncIOOutcomePtr>
+	{
+		public SDLAsyncIOOutcomePtr(SDLAsyncIOOutcome* handle) { Handle = handle; }
+
+		public SDLAsyncIOOutcome* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAsyncIOOutcomePtr Null => new SDLAsyncIOOutcomePtr(null);
+
+		public SDLAsyncIOOutcome this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAsyncIOOutcomePtr(SDLAsyncIOOutcome* handle) => new SDLAsyncIOOutcomePtr(handle);
+
+		public static implicit operator SDLAsyncIOOutcome*(SDLAsyncIOOutcomePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAsyncIOOutcomePtr left, SDLAsyncIOOutcomePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAsyncIOOutcomePtr left, SDLAsyncIOOutcomePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAsyncIOOutcomePtr left, SDLAsyncIOOutcome* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAsyncIOOutcomePtr left, SDLAsyncIOOutcome* right) => left.Handle != right;
+
+		public bool Equals(SDLAsyncIOOutcomePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAsyncIOOutcomePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAsyncIOOutcomePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// what generated this task. This pointer will be invalid if it was closed! <br/>
+		/// </summary>
+		public ref SDLAsyncIOPtr Asyncio => ref Unsafe.AsRef<SDLAsyncIOPtr>(&Handle->Asyncio);
+		/// <summary>
+		/// What sort of task was this? Read, write, etc? <br/>
+		/// </summary>
+		public ref SDLAsyncIOTaskType Type => ref Unsafe.AsRef<SDLAsyncIOTaskType>(&Handle->Type);
+		/// <summary>
+		/// the result of the work (success, failure, cancellation). <br/>
+		/// </summary>
+		public ref SDLAsyncIOResult Result => ref Unsafe.AsRef<SDLAsyncIOResult>(&Handle->Result);
+		/// <summary>
+		/// buffer where data was read/written. <br/>
+		/// </summary>
+		public void* Buffer { get => Handle->Buffer; set => Handle->Buffer = value; }
+		/// <summary>
+		/// offset in the SDL_AsyncIO where data was read/written. <br/>
+		/// </summary>
+		public ref ulong Offset => ref Unsafe.AsRef<ulong>(&Handle->Offset);
+		/// <summary>
+		/// number of bytes the task was to read/write. <br/>
+		/// </summary>
+		public ref ulong BytesRequested => ref Unsafe.AsRef<ulong>(&Handle->BytesRequested);
+		/// <summary>
+		/// actual number of bytes that were read/written. <br/>
+		/// </summary>
+		public ref ulong BytesTransferred => ref Unsafe.AsRef<ulong>(&Handle->BytesTransferred);
+		/// <summary>
+		/// pointer provided by the app when starting the task <br/>
+		/// </summary>
+		public void* Userdata { get => Handle->Userdata; set => Handle->Userdata = value; }
 	}
 
 }

@@ -20,27 +20,86 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBufferBinding")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBufferBinding
 	{
 		/// <summary>
 		/// The buffer to bind. Must have been created with SDL_GPU_BUFFERUSAGE_VERTEX for SDL_BindGPUVertexBuffers, or SDL_GPU_BUFFERUSAGE_INDEX for SDL_BindGPUIndexBuffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "buffer")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
 		public unsafe SDLGPUBuffer* Buffer;
 
 		/// <summary>
 		/// The starting byte of the data to bind in the buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "offset")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 
-		public unsafe SDLGPUBufferBinding(SDLGPUBuffer* buffer = default, uint offset = default)
+		public unsafe SDLGPUBufferBinding(SDLGPUBufferPtr buffer = default, uint offset = default)
 		{
 			Buffer = buffer;
 			Offset = offset;
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying parameters in a buffer binding call.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUBufferBinding")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUBufferBindingPtr : IEquatable<SDLGPUBufferBindingPtr>
+	{
+		public SDLGPUBufferBindingPtr(SDLGPUBufferBinding* handle) { Handle = handle; }
+
+		public SDLGPUBufferBinding* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUBufferBindingPtr Null => new SDLGPUBufferBindingPtr(null);
+
+		public SDLGPUBufferBinding this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUBufferBindingPtr(SDLGPUBufferBinding* handle) => new SDLGPUBufferBindingPtr(handle);
+
+		public static implicit operator SDLGPUBufferBinding*(SDLGPUBufferBindingPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUBufferBindingPtr left, SDLGPUBufferBindingPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUBufferBindingPtr left, SDLGPUBufferBindingPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUBufferBindingPtr left, SDLGPUBufferBinding* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUBufferBindingPtr left, SDLGPUBufferBinding* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUBufferBindingPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUBufferBindingPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUBufferBindingPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The buffer to bind. Must have been created with SDL_GPU_BUFFERUSAGE_VERTEX for SDL_BindGPUVertexBuffers, or SDL_GPU_BUFFERUSAGE_INDEX for SDL_BindGPUIndexBuffer. <br/>
+		/// </summary>
+		public ref SDLGPUBufferPtr Buffer => ref Unsafe.AsRef<SDLGPUBufferPtr>(&Handle->Buffer);
+		/// <summary>
+		/// The starting byte of the data to bind in the buffer. <br/>
+		/// </summary>
+		public ref uint Offset => ref Unsafe.AsRef<uint>(&Handle->Offset);
 	}
 
 }

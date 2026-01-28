@@ -18,16 +18,2846 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Create an SDL window from an existing native window.<br/>
+		/// In some cases (e.g. OpenGL) and on some platforms (e.g. Microsoft Windows)<br/>
+		/// the hint `SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT` needs to be configured<br/>
+		/// before using SDL_CreateWindowFrom().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr CreateWindowFrom(nint data)
+		{
+			SDLWindowPtr ret = CreateWindowFromNative((void*)data);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the numeric ID of a window.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetWindowIDNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[368])(window);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[368])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the numeric ID of a window.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetWindowID(SDLWindowPtr window)
+		{
+			uint ret = GetWindowIDNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the numeric ID of a window.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetWindowID(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				uint ret = GetWindowIDNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a window from a stored ID.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetWindowFromIDNative(uint id)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLWindow*>)funcTable[369])(id);
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[369])(id);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a window from a stored ID.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr GetWindowFromID(uint id)
+		{
+			SDLWindowPtr ret = GetWindowFromIDNative(id);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the window flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetWindowFlagsNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[370])(window);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[370])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the window flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetWindowFlags(SDLWindowPtr window)
+		{
+			uint ret = GetWindowFlagsNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the window flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetWindowFlags(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				uint ret = GetWindowFlagsNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowTitleNative(SDLWindow* window, byte* title)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void>)funcTable[371])(window, title);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[371])((nint)window, (nint)title);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowTitle(SDLWindowPtr window, byte* title)
+		{
+			SetWindowTitleNative((SDLWindow*)window, title);
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowTitle(ref SDLWindow window, byte* title)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowTitleNative((SDLWindow*)pwindow, title);
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowTitle(SDLWindowPtr window, in byte title)
+		{
+			fixed (byte* ptitle = &title)
+			{
+				SetWindowTitleNative((SDLWindow*)window, (byte*)ptitle);
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowTitle(SDLWindowPtr window, ReadOnlySpan<byte> title)
+		{
+			fixed (byte* ptitle = title)
+			{
+				SetWindowTitleNative((SDLWindow*)window, (byte*)ptitle);
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowTitle(SDLWindowPtr window, string title)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (title != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(title);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SetWindowTitleNative((SDLWindow*)window, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowTitle(ref SDLWindow window, in byte title)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* ptitle = &title)
+				{
+					SetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowTitle(ref SDLWindow window, ReadOnlySpan<byte> title)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* ptitle = title)
+				{
+					SetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowTitle(ref SDLWindow window, string title)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (title != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(title);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				SetWindowTitleNative((SDLWindow*)pwindow, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the title of a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetWindowTitleNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*>)funcTable[372])(window);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[372])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the title of a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetWindowTitle(SDLWindowPtr window)
+		{
+			byte* ret = GetWindowTitleNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the title of a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetWindowTitleS(SDLWindowPtr window)
+		{
+			string ret = Utils.DecodeStringUTF8(GetWindowTitleNative((SDLWindow*)window));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the title of a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetWindowTitle(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* ret = GetWindowTitleNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the title of a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetWindowTitleS(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				string ret = Utils.DecodeStringUTF8(GetWindowTitleNative((SDLWindow*)pwindow));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the icon for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowIconNative(SDLWindow* window, SDLSurface* icon)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, void>)funcTable[373])(window, icon);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[373])((nint)window, (nint)icon);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the icon for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowIcon(SDLWindowPtr window, SDLSurfacePtr icon)
+		{
+			SetWindowIconNative((SDLWindow*)window, (SDLSurface*)icon);
+		}
+
+		/// <summary>
+		/// Set the icon for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowIcon(ref SDLWindow window, SDLSurfacePtr icon)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowIconNative((SDLWindow*)pwindow, (SDLSurface*)icon);
+			}
+		}
+
+		/// <summary>
+		/// Set the icon for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowIcon(SDLWindowPtr window, ref SDLSurface icon)
+		{
+			fixed (SDLSurface* picon = &icon)
+			{
+				SetWindowIconNative((SDLWindow*)window, (SDLSurface*)picon);
+			}
+		}
+
+		/// <summary>
+		/// Set the icon for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowIcon(ref SDLWindow window, ref SDLSurface icon)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLSurface* picon = &icon)
+				{
+					SetWindowIconNative((SDLWindow*)pwindow, (SDLSurface*)picon);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* SetWindowDataNative(SDLWindow* window, byte* name, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*, void*>)funcTable[374])(window, name, userdata);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint>)funcTable[374])((nint)window, (nint)name, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(SDLWindowPtr window, byte* name, void* userdata)
+		{
+			void* ret = SetWindowDataNative((SDLWindow*)window, name, userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(ref SDLWindow window, byte* name, void* userdata)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				void* ret = SetWindowDataNative((SDLWindow*)pwindow, name, userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(SDLWindowPtr window, in byte name, void* userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				void* ret = SetWindowDataNative((SDLWindow*)window, (byte*)pname, userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(SDLWindowPtr window, ReadOnlySpan<byte> name, void* userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				void* ret = SetWindowDataNative((SDLWindow*)window, (byte*)pname, userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(SDLWindowPtr window, string name, void* userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			void* ret = SetWindowDataNative((SDLWindow*)window, pStr0, userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(ref SDLWindow window, in byte name, void* userdata)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = &name)
+				{
+					void* ret = SetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, userdata);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(ref SDLWindow window, ReadOnlySpan<byte> name, void* userdata)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = name)
+				{
+					void* ret = SetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, userdata);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(ref SDLWindow window, string name, void* userdata)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (name != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(name);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				void* ret = SetWindowDataNative((SDLWindow*)pwindow, pStr0, userdata);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(SDLWindowPtr window, byte* name, nint userdata)
+		{
+			void* ret = SetWindowDataNative((SDLWindow*)window, name, (void*)userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(ref SDLWindow window, byte* name, nint userdata)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				void* ret = SetWindowDataNative((SDLWindow*)pwindow, name, (void*)userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(SDLWindowPtr window, in byte name, nint userdata)
+		{
+			fixed (byte* pname = &name)
+			{
+				void* ret = SetWindowDataNative((SDLWindow*)window, (byte*)pname, (void*)userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(SDLWindowPtr window, ReadOnlySpan<byte> name, nint userdata)
+		{
+			fixed (byte* pname = name)
+			{
+				void* ret = SetWindowDataNative((SDLWindow*)window, (byte*)pname, (void*)userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(SDLWindowPtr window, string name, nint userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			void* ret = SetWindowDataNative((SDLWindow*)window, pStr0, (void*)userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(ref SDLWindow window, in byte name, nint userdata)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = &name)
+				{
+					void* ret = SetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, (void*)userdata);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(ref SDLWindow window, ReadOnlySpan<byte> name, nint userdata)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = name)
+				{
+					void* ret = SetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, (void*)userdata);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Associate an arbitrary named pointer with a window.<br/>
+		/// `name` is case-sensitive.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SetWindowData(ref SDLWindow window, string name, nint userdata)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (name != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(name);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				void* ret = SetWindowDataNative((SDLWindow*)pwindow, pStr0, (void*)userdata);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* GetWindowDataNative(SDLWindow* window, byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*>)funcTable[375])(window, name);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[375])((nint)window, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetWindowData(SDLWindowPtr window, byte* name)
+		{
+			void* ret = GetWindowDataNative((SDLWindow*)window, name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetWindowData(ref SDLWindow window, byte* name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				void* ret = GetWindowDataNative((SDLWindow*)pwindow, name);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetWindowData(SDLWindowPtr window, in byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				void* ret = GetWindowDataNative((SDLWindow*)window, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetWindowData(SDLWindowPtr window, ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				void* ret = GetWindowDataNative((SDLWindow*)window, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetWindowData(SDLWindowPtr window, string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			void* ret = GetWindowDataNative((SDLWindow*)window, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetWindowData(ref SDLWindow window, in byte name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = &name)
+				{
+					void* ret = GetWindowDataNative((SDLWindow*)pwindow, (byte*)pname);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetWindowData(ref SDLWindow window, ReadOnlySpan<byte> name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pname = name)
+				{
+					void* ret = GetWindowDataNative((SDLWindow*)pwindow, (byte*)pname);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the data pointer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetWindowData(ref SDLWindow window, string name)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (name != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(name);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				void* ret = GetWindowDataNative((SDLWindow*)pwindow, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the position of a window.<br/>
+		/// The window coordinate origin is the upper left of the display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowPositionNative(SDLWindow* window, int x, int y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[376])(window, x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[376])((nint)window, x, y);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the position of a window.<br/>
+		/// The window coordinate origin is the upper left of the display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowPosition(SDLWindowPtr window, int x, int y)
+		{
+			SetWindowPositionNative((SDLWindow*)window, x, y);
+		}
+
+		/// <summary>
+		/// Set the position of a window.<br/>
+		/// The window coordinate origin is the upper left of the display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowPosition(ref SDLWindow window, int x, int y)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowPositionNative((SDLWindow*)pwindow, x, y);
+			}
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetWindowPositionNative(SDLWindow* window, int* x, int* y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[377])(window, x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[377])((nint)window, (nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowPosition(SDLWindowPtr window, int* x, int* y)
+		{
+			GetWindowPositionNative((SDLWindow*)window, x, y);
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowPosition(ref SDLWindow window, int* x, int* y)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GetWindowPositionNative((SDLWindow*)pwindow, x, y);
+			}
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowPosition(SDLWindowPtr window, ref int x, int* y)
+		{
+			fixed (int* px = &x)
+			{
+				GetWindowPositionNative((SDLWindow*)window, (int*)px, y);
+			}
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowPosition(ref SDLWindow window, ref int x, int* y)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* px = &x)
+				{
+					GetWindowPositionNative((SDLWindow*)pwindow, (int*)px, y);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowPosition(SDLWindowPtr window, int* x, ref int y)
+		{
+			fixed (int* py = &y)
+			{
+				GetWindowPositionNative((SDLWindow*)window, x, (int*)py);
+			}
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowPosition(ref SDLWindow window, int* x, ref int y)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* py = &y)
+				{
+					GetWindowPositionNative((SDLWindow*)pwindow, x, (int*)py);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowPosition(SDLWindowPtr window, ref int x, ref int y)
+		{
+			fixed (int* px = &x)
+			{
+				fixed (int* py = &y)
+				{
+					GetWindowPositionNative((SDLWindow*)window, (int*)px, (int*)py);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the position of a window.<br/>
+		/// If you do not need the value for one of the positions a NULL may be passed<br/>
+		/// in the `x` or `y` parameter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowPosition(ref SDLWindow window, ref int x, ref int y)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* px = &x)
+				{
+					fixed (int* py = &y)
+					{
+						GetWindowPositionNative((SDLWindow*)pwindow, (int*)px, (int*)py);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the size of a window's client area.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize() or<br/>
+		/// SDL_GetRendererOutputSize() to get the real client area size in pixels.<br/>
+		/// Fullscreen windows automatically match the size of the display mode, and<br/>
+		/// you should use SDL_SetWindowDisplayMode() to change their size.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowSizeNative(SDLWindow* window, int w, int h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[378])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[378])((nint)window, w, h);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the size of a window's client area.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize() or<br/>
+		/// SDL_GetRendererOutputSize() to get the real client area size in pixels.<br/>
+		/// Fullscreen windows automatically match the size of the display mode, and<br/>
+		/// you should use SDL_SetWindowDisplayMode() to change their size.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowSize(SDLWindowPtr window, int w, int h)
+		{
+			SetWindowSizeNative((SDLWindow*)window, w, h);
+		}
+
+		/// <summary>
+		/// Set the size of a window's client area.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize() or<br/>
+		/// SDL_GetRendererOutputSize() to get the real client area size in pixels.<br/>
+		/// Fullscreen windows automatically match the size of the display mode, and<br/>
+		/// you should use SDL_SetWindowDisplayMode() to change their size.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowSize(ref SDLWindow window, int w, int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowSizeNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetWindowSizeNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[379])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[379])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSize(SDLWindowPtr window, int* w, int* h)
+		{
+			GetWindowSizeNative((SDLWindow*)window, w, h);
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSize(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GetWindowSizeNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSize(SDLWindowPtr window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				GetWindowSizeNative((SDLWindow*)window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSize(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					GetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSize(SDLWindowPtr window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				GetWindowSizeNative((SDLWindow*)window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSize(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSize(SDLWindowPtr window, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowSizeNative((SDLWindow*)window, (int*)pw, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's client area.<br/>
+		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
+		/// height value is not desired.<br/>
+		/// The window size in screen coordinates may differ from the size in pixels,<br/>
+		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
+		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
+		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
+		/// real client area size in pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSize(ref SDLWindow window, ref int w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						GetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetWindowBordersSizeNative(SDLWindow* window, int* top, int* left, int* bottom, int* right)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, int*, int*, int>)funcTable[380])(window, top, left, bottom, right);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[380])((nint)window, (nint)top, (nint)left, (nint)bottom, (nint)right);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, int* top, int* left, int* bottom, int* right)
+		{
+			int ret = GetWindowBordersSizeNative((SDLWindow*)window, top, left, bottom, right);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, int* top, int* left, int* bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, right);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, ref int top, int* left, int* bottom, int* right)
+		{
+			fixed (int* ptop = &top)
+			{
+				int ret = GetWindowBordersSizeNative((SDLWindow*)window, (int*)ptop, left, bottom, right);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, int* bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, right);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, int* top, ref int left, int* bottom, int* right)
+		{
+			fixed (int* pleft = &left)
+			{
+				int ret = GetWindowBordersSizeNative((SDLWindow*)window, top, (int*)pleft, bottom, right);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, int* bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pleft = &left)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, right);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, ref int top, ref int left, int* bottom, int* right)
+		{
+			fixed (int* ptop = &top)
+			{
+				fixed (int* pleft = &left)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)window, (int*)ptop, (int*)pleft, bottom, right);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, int* bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					fixed (int* pleft = &left)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, right);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, int* top, int* left, ref int bottom, int* right)
+		{
+			fixed (int* pbottom = &bottom)
+			{
+				int ret = GetWindowBordersSizeNative((SDLWindow*)window, top, left, (int*)pbottom, right);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, int* top, int* left, ref int bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pbottom = &bottom)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, right);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, ref int top, int* left, ref int bottom, int* right)
+		{
+			fixed (int* ptop = &top)
+			{
+				fixed (int* pbottom = &bottom)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)window, (int*)ptop, left, (int*)pbottom, right);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, ref int bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					fixed (int* pbottom = &bottom)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, (int*)pbottom, right);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, int* top, ref int left, ref int bottom, int* right)
+		{
+			fixed (int* pleft = &left)
+			{
+				fixed (int* pbottom = &bottom)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)window, top, (int*)pleft, (int*)pbottom, right);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, ref int bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pleft = &left)
+				{
+					fixed (int* pbottom = &bottom)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, (int*)pbottom, right);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, ref int top, ref int left, ref int bottom, int* right)
+		{
+			fixed (int* ptop = &top)
+			{
+				fixed (int* pleft = &left)
+				{
+					fixed (int* pbottom = &bottom)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)window, (int*)ptop, (int*)pleft, (int*)pbottom, right);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, ref int bottom, int* right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					fixed (int* pleft = &left)
+					{
+						fixed (int* pbottom = &bottom)
+						{
+							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, right);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, int* top, int* left, int* bottom, ref int right)
+		{
+			fixed (int* pright = &right)
+			{
+				int ret = GetWindowBordersSizeNative((SDLWindow*)window, top, left, bottom, (int*)pright);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, int* top, int* left, int* bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pright = &right)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, (int*)pright);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, ref int top, int* left, int* bottom, ref int right)
+		{
+			fixed (int* ptop = &top)
+			{
+				fixed (int* pright = &right)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)window, (int*)ptop, left, bottom, (int*)pright);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, int* bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					fixed (int* pright = &right)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, (int*)pright);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, int* top, ref int left, int* bottom, ref int right)
+		{
+			fixed (int* pleft = &left)
+			{
+				fixed (int* pright = &right)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)window, top, (int*)pleft, bottom, (int*)pright);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, int* bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pleft = &left)
+				{
+					fixed (int* pright = &right)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, (int*)pright);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, ref int top, ref int left, int* bottom, ref int right)
+		{
+			fixed (int* ptop = &top)
+			{
+				fixed (int* pleft = &left)
+				{
+					fixed (int* pright = &right)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)window, (int*)ptop, (int*)pleft, bottom, (int*)pright);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, int* bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					fixed (int* pleft = &left)
+					{
+						fixed (int* pright = &right)
+						{
+							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, (int*)pright);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, int* top, int* left, ref int bottom, ref int right)
+		{
+			fixed (int* pbottom = &bottom)
+			{
+				fixed (int* pright = &right)
+				{
+					int ret = GetWindowBordersSizeNative((SDLWindow*)window, top, left, (int*)pbottom, (int*)pright);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, int* top, int* left, ref int bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pbottom = &bottom)
+				{
+					fixed (int* pright = &right)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, (int*)pright);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, ref int top, int* left, ref int bottom, ref int right)
+		{
+			fixed (int* ptop = &top)
+			{
+				fixed (int* pbottom = &bottom)
+				{
+					fixed (int* pright = &right)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)window, (int*)ptop, left, (int*)pbottom, (int*)pright);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, ref int bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					fixed (int* pbottom = &bottom)
+					{
+						fixed (int* pright = &right)
+						{
+							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, (int*)pbottom, (int*)pright);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, int* top, ref int left, ref int bottom, ref int right)
+		{
+			fixed (int* pleft = &left)
+			{
+				fixed (int* pbottom = &bottom)
+				{
+					fixed (int* pright = &right)
+					{
+						int ret = GetWindowBordersSizeNative((SDLWindow*)window, top, (int*)pleft, (int*)pbottom, (int*)pright);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, ref int bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pleft = &left)
+				{
+					fixed (int* pbottom = &bottom)
+					{
+						fixed (int* pright = &right)
+						{
+							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, (int*)pbottom, (int*)pright);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindowPtr window, ref int top, ref int left, ref int bottom, ref int right)
+		{
+			fixed (int* ptop = &top)
+			{
+				fixed (int* pleft = &left)
+				{
+					fixed (int* pbottom = &bottom)
+					{
+						fixed (int* pright = &right)
+						{
+							int ret = GetWindowBordersSizeNative((SDLWindow*)window, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, ref int bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					fixed (int* pleft = &left)
+					{
+						fixed (int* pbottom = &bottom)
+						{
+							fixed (int* pright = &right)
+							{
+								int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetWindowSizeInPixelsNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[381])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[381])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(SDLWindowPtr window, int* w, int* h)
+		{
+			GetWindowSizeInPixelsNative((SDLWindow*)window, w, h);
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(SDLWindowPtr window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				GetWindowSizeInPixelsNative((SDLWindow*)window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(SDLWindowPtr window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				GetWindowSizeInPixelsNative((SDLWindow*)window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(SDLWindowPtr window, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowSizeInPixelsNative((SDLWindow*)window, (int*)pw, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(ref SDLWindow window, ref int w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowMinimumSizeNative(SDLWindow* window, int minW, int minH)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[382])(window, minW, minH);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[382])((nint)window, minW, minH);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowMinimumSize(SDLWindowPtr window, int minW, int minH)
+		{
+			SetWindowMinimumSizeNative((SDLWindow*)window, minW, minH);
+		}
+
+		/// <summary>
+		/// Set the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowMinimumSize(ref SDLWindow window, int minW, int minH)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowMinimumSizeNative((SDLWindow*)pwindow, minW, minH);
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetWindowMinimumSizeNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[383])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[383])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(SDLWindowPtr window, int* w, int* h)
+		{
+			GetWindowMinimumSizeNative((SDLWindow*)window, w, h);
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(SDLWindowPtr window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				GetWindowMinimumSizeNative((SDLWindow*)window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(SDLWindowPtr window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				GetWindowMinimumSizeNative((SDLWindow*)window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(SDLWindowPtr window, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowMinimumSizeNative((SDLWindow*)window, (int*)pw, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(ref SDLWindow window, ref int w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowMaximumSizeNative(SDLWindow* window, int maxW, int maxH)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[384])(window, maxW, maxH);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[384])((nint)window, maxW, maxH);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowMaximumSize(SDLWindowPtr window, int maxW, int maxH)
+		{
+			SetWindowMaximumSizeNative((SDLWindow*)window, maxW, maxH);
+		}
+
+		/// <summary>
+		/// Set the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowMaximumSize(ref SDLWindow window, int maxW, int maxH)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowMaximumSizeNative((SDLWindow*)pwindow, maxW, maxH);
+			}
+		}
+
+		/// <summary>
 		/// Get the maximum size of a window's client area.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void GetWindowMaximumSize(SDLWindow* window, ref int w, int* h)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetWindowMaximumSizeNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[385])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[385])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(SDLWindowPtr window, int* w, int* h)
+		{
+			GetWindowMaximumSizeNative((SDLWindow*)window, w, h);
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(SDLWindowPtr window, ref int w, int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				GetWindowMaximumSizeNative(window, (int*)pw, h);
+				GetWindowMaximumSizeNative((SDLWindow*)window, (int*)pw, h);
 			}
 		}
 
@@ -54,11 +2884,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void GetWindowMaximumSize(SDLWindow* window, int* w, ref int h)
+		public static void GetWindowMaximumSize(SDLWindowPtr window, int* w, ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				GetWindowMaximumSizeNative(window, w, (int*)ph);
+				GetWindowMaximumSizeNative((SDLWindow*)window, w, (int*)ph);
 			}
 		}
 
@@ -85,13 +2915,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void GetWindowMaximumSize(SDLWindow* window, ref int w, ref int h)
+		public static void GetWindowMaximumSize(SDLWindowPtr window, ref int w, ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					GetWindowMaximumSizeNative(window, (int*)pw, (int*)ph);
+					GetWindowMaximumSizeNative((SDLWindow*)window, (int*)pw, (int*)ph);
 				}
 			}
 		}
@@ -146,9 +2976,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetWindowBordered(SDLWindow* window, SDLBool bordered)
+		public static void SetWindowBordered(SDLWindowPtr window, SDLBool bordered)
 		{
-			SetWindowBorderedNative(window, bordered);
+			SetWindowBorderedNative((SDLWindow*)window, bordered);
 		}
 
 		/// <summary>
@@ -199,9 +3029,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetWindowResizable(SDLWindow* window, SDLBool resizable)
+		public static void SetWindowResizable(SDLWindowPtr window, SDLBool resizable)
 		{
-			SetWindowResizableNative(window, resizable);
+			SetWindowResizableNative((SDLWindow*)window, resizable);
 		}
 
 		/// <summary>
@@ -248,9 +3078,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetWindowAlwaysOnTop(SDLWindow* window, SDLBool onTop)
+		public static void SetWindowAlwaysOnTop(SDLWindowPtr window, SDLBool onTop)
 		{
-			SetWindowAlwaysOnTopNative(window, onTop);
+			SetWindowAlwaysOnTopNative((SDLWindow*)window, onTop);
 		}
 
 		/// <summary>
@@ -291,9 +3121,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowWindow(SDLWindow* window)
+		public static void ShowWindow(SDLWindowPtr window)
 		{
-			ShowWindowNative(window);
+			ShowWindowNative((SDLWindow*)window);
 		}
 
 		/// <summary>
@@ -332,9 +3162,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void HideWindow(SDLWindow* window)
+		public static void HideWindow(SDLWindowPtr window)
 		{
-			HideWindowNative(window);
+			HideWindowNative((SDLWindow*)window);
 		}
 
 		/// <summary>
@@ -371,9 +3201,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void RaiseWindow(SDLWindow* window)
+		public static void RaiseWindow(SDLWindowPtr window)
 		{
-			RaiseWindowNative(window);
+			RaiseWindowNative((SDLWindow*)window);
 		}
 
 		/// <summary>
@@ -411,9 +3241,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void MaximizeWindow(SDLWindow* window)
+		public static void MaximizeWindow(SDLWindowPtr window)
 		{
-			MaximizeWindowNative(window);
+			MaximizeWindowNative((SDLWindow*)window);
 		}
 
 		/// <summary>
@@ -452,9 +3282,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void MinimizeWindow(SDLWindow* window)
+		public static void MinimizeWindow(SDLWindowPtr window)
 		{
-			MinimizeWindowNative(window);
+			MinimizeWindowNative((SDLWindow*)window);
 		}
 
 		/// <summary>
@@ -493,9 +3323,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void RestoreWindow(SDLWindow* window)
+		public static void RestoreWindow(SDLWindowPtr window)
 		{
-			RestoreWindowNative(window);
+			RestoreWindowNative((SDLWindow*)window);
 		}
 
 		/// <summary>
@@ -546,9 +3376,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowFullscreen(SDLWindow* window, uint flags)
+		public static int SetWindowFullscreen(SDLWindowPtr window, uint flags)
 		{
-			int ret = SetWindowFullscreenNative(window, flags);
+			int ret = SetWindowFullscreenNative((SDLWindow*)window, flags);
 			return ret;
 		}
 
@@ -595,9 +3425,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool HasWindowSurface(SDLWindow* window)
+		public static SDLBool HasWindowSurface(SDLWindowPtr window)
 		{
-			SDLBool ret = HasWindowSurfaceNative(window);
+			SDLBool ret = HasWindowSurfaceNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -658,9 +3488,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* GetWindowSurface(SDLWindow* window)
+		public static SDLSurfacePtr GetWindowSurface(SDLWindowPtr window)
 		{
-			SDLSurface* ret = GetWindowSurfaceNative(window);
+			SDLSurfacePtr ret = GetWindowSurfaceNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -680,11 +3510,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* GetWindowSurface(ref SDLWindow window)
+		public static SDLSurfacePtr GetWindowSurface(ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSurface* ret = GetWindowSurfaceNative((SDLWindow*)pwindow);
+				SDLSurfacePtr ret = GetWindowSurfaceNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -717,9 +3547,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateWindowSurface(SDLWindow* window)
+		public static int UpdateWindowSurface(SDLWindowPtr window)
 		{
-			int ret = UpdateWindowSurfaceNative(window);
+			int ret = UpdateWindowSurfaceNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -777,9 +3607,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateWindowSurfaceRects(SDLWindow* window, SDLRect* rects, int numrects)
+		public static int UpdateWindowSurfaceRects(SDLWindowPtr window, SDLRectPtr rects, int numrects)
 		{
-			int ret = UpdateWindowSurfaceRectsNative(window, rects, numrects);
+			int ret = UpdateWindowSurfaceRectsNative((SDLWindow*)window, (SDLRect*)rects, numrects);
 			return ret;
 		}
 
@@ -796,11 +3626,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateWindowSurfaceRects(ref SDLWindow window, SDLRect* rects, int numrects)
+		public static int UpdateWindowSurfaceRects(ref SDLWindow window, SDLRectPtr rects, int numrects)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = UpdateWindowSurfaceRectsNative((SDLWindow*)pwindow, rects, numrects);
+				int ret = UpdateWindowSurfaceRectsNative((SDLWindow*)pwindow, (SDLRect*)rects, numrects);
 				return ret;
 			}
 		}
@@ -818,11 +3648,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateWindowSurfaceRects(SDLWindow* window, ref SDLRect rects, int numrects)
+		public static int UpdateWindowSurfaceRects(SDLWindowPtr window, in SDLRect rects, int numrects)
 		{
 			fixed (SDLRect* prects = &rects)
 			{
-				int ret = UpdateWindowSurfaceRectsNative(window, (SDLRect*)prects, numrects);
+				int ret = UpdateWindowSurfaceRectsNative((SDLWindow*)window, (SDLRect*)prects, numrects);
 				return ret;
 			}
 		}
@@ -840,7 +3670,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateWindowSurfaceRects(ref SDLWindow window, ref SDLRect rects, int numrects)
+		public static int UpdateWindowSurfaceRects(ref SDLWindow window, in SDLRect rects, int numrects)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -874,9 +3704,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int DestroyWindowSurface(SDLWindow* window)
+		public static int DestroyWindowSurface(SDLWindowPtr window)
 		{
-			int ret = DestroyWindowSurfaceNative(window);
+			int ret = DestroyWindowSurfaceNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -927,9 +3757,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetWindowGrab(SDLWindow* window, SDLBool grabbed)
+		public static void SetWindowGrab(SDLWindowPtr window, SDLBool grabbed)
 		{
-			SetWindowGrabNative(window, grabbed);
+			SetWindowGrabNative((SDLWindow*)window, grabbed);
 		}
 
 		/// <summary>
@@ -997,9 +3827,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetWindowKeyboardGrab(SDLWindow* window, SDLBool grabbed)
+		public static void SetWindowKeyboardGrab(SDLWindowPtr window, SDLBool grabbed)
 		{
-			SetWindowKeyboardGrabNative(window, grabbed);
+			SetWindowKeyboardGrabNative((SDLWindow*)window, grabbed);
 		}
 
 		/// <summary>
@@ -1052,9 +3882,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetWindowMouseGrab(SDLWindow* window, SDLBool grabbed)
+		public static void SetWindowMouseGrab(SDLWindowPtr window, SDLBool grabbed)
 		{
-			SetWindowMouseGrabNative(window, grabbed);
+			SetWindowMouseGrabNative((SDLWindow*)window, grabbed);
 		}
 
 		/// <summary>
@@ -1094,9 +3924,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool GetWindowGrab(SDLWindow* window)
+		public static SDLBool GetWindowGrab(SDLWindowPtr window)
 		{
-			SDLBool ret = GetWindowGrabNative(window);
+			SDLBool ret = GetWindowGrabNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -1137,9 +3967,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool GetWindowKeyboardGrab(SDLWindow* window)
+		public static SDLBool GetWindowKeyboardGrab(SDLWindowPtr window)
 		{
-			SDLBool ret = GetWindowKeyboardGrabNative(window);
+			SDLBool ret = GetWindowKeyboardGrabNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -1180,9 +4010,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool GetWindowMouseGrab(SDLWindow* window)
+		public static SDLBool GetWindowMouseGrab(SDLWindowPtr window)
 		{
-			SDLBool ret = GetWindowMouseGrabNative(window);
+			SDLBool ret = GetWindowMouseGrabNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -1223,9 +4053,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* GetGrabbedWindow()
+		public static SDLWindowPtr GetGrabbedWindow()
 		{
-			SDLWindow* ret = GetGrabbedWindowNative();
+			SDLWindowPtr ret = GetGrabbedWindowNative();
 			return ret;
 		}
 
@@ -1255,9 +4085,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowMouseRect(SDLWindow* window, SDLRect* rect)
+		public static int SetWindowMouseRect(SDLWindowPtr window, SDLRectPtr rect)
 		{
-			int ret = SetWindowMouseRectNative(window, rect);
+			int ret = SetWindowMouseRectNative((SDLWindow*)window, (SDLRect*)rect);
 			return ret;
 		}
 
@@ -1269,11 +4099,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowMouseRect(ref SDLWindow window, SDLRect* rect)
+		public static int SetWindowMouseRect(ref SDLWindow window, SDLRectPtr rect)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SetWindowMouseRectNative((SDLWindow*)pwindow, rect);
+				int ret = SetWindowMouseRectNative((SDLWindow*)pwindow, (SDLRect*)rect);
 				return ret;
 			}
 		}
@@ -1286,11 +4116,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowMouseRect(SDLWindow* window, ref SDLRect rect)
+		public static int SetWindowMouseRect(SDLWindowPtr window, in SDLRect rect)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
-				int ret = SetWindowMouseRectNative(window, (SDLRect*)prect);
+				int ret = SetWindowMouseRectNative((SDLWindow*)window, (SDLRect*)prect);
 				return ret;
 			}
 		}
@@ -1303,7 +4133,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowMouseRect(ref SDLWindow window, ref SDLRect rect)
+		public static int SetWindowMouseRect(ref SDLWindow window, in SDLRect rect)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1337,9 +4167,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRect* GetWindowMouseRect(SDLWindow* window)
+		public static SDLRectPtr GetWindowMouseRect(SDLWindowPtr window)
 		{
-			SDLRect* ret = GetWindowMouseRectNative(window);
+			SDLRectPtr ret = GetWindowMouseRectNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -1349,11 +4179,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRect* GetWindowMouseRect(ref SDLWindow window)
+		public static SDLRectPtr GetWindowMouseRect(ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLRect* ret = GetWindowMouseRectNative((SDLWindow*)pwindow);
+				SDLRectPtr ret = GetWindowMouseRectNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -1398,9 +4228,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowBrightness(SDLWindow* window, float brightness)
+		public static int SetWindowBrightness(SDLWindowPtr window, float brightness)
 		{
-			int ret = SetWindowBrightnessNative(window, brightness);
+			int ret = SetWindowBrightnessNative((SDLWindow*)window, brightness);
 			return ret;
 		}
 
@@ -1458,9 +4288,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static float GetWindowBrightness(SDLWindow* window)
+		public static float GetWindowBrightness(SDLWindowPtr window)
 		{
-			float ret = GetWindowBrightnessNative(window);
+			float ret = GetWindowBrightnessNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -1511,9 +4341,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowOpacity(SDLWindow* window, float opacity)
+		public static int SetWindowOpacity(SDLWindowPtr window, float opacity)
 		{
-			int ret = SetWindowOpacityNative(window, opacity);
+			int ret = SetWindowOpacityNative((SDLWindow*)window, opacity);
 			return ret;
 		}
 
@@ -1565,9 +4395,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetWindowOpacity(SDLWindow* window, float* outOpacity)
+		public static int GetWindowOpacity(SDLWindowPtr window, float* outOpacity)
 		{
-			int ret = GetWindowOpacityNative(window, outOpacity);
+			int ret = GetWindowOpacityNative((SDLWindow*)window, outOpacity);
 			return ret;
 		}
 
@@ -1600,11 +4430,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetWindowOpacity(SDLWindow* window, ref float outOpacity)
+		public static int GetWindowOpacity(SDLWindowPtr window, ref float outOpacity)
 		{
 			fixed (float* poutOpacity = &outOpacity)
 			{
-				int ret = GetWindowOpacityNative(window, (float*)poutOpacity);
+				int ret = GetWindowOpacityNative((SDLWindow*)window, (float*)poutOpacity);
 				return ret;
 			}
 		}
@@ -1651,9 +4481,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowModalFor(SDLWindow* modalWindow, SDLWindow* parentWindow)
+		public static int SetWindowModalFor(SDLWindowPtr modalWindow, SDLWindowPtr parentWindow)
 		{
-			int ret = SetWindowModalForNative(modalWindow, parentWindow);
+			int ret = SetWindowModalForNative((SDLWindow*)modalWindow, (SDLWindow*)parentWindow);
 			return ret;
 		}
 
@@ -1662,11 +4492,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowModalFor(ref SDLWindow modalWindow, SDLWindow* parentWindow)
+		public static int SetWindowModalFor(ref SDLWindow modalWindow, SDLWindowPtr parentWindow)
 		{
 			fixed (SDLWindow* pmodalWindow = &modalWindow)
 			{
-				int ret = SetWindowModalForNative((SDLWindow*)pmodalWindow, parentWindow);
+				int ret = SetWindowModalForNative((SDLWindow*)pmodalWindow, (SDLWindow*)parentWindow);
 				return ret;
 			}
 		}
@@ -1676,11 +4506,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowModalFor(SDLWindow* modalWindow, ref SDLWindow parentWindow)
+		public static int SetWindowModalFor(SDLWindowPtr modalWindow, ref SDLWindow parentWindow)
 		{
 			fixed (SDLWindow* pparentWindow = &parentWindow)
 			{
-				int ret = SetWindowModalForNative(modalWindow, (SDLWindow*)pparentWindow);
+				int ret = SetWindowModalForNative((SDLWindow*)modalWindow, (SDLWindow*)pparentWindow);
 				return ret;
 			}
 		}
@@ -1730,9 +4560,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowInputFocus(SDLWindow* window)
+		public static int SetWindowInputFocus(SDLWindowPtr window)
 		{
-			int ret = SetWindowInputFocusNative(window);
+			int ret = SetWindowInputFocusNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -1796,9 +4626,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(SDLWindow* window, ushort* red, ushort* green, ushort* blue)
+		public static int SetWindowGammaRamp(SDLWindowPtr window, ushort* red, ushort* green, ushort* blue)
 		{
-			int ret = SetWindowGammaRampNative(window, red, green, blue);
+			int ret = SetWindowGammaRampNative((SDLWindow*)window, red, green, blue);
 			return ret;
 		}
 
@@ -1843,11 +4673,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(SDLWindow* window, ref ushort red, ushort* green, ushort* blue)
+		public static int SetWindowGammaRamp(SDLWindowPtr window, in ushort red, ushort* green, ushort* blue)
 		{
 			fixed (ushort* pred = &red)
 			{
-				int ret = SetWindowGammaRampNative(window, (ushort*)pred, green, blue);
+				int ret = SetWindowGammaRampNative((SDLWindow*)window, (ushort*)pred, green, blue);
 				return ret;
 			}
 		}
@@ -1868,7 +4698,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(ref SDLWindow window, ref ushort red, ushort* green, ushort* blue)
+		public static int SetWindowGammaRamp(ref SDLWindow window, in ushort red, ushort* green, ushort* blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1896,11 +4726,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(SDLWindow* window, ushort* red, ref ushort green, ushort* blue)
+		public static int SetWindowGammaRamp(SDLWindowPtr window, ushort* red, in ushort green, ushort* blue)
 		{
 			fixed (ushort* pgreen = &green)
 			{
-				int ret = SetWindowGammaRampNative(window, red, (ushort*)pgreen, blue);
+				int ret = SetWindowGammaRampNative((SDLWindow*)window, red, (ushort*)pgreen, blue);
 				return ret;
 			}
 		}
@@ -1921,7 +4751,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(ref SDLWindow window, ushort* red, ref ushort green, ushort* blue)
+		public static int SetWindowGammaRamp(ref SDLWindow window, ushort* red, in ushort green, ushort* blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1949,13 +4779,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(SDLWindow* window, ref ushort red, ref ushort green, ushort* blue)
+		public static int SetWindowGammaRamp(SDLWindowPtr window, in ushort red, in ushort green, ushort* blue)
 		{
 			fixed (ushort* pred = &red)
 			{
 				fixed (ushort* pgreen = &green)
 				{
-					int ret = SetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, blue);
+					int ret = SetWindowGammaRampNative((SDLWindow*)window, (ushort*)pred, (ushort*)pgreen, blue);
 					return ret;
 				}
 			}
@@ -1977,7 +4807,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(ref SDLWindow window, ref ushort red, ref ushort green, ushort* blue)
+		public static int SetWindowGammaRamp(ref SDLWindow window, in ushort red, in ushort green, ushort* blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2008,11 +4838,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(SDLWindow* window, ushort* red, ushort* green, ref ushort blue)
+		public static int SetWindowGammaRamp(SDLWindowPtr window, ushort* red, ushort* green, in ushort blue)
 		{
 			fixed (ushort* pblue = &blue)
 			{
-				int ret = SetWindowGammaRampNative(window, red, green, (ushort*)pblue);
+				int ret = SetWindowGammaRampNative((SDLWindow*)window, red, green, (ushort*)pblue);
 				return ret;
 			}
 		}
@@ -2033,7 +4863,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(ref SDLWindow window, ushort* red, ushort* green, ref ushort blue)
+		public static int SetWindowGammaRamp(ref SDLWindow window, ushort* red, ushort* green, in ushort blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2061,13 +4891,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(SDLWindow* window, ref ushort red, ushort* green, ref ushort blue)
+		public static int SetWindowGammaRamp(SDLWindowPtr window, in ushort red, ushort* green, in ushort blue)
 		{
 			fixed (ushort* pred = &red)
 			{
 				fixed (ushort* pblue = &blue)
 				{
-					int ret = SetWindowGammaRampNative(window, (ushort*)pred, green, (ushort*)pblue);
+					int ret = SetWindowGammaRampNative((SDLWindow*)window, (ushort*)pred, green, (ushort*)pblue);
 					return ret;
 				}
 			}
@@ -2089,7 +4919,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(ref SDLWindow window, ref ushort red, ushort* green, ref ushort blue)
+		public static int SetWindowGammaRamp(ref SDLWindow window, in ushort red, ushort* green, in ushort blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2120,13 +4950,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(SDLWindow* window, ushort* red, ref ushort green, ref ushort blue)
+		public static int SetWindowGammaRamp(SDLWindowPtr window, ushort* red, in ushort green, in ushort blue)
 		{
 			fixed (ushort* pgreen = &green)
 			{
 				fixed (ushort* pblue = &blue)
 				{
-					int ret = SetWindowGammaRampNative(window, red, (ushort*)pgreen, (ushort*)pblue);
+					int ret = SetWindowGammaRampNative((SDLWindow*)window, red, (ushort*)pgreen, (ushort*)pblue);
 					return ret;
 				}
 			}
@@ -2148,7 +4978,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(ref SDLWindow window, ushort* red, ref ushort green, ref ushort blue)
+		public static int SetWindowGammaRamp(ref SDLWindow window, ushort* red, in ushort green, in ushort blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2179,7 +5009,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowGammaRamp(SDLWindow* window, ref ushort red, ref ushort green, ref ushort blue)
+		public static int SetWindowGammaRamp(SDLWindowPtr window, in ushort red, in ushort green, in ushort blue)
 		{
 			fixed (ushort* pred = &red)
 			{
@@ -2187,2850 +5017,10 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pblue = &blue)
 					{
-						int ret = SetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
+						int ret = SetWindowGammaRampNative((SDLWindow*)window, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
 						return ret;
 					}
 				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowGammaRamp(ref SDLWindow window, ref ushort red, ref ushort green, ref ushort blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pred = &red)
-				{
-					fixed (ushort* pgreen = &green)
-					{
-						fixed (ushort* pblue = &blue)
-						{
-							int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetWindowGammaRampNative(SDLWindow* window, ushort* red, ushort* green, ushort* blue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ushort*, ushort*, ushort*, int>)funcTable[417])(window, red, green, blue);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[417])((nint)window, (nint)red, (nint)green, (nint)blue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(SDLWindow* window, ushort* red, ushort* green, ushort* blue)
-		{
-			int ret = GetWindowGammaRampNative(window, red, green, blue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(ref SDLWindow window, ushort* red, ushort* green, ushort* blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, red, green, blue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(SDLWindow* window, ref ushort red, ushort* green, ushort* blue)
-		{
-			fixed (ushort* pred = &red)
-			{
-				int ret = GetWindowGammaRampNative(window, (ushort*)pred, green, blue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(ref SDLWindow window, ref ushort red, ushort* green, ushort* blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pred = &red)
-				{
-					int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, blue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(SDLWindow* window, ushort* red, ref ushort green, ushort* blue)
-		{
-			fixed (ushort* pgreen = &green)
-			{
-				int ret = GetWindowGammaRampNative(window, red, (ushort*)pgreen, blue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(ref SDLWindow window, ushort* red, ref ushort green, ushort* blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pgreen = &green)
-				{
-					int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, blue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(SDLWindow* window, ref ushort red, ref ushort green, ushort* blue)
-		{
-			fixed (ushort* pred = &red)
-			{
-				fixed (ushort* pgreen = &green)
-				{
-					int ret = GetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, blue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(ref SDLWindow window, ref ushort red, ref ushort green, ushort* blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pred = &red)
-				{
-					fixed (ushort* pgreen = &green)
-					{
-						int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, blue);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(SDLWindow* window, ushort* red, ushort* green, ref ushort blue)
-		{
-			fixed (ushort* pblue = &blue)
-			{
-				int ret = GetWindowGammaRampNative(window, red, green, (ushort*)pblue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(ref SDLWindow window, ushort* red, ushort* green, ref ushort blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pblue = &blue)
-				{
-					int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, red, green, (ushort*)pblue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(SDLWindow* window, ref ushort red, ushort* green, ref ushort blue)
-		{
-			fixed (ushort* pred = &red)
-			{
-				fixed (ushort* pblue = &blue)
-				{
-					int ret = GetWindowGammaRampNative(window, (ushort*)pred, green, (ushort*)pblue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(ref SDLWindow window, ref ushort red, ushort* green, ref ushort blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pred = &red)
-				{
-					fixed (ushort* pblue = &blue)
-					{
-						int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, (ushort*)pblue);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(SDLWindow* window, ushort* red, ref ushort green, ref ushort blue)
-		{
-			fixed (ushort* pgreen = &green)
-			{
-				fixed (ushort* pblue = &blue)
-				{
-					int ret = GetWindowGammaRampNative(window, red, (ushort*)pgreen, (ushort*)pblue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(ref SDLWindow window, ushort* red, ref ushort green, ref ushort blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pgreen = &green)
-				{
-					fixed (ushort* pblue = &blue)
-					{
-						int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, (ushort*)pblue);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(SDLWindow* window, ref ushort red, ref ushort green, ref ushort blue)
-		{
-			fixed (ushort* pred = &red)
-			{
-				fixed (ushort* pgreen = &green)
-				{
-					fixed (ushort* pblue = &blue)
-					{
-						int ret = GetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the gamma ramp for a given window's display.<br/>
-		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowGammaRamp(ref SDLWindow window, ref ushort red, ref ushort green, ref ushort blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pred = &red)
-				{
-					fixed (ushort* pgreen = &green)
-					{
-						fixed (ushort* pblue = &blue)
-						{
-							int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Provide a callback that decides if a window region has special properties.<br/>
-		/// Normally windows are dragged and resized by decorations provided by the<br/>
-		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
-		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
-		/// example, one might have a borderless window that wants to be draggable from<br/>
-		/// any part, or simulate its own title bar, etc.<br/>
-		/// This function lets the app provide a callback that designates pieces of a<br/>
-		/// given window as special. This callback is run during event processing if we<br/>
-		/// need to tell the OS to treat a region of the window specially; the use of<br/>
-		/// this callback is known as "hit testing."<br/>
-		/// Mouse input may not be delivered to your application if it is within a<br/>
-		/// special area; the OS will often apply that input to moving the window or<br/>
-		/// resizing the window and not deliver it to the application.<br/>
-		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
-		/// disabled by default.<br/>
-		/// Platforms that don't support this functionality will return -1<br/>
-		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
-		/// Your callback may fire at any time, and its firing does not indicate any<br/>
-		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
-		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
-		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
-		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
-		/// can fire at any time, you should try to keep your callback efficient,<br/>
-		/// devoid of allocations, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetWindowHitTestNative(SDLWindow* window, SDLHitTest callback, void* callbackData)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>, void*, int>)funcTable[418])(window, (delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>)Utils.GetFunctionPointerForDelegate(callback), callbackData);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[418])((nint)window, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)callbackData);
-			#endif
-		}
-
-		/// <summary>
-		/// Provide a callback that decides if a window region has special properties.<br/>
-		/// Normally windows are dragged and resized by decorations provided by the<br/>
-		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
-		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
-		/// example, one might have a borderless window that wants to be draggable from<br/>
-		/// any part, or simulate its own title bar, etc.<br/>
-		/// This function lets the app provide a callback that designates pieces of a<br/>
-		/// given window as special. This callback is run during event processing if we<br/>
-		/// need to tell the OS to treat a region of the window specially; the use of<br/>
-		/// this callback is known as "hit testing."<br/>
-		/// Mouse input may not be delivered to your application if it is within a<br/>
-		/// special area; the OS will often apply that input to moving the window or<br/>
-		/// resizing the window and not deliver it to the application.<br/>
-		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
-		/// disabled by default.<br/>
-		/// Platforms that don't support this functionality will return -1<br/>
-		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
-		/// Your callback may fire at any time, and its firing does not indicate any<br/>
-		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
-		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
-		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
-		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
-		/// can fire at any time, you should try to keep your callback efficient,<br/>
-		/// devoid of allocations, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowHitTest(SDLWindow* window, SDLHitTest callback, void* callbackData)
-		{
-			int ret = SetWindowHitTestNative(window, callback, callbackData);
-			return ret;
-		}
-
-		/// <summary>
-		/// Provide a callback that decides if a window region has special properties.<br/>
-		/// Normally windows are dragged and resized by decorations provided by the<br/>
-		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
-		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
-		/// example, one might have a borderless window that wants to be draggable from<br/>
-		/// any part, or simulate its own title bar, etc.<br/>
-		/// This function lets the app provide a callback that designates pieces of a<br/>
-		/// given window as special. This callback is run during event processing if we<br/>
-		/// need to tell the OS to treat a region of the window specially; the use of<br/>
-		/// this callback is known as "hit testing."<br/>
-		/// Mouse input may not be delivered to your application if it is within a<br/>
-		/// special area; the OS will often apply that input to moving the window or<br/>
-		/// resizing the window and not deliver it to the application.<br/>
-		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
-		/// disabled by default.<br/>
-		/// Platforms that don't support this functionality will return -1<br/>
-		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
-		/// Your callback may fire at any time, and its firing does not indicate any<br/>
-		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
-		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
-		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
-		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
-		/// can fire at any time, you should try to keep your callback efficient,<br/>
-		/// devoid of allocations, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowHitTest(ref SDLWindow window, SDLHitTest callback, void* callbackData)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				int ret = SetWindowHitTestNative((SDLWindow*)pwindow, callback, callbackData);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Request a window to demand attention from the user.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int FlashWindowNative(SDLWindow* window, SDLFlashOperation operation)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLFlashOperation, int>)funcTable[419])(window, operation);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLFlashOperation, int>)funcTable[419])((nint)window, operation);
-			#endif
-		}
-
-		/// <summary>
-		/// Request a window to demand attention from the user.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FlashWindow(SDLWindow* window, SDLFlashOperation operation)
-		{
-			int ret = FlashWindowNative(window, operation);
-			return ret;
-		}
-
-		/// <summary>
-		/// Request a window to demand attention from the user.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FlashWindow(ref SDLWindow window, SDLFlashOperation operation)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				int ret = FlashWindowNative((SDLWindow*)pwindow, operation);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Destroy a window.<br/>
-		/// If `window` is NULL, this function will return immediately after setting<br/>
-		/// the SDL error message to "Invalid window". See SDL_GetError().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyWindowNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[420])(window);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[420])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a window.<br/>
-		/// If `window` is NULL, this function will return immediately after setting<br/>
-		/// the SDL error message to "Invalid window". See SDL_GetError().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyWindow(SDLWindow* window)
-		{
-			DestroyWindowNative(window);
-		}
-
-		/// <summary>
-		/// Destroy a window.<br/>
-		/// If `window` is NULL, this function will return immediately after setting<br/>
-		/// the SDL error message to "Invalid window". See SDL_GetError().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyWindow(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				DestroyWindowNative((SDLWindow*)pwindow);
-			}
-		}
-
-		/// <summary>
-		/// Check whether the screensaver is currently enabled.<br/>
-		/// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2<br/>
-		/// the screensaver was enabled by default.<br/>
-		/// The default can also be changed using `SDL_HINT_VIDEO_ALLOW_SCREENSAVER`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsScreenSaverEnabledNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[421])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[421])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the screensaver is currently enabled.<br/>
-		/// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2<br/>
-		/// the screensaver was enabled by default.<br/>
-		/// The default can also be changed using `SDL_HINT_VIDEO_ALLOW_SCREENSAVER`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsScreenSaverEnabled()
-		{
-			SDLBool ret = IsScreenSaverEnabledNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Allow the screen to be blanked by a screen saver.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void EnableScreenSaverNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[422])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[422])();
-			#endif
-		}
-
-		/// <summary>
-		/// Allow the screen to be blanked by a screen saver.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void EnableScreenSaver()
-		{
-			EnableScreenSaverNative();
-		}
-
-		/// <summary>
-		/// Prevent the screen from being blanked by a screen saver.<br/>
-		/// If you disable the screensaver, it is automatically re-enabled when SDL<br/>
-		/// quits.<br/>
-		/// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2<br/>
-		/// the screensaver was enabled by default.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DisableScreenSaverNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[423])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[423])();
-			#endif
-		}
-
-		/// <summary>
-		/// Prevent the screen from being blanked by a screen saver.<br/>
-		/// If you disable the screensaver, it is automatically re-enabled when SDL<br/>
-		/// quits.<br/>
-		/// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2<br/>
-		/// the screensaver was enabled by default.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DisableScreenSaver()
-		{
-			DisableScreenSaverNative();
-		}
-
-		/// <summary>
-		/// Dynamically load an OpenGL library.<br/>
-		/// This should be done after initializing the video driver, but before<br/>
-		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
-		/// library will be loaded upon creation of the first OpenGL window.<br/>
-		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
-		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GLLoadLibraryNative(byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[424])(path);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[424])((nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Dynamically load an OpenGL library.<br/>
-		/// This should be done after initializing the video driver, but before<br/>
-		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
-		/// library will be loaded upon creation of the first OpenGL window.<br/>
-		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
-		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLLoadLibrary(byte* path)
-		{
-			int ret = GLLoadLibraryNative(path);
-			return ret;
-		}
-
-		/// <summary>
-		/// Dynamically load an OpenGL library.<br/>
-		/// This should be done after initializing the video driver, but before<br/>
-		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
-		/// library will be loaded upon creation of the first OpenGL window.<br/>
-		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
-		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLLoadLibrary(ref byte path)
-		{
-			fixed (byte* ppath = &path)
-			{
-				int ret = GLLoadLibraryNative((byte*)ppath);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Dynamically load an OpenGL library.<br/>
-		/// This should be done after initializing the video driver, but before<br/>
-		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
-		/// library will be loaded upon creation of the first OpenGL window.<br/>
-		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
-		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLLoadLibrary(ReadOnlySpan<byte> path)
-		{
-			fixed (byte* ppath = path)
-			{
-				int ret = GLLoadLibraryNative((byte*)ppath);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Dynamically load an OpenGL library.<br/>
-		/// This should be done after initializing the video driver, but before<br/>
-		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
-		/// library will be loaded upon creation of the first OpenGL window.<br/>
-		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
-		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLLoadLibrary(string path)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GLLoadLibraryNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get an OpenGL function by name.<br/>
-		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
-		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
-		/// function pointers to OpenGL extensions.<br/>
-		/// There are some quirks to looking up OpenGL functions that require some<br/>
-		/// extra care from the application. If you code carefully, you can handle<br/>
-		/// these quirks without any platform-specific code, though:<br/>
-		/// - On Windows, function pointers are specific to the current GL context;<br/>
-		/// this means you need to have created a GL context and made it current<br/>
-		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
-		/// create a second context, you should assume that any existing function<br/>
-		/// pointers aren't valid to use with it. This is (currently) a<br/>
-		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
-		/// this limitation, but it is still the way the wgl API is documented to<br/>
-		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
-		/// of the function pointers that comes and goes with context lifespan.<br/>
-		/// - On X11, function pointers returned by this function are valid for any<br/>
-		/// context, and can even be looked up before a context is created at all.<br/>
-		/// This means that, for at least some common OpenGL implementations, if you<br/>
-		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
-		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
-		/// available for a given GL context before calling it, by checking for the<br/>
-		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
-		/// or verifying that the version of OpenGL you're using offers the function<br/>
-		/// as core functionality.<br/>
-		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
-		/// isn't supported, but you can't count on this behavior. Check for<br/>
-		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
-		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
-		/// can code defensively for this scenario anyhow.<br/>
-		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
-		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
-		/// make the same promises about function pointers.<br/>
-		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
-		/// code. This will ensure the proper calling convention is followed on<br/>
-		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* GLGetProcAddressNative(byte* proc)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, void*>)funcTable[425])(proc);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[425])((nint)proc);
-			#endif
-		}
-
-		/// <summary>
-		/// Get an OpenGL function by name.<br/>
-		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
-		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
-		/// function pointers to OpenGL extensions.<br/>
-		/// There are some quirks to looking up OpenGL functions that require some<br/>
-		/// extra care from the application. If you code carefully, you can handle<br/>
-		/// these quirks without any platform-specific code, though:<br/>
-		/// - On Windows, function pointers are specific to the current GL context;<br/>
-		/// this means you need to have created a GL context and made it current<br/>
-		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
-		/// create a second context, you should assume that any existing function<br/>
-		/// pointers aren't valid to use with it. This is (currently) a<br/>
-		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
-		/// this limitation, but it is still the way the wgl API is documented to<br/>
-		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
-		/// of the function pointers that comes and goes with context lifespan.<br/>
-		/// - On X11, function pointers returned by this function are valid for any<br/>
-		/// context, and can even be looked up before a context is created at all.<br/>
-		/// This means that, for at least some common OpenGL implementations, if you<br/>
-		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
-		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
-		/// available for a given GL context before calling it, by checking for the<br/>
-		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
-		/// or verifying that the version of OpenGL you're using offers the function<br/>
-		/// as core functionality.<br/>
-		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
-		/// isn't supported, but you can't count on this behavior. Check for<br/>
-		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
-		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
-		/// can code defensively for this scenario anyhow.<br/>
-		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
-		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
-		/// make the same promises about function pointers.<br/>
-		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
-		/// code. This will ensure the proper calling convention is followed on<br/>
-		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GLGetProcAddress(byte* proc)
-		{
-			void* ret = GLGetProcAddressNative(proc);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get an OpenGL function by name.<br/>
-		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
-		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
-		/// function pointers to OpenGL extensions.<br/>
-		/// There are some quirks to looking up OpenGL functions that require some<br/>
-		/// extra care from the application. If you code carefully, you can handle<br/>
-		/// these quirks without any platform-specific code, though:<br/>
-		/// - On Windows, function pointers are specific to the current GL context;<br/>
-		/// this means you need to have created a GL context and made it current<br/>
-		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
-		/// create a second context, you should assume that any existing function<br/>
-		/// pointers aren't valid to use with it. This is (currently) a<br/>
-		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
-		/// this limitation, but it is still the way the wgl API is documented to<br/>
-		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
-		/// of the function pointers that comes and goes with context lifespan.<br/>
-		/// - On X11, function pointers returned by this function are valid for any<br/>
-		/// context, and can even be looked up before a context is created at all.<br/>
-		/// This means that, for at least some common OpenGL implementations, if you<br/>
-		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
-		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
-		/// available for a given GL context before calling it, by checking for the<br/>
-		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
-		/// or verifying that the version of OpenGL you're using offers the function<br/>
-		/// as core functionality.<br/>
-		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
-		/// isn't supported, but you can't count on this behavior. Check for<br/>
-		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
-		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
-		/// can code defensively for this scenario anyhow.<br/>
-		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
-		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
-		/// make the same promises about function pointers.<br/>
-		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
-		/// code. This will ensure the proper calling convention is followed on<br/>
-		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GLGetProcAddress(ref byte proc)
-		{
-			fixed (byte* pproc = &proc)
-			{
-				void* ret = GLGetProcAddressNative((byte*)pproc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get an OpenGL function by name.<br/>
-		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
-		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
-		/// function pointers to OpenGL extensions.<br/>
-		/// There are some quirks to looking up OpenGL functions that require some<br/>
-		/// extra care from the application. If you code carefully, you can handle<br/>
-		/// these quirks without any platform-specific code, though:<br/>
-		/// - On Windows, function pointers are specific to the current GL context;<br/>
-		/// this means you need to have created a GL context and made it current<br/>
-		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
-		/// create a second context, you should assume that any existing function<br/>
-		/// pointers aren't valid to use with it. This is (currently) a<br/>
-		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
-		/// this limitation, but it is still the way the wgl API is documented to<br/>
-		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
-		/// of the function pointers that comes and goes with context lifespan.<br/>
-		/// - On X11, function pointers returned by this function are valid for any<br/>
-		/// context, and can even be looked up before a context is created at all.<br/>
-		/// This means that, for at least some common OpenGL implementations, if you<br/>
-		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
-		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
-		/// available for a given GL context before calling it, by checking for the<br/>
-		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
-		/// or verifying that the version of OpenGL you're using offers the function<br/>
-		/// as core functionality.<br/>
-		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
-		/// isn't supported, but you can't count on this behavior. Check for<br/>
-		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
-		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
-		/// can code defensively for this scenario anyhow.<br/>
-		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
-		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
-		/// make the same promises about function pointers.<br/>
-		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
-		/// code. This will ensure the proper calling convention is followed on<br/>
-		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GLGetProcAddress(ReadOnlySpan<byte> proc)
-		{
-			fixed (byte* pproc = proc)
-			{
-				void* ret = GLGetProcAddressNative((byte*)pproc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get an OpenGL function by name.<br/>
-		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
-		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
-		/// function pointers to OpenGL extensions.<br/>
-		/// There are some quirks to looking up OpenGL functions that require some<br/>
-		/// extra care from the application. If you code carefully, you can handle<br/>
-		/// these quirks without any platform-specific code, though:<br/>
-		/// - On Windows, function pointers are specific to the current GL context;<br/>
-		/// this means you need to have created a GL context and made it current<br/>
-		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
-		/// create a second context, you should assume that any existing function<br/>
-		/// pointers aren't valid to use with it. This is (currently) a<br/>
-		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
-		/// this limitation, but it is still the way the wgl API is documented to<br/>
-		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
-		/// of the function pointers that comes and goes with context lifespan.<br/>
-		/// - On X11, function pointers returned by this function are valid for any<br/>
-		/// context, and can even be looked up before a context is created at all.<br/>
-		/// This means that, for at least some common OpenGL implementations, if you<br/>
-		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
-		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
-		/// available for a given GL context before calling it, by checking for the<br/>
-		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
-		/// or verifying that the version of OpenGL you're using offers the function<br/>
-		/// as core functionality.<br/>
-		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
-		/// isn't supported, but you can't count on this behavior. Check for<br/>
-		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
-		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
-		/// can code defensively for this scenario anyhow.<br/>
-		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
-		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
-		/// make the same promises about function pointers.<br/>
-		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
-		/// code. This will ensure the proper calling convention is followed on<br/>
-		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GLGetProcAddress(string proc)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (proc != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(proc);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(proc, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			void* ret = GLGetProcAddressNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GLUnloadLibraryNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[426])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[426])();
-			#endif
-		}
-
-		/// <summary>
-		/// Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLUnloadLibrary()
-		{
-			GLUnloadLibraryNative();
-		}
-
-		/// <summary>
-		/// Check if an OpenGL extension is supported for the current context.<br/>
-		/// This function operates on the current GL context; you must have created a<br/>
-		/// context and it must be current before calling this function. Do not assume<br/>
-		/// that all contexts you create will have the same set of extensions<br/>
-		/// available, or that recreating an existing context will offer the same<br/>
-		/// extensions again.<br/>
-		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
-		/// operation. Check the extensions you care about after creating the GL<br/>
-		/// context and save that information somewhere instead of calling the function<br/>
-		/// every time you need to know.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GLExtensionSupportedNative(byte* extension)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)funcTable[427])(extension);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[427])((nint)extension);
-			#endif
-		}
-
-		/// <summary>
-		/// Check if an OpenGL extension is supported for the current context.<br/>
-		/// This function operates on the current GL context; you must have created a<br/>
-		/// context and it must be current before calling this function. Do not assume<br/>
-		/// that all contexts you create will have the same set of extensions<br/>
-		/// available, or that recreating an existing context will offer the same<br/>
-		/// extensions again.<br/>
-		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
-		/// operation. Check the extensions you care about after creating the GL<br/>
-		/// context and save that information somewhere instead of calling the function<br/>
-		/// every time you need to know.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GLExtensionSupported(byte* extension)
-		{
-			SDLBool ret = GLExtensionSupportedNative(extension);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check if an OpenGL extension is supported for the current context.<br/>
-		/// This function operates on the current GL context; you must have created a<br/>
-		/// context and it must be current before calling this function. Do not assume<br/>
-		/// that all contexts you create will have the same set of extensions<br/>
-		/// available, or that recreating an existing context will offer the same<br/>
-		/// extensions again.<br/>
-		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
-		/// operation. Check the extensions you care about after creating the GL<br/>
-		/// context and save that information somewhere instead of calling the function<br/>
-		/// every time you need to know.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GLExtensionSupported(ref byte extension)
-		{
-			fixed (byte* pextension = &extension)
-			{
-				SDLBool ret = GLExtensionSupportedNative((byte*)pextension);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check if an OpenGL extension is supported for the current context.<br/>
-		/// This function operates on the current GL context; you must have created a<br/>
-		/// context and it must be current before calling this function. Do not assume<br/>
-		/// that all contexts you create will have the same set of extensions<br/>
-		/// available, or that recreating an existing context will offer the same<br/>
-		/// extensions again.<br/>
-		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
-		/// operation. Check the extensions you care about after creating the GL<br/>
-		/// context and save that information somewhere instead of calling the function<br/>
-		/// every time you need to know.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GLExtensionSupported(ReadOnlySpan<byte> extension)
-		{
-			fixed (byte* pextension = extension)
-			{
-				SDLBool ret = GLExtensionSupportedNative((byte*)pextension);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check if an OpenGL extension is supported for the current context.<br/>
-		/// This function operates on the current GL context; you must have created a<br/>
-		/// context and it must be current before calling this function. Do not assume<br/>
-		/// that all contexts you create will have the same set of extensions<br/>
-		/// available, or that recreating an existing context will offer the same<br/>
-		/// extensions again.<br/>
-		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
-		/// operation. Check the extensions you care about after creating the GL<br/>
-		/// context and save that information somewhere instead of calling the function<br/>
-		/// every time you need to know.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GLExtensionSupported(string extension)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (extension != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(extension);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(extension, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = GLExtensionSupportedNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset all previously set OpenGL context attributes to their default values.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GLResetAttributesNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[428])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[428])();
-			#endif
-		}
-
-		/// <summary>
-		/// Reset all previously set OpenGL context attributes to their default values.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLResetAttributes()
-		{
-			GLResetAttributesNative();
-		}
-
-		/// <summary>
-		/// Set an OpenGL window attribute before window creation.<br/>
-		/// This function sets the OpenGL attribute `attr` to `value`. The requested<br/>
-		/// attributes should be set before creating an OpenGL window. You should use<br/>
-		/// SDL_GL_GetAttribute() to check the values after creating the OpenGL<br/>
-		/// context, since the values obtained can differ from the requested ones.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GLSetAttributeNative(SDLGLattr attr, int value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGLattr, int, int>)funcTable[429])(attr, value);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLGLattr, int, int>)funcTable[429])(attr, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an OpenGL window attribute before window creation.<br/>
-		/// This function sets the OpenGL attribute `attr` to `value`. The requested<br/>
-		/// attributes should be set before creating an OpenGL window. You should use<br/>
-		/// SDL_GL_GetAttribute() to check the values after creating the OpenGL<br/>
-		/// context, since the values obtained can differ from the requested ones.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLSetAttribute(SDLGLattr attr, int value)
-		{
-			int ret = GLSetAttributeNative(attr, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the actual value for an attribute from the current context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GLGetAttributeNative(SDLGLattr attr, int* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGLattr, int*, int>)funcTable[430])(attr, value);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLGLattr, nint, int>)funcTable[430])(attr, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the actual value for an attribute from the current context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLGetAttribute(SDLGLattr attr, int* value)
-		{
-			int ret = GLGetAttributeNative(attr, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the actual value for an attribute from the current context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLGetAttribute(SDLGLattr attr, ref int value)
-		{
-			fixed (int* pvalue = &value)
-			{
-				int ret = GLGetAttributeNative(attr, (int*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
-		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
-		/// functions added after OpenGL version 1.1 are not available by default.<br/>
-		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
-		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
-		/// functions.<br/>
-		/// SDL_GLContext is an alias for `void *`. It's opaque to the application.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGLContext GLCreateContextNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext>)funcTable[431])(window);
-			#else
-			return (SDLGLContext)((delegate* unmanaged[Cdecl]<nint, SDLGLContext>)funcTable[431])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
-		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
-		/// functions added after OpenGL version 1.1 are not available by default.<br/>
-		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
-		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
-		/// functions.<br/>
-		/// SDL_GLContext is an alias for `void *`. It's opaque to the application.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGLContext GLCreateContext(SDLWindow* window)
-		{
-			SDLGLContext ret = GLCreateContextNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
-		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
-		/// functions added after OpenGL version 1.1 are not available by default.<br/>
-		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
-		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
-		/// functions.<br/>
-		/// SDL_GLContext is an alias for `void *`. It's opaque to the application.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGLContext GLCreateContext(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLGLContext ret = GLCreateContextNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
-		/// The context must have been created with a compatible window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GLMakeCurrentNative(SDLWindow* window, SDLGLContext context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext, int>)funcTable[432])(window, context);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLGLContext, int>)funcTable[432])((nint)window, context);
-			#endif
-		}
-
-		/// <summary>
-		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
-		/// The context must have been created with a compatible window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLMakeCurrent(SDLWindow* window, SDLGLContext context)
-		{
-			int ret = GLMakeCurrentNative(window, context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
-		/// The context must have been created with a compatible window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLMakeCurrent(ref SDLWindow window, SDLGLContext context)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				int ret = GLMakeCurrentNative((SDLWindow*)pwindow, context);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the currently active OpenGL window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GLGetCurrentWindowNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[433])();
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[433])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the currently active OpenGL window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* GLGetCurrentWindow()
-		{
-			SDLWindow* ret = GLGetCurrentWindowNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the currently active OpenGL context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGLContext GLGetCurrentContextNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGLContext>)funcTable[434])();
-			#else
-			return (SDLGLContext)((delegate* unmanaged[Cdecl]<SDLGLContext>)funcTable[434])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the currently active OpenGL context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGLContext GLGetCurrentContext()
-		{
-			SDLGLContext ret = GLGetCurrentContextNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GLGetDrawableSizeNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[435])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[435])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLGetDrawableSize(SDLWindow* window, int* w, int* h)
-		{
-			GLGetDrawableSizeNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLGetDrawableSize(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GLGetDrawableSizeNative((SDLWindow*)pwindow, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLGetDrawableSize(SDLWindow* window, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				GLGetDrawableSizeNative(window, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLGetDrawableSize(ref SDLWindow window, ref int w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					GLGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLGetDrawableSize(SDLWindow* window, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				GLGetDrawableSizeNative(window, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLGetDrawableSize(ref SDLWindow window, int* w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ph = &h)
-				{
-					GLGetDrawableSizeNative((SDLWindow*)pwindow, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLGetDrawableSize(SDLWindow* window, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					GLGetDrawableSizeNative(window, (int*)pw, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's underlying drawable in pixels.<br/>
-		/// This returns info useful for calling glViewport().<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLGetDrawableSize(ref SDLWindow window, ref int w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						GLGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the swap interval for the current OpenGL context.<br/>
-		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
-		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
-		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
-		/// might be less jarring for the user during occasional framerate drops. If an<br/>
-		/// application requests adaptive vsync and the system does not support it,<br/>
-		/// this function will fail and return -1. In such a case, you should probably<br/>
-		/// retry the call with 1 for the interval.<br/>
-		/// Adaptive vsync is implemented for some glX drivers with<br/>
-		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
-		/// WGL_EXT_swap_control_tear.<br/>
-		/// Read more on the Khronos wiki:<br/>
-		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GLSetSwapIntervalNative(int interval)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[436])(interval);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[436])(interval);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the swap interval for the current OpenGL context.<br/>
-		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
-		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
-		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
-		/// might be less jarring for the user during occasional framerate drops. If an<br/>
-		/// application requests adaptive vsync and the system does not support it,<br/>
-		/// this function will fail and return -1. In such a case, you should probably<br/>
-		/// retry the call with 1 for the interval.<br/>
-		/// Adaptive vsync is implemented for some glX drivers with<br/>
-		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
-		/// WGL_EXT_swap_control_tear.<br/>
-		/// Read more on the Khronos wiki:<br/>
-		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLSetSwapInterval(int interval)
-		{
-			int ret = GLSetSwapIntervalNative(interval);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the swap interval for the current OpenGL context.<br/>
-		/// If the system can't determine the swap interval, or there isn't a valid<br/>
-		/// current context, this function will return 0 as a safe default.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GLGetSwapIntervalNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[437])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[437])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the swap interval for the current OpenGL context.<br/>
-		/// If the system can't determine the swap interval, or there isn't a valid<br/>
-		/// current context, this function will return 0 as a safe default.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GLGetSwapInterval()
-		{
-			int ret = GLGetSwapIntervalNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Update a window with OpenGL rendering.<br/>
-		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
-		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
-		/// window, otherwise nothing will happen. If you aren't using<br/>
-		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
-		/// extra.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GLSwapWindowNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[438])(window);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[438])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Update a window with OpenGL rendering.<br/>
-		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
-		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
-		/// window, otherwise nothing will happen. If you aren't using<br/>
-		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
-		/// extra.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLSwapWindow(SDLWindow* window)
-		{
-			GLSwapWindowNative(window);
-		}
-
-		/// <summary>
-		/// Update a window with OpenGL rendering.<br/>
-		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
-		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
-		/// window, otherwise nothing will happen. If you aren't using<br/>
-		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
-		/// extra.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLSwapWindow(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GLSwapWindowNative((SDLWindow*)pwindow);
-			}
-		}
-
-		/// <summary>
-		/// Delete an OpenGL context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GLDeleteContextNative(SDLGLContext context)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGLContext, void>)funcTable[439])(context);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLGLContext, void>)funcTable[439])(context);
-			#endif
-		}
-
-		/// <summary>
-		/// Delete an OpenGL context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GLDeleteContext(SDLGLContext context)
-		{
-			GLDeleteContextNative(context);
-		}
-
-		/// <summary>
-		/// Query the window which currently has keyboard focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetKeyboardFocusNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[440])();
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[440])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query the window which currently has keyboard focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* GetKeyboardFocus()
-		{
-			SDLWindow* ret = GetKeyboardFocusNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of 1 means that the key is pressed and a value<br/>
-		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
-		/// SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetKeyboardStateNative(int* numkeys)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, byte*>)funcTable[441])(numkeys);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[441])((nint)numkeys);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of 1 means that the key is pressed and a value<br/>
-		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
-		/// SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetKeyboardState(int* numkeys)
-		{
-			byte* ret = GetKeyboardStateNative(numkeys);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of 1 means that the key is pressed and a value<br/>
-		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
-		/// SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetKeyboardStateS(int* numkeys)
-		{
-			string ret = Utils.DecodeStringUTF8(GetKeyboardStateNative(numkeys));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of 1 means that the key is pressed and a value<br/>
-		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
-		/// SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetKeyboardState(ref int numkeys)
-		{
-			fixed (int* pnumkeys = &numkeys)
-			{
-				byte* ret = GetKeyboardStateNative((int*)pnumkeys);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a snapshot of the current state of the keyboard.<br/>
-		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
-		/// valid for the whole lifetime of the application and should not be freed by<br/>
-		/// the caller.<br/>
-		/// A array element with a value of 1 means that the key is pressed and a value<br/>
-		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
-		/// SDL_Scancode values.<br/>
-		/// Use SDL_PumpEvents() to update the state array.<br/>
-		/// This function gives you the current state after all events have been<br/>
-		/// processed, so if a key or button has been pressed and released before you<br/>
-		/// process events, then the pressed state will never show up in the<br/>
-		/// SDL_GetKeyboardState() calls.<br/>
-		/// Note: This function doesn't take into account whether shift has been<br/>
-		/// pressed or not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetKeyboardStateS(ref int numkeys)
-		{
-			fixed (int* pnumkeys = &numkeys)
-			{
-				string ret = Utils.DecodeStringUTF8(GetKeyboardStateNative((int*)pnumkeys));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Clear the state of the keyboard<br/>
-		/// This function will generate key up events for all pressed keys.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetKeyboardNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[442])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[442])();
-			#endif
-		}
-
-		/// <summary>
-		/// Clear the state of the keyboard<br/>
-		/// This function will generate key up events for all pressed keys.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ResetKeyboard()
-		{
-			ResetKeyboardNative();
-		}
-
-		/// <summary>
-		/// Get the current key modifier state for the keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLKeymod GetModStateNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[443])();
-			#else
-			return (SDLKeymod)((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[443])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current key modifier state for the keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLKeymod GetModState()
-		{
-			SDLKeymod ret = GetModStateNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the current key modifier state for the keyboard.<br/>
-		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
-		/// modifier key states on your application. Simply pass your desired modifier<br/>
-		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
-		/// SDL_Keymod values.<br/>
-		/// This does not change the keyboard state, only the key modifier flags that<br/>
-		/// SDL reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetModStateNative(SDLKeymod modstate)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[444])(modstate);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[444])(modstate);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the current key modifier state for the keyboard.<br/>
-		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
-		/// modifier key states on your application. Simply pass your desired modifier<br/>
-		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
-		/// SDL_Keymod values.<br/>
-		/// This does not change the keyboard state, only the key modifier flags that<br/>
-		/// SDL reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetModState(SDLKeymod modstate)
-		{
-			SetModStateNative(modstate);
-		}
-
-		/// <summary>
-		/// Get the key code corresponding to the given scancode according to the<br/>
-		/// current keyboard layout.<br/>
-		/// See SDL_Keycode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetKeyFromScancodeNative(SDLScancode scancode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, int>)funcTable[445])(scancode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLScancode, int>)funcTable[445])(scancode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the key code corresponding to the given scancode according to the<br/>
-		/// current keyboard layout.<br/>
-		/// See SDL_Keycode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromScancode(SDLScancode scancode)
-		{
-			int ret = GetKeyFromScancodeNative(scancode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the scancode corresponding to the given key code according to the<br/>
-		/// current keyboard layout.<br/>
-		/// See SDL_Scancode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLScancode GetScancodeFromKeyNative(int key)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLScancode>)funcTable[446])(key);
-			#else
-			return (SDLScancode)((delegate* unmanaged[Cdecl]<int, SDLScancode>)funcTable[446])(key);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the scancode corresponding to the given key code according to the<br/>
-		/// current keyboard layout.<br/>
-		/// See SDL_Scancode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLScancode GetScancodeFromKey(int key)
-		{
-			SDLScancode ret = GetScancodeFromKeyNative(key);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// See SDL_Scancode for details.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetScancodeNameNative(SDLScancode scancode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*>)funcTable[447])(scancode);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<SDLScancode, nint>)funcTable[447])(scancode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// See SDL_Scancode for details.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetScancodeName(SDLScancode scancode)
-		{
-			byte* ret = GetScancodeNameNative(scancode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a scancode.<br/>
-		/// See SDL_Scancode for details.<br/>
-		/// **Warning**: The returned name is by design not stable across platforms,<br/>
-		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
-		/// Windows" under Microsoft Windows, and some scancodes like<br/>
-		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
-		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
-		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
-		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
-		/// strings and scancodes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetScancodeNameS(SDLScancode scancode)
-		{
-			string ret = Utils.DecodeStringUTF8(GetScancodeNameNative(scancode));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLScancode GetScancodeFromNameNative(byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLScancode>)funcTable[448])(name);
-			#else
-			return (SDLScancode)((delegate* unmanaged[Cdecl]<nint, SDLScancode>)funcTable[448])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLScancode GetScancodeFromName(byte* name)
-		{
-			SDLScancode ret = GetScancodeFromNameNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLScancode GetScancodeFromName(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLScancode GetScancodeFromName(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a scancode from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLScancode GetScancodeFromName(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLScancode ret = GetScancodeFromNameNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// See SDL_Scancode and SDL_Keycode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetKeyNameNative(int key)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[449])(key);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[449])(key);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// See SDL_Scancode and SDL_Keycode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetKeyName(int key)
-		{
-			byte* ret = GetKeyNameNative(key);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// See SDL_Scancode and SDL_Keycode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetKeyNameS(int key)
-		{
-			string ret = Utils.DecodeStringUTF8(GetKeyNameNative(key));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetKeyFromNameNative(byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[450])(name);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[450])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromName(byte* name)
-		{
-			int ret = GetKeyFromNameNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromName(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = GetKeyFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromName(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = GetKeyFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromName(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GetKeyFromNameNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events.<br/>
-		/// This function will start accepting Unicode text input events in the focused<br/>
-		/// SDL window, and start emitting SDL_TextInputEvent (SDL_TEXTINPUT) and<br/>
-		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
-		/// pair with SDL_StopTextInput().<br/>
-		/// On some platforms using this function activates the screen keyboard.<br/>
-		/// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL<br/>
-		/// video subsystem initialization which will cause SDL_TextInputEvent and<br/>
-		/// SDL_TextEditingEvent to begin emitting.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void StartTextInputNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
-			#endif
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events.<br/>
-		/// This function will start accepting Unicode text input events in the focused<br/>
-		/// SDL window, and start emitting SDL_TextInputEvent (SDL_TEXTINPUT) and<br/>
-		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
-		/// pair with SDL_StopTextInput().<br/>
-		/// On some platforms using this function activates the screen keyboard.<br/>
-		/// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL<br/>
-		/// video subsystem initialization which will cause SDL_TextInputEvent and<br/>
-		/// SDL_TextEditingEvent to begin emitting.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void StartTextInput()
-		{
-			StartTextInputNative();
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsTextInputActiveNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsTextInputActive()
-		{
-			SDLBool ret = IsTextInputActiveNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void StopTextInputNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
-			#endif
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void StopTextInput()
-		{
-			StopTextInputNative();
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ClearCompositionNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
-			#endif
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ClearComposition()
-		{
-			ClearCompositionNative();
-		}
-
-		/// <summary>
-		/// Returns if an IME Composite or Candidate window is currently shown.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsTextInputShownNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns if an IME Composite or Candidate window is currently shown.<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsTextInputShown()
-		{
-			SDLBool ret = IsTextInputShownNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs.<br/>
-		/// Native input methods will place a window with word suggestions near it,<br/>
-		/// without covering the text being inputted.<br/>
-		/// To start text input in a given location, this function is intended to be<br/>
-		/// called before SDL_StartTextInput, although some platforms support moving<br/>
-		/// the rectangle even while text input (and a composition) is active.<br/>
-		/// Note: If you want to use the system native IME window, try setting hint<br/>
-		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
-		/// any feedback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetTextInputRectNative(SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRect*, void>)funcTable[456])(rect);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[456])((nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs.<br/>
-		/// Native input methods will place a window with word suggestions near it,<br/>
-		/// without covering the text being inputted.<br/>
-		/// To start text input in a given location, this function is intended to be<br/>
-		/// called before SDL_StartTextInput, although some platforms support moving<br/>
-		/// the rectangle even while text input (and a composition) is active.<br/>
-		/// Note: If you want to use the system native IME window, try setting hint<br/>
-		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
-		/// any feedback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetTextInputRect(SDLRect* rect)
-		{
-			SetTextInputRectNative(rect);
-		}
-
-		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs.<br/>
-		/// Native input methods will place a window with word suggestions near it,<br/>
-		/// without covering the text being inputted.<br/>
-		/// To start text input in a given location, this function is intended to be<br/>
-		/// called before SDL_StartTextInput, although some platforms support moving<br/>
-		/// the rectangle even while text input (and a composition) is active.<br/>
-		/// Note: If you want to use the system native IME window, try setting hint<br/>
-		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
-		/// any feedback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetTextInputRect(ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				SetTextInputRectNative((SDLRect*)prect);
-			}
-		}
-
-		/// <summary>
-		/// Check whether the platform has screen keyboard support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasScreenKeyboardSupportNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the platform has screen keyboard support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasScreenKeyboardSupport()
-		{
-			SDLBool ret = HasScreenKeyboardSupportNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsScreenKeyboardShownNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[458])(window);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[458])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsScreenKeyboardShown(SDLWindow* window)
-		{
-			SDLBool ret = IsScreenKeyboardShownNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsScreenKeyboardShown(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLBool ret = IsScreenKeyboardShownNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the window which currently has mouse focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetMouseFocusNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[459])();
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[459])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the window which currently has mouse focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* GetMouseFocus()
-		{
-			SDLWindow* ret = GetMouseFocusNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetMouseStateNative(int* x, int* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[460])(x, y);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[460])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetMouseState(int* x, int* y)
-		{
-			uint ret = GetMouseStateNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetMouseState(ref int x, int* y)
-		{
-			fixed (int* px = &x)
-			{
-				uint ret = GetMouseStateNative((int*)px, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetMouseState(int* x, ref int y)
-		{
-			fixed (int* py = &y)
-			{
-				uint ret = GetMouseStateNative(x, (int*)py);
-				return ret;
 			}
 		}
 	}

@@ -15,18 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a compute pass.<br/>
-	/// This handle is transient and should not be held or referenced after<br/>
-	/// SDL_EndGPUComputePass is called.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUComputePass")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUComputePass
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUComputePass")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUComputePassPtr : IEquatable<SDLGPUComputePassPtr>
+	{
+		public SDLGPUComputePassPtr(SDLGPUComputePass* handle) { Handle = handle; }
+
+		public SDLGPUComputePass* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUComputePassPtr Null => new SDLGPUComputePassPtr(null);
+
+		public SDLGPUComputePass this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUComputePassPtr(SDLGPUComputePass* handle) => new SDLGPUComputePassPtr(handle);
+
+		public static implicit operator SDLGPUComputePass*(SDLGPUComputePassPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUComputePassPtr left, SDLGPUComputePassPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUComputePassPtr left, SDLGPUComputePassPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUComputePassPtr left, SDLGPUComputePass* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUComputePassPtr left, SDLGPUComputePass* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUComputePassPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUComputePassPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUComputePassPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

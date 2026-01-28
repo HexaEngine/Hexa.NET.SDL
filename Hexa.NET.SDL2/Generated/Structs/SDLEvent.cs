@@ -526,4 +526,193 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// General event structure<br/>
+	/// The SDL_Event structure is the core of all event handling in SDL. SDL_Event<br/>
+	/// is a union of all event structures used in SDL.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLEventPtr : IEquatable<SDLEventPtr>
+	{
+		public SDLEventPtr(SDLEvent* handle) { Handle = handle; }
+
+		public SDLEvent* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLEventPtr Null => new SDLEventPtr(null);
+
+		public SDLEvent this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLEventPtr(SDLEvent* handle) => new SDLEventPtr(handle);
+
+		public static implicit operator SDLEvent*(SDLEventPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLEventPtr left, SDLEventPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLEventPtr left, SDLEventPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLEventPtr left, SDLEvent* right) => left.Handle == right;
+
+		public static bool operator !=(SDLEventPtr left, SDLEvent* right) => left.Handle != right;
+
+		public bool Equals(SDLEventPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLEventPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLEventPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Event type, shared with all events <br/>
+		/// </summary>
+		public ref uint Type => ref Unsafe.AsRef<uint>(&Handle->Type);
+		/// <summary>
+		/// Common event data <br/>
+		/// </summary>
+		public ref SDLCommonEvent Common => ref Unsafe.AsRef<SDLCommonEvent>(&Handle->Common);
+		/// <summary>
+		/// Display event data <br/>
+		/// </summary>
+		public ref SDLDisplayEvent Display => ref Unsafe.AsRef<SDLDisplayEvent>(&Handle->Display);
+		/// <summary>
+		/// Window event data <br/>
+		/// </summary>
+		public ref SDLWindowEvent Window => ref Unsafe.AsRef<SDLWindowEvent>(&Handle->Window);
+		/// <summary>
+		/// Keyboard event data <br/>
+		/// </summary>
+		public ref SDLKeyboardEvent Key => ref Unsafe.AsRef<SDLKeyboardEvent>(&Handle->Key);
+		/// <summary>
+		/// Text editing event data <br/>
+		/// </summary>
+		public ref SDLTextEditingEvent Edit => ref Unsafe.AsRef<SDLTextEditingEvent>(&Handle->Edit);
+		/// <summary>
+		/// Extended text editing event data <br/>
+		/// </summary>
+		public ref SDLTextEditingExtEvent EditExt => ref Unsafe.AsRef<SDLTextEditingExtEvent>(&Handle->EditExt);
+		/// <summary>
+		/// Text input event data <br/>
+		/// </summary>
+		public ref SDLTextInputEvent Text => ref Unsafe.AsRef<SDLTextInputEvent>(&Handle->Text);
+		/// <summary>
+		/// Mouse motion event data <br/>
+		/// </summary>
+		public ref SDLMouseMotionEvent Motion => ref Unsafe.AsRef<SDLMouseMotionEvent>(&Handle->Motion);
+		/// <summary>
+		/// Mouse button event data <br/>
+		/// </summary>
+		public ref SDLMouseButtonEvent Button => ref Unsafe.AsRef<SDLMouseButtonEvent>(&Handle->Button);
+		/// <summary>
+		/// Mouse wheel event data <br/>
+		/// </summary>
+		public ref SDLMouseWheelEvent Wheel => ref Unsafe.AsRef<SDLMouseWheelEvent>(&Handle->Wheel);
+		/// <summary>
+		/// Joystick axis event data <br/>
+		/// </summary>
+		public ref SDLJoyAxisEvent Jaxis => ref Unsafe.AsRef<SDLJoyAxisEvent>(&Handle->Jaxis);
+		/// <summary>
+		/// Joystick ball event data <br/>
+		/// </summary>
+		public ref SDLJoyBallEvent Jball => ref Unsafe.AsRef<SDLJoyBallEvent>(&Handle->Jball);
+		/// <summary>
+		/// Joystick hat event data <br/>
+		/// </summary>
+		public ref SDLJoyHatEvent Jhat => ref Unsafe.AsRef<SDLJoyHatEvent>(&Handle->Jhat);
+		/// <summary>
+		/// Joystick button event data <br/>
+		/// </summary>
+		public ref SDLJoyButtonEvent Jbutton => ref Unsafe.AsRef<SDLJoyButtonEvent>(&Handle->Jbutton);
+		/// <summary>
+		/// Joystick device change event data <br/>
+		/// </summary>
+		public ref SDLJoyDeviceEvent Jdevice => ref Unsafe.AsRef<SDLJoyDeviceEvent>(&Handle->Jdevice);
+		/// <summary>
+		/// Joystick battery event data <br/>
+		/// </summary>
+		public ref SDLJoyBatteryEvent Jbattery => ref Unsafe.AsRef<SDLJoyBatteryEvent>(&Handle->Jbattery);
+		/// <summary>
+		/// Game Controller axis event data <br/>
+		/// </summary>
+		public ref SDLControllerAxisEvent Caxis => ref Unsafe.AsRef<SDLControllerAxisEvent>(&Handle->Caxis);
+		/// <summary>
+		/// Game Controller button event data <br/>
+		/// </summary>
+		public ref SDLControllerButtonEvent Cbutton => ref Unsafe.AsRef<SDLControllerButtonEvent>(&Handle->Cbutton);
+		/// <summary>
+		/// Game Controller device event data <br/>
+		/// </summary>
+		public ref SDLControllerDeviceEvent Cdevice => ref Unsafe.AsRef<SDLControllerDeviceEvent>(&Handle->Cdevice);
+		/// <summary>
+		/// Game Controller touchpad event data <br/>
+		/// </summary>
+		public ref SDLControllerTouchpadEvent Ctouchpad => ref Unsafe.AsRef<SDLControllerTouchpadEvent>(&Handle->Ctouchpad);
+		/// <summary>
+		/// Game Controller sensor event data <br/>
+		/// </summary>
+		public ref SDLControllerSensorEvent Csensor => ref Unsafe.AsRef<SDLControllerSensorEvent>(&Handle->Csensor);
+		/// <summary>
+		/// Audio device event data <br/>
+		/// </summary>
+		public ref SDLAudioDeviceEvent Adevice => ref Unsafe.AsRef<SDLAudioDeviceEvent>(&Handle->Adevice);
+		/// <summary>
+		/// Sensor event data <br/>
+		/// </summary>
+		public ref SDLSensorEvent Sensor => ref Unsafe.AsRef<SDLSensorEvent>(&Handle->Sensor);
+		/// <summary>
+		/// Quit request event data <br/>
+		/// </summary>
+		public ref SDLQuitEvent Quit => ref Unsafe.AsRef<SDLQuitEvent>(&Handle->Quit);
+		/// <summary>
+		/// Custom event data <br/>
+		/// </summary>
+		public ref SDLUserEvent User => ref Unsafe.AsRef<SDLUserEvent>(&Handle->User);
+		/// <summary>
+		/// System dependent window event data <br/>
+		/// </summary>
+		public ref SDLSysWMEvent Syswm => ref Unsafe.AsRef<SDLSysWMEvent>(&Handle->Syswm);
+		/// <summary>
+		/// Touch finger event data <br/>
+		/// </summary>
+		public ref SDLTouchFingerEvent Tfinger => ref Unsafe.AsRef<SDLTouchFingerEvent>(&Handle->Tfinger);
+		/// <summary>
+		/// Gesture event data <br/>
+		/// </summary>
+		public ref SDLMultiGestureEvent Mgesture => ref Unsafe.AsRef<SDLMultiGestureEvent>(&Handle->Mgesture);
+		/// <summary>
+		/// Gesture event data <br/>
+		/// </summary>
+		public ref SDLDollarGestureEvent Dgesture => ref Unsafe.AsRef<SDLDollarGestureEvent>(&Handle->Dgesture);
+		/// <summary>
+		/// Drag and drop event data <br/>
+		/// </summary>
+		public ref SDLDropEvent Drop => ref Unsafe.AsRef<SDLDropEvent>(&Handle->Drop);
+		/// <summary>
+		/// This is necessary for ABI compatibility between Visual C++ and GCC.<br/>
+		/// Visual C++ will respect the push pack pragma and use 52 bytes (size of<br/>
+		/// SDL_TextEditingEvent, the largest structure for 32-bit and 64-bit<br/>
+		/// architectures) for this union, and GCC will use the alignment of the<br/>
+		/// largest datatype within the union, which is 8 bytes on 64-bit<br/>
+		/// architectures.<br/>
+		/// So... we'll add padding to force the size to be 56 bytes for both.<br/>
+		/// On architectures where pointers are 16 bytes, this needs rounding up to<br/>
+		/// the next multiple of 16, 64, and on architectures where pointers are<br/>
+		/// even larger the size of SDL_UserEvent will dominate as being 3 pointers.<br/>
+		/// </summary>
+		public unsafe Span<byte> Padding
+		
+		{
+			get
+			{
+				return new Span<byte>(&Handle->Padding_0, 56);
+			}
+		}
+	}
+
 }

@@ -15,15 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The opaque structure used to identify an opened SDL sensor.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Sensor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSensor
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Sensor")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLSensorPtr : IEquatable<SDLSensorPtr>
+	{
+		public SDLSensorPtr(SDLSensor* handle) { Handle = handle; }
+
+		public SDLSensor* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLSensorPtr Null => new SDLSensorPtr(null);
+
+		public SDLSensor this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLSensorPtr(SDLSensor* handle) => new SDLSensorPtr(handle);
+
+		public static implicit operator SDLSensor*(SDLSensorPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLSensorPtr left, SDLSensorPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLSensorPtr left, SDLSensorPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLSensorPtr left, SDLSensor* right) => left.Handle == right;
+
+		public static bool operator !=(SDLSensorPtr left, SDLSensor* right) => left.Handle != right;
+
+		public bool Equals(SDLSensorPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLSensorPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLSensorPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

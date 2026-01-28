@@ -19,48 +19,67 @@ namespace Hexa.NET.SDL3
 	/// Gamepad touchpad event structure (event.gtouchpad.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GamepadTouchpadEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGamepadTouchpadEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_GAMEPAD_TOUCHPAD_DOWN or SDL_EVENT_GAMEPAD_TOUCHPAD_MOTION or SDL_EVENT_GAMEPAD_TOUCHPAD_UP <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 		/// <summary>
 		/// The index of the touchpad <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "touchpad")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Touchpad;
 
 		/// <summary>
 		/// The index of the finger on the touchpad <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "finger")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Finger;
 
 		/// <summary>
 		/// Normalized in the range 0...1 with 0 being on the left <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// Normalized in the range 0...1 with 0 being at the top <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// Normalized in the range 0...1 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pressure")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Pressure;
 
 

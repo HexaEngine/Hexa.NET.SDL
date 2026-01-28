@@ -18,6 +18,7 @@ namespace Hexa.NET.SDL3
 	/// Opaque type for an EGL surface.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_EGLSurface")]
 	#if NET5_0_OR_GREATER
 	[DebuggerDisplay("{DebuggerDisplay,nq}")]
 	#endif

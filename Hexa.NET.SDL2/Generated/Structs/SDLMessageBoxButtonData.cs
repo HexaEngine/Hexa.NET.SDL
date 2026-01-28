@@ -47,4 +47,59 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// Individual button data.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLMessageBoxButtonDataPtr : IEquatable<SDLMessageBoxButtonDataPtr>
+	{
+		public SDLMessageBoxButtonDataPtr(SDLMessageBoxButtonData* handle) { Handle = handle; }
+
+		public SDLMessageBoxButtonData* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLMessageBoxButtonDataPtr Null => new SDLMessageBoxButtonDataPtr(null);
+
+		public SDLMessageBoxButtonData this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLMessageBoxButtonDataPtr(SDLMessageBoxButtonData* handle) => new SDLMessageBoxButtonDataPtr(handle);
+
+		public static implicit operator SDLMessageBoxButtonData*(SDLMessageBoxButtonDataPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLMessageBoxButtonDataPtr left, SDLMessageBoxButtonDataPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLMessageBoxButtonDataPtr left, SDLMessageBoxButtonDataPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLMessageBoxButtonDataPtr left, SDLMessageBoxButtonData* right) => left.Handle == right;
+
+		public static bool operator !=(SDLMessageBoxButtonDataPtr left, SDLMessageBoxButtonData* right) => left.Handle != right;
+
+		public bool Equals(SDLMessageBoxButtonDataPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLMessageBoxButtonDataPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLMessageBoxButtonDataPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// SDL_MessageBoxButtonFlags <br/>
+		/// </summary>
+		public ref uint Flags => ref Unsafe.AsRef<uint>(&Handle->Flags);
+		/// <summary>
+		/// User defined button id (value returned via SDL_ShowMessageBox) <br/>
+		/// </summary>
+		public ref int Buttonid => ref Unsafe.AsRef<int>(&Handle->Buttonid);
+		/// <summary>
+		/// The UTF-8 button text <br/>
+		/// </summary>
+		public byte* Text { get => Handle->Text; set => Handle->Text = value; }
+	}
+
 }

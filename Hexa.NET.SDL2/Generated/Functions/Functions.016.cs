@@ -18,1093 +18,1300 @@ namespace Hexa.NET.SDL2
 	{
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4DNative(uint target, double s, double t, double r, double q)
+		internal static void GlDeleteListsNative(uint list, int range)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1289])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[949])(list, range);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1289])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[949])(list, range);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4D(uint target, double s, double t, double r, double q)
+		public static void GlDeleteLists(uint list, int range)
 		{
-			GlMultiTexCoord4DNative(target, s, t, r, q);
+			GlDeleteListsNative(list, range);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4DvNative(uint target, double* v)
+		internal static uint GlGenListsNative(int range)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1290])(target, v);
+			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[950])(range);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1290])(target, (nint)v);
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[950])(range);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4Dv(uint target, double* v)
+		public static uint GlGenLists(int range)
 		{
-			GlMultiTexCoord4DvNative(target, v);
-		}
-
-		public static void GlMultiTexCoord4Dv(uint target, ref double v)
-		{
-			fixed (double* pv = &v)
-			{
-				GlMultiTexCoord4DvNative(target, (double*)pv);
-			}
+			uint ret = GlGenListsNative(range);
+			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4FNative(uint target, float s, float t, float r, float q)
+		internal static void GlNewListNative(uint list, uint mode)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1291])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[951])(list, mode);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1291])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[951])(list, mode);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4F(uint target, float s, float t, float r, float q)
+		public static void GlNewList(uint list, uint mode)
 		{
-			GlMultiTexCoord4FNative(target, s, t, r, q);
+			GlNewListNative(list, mode);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4FvNative(uint target, float* v)
+		internal static void GlEndListNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1292])(target, v);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[952])();
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1292])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[952])();
 			#endif
 		}
 
-		public static void GlMultiTexCoord4Fv(uint target, float* v)
+		public static void GlEndList()
 		{
-			GlMultiTexCoord4FvNative(target, v);
-		}
-
-		public static void GlMultiTexCoord4Fv(uint target, ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlMultiTexCoord4FvNative(target, (float*)pv);
-			}
+			GlEndListNative();
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4INative(uint target, int s, int t, int r, int q)
+		internal static void GlCallListNative(uint list)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1293])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[953])(list);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1293])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[953])(list);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4I(uint target, int s, int t, int r, int q)
+		public static void GlCallList(uint list)
 		{
-			GlMultiTexCoord4INative(target, s, t, r, q);
+			GlCallListNative(list);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4IvNative(uint target, int* v)
+		internal static void GlCallListsNative(int n, uint type, void* lists)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1294])(target, v);
+			((delegate* unmanaged[Cdecl]<int, uint, void*, void>)funcTable[954])(n, type, lists);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1294])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<int, uint, nint, void>)funcTable[954])(n, type, (nint)lists);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4Iv(uint target, int* v)
+		public static void GlCallLists(int n, uint type, void* lists)
 		{
-			GlMultiTexCoord4IvNative(target, v);
+			GlCallListsNative(n, type, lists);
 		}
 
-		public static void GlMultiTexCoord4Iv(uint target, ref int v)
+		public static void GlCallLists(int n, uint type, nint lists)
 		{
-			fixed (int* pv = &v)
-			{
-				GlMultiTexCoord4IvNative(target, (int*)pv);
-			}
+			GlCallListsNative(n, type, (void*)lists);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4SNative(uint target, short s, short t, short r, short q)
+		internal static void GlListBaseNative(uint baseValue)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1295])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[955])(baseValue);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1295])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[955])(baseValue);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4S(uint target, short s, short t, short r, short q)
+		public static void GlListBase(uint baseValue)
 		{
-			GlMultiTexCoord4SNative(target, s, t, r, q);
+			GlListBaseNative(baseValue);
+		}
+
+		/// <summary>
+		/// Drawing Functions<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlBeginNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[956])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[956])(mode);
+			#endif
+		}
+
+		/// <summary>
+		/// Drawing Functions<br/>
+		/// </summary>
+		public static void GlBegin(uint mode)
+		{
+			GlBeginNative(mode);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4SvNative(uint target, short* v)
+		internal static void GlEndNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1296])(target, v);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[957])();
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1296])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[957])();
 			#endif
 		}
 
-		public static void GlMultiTexCoord4Sv(uint target, short* v)
+		public static void GlEnd()
 		{
-			GlMultiTexCoord4SvNative(target, v);
-		}
-
-		public static void GlMultiTexCoord4Sv(uint target, ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlMultiTexCoord4SvNative(target, (short*)pv);
-			}
+			GlEndNative();
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlLoadTransposeMatrixdNative(double* m)
+		internal static void GlVertex2DNative(double x, double y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1297])(m);
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[958])(x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1297])((nint)m);
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[958])(x, y);
 			#endif
 		}
 
-		public static void GlLoadTransposeMatrixd(double* m)
+		public static void GlVertex2D(double x, double y)
 		{
-			GlLoadTransposeMatrixdNative(m);
-		}
-
-		public static void GlLoadTransposeMatrixd(ref double m)
-		{
-			fixed (double* pm = &m)
-			{
-				GlLoadTransposeMatrixdNative((double*)pm);
-			}
-		}
-
-		public static void GlLoadTransposeMatrixd(ReadOnlySpan<double> m)
-		{
-			fixed (double* pm = m)
-			{
-				GlLoadTransposeMatrixdNative((double*)pm);
-			}
+			GlVertex2DNative(x, y);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlLoadTransposeMatrixfNative(float* m)
+		internal static void GlVertex2FNative(float x, float y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1298])(m);
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[959])(x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1298])((nint)m);
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[959])(x, y);
 			#endif
 		}
 
-		public static void GlLoadTransposeMatrixf(float* m)
+		public static void GlVertex2F(float x, float y)
 		{
-			GlLoadTransposeMatrixfNative(m);
-		}
-
-		public static void GlLoadTransposeMatrixf(ref float m)
-		{
-			fixed (float* pm = &m)
-			{
-				GlLoadTransposeMatrixfNative((float*)pm);
-			}
-		}
-
-		public static void GlLoadTransposeMatrixf(ReadOnlySpan<float> m)
-		{
-			fixed (float* pm = m)
-			{
-				GlLoadTransposeMatrixfNative((float*)pm);
-			}
+			GlVertex2FNative(x, y);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultTransposeMatrixdNative(double* m)
+		internal static void GlVertex2INative(int x, int y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1299])(m);
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[960])(x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1299])((nint)m);
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[960])(x, y);
 			#endif
 		}
 
-		public static void GlMultTransposeMatrixd(double* m)
+		public static void GlVertex2I(int x, int y)
 		{
-			GlMultTransposeMatrixdNative(m);
-		}
-
-		public static void GlMultTransposeMatrixd(ref double m)
-		{
-			fixed (double* pm = &m)
-			{
-				GlMultTransposeMatrixdNative((double*)pm);
-			}
-		}
-
-		public static void GlMultTransposeMatrixd(ReadOnlySpan<double> m)
-		{
-			fixed (double* pm = m)
-			{
-				GlMultTransposeMatrixdNative((double*)pm);
-			}
+			GlVertex2INative(x, y);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultTransposeMatrixfNative(float* m)
+		internal static void GlVertex2SNative(short x, short y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1300])(m);
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[961])(x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1300])((nint)m);
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[961])(x, y);
 			#endif
 		}
 
-		public static void GlMultTransposeMatrixf(float* m)
+		public static void GlVertex2S(short x, short y)
 		{
-			GlMultTransposeMatrixfNative(m);
-		}
-
-		public static void GlMultTransposeMatrixf(ref float m)
-		{
-			fixed (float* pm = &m)
-			{
-				GlMultTransposeMatrixfNative((float*)pm);
-			}
-		}
-
-		public static void GlMultTransposeMatrixf(ReadOnlySpan<float> m)
-		{
-			fixed (float* pm = m)
-			{
-				GlMultTransposeMatrixfNative((float*)pm);
-			}
+			GlVertex2SNative(x, y);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlSampleCoverageNative(float value, byte invert)
+		internal static void GlVertex3DNative(double x, double y, double z)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, byte, void>)funcTable[1301])(value, invert);
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[962])(x, y, z);
 			#else
-			((delegate* unmanaged[Cdecl]<float, byte, void>)funcTable[1301])(value, invert);
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[962])(x, y, z);
 			#endif
 		}
 
-		public static void GlSampleCoverage(float value, byte invert)
+		public static void GlVertex3D(double x, double y, double z)
 		{
-			GlSampleCoverageNative(value, invert);
+			GlVertex3DNative(x, y, z);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlActiveTextureARBNative(uint texture)
+		internal static void GlVertex3FNative(float x, float y, float z)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1302])(texture);
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[963])(x, y, z);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1302])(texture);
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[963])(x, y, z);
 			#endif
 		}
 
-		public static void GlActiveTextureARB(uint texture)
+		public static void GlVertex3F(float x, float y, float z)
 		{
-			GlActiveTextureARBNative(texture);
+			GlVertex3FNative(x, y, z);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlClientActiveTextureARBNative(uint texture)
+		internal static void GlVertex3INative(int x, int y, int z)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1303])(texture);
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[964])(x, y, z);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1303])(texture);
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[964])(x, y, z);
 			#endif
 		}
 
-		public static void GlClientActiveTextureARB(uint texture)
+		public static void GlVertex3I(int x, int y, int z)
 		{
-			GlClientActiveTextureARBNative(texture);
+			GlVertex3INative(x, y, z);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord1DARBNative(uint target, double s)
+		internal static void GlVertex3SNative(short x, short y, short z)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, void>)funcTable[1304])(target, s);
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[965])(x, y, z);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, void>)funcTable[1304])(target, s);
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[965])(x, y, z);
 			#endif
 		}
 
-		public static void GlMultiTexCoord1DARB(uint target, double s)
+		public static void GlVertex3S(short x, short y, short z)
 		{
-			GlMultiTexCoord1DARBNative(target, s);
+			GlVertex3SNative(x, y, z);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord1DvARBNative(uint target, double* v)
+		internal static void GlVertex4DNative(double x, double y, double z, double w)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1305])(target, v);
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[966])(x, y, z, w);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1305])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[966])(x, y, z, w);
 			#endif
 		}
 
-		public static void GlMultiTexCoord1DvARB(uint target, double* v)
+		public static void GlVertex4D(double x, double y, double z, double w)
 		{
-			GlMultiTexCoord1DvARBNative(target, v);
+			GlVertex4DNative(x, y, z, w);
 		}
 
-		public static void GlMultiTexCoord1DvARB(uint target, ref double v)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex4FNative(float x, float y, float z, float w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[967])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[967])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlVertex4F(float x, float y, float z, float w)
+		{
+			GlVertex4FNative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex4INative(int x, int y, int z, int w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[968])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[968])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlVertex4I(int x, int y, int z, int w)
+		{
+			GlVertex4INative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex4SNative(short x, short y, short z, short w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[969])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[969])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlVertex4S(short x, short y, short z, short w)
+		{
+			GlVertex4SNative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex2DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[970])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[970])((nint)v);
+			#endif
+		}
+
+		public static void GlVertex2Dv(double* v)
+		{
+			GlVertex2DvNative(v);
+		}
+
+		public static void GlVertex2Dv(in double v)
 		{
 			fixed (double* pv = &v)
 			{
-				GlMultiTexCoord1DvARBNative(target, (double*)pv);
+				GlVertex2DvNative((double*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord1FARBNative(uint target, float s)
+		internal static void GlVertex2FvNative(float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1306])(target, s);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[971])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1306])(target, s);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[971])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord1FARB(uint target, float s)
+		public static void GlVertex2Fv(float* v)
 		{
-			GlMultiTexCoord1FARBNative(target, s);
+			GlVertex2FvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord1FvARBNative(uint target, float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1307])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1307])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord1FvARB(uint target, float* v)
-		{
-			GlMultiTexCoord1FvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord1FvARB(uint target, ref float v)
+		public static void GlVertex2Fv(in float v)
 		{
 			fixed (float* pv = &v)
 			{
-				GlMultiTexCoord1FvARBNative(target, (float*)pv);
+				GlVertex2FvNative((float*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord1IARBNative(uint target, int s)
+		internal static void GlVertex2IvNative(int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1308])(target, s);
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[972])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1308])(target, s);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[972])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord1IARB(uint target, int s)
+		public static void GlVertex2Iv(int* v)
 		{
-			GlMultiTexCoord1IARBNative(target, s);
+			GlVertex2IvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord1IvARBNative(uint target, int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1309])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1309])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord1IvARB(uint target, int* v)
-		{
-			GlMultiTexCoord1IvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord1IvARB(uint target, ref int v)
+		public static void GlVertex2Iv(in int v)
 		{
 			fixed (int* pv = &v)
 			{
-				GlMultiTexCoord1IvARBNative(target, (int*)pv);
+				GlVertex2IvNative((int*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord1SARBNative(uint target, short s)
+		internal static void GlVertex2SvNative(short* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, void>)funcTable[1310])(target, s);
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[973])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, void>)funcTable[1310])(target, s);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[973])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord1SARB(uint target, short s)
+		public static void GlVertex2Sv(short* v)
 		{
-			GlMultiTexCoord1SARBNative(target, s);
+			GlVertex2SvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord1SvARBNative(uint target, short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1311])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1311])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord1SvARB(uint target, short* v)
-		{
-			GlMultiTexCoord1SvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord1SvARB(uint target, ref short v)
+		public static void GlVertex2Sv(in short v)
 		{
 			fixed (short* pv = &v)
 			{
-				GlMultiTexCoord1SvARBNative(target, (short*)pv);
+				GlVertex2SvNative((short*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord2DARBNative(uint target, double s, double t)
+		internal static void GlVertex3DvNative(double* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, void>)funcTable[1312])(target, s, t);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[974])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, void>)funcTable[1312])(target, s, t);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[974])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord2DARB(uint target, double s, double t)
+		public static void GlVertex3Dv(double* v)
 		{
-			GlMultiTexCoord2DARBNative(target, s, t);
+			GlVertex3DvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord2DvARBNative(uint target, double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1313])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1313])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord2DvARB(uint target, double* v)
-		{
-			GlMultiTexCoord2DvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord2DvARB(uint target, ref double v)
+		public static void GlVertex3Dv(in double v)
 		{
 			fixed (double* pv = &v)
 			{
-				GlMultiTexCoord2DvARBNative(target, (double*)pv);
+				GlVertex3DvNative((double*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord2FARBNative(uint target, float s, float t)
+		internal static void GlVertex3FvNative(float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, void>)funcTable[1314])(target, s, t);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[975])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, void>)funcTable[1314])(target, s, t);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[975])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord2FARB(uint target, float s, float t)
+		public static void GlVertex3Fv(float* v)
 		{
-			GlMultiTexCoord2FARBNative(target, s, t);
+			GlVertex3FvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord2FvARBNative(uint target, float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1315])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1315])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord2FvARB(uint target, float* v)
-		{
-			GlMultiTexCoord2FvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord2FvARB(uint target, ref float v)
+		public static void GlVertex3Fv(in float v)
 		{
 			fixed (float* pv = &v)
 			{
-				GlMultiTexCoord2FvARBNative(target, (float*)pv);
+				GlVertex3FvNative((float*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord2IARBNative(uint target, int s, int t)
+		internal static void GlVertex3IvNative(int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1316])(target, s, t);
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[976])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1316])(target, s, t);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[976])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord2IARB(uint target, int s, int t)
+		public static void GlVertex3Iv(int* v)
 		{
-			GlMultiTexCoord2IARBNative(target, s, t);
+			GlVertex3IvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord2IvARBNative(uint target, int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1317])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1317])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord2IvARB(uint target, int* v)
-		{
-			GlMultiTexCoord2IvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord2IvARB(uint target, ref int v)
+		public static void GlVertex3Iv(in int v)
 		{
 			fixed (int* pv = &v)
 			{
-				GlMultiTexCoord2IvARBNative(target, (int*)pv);
+				GlVertex3IvNative((int*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord2SARBNative(uint target, short s, short t)
+		internal static void GlVertex3SvNative(short* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, void>)funcTable[1318])(target, s, t);
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[977])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, void>)funcTable[1318])(target, s, t);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[977])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord2SARB(uint target, short s, short t)
+		public static void GlVertex3Sv(short* v)
 		{
-			GlMultiTexCoord2SARBNative(target, s, t);
+			GlVertex3SvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord2SvARBNative(uint target, short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1319])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1319])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord2SvARB(uint target, short* v)
-		{
-			GlMultiTexCoord2SvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord2SvARB(uint target, ref short v)
+		public static void GlVertex3Sv(in short v)
 		{
 			fixed (short* pv = &v)
 			{
-				GlMultiTexCoord2SvARBNative(target, (short*)pv);
+				GlVertex3SvNative((short*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord3DARBNative(uint target, double s, double t, double r)
+		internal static void GlVertex4DvNative(double* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)funcTable[1320])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[978])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)funcTable[1320])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[978])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord3DARB(uint target, double s, double t, double r)
+		public static void GlVertex4Dv(double* v)
 		{
-			GlMultiTexCoord3DARBNative(target, s, t, r);
+			GlVertex4DvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord3DvARBNative(uint target, double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1321])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1321])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord3DvARB(uint target, double* v)
-		{
-			GlMultiTexCoord3DvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord3DvARB(uint target, ref double v)
+		public static void GlVertex4Dv(in double v)
 		{
 			fixed (double* pv = &v)
 			{
-				GlMultiTexCoord3DvARBNative(target, (double*)pv);
+				GlVertex4DvNative((double*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord3FARBNative(uint target, float s, float t, float r)
+		internal static void GlVertex4FvNative(float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)funcTable[1322])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[979])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)funcTable[1322])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[979])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord3FARB(uint target, float s, float t, float r)
+		public static void GlVertex4Fv(float* v)
 		{
-			GlMultiTexCoord3FARBNative(target, s, t, r);
+			GlVertex4FvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord3FvARBNative(uint target, float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1323])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1323])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord3FvARB(uint target, float* v)
-		{
-			GlMultiTexCoord3FvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord3FvARB(uint target, ref float v)
+		public static void GlVertex4Fv(in float v)
 		{
 			fixed (float* pv = &v)
 			{
-				GlMultiTexCoord3FvARBNative(target, (float*)pv);
+				GlVertex4FvNative((float*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord3IARBNative(uint target, int s, int t, int r)
+		internal static void GlVertex4IvNative(int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)funcTable[1324])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[980])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)funcTable[1324])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[980])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord3IARB(uint target, int s, int t, int r)
+		public static void GlVertex4Iv(int* v)
 		{
-			GlMultiTexCoord3IARBNative(target, s, t, r);
+			GlVertex4IvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord3IvARBNative(uint target, int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1325])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1325])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord3IvARB(uint target, int* v)
-		{
-			GlMultiTexCoord3IvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord3IvARB(uint target, ref int v)
+		public static void GlVertex4Iv(in int v)
 		{
 			fixed (int* pv = &v)
 			{
-				GlMultiTexCoord3IvARBNative(target, (int*)pv);
+				GlVertex4IvNative((int*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord3SARBNative(uint target, short s, short t, short r)
+		internal static void GlVertex4SvNative(short* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)funcTable[1326])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[981])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)funcTable[1326])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[981])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord3SARB(uint target, short s, short t, short r)
+		public static void GlVertex4Sv(short* v)
 		{
-			GlMultiTexCoord3SARBNative(target, s, t, r);
+			GlVertex4SvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord3SvARBNative(uint target, short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1327])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1327])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord3SvARB(uint target, short* v)
-		{
-			GlMultiTexCoord3SvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord3SvARB(uint target, ref short v)
+		public static void GlVertex4Sv(in short v)
 		{
 			fixed (short* pv = &v)
 			{
-				GlMultiTexCoord3SvARBNative(target, (short*)pv);
+				GlVertex4SvNative((short*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4DARBNative(uint target, double s, double t, double r, double q)
+		internal static void GlNormal3BNative(byte nx, byte ny, byte nz)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1328])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[982])(nx, ny, nz);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1328])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[982])(nx, ny, nz);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4DARB(uint target, double s, double t, double r, double q)
+		public static void GlNormal3B(byte nx, byte ny, byte nz)
 		{
-			GlMultiTexCoord4DARBNative(target, s, t, r, q);
+			GlNormal3BNative(nx, ny, nz);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4DvARBNative(uint target, double* v)
+		internal static void GlNormal3DNative(double nx, double ny, double nz)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1329])(target, v);
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[983])(nx, ny, nz);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1329])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[983])(nx, ny, nz);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4DvARB(uint target, double* v)
+		public static void GlNormal3D(double nx, double ny, double nz)
 		{
-			GlMultiTexCoord4DvARBNative(target, v);
+			GlNormal3DNative(nx, ny, nz);
 		}
 
-		public static void GlMultiTexCoord4DvARB(uint target, ref double v)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3FNative(float nx, float ny, float nz)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[984])(nx, ny, nz);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[984])(nx, ny, nz);
+			#endif
+		}
+
+		public static void GlNormal3F(float nx, float ny, float nz)
+		{
+			GlNormal3FNative(nx, ny, nz);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3INative(int nx, int ny, int nz)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[985])(nx, ny, nz);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[985])(nx, ny, nz);
+			#endif
+		}
+
+		public static void GlNormal3I(int nx, int ny, int nz)
+		{
+			GlNormal3INative(nx, ny, nz);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3SNative(short nx, short ny, short nz)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[986])(nx, ny, nz);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[986])(nx, ny, nz);
+			#endif
+		}
+
+		public static void GlNormal3S(short nx, short ny, short nz)
+		{
+			GlNormal3SNative(nx, ny, nz);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3BvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[987])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[987])((nint)v);
+			#endif
+		}
+
+		public static void GlNormal3Bv(byte* v)
+		{
+			GlNormal3BvNative(v);
+		}
+
+		public static void GlNormal3Bv(in byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlNormal3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlNormal3Bv(ReadOnlySpan<byte> v)
+		{
+			fixed (byte* pv = v)
+			{
+				GlNormal3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlNormal3Bv(string v)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (v != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(v);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			GlNormal3BvNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[988])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[988])((nint)v);
+			#endif
+		}
+
+		public static void GlNormal3Dv(double* v)
+		{
+			GlNormal3DvNative(v);
+		}
+
+		public static void GlNormal3Dv(in double v)
 		{
 			fixed (double* pv = &v)
 			{
-				GlMultiTexCoord4DvARBNative(target, (double*)pv);
+				GlNormal3DvNative((double*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4FARBNative(uint target, float s, float t, float r, float q)
+		internal static void GlNormal3FvNative(float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1330])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[989])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1330])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[989])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4FARB(uint target, float s, float t, float r, float q)
+		public static void GlNormal3Fv(float* v)
 		{
-			GlMultiTexCoord4FARBNative(target, s, t, r, q);
+			GlNormal3FvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4FvARBNative(uint target, float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1331])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1331])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord4FvARB(uint target, float* v)
-		{
-			GlMultiTexCoord4FvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord4FvARB(uint target, ref float v)
+		public static void GlNormal3Fv(in float v)
 		{
 			fixed (float* pv = &v)
 			{
-				GlMultiTexCoord4FvARBNative(target, (float*)pv);
+				GlNormal3FvNative((float*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4IARBNative(uint target, int s, int t, int r, int q)
+		internal static void GlNormal3IvNative(int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1332])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[990])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1332])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[990])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4IARB(uint target, int s, int t, int r, int q)
+		public static void GlNormal3Iv(int* v)
 		{
-			GlMultiTexCoord4IARBNative(target, s, t, r, q);
+			GlNormal3IvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4IvARBNative(uint target, int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1333])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1333])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord4IvARB(uint target, int* v)
-		{
-			GlMultiTexCoord4IvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord4IvARB(uint target, ref int v)
+		public static void GlNormal3Iv(in int v)
 		{
 			fixed (int* pv = &v)
 			{
-				GlMultiTexCoord4IvARBNative(target, (int*)pv);
+				GlNormal3IvNative((int*)pv);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4SARBNative(uint target, short s, short t, short r, short q)
+		internal static void GlNormal3SvNative(short* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1334])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[991])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1334])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[991])((nint)v);
 			#endif
 		}
 
-		public static void GlMultiTexCoord4SARB(uint target, short s, short t, short r, short q)
+		public static void GlNormal3Sv(short* v)
 		{
-			GlMultiTexCoord4SARBNative(target, s, t, r, q);
+			GlNormal3SvNative(v);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultiTexCoord4SvARBNative(uint target, short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1335])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1335])(target, (nint)v);
-			#endif
-		}
-
-		public static void GlMultiTexCoord4SvARB(uint target, short* v)
-		{
-			GlMultiTexCoord4SvARBNative(target, v);
-		}
-
-		public static void GlMultiTexCoord4SvARB(uint target, ref short v)
+		public static void GlNormal3Sv(in short v)
 		{
 			fixed (short* pv = &v)
 			{
-				GlMultiTexCoord4SvARBNative(target, (short*)pv);
+				GlNormal3SvNative((short*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GetWindowWMInfoNative(SDLWindow* window, SDLSysWMInfo* info)
+		internal static void GlIndexdNative(double c)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSysWMInfo*, SDLBool>)funcTable[1336])(window, info);
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[992])(c);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[1336])((nint)window, (nint)info);
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[992])(c);
 			#endif
 		}
 
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetWindowWMInfo(SDLWindow* window, SDLSysWMInfo* info)
+		public static void GlIndexd(double c)
 		{
-			SDLBool ret = GetWindowWMInfoNative(window, info);
-			return ret;
+			GlIndexdNative(c);
 		}
 
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetWindowWMInfo(ref SDLWindow window, SDLSysWMInfo* info)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLBool ret = GetWindowWMInfoNative((SDLWindow*)pwindow, info);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetWindowWMInfo(SDLWindow* window, ref SDLSysWMInfo info)
-		{
-			fixed (SDLSysWMInfo* pinfo = &info)
-			{
-				SDLBool ret = GetWindowWMInfoNative(window, (SDLSysWMInfo*)pinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetWindowWMInfo(ref SDLWindow window, ref SDLSysWMInfo info)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLSysWMInfo* pinfo = &info)
-				{
-					SDLBool ret = GetWindowWMInfoNative((SDLWindow*)pwindow, (SDLSysWMInfo*)pinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestAssertNative(int assertCondition, byte* assertDescription)
+		internal static void GlIndexfNative(float c)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1337])(assertCondition, assertDescription);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[993])(c);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1337])(assertCondition, (nint)assertDescription);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[993])(c);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestAssert(int assertCondition, byte* assertDescription)
+		public static void GlIndexf(float c)
 		{
-			TestAssertNative(assertCondition, assertDescription);
+			GlIndexfNative(c);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestAssert(int assertCondition, ref byte assertDescription)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexiNative(int c)
 		{
-			fixed (byte* passertDescription = &assertDescription)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[994])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[994])(c);
+			#endif
+		}
+
+		public static void GlIndexi(int c)
+		{
+			GlIndexiNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexsNative(short c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, void>)funcTable[995])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<short, void>)funcTable[995])(c);
+			#endif
+		}
+
+		public static void GlIndexs(short c)
+		{
+			GlIndexsNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexubNative(byte c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[996])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[996])(c);
+			#endif
+		}
+
+		public static void GlIndexub(byte c)
+		{
+			GlIndexubNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexdvNative(double* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[997])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[997])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexdv(double* c)
+		{
+			GlIndexdvNative(c);
+		}
+
+		public static void GlIndexdv(in double c)
+		{
+			fixed (double* pc = &c)
 			{
-				TestAssertNative(assertCondition, (byte*)passertDescription);
+				GlIndexdvNative((double*)pc);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestAssert(int assertCondition, ReadOnlySpan<byte> assertDescription)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexfvNative(float* c)
 		{
-			fixed (byte* passertDescription = assertDescription)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[998])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[998])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexfv(float* c)
+		{
+			GlIndexfvNative(c);
+		}
+
+		public static void GlIndexfv(in float c)
+		{
+			fixed (float* pc = &c)
 			{
-				TestAssertNative(assertCondition, (byte*)passertDescription);
+				GlIndexfvNative((float*)pc);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestAssert(int assertCondition, string assertDescription)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexivNative(int* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[999])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[999])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexiv(int* c)
+		{
+			GlIndexivNative(c);
+		}
+
+		public static void GlIndexiv(in int c)
+		{
+			fixed (int* pc = &c)
+			{
+				GlIndexivNative((int*)pc);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexsvNative(short* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1000])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1000])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexsv(short* c)
+		{
+			GlIndexsvNative(c);
+		}
+
+		public static void GlIndexsv(in short c)
+		{
+			fixed (short* pc = &c)
+			{
+				GlIndexsvNative((short*)pc);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexubvNative(byte* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1001])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1001])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexubv(byte* c)
+		{
+			GlIndexubvNative(c);
+		}
+
+		public static void GlIndexubv(in byte c)
+		{
+			fixed (byte* pc = &c)
+			{
+				GlIndexubvNative((byte*)pc);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3BNative(byte red, byte green, byte blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1002])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1002])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3B(byte red, byte green, byte blue)
+		{
+			GlColor3BNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3DNative(double red, double green, double blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1003])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1003])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3D(double red, double green, double blue)
+		{
+			GlColor3DNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3FNative(float red, float green, float blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1004])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1004])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3F(float red, float green, float blue)
+		{
+			GlColor3FNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3INative(int red, int green, int blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1005])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1005])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3I(int red, int green, int blue)
+		{
+			GlColor3INative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3SNative(short red, short green, short blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1006])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1006])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3S(short red, short green, short blue)
+		{
+			GlColor3SNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UbNative(byte red, byte green, byte blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1007])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1007])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3Ub(byte red, byte green, byte blue)
+		{
+			GlColor3UbNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UiNative(uint red, uint green, uint blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3Ui(uint red, uint green, uint blue)
+		{
+			GlColor3UiNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UsNative(ushort red, ushort green, ushort blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3Us(ushort red, ushort green, ushort blue)
+		{
+			GlColor3UsNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4BNative(byte red, byte green, byte blue, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4B(byte red, byte green, byte blue, byte alpha)
+		{
+			GlColor4BNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4DNative(double red, double green, double blue, double alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4D(double red, double green, double blue, double alpha)
+		{
+			GlColor4DNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4FNative(float red, float green, float blue, float alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4F(float red, float green, float blue, float alpha)
+		{
+			GlColor4FNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4INative(int red, int green, int blue, int alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4I(int red, int green, int blue, int alpha)
+		{
+			GlColor4INative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4SNative(short red, short green, short blue, short alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4S(short red, short green, short blue, short alpha)
+		{
+			GlColor4SNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UbNative(byte red, byte green, byte blue, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Ub(byte red, byte green, byte blue, byte alpha)
+		{
+			GlColor4UbNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UiNative(uint red, uint green, uint blue, uint alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Ui(uint red, uint green, uint blue, uint alpha)
+		{
+			GlColor4UiNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UsNative(ushort red, ushort green, ushort blue, ushort alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Us(ushort red, ushort green, ushort blue, ushort alpha)
+		{
+			GlColor4UsNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3BvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1018])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1018])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Bv(byte* v)
+		{
+			GlColor3BvNative(v);
+		}
+
+		public static void GlColor3Bv(in byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor3Bv(ReadOnlySpan<byte> v)
+		{
+			fixed (byte* pv = v)
+			{
+				GlColor3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor3Bv(string v)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (assertDescription != null)
+			if (v != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
+				pStrSize0 = Utils.GetByteCountUTF8(v);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -1114,82 +1321,215 @@ namespace Hexa.NET.SDL2
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			TestAssertNative(assertCondition, pStr0);
+			GlColor3BvNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestAssertCheckNative(int assertCondition, byte* assertDescription)
+		internal static void GlColor3DvNative(double* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*, int>)funcTable[1338])(assertCondition, assertDescription);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1019])(v);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[1338])(assertCondition, (nint)assertDescription);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1019])((nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestAssertCheck(int assertCondition, byte* assertDescription)
+		public static void GlColor3Dv(double* v)
 		{
-			int ret = TestAssertCheckNative(assertCondition, assertDescription);
-			return ret;
+			GlColor3DvNative(v);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestAssertCheck(int assertCondition, ref byte assertDescription)
+		public static void GlColor3Dv(in double v)
 		{
-			fixed (byte* passertDescription = &assertDescription)
+			fixed (double* pv = &v)
 			{
-				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
-				return ret;
+				GlColor3DvNative((double*)pv);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestAssertCheck(int assertCondition, ReadOnlySpan<byte> assertDescription)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3FvNative(float* v)
 		{
-			fixed (byte* passertDescription = assertDescription)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1020])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1020])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Fv(float* v)
+		{
+			GlColor3FvNative(v);
+		}
+
+		public static void GlColor3Fv(in float v)
+		{
+			fixed (float* pv = &v)
 			{
-				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
-				return ret;
+				GlColor3FvNative((float*)pv);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestAssertCheck(int assertCondition, string assertDescription)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1021])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1021])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Iv(int* v)
+		{
+			GlColor3IvNative(v);
+		}
+
+		public static void GlColor3Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlColor3IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1022])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1022])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Sv(short* v)
+		{
+			GlColor3SvNative(v);
+		}
+
+		public static void GlColor3Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlColor3SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UbvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1023])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1023])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Ubv(byte* v)
+		{
+			GlColor3UbvNative(v);
+		}
+
+		public static void GlColor3Ubv(in byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor3UbvNative((byte*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UivNative(uint* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1024])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1024])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Uiv(uint* v)
+		{
+			GlColor3UivNative(v);
+		}
+
+		public static void GlColor3Uiv(in uint v)
+		{
+			fixed (uint* pv = &v)
+			{
+				GlColor3UivNative((uint*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UsvNative(ushort* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1025])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1025])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Usv(ushort* v)
+		{
+			GlColor3UsvNative(v);
+		}
+
+		public static void GlColor3Usv(in ushort v)
+		{
+			fixed (ushort* pv = &v)
+			{
+				GlColor3UsvNative((ushort*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4BvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1026])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1026])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Bv(byte* v)
+		{
+			GlColor4BvNative(v);
+		}
+
+		public static void GlColor4Bv(in byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor4BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor4Bv(ReadOnlySpan<byte> v)
+		{
+			fixed (byte* pv = v)
+			{
+				GlColor4BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor4Bv(string v)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (assertDescription != null)
+			if (v != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
+				pStrSize0 = Utils.GetByteCountUTF8(v);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -1199,3827 +1539,3482 @@ namespace Hexa.NET.SDL2
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = TestAssertCheckNative(assertCondition, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestAssertPassNative(byte* assertDescription)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1339])(assertDescription);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1339])((nint)assertDescription);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestAssertPass(byte* assertDescription)
-		{
-			TestAssertPassNative(assertDescription);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestAssertPass(ref byte assertDescription)
-		{
-			fixed (byte* passertDescription = &assertDescription)
-			{
-				TestAssertPassNative((byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestAssertPass(ReadOnlySpan<byte> assertDescription)
-		{
-			fixed (byte* passertDescription = assertDescription)
-			{
-				TestAssertPassNative((byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestAssertPass(string assertDescription)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (assertDescription != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestAssertPassNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestResetAssertSummaryNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1340])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1340])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		public static void TestResetAssertSummary()
-		{
-			TestResetAssertSummaryNative();
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestLogAssertSummaryNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1341])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1341])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		public static void TestLogAssertSummary()
-		{
-			TestLogAssertSummaryNative();
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestAssertSummaryToTestResultNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1342])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1342])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestAssertSummaryToTestResult()
-		{
-			int ret = TestAssertSummaryToTestResultNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTestCommonState* TestCommonCreateStateNative(byte** argv, uint flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, uint, SDLTestCommonState*>)funcTable[1343])(argv, flags);
-			#else
-			return (SDLTestCommonState*)((delegate* unmanaged[Cdecl]<nint, uint, nint>)funcTable[1343])((nint)argv, flags);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTestCommonState* TestCommonCreateState(byte** argv, uint flags)
-		{
-			SDLTestCommonState* ret = TestCommonCreateStateNative(argv, flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTestCommonState* TestCommonCreateState(ref byte* argv, uint flags)
-		{
-			fixed (byte** pargv = &argv)
-			{
-				SDLTestCommonState* ret = TestCommonCreateStateNative((byte**)pargv, flags);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCommonArgNative(SDLTestCommonState* state, int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, int, int>)funcTable[1344])(state, index);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[1344])((nint)state, index);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCommonArg(SDLTestCommonState* state, int index)
-		{
-			int ret = TestCommonArgNative(state, index);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCommonArg(ref SDLTestCommonState state, int index)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				int ret = TestCommonArgNative((SDLTestCommonState*)pstate, index);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonLogUsageNative(SDLTestCommonState* state, byte* argv0, byte** options)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, byte*, byte**, void>)funcTable[1345])(state, argv0, options);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1345])((nint)state, (nint)argv0, (nint)options);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(SDLTestCommonState* state, byte* argv0, byte** options)
-		{
-			TestCommonLogUsageNative(state, argv0, options);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(ref SDLTestCommonState state, byte* argv0, byte** options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				TestCommonLogUsageNative((SDLTestCommonState*)pstate, argv0, options);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(SDLTestCommonState* state, ref byte argv0, byte** options)
-		{
-			fixed (byte* pargv0 = &argv0)
-			{
-				TestCommonLogUsageNative(state, (byte*)pargv0, options);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(SDLTestCommonState* state, ReadOnlySpan<byte> argv0, byte** options)
-		{
-			fixed (byte* pargv0 = argv0)
-			{
-				TestCommonLogUsageNative(state, (byte*)pargv0, options);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(SDLTestCommonState* state, string argv0, byte** options)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (argv0 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(argv0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(argv0, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestCommonLogUsageNative(state, pStr0, options);
+			GlColor4BvNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(ref SDLTestCommonState state, ref byte argv0, byte** options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte* pargv0 = &argv0)
-				{
-					TestCommonLogUsageNative((SDLTestCommonState*)pstate, (byte*)pargv0, options);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(ref SDLTestCommonState state, ReadOnlySpan<byte> argv0, byte** options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte* pargv0 = argv0)
-				{
-					TestCommonLogUsageNative((SDLTestCommonState*)pstate, (byte*)pargv0, options);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(ref SDLTestCommonState state, string argv0, byte** options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (argv0 != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(argv0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(argv0, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				TestCommonLogUsageNative((SDLTestCommonState*)pstate, pStr0, options);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(SDLTestCommonState* state, byte* argv0, ref byte* options)
-		{
-			fixed (byte** poptions = &options)
-			{
-				TestCommonLogUsageNative(state, argv0, (byte**)poptions);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(ref SDLTestCommonState state, byte* argv0, ref byte* options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte** poptions = &options)
-				{
-					TestCommonLogUsageNative((SDLTestCommonState*)pstate, argv0, (byte**)poptions);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(SDLTestCommonState* state, ref byte argv0, ref byte* options)
-		{
-			fixed (byte* pargv0 = &argv0)
-			{
-				fixed (byte** poptions = &options)
-				{
-					TestCommonLogUsageNative(state, (byte*)pargv0, (byte**)poptions);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(SDLTestCommonState* state, ReadOnlySpan<byte> argv0, ref byte* options)
-		{
-			fixed (byte* pargv0 = argv0)
-			{
-				fixed (byte** poptions = &options)
-				{
-					TestCommonLogUsageNative(state, (byte*)pargv0, (byte**)poptions);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(SDLTestCommonState* state, string argv0, ref byte* options)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (argv0 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(argv0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(argv0, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (byte** poptions = &options)
-			{
-				TestCommonLogUsageNative(state, pStr0, (byte**)poptions);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(ref SDLTestCommonState state, ref byte argv0, ref byte* options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte* pargv0 = &argv0)
-				{
-					fixed (byte** poptions = &options)
-					{
-						TestCommonLogUsageNative((SDLTestCommonState*)pstate, (byte*)pargv0, (byte**)poptions);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(ref SDLTestCommonState state, ReadOnlySpan<byte> argv0, ref byte* options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (byte* pargv0 = argv0)
-				{
-					fixed (byte** poptions = &options)
-					{
-						TestCommonLogUsageNative((SDLTestCommonState*)pstate, (byte*)pargv0, (byte**)poptions);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This logs the appropriate command line options for the subsystems in use<br/>
-		/// plus other common options, and then any application-specific options.<br/>
-		/// This uses the SDL_Log() function and splits up output to be friendly to<br/>
-		/// 80-character-wide terminals.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonLogUsage(ref SDLTestCommonState state, string argv0, ref byte* options)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (argv0 != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(argv0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(argv0, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				fixed (byte** poptions = &options)
-				{
-					TestCommonLogUsageNative((SDLTestCommonState*)pstate, pStr0, (byte**)poptions);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// You should (probably) be using SDLTest_CommonLogUsage() instead, but this<br/>
-		/// function remains for binary compatibility. Strings returned from this<br/>
-		/// function are valid until SDLTest_CommonQuit() is called, in which case<br/>
-		/// those strings' memory is freed and can no longer be used.<br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestCommonUsageNative(SDLTestCommonState* state)
+		internal static void GlColor4DvNative(double* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, byte*>)funcTable[1346])(state);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1027])(v);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1346])((nint)state);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1027])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Dv(double* v)
+		{
+			GlColor4DvNative(v);
+		}
+
+		public static void GlColor4Dv(in double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlColor4DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1028])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1028])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Fv(float* v)
+		{
+			GlColor4FvNative(v);
+		}
+
+		public static void GlColor4Fv(in float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlColor4FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1029])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1029])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Iv(int* v)
+		{
+			GlColor4IvNative(v);
+		}
+
+		public static void GlColor4Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlColor4IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1030])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1030])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Sv(short* v)
+		{
+			GlColor4SvNative(v);
+		}
+
+		public static void GlColor4Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlColor4SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UbvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1031])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1031])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Ubv(byte* v)
+		{
+			GlColor4UbvNative(v);
+		}
+
+		public static void GlColor4Ubv(in byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor4UbvNative((byte*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UivNative(uint* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1032])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1032])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Uiv(uint* v)
+		{
+			GlColor4UivNative(v);
+		}
+
+		public static void GlColor4Uiv(in uint v)
+		{
+			fixed (uint* pv = &v)
+			{
+				GlColor4UivNative((uint*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UsvNative(ushort* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1033])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1033])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Usv(ushort* v)
+		{
+			GlColor4UsvNative(v);
+		}
+
+		public static void GlColor4Usv(in ushort v)
+		{
+			fixed (ushort* pv = &v)
+			{
+				GlColor4UsvNative((ushort*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1DNative(double s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
+			#endif
+		}
+
+		public static void GlTexCoord1D(double s)
+		{
+			GlTexCoord1DNative(s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1FNative(float s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1035])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1035])(s);
+			#endif
+		}
+
+		public static void GlTexCoord1F(float s)
+		{
+			GlTexCoord1FNative(s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1INative(int s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1036])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1036])(s);
+			#endif
+		}
+
+		public static void GlTexCoord1I(int s)
+		{
+			GlTexCoord1INative(s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1SNative(short s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, void>)funcTable[1037])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<short, void>)funcTable[1037])(s);
+			#endif
+		}
+
+		public static void GlTexCoord1S(short s)
+		{
+			GlTexCoord1SNative(s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2DNative(double s, double t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1038])(s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1038])(s, t);
+			#endif
+		}
+
+		public static void GlTexCoord2D(double s, double t)
+		{
+			GlTexCoord2DNative(s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2FNative(float s, float t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1039])(s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1039])(s, t);
+			#endif
+		}
+
+		public static void GlTexCoord2F(float s, float t)
+		{
+			GlTexCoord2FNative(s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2INative(int s, int t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1040])(s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1040])(s, t);
+			#endif
+		}
+
+		public static void GlTexCoord2I(int s, int t)
+		{
+			GlTexCoord2INative(s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2SNative(short s, short t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[1041])(s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[1041])(s, t);
+			#endif
+		}
+
+		public static void GlTexCoord2S(short s, short t)
+		{
+			GlTexCoord2SNative(s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3DNative(double s, double t, double r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1042])(s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1042])(s, t, r);
+			#endif
+		}
+
+		public static void GlTexCoord3D(double s, double t, double r)
+		{
+			GlTexCoord3DNative(s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3FNative(float s, float t, float r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1043])(s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1043])(s, t, r);
+			#endif
+		}
+
+		public static void GlTexCoord3F(float s, float t, float r)
+		{
+			GlTexCoord3FNative(s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3INative(int s, int t, int r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1044])(s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1044])(s, t, r);
+			#endif
+		}
+
+		public static void GlTexCoord3I(int s, int t, int r)
+		{
+			GlTexCoord3INative(s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3SNative(short s, short t, short r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1045])(s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1045])(s, t, r);
+			#endif
+		}
+
+		public static void GlTexCoord3S(short s, short t, short r)
+		{
+			GlTexCoord3SNative(s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4DNative(double s, double t, double r, double q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1046])(s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1046])(s, t, r, q);
+			#endif
+		}
+
+		public static void GlTexCoord4D(double s, double t, double r, double q)
+		{
+			GlTexCoord4DNative(s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4FNative(float s, float t, float r, float q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1047])(s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1047])(s, t, r, q);
+			#endif
+		}
+
+		public static void GlTexCoord4F(float s, float t, float r, float q)
+		{
+			GlTexCoord4FNative(s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4INative(int s, int t, int r, int q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1048])(s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1048])(s, t, r, q);
+			#endif
+		}
+
+		public static void GlTexCoord4I(int s, int t, int r, int q)
+		{
+			GlTexCoord4INative(s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4SNative(short s, short t, short r, short q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1049])(s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1049])(s, t, r, q);
+			#endif
+		}
+
+		public static void GlTexCoord4S(short s, short t, short r, short q)
+		{
+			GlTexCoord4SNative(s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1050])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1050])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord1Dv(double* v)
+		{
+			GlTexCoord1DvNative(v);
+		}
+
+		public static void GlTexCoord1Dv(in double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlTexCoord1DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1051])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1051])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord1Fv(float* v)
+		{
+			GlTexCoord1FvNative(v);
+		}
+
+		public static void GlTexCoord1Fv(in float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlTexCoord1FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1052])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1052])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord1Iv(int* v)
+		{
+			GlTexCoord1IvNative(v);
+		}
+
+		public static void GlTexCoord1Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlTexCoord1IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1053])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1053])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord1Sv(short* v)
+		{
+			GlTexCoord1SvNative(v);
+		}
+
+		public static void GlTexCoord1Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlTexCoord1SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1054])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1054])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord2Dv(double* v)
+		{
+			GlTexCoord2DvNative(v);
+		}
+
+		public static void GlTexCoord2Dv(in double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlTexCoord2DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1055])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1055])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord2Fv(float* v)
+		{
+			GlTexCoord2FvNative(v);
+		}
+
+		public static void GlTexCoord2Fv(in float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlTexCoord2FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1056])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1056])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord2Iv(int* v)
+		{
+			GlTexCoord2IvNative(v);
+		}
+
+		public static void GlTexCoord2Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlTexCoord2IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1057])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1057])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord2Sv(short* v)
+		{
+			GlTexCoord2SvNative(v);
+		}
+
+		public static void GlTexCoord2Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlTexCoord2SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1058])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1058])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord3Dv(double* v)
+		{
+			GlTexCoord3DvNative(v);
+		}
+
+		public static void GlTexCoord3Dv(in double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlTexCoord3DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1059])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1059])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord3Fv(float* v)
+		{
+			GlTexCoord3FvNative(v);
+		}
+
+		public static void GlTexCoord3Fv(in float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlTexCoord3FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1060])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1060])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord3Iv(int* v)
+		{
+			GlTexCoord3IvNative(v);
+		}
+
+		public static void GlTexCoord3Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlTexCoord3IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1061])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1061])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord3Sv(short* v)
+		{
+			GlTexCoord3SvNative(v);
+		}
+
+		public static void GlTexCoord3Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlTexCoord3SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1062])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1062])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord4Dv(double* v)
+		{
+			GlTexCoord4DvNative(v);
+		}
+
+		public static void GlTexCoord4Dv(in double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlTexCoord4DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1063])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1063])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord4Fv(float* v)
+		{
+			GlTexCoord4FvNative(v);
+		}
+
+		public static void GlTexCoord4Fv(in float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlTexCoord4FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1064])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1064])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord4Iv(int* v)
+		{
+			GlTexCoord4IvNative(v);
+		}
+
+		public static void GlTexCoord4Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlTexCoord4IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1065])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1065])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord4Sv(short* v)
+		{
+			GlTexCoord4SvNative(v);
+		}
+
+		public static void GlTexCoord4Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlTexCoord4SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2DNative(double x, double y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1066])(x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1066])(x, y);
+			#endif
+		}
+
+		public static void GlRasterPos2D(double x, double y)
+		{
+			GlRasterPos2DNative(x, y);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2FNative(float x, float y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1067])(x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1067])(x, y);
+			#endif
+		}
+
+		public static void GlRasterPos2F(float x, float y)
+		{
+			GlRasterPos2FNative(x, y);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2INative(int x, int y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1068])(x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1068])(x, y);
+			#endif
+		}
+
+		public static void GlRasterPos2I(int x, int y)
+		{
+			GlRasterPos2INative(x, y);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2SNative(short x, short y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[1069])(x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[1069])(x, y);
+			#endif
+		}
+
+		public static void GlRasterPos2S(short x, short y)
+		{
+			GlRasterPos2SNative(x, y);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3DNative(double x, double y, double z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1070])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1070])(x, y, z);
+			#endif
+		}
+
+		public static void GlRasterPos3D(double x, double y, double z)
+		{
+			GlRasterPos3DNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3FNative(float x, float y, float z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1071])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1071])(x, y, z);
+			#endif
+		}
+
+		public static void GlRasterPos3F(float x, float y, float z)
+		{
+			GlRasterPos3FNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3INative(int x, int y, int z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1072])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1072])(x, y, z);
+			#endif
+		}
+
+		public static void GlRasterPos3I(int x, int y, int z)
+		{
+			GlRasterPos3INative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3SNative(short x, short y, short z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1073])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1073])(x, y, z);
+			#endif
+		}
+
+		public static void GlRasterPos3S(short x, short y, short z)
+		{
+			GlRasterPos3SNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4DNative(double x, double y, double z, double w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1074])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1074])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlRasterPos4D(double x, double y, double z, double w)
+		{
+			GlRasterPos4DNative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4FNative(float x, float y, float z, float w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1075])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1075])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlRasterPos4F(float x, float y, float z, float w)
+		{
+			GlRasterPos4FNative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4INative(int x, int y, int z, int w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1076])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1076])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlRasterPos4I(int x, int y, int z, int w)
+		{
+			GlRasterPos4INative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4SNative(short x, short y, short z, short w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1077])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1077])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlRasterPos4S(short x, short y, short z, short w)
+		{
+			GlRasterPos4SNative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1078])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1078])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos2Dv(double* v)
+		{
+			GlRasterPos2DvNative(v);
+		}
+
+		public static void GlRasterPos2Dv(in double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlRasterPos2DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1079])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1079])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos2Fv(float* v)
+		{
+			GlRasterPos2FvNative(v);
+		}
+
+		public static void GlRasterPos2Fv(in float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlRasterPos2FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1080])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1080])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos2Iv(int* v)
+		{
+			GlRasterPos2IvNative(v);
+		}
+
+		public static void GlRasterPos2Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlRasterPos2IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1081])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1081])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos2Sv(short* v)
+		{
+			GlRasterPos2SvNative(v);
+		}
+
+		public static void GlRasterPos2Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlRasterPos2SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1082])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1082])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos3Dv(double* v)
+		{
+			GlRasterPos3DvNative(v);
+		}
+
+		public static void GlRasterPos3Dv(in double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlRasterPos3DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1083])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1083])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos3Fv(float* v)
+		{
+			GlRasterPos3FvNative(v);
+		}
+
+		public static void GlRasterPos3Fv(in float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlRasterPos3FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1084])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1084])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos3Iv(int* v)
+		{
+			GlRasterPos3IvNative(v);
+		}
+
+		public static void GlRasterPos3Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlRasterPos3IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1085])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1085])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos3Sv(short* v)
+		{
+			GlRasterPos3SvNative(v);
+		}
+
+		public static void GlRasterPos3Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlRasterPos3SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1086])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1086])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos4Dv(double* v)
+		{
+			GlRasterPos4DvNative(v);
+		}
+
+		public static void GlRasterPos4Dv(in double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlRasterPos4DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1087])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1087])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos4Fv(float* v)
+		{
+			GlRasterPos4FvNative(v);
+		}
+
+		public static void GlRasterPos4Fv(in float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlRasterPos4FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1088])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1088])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos4Iv(int* v)
+		{
+			GlRasterPos4IvNative(v);
+		}
+
+		public static void GlRasterPos4Iv(in int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlRasterPos4IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1089])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1089])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos4Sv(short* v)
+		{
+			GlRasterPos4SvNative(v);
+		}
+
+		public static void GlRasterPos4Sv(in short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlRasterPos4SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectdNative(double x1, double y1, double x2, double y2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1090])(x1, y1, x2, y2);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1090])(x1, y1, x2, y2);
+			#endif
+		}
+
+		public static void GlRectd(double x1, double y1, double x2, double y2)
+		{
+			GlRectdNative(x1, y1, x2, y2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectfNative(float x1, float y1, float x2, float y2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1091])(x1, y1, x2, y2);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1091])(x1, y1, x2, y2);
+			#endif
+		}
+
+		public static void GlRectf(float x1, float y1, float x2, float y2)
+		{
+			GlRectfNative(x1, y1, x2, y2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectiNative(int x1, int y1, int x2, int y2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1092])(x1, y1, x2, y2);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1092])(x1, y1, x2, y2);
+			#endif
+		}
+
+		public static void GlRecti(int x1, int y1, int x2, int y2)
+		{
+			GlRectiNative(x1, y1, x2, y2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectsNative(short x1, short y1, short x2, short y2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1093])(x1, y1, x2, y2);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1093])(x1, y1, x2, y2);
+			#endif
+		}
+
+		public static void GlRects(short x1, short y1, short x2, short y2)
+		{
+			GlRectsNative(x1, y1, x2, y2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectdvNative(double* v1, double* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, double*, void>)funcTable[1094])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1094])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		public static void GlRectdv(double* v1, double* v2)
+		{
+			GlRectdvNative(v1, v2);
+		}
+
+		public static void GlRectdv(in double v1, double* v2)
+		{
+			fixed (double* pv1 = &v1)
+			{
+				GlRectdvNative((double*)pv1, v2);
+			}
+		}
+
+		public static void GlRectdv(double* v1, in double v2)
+		{
+			fixed (double* pv2 = &v2)
+			{
+				GlRectdvNative(v1, (double*)pv2);
+			}
+		}
+
+		public static void GlRectdv(in double v1, in double v2)
+		{
+			fixed (double* pv1 = &v1)
+			{
+				fixed (double* pv2 = &v2)
+				{
+					GlRectdvNative((double*)pv1, (double*)pv2);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectfvNative(float* v1, float* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, float*, void>)funcTable[1095])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1095])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		public static void GlRectfv(float* v1, float* v2)
+		{
+			GlRectfvNative(v1, v2);
+		}
+
+		public static void GlRectfv(in float v1, float* v2)
+		{
+			fixed (float* pv1 = &v1)
+			{
+				GlRectfvNative((float*)pv1, v2);
+			}
+		}
+
+		public static void GlRectfv(float* v1, in float v2)
+		{
+			fixed (float* pv2 = &v2)
+			{
+				GlRectfvNative(v1, (float*)pv2);
+			}
+		}
+
+		public static void GlRectfv(in float v1, in float v2)
+		{
+			fixed (float* pv1 = &v1)
+			{
+				fixed (float* pv2 = &v2)
+				{
+					GlRectfvNative((float*)pv1, (float*)pv2);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectivNative(int* v1, int* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, int*, void>)funcTable[1096])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1096])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		public static void GlRectiv(int* v1, int* v2)
+		{
+			GlRectivNative(v1, v2);
+		}
+
+		public static void GlRectiv(in int v1, int* v2)
+		{
+			fixed (int* pv1 = &v1)
+			{
+				GlRectivNative((int*)pv1, v2);
+			}
+		}
+
+		public static void GlRectiv(int* v1, in int v2)
+		{
+			fixed (int* pv2 = &v2)
+			{
+				GlRectivNative(v1, (int*)pv2);
+			}
+		}
+
+		public static void GlRectiv(in int v1, in int v2)
+		{
+			fixed (int* pv1 = &v1)
+			{
+				fixed (int* pv2 = &v2)
+				{
+					GlRectivNative((int*)pv1, (int*)pv2);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectsvNative(short* v1, short* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, short*, void>)funcTable[1097])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1097])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		public static void GlRectsv(short* v1, short* v2)
+		{
+			GlRectsvNative(v1, v2);
+		}
+
+		public static void GlRectsv(in short v1, short* v2)
+		{
+			fixed (short* pv1 = &v1)
+			{
+				GlRectsvNative((short*)pv1, v2);
+			}
+		}
+
+		public static void GlRectsv(short* v1, in short v2)
+		{
+			fixed (short* pv2 = &v2)
+			{
+				GlRectsvNative(v1, (short*)pv2);
+			}
+		}
+
+		public static void GlRectsv(in short v1, in short v2)
+		{
+			fixed (short* pv1 = &v1)
+			{
+				fixed (short* pv2 = &v2)
+				{
+					GlRectsvNative((short*)pv1, (short*)pv2);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Vertex Arrays  (1.1)<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertexPointerNative(int size, uint type, int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1098])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1098])(size, type, stride, (nint)ptr);
 			#endif
 		}
 
 		/// <summary>
-		/// <br/>
-		/// You should (probably) be using SDLTest_CommonLogUsage() instead, but this<br/>
-		/// function remains for binary compatibility. Strings returned from this<br/>
-		/// function are valid until SDLTest_CommonQuit() is called, in which case<br/>
-		/// those strings' memory is freed and can no longer be used.<br/>
-		/// <br/>
+		/// Vertex Arrays  (1.1)<br/>
 		/// </summary>
-		public static byte* TestCommonUsage(SDLTestCommonState* state)
+		public static void GlVertexPointer(int size, uint type, int stride, void* ptr)
 		{
-			byte* ret = TestCommonUsageNative(state);
-			return ret;
+			GlVertexPointerNative(size, type, stride, ptr);
 		}
 
 		/// <summary>
-		/// <br/>
-		/// You should (probably) be using SDLTest_CommonLogUsage() instead, but this<br/>
-		/// function remains for binary compatibility. Strings returned from this<br/>
-		/// function are valid until SDLTest_CommonQuit() is called, in which case<br/>
-		/// those strings' memory is freed and can no longer be used.<br/>
-		/// <br/>
+		/// Vertex Arrays  (1.1)<br/>
 		/// </summary>
-		public static string TestCommonUsageS(SDLTestCommonState* state)
+		public static void GlVertexPointer(int size, uint type, int stride, nint ptr)
 		{
-			string ret = Utils.DecodeStringUTF8(TestCommonUsageNative(state));
-			return ret;
+			GlVertexPointerNative(size, type, stride, (void*)ptr);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// You should (probably) be using SDLTest_CommonLogUsage() instead, but this<br/>
-		/// function remains for binary compatibility. Strings returned from this<br/>
-		/// function are valid until SDLTest_CommonQuit() is called, in which case<br/>
-		/// those strings' memory is freed and can no longer be used.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* TestCommonUsage(ref SDLTestCommonState state)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				byte* ret = TestCommonUsageNative((SDLTestCommonState*)pstate);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// You should (probably) be using SDLTest_CommonLogUsage() instead, but this<br/>
-		/// function remains for binary compatibility. Strings returned from this<br/>
-		/// function are valid until SDLTest_CommonQuit() is called, in which case<br/>
-		/// those strings' memory is freed and can no longer be used.<br/>
-		/// <br/>
-		/// </summary>
-		public static string TestCommonUsageS(ref SDLTestCommonState state)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				string ret = Utils.DecodeStringUTF8(TestCommonUsageNative((SDLTestCommonState*)pstate));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool TestCommonInitNative(SDLTestCommonState* state)
+		internal static void GlNormalPointerNative(uint type, int stride, void* ptr)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLBool>)funcTable[1347])(state);
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1099])(type, stride, ptr);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[1347])((nint)state);
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1099])(type, stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlNormalPointer(uint type, int stride, void* ptr)
+		{
+			GlNormalPointerNative(type, stride, ptr);
+		}
+
+		public static void GlNormalPointer(uint type, int stride, nint ptr)
+		{
+			GlNormalPointerNative(type, stride, (void*)ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColorPointerNative(int size, uint type, int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1100])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1100])(size, type, stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlColorPointer(int size, uint type, int stride, void* ptr)
+		{
+			GlColorPointerNative(size, type, stride, ptr);
+		}
+
+		public static void GlColorPointer(int size, uint type, int stride, nint ptr)
+		{
+			GlColorPointerNative(size, type, stride, (void*)ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexPointerNative(uint type, int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1101])(type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1101])(type, stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlIndexPointer(uint type, int stride, void* ptr)
+		{
+			GlIndexPointerNative(type, stride, ptr);
+		}
+
+		public static void GlIndexPointer(uint type, int stride, nint ptr)
+		{
+			GlIndexPointerNative(type, stride, (void*)ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoordPointerNative(int size, uint type, int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1102])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1102])(size, type, stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlTexCoordPointer(int size, uint type, int stride, void* ptr)
+		{
+			GlTexCoordPointerNative(size, type, stride, ptr);
+		}
+
+		public static void GlTexCoordPointer(int size, uint type, int stride, nint ptr)
+		{
+			GlTexCoordPointerNative(size, type, stride, (void*)ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEdgeFlagPointerNative(int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void*, void>)funcTable[1103])(stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1103])(stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlEdgeFlagPointer(int stride, void* ptr)
+		{
+			GlEdgeFlagPointerNative(stride, ptr);
+		}
+
+		public static void GlEdgeFlagPointer(int stride, nint ptr)
+		{
+			GlEdgeFlagPointerNative(stride, (void*)ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPointervNative(uint pname, void** @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void**, void>)funcTable[1104])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1104])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetPointerv(uint pname, void** @params)
+		{
+			GlGetPointervNative(pname, @params);
+		}
+
+		public static void GlGetPointerv(uint pname, ref nint @params)
+		{
+			fixed (nint* pparams = &@params)
+			{
+				GlGetPointervNative(pname, (void**)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlArrayElementNative(int i)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1105])(i);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1105])(i);
+			#endif
+		}
+
+		public static void GlArrayElement(int i)
+		{
+			GlArrayElementNative(i);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawArraysNative(uint mode, int first, int count)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1106])(mode, first, count);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1106])(mode, first, count);
+			#endif
+		}
+
+		public static void GlDrawArrays(uint mode, int first, int count)
+		{
+			GlDrawArraysNative(mode, first, count);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawElementsNative(uint mode, int count, uint type, void* indices)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void*, void>)funcTable[1107])(mode, count, type, indices);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1107])(mode, count, type, (nint)indices);
+			#endif
+		}
+
+		public static void GlDrawElements(uint mode, int count, uint type, void* indices)
+		{
+			GlDrawElementsNative(mode, count, type, indices);
+		}
+
+		public static void GlDrawElements(uint mode, int count, uint type, nint indices)
+		{
+			GlDrawElementsNative(mode, count, type, (void*)indices);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlInterleavedArraysNative(uint format, int stride, void* pointer)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1108])(format, stride, pointer);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1108])(format, stride, (nint)pointer);
+			#endif
+		}
+
+		public static void GlInterleavedArrays(uint format, int stride, void* pointer)
+		{
+			GlInterleavedArraysNative(format, stride, pointer);
+		}
+
+		public static void GlInterleavedArrays(uint format, int stride, nint pointer)
+		{
+			GlInterleavedArraysNative(format, stride, (void*)pointer);
+		}
+
+		/// <summary>
+		/// Lighting<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlShadeModelNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1109])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1109])(mode);
 			#endif
 		}
 
 		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Lighting<br/>
 		/// </summary>
-		public static SDLBool TestCommonInit(SDLTestCommonState* state)
+		public static void GlShadeModel(uint mode)
 		{
-			SDLBool ret = TestCommonInitNative(state);
-			return ret;
+			GlShadeModelNative(mode);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool TestCommonInit(ref SDLTestCommonState state)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightfNative(uint light, uint pname, float param)
 		{
-			fixed (SDLTestCommonState* pstate = &state)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1110])(light, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1110])(light, pname, param);
+			#endif
+		}
+
+		public static void GlLightf(uint light, uint pname, float param)
+		{
+			GlLightfNative(light, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightiNative(uint light, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1111])(light, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1111])(light, pname, param);
+			#endif
+		}
+
+		public static void GlLighti(uint light, uint pname, int param)
+		{
+			GlLightiNative(light, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightfvNative(uint light, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1112])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1112])(light, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlLightfv(uint light, uint pname, float* @params)
+		{
+			GlLightfvNative(light, pname, @params);
+		}
+
+		public static void GlLightfv(uint light, uint pname, in float @params)
+		{
+			fixed (float* pparams = &@params)
 			{
-				SDLBool ret = TestCommonInitNative((SDLTestCommonState*)pstate);
-				return ret;
+				GlLightfvNative(light, pname, (float*)pparams);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool TestCommonDefaultArgsNative(SDLTestCommonState* state, int argc, byte** argv)
+		internal static void GlLightivNative(uint light, uint pname, int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, int, byte**, SDLBool>)funcTable[1348])(state, argc, argv);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1113])(light, pname, @params);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, SDLBool>)funcTable[1348])((nint)state, argc, (nint)argv);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1113])(light, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlLightiv(uint light, uint pname, int* @params)
+		{
+			GlLightivNative(light, pname, @params);
+		}
+
+		public static void GlLightiv(uint light, uint pname, in int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlLightivNative(light, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetLightfvNative(uint light, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1114])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1114])(light, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetLightfv(uint light, uint pname, float* @params)
+		{
+			GlGetLightfvNative(light, pname, @params);
+		}
+
+		public static void GlGetLightfv(uint light, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetLightfvNative(light, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetLightivNative(uint light, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1115])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1115])(light, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetLightiv(uint light, uint pname, int* @params)
+		{
+			GlGetLightivNative(light, pname, @params);
+		}
+
+		public static void GlGetLightiv(uint light, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetLightivNative(light, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelfNative(uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1116])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1116])(pname, param);
+			#endif
+		}
+
+		public static void GlLightModelf(uint pname, float param)
+		{
+			GlLightModelfNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModeliNative(uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1117])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1117])(pname, param);
+			#endif
+		}
+
+		public static void GlLightModeli(uint pname, int param)
+		{
+			GlLightModeliNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelfvNative(uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1118])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1118])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlLightModelfv(uint pname, float* @params)
+		{
+			GlLightModelfvNative(pname, @params);
+		}
+
+		public static void GlLightModelfv(uint pname, in float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlLightModelfvNative(pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelivNative(uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1119])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1119])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlLightModeliv(uint pname, int* @params)
+		{
+			GlLightModelivNative(pname, @params);
+		}
+
+		public static void GlLightModeliv(uint pname, in int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlLightModelivNative(pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialfNative(uint face, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1120])(face, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1120])(face, pname, param);
+			#endif
+		}
+
+		public static void GlMaterialf(uint face, uint pname, float param)
+		{
+			GlMaterialfNative(face, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialiNative(uint face, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1121])(face, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1121])(face, pname, param);
+			#endif
+		}
+
+		public static void GlMateriali(uint face, uint pname, int param)
+		{
+			GlMaterialiNative(face, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialfvNative(uint face, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1122])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1122])(face, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlMaterialfv(uint face, uint pname, float* @params)
+		{
+			GlMaterialfvNative(face, pname, @params);
+		}
+
+		public static void GlMaterialfv(uint face, uint pname, in float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlMaterialfvNative(face, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialivNative(uint face, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1123])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1123])(face, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlMaterialiv(uint face, uint pname, int* @params)
+		{
+			GlMaterialivNative(face, pname, @params);
+		}
+
+		public static void GlMaterialiv(uint face, uint pname, in int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlMaterialivNative(face, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMaterialfvNative(uint face, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1124])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1124])(face, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetMaterialfv(uint face, uint pname, float* @params)
+		{
+			GlGetMaterialfvNative(face, pname, @params);
+		}
+
+		public static void GlGetMaterialfv(uint face, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetMaterialfvNative(face, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMaterialivNative(uint face, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1125])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1125])(face, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetMaterialiv(uint face, uint pname, int* @params)
+		{
+			GlGetMaterialivNative(face, pname, @params);
+		}
+
+		public static void GlGetMaterialiv(uint face, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetMaterialivNative(face, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColorMaterialNative(uint face, uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1126])(face, mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1126])(face, mode);
+			#endif
+		}
+
+		public static void GlColorMaterial(uint face, uint mode)
+		{
+			GlColorMaterialNative(face, mode);
+		}
+
+		/// <summary>
+		/// Raster functions<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelZoomNative(float xfactor, float yfactor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1127])(xfactor, yfactor);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1127])(xfactor, yfactor);
 			#endif
 		}
 
 		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Raster functions<br/>
 		/// </summary>
-		public static SDLBool TestCommonDefaultArgs(SDLTestCommonState* state, int argc, byte** argv)
+		public static void GlPixelZoom(float xfactor, float yfactor)
 		{
-			SDLBool ret = TestCommonDefaultArgsNative(state, argc, argv);
-			return ret;
+			GlPixelZoomNative(xfactor, yfactor);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool TestCommonDefaultArgs(ref SDLTestCommonState state, int argc, byte** argv)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelStorefNative(uint pname, float param)
 		{
-			fixed (SDLTestCommonState* pstate = &state)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1128])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1128])(pname, param);
+			#endif
+		}
+
+		public static void GlPixelStoref(uint pname, float param)
+		{
+			GlPixelStorefNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelStoreiNative(uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1129])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1129])(pname, param);
+			#endif
+		}
+
+		public static void GlPixelStorei(uint pname, int param)
+		{
+			GlPixelStoreiNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelTransferfNative(uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1130])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1130])(pname, param);
+			#endif
+		}
+
+		public static void GlPixelTransferf(uint pname, float param)
+		{
+			GlPixelTransferfNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelTransferiNative(uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1131])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1131])(pname, param);
+			#endif
+		}
+
+		public static void GlPixelTransferi(uint pname, int param)
+		{
+			GlPixelTransferiNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapfvNative(uint map, int mapsize, float* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, float*, void>)funcTable[1132])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1132])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		public static void GlPixelMapfv(uint map, int mapsize, float* values)
+		{
+			GlPixelMapfvNative(map, mapsize, values);
+		}
+
+		public static void GlPixelMapfv(uint map, int mapsize, in float values)
+		{
+			fixed (float* pvalues = &values)
 			{
-				SDLBool ret = TestCommonDefaultArgsNative((SDLTestCommonState*)pstate, argc, argv);
-				return ret;
+				GlPixelMapfvNative(map, mapsize, (float*)pvalues);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool TestCommonDefaultArgs(SDLTestCommonState* state, int argc, ref byte* argv)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapuivNative(uint map, int mapsize, uint* values)
 		{
-			fixed (byte** pargv = &argv)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint*, void>)funcTable[1133])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1133])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		public static void GlPixelMapuiv(uint map, int mapsize, uint* values)
+		{
+			GlPixelMapuivNative(map, mapsize, values);
+		}
+
+		public static void GlPixelMapuiv(uint map, int mapsize, in uint values)
+		{
+			fixed (uint* pvalues = &values)
 			{
-				SDLBool ret = TestCommonDefaultArgsNative(state, argc, (byte**)pargv);
-				return ret;
+				GlPixelMapuivNative(map, mapsize, (uint*)pvalues);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool TestCommonDefaultArgs(ref SDLTestCommonState state, int argc, ref byte* argv)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapusvNative(uint map, int mapsize, ushort* values)
 		{
-			fixed (SDLTestCommonState* pstate = &state)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, ushort*, void>)funcTable[1134])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1134])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		public static void GlPixelMapusv(uint map, int mapsize, ushort* values)
+		{
+			GlPixelMapusvNative(map, mapsize, values);
+		}
+
+		public static void GlPixelMapusv(uint map, int mapsize, in ushort values)
+		{
+			fixed (ushort* pvalues = &values)
 			{
-				fixed (byte** pargv = &argv)
+				GlPixelMapusvNative(map, mapsize, (ushort*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPixelMapfvNative(uint map, float* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1135])(map, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1135])(map, (nint)values);
+			#endif
+		}
+
+		public static void GlGetPixelMapfv(uint map, float* values)
+		{
+			GlGetPixelMapfvNative(map, values);
+		}
+
+		public static void GlGetPixelMapfv(uint map, ref float values)
+		{
+			fixed (float* pvalues = &values)
+			{
+				GlGetPixelMapfvNative(map, (float*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPixelMapuivNative(uint map, uint* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint*, void>)funcTable[1136])(map, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1136])(map, (nint)values);
+			#endif
+		}
+
+		public static void GlGetPixelMapuiv(uint map, uint* values)
+		{
+			GlGetPixelMapuivNative(map, values);
+		}
+
+		public static void GlGetPixelMapuiv(uint map, ref uint values)
+		{
+			fixed (uint* pvalues = &values)
+			{
+				GlGetPixelMapuivNative(map, (uint*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPixelMapusvNative(uint map, ushort* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, ushort*, void>)funcTable[1137])(map, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1137])(map, (nint)values);
+			#endif
+		}
+
+		public static void GlGetPixelMapusv(uint map, ushort* values)
+		{
+			GlGetPixelMapusvNative(map, values);
+		}
+
+		public static void GlGetPixelMapusv(uint map, ref ushort values)
+		{
+			fixed (ushort* pvalues = &values)
+			{
+				GlGetPixelMapusvNative(map, (ushort*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlBitmapNative(int width, int height, float xorig, float yorig, float xmove, float ymove, byte* bitmap)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, float, float, float, float, byte*, void>)funcTable[1138])(width, height, xorig, yorig, xmove, ymove, bitmap);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, float, float, float, float, nint, void>)funcTable[1138])(width, height, xorig, yorig, xmove, ymove, (nint)bitmap);
+			#endif
+		}
+
+		public static void GlBitmap(int width, int height, float xorig, float yorig, float xmove, float ymove, byte* bitmap)
+		{
+			GlBitmapNative(width, height, xorig, yorig, xmove, ymove, bitmap);
+		}
+
+		public static void GlBitmap(int width, int height, float xorig, float yorig, float xmove, float ymove, in byte bitmap)
+		{
+			fixed (byte* pbitmap = &bitmap)
+			{
+				GlBitmapNative(width, height, xorig, yorig, xmove, ymove, (byte*)pbitmap);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlReadPixelsNative(int x, int y, int width, int height, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, uint, void*, void>)funcTable[1139])(x, y, width, height, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, uint, nint, void>)funcTable[1139])(x, y, width, height, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlReadPixels(int x, int y, int width, int height, uint format, uint type, void* pixels)
+		{
+			GlReadPixelsNative(x, y, width, height, format, type, pixels);
+		}
+
+		public static void GlReadPixels(int x, int y, int width, int height, uint format, uint type, nint pixels)
+		{
+			GlReadPixelsNative(x, y, width, height, format, type, (void*)pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawPixelsNative(int width, int height, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, uint, uint, void*, void>)funcTable[1140])(width, height, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, uint, uint, nint, void>)funcTable[1140])(width, height, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlDrawPixels(int width, int height, uint format, uint type, void* pixels)
+		{
+			GlDrawPixelsNative(width, height, format, type, pixels);
+		}
+
+		public static void GlDrawPixels(int width, int height, uint format, uint type, nint pixels)
+		{
+			GlDrawPixelsNative(width, height, format, type, (void*)pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCopyPixelsNative(int x, int y, int width, int height, uint type)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, void>)funcTable[1141])(x, y, width, height, type);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, void>)funcTable[1141])(x, y, width, height, type);
+			#endif
+		}
+
+		public static void GlCopyPixels(int x, int y, int width, int height, uint type)
+		{
+			GlCopyPixelsNative(x, y, width, height, type);
+		}
+
+		/// <summary>
+		/// Stenciling<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlStencilFuncNative(uint func, int reference, uint mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void>)funcTable[1142])(func, reference, mask);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void>)funcTable[1142])(func, reference, mask);
+			#endif
+		}
+
+		/// <summary>
+		/// Stenciling<br/>
+		/// </summary>
+		public static void GlStencilFunc(uint func, int reference, uint mask)
+		{
+			GlStencilFuncNative(func, reference, mask);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlStencilMaskNative(uint mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1143])(mask);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1143])(mask);
+			#endif
+		}
+
+		public static void GlStencilMask(uint mask)
+		{
+			GlStencilMaskNative(mask);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlStencilOpNative(uint fail, uint zfail, uint zpass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1144])(fail, zfail, zpass);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1144])(fail, zfail, zpass);
+			#endif
+		}
+
+		public static void GlStencilOp(uint fail, uint zfail, uint zpass)
+		{
+			GlStencilOpNative(fail, zfail, zpass);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClearStencilNative(int s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1145])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1145])(s);
+			#endif
+		}
+
+		public static void GlClearStencil(int s)
+		{
+			GlClearStencilNative(s);
+		}
+
+		/// <summary>
+		/// Texture mapping<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGendNative(uint coord, uint pname, double param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, double, void>)funcTable[1146])(coord, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, double, void>)funcTable[1146])(coord, pname, param);
+			#endif
+		}
+
+		/// <summary>
+		/// Texture mapping<br/>
+		/// </summary>
+		public static void GlTexGend(uint coord, uint pname, double param)
+		{
+			GlTexGendNative(coord, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGenfNative(uint coord, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1147])(coord, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1147])(coord, pname, param);
+			#endif
+		}
+
+		public static void GlTexGenf(uint coord, uint pname, float param)
+		{
+			GlTexGenfNative(coord, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGeniNative(uint coord, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1148])(coord, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1148])(coord, pname, param);
+			#endif
+		}
+
+		public static void GlTexGeni(uint coord, uint pname, int param)
+		{
+			GlTexGeniNative(coord, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGendvNative(uint coord, uint pname, double* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1149])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1149])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexGendv(uint coord, uint pname, double* @params)
+		{
+			GlTexGendvNative(coord, pname, @params);
+		}
+
+		public static void GlTexGendv(uint coord, uint pname, in double @params)
+		{
+			fixed (double* pparams = &@params)
+			{
+				GlTexGendvNative(coord, pname, (double*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGenfvNative(uint coord, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1150])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1150])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexGenfv(uint coord, uint pname, float* @params)
+		{
+			GlTexGenfvNative(coord, pname, @params);
+		}
+
+		public static void GlTexGenfv(uint coord, uint pname, in float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlTexGenfvNative(coord, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGenivNative(uint coord, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1151])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1151])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexGeniv(uint coord, uint pname, int* @params)
+		{
+			GlTexGenivNative(coord, pname, @params);
+		}
+
+		public static void GlTexGeniv(uint coord, uint pname, in int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlTexGenivNative(coord, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexGendvNative(uint coord, uint pname, double* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1152])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1152])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexGendv(uint coord, uint pname, double* @params)
+		{
+			GlGetTexGendvNative(coord, pname, @params);
+		}
+
+		public static void GlGetTexGendv(uint coord, uint pname, ref double @params)
+		{
+			fixed (double* pparams = &@params)
+			{
+				GlGetTexGendvNative(coord, pname, (double*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexGenfvNative(uint coord, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1153])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1153])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexGenfv(uint coord, uint pname, float* @params)
+		{
+			GlGetTexGenfvNative(coord, pname, @params);
+		}
+
+		public static void GlGetTexGenfv(uint coord, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetTexGenfvNative(coord, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexGenivNative(uint coord, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1154])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1154])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexGeniv(uint coord, uint pname, int* @params)
+		{
+			GlGetTexGenivNative(coord, pname, @params);
+		}
+
+		public static void GlGetTexGeniv(uint coord, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetTexGenivNative(coord, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexEnvfNative(uint target, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1155])(target, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1155])(target, pname, param);
+			#endif
+		}
+
+		public static void GlTexEnvf(uint target, uint pname, float param)
+		{
+			GlTexEnvfNative(target, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexEnviNative(uint target, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1156])(target, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1156])(target, pname, param);
+			#endif
+		}
+
+		public static void GlTexEnvi(uint target, uint pname, int param)
+		{
+			GlTexEnviNative(target, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexEnvfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1157])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1157])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexEnvfv(uint target, uint pname, float* @params)
+		{
+			GlTexEnvfvNative(target, pname, @params);
+		}
+
+		public static void GlTexEnvfv(uint target, uint pname, in float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlTexEnvfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexEnvivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1158])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1158])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexEnviv(uint target, uint pname, int* @params)
+		{
+			GlTexEnvivNative(target, pname, @params);
+		}
+
+		public static void GlTexEnviv(uint target, uint pname, in int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlTexEnvivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexEnvfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1159])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1159])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexEnvfv(uint target, uint pname, float* @params)
+		{
+			GlGetTexEnvfvNative(target, pname, @params);
+		}
+
+		public static void GlGetTexEnvfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetTexEnvfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexEnvivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1160])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1160])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexEnviv(uint target, uint pname, int* @params)
+		{
+			GlGetTexEnvivNative(target, pname, @params);
+		}
+
+		public static void GlGetTexEnviv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetTexEnvivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexParameterfNative(uint target, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1161])(target, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1161])(target, pname, param);
+			#endif
+		}
+
+		public static void GlTexParameterf(uint target, uint pname, float param)
+		{
+			GlTexParameterfNative(target, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexParameteriNative(uint target, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1162])(target, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1162])(target, pname, param);
+			#endif
+		}
+
+		public static void GlTexParameteri(uint target, uint pname, int param)
+		{
+			GlTexParameteriNative(target, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexParameterfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1163])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1163])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexParameterfv(uint target, uint pname, float* @params)
+		{
+			GlTexParameterfvNative(target, pname, @params);
+		}
+
+		public static void GlTexParameterfv(uint target, uint pname, in float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlTexParameterfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexParameterivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1164])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1164])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexParameteriv(uint target, uint pname, int* @params)
+		{
+			GlTexParameterivNative(target, pname, @params);
+		}
+
+		public static void GlTexParameteriv(uint target, uint pname, in int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlTexParameterivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexParameterfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1165])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1165])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexParameterfv(uint target, uint pname, float* @params)
+		{
+			GlGetTexParameterfvNative(target, pname, @params);
+		}
+
+		public static void GlGetTexParameterfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetTexParameterfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexParameterivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1166])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1166])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexParameteriv(uint target, uint pname, int* @params)
+		{
+			GlGetTexParameterivNative(target, pname, @params);
+		}
+
+		public static void GlGetTexParameteriv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetTexParameterivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexLevelParameterfvNative(uint target, int level, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, float*, void>)funcTable[1167])(target, level, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1167])(target, level, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexLevelParameterfv(uint target, int level, uint pname, float* @params)
+		{
+			GlGetTexLevelParameterfvNative(target, level, pname, @params);
+		}
+
+		public static void GlGetTexLevelParameterfv(uint target, int level, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetTexLevelParameterfvNative(target, level, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexLevelParameterivNative(uint target, int level, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int*, void>)funcTable[1168])(target, level, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1168])(target, level, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexLevelParameteriv(uint target, int level, uint pname, int* @params)
+		{
+			GlGetTexLevelParameterivNative(target, level, pname, @params);
+		}
+
+		public static void GlGetTexLevelParameteriv(uint target, int level, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetTexLevelParameterivNative(target, level, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexImage1DNative(uint target, int level, int internalFormat, int width, int border, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, uint, uint, void*, void>)funcTable[1169])(target, level, internalFormat, width, border, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, uint, uint, nint, void>)funcTable[1169])(target, level, internalFormat, width, border, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlTexImage1D(uint target, int level, int internalFormat, int width, int border, uint format, uint type, void* pixels)
+		{
+			GlTexImage1DNative(target, level, internalFormat, width, border, format, type, pixels);
+		}
+
+		public static void GlTexImage1D(uint target, int level, int internalFormat, int width, int border, uint format, uint type, nint pixels)
+		{
+			GlTexImage1DNative(target, level, internalFormat, width, border, format, type, (void*)pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexImage2DNative(uint target, int level, int internalFormat, int width, int height, int border, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, void*, void>)funcTable[1170])(target, level, internalFormat, width, height, border, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, nint, void>)funcTable[1170])(target, level, internalFormat, width, height, border, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlTexImage2D(uint target, int level, int internalFormat, int width, int height, int border, uint format, uint type, void* pixels)
+		{
+			GlTexImage2DNative(target, level, internalFormat, width, height, border, format, type, pixels);
+		}
+
+		public static void GlTexImage2D(uint target, int level, int internalFormat, int width, int height, int border, uint format, uint type, nint pixels)
+		{
+			GlTexImage2DNative(target, level, internalFormat, width, height, border, format, type, (void*)pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexImageNative(uint target, int level, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, uint, void*, void>)funcTable[1171])(target, level, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, uint, nint, void>)funcTable[1171])(target, level, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlGetTexImage(uint target, int level, uint format, uint type, void* pixels)
+		{
+			GlGetTexImageNative(target, level, format, type, pixels);
+		}
+
+		public static void GlGetTexImage(uint target, int level, uint format, uint type, nint pixels)
+		{
+			GlGetTexImageNative(target, level, format, type, (void*)pixels);
+		}
+
+		/// <summary>
+		/// 1.1 functions <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGenTexturesNative(int n, uint* textures)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint*, void>)funcTable[1172])(n, textures);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1172])(n, (nint)textures);
+			#endif
+		}
+
+		/// <summary>
+		/// 1.1 functions <br/>
+		/// </summary>
+		public static void GlGenTextures(int n, uint* textures)
+		{
+			GlGenTexturesNative(n, textures);
+		}
+
+		/// <summary>
+		/// 1.1 functions <br/>
+		/// </summary>
+		public static void GlGenTextures(int n, ref uint textures)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				GlGenTexturesNative(n, (uint*)ptextures);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDeleteTexturesNative(int n, uint* textures)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint*, void>)funcTable[1173])(n, textures);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1173])(n, (nint)textures);
+			#endif
+		}
+
+		public static void GlDeleteTextures(int n, uint* textures)
+		{
+			GlDeleteTexturesNative(n, textures);
+		}
+
+		public static void GlDeleteTextures(int n, in uint textures)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				GlDeleteTexturesNative(n, (uint*)ptextures);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlBindTextureNative(uint target, uint texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1174])(target, texture);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1174])(target, texture);
+			#endif
+		}
+
+		public static void GlBindTexture(uint target, uint texture)
+		{
+			GlBindTextureNative(target, texture);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPrioritizeTexturesNative(int n, uint* textures, float* priorities)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint*, float*, void>)funcTable[1175])(n, textures, priorities);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, nint, void>)funcTable[1175])(n, (nint)textures, (nint)priorities);
+			#endif
+		}
+
+		public static void GlPrioritizeTextures(int n, uint* textures, float* priorities)
+		{
+			GlPrioritizeTexturesNative(n, textures, priorities);
+		}
+
+		public static void GlPrioritizeTextures(int n, in uint textures, float* priorities)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				GlPrioritizeTexturesNative(n, (uint*)ptextures, priorities);
+			}
+		}
+
+		public static void GlPrioritizeTextures(int n, uint* textures, in float priorities)
+		{
+			fixed (float* ppriorities = &priorities)
+			{
+				GlPrioritizeTexturesNative(n, textures, (float*)ppriorities);
+			}
+		}
+
+		public static void GlPrioritizeTextures(int n, in uint textures, in float priorities)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				fixed (float* ppriorities = &priorities)
 				{
-					SDLBool ret = TestCommonDefaultArgsNative((SDLTestCommonState*)pstate, argc, (byte**)pargv);
+					GlPrioritizeTexturesNative(n, (uint*)ptextures, (float*)ppriorities);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GlAreTexturesResidentNative(int n, uint* textures, byte* residences)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint*, byte*, byte>)funcTable[1176])(n, textures, residences);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, nint, nint, byte>)funcTable[1176])(n, (nint)textures, (nint)residences);
+			#endif
+		}
+
+		public static byte GlAreTexturesResident(int n, uint* textures, byte* residences)
+		{
+			byte ret = GlAreTexturesResidentNative(n, textures, residences);
+			return ret;
+		}
+
+		public static byte GlAreTexturesResident(int n, in uint textures, byte* residences)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				byte ret = GlAreTexturesResidentNative(n, (uint*)ptextures, residences);
+				return ret;
+			}
+		}
+
+		public static byte GlAreTexturesResident(int n, uint* textures, ref byte residences)
+		{
+			fixed (byte* presidences = &residences)
+			{
+				byte ret = GlAreTexturesResidentNative(n, textures, (byte*)presidences);
+				return ret;
+			}
+		}
+
+		public static byte GlAreTexturesResident(int n, in uint textures, ref byte residences)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				fixed (byte* presidences = &residences)
+				{
+					byte ret = GlAreTexturesResidentNative(n, (uint*)ptextures, (byte*)presidences);
 					return ret;
 				}
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonEventNative(SDLTestCommonState* state, SDLEvent* evnt, int* done)
+		internal static byte GlIsTextureNative(uint texture)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLEvent*, int*, void>)funcTable[1349])(state, evnt, done);
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[1177])(texture);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1349])((nint)state, (nint)evnt, (nint)done);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[1177])(texture);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonEvent(SDLTestCommonState* state, SDLEvent* evnt, int* done)
+		public static byte GlIsTexture(uint texture)
 		{
-			TestCommonEventNative(state, evnt, done);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonEvent(ref SDLTestCommonState state, SDLEvent* evnt, int* done)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				TestCommonEventNative((SDLTestCommonState*)pstate, evnt, done);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonEvent(SDLTestCommonState* state, ref SDLEvent evnt, int* done)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				TestCommonEventNative(state, (SDLEvent*)pevnt, done);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonEvent(ref SDLTestCommonState state, ref SDLEvent evnt, int* done)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (SDLEvent* pevnt = &evnt)
-				{
-					TestCommonEventNative((SDLTestCommonState*)pstate, (SDLEvent*)pevnt, done);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonEvent(SDLTestCommonState* state, SDLEvent* evnt, ref int done)
-		{
-			fixed (int* pdone = &done)
-			{
-				TestCommonEventNative(state, evnt, (int*)pdone);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonEvent(ref SDLTestCommonState state, SDLEvent* evnt, ref int done)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (int* pdone = &done)
-				{
-					TestCommonEventNative((SDLTestCommonState*)pstate, evnt, (int*)pdone);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonEvent(SDLTestCommonState* state, ref SDLEvent evnt, ref int done)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				fixed (int* pdone = &done)
-				{
-					TestCommonEventNative(state, (SDLEvent*)pevnt, (int*)pdone);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonEvent(ref SDLTestCommonState state, ref SDLEvent evnt, ref int done)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				fixed (SDLEvent* pevnt = &evnt)
-				{
-					fixed (int* pdone = &done)
-					{
-						TestCommonEventNative((SDLTestCommonState*)pstate, (SDLEvent*)pevnt, (int*)pdone);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonQuitNative(SDLTestCommonState* state)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, void>)funcTable[1350])(state);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1350])((nint)state);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonQuit(SDLTestCommonState* state)
-		{
-			TestCommonQuitNative(state);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonQuit(ref SDLTestCommonState state)
-		{
-			fixed (SDLTestCommonState* pstate = &state)
-			{
-				TestCommonQuitNative((SDLTestCommonState*)pstate);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCommonDrawWindowInfoNative(SDLRenderer* renderer, SDLWindow* window, int* usedHeight)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*, int*, void>)funcTable[1351])(renderer, window, usedHeight);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1351])((nint)renderer, (nint)window, (nint)usedHeight);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonDrawWindowInfo(SDLRenderer* renderer, SDLWindow* window, int* usedHeight)
-		{
-			TestCommonDrawWindowInfoNative(renderer, window, usedHeight);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonDrawWindowInfo(ref SDLRenderer renderer, SDLWindow* window, int* usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, window, usedHeight);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonDrawWindowInfo(SDLRenderer* renderer, ref SDLWindow window, int* usedHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				TestCommonDrawWindowInfoNative(renderer, (SDLWindow*)pwindow, usedHeight);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonDrawWindowInfo(ref SDLRenderer renderer, ref SDLWindow window, int* usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, (SDLWindow*)pwindow, usedHeight);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonDrawWindowInfo(SDLRenderer* renderer, SDLWindow* window, ref int usedHeight)
-		{
-			fixed (int* pusedHeight = &usedHeight)
-			{
-				TestCommonDrawWindowInfoNative(renderer, window, (int*)pusedHeight);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonDrawWindowInfo(ref SDLRenderer renderer, SDLWindow* window, ref int usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pusedHeight = &usedHeight)
-				{
-					TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, window, (int*)pusedHeight);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonDrawWindowInfo(SDLRenderer* renderer, ref SDLWindow window, ref int usedHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pusedHeight = &usedHeight)
-				{
-					TestCommonDrawWindowInfoNative(renderer, (SDLWindow*)pwindow, (int*)pusedHeight);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestCommonDrawWindowInfo(ref SDLRenderer renderer, ref SDLWindow window, ref int usedHeight)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (int* pusedHeight = &usedHeight)
-					{
-						TestCommonDrawWindowInfoNative((SDLRenderer*)prenderer, (SDLWindow*)pwindow, (int*)pusedHeight);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Test images <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageBlitNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1352])();
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1352])();
-			#endif
-		}
-
-		/// <summary>
-		/// Test images <br/>
-		/// </summary>
-		public static SDLSurface* TestImageBlit()
-		{
-			SDLSurface* ret = TestImageBlitNative();
+			byte ret = GlIsTextureNative(texture);
 			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageBlitColorNative()
+		internal static void GlTexSubImage1DNative(uint target, int level, int xoffset, int width, uint format, uint type, void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1353])();
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, void*, void>)funcTable[1178])(target, level, xoffset, width, format, type, pixels);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1353])();
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, nint, void>)funcTable[1178])(target, level, xoffset, width, format, type, (nint)pixels);
 			#endif
 		}
 
-		public static SDLSurface* TestImageBlitColor()
+		public static void GlTexSubImage1D(uint target, int level, int xoffset, int width, uint format, uint type, void* pixels)
 		{
-			SDLSurface* ret = TestImageBlitColorNative();
-			return ret;
+			GlTexSubImage1DNative(target, level, xoffset, width, format, type, pixels);
+		}
+
+		public static void GlTexSubImage1D(uint target, int level, int xoffset, int width, uint format, uint type, nint pixels)
+		{
+			GlTexSubImage1DNative(target, level, xoffset, width, format, type, (void*)pixels);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageBlitAlphaNative()
+		internal static void GlTexSubImage2DNative(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1354])();
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, void*, void>)funcTable[1179])(target, level, xoffset, yoffset, width, height, format, type, pixels);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1354])();
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, nint, void>)funcTable[1179])(target, level, xoffset, yoffset, width, height, format, type, (nint)pixels);
 			#endif
 		}
 
-		public static SDLSurface* TestImageBlitAlpha()
+		public static void GlTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, void* pixels)
 		{
-			SDLSurface* ret = TestImageBlitAlphaNative();
-			return ret;
+			GlTexSubImage2DNative(target, level, xoffset, yoffset, width, height, format, type, pixels);
+		}
+
+		public static void GlTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, nint pixels)
+		{
+			GlTexSubImage2DNative(target, level, xoffset, yoffset, width, height, format, type, (void*)pixels);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageBlitBlendAddNative()
+		internal static void GlCopyTexImage1DNative(uint target, int level, uint internalformat, int x, int y, int width, int border)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1355])();
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void>)funcTable[1180])(target, level, internalformat, x, y, width, border);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1355])();
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void>)funcTable[1180])(target, level, internalformat, x, y, width, border);
 			#endif
 		}
 
-		public static SDLSurface* TestImageBlitBlendAdd()
+		public static void GlCopyTexImage1D(uint target, int level, uint internalformat, int x, int y, int width, int border)
 		{
-			SDLSurface* ret = TestImageBlitBlendAddNative();
-			return ret;
+			GlCopyTexImage1DNative(target, level, internalformat, x, y, width, border);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageBlitBlendNative()
+		internal static void GlCopyTexImage2DNative(uint target, int level, uint internalformat, int x, int y, int width, int height, int border)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1356])();
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void>)funcTable[1181])(target, level, internalformat, x, y, width, height, border);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1356])();
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void>)funcTable[1181])(target, level, internalformat, x, y, width, height, border);
 			#endif
 		}
 
-		public static SDLSurface* TestImageBlitBlend()
+		public static void GlCopyTexImage2D(uint target, int level, uint internalformat, int x, int y, int width, int height, int border)
 		{
-			SDLSurface* ret = TestImageBlitBlendNative();
-			return ret;
+			GlCopyTexImage2DNative(target, level, internalformat, x, y, width, height, border);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageBlitBlendModNative()
+		internal static void GlCopyTexSubImage1DNative(uint target, int level, int xoffset, int x, int y, int width)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1357])();
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, void>)funcTable[1182])(target, level, xoffset, x, y, width);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1357])();
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, void>)funcTable[1182])(target, level, xoffset, x, y, width);
 			#endif
 		}
 
-		public static SDLSurface* TestImageBlitBlendMod()
+		public static void GlCopyTexSubImage1D(uint target, int level, int xoffset, int x, int y, int width)
 		{
-			SDLSurface* ret = TestImageBlitBlendModNative();
-			return ret;
+			GlCopyTexSubImage1DNative(target, level, xoffset, x, y, width);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageBlitBlendNoneNative()
+		internal static void GlCopyTexSubImage2DNative(uint target, int level, int xoffset, int yoffset, int x, int y, int width, int height)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1358])();
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, void>)funcTable[1183])(target, level, xoffset, yoffset, x, y, width, height);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1358])();
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, void>)funcTable[1183])(target, level, xoffset, yoffset, x, y, width, height);
 			#endif
 		}
 
-		public static SDLSurface* TestImageBlitBlendNone()
+		public static void GlCopyTexSubImage2D(uint target, int level, int xoffset, int yoffset, int x, int y, int width, int height)
 		{
-			SDLSurface* ret = TestImageBlitBlendNoneNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageBlitBlendAllNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1359])();
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1359])();
-			#endif
-		}
-
-		public static SDLSurface* TestImageBlitBlendAll()
-		{
-			SDLSurface* ret = TestImageBlitBlendAllNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImageFaceNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1360])();
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1360])();
-			#endif
-		}
-
-		public static SDLSurface* TestImageFace()
-		{
-			SDLSurface* ret = TestImageFaceNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImagePrimitivesNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1361])();
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1361])();
-			#endif
-		}
-
-		public static SDLSurface* TestImagePrimitives()
-		{
-			SDLSurface* ret = TestImagePrimitivesNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* TestImagePrimitivesBlendNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1362])();
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1362])();
-			#endif
-		}
-
-		public static SDLSurface* TestImagePrimitivesBlend()
-		{
-			SDLSurface* ret = TestImagePrimitivesBlendNative();
-			return ret;
+			GlCopyTexSubImage2DNative(target, level, xoffset, yoffset, x, y, width, height);
 		}
 
 		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Evaluators<br/>
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCompareSurfacesNative(SDLSurface* surface, SDLSurface* referenceSurface, int allowableError)
+		internal static void GlMap1DNative(uint target, double u1, double u2, int stride, int order, double* points)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*, int, int>)funcTable[1363])(surface, referenceSurface, allowableError);
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double*, void>)funcTable[1184])(target, u1, u2, stride, order, points);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[1363])((nint)surface, (nint)referenceSurface, allowableError);
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, nint, void>)funcTable[1184])(target, u1, u2, stride, order, (nint)points);
 			#endif
 		}
 
 		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Evaluators<br/>
 		/// </summary>
-		public static int TestCompareSurfaces(SDLSurface* surface, SDLSurface* referenceSurface, int allowableError)
+		public static void GlMap1D(uint target, double u1, double u2, int stride, int order, double* points)
 		{
-			int ret = TestCompareSurfacesNative(surface, referenceSurface, allowableError);
-			return ret;
+			GlMap1DNative(target, u1, u2, stride, order, points);
 		}
 
 		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Evaluators<br/>
 		/// </summary>
-		public static int TestCompareSurfaces(ref SDLSurface surface, SDLSurface* referenceSurface, int allowableError)
+		public static void GlMap1D(uint target, double u1, double u2, int stride, int order, in double points)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (double* ppoints = &points)
 			{
-				int ret = TestCompareSurfacesNative((SDLSurface*)psurface, referenceSurface, allowableError);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCompareSurfaces(SDLSurface* surface, ref SDLSurface referenceSurface, int allowableError)
-		{
-			fixed (SDLSurface* preferenceSurface = &referenceSurface)
-			{
-				int ret = TestCompareSurfacesNative(surface, (SDLSurface*)preferenceSurface, allowableError);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCompareSurfaces(ref SDLSurface surface, ref SDLSurface referenceSurface, int allowableError)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLSurface* preferenceSurface = &referenceSurface)
-				{
-					int ret = TestCompareSurfacesNative((SDLSurface*)psurface, (SDLSurface*)preferenceSurface, allowableError);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCrc32InitNative(SDLTestCrc32Context* crcContext)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, int>)funcTable[1364])(crcContext);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[1364])((nint)crcContext);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Init(SDLTestCrc32Context* crcContext)
-		{
-			int ret = TestCrc32InitNative(crcContext);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The function initializes the crc table required for all crc calculations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Init(ref SDLTestCrc32Context crcContext)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				int ret = TestCrc32InitNative((SDLTestCrc32Context*)pcrcContext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCrc32CalcNative(SDLTestCrc32Context* crcContext, byte* inBuf, uint inLen, uint* crc32)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, int>)funcTable[1365])(crcContext, inBuf, inLen, crc32);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int>)funcTable[1365])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Calc(SDLTestCrc32Context* crcContext, byte* inBuf, uint inLen, uint* crc32)
-		{
-			int ret = TestCrc32CalcNative(crcContext, inBuf, inLen, crc32);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Calc(ref SDLTestCrc32Context crcContext, byte* inBuf, uint inLen, uint* crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				int ret = TestCrc32CalcNative((SDLTestCrc32Context*)pcrcContext, inBuf, inLen, crc32);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Calc(SDLTestCrc32Context* crcContext, ref byte inBuf, uint inLen, uint* crc32)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				int ret = TestCrc32CalcNative(crcContext, (byte*)pinBuf, inLen, crc32);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Calc(ref SDLTestCrc32Context crcContext, ref byte inBuf, uint inLen, uint* crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (byte* pinBuf = &inBuf)
-				{
-					int ret = TestCrc32CalcNative((SDLTestCrc32Context*)pcrcContext, (byte*)pinBuf, inLen, crc32);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Calc(SDLTestCrc32Context* crcContext, byte* inBuf, uint inLen, ref uint crc32)
-		{
-			fixed (uint* pcrc32 = &crc32)
-			{
-				int ret = TestCrc32CalcNative(crcContext, inBuf, inLen, (uint*)pcrc32);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Calc(ref SDLTestCrc32Context crcContext, byte* inBuf, uint inLen, ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (uint* pcrc32 = &crc32)
-				{
-					int ret = TestCrc32CalcNative((SDLTestCrc32Context*)pcrcContext, inBuf, inLen, (uint*)pcrc32);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Calc(SDLTestCrc32Context* crcContext, ref byte inBuf, uint inLen, ref uint crc32)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				fixed (uint* pcrc32 = &crc32)
-				{
-					int ret = TestCrc32CalcNative(crcContext, (byte*)pinBuf, inLen, (uint*)pcrc32);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Calc(ref SDLTestCrc32Context crcContext, ref byte inBuf, uint inLen, ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (byte* pinBuf = &inBuf)
-				{
-					fixed (uint* pcrc32 = &crc32)
-					{
-						int ret = TestCrc32CalcNative((SDLTestCrc32Context*)pcrcContext, (byte*)pinBuf, inLen, (uint*)pcrc32);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Same routine broken down into three steps <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCrc32CalcStartNative(SDLTestCrc32Context* crcContext, uint* crc32)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, uint*, int>)funcTable[1366])(crcContext, crc32);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[1366])((nint)crcContext, (nint)crc32);
-			#endif
-		}
-
-		/// <summary>
-		/// Same routine broken down into three steps <br/>
-		/// </summary>
-		public static int TestCrc32CalcStart(SDLTestCrc32Context* crcContext, uint* crc32)
-		{
-			int ret = TestCrc32CalcStartNative(crcContext, crc32);
-			return ret;
-		}
-
-		/// <summary>
-		/// Same routine broken down into three steps <br/>
-		/// </summary>
-		public static int TestCrc32CalcStart(ref SDLTestCrc32Context crcContext, uint* crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				int ret = TestCrc32CalcStartNative((SDLTestCrc32Context*)pcrcContext, crc32);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Same routine broken down into three steps <br/>
-		/// </summary>
-		public static int TestCrc32CalcStart(SDLTestCrc32Context* crcContext, ref uint crc32)
-		{
-			fixed (uint* pcrc32 = &crc32)
-			{
-				int ret = TestCrc32CalcStartNative(crcContext, (uint*)pcrc32);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Same routine broken down into three steps <br/>
-		/// </summary>
-		public static int TestCrc32CalcStart(ref SDLTestCrc32Context crcContext, ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (uint* pcrc32 = &crc32)
-				{
-					int ret = TestCrc32CalcStartNative((SDLTestCrc32Context*)pcrcContext, (uint*)pcrc32);
-					return ret;
-				}
+				GlMap1DNative(target, u1, u2, stride, order, (double*)ppoints);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCrc32CalcEndNative(SDLTestCrc32Context* crcContext, uint* crc32)
+		internal static void GlMap1FNative(uint target, float u1, float u2, int stride, int order, float* points)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, uint*, int>)funcTable[1367])(crcContext, crc32);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float*, void>)funcTable[1185])(target, u1, u2, stride, order, points);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[1367])((nint)crcContext, (nint)crc32);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, nint, void>)funcTable[1185])(target, u1, u2, stride, order, (nint)points);
 			#endif
 		}
 
-		public static int TestCrc32CalcEnd(SDLTestCrc32Context* crcContext, uint* crc32)
+		public static void GlMap1F(uint target, float u1, float u2, int stride, int order, float* points)
 		{
-			int ret = TestCrc32CalcEndNative(crcContext, crc32);
-			return ret;
+			GlMap1FNative(target, u1, u2, stride, order, points);
 		}
 
-		public static int TestCrc32CalcEnd(ref SDLTestCrc32Context crcContext, uint* crc32)
+		public static void GlMap1F(uint target, float u1, float u2, int stride, int order, in float points)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (float* ppoints = &points)
 			{
-				int ret = TestCrc32CalcEndNative((SDLTestCrc32Context*)pcrcContext, crc32);
-				return ret;
-			}
-		}
-
-		public static int TestCrc32CalcEnd(SDLTestCrc32Context* crcContext, ref uint crc32)
-		{
-			fixed (uint* pcrc32 = &crc32)
-			{
-				int ret = TestCrc32CalcEndNative(crcContext, (uint*)pcrc32);
-				return ret;
-			}
-		}
-
-		public static int TestCrc32CalcEnd(ref SDLTestCrc32Context crcContext, ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (uint* pcrc32 = &crc32)
-				{
-					int ret = TestCrc32CalcEndNative((SDLTestCrc32Context*)pcrcContext, (uint*)pcrc32);
-					return ret;
-				}
+				GlMap1FNative(target, u1, u2, stride, order, (float*)ppoints);
 			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCrc32CalcBufferNative(SDLTestCrc32Context* crcContext, byte* inBuf, uint inLen, uint* crc32)
+		internal static void GlMap2DNative(uint target, double u1, double u2, int ustride, int uorder, double v1, double v2, int vstride, int vorder, double* points)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, int>)funcTable[1368])(crcContext, inBuf, inLen, crc32);
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double, double, int, int, double*, void>)funcTable[1186])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int>)funcTable[1368])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double, double, int, int, nint, void>)funcTable[1186])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (nint)points);
 			#endif
 		}
 
-		public static int TestCrc32CalcBuffer(SDLTestCrc32Context* crcContext, byte* inBuf, uint inLen, uint* crc32)
+		public static void GlMap2D(uint target, double u1, double u2, int ustride, int uorder, double v1, double v2, int vstride, int vorder, double* points)
 		{
-			int ret = TestCrc32CalcBufferNative(crcContext, inBuf, inLen, crc32);
-			return ret;
+			GlMap2DNative(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 		}
 
-		public static int TestCrc32CalcBuffer(ref SDLTestCrc32Context crcContext, byte* inBuf, uint inLen, uint* crc32)
+		public static void GlMap2D(uint target, double u1, double u2, int ustride, int uorder, double v1, double v2, int vstride, int vorder, in double points)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (double* ppoints = &points)
 			{
-				int ret = TestCrc32CalcBufferNative((SDLTestCrc32Context*)pcrcContext, inBuf, inLen, crc32);
-				return ret;
+				GlMap2DNative(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (double*)ppoints);
 			}
 		}
 
-		public static int TestCrc32CalcBuffer(SDLTestCrc32Context* crcContext, ref byte inBuf, uint inLen, uint* crc32)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				int ret = TestCrc32CalcBufferNative(crcContext, (byte*)pinBuf, inLen, crc32);
-				return ret;
-			}
-		}
-
-		public static int TestCrc32CalcBuffer(ref SDLTestCrc32Context crcContext, ref byte inBuf, uint inLen, uint* crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (byte* pinBuf = &inBuf)
-				{
-					int ret = TestCrc32CalcBufferNative((SDLTestCrc32Context*)pcrcContext, (byte*)pinBuf, inLen, crc32);
-					return ret;
-				}
-			}
-		}
-
-		public static int TestCrc32CalcBuffer(SDLTestCrc32Context* crcContext, byte* inBuf, uint inLen, ref uint crc32)
-		{
-			fixed (uint* pcrc32 = &crc32)
-			{
-				int ret = TestCrc32CalcBufferNative(crcContext, inBuf, inLen, (uint*)pcrc32);
-				return ret;
-			}
-		}
-
-		public static int TestCrc32CalcBuffer(ref SDLTestCrc32Context crcContext, byte* inBuf, uint inLen, ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (uint* pcrc32 = &crc32)
-				{
-					int ret = TestCrc32CalcBufferNative((SDLTestCrc32Context*)pcrcContext, inBuf, inLen, (uint*)pcrc32);
-					return ret;
-				}
-			}
-		}
-
-		public static int TestCrc32CalcBuffer(SDLTestCrc32Context* crcContext, ref byte inBuf, uint inLen, ref uint crc32)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				fixed (uint* pcrc32 = &crc32)
-				{
-					int ret = TestCrc32CalcBufferNative(crcContext, (byte*)pinBuf, inLen, (uint*)pcrc32);
-					return ret;
-				}
-			}
-		}
-
-		public static int TestCrc32CalcBuffer(ref SDLTestCrc32Context crcContext, ref byte inBuf, uint inLen, ref uint crc32)
-		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
-			{
-				fixed (byte* pinBuf = &inBuf)
-				{
-					fixed (uint* pcrc32 = &crc32)
-					{
-						int ret = TestCrc32CalcBufferNative((SDLTestCrc32Context*)pcrcContext, (byte*)pinBuf, inLen, (uint*)pcrc32);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestCrc32DoneNative(SDLTestCrc32Context* crcContext)
+		internal static void GlMap2FNative(uint target, float u1, float u2, int ustride, int uorder, float v1, float v2, int vstride, int vorder, float* points)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, int>)funcTable[1369])(crcContext);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float, float, int, int, float*, void>)funcTable[1187])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[1369])((nint)crcContext);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float, float, int, int, nint, void>)funcTable[1187])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (nint)points);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Done(SDLTestCrc32Context* crcContext)
+		public static void GlMap2F(uint target, float u1, float u2, int ustride, int uorder, float v1, float v2, int vstride, int vorder, float* points)
 		{
-			int ret = TestCrc32DoneNative(crcContext);
-			return ret;
+			GlMap2FNative(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestCrc32Done(ref SDLTestCrc32Context crcContext)
+		public static void GlMap2F(uint target, float u1, float u2, int ustride, int uorder, float v1, float v2, int vstride, int vorder, in float points)
 		{
-			fixed (SDLTestCrc32Context* pcrcContext = &crcContext)
+			fixed (float* ppoints = &points)
 			{
-				int ret = TestCrc32DoneNative((SDLTestCrc32Context*)pcrcContext);
-				return ret;
+				GlMap2FNative(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (float*)ppoints);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestDrawCharacterNative(SDLRenderer* renderer, int x, int y, uint c)
+		internal static void GlGetMapdvNative(uint target, uint query, double* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, uint, int>)funcTable[1370])(renderer, x, y, c);
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1188])(target, query, v);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, uint, int>)funcTable[1370])((nint)renderer, x, y, c);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1188])(target, query, (nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawCharacter(SDLRenderer* renderer, int x, int y, uint c)
+		public static void GlGetMapdv(uint target, uint query, double* v)
 		{
-			int ret = TestDrawCharacterNative(renderer, x, y, c);
-			return ret;
+			GlGetMapdvNative(target, query, v);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawCharacter(ref SDLRenderer renderer, int x, int y, uint c)
+		public static void GlGetMapdv(uint target, uint query, ref double v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (double* pv = &v)
 			{
-				int ret = TestDrawCharacterNative((SDLRenderer*)prenderer, x, y, c);
-				return ret;
+				GlGetMapdvNative(target, query, (double*)pv);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestDrawStringNative(SDLRenderer* renderer, int x, int y, byte* s)
+		internal static void GlGetMapfvNative(uint target, uint query, float* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, byte*, int>)funcTable[1371])(renderer, x, y, s);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1189])(target, query, v);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, nint, int>)funcTable[1371])((nint)renderer, x, y, (nint)s);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1189])(target, query, (nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawString(SDLRenderer* renderer, int x, int y, byte* s)
+		public static void GlGetMapfv(uint target, uint query, float* v)
 		{
-			int ret = TestDrawStringNative(renderer, x, y, s);
-			return ret;
+			GlGetMapfvNative(target, query, v);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawString(ref SDLRenderer renderer, int x, int y, byte* s)
+		public static void GlGetMapfv(uint target, uint query, ref float v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (float* pv = &v)
 			{
-				int ret = TestDrawStringNative((SDLRenderer*)prenderer, x, y, s);
-				return ret;
+				GlGetMapfvNative(target, query, (float*)pv);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawString(SDLRenderer* renderer, int x, int y, ref byte s)
-		{
-			fixed (byte* ps = &s)
-			{
-				int ret = TestDrawStringNative(renderer, x, y, (byte*)ps);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawString(SDLRenderer* renderer, int x, int y, ReadOnlySpan<byte> s)
-		{
-			fixed (byte* ps = s)
-			{
-				int ret = TestDrawStringNative(renderer, x, y, (byte*)ps);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawString(SDLRenderer* renderer, int x, int y, string s)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (s != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(s);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(s, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = TestDrawStringNative(renderer, x, y, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawString(ref SDLRenderer renderer, int x, int y, ref byte s)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* ps = &s)
-				{
-					int ret = TestDrawStringNative((SDLRenderer*)prenderer, x, y, (byte*)ps);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawString(ref SDLRenderer renderer, int x, int y, ReadOnlySpan<byte> s)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* ps = s)
-				{
-					int ret = TestDrawStringNative((SDLRenderer*)prenderer, x, y, (byte*)ps);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// The font currently only supports characters in the Basic Latin and Latin-1 Supplement sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestDrawString(ref SDLRenderer renderer, int x, int y, string s)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (s != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(s);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(s, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				int ret = TestDrawStringNative((SDLRenderer*)prenderer, x, y, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTestTextWindow* TestTextWindowCreateNative(int x, int y, int w, int h)
+		internal static void GlGetMapivNative(uint target, uint query, int* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int, int, SDLTestTextWindow*>)funcTable[1372])(x, y, w, h);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1190])(target, query, v);
 			#else
-			return (SDLTestTextWindow*)((delegate* unmanaged[Cdecl]<int, int, int, int, nint>)funcTable[1372])(x, y, w, h);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1190])(target, query, (nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTestTextWindow* TestTextWindowCreate(int x, int y, int w, int h)
+		public static void GlGetMapiv(uint target, uint query, int* v)
 		{
-			SDLTestTextWindow* ret = TestTextWindowCreateNative(x, y, w, h);
-			return ret;
+			GlGetMapivNative(target, query, v);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		public static void GlGetMapiv(uint target, uint query, ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlGetMapivNative(target, query, (int*)pv);
+			}
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowDisplayNative(SDLTestTextWindow* textwin, SDLRenderer* renderer)
+		internal static void GlEvalCoord1DNative(double u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, SDLRenderer*, void>)funcTable[1373])(textwin, renderer);
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1191])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1373])((nint)textwin, (nint)renderer);
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1191])(u);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowDisplay(SDLTestTextWindow* textwin, SDLRenderer* renderer)
+		public static void GlEvalCoord1D(double u)
 		{
-			TestTextWindowDisplayNative(textwin, renderer);
+			GlEvalCoord1DNative(u);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowDisplay(ref SDLTestTextWindow textwin, SDLRenderer* renderer)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				TestTextWindowDisplayNative((SDLTestTextWindow*)ptextwin, renderer);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowDisplay(SDLTestTextWindow* textwin, ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				TestTextWindowDisplayNative(textwin, (SDLRenderer*)prenderer);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// This function should be called every frame to display the text<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowDisplay(ref SDLTestTextWindow textwin, ref SDLRenderer renderer)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				fixed (SDLRenderer* prenderer = &renderer)
-				{
-					TestTextWindowDisplayNative((SDLTestTextWindow*)ptextwin, (SDLRenderer*)prenderer);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowAddTextNative(SDLTestTextWindow* textwin, byte* fmt)
+		internal static void GlEvalCoord1FNative(float u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, byte*, void>)funcTable[1374])(textwin, fmt);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1192])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1374])((nint)textwin, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1192])(u);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddText(SDLTestTextWindow* textwin, byte* fmt)
+		public static void GlEvalCoord1F(float u)
 		{
-			TestTextWindowAddTextNative(textwin, fmt);
+			GlEvalCoord1FNative(u);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddText(ref SDLTestTextWindow textwin, byte* fmt)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				TestTextWindowAddTextNative((SDLTestTextWindow*)ptextwin, fmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddText(SDLTestTextWindow* textwin, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				TestTextWindowAddTextNative(textwin, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddText(SDLTestTextWindow* textwin, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				TestTextWindowAddTextNative(textwin, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddText(SDLTestTextWindow* textwin, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestTextWindowAddTextNative(textwin, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddText(ref SDLTestTextWindow textwin, ref byte fmt)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				fixed (byte* pfmt = &fmt)
-				{
-					TestTextWindowAddTextNative((SDLTestTextWindow*)ptextwin, (byte*)pfmt);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddText(ref SDLTestTextWindow textwin, ReadOnlySpan<byte> fmt)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				fixed (byte* pfmt = fmt)
-				{
-					TestTextWindowAddTextNative((SDLTestTextWindow*)ptextwin, (byte*)pfmt);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddText(ref SDLTestTextWindow textwin, string fmt)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (fmt != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(fmt);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				TestTextWindowAddTextNative((SDLTestTextWindow*)ptextwin, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowAddTextWithLengthNative(SDLTestTextWindow* textwin, byte* text, nuint len)
+		internal static void GlEvalCoord1DvNative(double* u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, byte*, nuint, void>)funcTable[1375])(textwin, text, len);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1193])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nuint, void>)funcTable[1375])((nint)textwin, (nint)text, len);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1193])((nint)u);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddTextWithLength(SDLTestTextWindow* textwin, byte* text, nuint len)
+		public static void GlEvalCoord1Dv(double* u)
 		{
-			TestTextWindowAddTextWithLengthNative(textwin, text, len);
+			GlEvalCoord1DvNative(u);
 		}
 
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddTextWithLength(ref SDLTestTextWindow textwin, byte* text, nuint len)
+		public static void GlEvalCoord1Dv(in double u)
 		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
+			fixed (double* pu = &u)
 			{
-				TestTextWindowAddTextWithLengthNative((SDLTestTextWindow*)ptextwin, text, len);
+				GlEvalCoord1DvNative((double*)pu);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddTextWithLength(SDLTestTextWindow* textwin, ref byte text, nuint len)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord1FvNative(float* u)
 		{
-			fixed (byte* ptext = &text)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1194])(u);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1194])((nint)u);
+			#endif
+		}
+
+		public static void GlEvalCoord1Fv(float* u)
+		{
+			GlEvalCoord1FvNative(u);
+		}
+
+		public static void GlEvalCoord1Fv(in float u)
+		{
+			fixed (float* pu = &u)
 			{
-				TestTextWindowAddTextWithLengthNative(textwin, (byte*)ptext, len);
+				GlEvalCoord1FvNative((float*)pu);
 			}
 		}
 
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddTextWithLength(SDLTestTextWindow* textwin, ReadOnlySpan<byte> text, nuint len)
-		{
-			fixed (byte* ptext = text)
-			{
-				TestTextWindowAddTextWithLengthNative(textwin, (byte*)ptext, len);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddTextWithLength(SDLTestTextWindow* textwin, string text, nuint len)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestTextWindowAddTextWithLengthNative(textwin, pStr0, len);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddTextWithLength(ref SDLTestTextWindow textwin, ref byte text, nuint len)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				fixed (byte* ptext = &text)
-				{
-					TestTextWindowAddTextWithLengthNative((SDLTestTextWindow*)ptextwin, (byte*)ptext, len);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddTextWithLength(ref SDLTestTextWindow textwin, ReadOnlySpan<byte> text, nuint len)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				fixed (byte* ptext = text)
-				{
-					TestTextWindowAddTextWithLengthNative((SDLTestTextWindow*)ptextwin, (byte*)ptext, len);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Adds UTF-8 text to the end of the current text. The newline character starts a<br/>
-		/// new line of text. The backspace character deletes the last character or, if the<br/>
-		/// line is empty, deletes the line and goes to the end of the previous line.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowAddTextWithLength(ref SDLTestTextWindow textwin, string text, nuint len)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (text != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(text);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				TestTextWindowAddTextWithLengthNative((SDLTestTextWindow*)ptextwin, pStr0, len);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowClearNative(SDLTestTextWindow* textwin)
+		internal static void GlEvalCoord2DNative(double u, double v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, void>)funcTable[1376])(textwin);
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1195])(u, v);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1376])((nint)textwin);
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1195])(u, v);
 			#endif
 		}
 
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowClear(SDLTestTextWindow* textwin)
+		public static void GlEvalCoord2D(double u, double v)
 		{
-			TestTextWindowClearNative(textwin);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowClear(ref SDLTestTextWindow textwin)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				TestTextWindowClearNative((SDLTestTextWindow*)ptextwin);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestTextWindowDestroyNative(SDLTestTextWindow* textwin)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, void>)funcTable[1377])(textwin);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1377])((nint)textwin);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowDestroy(SDLTestTextWindow* textwin)
-		{
-			TestTextWindowDestroyNative(textwin);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestTextWindowDestroy(ref SDLTestTextWindow textwin)
-		{
-			fixed (SDLTestTextWindow* ptextwin = &textwin)
-			{
-				TestTextWindowDestroyNative((SDLTestTextWindow*)ptextwin);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestCleanupTextDrawingNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1378])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1378])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		public static void TestCleanupTextDrawing()
-		{
-			TestCleanupTextDrawingNative();
-		}
-
-		/// <summary>
-		/// Initializes the fuzzer for a test<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestFuzzerInitNative(ulong execKey)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1379])(execKey);
-			#else
-			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1379])(execKey);
-			#endif
-		}
-
-		/// <summary>
-		/// Initializes the fuzzer for a test<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestFuzzerInit(ulong execKey)
-		{
-			TestFuzzerInitNative(execKey);
-		}
-
-		/// <summary>
-		/// Returns a random Uint8<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestRandomUint8Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[1380])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[1380])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random Uint8<br/>
-		/// <br/>
-		/// </summary>
-		public static byte TestRandomUint8()
-		{
-			byte ret = TestRandomUint8Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random Sint8<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static sbyte TestRandomSint8Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<sbyte>)funcTable[1381])();
-			#else
-			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte>)funcTable[1381])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random Sint8<br/>
-		/// <br/>
-		/// </summary>
-		public static sbyte TestRandomSint8()
-		{
-			sbyte ret = TestRandomSint8Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random Uint16<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort TestRandomUint16Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort>)funcTable[1382])();
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<ushort>)funcTable[1382])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random Uint16<br/>
-		/// <br/>
-		/// </summary>
-		public static ushort TestRandomUint16()
-		{
-			ushort ret = TestRandomUint16Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random Sint16<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static short TestRandomSint16Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<short>)funcTable[1383])();
-			#else
-			return (short)((delegate* unmanaged[Cdecl]<short>)funcTable[1383])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random Sint16<br/>
-		/// <br/>
-		/// </summary>
-		public static short TestRandomSint16()
-		{
-			short ret = TestRandomSint16Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random integer<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestRandomSint32Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1384])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1384])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random integer<br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRandomSint32()
-		{
-			int ret = TestRandomSint32Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random positive integer<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint TestRandomUint32Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[1385])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[1385])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random positive integer<br/>
-		/// <br/>
-		/// </summary>
-		public static uint TestRandomUint32()
-		{
-			uint ret = TestRandomUint32Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns random Uint64.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong TestRandomUint64Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1386])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1386])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns random Uint64.<br/>
-		/// <br/>
-		/// </summary>
-		public static ulong TestRandomUint64()
-		{
-			ulong ret = TestRandomUint64Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns random Sint64.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long TestRandomSint64Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long>)funcTable[1387])();
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<long>)funcTable[1387])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns random Sint64.<br/>
-		/// <br/>
-		/// </summary>
-		public static long TestRandomSint64()
-		{
-			long ret = TestRandomSint64Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float TestRandomUnitFloatNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float>)funcTable[1388])();
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float>)funcTable[1388])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		public static float TestRandomUnitFloat()
-		{
-			float ret = TestRandomUnitFloatNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double TestRandomUnitDoubleNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double>)funcTable[1389])();
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double>)funcTable[1389])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		public static double TestRandomUnitDouble()
-		{
-			double ret = TestRandomUnitDoubleNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float TestRandomFloatNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float>)funcTable[1390])();
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float>)funcTable[1390])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float TestRandomFloat()
-		{
-			float ret = TestRandomFloatNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double TestRandomDoubleNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double>)funcTable[1391])();
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double>)funcTable[1391])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double TestRandomDouble()
-		{
-			double ret = TestRandomDoubleNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint8 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint8BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20<br/>
-		/// RandomUint8BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21<br/>
-		/// RandomUint8BoundaryValue(0, 99, SDL_FALSE) returns 100<br/>
-		/// RandomUint8BoundaryValue(0, 255, SDL_FALSE) returns 0 (error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte TestRandomUint8BoundaryValueNative(byte boundary1, byte boundary2, SDLBool validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte, byte, SDLBool, byte>)funcTable[1392])(boundary1, boundary2, validDomain);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte, byte, SDLBool, byte>)funcTable[1392])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint8 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint8BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20<br/>
-		/// RandomUint8BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21<br/>
-		/// RandomUint8BoundaryValue(0, 99, SDL_FALSE) returns 100<br/>
-		/// RandomUint8BoundaryValue(0, 255, SDL_FALSE) returns 0 (error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte TestRandomUint8BoundaryValue(byte boundary1, byte boundary2, SDLBool validDomain)
-		{
-			byte ret = TestRandomUint8BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint16 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint16BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20<br/>
-		/// RandomUint16BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21<br/>
-		/// RandomUint16BoundaryValue(0, 99, SDL_FALSE) returns 100<br/>
-		/// RandomUint16BoundaryValue(0, 0xFFFF, SDL_FALSE) returns 0 (error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort TestRandomUint16BoundaryValueNative(ushort boundary1, ushort boundary2, SDLBool validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLBool, ushort>)funcTable[1393])(boundary1, boundary2, validDomain);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<ushort, ushort, SDLBool, ushort>)funcTable[1393])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint16 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint16BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20<br/>
-		/// RandomUint16BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21<br/>
-		/// RandomUint16BoundaryValue(0, 99, SDL_FALSE) returns 100<br/>
-		/// RandomUint16BoundaryValue(0, 0xFFFF, SDL_FALSE) returns 0 (error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort TestRandomUint16BoundaryValue(ushort boundary1, ushort boundary2, SDLBool validDomain)
-		{
-			ushort ret = TestRandomUint16BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint32 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint32BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20<br/>
-		/// RandomUint32BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21<br/>
-		/// RandomUint32BoundaryValue(0, 99, SDL_FALSE) returns 100<br/>
-		/// RandomUint32BoundaryValue(0, 0xFFFFFFFF, SDL_FALSE) returns 0 (with error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint TestRandomUint32BoundaryValueNative(uint boundary1, uint boundary2, SDLBool validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint, SDLBool, uint>)funcTable[1394])(boundary1, boundary2, validDomain);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint, SDLBool, uint>)funcTable[1394])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint32 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint32BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20<br/>
-		/// RandomUint32BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21<br/>
-		/// RandomUint32BoundaryValue(0, 99, SDL_FALSE) returns 100<br/>
-		/// RandomUint32BoundaryValue(0, 0xFFFFFFFF, SDL_FALSE) returns 0 (with error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint TestRandomUint32BoundaryValue(uint boundary1, uint boundary2, SDLBool validDomain)
-		{
-			uint ret = TestRandomUint32BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint64BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20<br/>
-		/// RandomUint64BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21<br/>
-		/// RandomUint64BoundaryValue(0, 99, SDL_FALSE) returns 100<br/>
-		/// RandomUint64BoundaryValue(0, 0xFFFFFFFFFFFFFFFF, SDL_FALSE) returns 0 (with error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong TestRandomUint64BoundaryValueNative(ulong boundary1, ulong boundary2, SDLBool validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, ulong, SDLBool, ulong>)funcTable[1395])(boundary1, boundary2, validDomain);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong, ulong, SDLBool, ulong>)funcTable[1395])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Uint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomUint64BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20<br/>
-		/// RandomUint64BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21<br/>
-		/// RandomUint64BoundaryValue(0, 99, SDL_FALSE) returns 100<br/>
-		/// RandomUint64BoundaryValue(0, 0xFFFFFFFFFFFFFFFF, SDL_FALSE) returns 0 (with error set)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong TestRandomUint64BoundaryValue(ulong boundary1, ulong boundary2, SDLBool validDomain)
-		{
-			ulong ret = TestRandomUint64BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint8 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint8BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint8BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint8BoundaryValue(SINT8_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint8BoundaryValue(SINT8_MIN, SINT8_MAX, SDL_FALSE) returns SINT8_MIN (== error value) with error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static sbyte TestRandomSint8BoundaryValueNative(sbyte boundary1, sbyte boundary2, SDLBool validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<sbyte, sbyte, SDLBool, sbyte>)funcTable[1396])(boundary1, boundary2, validDomain);
-			#else
-			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte, sbyte, SDLBool, sbyte>)funcTable[1396])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint8 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint8BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint8BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint8BoundaryValue(SINT8_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint8BoundaryValue(SINT8_MIN, SINT8_MAX, SDL_FALSE) returns SINT8_MIN (== error value) with error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static sbyte TestRandomSint8BoundaryValue(sbyte boundary1, sbyte boundary2, SDLBool validDomain)
-		{
-			sbyte ret = TestRandomSint8BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint16 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint16BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint16BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint16BoundaryValue(SINT16_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint16BoundaryValue(SINT16_MIN, SINT16_MAX, SDL_FALSE) returns SINT16_MIN (== error value) with error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static short TestRandomSint16BoundaryValueNative(short boundary1, short boundary2, SDLBool validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<short, short, SDLBool, short>)funcTable[1397])(boundary1, boundary2, validDomain);
-			#else
-			return (short)((delegate* unmanaged[Cdecl]<short, short, SDLBool, short>)funcTable[1397])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint16 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint16BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint16BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint16BoundaryValue(SINT16_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint16BoundaryValue(SINT16_MIN, SINT16_MAX, SDL_FALSE) returns SINT16_MIN (== error value) with error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static short TestRandomSint16BoundaryValue(short boundary1, short boundary2, SDLBool validDomain)
-		{
-			short ret = TestRandomSint16BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint32 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint32BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint32BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint32BoundaryValue(SINT32_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint32BoundaryValue(SINT32_MIN, SINT32_MAX, SDL_FALSE) returns SINT32_MIN (== error value)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestRandomSint32BoundaryValueNative(int boundary1, int boundary2, SDLBool validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLBool, int>)funcTable[1398])(boundary1, boundary2, validDomain);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, SDLBool, int>)funcTable[1398])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint32 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint32BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint32BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint32BoundaryValue(SINT32_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint32BoundaryValue(SINT32_MIN, SINT32_MAX, SDL_FALSE) returns SINT32_MIN (== error value)<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRandomSint32BoundaryValue(int boundary1, int boundary2, SDLBool validDomain)
-		{
-			int ret = TestRandomSint32BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint64BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint64BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, SINT64_MAX, SDL_FALSE) returns SINT64_MIN (== error value) and error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long TestRandomSint64BoundaryValueNative(long boundary1, long boundary2, SDLBool validDomain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, long, SDLBool, long>)funcTable[1399])(boundary1, boundary2, validDomain);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<long, long, SDLBool, long>)funcTable[1399])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint64BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint64BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, SINT64_MAX, SDL_FALSE) returns SINT64_MIN (== error value) and error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long TestRandomSint64BoundaryValue(long boundary1, long boundary2, SDLBool validDomain)
-		{
-			long ret = TestRandomSint64BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns integer in range [min, max] (inclusive).<br/>
-		/// Min and max values can be negative values.<br/>
-		/// If Max in smaller than min, then the values are swapped.<br/>
-		/// Min and max are the same value, that value will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestRandomIntegerInRangeNative(int min, int max)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1400])(min, max);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[1400])(min, max);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns integer in range [min, max] (inclusive).<br/>
-		/// Min and max values can be negative values.<br/>
-		/// If Max in smaller than min, then the values are swapped.<br/>
-		/// Min and max are the same value, that value will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRandomIntegerInRange(int min, int max)
-		{
-			int ret = TestRandomIntegerInRangeNative(min, max);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestRandomAsciiStringNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[1401])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1401])();
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* TestRandomAsciiString()
-		{
-			byte* ret = TestRandomAsciiStringNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		public static string TestRandomAsciiStringS()
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestRandomAsciiStringWithMaximumLengthNative(int maxLength)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1402])(maxLength);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1402])(maxLength);
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* TestRandomAsciiStringWithMaximumLength(int maxLength)
-		{
-			byte* ret = TestRandomAsciiStringWithMaximumLengthNative(maxLength);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string TestRandomAsciiStringWithMaximumLengthS(int maxLength)
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringWithMaximumLengthNative(maxLength));
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestRandomAsciiStringOfSizeNative(int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1403])(size);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1403])(size);
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* TestRandomAsciiStringOfSize(int size)
-		{
-			byte* ret = TestRandomAsciiStringOfSizeNative(size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string TestRandomAsciiStringOfSizeS(int size)
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringOfSizeNative(size));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the invocation count for the fuzzer since last ...FuzzerInit.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestGetFuzzerInvocationCountNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1404])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1404])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the invocation count for the fuzzer since last ...FuzzerInit.<br/>
-		/// <br/>
-		/// </summary>
-		public static int TestGetFuzzerInvocationCount()
-		{
-			int ret = TestGetFuzzerInvocationCountNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The returned string needs to be deallocated by the caller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* TestGenerateRunSeedNative(int length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1405])(length);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1405])(length);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The returned string needs to be deallocated by the caller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* TestGenerateRunSeed(int length)
-		{
-			byte* ret = TestGenerateRunSeedNative(length);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The returned string needs to be deallocated by the caller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string TestGenerateRunSeedS(int length)
-		{
-			string ret = Utils.DecodeStringUTF8(TestGenerateRunSeedNative(length));
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TestRunSuitesNative(SDLTestTestSuiteReference** testSuites, byte* userRunSeed, ulong userExecKey, byte* filter, int testIterations)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestTestSuiteReference**, byte*, ulong, byte*, int, int>)funcTable[1406])(testSuites, userRunSeed, userExecKey, filter, testIterations);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, nint, int, int>)funcTable[1406])((nint)testSuites, (nint)userRunSeed, userExecKey, (nint)filter, testIterations);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, byte* userRunSeed, ulong userExecKey, byte* filter, int testIterations)
-		{
-			int ret = TestRunSuitesNative(testSuites, userRunSeed, userExecKey, filter, testIterations);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, ref byte userRunSeed, ulong userExecKey, byte* filter, int testIterations)
-		{
-			fixed (byte* puserRunSeed = &userRunSeed)
-			{
-				int ret = TestRunSuitesNative(testSuites, (byte*)puserRunSeed, userExecKey, filter, testIterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, ReadOnlySpan<byte> userRunSeed, ulong userExecKey, byte* filter, int testIterations)
-		{
-			fixed (byte* puserRunSeed = userRunSeed)
-			{
-				int ret = TestRunSuitesNative(testSuites, (byte*)puserRunSeed, userExecKey, filter, testIterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, string userRunSeed, ulong userExecKey, byte* filter, int testIterations)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (userRunSeed != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(userRunSeed);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(userRunSeed, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = TestRunSuitesNative(testSuites, pStr0, userExecKey, filter, testIterations);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, byte* userRunSeed, ulong userExecKey, ref byte filter, int testIterations)
-		{
-			fixed (byte* pfilter = &filter)
-			{
-				int ret = TestRunSuitesNative(testSuites, userRunSeed, userExecKey, (byte*)pfilter, testIterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, byte* userRunSeed, ulong userExecKey, ReadOnlySpan<byte> filter, int testIterations)
-		{
-			fixed (byte* pfilter = filter)
-			{
-				int ret = TestRunSuitesNative(testSuites, userRunSeed, userExecKey, (byte*)pfilter, testIterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, byte* userRunSeed, ulong userExecKey, string filter, int testIterations)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (filter != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(filter);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(filter, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = TestRunSuitesNative(testSuites, userRunSeed, userExecKey, pStr0, testIterations);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, ref byte userRunSeed, ulong userExecKey, ref byte filter, int testIterations)
-		{
-			fixed (byte* puserRunSeed = &userRunSeed)
-			{
-				fixed (byte* pfilter = &filter)
-				{
-					int ret = TestRunSuitesNative(testSuites, (byte*)puserRunSeed, userExecKey, (byte*)pfilter, testIterations);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, ReadOnlySpan<byte> userRunSeed, ulong userExecKey, ReadOnlySpan<byte> filter, int testIterations)
-		{
-			fixed (byte* puserRunSeed = userRunSeed)
-			{
-				fixed (byte* pfilter = filter)
-				{
-					int ret = TestRunSuitesNative(testSuites, (byte*)puserRunSeed, userExecKey, (byte*)pfilter, testIterations);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int TestRunSuites(SDLTestTestSuiteReference** testSuites, string userRunSeed, ulong userExecKey, string filter, int testIterations)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (userRunSeed != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(userRunSeed);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(userRunSeed, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (filter != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(filter);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(filter, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			int ret = TestRunSuitesNative(testSuites, pStr0, userExecKey, pStr1, testIterations);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestLogNative(byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1407])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1407])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestLog(byte* fmt)
-		{
-			TestLogNative(fmt);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestLog(ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				TestLogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestLog(ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				TestLogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestLog(string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestLogNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TestLogErrorNative(byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1408])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1408])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestLogError(byte* fmt)
-		{
-			TestLogErrorNative(fmt);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void TestLogError(ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				TestLogErrorNative((byte*)pfmt);
-			}
+			GlEvalCoord2DNative(u, v);
 		}
 	}
 }

@@ -26,67 +26,92 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_StorageInterface")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLStorageInterface
 	{
 		/// <summary>
 		/// The version of this interface <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "version")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Version;
 
 		/// <summary>
 		/// Called when the storage is closed <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "close")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata) *")]
 		public unsafe void* Close;
 
 		/// <summary>
 		/// Optional, returns whether the storage is currently ready for access <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "ready")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata) *")]
 		public unsafe void* Ready;
 
 		/// <summary>
 		/// Enumerate a directory, optional for write-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "enumerate")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, SDL_EnumerateDirectoryCallback callback, void * callback_userdata) *")]
 		public unsafe void* Enumerate;
 
 		/// <summary>
 		/// Get path information, optional for write-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "info")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, SDL_PathInfo * info) *")]
 		public unsafe void* Info;
 
 		/// <summary>
 		/// Read a file from storage, optional for write-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "read_file")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, void * destination, Uint64 length) *")]
 		public unsafe void* ReadFile;
 
 		/// <summary>
 		/// Write a file to storage, optional for read-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "write_file")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, void const * source, Uint64 length) *")]
 		public unsafe void* WriteFile;
 
 		/// <summary>
 		/// Create a directory, optional for read-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mkdir")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path) *")]
 		public unsafe void* Mkdir;
 
 		/// <summary>
 		/// Remove a file or empty directory, optional for read-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "remove")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path) *")]
 		public unsafe void* Remove;
 
 		/// <summary>
 		/// Rename a path, optional for read-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "rename")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * oldpath, char const * newpath) *")]
 		public unsafe void* Rename;
 
 		/// <summary>
 		/// Copy a file, optional for read-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "copy")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * oldpath, char const * newpath) *")]
 		public unsafe void* Copy;
 
 		/// <summary>
 		/// Get the space remaining, optional for read-only storage <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "space_remaining")]
+		[NativeName(NativeNameType.Type, "Uint64 (*)(void * userdata) *")]
 		public unsafe void* SpaceRemaining;
 
 
@@ -107,6 +132,106 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Function interface for SDL_Storage.<br/>
+	/// Apps that want to supply a custom implementation of SDL_Storage will fill<br/>
+	/// in all the functions in this struct, and then pass it to SDL_OpenStorage to<br/>
+	/// create a custom SDL_Storage object.<br/>
+	/// It is not usually necessary to do this; SDL provides standard<br/>
+	/// implementations for many things you might expect to do with an SDL_Storage.<br/>
+	/// This structure should be initialized using SDL_INIT_INTERFACE()<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_StorageInterface")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLStorageInterfacePtr : IEquatable<SDLStorageInterfacePtr>
+	{
+		public SDLStorageInterfacePtr(SDLStorageInterface* handle) { Handle = handle; }
+
+		public SDLStorageInterface* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLStorageInterfacePtr Null => new SDLStorageInterfacePtr(null);
+
+		public SDLStorageInterface this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLStorageInterfacePtr(SDLStorageInterface* handle) => new SDLStorageInterfacePtr(handle);
+
+		public static implicit operator SDLStorageInterface*(SDLStorageInterfacePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLStorageInterfacePtr left, SDLStorageInterfacePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLStorageInterfacePtr left, SDLStorageInterfacePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLStorageInterfacePtr left, SDLStorageInterface* right) => left.Handle == right;
+
+		public static bool operator !=(SDLStorageInterfacePtr left, SDLStorageInterface* right) => left.Handle != right;
+
+		public bool Equals(SDLStorageInterfacePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLStorageInterfacePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLStorageInterfacePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The version of this interface <br/>
+		/// </summary>
+		public ref uint Version => ref Unsafe.AsRef<uint>(&Handle->Version);
+		/// <summary>
+		/// Called when the storage is closed <br/>
+		/// </summary>
+		public void* Close { get => Handle->Close; set => Handle->Close = value; }
+		/// <summary>
+		/// Optional, returns whether the storage is currently ready for access <br/>
+		/// </summary>
+		public void* Ready { get => Handle->Ready; set => Handle->Ready = value; }
+		/// <summary>
+		/// Enumerate a directory, optional for write-only storage <br/>
+		/// </summary>
+		public void* Enumerate { get => Handle->Enumerate; set => Handle->Enumerate = value; }
+		/// <summary>
+		/// Get path information, optional for write-only storage <br/>
+		/// </summary>
+		public void* Info { get => Handle->Info; set => Handle->Info = value; }
+		/// <summary>
+		/// Read a file from storage, optional for write-only storage <br/>
+		/// </summary>
+		public void* ReadFile { get => Handle->ReadFile; set => Handle->ReadFile = value; }
+		/// <summary>
+		/// Write a file to storage, optional for read-only storage <br/>
+		/// </summary>
+		public void* WriteFile { get => Handle->WriteFile; set => Handle->WriteFile = value; }
+		/// <summary>
+		/// Create a directory, optional for read-only storage <br/>
+		/// </summary>
+		public void* Mkdir { get => Handle->Mkdir; set => Handle->Mkdir = value; }
+		/// <summary>
+		/// Remove a file or empty directory, optional for read-only storage <br/>
+		/// </summary>
+		public void* Remove { get => Handle->Remove; set => Handle->Remove = value; }
+		/// <summary>
+		/// Rename a path, optional for read-only storage <br/>
+		/// </summary>
+		public void* Rename { get => Handle->Rename; set => Handle->Rename = value; }
+		/// <summary>
+		/// Copy a file, optional for read-only storage <br/>
+		/// </summary>
+		public void* Copy { get => Handle->Copy; set => Handle->Copy = value; }
+		/// <summary>
+		/// Get the space remaining, optional for read-only storage <br/>
+		/// </summary>
+		public void* SpaceRemaining { get => Handle->SpaceRemaining; set => Handle->SpaceRemaining = value; }
 	}
 
 }

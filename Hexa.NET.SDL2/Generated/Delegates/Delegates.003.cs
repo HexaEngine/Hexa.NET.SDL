@@ -397,21 +397,21 @@ namespace Hexa.NET.SDL2
 
 	#if NET5_0_OR_GREATER
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfngleglimagetargettexstorageextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLeglImageOES")] GLeglImageOES image, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "GLint const *")] int* attribList);
+	public unsafe delegate void Pfngleglimagetargettexstorageextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLeglImageOES")] void* image, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "GLint const *")] int* attribList);
 
 	#else
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfngleglimagetargettexstorageextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLeglImageOES")] GLeglImageOES image, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "GLint const *")] nint attribList);
+	public unsafe delegate void Pfngleglimagetargettexstorageextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLeglImageOES")] nint image, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "GLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfngleglimagetargettexturestorageextproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLeglImageOES")] GLeglImageOES image, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "GLint const *")] int* attribList);
+	public unsafe delegate void Pfngleglimagetargettexturestorageextproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLeglImageOES")] void* image, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "GLint const *")] int* attribList);
 
 	#else
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfngleglimagetargettexturestorageextproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLeglImageOES")] GLeglImageOES image, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "GLint const *")] nint attribList);
+	public unsafe delegate void Pfngleglimagetargettexturestorageextproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLeglImageOES")] nint image, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "GLint const *")] nint attribList);
 
 	#endif
 
@@ -3597,21 +3597,21 @@ namespace Hexa.NET.SDL2
 
 	#if NET5_0_OR_GREATER
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfnglbufferstorageexternalextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] GLeglClientBufferEXT clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate void Pfnglbufferstorageexternalextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] void* clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
 
 	#else
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfnglbufferstorageexternalextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] GLeglClientBufferEXT clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate void Pfnglbufferstorageexternalextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] nint clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfnglnamedbufferstorageexternalextproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] GLeglClientBufferEXT clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate void Pfnglnamedbufferstorageexternalextproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] void* clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
 
 	#else
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfnglnamedbufferstorageexternalextproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] GLeglClientBufferEXT clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate void Pfnglnamedbufferstorageexternalextproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] nint clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
 
 	#endif
 

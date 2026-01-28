@@ -19,33 +19,46 @@ namespace Hexa.NET.SDL3
 	/// Gamepad sensor event structure (event.gsensor.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GamepadSensorEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGamepadSensorEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_GAMEPAD_SENSOR_UPDATE <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 		/// <summary>
 		/// The type of the sensor, one of the values of SDL_SensorType <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sensor")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Sensor;
 
 		/// <summary>
 		/// Up to 3 values from the sensor, as defined in SDL_sensor.h <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "data")]
+		[NativeName(NativeNameType.Type, "float[3]")]
 		public float Data_0;
 		public float Data_1;
 		public float Data_2;
@@ -53,6 +66,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// The timestamp of the sensor reading in nanoseconds, not necessarily synchronized with the system clock <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sensor_timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong SensorTimestamp;
 
 

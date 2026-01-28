@@ -16,19 +16,19 @@ namespace Hexa.NET.SDL2
 {
 	public static unsafe partial class Extensions
 	{
-		public static int Close(this SDLIconv cd)
+		public static int Close(this SDLIconvT cd)
 		{
 			int ret = SDL.IconvCloseNative(cd);
 			return ret;
 		}
 
-		public static nuint Iconv(this SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			nuint ret = SDL.IconvNative(cd, inbuf, inbytesleft, outbuf, outbytesleft);
 			return ret;
 		}
 
-		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -37,7 +37,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -46,7 +46,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -58,7 +58,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** poutbuf = &outbuf)
 			{
@@ -67,7 +67,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -79,7 +79,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -91,7 +91,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -106,7 +106,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* poutbytesleft = &outbytesleft)
 			{
@@ -115,7 +115,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -127,7 +127,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -139,7 +139,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -154,7 +154,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** poutbuf = &outbuf)
 			{
@@ -166,7 +166,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -181,7 +181,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -196,7 +196,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconvT cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -220,9 +220,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void DeleteContext(this SDLGLContext context)
+		public static void DeleteContext(this nint context)
 		{
-			SDL.GLDeleteContextNative(context);
+			SDL.GLDeleteContextNative((void*)context);
 		}
 
 		/// <summary>
@@ -232,9 +232,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void DestroyView(this SDLMetalView view)
+		public static void DestroyView(this nint view)
 		{
-			SDL.MetalDestroyViewNative(view);
+			SDL.MetalDestroyViewNative((void*)view);
 		}
 
 		/// <summary>
@@ -242,456 +242,894 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* GetLayer(this SDLMetalView view)
+		public static void* GetLayer(this nint view)
 		{
-			void* ret = SDL.MetalGetLayerNative(view);
+			void* ret = SDL.MetalGetLayerNative((void*)view);
 			return ret;
 		}
 
-		public static uint ChooseConfig(this EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, int* numConfig)
+		public static uint ChooseConfig(this nint dpy, int* attribList, void** configs, int configSize, int* numConfig)
 		{
-			uint ret = SDL.EglChooseConfigNative(dpy, attribList, configs, configSize, numConfig);
+			uint ret = SDL.EglChooseConfigNative((void*)dpy, attribList, configs, configSize, numConfig);
 			return ret;
 		}
 
-		public static uint ChooseConfig(this EGLDisplay dpy, ref int attribList, EGLConfig* configs, int configSize, int* numConfig)
+		public static uint ChooseConfig(this nint dpy, in int attribList, void** configs, int configSize, int* numConfig)
 		{
 			fixed (int* pattribList = &attribList)
 			{
-				uint ret = SDL.EglChooseConfigNative(dpy, (int*)pattribList, configs, configSize, numConfig);
+				uint ret = SDL.EglChooseConfigNative((void*)dpy, (int*)pattribList, configs, configSize, numConfig);
 				return ret;
 			}
 		}
 
-		public static uint ChooseConfig(this EGLDisplay dpy, int* attribList, ref EGLConfig configs, int configSize, int* numConfig)
+		public static uint ChooseConfig(this nint dpy, int* attribList, ref nint configs, int configSize, int* numConfig)
 		{
-			fixed (EGLConfig* pconfigs = &configs)
+			fixed (nint* pconfigs = &configs)
 			{
-				uint ret = SDL.EglChooseConfigNative(dpy, attribList, (EGLConfig*)pconfigs, configSize, numConfig);
+				uint ret = SDL.EglChooseConfigNative((void*)dpy, attribList, (void**)pconfigs, configSize, numConfig);
 				return ret;
 			}
 		}
 
-		public static uint ChooseConfig(this EGLDisplay dpy, ref int attribList, ref EGLConfig configs, int configSize, int* numConfig)
+		public static uint ChooseConfig(this nint dpy, in int attribList, ref nint configs, int configSize, int* numConfig)
 		{
 			fixed (int* pattribList = &attribList)
 			{
-				fixed (EGLConfig* pconfigs = &configs)
+				fixed (nint* pconfigs = &configs)
 				{
-					uint ret = SDL.EglChooseConfigNative(dpy, (int*)pattribList, (EGLConfig*)pconfigs, configSize, numConfig);
+					uint ret = SDL.EglChooseConfigNative((void*)dpy, (int*)pattribList, (void**)pconfigs, configSize, numConfig);
 					return ret;
 				}
 			}
 		}
 
-		public static uint ChooseConfig(this EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, ref int numConfig)
+		public static uint ChooseConfig(this nint dpy, int* attribList, void** configs, int configSize, ref int numConfig)
 		{
 			fixed (int* pnumConfig = &numConfig)
 			{
-				uint ret = SDL.EglChooseConfigNative(dpy, attribList, configs, configSize, (int*)pnumConfig);
+				uint ret = SDL.EglChooseConfigNative((void*)dpy, attribList, configs, configSize, (int*)pnumConfig);
 				return ret;
 			}
 		}
 
-		public static uint ChooseConfig(this EGLDisplay dpy, ref int attribList, EGLConfig* configs, int configSize, ref int numConfig)
+		public static uint ChooseConfig(this nint dpy, in int attribList, void** configs, int configSize, ref int numConfig)
 		{
 			fixed (int* pattribList = &attribList)
 			{
 				fixed (int* pnumConfig = &numConfig)
 				{
-					uint ret = SDL.EglChooseConfigNative(dpy, (int*)pattribList, configs, configSize, (int*)pnumConfig);
+					uint ret = SDL.EglChooseConfigNative((void*)dpy, (int*)pattribList, configs, configSize, (int*)pnumConfig);
 					return ret;
 				}
 			}
 		}
 
-		public static uint ChooseConfig(this EGLDisplay dpy, int* attribList, ref EGLConfig configs, int configSize, ref int numConfig)
+		public static uint ChooseConfig(this nint dpy, int* attribList, ref nint configs, int configSize, ref int numConfig)
 		{
-			fixed (EGLConfig* pconfigs = &configs)
+			fixed (nint* pconfigs = &configs)
 			{
 				fixed (int* pnumConfig = &numConfig)
 				{
-					uint ret = SDL.EglChooseConfigNative(dpy, attribList, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
+					uint ret = SDL.EglChooseConfigNative((void*)dpy, attribList, (void**)pconfigs, configSize, (int*)pnumConfig);
 					return ret;
 				}
 			}
 		}
 
-		public static uint ChooseConfig(this EGLDisplay dpy, ref int attribList, ref EGLConfig configs, int configSize, ref int numConfig)
+		public static uint ChooseConfig(this nint dpy, in int attribList, ref nint configs, int configSize, ref int numConfig)
 		{
 			fixed (int* pattribList = &attribList)
 			{
-				fixed (EGLConfig* pconfigs = &configs)
+				fixed (nint* pconfigs = &configs)
 				{
 					fixed (int* pnumConfig = &numConfig)
 					{
-						uint ret = SDL.EglChooseConfigNative(dpy, (int*)pattribList, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
+						uint ret = SDL.EglChooseConfigNative((void*)dpy, (int*)pattribList, (void**)pconfigs, configSize, (int*)pnumConfig);
 						return ret;
 					}
 				}
 			}
 		}
 
-		public static uint CopyBuffers(this EGLDisplay dpy, EGLSurface surface, nint target)
+		public static uint CopyBuffers(this nint dpy, void* surface, nint target)
 		{
-			uint ret = SDL.EglCopyBuffersNative(dpy, surface, target);
+			uint ret = SDL.EglCopyBuffersNative((void*)dpy, surface, target);
 			return ret;
 		}
 
-		public static EGLContext CreateContext(this EGLDisplay dpy, EGLConfig config, EGLContext shareContext, int* attribList)
+		public static uint CopyBuffers(this nint dpy, nint surface, nint target)
 		{
-			EGLContext ret = SDL.EglCreateContextNative(dpy, config, shareContext, attribList);
+			uint ret = SDL.EglCopyBuffersNative((void*)dpy, (void*)surface, target);
 			return ret;
 		}
 
-		public static EGLContext CreateContext(this EGLDisplay dpy, EGLConfig config, EGLContext shareContext, ref int attribList)
+		public static void* CreateContext(this nint dpy, void* config, void* shareContext, int* attribList)
+		{
+			void* ret = SDL.EglCreateContextNative((void*)dpy, config, shareContext, attribList);
+			return ret;
+		}
+
+		public static void* CreateContext(this nint dpy, nint config, void* shareContext, int* attribList)
+		{
+			void* ret = SDL.EglCreateContextNative((void*)dpy, (void*)config, shareContext, attribList);
+			return ret;
+		}
+
+		public static void* CreateContext(this nint dpy, void* config, nint shareContext, int* attribList)
+		{
+			void* ret = SDL.EglCreateContextNative((void*)dpy, config, (void*)shareContext, attribList);
+			return ret;
+		}
+
+		public static void* CreateContext(this nint dpy, nint config, nint shareContext, int* attribList)
+		{
+			void* ret = SDL.EglCreateContextNative((void*)dpy, (void*)config, (void*)shareContext, attribList);
+			return ret;
+		}
+
+		public static void* CreateContext(this nint dpy, void* config, void* shareContext, in int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
-				EGLContext ret = SDL.EglCreateContextNative(dpy, config, shareContext, (int*)pattribList);
+				void* ret = SDL.EglCreateContextNative((void*)dpy, config, shareContext, (int*)pattribList);
 				return ret;
 			}
 		}
 
-		public static EGLSurface CreatePbufferSurface(this EGLDisplay dpy, EGLConfig config, int* attribList)
-		{
-			EGLSurface ret = SDL.EglCreatePbufferSurfaceNative(dpy, config, attribList);
-			return ret;
-		}
-
-		public static EGLSurface CreatePbufferSurface(this EGLDisplay dpy, EGLConfig config, ref int attribList)
+		public static void* CreateContext(this nint dpy, nint config, void* shareContext, in int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
-				EGLSurface ret = SDL.EglCreatePbufferSurfaceNative(dpy, config, (int*)pattribList);
+				void* ret = SDL.EglCreateContextNative((void*)dpy, (void*)config, shareContext, (int*)pattribList);
 				return ret;
 			}
 		}
 
-		public static EGLSurface CreatePixmapSurface(this EGLDisplay dpy, EGLConfig config, nint pixmap, int* attribList)
-		{
-			EGLSurface ret = SDL.EglCreatePixmapSurfaceNative(dpy, config, pixmap, attribList);
-			return ret;
-		}
-
-		public static EGLSurface CreatePixmapSurface(this EGLDisplay dpy, EGLConfig config, nint pixmap, ref int attribList)
+		public static void* CreateContext(this nint dpy, void* config, nint shareContext, in int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
-				EGLSurface ret = SDL.EglCreatePixmapSurfaceNative(dpy, config, pixmap, (int*)pattribList);
+				void* ret = SDL.EglCreateContextNative((void*)dpy, config, (void*)shareContext, (int*)pattribList);
 				return ret;
 			}
 		}
 
-		public static EGLSurface CreateWindowSurface(this EGLDisplay dpy, EGLConfig config, nint win, int* attribList)
-		{
-			EGLSurface ret = SDL.EglCreateWindowSurfaceNative(dpy, config, win, attribList);
-			return ret;
-		}
-
-		public static EGLSurface CreateWindowSurface(this EGLDisplay dpy, EGLConfig config, nint win, ref int attribList)
+		public static void* CreateContext(this nint dpy, nint config, nint shareContext, in int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
-				EGLSurface ret = SDL.EglCreateWindowSurfaceNative(dpy, config, win, (int*)pattribList);
+				void* ret = SDL.EglCreateContextNative((void*)dpy, (void*)config, (void*)shareContext, (int*)pattribList);
 				return ret;
 			}
 		}
 
-		public static uint DestroyContext(this EGLDisplay dpy, EGLContext ctx)
+		public static void* CreatePbufferSurface(this nint dpy, void* config, int* attribList)
 		{
-			uint ret = SDL.EglDestroyContextNative(dpy, ctx);
+			void* ret = SDL.EglCreatePbufferSurfaceNative((void*)dpy, config, attribList);
 			return ret;
 		}
 
-		public static uint DestroySurface(this EGLDisplay dpy, EGLSurface surface)
+		public static void* CreatePbufferSurface(this nint dpy, nint config, int* attribList)
 		{
-			uint ret = SDL.EglDestroySurfaceNative(dpy, surface);
+			void* ret = SDL.EglCreatePbufferSurfaceNative((void*)dpy, (void*)config, attribList);
 			return ret;
 		}
 
-		public static uint GetConfigAttrib(this EGLDisplay dpy, EGLConfig config, int attribute, int* value)
+		public static void* CreatePbufferSurface(this nint dpy, void* config, in int attribList)
 		{
-			uint ret = SDL.EglGetConfigAttribNative(dpy, config, attribute, value);
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePbufferSurfaceNative((void*)dpy, config, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePbufferSurface(this nint dpy, nint config, in int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePbufferSurfaceNative((void*)dpy, (void*)config, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePixmapSurface(this nint dpy, void* config, nint pixmap, int* attribList)
+		{
+			void* ret = SDL.EglCreatePixmapSurfaceNative((void*)dpy, config, pixmap, attribList);
 			return ret;
 		}
 
-		public static uint GetConfigAttrib(this EGLDisplay dpy, EGLConfig config, int attribute, ref int value)
+		public static void* CreatePixmapSurface(this nint dpy, nint config, nint pixmap, int* attribList)
+		{
+			void* ret = SDL.EglCreatePixmapSurfaceNative((void*)dpy, (void*)config, pixmap, attribList);
+			return ret;
+		}
+
+		public static void* CreatePixmapSurface(this nint dpy, void* config, nint pixmap, in int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePixmapSurfaceNative((void*)dpy, config, pixmap, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePixmapSurface(this nint dpy, nint config, nint pixmap, in int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePixmapSurfaceNative((void*)dpy, (void*)config, pixmap, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreateWindowSurface(this nint dpy, void* config, nint win, int* attribList)
+		{
+			void* ret = SDL.EglCreateWindowSurfaceNative((void*)dpy, config, win, attribList);
+			return ret;
+		}
+
+		public static void* CreateWindowSurface(this nint dpy, nint config, nint win, int* attribList)
+		{
+			void* ret = SDL.EglCreateWindowSurfaceNative((void*)dpy, (void*)config, win, attribList);
+			return ret;
+		}
+
+		public static void* CreateWindowSurface(this nint dpy, void* config, nint win, in int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreateWindowSurfaceNative((void*)dpy, config, win, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreateWindowSurface(this nint dpy, nint config, nint win, in int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreateWindowSurfaceNative((void*)dpy, (void*)config, win, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static uint DestroyContext(this nint dpy, void* ctx)
+		{
+			uint ret = SDL.EglDestroyContextNative((void*)dpy, ctx);
+			return ret;
+		}
+
+		public static uint DestroyContext(this nint dpy, nint ctx)
+		{
+			uint ret = SDL.EglDestroyContextNative((void*)dpy, (void*)ctx);
+			return ret;
+		}
+
+		public static uint DestroySurface(this nint dpy, void* surface)
+		{
+			uint ret = SDL.EglDestroySurfaceNative((void*)dpy, surface);
+			return ret;
+		}
+
+		public static uint DestroySurface(this nint dpy, nint surface)
+		{
+			uint ret = SDL.EglDestroySurfaceNative((void*)dpy, (void*)surface);
+			return ret;
+		}
+
+		public static uint GetConfigAttrib(this nint dpy, void* config, int attribute, int* value)
+		{
+			uint ret = SDL.EglGetConfigAttribNative((void*)dpy, config, attribute, value);
+			return ret;
+		}
+
+		public static uint GetConfigAttrib(this nint dpy, nint config, int attribute, int* value)
+		{
+			uint ret = SDL.EglGetConfigAttribNative((void*)dpy, (void*)config, attribute, value);
+			return ret;
+		}
+
+		public static uint GetConfigAttrib(this nint dpy, void* config, int attribute, ref int value)
 		{
 			fixed (int* pvalue = &value)
 			{
-				uint ret = SDL.EglGetConfigAttribNative(dpy, config, attribute, (int*)pvalue);
+				uint ret = SDL.EglGetConfigAttribNative((void*)dpy, config, attribute, (int*)pvalue);
 				return ret;
 			}
 		}
 
-		public static uint GetConfigs(this EGLDisplay dpy, EGLConfig* configs, int configSize, int* numConfig)
+		public static uint GetConfigAttrib(this nint dpy, nint config, int attribute, ref int value)
 		{
-			uint ret = SDL.EglGetConfigsNative(dpy, configs, configSize, numConfig);
+			fixed (int* pvalue = &value)
+			{
+				uint ret = SDL.EglGetConfigAttribNative((void*)dpy, (void*)config, attribute, (int*)pvalue);
+				return ret;
+			}
+		}
+
+		public static uint GetConfigs(this nint dpy, void** configs, int configSize, int* numConfig)
+		{
+			uint ret = SDL.EglGetConfigsNative((void*)dpy, configs, configSize, numConfig);
 			return ret;
 		}
 
-		public static uint GetConfigs(this EGLDisplay dpy, ref EGLConfig configs, int configSize, int* numConfig)
+		public static uint GetConfigs(this nint dpy, ref nint configs, int configSize, int* numConfig)
 		{
-			fixed (EGLConfig* pconfigs = &configs)
+			fixed (nint* pconfigs = &configs)
 			{
-				uint ret = SDL.EglGetConfigsNative(dpy, (EGLConfig*)pconfigs, configSize, numConfig);
+				uint ret = SDL.EglGetConfigsNative((void*)dpy, (void**)pconfigs, configSize, numConfig);
 				return ret;
 			}
 		}
 
-		public static uint GetConfigs(this EGLDisplay dpy, EGLConfig* configs, int configSize, ref int numConfig)
+		public static uint GetConfigs(this nint dpy, void** configs, int configSize, ref int numConfig)
 		{
 			fixed (int* pnumConfig = &numConfig)
 			{
-				uint ret = SDL.EglGetConfigsNative(dpy, configs, configSize, (int*)pnumConfig);
+				uint ret = SDL.EglGetConfigsNative((void*)dpy, configs, configSize, (int*)pnumConfig);
 				return ret;
 			}
 		}
 
-		public static uint GetConfigs(this EGLDisplay dpy, ref EGLConfig configs, int configSize, ref int numConfig)
+		public static uint GetConfigs(this nint dpy, ref nint configs, int configSize, ref int numConfig)
 		{
-			fixed (EGLConfig* pconfigs = &configs)
+			fixed (nint* pconfigs = &configs)
 			{
 				fixed (int* pnumConfig = &numConfig)
 				{
-					uint ret = SDL.EglGetConfigsNative(dpy, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
+					uint ret = SDL.EglGetConfigsNative((void*)dpy, (void**)pconfigs, configSize, (int*)pnumConfig);
 					return ret;
 				}
 			}
 		}
 
-		public static uint Initialize(this EGLDisplay dpy, int* major, int* minor)
+		public static uint Initialize(this nint dpy, int* major, int* minor)
 		{
-			uint ret = SDL.EglInitializeNative(dpy, major, minor);
+			uint ret = SDL.EglInitializeNative((void*)dpy, major, minor);
 			return ret;
 		}
 
-		public static uint Initialize(this EGLDisplay dpy, ref int major, int* minor)
+		public static uint Initialize(this nint dpy, ref int major, int* minor)
 		{
 			fixed (int* pmajor = &major)
 			{
-				uint ret = SDL.EglInitializeNative(dpy, (int*)pmajor, minor);
+				uint ret = SDL.EglInitializeNative((void*)dpy, (int*)pmajor, minor);
 				return ret;
 			}
 		}
 
-		public static uint Initialize(this EGLDisplay dpy, int* major, ref int minor)
+		public static uint Initialize(this nint dpy, int* major, ref int minor)
 		{
 			fixed (int* pminor = &minor)
 			{
-				uint ret = SDL.EglInitializeNative(dpy, major, (int*)pminor);
+				uint ret = SDL.EglInitializeNative((void*)dpy, major, (int*)pminor);
 				return ret;
 			}
 		}
 
-		public static uint Initialize(this EGLDisplay dpy, ref int major, ref int minor)
+		public static uint Initialize(this nint dpy, ref int major, ref int minor)
 		{
 			fixed (int* pmajor = &major)
 			{
 				fixed (int* pminor = &minor)
 				{
-					uint ret = SDL.EglInitializeNative(dpy, (int*)pmajor, (int*)pminor);
+					uint ret = SDL.EglInitializeNative((void*)dpy, (int*)pmajor, (int*)pminor);
 					return ret;
 				}
 			}
 		}
 
-		public static uint MakeCurrent(this EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx)
+		public static uint MakeCurrent(this nint dpy, void* draw, void* read, void* ctx)
 		{
-			uint ret = SDL.EglMakeCurrentNative(dpy, draw, read, ctx);
+			uint ret = SDL.EglMakeCurrentNative((void*)dpy, draw, read, ctx);
 			return ret;
 		}
 
-		public static uint QueryContext(this EGLDisplay dpy, EGLContext ctx, int attribute, int* value)
+		public static uint MakeCurrent(this nint dpy, nint draw, void* read, void* ctx)
 		{
-			uint ret = SDL.EglQueryContextNative(dpy, ctx, attribute, value);
+			uint ret = SDL.EglMakeCurrentNative((void*)dpy, (void*)draw, read, ctx);
 			return ret;
 		}
 
-		public static uint QueryContext(this EGLDisplay dpy, EGLContext ctx, int attribute, ref int value)
+		public static uint MakeCurrent(this nint dpy, void* draw, nint read, void* ctx)
+		{
+			uint ret = SDL.EglMakeCurrentNative((void*)dpy, draw, (void*)read, ctx);
+			return ret;
+		}
+
+		public static uint MakeCurrent(this nint dpy, nint draw, nint read, void* ctx)
+		{
+			uint ret = SDL.EglMakeCurrentNative((void*)dpy, (void*)draw, (void*)read, ctx);
+			return ret;
+		}
+
+		public static uint MakeCurrent(this nint dpy, void* draw, void* read, nint ctx)
+		{
+			uint ret = SDL.EglMakeCurrentNative((void*)dpy, draw, read, (void*)ctx);
+			return ret;
+		}
+
+		public static uint MakeCurrent(this nint dpy, nint draw, void* read, nint ctx)
+		{
+			uint ret = SDL.EglMakeCurrentNative((void*)dpy, (void*)draw, read, (void*)ctx);
+			return ret;
+		}
+
+		public static uint MakeCurrent(this nint dpy, void* draw, nint read, nint ctx)
+		{
+			uint ret = SDL.EglMakeCurrentNative((void*)dpy, draw, (void*)read, (void*)ctx);
+			return ret;
+		}
+
+		public static uint MakeCurrent(this nint dpy, nint draw, nint read, nint ctx)
+		{
+			uint ret = SDL.EglMakeCurrentNative((void*)dpy, (void*)draw, (void*)read, (void*)ctx);
+			return ret;
+		}
+
+		public static uint QueryContext(this nint dpy, void* ctx, int attribute, int* value)
+		{
+			uint ret = SDL.EglQueryContextNative((void*)dpy, ctx, attribute, value);
+			return ret;
+		}
+
+		public static uint QueryContext(this nint dpy, nint ctx, int attribute, int* value)
+		{
+			uint ret = SDL.EglQueryContextNative((void*)dpy, (void*)ctx, attribute, value);
+			return ret;
+		}
+
+		public static uint QueryContext(this nint dpy, void* ctx, int attribute, ref int value)
 		{
 			fixed (int* pvalue = &value)
 			{
-				uint ret = SDL.EglQueryContextNative(dpy, ctx, attribute, (int*)pvalue);
+				uint ret = SDL.EglQueryContextNative((void*)dpy, ctx, attribute, (int*)pvalue);
 				return ret;
 			}
 		}
 
-		public static byte* QueryString(this EGLDisplay dpy, int name)
-		{
-			byte* ret = SDL.EglQueryStringNative(dpy, name);
-			return ret;
-		}
-
-		public static string QueryStringS(this EGLDisplay dpy, int name)
-		{
-			string ret = Utils.DecodeStringUTF8(SDL.EglQueryStringNative(dpy, name));
-			return ret;
-		}
-
-		public static uint QuerySurface(this EGLDisplay dpy, EGLSurface surface, int attribute, int* value)
-		{
-			uint ret = SDL.EglQuerySurfaceNative(dpy, surface, attribute, value);
-			return ret;
-		}
-
-		public static uint QuerySurface(this EGLDisplay dpy, EGLSurface surface, int attribute, ref int value)
+		public static uint QueryContext(this nint dpy, nint ctx, int attribute, ref int value)
 		{
 			fixed (int* pvalue = &value)
 			{
-				uint ret = SDL.EglQuerySurfaceNative(dpy, surface, attribute, (int*)pvalue);
+				uint ret = SDL.EglQueryContextNative((void*)dpy, (void*)ctx, attribute, (int*)pvalue);
 				return ret;
 			}
 		}
 
-		public static uint SwapBuffers(this EGLDisplay dpy, EGLSurface surface)
+		public static byte* QueryString(this nint dpy, int name)
 		{
-			uint ret = SDL.EglSwapBuffersNative(dpy, surface);
+			byte* ret = SDL.EglQueryStringNative((void*)dpy, name);
 			return ret;
 		}
 
-		public static uint Terminate(this EGLDisplay dpy)
+		public static string QueryStringS(this nint dpy, int name)
 		{
-			uint ret = SDL.EglTerminateNative(dpy);
+			string ret = Utils.DecodeStringUTF8(SDL.EglQueryStringNative((void*)dpy, name));
 			return ret;
 		}
 
-		public static uint BindTexImage(this EGLDisplay dpy, EGLSurface surface, int buffer)
+		public static uint QuerySurface(this nint dpy, void* surface, int attribute, int* value)
 		{
-			uint ret = SDL.EglBindTexImageNative(dpy, surface, buffer);
+			uint ret = SDL.EglQuerySurfaceNative((void*)dpy, surface, attribute, value);
 			return ret;
 		}
 
-		public static uint ReleaseTexImage(this EGLDisplay dpy, EGLSurface surface, int buffer)
+		public static uint QuerySurface(this nint dpy, nint surface, int attribute, int* value)
 		{
-			uint ret = SDL.EglReleaseTexImageNative(dpy, surface, buffer);
+			uint ret = SDL.EglQuerySurfaceNative((void*)dpy, (void*)surface, attribute, value);
 			return ret;
 		}
 
-		public static uint SurfaceAttrib(this EGLDisplay dpy, EGLSurface surface, int attribute, int value)
+		public static uint QuerySurface(this nint dpy, void* surface, int attribute, ref int value)
 		{
-			uint ret = SDL.EglSurfaceAttribNative(dpy, surface, attribute, value);
+			fixed (int* pvalue = &value)
+			{
+				uint ret = SDL.EglQuerySurfaceNative((void*)dpy, surface, attribute, (int*)pvalue);
+				return ret;
+			}
+		}
+
+		public static uint QuerySurface(this nint dpy, nint surface, int attribute, ref int value)
+		{
+			fixed (int* pvalue = &value)
+			{
+				uint ret = SDL.EglQuerySurfaceNative((void*)dpy, (void*)surface, attribute, (int*)pvalue);
+				return ret;
+			}
+		}
+
+		public static uint SwapBuffers(this nint dpy, void* surface)
+		{
+			uint ret = SDL.EglSwapBuffersNative((void*)dpy, surface);
 			return ret;
 		}
 
-		public static uint SwapInterval(this EGLDisplay dpy, int interval)
+		public static uint SwapBuffers(this nint dpy, nint surface)
 		{
-			uint ret = SDL.EglSwapIntervalNative(dpy, interval);
+			uint ret = SDL.EglSwapBuffersNative((void*)dpy, (void*)surface);
 			return ret;
 		}
 
-		public static EGLSurface CreatePbufferFromClientBuffer(this EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, int* attribList)
+		public static uint Terminate(this nint dpy)
 		{
-			EGLSurface ret = SDL.EglCreatePbufferFromClientBufferNative(dpy, buftype, buffer, config, attribList);
+			uint ret = SDL.EglTerminateNative((void*)dpy);
 			return ret;
 		}
 
-		public static EGLSurface CreatePbufferFromClientBuffer(this EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, ref int attribList)
+		public static uint BindTexImage(this nint dpy, void* surface, int buffer)
+		{
+			uint ret = SDL.EglBindTexImageNative((void*)dpy, surface, buffer);
+			return ret;
+		}
+
+		public static uint BindTexImage(this nint dpy, nint surface, int buffer)
+		{
+			uint ret = SDL.EglBindTexImageNative((void*)dpy, (void*)surface, buffer);
+			return ret;
+		}
+
+		public static uint ReleaseTexImage(this nint dpy, void* surface, int buffer)
+		{
+			uint ret = SDL.EglReleaseTexImageNative((void*)dpy, surface, buffer);
+			return ret;
+		}
+
+		public static uint ReleaseTexImage(this nint dpy, nint surface, int buffer)
+		{
+			uint ret = SDL.EglReleaseTexImageNative((void*)dpy, (void*)surface, buffer);
+			return ret;
+		}
+
+		public static uint SurfaceAttrib(this nint dpy, void* surface, int attribute, int value)
+		{
+			uint ret = SDL.EglSurfaceAttribNative((void*)dpy, surface, attribute, value);
+			return ret;
+		}
+
+		public static uint SurfaceAttrib(this nint dpy, nint surface, int attribute, int value)
+		{
+			uint ret = SDL.EglSurfaceAttribNative((void*)dpy, (void*)surface, attribute, value);
+			return ret;
+		}
+
+		public static uint SwapInterval(this nint dpy, int interval)
+		{
+			uint ret = SDL.EglSwapIntervalNative((void*)dpy, interval);
+			return ret;
+		}
+
+		public static void* CreatePbufferFromClientBuffer(this nint dpy, uint buftype, void* buffer, void* config, int* attribList)
+		{
+			void* ret = SDL.EglCreatePbufferFromClientBufferNative((void*)dpy, buftype, buffer, config, attribList);
+			return ret;
+		}
+
+		public static void* CreatePbufferFromClientBuffer(this nint dpy, uint buftype, nint buffer, void* config, int* attribList)
+		{
+			void* ret = SDL.EglCreatePbufferFromClientBufferNative((void*)dpy, buftype, (void*)buffer, config, attribList);
+			return ret;
+		}
+
+		public static void* CreatePbufferFromClientBuffer(this nint dpy, uint buftype, void* buffer, nint config, int* attribList)
+		{
+			void* ret = SDL.EglCreatePbufferFromClientBufferNative((void*)dpy, buftype, buffer, (void*)config, attribList);
+			return ret;
+		}
+
+		public static void* CreatePbufferFromClientBuffer(this nint dpy, uint buftype, nint buffer, nint config, int* attribList)
+		{
+			void* ret = SDL.EglCreatePbufferFromClientBufferNative((void*)dpy, buftype, (void*)buffer, (void*)config, attribList);
+			return ret;
+		}
+
+		public static void* CreatePbufferFromClientBuffer(this nint dpy, uint buftype, void* buffer, void* config, in int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
-				EGLSurface ret = SDL.EglCreatePbufferFromClientBufferNative(dpy, buftype, buffer, config, (int*)pattribList);
+				void* ret = SDL.EglCreatePbufferFromClientBufferNative((void*)dpy, buftype, buffer, config, (int*)pattribList);
 				return ret;
 			}
 		}
 
-		public static EGLSync CreateSync(this EGLDisplay dpy, uint type, nint* attribList)
+		public static void* CreatePbufferFromClientBuffer(this nint dpy, uint buftype, nint buffer, void* config, in int attribList)
 		{
-			EGLSync ret = SDL.EglCreateSyncNative(dpy, type, attribList);
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePbufferFromClientBufferNative((void*)dpy, buftype, (void*)buffer, config, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePbufferFromClientBuffer(this nint dpy, uint buftype, void* buffer, nint config, in int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePbufferFromClientBufferNative((void*)dpy, buftype, buffer, (void*)config, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePbufferFromClientBuffer(this nint dpy, uint buftype, nint buffer, nint config, in int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePbufferFromClientBufferNative((void*)dpy, buftype, (void*)buffer, (void*)config, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreateSync(this nint dpy, uint type, nint* attribList)
+		{
+			void* ret = SDL.EglCreateSyncNative((void*)dpy, type, attribList);
 			return ret;
 		}
 
-		public static EGLSync CreateSync(this EGLDisplay dpy, uint type, ref nint attribList)
+		public static void* CreateSync(this nint dpy, uint type, in nint attribList)
 		{
 			fixed (nint* pattribList = &attribList)
 			{
-				EGLSync ret = SDL.EglCreateSyncNative(dpy, type, (nint*)pattribList);
+				void* ret = SDL.EglCreateSyncNative((void*)dpy, type, (nint*)pattribList);
 				return ret;
 			}
 		}
 
-		public static uint DestroySync(this EGLDisplay dpy, EGLSync sync)
+		public static uint DestroySync(this nint dpy, void* sync)
 		{
-			uint ret = SDL.EglDestroySyncNative(dpy, sync);
+			uint ret = SDL.EglDestroySyncNative((void*)dpy, sync);
 			return ret;
 		}
 
-		public static int ClientWaitSync(this EGLDisplay dpy, EGLSync sync, int flags, ulong timeout)
+		public static uint DestroySync(this nint dpy, nint sync)
 		{
-			int ret = SDL.EglClientWaitSyncNative(dpy, sync, flags, timeout);
+			uint ret = SDL.EglDestroySyncNative((void*)dpy, (void*)sync);
 			return ret;
 		}
 
-		public static uint GetSyncAttrib(this EGLDisplay dpy, EGLSync sync, int attribute, nint* value)
+		public static int ClientWaitSync(this nint dpy, void* sync, int flags, ulong timeout)
 		{
-			uint ret = SDL.EglGetSyncAttribNative(dpy, sync, attribute, value);
+			int ret = SDL.EglClientWaitSyncNative((void*)dpy, sync, flags, timeout);
 			return ret;
 		}
 
-		public static uint GetSyncAttrib(this EGLDisplay dpy, EGLSync sync, int attribute, ref nint value)
+		public static int ClientWaitSync(this nint dpy, nint sync, int flags, ulong timeout)
+		{
+			int ret = SDL.EglClientWaitSyncNative((void*)dpy, (void*)sync, flags, timeout);
+			return ret;
+		}
+
+		public static uint GetSyncAttrib(this nint dpy, void* sync, int attribute, nint* value)
+		{
+			uint ret = SDL.EglGetSyncAttribNative((void*)dpy, sync, attribute, value);
+			return ret;
+		}
+
+		public static uint GetSyncAttrib(this nint dpy, nint sync, int attribute, nint* value)
+		{
+			uint ret = SDL.EglGetSyncAttribNative((void*)dpy, (void*)sync, attribute, value);
+			return ret;
+		}
+
+		public static uint GetSyncAttrib(this nint dpy, void* sync, int attribute, ref nint value)
 		{
 			fixed (nint* pvalue = &value)
 			{
-				uint ret = SDL.EglGetSyncAttribNative(dpy, sync, attribute, (nint*)pvalue);
+				uint ret = SDL.EglGetSyncAttribNative((void*)dpy, sync, attribute, (nint*)pvalue);
 				return ret;
 			}
 		}
 
-		public static EGLImage CreateImage(this EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, nint* attribList)
+		public static uint GetSyncAttrib(this nint dpy, nint sync, int attribute, ref nint value)
 		{
-			EGLImage ret = SDL.EglCreateImageNative(dpy, ctx, target, buffer, attribList);
+			fixed (nint* pvalue = &value)
+			{
+				uint ret = SDL.EglGetSyncAttribNative((void*)dpy, (void*)sync, attribute, (nint*)pvalue);
+				return ret;
+			}
+		}
+
+		public static void* CreateImage(this nint dpy, void* ctx, uint target, void* buffer, nint* attribList)
+		{
+			void* ret = SDL.EglCreateImageNative((void*)dpy, ctx, target, buffer, attribList);
 			return ret;
 		}
 
-		public static EGLImage CreateImage(this EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, ref nint attribList)
+		public static void* CreateImage(this nint dpy, nint ctx, uint target, void* buffer, nint* attribList)
+		{
+			void* ret = SDL.EglCreateImageNative((void*)dpy, (void*)ctx, target, buffer, attribList);
+			return ret;
+		}
+
+		public static void* CreateImage(this nint dpy, void* ctx, uint target, nint buffer, nint* attribList)
+		{
+			void* ret = SDL.EglCreateImageNative((void*)dpy, ctx, target, (void*)buffer, attribList);
+			return ret;
+		}
+
+		public static void* CreateImage(this nint dpy, nint ctx, uint target, nint buffer, nint* attribList)
+		{
+			void* ret = SDL.EglCreateImageNative((void*)dpy, (void*)ctx, target, (void*)buffer, attribList);
+			return ret;
+		}
+
+		public static void* CreateImage(this nint dpy, void* ctx, uint target, void* buffer, in nint attribList)
 		{
 			fixed (nint* pattribList = &attribList)
 			{
-				EGLImage ret = SDL.EglCreateImageNative(dpy, ctx, target, buffer, (nint*)pattribList);
+				void* ret = SDL.EglCreateImageNative((void*)dpy, ctx, target, buffer, (nint*)pattribList);
 				return ret;
 			}
 		}
 
-		public static uint DestroyImage(this EGLDisplay dpy, EGLImage image)
-		{
-			uint ret = SDL.EglDestroyImageNative(dpy, image);
-			return ret;
-		}
-
-		public static EGLSurface CreatePlatformWindowSurface(this EGLDisplay dpy, EGLConfig config, void* nativeWindow, nint* attribList)
-		{
-			EGLSurface ret = SDL.EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, attribList);
-			return ret;
-		}
-
-		public static EGLSurface CreatePlatformWindowSurface(this EGLDisplay dpy, EGLConfig config, void* nativeWindow, ref nint attribList)
+		public static void* CreateImage(this nint dpy, nint ctx, uint target, void* buffer, in nint attribList)
 		{
 			fixed (nint* pattribList = &attribList)
 			{
-				EGLSurface ret = SDL.EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, (nint*)pattribList);
+				void* ret = SDL.EglCreateImageNative((void*)dpy, (void*)ctx, target, buffer, (nint*)pattribList);
 				return ret;
 			}
 		}
 
-		public static EGLSurface CreatePlatformPixmapSurface(this EGLDisplay dpy, EGLConfig config, void* nativePixmap, nint* attribList)
-		{
-			EGLSurface ret = SDL.EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, attribList);
-			return ret;
-		}
-
-		public static EGLSurface CreatePlatformPixmapSurface(this EGLDisplay dpy, EGLConfig config, void* nativePixmap, ref nint attribList)
+		public static void* CreateImage(this nint dpy, void* ctx, uint target, nint buffer, in nint attribList)
 		{
 			fixed (nint* pattribList = &attribList)
 			{
-				EGLSurface ret = SDL.EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, (nint*)pattribList);
+				void* ret = SDL.EglCreateImageNative((void*)dpy, ctx, target, (void*)buffer, (nint*)pattribList);
 				return ret;
 			}
 		}
 
-		public static uint WaitSync(this EGLDisplay dpy, EGLSync sync, int flags)
+		public static void* CreateImage(this nint dpy, nint ctx, uint target, nint buffer, in nint attribList)
 		{
-			uint ret = SDL.EglWaitSyncNative(dpy, sync, flags);
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreateImageNative((void*)dpy, (void*)ctx, target, (void*)buffer, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static uint DestroyImage(this nint dpy, void* image)
+		{
+			uint ret = SDL.EglDestroyImageNative((void*)dpy, image);
+			return ret;
+		}
+
+		public static uint DestroyImage(this nint dpy, nint image)
+		{
+			uint ret = SDL.EglDestroyImageNative((void*)dpy, (void*)image);
+			return ret;
+		}
+
+		public static void* CreatePlatformWindowSurface(this nint dpy, void* config, void* nativeWindow, nint* attribList)
+		{
+			void* ret = SDL.EglCreatePlatformWindowSurfaceNative((void*)dpy, config, nativeWindow, attribList);
+			return ret;
+		}
+
+		public static void* CreatePlatformWindowSurface(this nint dpy, nint config, void* nativeWindow, nint* attribList)
+		{
+			void* ret = SDL.EglCreatePlatformWindowSurfaceNative((void*)dpy, (void*)config, nativeWindow, attribList);
+			return ret;
+		}
+
+		public static void* CreatePlatformWindowSurface(this nint dpy, void* config, nint nativeWindow, nint* attribList)
+		{
+			void* ret = SDL.EglCreatePlatformWindowSurfaceNative((void*)dpy, config, (void*)nativeWindow, attribList);
+			return ret;
+		}
+
+		public static void* CreatePlatformWindowSurface(this nint dpy, nint config, nint nativeWindow, nint* attribList)
+		{
+			void* ret = SDL.EglCreatePlatformWindowSurfaceNative((void*)dpy, (void*)config, (void*)nativeWindow, attribList);
+			return ret;
+		}
+
+		public static void* CreatePlatformWindowSurface(this nint dpy, void* config, void* nativeWindow, in nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePlatformWindowSurfaceNative((void*)dpy, config, nativeWindow, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePlatformWindowSurface(this nint dpy, nint config, void* nativeWindow, in nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePlatformWindowSurfaceNative((void*)dpy, (void*)config, nativeWindow, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePlatformWindowSurface(this nint dpy, void* config, nint nativeWindow, in nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePlatformWindowSurfaceNative((void*)dpy, config, (void*)nativeWindow, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePlatformWindowSurface(this nint dpy, nint config, nint nativeWindow, in nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePlatformWindowSurfaceNative((void*)dpy, (void*)config, (void*)nativeWindow, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePlatformPixmapSurface(this nint dpy, void* config, void* nativePixmap, nint* attribList)
+		{
+			void* ret = SDL.EglCreatePlatformPixmapSurfaceNative((void*)dpy, config, nativePixmap, attribList);
+			return ret;
+		}
+
+		public static void* CreatePlatformPixmapSurface(this nint dpy, nint config, void* nativePixmap, nint* attribList)
+		{
+			void* ret = SDL.EglCreatePlatformPixmapSurfaceNative((void*)dpy, (void*)config, nativePixmap, attribList);
+			return ret;
+		}
+
+		public static void* CreatePlatformPixmapSurface(this nint dpy, void* config, nint nativePixmap, nint* attribList)
+		{
+			void* ret = SDL.EglCreatePlatformPixmapSurfaceNative((void*)dpy, config, (void*)nativePixmap, attribList);
+			return ret;
+		}
+
+		public static void* CreatePlatformPixmapSurface(this nint dpy, nint config, nint nativePixmap, nint* attribList)
+		{
+			void* ret = SDL.EglCreatePlatformPixmapSurfaceNative((void*)dpy, (void*)config, (void*)nativePixmap, attribList);
+			return ret;
+		}
+
+		public static void* CreatePlatformPixmapSurface(this nint dpy, void* config, void* nativePixmap, in nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePlatformPixmapSurfaceNative((void*)dpy, config, nativePixmap, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePlatformPixmapSurface(this nint dpy, nint config, void* nativePixmap, in nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePlatformPixmapSurfaceNative((void*)dpy, (void*)config, nativePixmap, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePlatformPixmapSurface(this nint dpy, void* config, nint nativePixmap, in nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePlatformPixmapSurfaceNative((void*)dpy, config, (void*)nativePixmap, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static void* CreatePlatformPixmapSurface(this nint dpy, nint config, nint nativePixmap, in nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				void* ret = SDL.EglCreatePlatformPixmapSurfaceNative((void*)dpy, (void*)config, (void*)nativePixmap, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		public static uint WaitSync(this nint dpy, void* sync, int flags)
+		{
+			uint ret = SDL.EglWaitSyncNative((void*)dpy, sync, flags);
+			return ret;
+		}
+
+		public static uint WaitSync(this nint dpy, nint sync, int flags)
+		{
+			uint ret = SDL.EglWaitSyncNative((void*)dpy, (void*)sync, flags);
 			return ret;
 		}
 

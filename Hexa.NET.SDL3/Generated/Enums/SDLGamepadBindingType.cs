@@ -20,12 +20,20 @@ namespace Hexa.NET.SDL3
 	/// mappings.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_GamepadBindingType")]
 	public enum SDLGamepadBindingType : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BINDTYPE_NONE")]
+		[NativeName(NativeNameType.Value, "0")]
 		BindtypeNone = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BINDTYPE_BUTTON")]
+		[NativeName(NativeNameType.Value, "1")]
 		BindtypeButton = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BINDTYPE_AXIS")]
+		[NativeName(NativeNameType.Value, "2")]
 		BindtypeAxis = unchecked(2),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BINDTYPE_HAT")]
+		[NativeName(NativeNameType.Value, "3")]
 		BindtypeHat = unchecked(3),
 	}
 }

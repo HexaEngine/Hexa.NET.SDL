@@ -17,17 +17,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_GPUIndexElementSize")]
 	[Flags]
 	public enum SDLGPUIndexElementSize : int
 	{
 		/// <summary>
 		/// The index elements are 16-bit. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_INDEXELEMENTSIZE_16BIT")]
+		[NativeName(NativeNameType.Value, "0")]
 		Indexelementsize16 = unchecked(0),
 
 		/// <summary>
 		/// The index elements are 32-bit. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_INDEXELEMENTSIZE_32BIT")]
+		[NativeName(NativeNameType.Value, "1")]
 		Indexelementsize32 = unchecked(1),
 	}
 }

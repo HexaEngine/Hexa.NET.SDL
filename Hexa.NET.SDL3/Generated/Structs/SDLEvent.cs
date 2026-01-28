@@ -21,234 +21,319 @@ namespace Hexa.NET.SDL3
 	/// is a union of all event structures used in SDL.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Event")]
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct SDLEvent
 	{
 		/// <summary>
 		/// Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		[FieldOffset(0)]
 		public uint Type;
 
 		/// <summary>
 		/// Common event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "common")]
+		[NativeName(NativeNameType.Type, "SDL_CommonEvent")]
 		[FieldOffset(0)]
 		public SDLCommonEvent Common;
 
 		/// <summary>
 		/// Display event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "display")]
+		[NativeName(NativeNameType.Type, "SDL_DisplayEvent")]
 		[FieldOffset(0)]
 		public SDLDisplayEvent Display;
 
 		/// <summary>
 		/// Window event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "window")]
+		[NativeName(NativeNameType.Type, "SDL_WindowEvent")]
 		[FieldOffset(0)]
 		public SDLWindowEvent Window;
 
 		/// <summary>
 		/// Keyboard device change event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "kdevice")]
+		[NativeName(NativeNameType.Type, "SDL_KeyboardDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLKeyboardDeviceEvent Kdevice;
 
 		/// <summary>
 		/// Keyboard event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "key")]
+		[NativeName(NativeNameType.Type, "SDL_KeyboardEvent")]
 		[FieldOffset(0)]
 		public SDLKeyboardEvent Key;
 
 		/// <summary>
 		/// Text editing event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "edit")]
+		[NativeName(NativeNameType.Type, "SDL_TextEditingEvent")]
 		[FieldOffset(0)]
 		public SDLTextEditingEvent Edit;
 
 		/// <summary>
 		/// Text editing candidates event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "edit_candidates")]
+		[NativeName(NativeNameType.Type, "SDL_TextEditingCandidatesEvent")]
 		[FieldOffset(0)]
 		public SDLTextEditingCandidatesEvent EditCandidates;
 
 		/// <summary>
 		/// Text input event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "text")]
+		[NativeName(NativeNameType.Type, "SDL_TextInputEvent")]
 		[FieldOffset(0)]
 		public SDLTextInputEvent Text;
 
 		/// <summary>
 		/// Mouse device change event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mdevice")]
+		[NativeName(NativeNameType.Type, "SDL_MouseDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLMouseDeviceEvent Mdevice;
 
 		/// <summary>
 		/// Mouse motion event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "motion")]
+		[NativeName(NativeNameType.Type, "SDL_MouseMotionEvent")]
 		[FieldOffset(0)]
 		public SDLMouseMotionEvent Motion;
 
 		/// <summary>
 		/// Mouse button event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "button")]
+		[NativeName(NativeNameType.Type, "SDL_MouseButtonEvent")]
 		[FieldOffset(0)]
 		public SDLMouseButtonEvent Button;
 
 		/// <summary>
 		/// Mouse wheel event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "wheel")]
+		[NativeName(NativeNameType.Type, "SDL_MouseWheelEvent")]
 		[FieldOffset(0)]
 		public SDLMouseWheelEvent Wheel;
 
 		/// <summary>
 		/// Joystick device change event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "jdevice")]
+		[NativeName(NativeNameType.Type, "SDL_JoyDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLJoyDeviceEvent Jdevice;
 
 		/// <summary>
 		/// Joystick axis event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "jaxis")]
+		[NativeName(NativeNameType.Type, "SDL_JoyAxisEvent")]
 		[FieldOffset(0)]
 		public SDLJoyAxisEvent Jaxis;
 
 		/// <summary>
 		/// Joystick ball event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "jball")]
+		[NativeName(NativeNameType.Type, "SDL_JoyBallEvent")]
 		[FieldOffset(0)]
 		public SDLJoyBallEvent Jball;
 
 		/// <summary>
 		/// Joystick hat event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "jhat")]
+		[NativeName(NativeNameType.Type, "SDL_JoyHatEvent")]
 		[FieldOffset(0)]
 		public SDLJoyHatEvent Jhat;
 
 		/// <summary>
 		/// Joystick button event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "jbutton")]
+		[NativeName(NativeNameType.Type, "SDL_JoyButtonEvent")]
 		[FieldOffset(0)]
 		public SDLJoyButtonEvent Jbutton;
 
 		/// <summary>
 		/// Joystick battery event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "jbattery")]
+		[NativeName(NativeNameType.Type, "SDL_JoyBatteryEvent")]
 		[FieldOffset(0)]
 		public SDLJoyBatteryEvent Jbattery;
 
 		/// <summary>
 		/// Gamepad device event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "gdevice")]
+		[NativeName(NativeNameType.Type, "SDL_GamepadDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadDeviceEvent Gdevice;
 
 		/// <summary>
 		/// Gamepad axis event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "gaxis")]
+		[NativeName(NativeNameType.Type, "SDL_GamepadAxisEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadAxisEvent Gaxis;
 
 		/// <summary>
 		/// Gamepad button event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "gbutton")]
+		[NativeName(NativeNameType.Type, "SDL_GamepadButtonEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadButtonEvent Gbutton;
 
 		/// <summary>
 		/// Gamepad touchpad event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "gtouchpad")]
+		[NativeName(NativeNameType.Type, "SDL_GamepadTouchpadEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadTouchpadEvent Gtouchpad;
 
 		/// <summary>
 		/// Gamepad sensor event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "gsensor")]
+		[NativeName(NativeNameType.Type, "SDL_GamepadSensorEvent")]
 		[FieldOffset(0)]
 		public SDLGamepadSensorEvent Gsensor;
 
 		/// <summary>
 		/// Audio device event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "adevice")]
+		[NativeName(NativeNameType.Type, "SDL_AudioDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLAudioDeviceEvent Adevice;
 
 		/// <summary>
 		/// Camera device event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "cdevice")]
+		[NativeName(NativeNameType.Type, "SDL_CameraDeviceEvent")]
 		[FieldOffset(0)]
 		public SDLCameraDeviceEvent Cdevice;
 
 		/// <summary>
 		/// Sensor event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sensor")]
+		[NativeName(NativeNameType.Type, "SDL_SensorEvent")]
 		[FieldOffset(0)]
 		public SDLSensorEvent Sensor;
 
 		/// <summary>
 		/// Quit request event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "quit")]
+		[NativeName(NativeNameType.Type, "SDL_QuitEvent")]
 		[FieldOffset(0)]
 		public SDLQuitEvent Quit;
 
 		/// <summary>
 		/// Custom event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "user")]
+		[NativeName(NativeNameType.Type, "SDL_UserEvent")]
 		[FieldOffset(0)]
 		public SDLUserEvent User;
 
 		/// <summary>
 		/// Touch finger event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "tfinger")]
+		[NativeName(NativeNameType.Type, "SDL_TouchFingerEvent")]
 		[FieldOffset(0)]
 		public SDLTouchFingerEvent Tfinger;
 
 		/// <summary>
+		/// Pinch event data <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "pinch")]
+		[NativeName(NativeNameType.Type, "SDL_PinchFingerEvent")]
+		[FieldOffset(0)]
+		public SDLPinchFingerEvent Pinch;
+
+		/// <summary>
 		/// Pen proximity event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pproximity")]
+		[NativeName(NativeNameType.Type, "SDL_PenProximityEvent")]
 		[FieldOffset(0)]
 		public SDLPenProximityEvent Pproximity;
 
 		/// <summary>
 		/// Pen tip touching event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "ptouch")]
+		[NativeName(NativeNameType.Type, "SDL_PenTouchEvent")]
 		[FieldOffset(0)]
 		public SDLPenTouchEvent Ptouch;
 
 		/// <summary>
 		/// Pen motion event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pmotion")]
+		[NativeName(NativeNameType.Type, "SDL_PenMotionEvent")]
 		[FieldOffset(0)]
 		public SDLPenMotionEvent Pmotion;
 
 		/// <summary>
 		/// Pen button event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pbutton")]
+		[NativeName(NativeNameType.Type, "SDL_PenButtonEvent")]
 		[FieldOffset(0)]
 		public SDLPenButtonEvent Pbutton;
 
 		/// <summary>
 		/// Pen axis event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "paxis")]
+		[NativeName(NativeNameType.Type, "SDL_PenAxisEvent")]
 		[FieldOffset(0)]
 		public SDLPenAxisEvent Paxis;
 
 		/// <summary>
 		/// Render event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "render")]
+		[NativeName(NativeNameType.Type, "SDL_RenderEvent")]
 		[FieldOffset(0)]
 		public SDLRenderEvent Render;
 
 		/// <summary>
 		/// Drag and drop event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "drop")]
+		[NativeName(NativeNameType.Type, "SDL_DropEvent")]
 		[FieldOffset(0)]
 		public SDLDropEvent Drop;
 
 		/// <summary>
 		/// Clipboard event data <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "clipboard")]
+		[NativeName(NativeNameType.Type, "SDL_ClipboardEvent")]
 		[FieldOffset(0)]
 		public SDLClipboardEvent Clipboard;
 
@@ -264,6 +349,8 @@ namespace Hexa.NET.SDL3
 		/// the next multiple of 16, 64, and on architectures where pointers are<br/>
 		/// even larger the size of SDL_UserEvent will dominate as being 3 pointers.<br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "padding")]
+		[NativeName(NativeNameType.Type, "Uint8[128]")]
 		[FieldOffset(0)]
 		public byte Padding_0;
 		[FieldOffset(128)]
@@ -522,7 +609,7 @@ namespace Hexa.NET.SDL3
 		public byte Padding_127;
 
 
-		public unsafe SDLEvent(uint type = default, SDLCommonEvent common = default, SDLDisplayEvent display = default, SDLWindowEvent window = default, SDLKeyboardDeviceEvent kdevice = default, SDLKeyboardEvent key = default, SDLTextEditingEvent edit = default, SDLTextEditingCandidatesEvent editCandidates = default, SDLTextInputEvent text = default, SDLMouseDeviceEvent mdevice = default, SDLMouseMotionEvent motion = default, SDLMouseButtonEvent button = default, SDLMouseWheelEvent wheel = default, SDLJoyDeviceEvent jdevice = default, SDLJoyAxisEvent jaxis = default, SDLJoyBallEvent jball = default, SDLJoyHatEvent jhat = default, SDLJoyButtonEvent jbutton = default, SDLJoyBatteryEvent jbattery = default, SDLGamepadDeviceEvent gdevice = default, SDLGamepadAxisEvent gaxis = default, SDLGamepadButtonEvent gbutton = default, SDLGamepadTouchpadEvent gtouchpad = default, SDLGamepadSensorEvent gsensor = default, SDLAudioDeviceEvent adevice = default, SDLCameraDeviceEvent cdevice = default, SDLSensorEvent sensor = default, SDLQuitEvent quit = default, SDLUserEvent user = default, SDLTouchFingerEvent tfinger = default, SDLPenProximityEvent pproximity = default, SDLPenTouchEvent ptouch = default, SDLPenMotionEvent pmotion = default, SDLPenButtonEvent pbutton = default, SDLPenAxisEvent paxis = default, SDLRenderEvent render = default, SDLDropEvent drop = default, SDLClipboardEvent clipboard = default, byte* padding = default)
+		public unsafe SDLEvent(uint type = default, SDLCommonEvent common = default, SDLDisplayEvent display = default, SDLWindowEvent window = default, SDLKeyboardDeviceEvent kdevice = default, SDLKeyboardEvent key = default, SDLTextEditingEvent edit = default, SDLTextEditingCandidatesEvent editCandidates = default, SDLTextInputEvent text = default, SDLMouseDeviceEvent mdevice = default, SDLMouseMotionEvent motion = default, SDLMouseButtonEvent button = default, SDLMouseWheelEvent wheel = default, SDLJoyDeviceEvent jdevice = default, SDLJoyAxisEvent jaxis = default, SDLJoyBallEvent jball = default, SDLJoyHatEvent jhat = default, SDLJoyButtonEvent jbutton = default, SDLJoyBatteryEvent jbattery = default, SDLGamepadDeviceEvent gdevice = default, SDLGamepadAxisEvent gaxis = default, SDLGamepadButtonEvent gbutton = default, SDLGamepadTouchpadEvent gtouchpad = default, SDLGamepadSensorEvent gsensor = default, SDLAudioDeviceEvent adevice = default, SDLCameraDeviceEvent cdevice = default, SDLSensorEvent sensor = default, SDLQuitEvent quit = default, SDLUserEvent user = default, SDLTouchFingerEvent tfinger = default, SDLPinchFingerEvent pinch = default, SDLPenProximityEvent pproximity = default, SDLPenTouchEvent ptouch = default, SDLPenMotionEvent pmotion = default, SDLPenButtonEvent pbutton = default, SDLPenAxisEvent paxis = default, SDLRenderEvent render = default, SDLDropEvent drop = default, SDLClipboardEvent clipboard = default, byte* padding = default)
 		{
 			Type = type;
 			Common = common;
@@ -554,6 +641,7 @@ namespace Hexa.NET.SDL3
 			Quit = quit;
 			User = user;
 			Tfinger = tfinger;
+			Pinch = pinch;
 			Pproximity = pproximity;
 			Ptouch = ptouch;
 			Pmotion = pmotion;
@@ -695,7 +783,7 @@ namespace Hexa.NET.SDL3
 			}
 		}
 
-		public unsafe SDLEvent(uint type = default, SDLCommonEvent common = default, SDLDisplayEvent display = default, SDLWindowEvent window = default, SDLKeyboardDeviceEvent kdevice = default, SDLKeyboardEvent key = default, SDLTextEditingEvent edit = default, SDLTextEditingCandidatesEvent editCandidates = default, SDLTextInputEvent text = default, SDLMouseDeviceEvent mdevice = default, SDLMouseMotionEvent motion = default, SDLMouseButtonEvent button = default, SDLMouseWheelEvent wheel = default, SDLJoyDeviceEvent jdevice = default, SDLJoyAxisEvent jaxis = default, SDLJoyBallEvent jball = default, SDLJoyHatEvent jhat = default, SDLJoyButtonEvent jbutton = default, SDLJoyBatteryEvent jbattery = default, SDLGamepadDeviceEvent gdevice = default, SDLGamepadAxisEvent gaxis = default, SDLGamepadButtonEvent gbutton = default, SDLGamepadTouchpadEvent gtouchpad = default, SDLGamepadSensorEvent gsensor = default, SDLAudioDeviceEvent adevice = default, SDLCameraDeviceEvent cdevice = default, SDLSensorEvent sensor = default, SDLQuitEvent quit = default, SDLUserEvent user = default, SDLTouchFingerEvent tfinger = default, SDLPenProximityEvent pproximity = default, SDLPenTouchEvent ptouch = default, SDLPenMotionEvent pmotion = default, SDLPenButtonEvent pbutton = default, SDLPenAxisEvent paxis = default, SDLRenderEvent render = default, SDLDropEvent drop = default, SDLClipboardEvent clipboard = default, Span<byte> padding = default)
+		public unsafe SDLEvent(uint type = default, SDLCommonEvent common = default, SDLDisplayEvent display = default, SDLWindowEvent window = default, SDLKeyboardDeviceEvent kdevice = default, SDLKeyboardEvent key = default, SDLTextEditingEvent edit = default, SDLTextEditingCandidatesEvent editCandidates = default, SDLTextInputEvent text = default, SDLMouseDeviceEvent mdevice = default, SDLMouseMotionEvent motion = default, SDLMouseButtonEvent button = default, SDLMouseWheelEvent wheel = default, SDLJoyDeviceEvent jdevice = default, SDLJoyAxisEvent jaxis = default, SDLJoyBallEvent jball = default, SDLJoyHatEvent jhat = default, SDLJoyButtonEvent jbutton = default, SDLJoyBatteryEvent jbattery = default, SDLGamepadDeviceEvent gdevice = default, SDLGamepadAxisEvent gaxis = default, SDLGamepadButtonEvent gbutton = default, SDLGamepadTouchpadEvent gtouchpad = default, SDLGamepadSensorEvent gsensor = default, SDLAudioDeviceEvent adevice = default, SDLCameraDeviceEvent cdevice = default, SDLSensorEvent sensor = default, SDLQuitEvent quit = default, SDLUserEvent user = default, SDLTouchFingerEvent tfinger = default, SDLPinchFingerEvent pinch = default, SDLPenProximityEvent pproximity = default, SDLPenTouchEvent ptouch = default, SDLPenMotionEvent pmotion = default, SDLPenButtonEvent pbutton = default, SDLPenAxisEvent paxis = default, SDLRenderEvent render = default, SDLDropEvent drop = default, SDLClipboardEvent clipboard = default, Span<byte> padding = default)
 		{
 			Type = type;
 			Common = common;
@@ -727,6 +815,7 @@ namespace Hexa.NET.SDL3
 			Quit = quit;
 			User = user;
 			Tfinger = tfinger;
+			Pinch = pinch;
 			Pproximity = pproximity;
 			Ptouch = ptouch;
 			Pmotion = pmotion;
@@ -869,6 +958,229 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The structure for all events in SDL.<br/>
+	/// The SDL_Event structure is the core of all event handling in SDL. SDL_Event<br/>
+	/// is a union of all event structures used in SDL.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Event")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLEventPtr : IEquatable<SDLEventPtr>
+	{
+		public SDLEventPtr(SDLEvent* handle) { Handle = handle; }
+
+		public SDLEvent* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLEventPtr Null => new SDLEventPtr(null);
+
+		public SDLEvent this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLEventPtr(SDLEvent* handle) => new SDLEventPtr(handle);
+
+		public static implicit operator SDLEvent*(SDLEventPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLEventPtr left, SDLEventPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLEventPtr left, SDLEventPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLEventPtr left, SDLEvent* right) => left.Handle == right;
+
+		public static bool operator !=(SDLEventPtr left, SDLEvent* right) => left.Handle != right;
+
+		public bool Equals(SDLEventPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLEventPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLEventPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration <br/>
+		/// </summary>
+		public ref uint Type => ref Unsafe.AsRef<uint>(&Handle->Type);
+		/// <summary>
+		/// Common event data <br/>
+		/// </summary>
+		public ref SDLCommonEvent Common => ref Unsafe.AsRef<SDLCommonEvent>(&Handle->Common);
+		/// <summary>
+		/// Display event data <br/>
+		/// </summary>
+		public ref SDLDisplayEvent Display => ref Unsafe.AsRef<SDLDisplayEvent>(&Handle->Display);
+		/// <summary>
+		/// Window event data <br/>
+		/// </summary>
+		public ref SDLWindowEvent Window => ref Unsafe.AsRef<SDLWindowEvent>(&Handle->Window);
+		/// <summary>
+		/// Keyboard device change event data <br/>
+		/// </summary>
+		public ref SDLKeyboardDeviceEvent Kdevice => ref Unsafe.AsRef<SDLKeyboardDeviceEvent>(&Handle->Kdevice);
+		/// <summary>
+		/// Keyboard event data <br/>
+		/// </summary>
+		public ref SDLKeyboardEvent Key => ref Unsafe.AsRef<SDLKeyboardEvent>(&Handle->Key);
+		/// <summary>
+		/// Text editing event data <br/>
+		/// </summary>
+		public ref SDLTextEditingEvent Edit => ref Unsafe.AsRef<SDLTextEditingEvent>(&Handle->Edit);
+		/// <summary>
+		/// Text editing candidates event data <br/>
+		/// </summary>
+		public ref SDLTextEditingCandidatesEvent EditCandidates => ref Unsafe.AsRef<SDLTextEditingCandidatesEvent>(&Handle->EditCandidates);
+		/// <summary>
+		/// Text input event data <br/>
+		/// </summary>
+		public ref SDLTextInputEvent Text => ref Unsafe.AsRef<SDLTextInputEvent>(&Handle->Text);
+		/// <summary>
+		/// Mouse device change event data <br/>
+		/// </summary>
+		public ref SDLMouseDeviceEvent Mdevice => ref Unsafe.AsRef<SDLMouseDeviceEvent>(&Handle->Mdevice);
+		/// <summary>
+		/// Mouse motion event data <br/>
+		/// </summary>
+		public ref SDLMouseMotionEvent Motion => ref Unsafe.AsRef<SDLMouseMotionEvent>(&Handle->Motion);
+		/// <summary>
+		/// Mouse button event data <br/>
+		/// </summary>
+		public ref SDLMouseButtonEvent Button => ref Unsafe.AsRef<SDLMouseButtonEvent>(&Handle->Button);
+		/// <summary>
+		/// Mouse wheel event data <br/>
+		/// </summary>
+		public ref SDLMouseWheelEvent Wheel => ref Unsafe.AsRef<SDLMouseWheelEvent>(&Handle->Wheel);
+		/// <summary>
+		/// Joystick device change event data <br/>
+		/// </summary>
+		public ref SDLJoyDeviceEvent Jdevice => ref Unsafe.AsRef<SDLJoyDeviceEvent>(&Handle->Jdevice);
+		/// <summary>
+		/// Joystick axis event data <br/>
+		/// </summary>
+		public ref SDLJoyAxisEvent Jaxis => ref Unsafe.AsRef<SDLJoyAxisEvent>(&Handle->Jaxis);
+		/// <summary>
+		/// Joystick ball event data <br/>
+		/// </summary>
+		public ref SDLJoyBallEvent Jball => ref Unsafe.AsRef<SDLJoyBallEvent>(&Handle->Jball);
+		/// <summary>
+		/// Joystick hat event data <br/>
+		/// </summary>
+		public ref SDLJoyHatEvent Jhat => ref Unsafe.AsRef<SDLJoyHatEvent>(&Handle->Jhat);
+		/// <summary>
+		/// Joystick button event data <br/>
+		/// </summary>
+		public ref SDLJoyButtonEvent Jbutton => ref Unsafe.AsRef<SDLJoyButtonEvent>(&Handle->Jbutton);
+		/// <summary>
+		/// Joystick battery event data <br/>
+		/// </summary>
+		public ref SDLJoyBatteryEvent Jbattery => ref Unsafe.AsRef<SDLJoyBatteryEvent>(&Handle->Jbattery);
+		/// <summary>
+		/// Gamepad device event data <br/>
+		/// </summary>
+		public ref SDLGamepadDeviceEvent Gdevice => ref Unsafe.AsRef<SDLGamepadDeviceEvent>(&Handle->Gdevice);
+		/// <summary>
+		/// Gamepad axis event data <br/>
+		/// </summary>
+		public ref SDLGamepadAxisEvent Gaxis => ref Unsafe.AsRef<SDLGamepadAxisEvent>(&Handle->Gaxis);
+		/// <summary>
+		/// Gamepad button event data <br/>
+		/// </summary>
+		public ref SDLGamepadButtonEvent Gbutton => ref Unsafe.AsRef<SDLGamepadButtonEvent>(&Handle->Gbutton);
+		/// <summary>
+		/// Gamepad touchpad event data <br/>
+		/// </summary>
+		public ref SDLGamepadTouchpadEvent Gtouchpad => ref Unsafe.AsRef<SDLGamepadTouchpadEvent>(&Handle->Gtouchpad);
+		/// <summary>
+		/// Gamepad sensor event data <br/>
+		/// </summary>
+		public ref SDLGamepadSensorEvent Gsensor => ref Unsafe.AsRef<SDLGamepadSensorEvent>(&Handle->Gsensor);
+		/// <summary>
+		/// Audio device event data <br/>
+		/// </summary>
+		public ref SDLAudioDeviceEvent Adevice => ref Unsafe.AsRef<SDLAudioDeviceEvent>(&Handle->Adevice);
+		/// <summary>
+		/// Camera device event data <br/>
+		/// </summary>
+		public ref SDLCameraDeviceEvent Cdevice => ref Unsafe.AsRef<SDLCameraDeviceEvent>(&Handle->Cdevice);
+		/// <summary>
+		/// Sensor event data <br/>
+		/// </summary>
+		public ref SDLSensorEvent Sensor => ref Unsafe.AsRef<SDLSensorEvent>(&Handle->Sensor);
+		/// <summary>
+		/// Quit request event data <br/>
+		/// </summary>
+		public ref SDLQuitEvent Quit => ref Unsafe.AsRef<SDLQuitEvent>(&Handle->Quit);
+		/// <summary>
+		/// Custom event data <br/>
+		/// </summary>
+		public ref SDLUserEvent User => ref Unsafe.AsRef<SDLUserEvent>(&Handle->User);
+		/// <summary>
+		/// Touch finger event data <br/>
+		/// </summary>
+		public ref SDLTouchFingerEvent Tfinger => ref Unsafe.AsRef<SDLTouchFingerEvent>(&Handle->Tfinger);
+		/// <summary>
+		/// Pinch event data <br/>
+		/// </summary>
+		public ref SDLPinchFingerEvent Pinch => ref Unsafe.AsRef<SDLPinchFingerEvent>(&Handle->Pinch);
+		/// <summary>
+		/// Pen proximity event data <br/>
+		/// </summary>
+		public ref SDLPenProximityEvent Pproximity => ref Unsafe.AsRef<SDLPenProximityEvent>(&Handle->Pproximity);
+		/// <summary>
+		/// Pen tip touching event data <br/>
+		/// </summary>
+		public ref SDLPenTouchEvent Ptouch => ref Unsafe.AsRef<SDLPenTouchEvent>(&Handle->Ptouch);
+		/// <summary>
+		/// Pen motion event data <br/>
+		/// </summary>
+		public ref SDLPenMotionEvent Pmotion => ref Unsafe.AsRef<SDLPenMotionEvent>(&Handle->Pmotion);
+		/// <summary>
+		/// Pen button event data <br/>
+		/// </summary>
+		public ref SDLPenButtonEvent Pbutton => ref Unsafe.AsRef<SDLPenButtonEvent>(&Handle->Pbutton);
+		/// <summary>
+		/// Pen axis event data <br/>
+		/// </summary>
+		public ref SDLPenAxisEvent Paxis => ref Unsafe.AsRef<SDLPenAxisEvent>(&Handle->Paxis);
+		/// <summary>
+		/// Render event data <br/>
+		/// </summary>
+		public ref SDLRenderEvent Render => ref Unsafe.AsRef<SDLRenderEvent>(&Handle->Render);
+		/// <summary>
+		/// Drag and drop event data <br/>
+		/// </summary>
+		public ref SDLDropEvent Drop => ref Unsafe.AsRef<SDLDropEvent>(&Handle->Drop);
+		/// <summary>
+		/// Clipboard event data <br/>
+		/// </summary>
+		public ref SDLClipboardEvent Clipboard => ref Unsafe.AsRef<SDLClipboardEvent>(&Handle->Clipboard);
+		/// <summary>
+		/// This is necessary for ABI compatibility between Visual C++ and GCC.<br/>
+		/// Visual C++ will respect the push pack pragma and use 52 bytes (size of<br/>
+		/// SDL_TextEditingEvent, the largest structure for 32-bit and 64-bit<br/>
+		/// architectures) for this union, and GCC will use the alignment of the<br/>
+		/// largest datatype within the union, which is 8 bytes on 64-bit<br/>
+		/// architectures.<br/>
+		/// So... we'll add padding to force the size to be the same for both.<br/>
+		/// On architectures where pointers are 16 bytes, this needs rounding up to<br/>
+		/// the next multiple of 16, 64, and on architectures where pointers are<br/>
+		/// even larger the size of SDL_UserEvent will dominate as being 3 pointers.<br/>
+		/// </summary>
+		public unsafe Span<byte> Padding
+		
+		{
+			get
+			{
+				return new Span<byte>(&Handle->Padding_0, 128);
+			}
+		}
 	}
 
 }

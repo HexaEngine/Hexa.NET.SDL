@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Note: If you modify this list, update SDL_GetPixelFormatName() <br/>
 	/// </summary>
-	[Flags]
 	public enum SDLPixelFormatEnum : int
 	{
 		Unknown = unchecked(0),

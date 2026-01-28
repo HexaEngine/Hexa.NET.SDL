@@ -23,7 +23,6 @@ namespace Hexa.NET.SDL2
 	/// not the same range that will be reported by the lower-level<br/>
 	/// SDL_GetJoystickAxis().<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLGameControllerAxis : int
 	{
 		Invalid = unchecked(-1),

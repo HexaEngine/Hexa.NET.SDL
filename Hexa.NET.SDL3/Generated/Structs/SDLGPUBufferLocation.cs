@@ -21,27 +21,87 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBufferLocation")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBufferLocation
 	{
 		/// <summary>
 		/// The buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "buffer")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
 		public unsafe SDLGPUBuffer* Buffer;
 
 		/// <summary>
 		/// The starting byte within the buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "offset")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 
-		public unsafe SDLGPUBufferLocation(SDLGPUBuffer* buffer = default, uint offset = default)
+		public unsafe SDLGPUBufferLocation(SDLGPUBufferPtr buffer = default, uint offset = default)
 		{
 			Buffer = buffer;
 			Offset = offset;
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying a location in a buffer.<br/>
+	/// Used when copying data between buffers.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUBufferLocation")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUBufferLocationPtr : IEquatable<SDLGPUBufferLocationPtr>
+	{
+		public SDLGPUBufferLocationPtr(SDLGPUBufferLocation* handle) { Handle = handle; }
+
+		public SDLGPUBufferLocation* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUBufferLocationPtr Null => new SDLGPUBufferLocationPtr(null);
+
+		public SDLGPUBufferLocation this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUBufferLocationPtr(SDLGPUBufferLocation* handle) => new SDLGPUBufferLocationPtr(handle);
+
+		public static implicit operator SDLGPUBufferLocation*(SDLGPUBufferLocationPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUBufferLocationPtr left, SDLGPUBufferLocationPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUBufferLocationPtr left, SDLGPUBufferLocationPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUBufferLocationPtr left, SDLGPUBufferLocation* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUBufferLocationPtr left, SDLGPUBufferLocation* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUBufferLocationPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUBufferLocationPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUBufferLocationPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The buffer. <br/>
+		/// </summary>
+		public ref SDLGPUBufferPtr Buffer => ref Unsafe.AsRef<SDLGPUBufferPtr>(&Handle->Buffer);
+		/// <summary>
+		/// The starting byte within the buffer. <br/>
+		/// </summary>
+		public ref uint Offset => ref Unsafe.AsRef<uint>(&Handle->Offset);
 	}
 
 }

@@ -23,16 +23,32 @@ namespace Hexa.NET.SDL3
 	/// same range that will be reported by the lower-level SDL_GetJoystickAxis().<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_GamepadAxis")]
 	public enum SDLGamepadAxis : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_INVALID")]
+		[NativeName(NativeNameType.Value, "-1")]
 		Invalid = unchecked(-1),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_LEFTX")]
+		[NativeName(NativeNameType.Value, "0")]
 		Leftx = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_LEFTY")]
+		[NativeName(NativeNameType.Value, "1")]
 		Lefty = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_RIGHTX")]
+		[NativeName(NativeNameType.Value, "2")]
 		Rightx = unchecked(2),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_RIGHTY")]
+		[NativeName(NativeNameType.Value, "3")]
 		Righty = unchecked(3),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_LEFT_TRIGGER")]
+		[NativeName(NativeNameType.Value, "4")]
 		LeftTrigger = unchecked(4),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_RIGHT_TRIGGER")]
+		[NativeName(NativeNameType.Value, "5")]
 		RightTrigger = unchecked(5),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_COUNT")]
+		[NativeName(NativeNameType.Value, "6")]
 		Count = unchecked(6),
 	}
 }

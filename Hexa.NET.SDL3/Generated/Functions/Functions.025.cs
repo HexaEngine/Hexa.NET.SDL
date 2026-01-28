@@ -18,1007 +18,3727 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetRenderDrawBlendModeNative(SDLRenderer* renderer, SDLBlendMode blendMode)
+		internal static void DrawGPUPrimitivesNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode, byte>)funcTable[1091])(renderer, blendMode);
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, uint, uint, uint, uint, void>)funcTable[899])(renderPass, numVertices, numInstances, firstVertex, firstInstance);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, byte>)funcTable[1091])((nint)renderer, blendMode);
+			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, void>)funcTable[899])((nint)renderPass, numVertices, numInstances, firstVertex, firstInstance);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetRenderDrawBlendMode(SDLRenderer* renderer, SDLBlendMode blendMode)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPassPtr renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
 		{
-			byte ret = SetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret != 0;
+			DrawGPUPrimitivesNative((SDLGPURenderPass*)renderPass, numVertices, numInstances, firstVertex, firstInstance);
 		}
 
 		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state.<br/>
+		/// You must not call this function before binding a graphics pipeline.<br/>
+		/// Note that the `first_vertex` and `first_instance` parameters are NOT<br/>
+		/// compatible with built-in vertex/instance ID variables in shaders (for<br/>
+		/// example, SV_VertexID); GPU APIs and shader languages do not define these<br/>
+		/// built-in variables consistently, so if your shader depends on them, the<br/>
+		/// only way to keep behavior consistent and portable is to always pass 0 for<br/>
+		/// the correlating parameter in the draw calls.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetRenderDrawBlendMode(ref SDLRenderer renderer, SDLBlendMode blendMode)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitives")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitives([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "Uint32")] uint numVertices, [NativeName(NativeNameType.Param, "num_instances")] [NativeName(NativeNameType.Type, "Uint32")] uint numInstances, [NativeName(NativeNameType.Param, "first_vertex")] [NativeName(NativeNameType.Type, "Uint32")] uint firstVertex, [NativeName(NativeNameType.Param, "first_instance")] [NativeName(NativeNameType.Type, "Uint32")] uint firstInstance)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				byte ret = SetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret != 0;
+				DrawGPUPrimitivesNative((SDLGPURenderPass*)prenderPass, numVertices, numInstances, firstVertex, firstInstance);
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRenderDrawBlendModeNative(SDLRenderer* renderer, SDLBlendMode* blendMode)
+		internal static void DrawGPUPrimitivesIndirectNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode*, byte>)funcTable[1092])(renderer, blendMode);
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[900])(renderPass, buffer, offset, drawCount);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1092])((nint)renderer, (nint)blendMode);
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[900])((nint)renderPass, (nint)buffer, offset, drawCount);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetRenderDrawBlendMode(SDLRenderer* renderer, SDLBlendMode* blendMode)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPassPtr renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBufferPtr buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
-			byte ret = GetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret != 0;
+			DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)renderPass, (SDLGPUBuffer*)buffer, offset, drawCount);
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetRenderDrawBlendMode(ref SDLRenderer renderer, SDLBlendMode* blendMode)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBufferPtr buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				byte ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret != 0;
+				DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)buffer, offset, drawCount);
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetRenderDrawBlendMode(SDLRenderer* renderer, ref SDLBlendMode blendMode)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPassPtr renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
 			{
-				byte ret = GetRenderDrawBlendModeNative(renderer, (SDLBlendMode*)pblendMode);
-				return ret != 0;
+				DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state and with draw parameters set from a<br/>
+		/// buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndirectDrawCommand. You must not call this<br/>
+		/// function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetRenderDrawBlendMode(ref SDLRenderer renderer, ref SDLBlendMode blendMode)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
 				{
-					byte ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, (SDLBlendMode*)pblendMode);
-					return ret != 0;
+					DrawGPUPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderClearNative(SDLRenderer* renderer)
+		internal static void DrawGPUIndexedPrimitivesIndirectNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte>)funcTable[1093])(renderer);
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, SDLGPUBuffer*, uint, uint, void>)funcTable[901])(renderPass, buffer, offset, drawCount);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1093])((nint)renderer);
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, uint, void>)funcTable[901])((nint)renderPass, (nint)buffer, offset, drawCount);
 			#endif
 		}
 
 		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderClear(SDLRenderer* renderer)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPassPtr renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBufferPtr buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
-			byte ret = RenderClearNative(renderer);
-			return ret != 0;
+			DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)renderPass, (SDLGPUBuffer*)buffer, offset, drawCount);
 		}
 
 		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle. Note, that clearing will also set/fill all pixels of<br/>
-		/// the rendering target to current renderer draw color, so make sure to invoke<br/>
-		/// SDL_SetRenderDrawColor() when needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderClear(ref SDLRenderer renderer)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBufferPtr buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				byte ret = RenderClearNative((SDLRenderer*)prenderer);
-				return ret != 0;
+				DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)buffer, offset, drawCount);
 			}
 		}
 
 		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderPointNative(SDLRenderer* renderer, float x, float y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, byte>)funcTable[1094])(renderer, x, y);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, byte>)funcTable[1094])((nint)renderer, x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderPoint(SDLRenderer* renderer, float x, float y)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPassPtr renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
-			byte ret = RenderPointNative(renderer, x, y);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderPoint(ref SDLRenderer renderer, float x, float y)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
 			{
-				byte ret = RenderPointNative((SDLRenderer*)prenderer, x, y);
-				return ret != 0;
+				DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)renderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
 			}
 		}
 
 		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderPointsNative(SDLRenderer* renderer, SDLFPoint* points, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, byte>)funcTable[1095])(renderer, points, count);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1095])((nint)renderer, (nint)points, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Draws data using bound graphics state with an index buffer enabled and with<br/>
+		/// draw parameters set from a buffer.<br/>
+		/// The buffer must consist of tightly-packed draw parameter sets that each<br/>
+		/// match the layout of SDL_GPUIndexedIndirectDrawCommand. You must not call<br/>
+		/// this function before binding a graphics pipeline.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderPoints(SDLRenderer* renderer, SDLFPoint* points, int count)
+		[NativeName(NativeNameType.Func, "SDL_DrawGPUIndexedPrimitivesIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DrawGPUIndexedPrimitivesIndirect([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset, [NativeName(NativeNameType.Param, "draw_count")] [NativeName(NativeNameType.Type, "Uint32")] uint drawCount)
 		{
-			byte ret = RenderPointsNative(renderer, points, count);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderPoints(ref SDLRenderer renderer, SDLFPoint* points, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				byte ret = RenderPointsNative((SDLRenderer*)prenderer, points, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderPoints(SDLRenderer* renderer, ref SDLFPoint points, int count)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				byte ret = RenderPointsNative(renderer, (SDLFPoint*)ppoints, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderPoints(ref SDLRenderer renderer, ref SDLFPoint points, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* ppoints = &points)
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
 				{
-					byte ret = RenderPointsNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
-					return ret != 0;
+					DrawGPUIndexedPrimitivesIndirectNative((SDLGPURenderPass*)prenderPass, (SDLGPUBuffer*)pbuffer, offset, drawCount);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderLineNative(SDLRenderer* renderer, float x1, float y1, float x2, float y2)
+		internal static void EndGPURenderPassNative([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPass* renderPass)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float, float, byte>)funcTable[1096])(renderer, x1, y1, x2, y2);
+			((delegate* unmanaged[Cdecl]<SDLGPURenderPass*, void>)funcTable[902])(renderPass);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, float, byte>)funcTable[1096])((nint)renderer, x1, y1, x2, y2);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[902])((nint)renderPass);
 			#endif
 		}
 
 		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderLine(SDLRenderer* renderer, float x1, float y1, float x2, float y2)
+		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPURenderPass([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] SDLGPURenderPassPtr renderPass)
 		{
-			byte ret = RenderLineNative(renderer, x1, y1, x2, y2);
-			return ret != 0;
+			EndGPURenderPassNative((SDLGPURenderPass*)renderPass);
 		}
 
 		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Ends the given render pass.<br/>
+		/// All bound graphics state on the render pass command buffer is unset. The<br/>
+		/// render pass handle is now invalid.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderLine(ref SDLRenderer renderer, float x1, float y1, float x2, float y2)
+		[NativeName(NativeNameType.Func, "SDL_EndGPURenderPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPURenderPass([NativeName(NativeNameType.Param, "render_pass")] [NativeName(NativeNameType.Type, "SDL_GPURenderPass *")] ref SDLGPURenderPass renderPass)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPURenderPass* prenderPass = &renderPass)
 			{
-				byte ret = RenderLineNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
-				return ret != 0;
+				EndGPURenderPassNative((SDLGPURenderPass*)prenderPass);
 			}
 		}
 
 		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderLinesNative(SDLRenderer* renderer, SDLFPoint* points, int count)
+		internal static SDLGPUComputePass* BeginGPUComputePassNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBinding* storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBinding* storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, byte>)funcTable[1097])(renderer, points, count);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUStorageTextureReadWriteBinding*, uint, SDLGPUStorageBufferReadWriteBinding*, uint, SDLGPUComputePass*>)funcTable[903])(commandBuffer, storageTextureBindings, numStorageTextureBindings, storageBufferBindings, numStorageBufferBindings);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1097])((nint)renderer, (nint)points, count);
+			return (SDLGPUComputePass*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, uint, nint>)funcTable[903])((nint)commandBuffer, (nint)storageTextureBindings, numStorageTextureBindings, (nint)storageBufferBindings, numStorageBufferBindings);
 			#endif
 		}
 
 		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderLines(SDLRenderer* renderer, SDLFPoint* points, int count)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePassPtr BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBindingPtr storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBindingPtr storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			byte ret = RenderLinesNative(renderer, points, count);
-			return ret != 0;
+			SDLGPUComputePassPtr ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)storageBufferBindings, numStorageBufferBindings);
+			return ret;
 		}
 
 		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderLines(ref SDLRenderer renderer, SDLFPoint* points, int count)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePassPtr BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBindingPtr storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBindingPtr storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = RenderLinesNative((SDLRenderer*)prenderer, points, count);
-				return ret != 0;
+				SDLGPUComputePassPtr ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)storageBufferBindings, numStorageBufferBindings);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderLines(SDLRenderer* renderer, ref SDLFPoint points, int count)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePassPtr BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] in SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBindingPtr storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			fixed (SDLFPoint* ppoints = &points)
+			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
 			{
-				byte ret = RenderLinesNative(renderer, (SDLFPoint*)ppoints, count);
-				return ret != 0;
+				SDLGPUComputePassPtr ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)storageBufferBindings, numStorageBufferBindings);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderLines(ref SDLRenderer renderer, ref SDLFPoint points, int count)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePassPtr BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] in SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] SDLGPUStorageBufferReadWriteBindingPtr storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLFPoint* ppoints = &points)
+				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
 				{
-					byte ret = RenderLinesNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
-					return ret != 0;
+					SDLGPUComputePassPtr ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)storageBufferBindings, numStorageBufferBindings);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderRectNative(SDLRenderer* renderer, SDLFRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, byte>)funcTable[1098])(renderer, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1098])((nint)renderer, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderRect(SDLRenderer* renderer, SDLFRect* rect)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePassPtr BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBindingPtr storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] in SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			byte ret = RenderRectNative(renderer, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderRect(ref SDLRenderer renderer, SDLFRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
 			{
-				byte ret = RenderRectNative((SDLRenderer*)prenderer, rect);
-				return ret != 0;
+				SDLGPUComputePassPtr ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderRect(SDLRenderer* renderer, ref SDLFRect rect)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				byte ret = RenderRectNative(renderer, (SDLFRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderRect(ref SDLRenderer renderer, ref SDLFRect rect)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePassPtr BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] SDLGPUStorageTextureReadWriteBindingPtr storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] in SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLFRect* prect = &rect)
+				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
 				{
-					byte ret = RenderRectNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
-					return ret != 0;
+					SDLGPUComputePassPtr ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)storageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderRectsNative(SDLRenderer* renderer, SDLFRect* rects, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, byte>)funcTable[1099])(renderer, rects, count);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1099])((nint)renderer, (nint)rects, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderRects(SDLRenderer* renderer, SDLFRect* rects, int count)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePassPtr BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] in SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] in SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			byte ret = RenderRectsNative(renderer, rects, count);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderRects(ref SDLRenderer renderer, SDLFRect* rects, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
 			{
-				byte ret = RenderRectsNative((SDLRenderer*)prenderer, rects, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderRects(SDLRenderer* renderer, ref SDLFRect rects, int count)
-		{
-			fixed (SDLFRect* prects = &rects)
-			{
-				byte ret = RenderRectsNative(renderer, (SDLFRect*)prects, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderRects(ref SDLRenderer renderer, ref SDLFRect rects, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prects = &rects)
+				fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
 				{
-					byte ret = RenderRectsNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
-					return ret != 0;
+					SDLGPUComputePassPtr ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)commandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
+		/// Begins a compute pass on a command buffer.<br/>
+		/// A compute pass is defined by a set of texture subresources and buffers that<br/>
+		/// may be written to by compute pipelines. These textures and buffers must<br/>
+		/// have been created with the COMPUTE_STORAGE_WRITE bit or the<br/>
+		/// COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE bit. If you do not create a texture<br/>
+		/// with COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE, you must not read from the<br/>
+		/// texture in the compute pass. All operations related to compute pipelines<br/>
+		/// must take place inside of a compute pass. You must not begin another<br/>
+		/// compute pass, or a render pass or copy pass before ending the compute pass.<br/>
+		/// A VERY IMPORTANT NOTE - Reads and writes in compute passes are NOT<br/>
+		/// implicitly synchronized. This means you may cause data races by both<br/>
+		/// reading and writing a resource region in a compute pass, or by writing<br/>
+		/// multiple times to a resource region. If your compute work depends on<br/>
+		/// reading the completed output from a previous dispatch, you MUST end the<br/>
+		/// current compute pass and begin a new one before you can safely access the<br/>
+		/// data. Otherwise you will receive unexpected results. Reading and writing a<br/>
+		/// texture in the same compute pass is only supported by specific texture<br/>
+		/// formats. Make sure you check the format support!<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderFillRectNative(SDLRenderer* renderer, SDLFRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, byte>)funcTable[1100])(renderer, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1100])((nint)renderer, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderFillRect(SDLRenderer* renderer, SDLFRect* rect)
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePass *")]
+		public static SDLGPUComputePassPtr BeginGPUComputePass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "storage_texture_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageTextureReadWriteBinding const *")] in SDLGPUStorageTextureReadWriteBinding storageTextureBindings, [NativeName(NativeNameType.Param, "num_storage_texture_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageTextureBindings, [NativeName(NativeNameType.Param, "storage_buffer_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUStorageBufferReadWriteBinding const *")] in SDLGPUStorageBufferReadWriteBinding storageBufferBindings, [NativeName(NativeNameType.Param, "num_storage_buffer_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numStorageBufferBindings)
 		{
-			byte ret = RenderFillRectNative(renderer, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderFillRect(ref SDLRenderer renderer, SDLFRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = RenderFillRectNative((SDLRenderer*)prenderer, rect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderFillRect(SDLRenderer* renderer, ref SDLFRect rect)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				byte ret = RenderFillRectNative(renderer, (SDLFRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderFillRect(ref SDLRenderer renderer, ref SDLFRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prect = &rect)
+				fixed (SDLGPUStorageTextureReadWriteBinding* pstorageTextureBindings = &storageTextureBindings)
 				{
-					byte ret = RenderFillRectNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderFillRectsNative(SDLRenderer* renderer, SDLFRect* rects, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, byte>)funcTable[1101])(renderer, rects, count);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[1101])((nint)renderer, (nint)rects, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderFillRects(SDLRenderer* renderer, SDLFRect* rects, int count)
-		{
-			byte ret = RenderFillRectsNative(renderer, rects, count);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderFillRects(ref SDLRenderer renderer, SDLFRect* rects, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderFillRectsNative((SDLRenderer*)prenderer, rects, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderFillRects(SDLRenderer* renderer, ref SDLFRect rects, int count)
-		{
-			fixed (SDLFRect* prects = &rects)
-			{
-				byte ret = RenderFillRectsNative(renderer, (SDLFRect*)prects, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderFillRects(ref SDLRenderer renderer, ref SDLFRect rects, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prects = &rects)
-				{
-					byte ret = RenderFillRectsNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTextureNative(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFRect*, byte>)funcTable[1102])(renderer, texture, srcrect, dstrect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1102])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFRect* dstrect)
-		{
-			byte ret = RenderTextureNative(renderer, texture, srcrect, dstrect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFRect* dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTextureNative(renderer, texture, (SDLFRect*)psrcrect, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
+					fixed (SDLGPUStorageBufferReadWriteBinding* pstorageBufferBindings = &storageBufferBindings)
 					{
-						byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect);
+						SDLGPUComputePassPtr ret = BeginGPUComputePassNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUStorageTextureReadWriteBinding*)pstorageTextureBindings, numStorageTextureBindings, (SDLGPUStorageBufferReadWriteBinding*)pstorageBufferBindings, numStorageBufferBindings);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputePipelineNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipeline* computePipeline)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUComputePipeline*, void>)funcTable[904])(computePass, computePipeline);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[904])((nint)computePass, (nint)computePipeline);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipelinePtr computePipeline)
+		{
+			BindGPUComputePipelineNative((SDLGPUComputePass*)computePass, (SDLGPUComputePipeline*)computePipeline);
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] SDLGPUComputePipelinePtr computePipeline)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, (SDLGPUComputePipeline*)computePipeline);
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
+		{
+			fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+			{
+				BindGPUComputePipelineNative((SDLGPUComputePass*)computePass, (SDLGPUComputePipeline*)pcomputePipeline);
+			}
+		}
+
+		/// <summary>
+		/// Binds a compute pipeline on a command buffer for use in compute dispatch.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputePipeline([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "compute_pipeline")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")] ref SDLGPUComputePipeline computePipeline)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUComputePipeline* pcomputePipeline = &computePipeline)
+				{
+					BindGPUComputePipelineNative((SDLGPUComputePass*)pcomputePass, (SDLGPUComputePipeline*)pcomputePipeline);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeSamplersNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBinding* textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTextureSamplerBinding*, uint, void>)funcTable[905])(computePass, firstSlot, textureSamplerBindings, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[905])((nint)computePass, firstSlot, (nint)textureSamplerBindings, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBindingPtr textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUComputeSamplersNative((SDLGPUComputePass*)computePass, firstSlot, (SDLGPUTextureSamplerBinding*)textureSamplerBindings, numBindings);
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] SDLGPUTextureSamplerBindingPtr textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTextureSamplerBinding*)textureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] in SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+			{
+				BindGPUComputeSamplersNative((SDLGPUComputePass*)computePass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds texture-sampler pairs for use on the compute shader.<br/>
+		/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeSamplers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeSamplers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "texture_sampler_bindings")] [NativeName(NativeNameType.Type, "SDL_GPUTextureSamplerBinding const *")] in SDLGPUTextureSamplerBinding textureSamplerBindings, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUTextureSamplerBinding* ptextureSamplerBindings = &textureSamplerBindings)
+				{
+					BindGPUComputeSamplersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTextureSamplerBinding*)ptextureSamplerBindings, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeStorageTexturesNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexture** storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUTexture**, uint, void>)funcTable[906])(computePass, firstSlot, storageTextures, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[906])((nint)computePass, firstSlot, (nint)storageTextures, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageTextures([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexturePtrPtr storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)computePass, firstSlot, (SDLGPUTexture**)storageTextures, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageTextures([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] SDLGPUTexturePtrPtr storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTexture**)storageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageTextures([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] in SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+			{
+				BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)computePass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage textures as readonly for use on the compute pipeline.<br/>
+		/// These textures must have been created with<br/>
+		/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageTextures")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageTextures([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_textures")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * const *")] in SDLGPUTexture* storageTextures, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUTexture** pstorageTextures = &storageTextures)
+				{
+					BindGPUComputeStorageTexturesNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUTexture**)pstorageTextures, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BindGPUComputeStorageBuffersNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, SDLGPUBuffer**, uint, void>)funcTable[907])(computePass, firstSlot, storageBuffers, numBindings);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, nint, uint, void>)funcTable[907])((nint)computePass, firstSlot, (nint)storageBuffers, numBindings);
+			#endif
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageBuffers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)computePass, firstSlot, storageBuffers, numBindings);
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageBuffers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] SDLGPUBuffer** storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)pcomputePass, firstSlot, storageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageBuffers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] in SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+			{
+				BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)computePass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+			}
+		}
+
+		/// <summary>
+		/// Binds storage buffers as readonly for use on the compute pipeline.<br/>
+		/// These buffers must have been created with<br/>
+		/// SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.<br/>
+		/// Be sure your shader is set up according to the requirements documented in<br/>
+		/// SDL_CreateGPUComputePipeline().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BindGPUComputeStorageBuffers")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BindGPUComputeStorageBuffers([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "first_slot")] [NativeName(NativeNameType.Type, "Uint32")] uint firstSlot, [NativeName(NativeNameType.Param, "storage_buffers")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer * const *")] in SDLGPUBuffer* storageBuffers, [NativeName(NativeNameType.Param, "num_bindings")] [NativeName(NativeNameType.Type, "Uint32")] uint numBindings)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUBuffer** pstorageBuffers = &storageBuffers)
+				{
+					BindGPUComputeStorageBuffersNative((SDLGPUComputePass*)pcomputePass, firstSlot, (SDLGPUBuffer**)pstorageBuffers, numBindings);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUCompute")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DispatchGPUComputeNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "groupcount_x")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountX, [NativeName(NativeNameType.Param, "groupcount_y")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountY, [NativeName(NativeNameType.Param, "groupcount_z")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountZ)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, uint, uint, uint, void>)funcTable[908])(computePass, groupcountX, groupcountY, groupcountZ);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, void>)funcTable[908])((nint)computePass, groupcountX, groupcountY, groupcountZ);
+			#endif
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUCompute")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUCompute([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "groupcount_x")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountX, [NativeName(NativeNameType.Param, "groupcount_y")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountY, [NativeName(NativeNameType.Param, "groupcount_z")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountZ)
+		{
+			DispatchGPUComputeNative((SDLGPUComputePass*)computePass, groupcountX, groupcountY, groupcountZ);
+		}
+
+		/// <summary>
+		/// Dispatches compute work.<br/>
+		/// You must not call this function before binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUCompute")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUCompute([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "groupcount_x")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountX, [NativeName(NativeNameType.Param, "groupcount_y")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountY, [NativeName(NativeNameType.Param, "groupcount_z")] [NativeName(NativeNameType.Type, "Uint32")] uint groupcountZ)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				DispatchGPUComputeNative((SDLGPUComputePass*)pcomputePass, groupcountX, groupcountY, groupcountZ);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DispatchGPUComputeIndirectNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBuffer* buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, SDLGPUBuffer*, uint, void>)funcTable[909])(computePass, buffer, offset);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)funcTable[909])((nint)computePass, (nint)buffer, offset);
+			#endif
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUComputeIndirect([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBufferPtr buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			DispatchGPUComputeIndirectNative((SDLGPUComputePass*)computePass, (SDLGPUBuffer*)buffer, offset);
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUComputeIndirect([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] SDLGPUBufferPtr buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				DispatchGPUComputeIndirectNative((SDLGPUComputePass*)pcomputePass, (SDLGPUBuffer*)buffer, offset);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUComputeIndirect([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			fixed (SDLGPUBuffer* pbuffer = &buffer)
+			{
+				DispatchGPUComputeIndirectNative((SDLGPUComputePass*)computePass, (SDLGPUBuffer*)pbuffer, offset);
+			}
+		}
+
+		/// <summary>
+		/// Dispatches compute work with parameters set from a buffer.<br/>
+		/// The buffer layout should match the layout of<br/>
+		/// SDL_GPUIndirectDispatchCommand. You must not call this function before<br/>
+		/// binding a compute pipeline.<br/>
+		/// A VERY IMPORTANT NOTE If you dispatch multiple times in a compute pass, and<br/>
+		/// the dispatches write to the same resource region as each other, there is no<br/>
+		/// guarantee of which order the writes will occur. If the write order matters,<br/>
+		/// you MUST end the compute pass and begin another one.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DispatchGPUComputeIndirect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DispatchGPUComputeIndirect([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "SDL_GPUBuffer *")] ref SDLGPUBuffer buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Uint32")] uint offset)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				fixed (SDLGPUBuffer* pbuffer = &buffer)
+				{
+					DispatchGPUComputeIndirectNative((SDLGPUComputePass*)pcomputePass, (SDLGPUBuffer*)pbuffer, offset);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EndGPUComputePassNative([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePass* computePass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUComputePass*, void>)funcTable[910])(computePass);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[910])((nint)computePass);
+			#endif
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPUComputePass([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] SDLGPUComputePassPtr computePass)
+		{
+			EndGPUComputePassNative((SDLGPUComputePass*)computePass);
+		}
+
+		/// <summary>
+		/// Ends the current compute pass.<br/>
+		/// All bound compute state on the command buffer is unset. The compute pass<br/>
+		/// handle is now invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUComputePass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPUComputePass([NativeName(NativeNameType.Param, "compute_pass")] [NativeName(NativeNameType.Type, "SDL_GPUComputePass *")] ref SDLGPUComputePass computePass)
+		{
+			fixed (SDLGPUComputePass* pcomputePass = &computePass)
+			{
+				EndGPUComputePassNative((SDLGPUComputePass*)pcomputePass);
+			}
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* MapGPUTransferBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, byte, void*>)funcTable[911])(device, transferBuffer, cycle);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, byte, nint>)funcTable[911])((nint)device, (nint)transferBuffer, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* MapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBufferPtr transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)device, (SDLGPUTransferBuffer*)transferBuffer, cycle ? (byte)1 : (byte)0);
+			return ret;
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* MapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBufferPtr transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)transferBuffer, cycle ? (byte)1 : (byte)0);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* MapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+			{
+				void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)device, (SDLGPUTransferBuffer*)ptransferBuffer, cycle ? (byte)1 : (byte)0);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Maps a transfer buffer into application address space.<br/>
+		/// You must unmap the transfer buffer before encoding upload commands. The<br/>
+		/// memory is owned by the graphics driver - do NOT call SDL_free() on the<br/>
+		/// returned pointer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* MapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+				{
+					void* ret = MapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer, cycle ? (byte)1 : (byte)0);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnmapGPUTransferBufferNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBuffer* transferBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBuffer*, void>)funcTable[912])(device, transferBuffer);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[912])((nint)device, (nint)transferBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnmapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBufferPtr transferBuffer)
+		{
+			UnmapGPUTransferBufferNative((SDLGPUDevice*)device, (SDLGPUTransferBuffer*)transferBuffer);
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnmapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] SDLGPUTransferBufferPtr transferBuffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				UnmapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)transferBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnmapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer)
+		{
+			fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+			{
+				UnmapGPUTransferBufferNative((SDLGPUDevice*)device, (SDLGPUTransferBuffer*)ptransferBuffer);
+			}
+		}
+
+		/// <summary>
+		/// Unmaps a previously mapped transfer buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnmapGPUTransferBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnmapGPUTransferBuffer([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "transfer_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")] ref SDLGPUTransferBuffer transferBuffer)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUTransferBuffer* ptransferBuffer = &transferBuffer)
+				{
+					UnmapGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBuffer*)ptransferBuffer);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUCopyPass* BeginGPUCopyPassNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUCopyPass*>)funcTable[913])(commandBuffer);
+			#else
+			return (SDLGPUCopyPass*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[913])((nint)commandBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")]
+		public static SDLGPUCopyPassPtr BeginGPUCopyPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer)
+		{
+			SDLGPUCopyPassPtr ret = BeginGPUCopyPassNative((SDLGPUCommandBuffer*)commandBuffer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Begins a copy pass on a command buffer.<br/>
+		/// All operations related to copying to or from buffers or textures take place<br/>
+		/// inside a copy pass. You must not begin another copy pass, or a render pass<br/>
+		/// or compute pass before ending the copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BeginGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")]
+		public static SDLGPUCopyPassPtr BeginGPUCopyPass([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				SDLGPUCopyPassPtr ret = BeginGPUCopyPassNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UploadToGPUTextureNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureTransferInfo*, SDLGPUTextureRegion*, byte, void>)funcTable[914])(copyPass, source, destination, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, byte, void>)funcTable[914])((nint)copyPass, (nint)source, (nint)destination, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfoPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegionPtr destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			UploadToGPUTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureTransferInfo*)source, (SDLGPUTextureRegion*)destination, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfoPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegionPtr destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)source, (SDLGPUTextureRegion*)destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] in SDLGPUTextureTransferInfo source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegionPtr destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureTransferInfo* psource = &source)
+			{
+				UploadToGPUTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] in SDLGPUTextureTransferInfo source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegionPtr destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureTransferInfo* psource = &source)
+				{
+					UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)destination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfoPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] in SDLGPUTextureRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureRegion* pdestination = &destination)
+			{
+				UploadToGPUTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureTransferInfo*)source, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfoPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] in SDLGPUTextureRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureRegion* pdestination = &destination)
+				{
+					UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)source, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] in SDLGPUTextureTransferInfo source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] in SDLGPUTextureRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureTransferInfo* psource = &source)
+			{
+				fixed (SDLGPUTextureRegion* pdestination = &destination)
+				{
+					UploadToGPUTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a texture.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// You must align the data in the transfer buffer to a multiple of the texel<br/>
+		/// size of the texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] in SDLGPUTextureTransferInfo source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] in SDLGPUTextureRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureTransferInfo* psource = &source)
+				{
+					fixed (SDLGPUTextureRegion* pdestination = &destination)
+					{
+						UploadToGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureTransferInfo*)psource, (SDLGPUTextureRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UploadToGPUBufferNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTransferBufferLocation*, SDLGPUBufferRegion*, byte, void>)funcTable[915])(copyPass, source, destination, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, byte, void>)funcTable[915])((nint)copyPass, (nint)source, (nint)destination, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegionPtr destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			UploadToGPUBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUTransferBufferLocation*)source, (SDLGPUBufferRegion*)destination, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegionPtr destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)source, (SDLGPUBufferRegion*)destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] in SDLGPUTransferBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegionPtr destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTransferBufferLocation* psource = &source)
+			{
+				UploadToGPUBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)destination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] in SDLGPUTransferBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegionPtr destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* psource = &source)
+				{
+					UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)destination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] in SDLGPUBufferRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUBufferRegion* pdestination = &destination)
+			{
+				UploadToGPUBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUTransferBufferLocation*)source, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] in SDLGPUBufferRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* pdestination = &destination)
+				{
+					UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)source, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] in SDLGPUTransferBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] in SDLGPUBufferRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTransferBufferLocation* psource = &source)
+			{
+				fixed (SDLGPUBufferRegion* pdestination = &destination)
+				{
+					UploadToGPUBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Uploads data from a transfer buffer to a buffer.<br/>
+		/// The upload occurs on the GPU timeline. You may assume that the upload has<br/>
+		/// finished in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UploadToGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UploadToGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] in SDLGPUTransferBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] in SDLGPUBufferRegion destination, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* psource = &source)
+				{
+					fixed (SDLGPUBufferRegion* pdestination = &destination)
+					{
+						UploadToGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTransferBufferLocation*)psource, (SDLGPUBufferRegion*)pdestination, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CopyGPUTextureToTextureNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocation* destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureLocation*, SDLGPUTextureLocation*, uint, uint, uint, byte, void>)funcTable[916])(copyPass, source, destination, w, h, d, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, uint, uint, uint, byte, void>)funcTable[916])((nint)copyPass, (nint)source, (nint)destination, w, h, d, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocationPtr destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			CopyGPUTextureToTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureLocation*)source, (SDLGPUTextureLocation*)destination, w, h, d, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocationPtr destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)source, (SDLGPUTextureLocation*)destination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] in SDLGPUTextureLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocationPtr destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* psource = &source)
+			{
+				CopyGPUTextureToTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)destination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] in SDLGPUTextureLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocationPtr destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* psource = &source)
+				{
+					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)destination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] in SDLGPUTextureLocation destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* pdestination = &destination)
+			{
+				CopyGPUTextureToTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureLocation*)source, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] SDLGPUTextureLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] in SDLGPUTextureLocation destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* pdestination = &destination)
+				{
+					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)source, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] in SDLGPUTextureLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] in SDLGPUTextureLocation destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUTextureLocation* psource = &source)
+			{
+				fixed (SDLGPUTextureLocation* pdestination = &destination)
+				{
+					CopyGPUTextureToTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a texture-to-texture copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// This function does not support copying between depth and color textures.<br/>
+		/// For those, copy the texture to a buffer and then to the destination<br/>
+		/// texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUTextureToTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUTextureToTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] in SDLGPUTextureLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureLocation const *")] in SDLGPUTextureLocation destination, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "Uint32")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "Uint32")] uint h, [NativeName(NativeNameType.Param, "d")] [NativeName(NativeNameType.Type, "Uint32")] uint d, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureLocation* psource = &source)
+				{
+					fixed (SDLGPUTextureLocation* pdestination = &destination)
+					{
+						CopyGPUTextureToTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureLocation*)psource, (SDLGPUTextureLocation*)pdestination, w, h, d, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CopyGPUBufferToBufferNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocation* destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] byte cycle)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUBufferLocation*, SDLGPUBufferLocation*, uint, byte, void>)funcTable[917])(copyPass, source, destination, size, cycle);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, uint, byte, void>)funcTable[917])((nint)copyPass, (nint)source, (nint)destination, size, cycle);
+			#endif
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocationPtr destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			CopyGPUBufferToBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUBufferLocation*)source, (SDLGPUBufferLocation*)destination, size, cycle ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocationPtr destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)source, (SDLGPUBufferLocation*)destination, size, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] in SDLGPUBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocationPtr destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUBufferLocation* psource = &source)
+			{
+				CopyGPUBufferToBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)destination, size, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] in SDLGPUBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocationPtr destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferLocation* psource = &source)
+				{
+					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)destination, size, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] in SDLGPUBufferLocation destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUBufferLocation* pdestination = &destination)
+			{
+				CopyGPUBufferToBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUBufferLocation*)source, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] SDLGPUBufferLocationPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] in SDLGPUBufferLocation destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferLocation* pdestination = &destination)
+				{
+					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)source, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] in SDLGPUBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] in SDLGPUBufferLocation destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUBufferLocation* psource = &source)
+			{
+				fixed (SDLGPUBufferLocation* pdestination = &destination)
+				{
+					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Performs a buffer-to-buffer copy.<br/>
+		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
+		/// in subsequent commands.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyGPUBufferToBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CopyGPUBufferToBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] in SDLGPUBufferLocation source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUBufferLocation const *")] in SDLGPUBufferLocation destination, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "Uint32")] uint size, [NativeName(NativeNameType.Param, "cycle")] [NativeName(NativeNameType.Type, "bool")] bool cycle)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferLocation* psource = &source)
+				{
+					fixed (SDLGPUBufferLocation* pdestination = &destination)
+					{
+						CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DownloadFromGPUTextureNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfo* destination)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureRegion*, SDLGPUTextureTransferInfo*, void>)funcTable[918])(copyPass, source, destination);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[918])((nint)copyPass, (nint)source, (nint)destination);
+			#endif
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegionPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfoPtr destination)
+		{
+			DownloadFromGPUTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureRegion*)source, (SDLGPUTextureTransferInfo*)destination);
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegionPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfoPtr destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)source, (SDLGPUTextureTransferInfo*)destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] in SDLGPUTextureRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfoPtr destination)
+		{
+			fixed (SDLGPUTextureRegion* psource = &source)
+			{
+				DownloadFromGPUTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] in SDLGPUTextureRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] SDLGPUTextureTransferInfoPtr destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureRegion* psource = &source)
+				{
+					DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)destination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegionPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] in SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+			{
+				DownloadFromGPUTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureRegion*)source, (SDLGPUTextureTransferInfo*)pdestination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] SDLGPUTextureRegionPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] in SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+				{
+					DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)source, (SDLGPUTextureTransferInfo*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] in SDLGPUTextureRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] in SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUTextureRegion* psource = &source)
+			{
+				fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+				{
+					DownloadFromGPUTextureNative((SDLGPUCopyPass*)copyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUTexture([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUTextureRegion const *")] in SDLGPUTextureRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTextureTransferInfo const *")] in SDLGPUTextureTransferInfo destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTextureRegion* psource = &source)
+				{
+					fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
+					{
+						DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)pdestination);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DownloadFromGPUBufferNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegion* source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocation* destination)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUBufferRegion*, SDLGPUTransferBufferLocation*, void>)funcTable[919])(copyPass, source, destination);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[919])((nint)copyPass, (nint)source, (nint)destination);
+			#endif
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegionPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocationPtr destination)
+		{
+			DownloadFromGPUBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUBufferRegion*)source, (SDLGPUTransferBufferLocation*)destination);
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegionPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocationPtr destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)source, (SDLGPUTransferBufferLocation*)destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] in SDLGPUBufferRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocationPtr destination)
+		{
+			fixed (SDLGPUBufferRegion* psource = &source)
+			{
+				DownloadFromGPUBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)destination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] in SDLGPUBufferRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] SDLGPUTransferBufferLocationPtr destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* psource = &source)
+				{
+					DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)destination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegionPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] in SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+			{
+				DownloadFromGPUBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUBufferRegion*)source, (SDLGPUTransferBufferLocation*)pdestination);
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] SDLGPUBufferRegionPtr source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] in SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+				{
+					DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)source, (SDLGPUTransferBufferLocation*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] in SDLGPUBufferRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] in SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUBufferRegion* psource = &source)
+			{
+				fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+				{
+					DownloadFromGPUBufferNative((SDLGPUCopyPass*)copyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)pdestination);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
+		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
+		/// signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DownloadFromGPUBuffer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DownloadFromGPUBuffer([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "SDL_GPUBufferRegion const *")] in SDLGPUBufferRegion source, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "SDL_GPUTransferBufferLocation const *")] in SDLGPUTransferBufferLocation destination)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				fixed (SDLGPUBufferRegion* psource = &source)
+				{
+					fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
+					{
+						DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)pdestination);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EndGPUCopyPassNative([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPass* copyPass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, void>)funcTable[920])(copyPass);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[920])((nint)copyPass);
+			#endif
+		}
+
+		/// <summary>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPUCopyPass([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] SDLGPUCopyPassPtr copyPass)
+		{
+			EndGPUCopyPassNative((SDLGPUCopyPass*)copyPass);
+		}
+
+		/// <summary>
+		/// Ends the current copy pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EndGPUCopyPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EndGPUCopyPass([NativeName(NativeNameType.Param, "copy_pass")] [NativeName(NativeNameType.Type, "SDL_GPUCopyPass *")] ref SDLGPUCopyPass copyPass)
+		{
+			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
+			{
+				EndGPUCopyPassNative((SDLGPUCopyPass*)pcopyPass);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GenerateMipmapsForGPUTextureNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUTexture*, void>)funcTable[921])(commandBuffer, texture);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[921])((nint)commandBuffer, (nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GenerateMipmapsForGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexturePtr texture)
+		{
+			GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLGPUTexture*)texture);
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GenerateMipmapsForGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] SDLGPUTexturePtr texture)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUTexture*)texture);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GenerateMipmapsForGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture)
+		{
+			fixed (SDLGPUTexture* ptexture = &texture)
+			{
+				GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLGPUTexture*)ptexture);
+			}
+		}
+
+		/// <summary>
+		/// Generates mipmaps for the given texture.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GenerateMipmapsForGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GenerateMipmapsForGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture *")] ref SDLGPUTexture texture)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture* ptexture = &texture)
+				{
+					GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUTexture*)ptexture);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BlitGPUTextureNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] SDLGPUBlitInfo* info)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUBlitInfo*, void>)funcTable[922])(commandBuffer, info);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[922])((nint)commandBuffer, (nint)info);
+			#endif
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BlitGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] SDLGPUBlitInfoPtr info)
+		{
+			BlitGPUTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLGPUBlitInfo*)info);
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BlitGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] SDLGPUBlitInfoPtr info)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				BlitGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUBlitInfo*)info);
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BlitGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] in SDLGPUBlitInfo info)
+		{
+			fixed (SDLGPUBlitInfo* pinfo = &info)
+			{
+				BlitGPUTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLGPUBlitInfo*)pinfo);
+			}
+		}
+
+		/// <summary>
+		/// Blits from a source texture region to a destination texture region.<br/>
+		/// This function must not be called inside of any pass.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitGPUTexture")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BlitGPUTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_GPUBlitInfo const *")] in SDLGPUBlitInfo info)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUBlitInfo* pinfo = &info)
+				{
+					BlitGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUBlitInfo*)pinfo);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WindowSupportsGPUSwapchainCompositionNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUSwapchainComposition, byte>)funcTable[923])(device, window, swapchainComposition);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUSwapchainComposition, byte>)funcTable[923])((nint)device, (nint)window, swapchainComposition);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUSwapchainComposition([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)device, (SDLWindow*)window, swapchainComposition);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUSwapchainComposition([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)pdevice, (SDLWindow*)window, swapchainComposition);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUSwapchainComposition([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)device, (SDLWindow*)pwindow, swapchainComposition);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a swapchain composition is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUSwapchainComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUSwapchainComposition([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, swapchainComposition);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WindowSupportsGPUPresentModeNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUPresentMode, byte>)funcTable[924])(device, window, presentMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUPresentMode, byte>)funcTable[924])((nint)device, (nint)window, presentMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)device, (SDLWindow*)window, presentMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)pdevice, (SDLWindow*)window, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)device, (SDLWindow*)pwindow, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Determines whether a presentation mode is supported by the window.<br/>
+		/// The window must be claimed before calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WindowSupportsGPUPresentMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WindowSupportsGPUPresentMode([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, presentMode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ClaimWindowForGPUDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, byte>)funcTable[925])(device, window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[925])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClaimWindowForGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)device, (SDLWindow*)window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClaimWindowForGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)window);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClaimWindowForGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)device, (SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Claims a window, creating a swapchain structure for it.<br/>
+		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
+		/// the window. You should only call this function from the thread that created<br/>
+		/// the window.<br/>
+		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
+		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
+		/// window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClaimWindowForGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClaimWindowForGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseWindowFromGPUDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, void>)funcTable[926])(device, window);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[926])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseWindowFromGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)device, (SDLWindow*)window);
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseWindowFromGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)window);
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseWindowFromGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)device, (SDLWindow*)pwindow);
+			}
+		}
+
+		/// <summary>
+		/// Unclaims a window, destroying its swapchain structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseWindowFromGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseWindowFromGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR is always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetGPUSwapchainParametersNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUSwapchainComposition, SDLGPUPresentMode, byte>)funcTable[927])(device, window, swapchainComposition, presentMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUSwapchainComposition, SDLGPUPresentMode, byte>)funcTable[927])((nint)device, (nint)window, swapchainComposition, presentMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR is always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUSwapchainParameters([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)device, (SDLWindow*)window, swapchainComposition, presentMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR is always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUSwapchainParameters([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)pdevice, (SDLWindow*)window, swapchainComposition, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR is always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUSwapchainParameters([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)device, (SDLWindow*)pwindow, swapchainComposition, presentMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Changes the swapchain parameters for the given claimed window.<br/>
+		/// This function will fail if the requested present mode or swapchain<br/>
+		/// composition are unsupported by the device. Check if the parameters are<br/>
+		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
+		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
+		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR is always<br/>
+		/// supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUSwapchainParameters")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUSwapchainParameters([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_composition")] [NativeName(NativeNameType.Type, "SDL_GPUSwapchainComposition")] SDLGPUSwapchainComposition swapchainComposition, [NativeName(NativeNameType.Param, "present_mode")] [NativeName(NativeNameType.Type, "SDL_GPUPresentMode")] SDLGPUPresentMode presentMode)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, swapchainComposition, presentMode);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUAllowedFramesInFlight")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetGPUAllowedFramesInFlightNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "allowed_frames_in_flight")] [NativeName(NativeNameType.Type, "Uint32")] uint allowedFramesInFlight)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, uint, byte>)funcTable[928])(device, allowedFramesInFlight);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[928])((nint)device, allowedFramesInFlight);
+			#endif
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUAllowedFramesInFlight")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUAllowedFramesInFlight([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "allowed_frames_in_flight")] [NativeName(NativeNameType.Type, "Uint32")] uint allowedFramesInFlight)
+		{
+			byte ret = SetGPUAllowedFramesInFlightNative((SDLGPUDevice*)device, allowedFramesInFlight);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Configures the maximum allowed number of frames in flight.<br/>
+		/// The default value when the device is created is 2. This means that after<br/>
+		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
+		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
+		/// swapchain texture pointer with NULL, and<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
+		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
+		/// values decrease visual latency at the expense of throughput.<br/>
+		/// Note that calling this function will stall and flush the command queue to<br/>
+		/// prevent synchronization issues.<br/>
+		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGPUAllowedFramesInFlight")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGPUAllowedFramesInFlight([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "allowed_frames_in_flight")] [NativeName(NativeNameType.Type, "Uint32")] uint allowedFramesInFlight)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = SetGPUAllowedFramesInFlightNative((SDLGPUDevice*)pdevice, allowedFramesInFlight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUTextureFormat GetGPUSwapchainTextureFormatNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUTextureFormat>)funcTable[929])(device, window);
+			#else
+			return (SDLGPUTextureFormat)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUTextureFormat>)funcTable[929])((nint)device, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)device, (SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)pdevice, (SDLWindow*)window);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)device, (SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texture format of the swapchain for the given window.<br/>
+		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUSwapchainTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte AcquireGPUSwapchainTextureNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLWindow*, SDLGPUTexture**, uint*, uint*, byte>)funcTable[930])(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[930])((nint)commandBuffer, (nint)window, (nint)swapchainTexture, (nint)swapchainTextureWidth, (nint)swapchainTextureHeight);
+			#endif
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+			{
+				byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1026,83 +3746,155 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTexture(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLFRect* pdstrect = &dstrect)
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 			{
-				byte ret = RenderTextureNative(renderer, texture, srcrect, (SDLFRect*)pdstrect);
+				byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTexture(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLFRect* pdstrect = &dstrect)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect);
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTexture(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLFRect* pdstrect = &dstrect)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTexture(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					fixed (SDLFRect* pdstrect = &dstrect)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1110,44 +3902,80 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTexture(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLFRect* psrcrect = &srcrect)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				fixed (SDLFRect* pdstrect = &dstrect)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					byte ret = RenderTextureNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTexture(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLFRect* psrcrect = &srcrect)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (SDLFRect* pdstrect = &dstrect)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						byte ret = RenderTextureNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1155,23 +3983,41 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTexture(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLFRect* psrcrect = &srcrect)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (SDLFRect* pdstrect = &dstrect)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						byte ret = RenderTextureNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1179,25 +4025,43 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTexture(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					fixed (SDLFRect* psrcrect = &srcrect)
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 					{
-						fixed (SDLFRect* pdstrect = &dstrect)
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 						{
-							byte ret = RenderTextureNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -1206,174 +4070,155 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTextureRotatedNative(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFRect*, double, SDLFPoint*, SDLFlipMode, byte>)funcTable[1103])(renderer, texture, srcrect, dstrect, angle, center, flip);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, double, nint, SDLFlipMode, byte>)funcTable[1103])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect, angle, (nint)center, flip);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, dstrect, angle, center, flip);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 			{
-				byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
+				byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLFRect* psrcrect = &srcrect)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					fixed (SDLFRect* psrcrect = &srcrect)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, center, flip);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1381,83 +4226,80 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFRect dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLFRect* pdstrect = &dstrect)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFRect dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFRect dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFRect dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (SDLFRect* pdstrect = &dstrect)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1465,44 +4307,41 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFRect dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFRect dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLFRect* psrcrect = &srcrect)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (SDLFRect* pdstrect = &dstrect)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1510,49 +4349,43 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFRect dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFRect dstrect, double angle, SDLFPoint* center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					fixed (SDLFRect* psrcrect = &srcrect)
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 					{
-						fixed (SDLFRect* pdstrect = &dstrect)
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -1561,83 +4394,80 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLFPoint* pcenter = &center)
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 			{
-				byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pcenter = &center)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFRect* dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (SDLFPoint* pcenter = &center)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1645,44 +4475,41 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFRect* dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFRect* dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLFRect* psrcrect = &srcrect)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (SDLFPoint* pcenter = &center)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1690,49 +4517,43 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFRect* dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFRect* dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					fixed (SDLFRect* psrcrect = &srcrect)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						fixed (SDLFPoint* pcenter = &center)
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -1741,44 +4562,41 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFRect dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					byte ret = RenderTextureRotatedNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFRect dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				fixed (SDLFRect* pdstrect = &dstrect)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (SDLFPoint* pcenter = &center)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -1786,49 +4604,43 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFRect dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFRect dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (SDLFRect* pdstrect = &dstrect)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						fixed (SDLFPoint* pcenter = &center)
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -1837,49 +4649,43 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFRect dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						byte ret = RenderTextureRotatedNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFRect dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLFRect* psrcrect = &srcrect)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (SDLFRect* pdstrect = &dstrect)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						fixed (SDLFPoint* pcenter = &center)
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -1888,54 +4694,45 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
+		/// Acquire a texture to use in presentation.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it.<br/>
+		/// This function will fill the swapchain texture handle with NULL if too many<br/>
+		/// frames are in flight. This is not an error. This NULL pointer should not be<br/>
+		/// passed back into SDL. Instead, it should be considered as an indication to<br/>
+		/// wait until the swapchain is available.<br/>
+		/// If you use this function, it is possible to create a situation where many<br/>
+		/// command buffers are allocated while the rendering context waits for the GPU<br/>
+		/// to catch up, which will cause memory usage to grow. You should use<br/>
+		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
+		/// with timing.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureRotated(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFRect dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							byte ret = RenderTextureRotatedNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureRotated(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFRect dstrect, double angle, ref SDLFPoint center, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_AcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					fixed (SDLFRect* psrcrect = &srcrect)
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 					{
-						fixed (SDLFRect* pdstrect = &dstrect)
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 						{
-							fixed (SDLFPoint* pcenter = &center)
+							fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 							{
-								byte ret = RenderTextureRotatedNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+								byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 								return ret != 0;
 							}
 						}
@@ -1945,3076 +4742,278 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTextureAffineNative(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
+		internal static byte WaitForGPUSwapchainNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, SDLFPoint*, SDLFPoint*, SDLFPoint*, byte>)funcTable[1104])(renderer, texture, srcrect, origin, right, down);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, byte>)funcTable[931])(device, window);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, nint, byte>)funcTable[1104])((nint)renderer, (nint)texture, (nint)srcrect, (nint)origin, (nint)right, (nint)down);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[931])((nint)device, (nint)window);
 			#endif
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUSwapchain([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
 		{
-			byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, right, down);
+			byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)device, (SDLWindow*)window);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUSwapchain([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, right, down);
+				byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)pdevice, (SDLWindow*)window);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUSwapchain([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, right, down);
+				byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)device, (SDLWindow*)pwindow);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUSwapchain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUSwapchain([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, right, down);
+					byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, right, down);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFPoint* origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFPoint origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLFPoint* porigin = &origin)
-			{
-				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, right, down);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFPoint origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFPoint origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFPoint origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFPoint origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFPoint origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFPoint origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFPoint origin, SDLFPoint* right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* porigin = &origin)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLFPoint* pright = &right)
-			{
-				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, (SDLFPoint*)pright, down);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, (SDLFPoint*)pright, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFPoint* origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFPoint* origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFPoint* origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFPoint* origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFPoint* origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFPoint* origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFPoint origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLFPoint* porigin = &origin)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFPoint origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFPoint origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFPoint origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFPoint origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFPoint origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFPoint origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFPoint origin, ref SDLFPoint right, SDLFPoint* down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* porigin = &origin)
-						{
-							fixed (SDLFPoint* pright = &right)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, down);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLFPoint* pdown = &down)
-			{
-				byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, right, (SDLFPoint*)pdown);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, right, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, right, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFPoint* origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFPoint* origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFPoint* origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFPoint* origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFPoint* origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, right, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFPoint origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLFPoint* porigin = &origin)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFPoint origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFPoint origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFPoint origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFPoint origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFPoint origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFPoint origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFPoint origin, SDLFPoint* right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* porigin = &origin)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, right, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLFPoint* pright = &right)
-			{
-				fixed (SDLFPoint* pdown = &down)
-				{
-					byte ret = RenderTextureAffineNative(renderer, texture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, SDLFPoint* origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFPoint* origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, SDLFPoint* origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFPoint* origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, SDLFPoint* origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFPoint* origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, SDLFPoint* origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, origin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFPoint origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLFPoint* porigin = &origin)
-			{
-				fixed (SDLFPoint* pright = &right)
-				{
-					fixed (SDLFPoint* pdown = &down)
-					{
-						byte ret = RenderTextureAffineNative(renderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, ref SDLFPoint origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFPoint origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, ref SDLFPoint origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFPoint origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* porigin = &origin)
-				{
-					fixed (SDLFPoint* pright = &right)
-					{
-						fixed (SDLFPoint* pdown = &down)
-						{
-							byte ret = RenderTextureAffineNative(renderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, ref SDLFPoint origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFPoint origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* porigin = &origin)
-					{
-						fixed (SDLFPoint* pright = &right)
-						{
-							fixed (SDLFPoint* pdown = &down)
-							{
-								byte ret = RenderTextureAffineNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// affine transform, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// You may only call this function from the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureAffine(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, ref SDLFPoint origin, ref SDLFPoint right, ref SDLFPoint down)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* porigin = &origin)
-						{
-							fixed (SDLFPoint* pright = &right)
-							{
-								fixed (SDLFPoint* pdown = &down)
-								{
-									byte ret = RenderTextureAffineNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, (SDLFPoint*)porigin, (SDLFPoint*)pright, (SDLFPoint*)pdown);
-									return ret != 0;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTextureTiledNative(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, float scale, SDLFRect* dstrect)
+		internal static byte WaitAndAcquireGPUSwapchainTextureNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexture** swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, float, SDLFRect*, byte>)funcTable[1105])(renderer, texture, srcrect, scale, dstrect);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLWindow*, SDLGPUTexture**, uint*, uint*, byte>)funcTable[932])(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, float, nint, byte>)funcTable[1105])((nint)renderer, (nint)texture, (nint)srcrect, scale, (nint)dstrect);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[932])((nint)commandBuffer, (nint)window, (nint)swapchainTexture, (nint)swapchainTextureWidth, (nint)swapchainTextureHeight);
 			#endif
 		}
 
 		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureTiled(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, float scale, SDLFRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			byte ret = RenderTextureTiledNative(renderer, texture, srcrect, scale, dstrect);
+			byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureTiled(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, float scale, SDLFRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, srcrect, scale, dstrect);
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureTiled(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, float scale, SDLFRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, srcrect, scale, dstrect);
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderTextureTiled(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, float scale, SDLFRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, scale, dstrect);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTextureTiledNative(renderer, texture, (SDLFRect*)psrcrect, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, dstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				byte ret = RenderTextureTiledNative(renderer, texture, srcrect, scale, (SDLFRect*)pdstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, srcrect, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, srcrect, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTextureTiledNative(renderer, texture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTextureTiledNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Tile a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTextureTiled(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							byte ret = RenderTextureTiledNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, scale, (SDLFRect*)pdstrect);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderTexture9GridNative(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLFRect*, float, float, float, float, float, SDLFRect*, byte>)funcTable[1106])(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, float, float, float, float, float, nint, byte>)funcTable[1106])((nint)renderer, (nint)texture, (nint)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			byte ret = RenderTexture9GridNative(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				byte ret = RenderTexture9GridNative(renderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, dstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(SDLRenderer* renderer, SDLTexture* texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				byte ret = RenderTexture9GridNative(renderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(ref SDLRenderer renderer, SDLTexture* texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(SDLRenderer* renderer, ref SDLTexture texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(ref SDLRenderer renderer, ref SDLTexture texture, SDLFRect* srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(SDLRenderer* renderer, SDLTexture* texture, ref SDLFRect srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					byte ret = RenderTexture9GridNative(renderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(ref SDLRenderer renderer, SDLTexture* texture, ref SDLFRect srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, texture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(SDLRenderer* renderer, ref SDLTexture texture, ref SDLFRect srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						byte ret = RenderTexture9GridNative(renderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled copy using the 9-grid algorithm to the current rendering<br/>
-		/// target at subpixel precision.<br/>
-		/// The pixels in the texture are split into a 3x3 grid, using the different<br/>
-		/// corner sizes for each corner, and the sides and center making up the<br/>
-		/// remaining pixels. The corners are then scaled using `scale` and fit into<br/>
-		/// the corners of the destination rectangle. The sides and center are then<br/>
-		/// stretched into place to cover the remaining destination rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderTexture9Grid(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLFRect srcrect, float leftWidth, float rightWidth, float topHeight, float bottomHeight, float scale, ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							byte ret = RenderTexture9GridNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLFRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, (SDLFRect*)pdstrect);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderGeometryNative(SDLRenderer* renderer, SDLTexture* texture, SDLVertex* vertices, int numVertices, int* indices, int numIndices)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLVertex*, int, int*, int, byte>)funcTable[1107])(renderer, texture, vertices, numVertices, indices, numIndices);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, byte>)funcTable[1107])((nint)renderer, (nint)texture, (nint)vertices, numVertices, (nint)indices, numIndices);
-			#endif
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(SDLRenderer* renderer, SDLTexture* texture, SDLVertex* vertices, int numVertices, int* indices, int numIndices)
-		{
-			byte ret = RenderGeometryNative(renderer, texture, vertices, numVertices, indices, numIndices);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(ref SDLRenderer renderer, SDLTexture* texture, SDLVertex* vertices, int numVertices, int* indices, int numIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, indices, numIndices);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(SDLRenderer* renderer, ref SDLTexture texture, SDLVertex* vertices, int numVertices, int* indices, int numIndices)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(ref SDLRenderer renderer, ref SDLTexture texture, SDLVertex* vertices, int numVertices, int* indices, int numIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(SDLRenderer* renderer, SDLTexture* texture, ref SDLVertex vertices, int numVertices, int* indices, int numIndices)
-		{
-			fixed (SDLVertex* pvertices = &vertices)
-			{
-				byte ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(ref SDLRenderer renderer, SDLTexture* texture, ref SDLVertex vertices, int numVertices, int* indices, int numIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLVertex* pvertices = &vertices)
-				{
-					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(SDLRenderer* renderer, ref SDLTexture texture, ref SDLVertex vertices, int numVertices, int* indices, int numIndices)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLVertex* pvertices = &vertices)
-				{
-					byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLVertex vertices, int numVertices, int* indices, int numIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLVertex* pvertices = &vertices)
-					{
-						byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(SDLRenderer* renderer, SDLTexture* texture, SDLVertex* vertices, int numVertices, ref int indices, int numIndices)
-		{
-			fixed (int* pindices = &indices)
-			{
-				byte ret = RenderGeometryNative(renderer, texture, vertices, numVertices, (int*)pindices, numIndices);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(ref SDLRenderer renderer, SDLTexture* texture, SDLVertex* vertices, int numVertices, ref int indices, int numIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pindices = &indices)
-				{
-					byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, (int*)pindices, numIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(SDLRenderer* renderer, ref SDLTexture texture, SDLVertex* vertices, int numVertices, ref int indices, int numIndices)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* pindices = &indices)
-				{
-					byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(ref SDLRenderer renderer, ref SDLTexture texture, SDLVertex* vertices, int numVertices, ref int indices, int numIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (int* pindices = &indices)
-					{
-						byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(SDLRenderer* renderer, SDLTexture* texture, ref SDLVertex vertices, int numVertices, ref int indices, int numIndices)
-		{
-			fixed (SDLVertex* pvertices = &vertices)
-			{
-				fixed (int* pindices = &indices)
-				{
-					byte ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(ref SDLRenderer renderer, SDLTexture* texture, ref SDLVertex vertices, int numVertices, ref int indices, int numIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLVertex* pvertices = &vertices)
-				{
-					fixed (int* pindices = &indices)
-					{
-						byte ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(SDLRenderer* renderer, ref SDLTexture texture, ref SDLVertex vertices, int numVertices, ref int indices, int numIndices)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLVertex* pvertices = &vertices)
-				{
-					fixed (int* pindices = &indices)
-					{
-						byte ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometry(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLVertex vertices, int numVertices, ref int indices, int numIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLVertex* pvertices = &vertices)
-					{
-						fixed (int* pindices = &indices)
-						{
-							byte ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderGeometryRawNative(SDLRenderer* renderer, SDLTexture* texture, float* xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, float*, int, SDLFColor*, int, float*, int, int, void*, int, int, byte>)funcTable[1108])(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, int, nint, int, int, byte>)funcTable[1108])((nint)renderer, (nint)texture, (nint)xy, xyStride, (nint)color, colorStride, (nint)uv, uvStride, numVertices, (nint)indices, numIndices, sizeIndices);
-			#endif
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, SDLTexture* texture, float* xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			byte ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, SDLTexture* texture, float* xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, ref SDLTexture texture, float* xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, SDLTexture* texture, ref float xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (float* pxy = &xy)
-			{
-				byte ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, SDLTexture* texture, ref float xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pxy = &xy)
-				{
-					byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, ref SDLTexture texture, ref float xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pxy = &xy)
-				{
-					byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, ref float xy, int xyStride, SDLFColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (float* pxy = &xy)
-					{
-						byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, SDLTexture* texture, float* xy, int xyStride, ref SDLFColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLFColor* pcolor = &color)
-			{
-				byte ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, (SDLFColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, SDLTexture* texture, float* xy, int xyStride, ref SDLFColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFColor* pcolor = &color)
-				{
-					byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, (SDLFColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, ref SDLTexture texture, float* xy, int xyStride, ref SDLFColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFColor* pcolor = &color)
-				{
-					byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLFColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, ref SDLFColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFColor* pcolor = &color)
-					{
-						byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLFColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, SDLTexture* texture, ref float xy, int xyStride, ref SDLFColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (float* pxy = &xy)
-			{
-				fixed (SDLFColor* pcolor = &color)
-				{
-					byte ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, (SDLFColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, SDLTexture* texture, ref float xy, int xyStride, ref SDLFColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pxy = &xy)
-				{
-					fixed (SDLFColor* pcolor = &color)
-					{
-						byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, (SDLFColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-						return ret != 0;
-					}
 				}
 			}
 		}

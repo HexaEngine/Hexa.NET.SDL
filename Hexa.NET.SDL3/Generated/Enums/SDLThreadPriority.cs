@@ -21,12 +21,20 @@ namespace Hexa.NET.SDL3
 	/// this behavior.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_ThreadPriority")]
 	public enum SDLThreadPriority : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_PRIORITY_LOW")]
+		[NativeName(NativeNameType.Value, "0")]
 		Low = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_PRIORITY_NORMAL")]
+		[NativeName(NativeNameType.Value, "1")]
 		Normal = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_PRIORITY_HIGH")]
+		[NativeName(NativeNameType.Value, "2")]
 		High = unchecked(2),
+		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_PRIORITY_TIME_CRITICAL")]
+		[NativeName(NativeNameType.Value, "3")]
 		TimeCritical = unchecked(3),
 	}
 }

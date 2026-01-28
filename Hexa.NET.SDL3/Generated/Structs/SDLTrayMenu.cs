@@ -15,15 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a menu/submenu on a system tray object.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_TrayMenu")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTrayMenu
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_TrayMenu")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTrayMenuPtr : IEquatable<SDLTrayMenuPtr>
+	{
+		public SDLTrayMenuPtr(SDLTrayMenu* handle) { Handle = handle; }
+
+		public SDLTrayMenu* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTrayMenuPtr Null => new SDLTrayMenuPtr(null);
+
+		public SDLTrayMenu this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTrayMenuPtr(SDLTrayMenu* handle) => new SDLTrayMenuPtr(handle);
+
+		public static implicit operator SDLTrayMenu*(SDLTrayMenuPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTrayMenuPtr left, SDLTrayMenuPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTrayMenuPtr left, SDLTrayMenuPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTrayMenuPtr left, SDLTrayMenu* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTrayMenuPtr left, SDLTrayMenu* right) => left.Handle != right;
+
+		public bool Equals(SDLTrayMenuPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTrayMenuPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTrayMenuPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

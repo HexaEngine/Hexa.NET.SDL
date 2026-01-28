@@ -20,52 +20,71 @@ namespace Hexa.NET.SDL3
 	/// components.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_DateTime")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDateTime
 	{
 		/// <summary>
 		/// Year <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "year")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Year;
 
 		/// <summary>
 		/// Month [01-12] <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "month")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Month;
 
 		/// <summary>
 		/// Day of the month [01-31] <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "day")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Day;
 
 		/// <summary>
 		/// Hour [0-23] <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "hour")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Hour;
 
 		/// <summary>
 		/// Minute [0-59] <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "minute")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Minute;
 
 		/// <summary>
 		/// Seconds [0-60] <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "second")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Second;
 
 		/// <summary>
 		/// Nanoseconds [0-999999999] <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "nanosecond")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Nanosecond;
 
 		/// <summary>
 		/// Day of the week [0-6] (0 being Sunday) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "day_of_week")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int DayOfWeek;
 
 		/// <summary>
 		/// Seconds east of UTC <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "utc_offset")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int UtcOffset;
 
 
@@ -83,6 +102,88 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure holding a calendar date and time broken down into its<br/>
+	/// components.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_DateTime")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLDateTimePtr : IEquatable<SDLDateTimePtr>
+	{
+		public SDLDateTimePtr(SDLDateTime* handle) { Handle = handle; }
+
+		public SDLDateTime* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLDateTimePtr Null => new SDLDateTimePtr(null);
+
+		public SDLDateTime this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLDateTimePtr(SDLDateTime* handle) => new SDLDateTimePtr(handle);
+
+		public static implicit operator SDLDateTime*(SDLDateTimePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLDateTimePtr left, SDLDateTimePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLDateTimePtr left, SDLDateTimePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLDateTimePtr left, SDLDateTime* right) => left.Handle == right;
+
+		public static bool operator !=(SDLDateTimePtr left, SDLDateTime* right) => left.Handle != right;
+
+		public bool Equals(SDLDateTimePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLDateTimePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLDateTimePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Year <br/>
+		/// </summary>
+		public ref int Year => ref Unsafe.AsRef<int>(&Handle->Year);
+		/// <summary>
+		/// Month [01-12] <br/>
+		/// </summary>
+		public ref int Month => ref Unsafe.AsRef<int>(&Handle->Month);
+		/// <summary>
+		/// Day of the month [01-31] <br/>
+		/// </summary>
+		public ref int Day => ref Unsafe.AsRef<int>(&Handle->Day);
+		/// <summary>
+		/// Hour [0-23] <br/>
+		/// </summary>
+		public ref int Hour => ref Unsafe.AsRef<int>(&Handle->Hour);
+		/// <summary>
+		/// Minute [0-59] <br/>
+		/// </summary>
+		public ref int Minute => ref Unsafe.AsRef<int>(&Handle->Minute);
+		/// <summary>
+		/// Seconds [0-60] <br/>
+		/// </summary>
+		public ref int Second => ref Unsafe.AsRef<int>(&Handle->Second);
+		/// <summary>
+		/// Nanoseconds [0-999999999] <br/>
+		/// </summary>
+		public ref int Nanosecond => ref Unsafe.AsRef<int>(&Handle->Nanosecond);
+		/// <summary>
+		/// Day of the week [0-6] (0 being Sunday) <br/>
+		/// </summary>
+		public ref int DayOfWeek => ref Unsafe.AsRef<int>(&Handle->DayOfWeek);
+		/// <summary>
+		/// Seconds east of UTC <br/>
+		/// </summary>
+		public ref int UtcOffset => ref Unsafe.AsRef<int>(&Handle->UtcOffset);
 	}
 
 }

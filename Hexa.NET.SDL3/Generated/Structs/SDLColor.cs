@@ -23,12 +23,21 @@ namespace Hexa.NET.SDL3
 	/// SDL_PIXELFORMAT_RGBA8888 on big-endian systems).<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Color")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLColor
 	{
+		[NativeName(NativeNameType.Field, "r")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte R;
+		[NativeName(NativeNameType.Field, "g")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte G;
+		[NativeName(NativeNameType.Field, "b")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte B;
+		[NativeName(NativeNameType.Field, "a")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte A;
 
 		public unsafe SDLColor(byte r = default, byte g = default, byte b = default, byte a = default)
@@ -40,6 +49,59 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure that represents a color as RGBA components.<br/>
+	/// The bits of this structure can be directly reinterpreted as an<br/>
+	/// integer-packed color which uses the SDL_PIXELFORMAT_RGBA32 format<br/>
+	/// (SDL_PIXELFORMAT_ABGR8888 on little-endian systems and<br/>
+	/// SDL_PIXELFORMAT_RGBA8888 on big-endian systems).<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Color")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLColorPtr : IEquatable<SDLColorPtr>
+	{
+		public SDLColorPtr(SDLColor* handle) { Handle = handle; }
+
+		public SDLColor* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLColorPtr Null => new SDLColorPtr(null);
+
+		public SDLColor this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLColorPtr(SDLColor* handle) => new SDLColorPtr(handle);
+
+		public static implicit operator SDLColor*(SDLColorPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLColorPtr left, SDLColorPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLColorPtr left, SDLColorPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLColorPtr left, SDLColor* right) => left.Handle == right;
+
+		public static bool operator !=(SDLColorPtr left, SDLColor* right) => left.Handle != right;
+
+		public bool Equals(SDLColorPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLColorPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLColorPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref byte R => ref Unsafe.AsRef<byte>(&Handle->R);
+		public ref byte G => ref Unsafe.AsRef<byte>(&Handle->G);
+		public ref byte B => ref Unsafe.AsRef<byte>(&Handle->B);
+		public ref byte A => ref Unsafe.AsRef<byte>(&Handle->A);
 	}
 
 }

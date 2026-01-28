@@ -21,24 +21,35 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUStorageBufferReadWriteBinding")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUStorageBufferReadWriteBinding
 	{
 		/// <summary>
 		/// The buffer to bind. Must have been created with SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_WRITE. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "buffer")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBuffer *")]
 		public unsafe SDLGPUBuffer* Buffer;
 
 		/// <summary>
 		/// true cycles the buffer if it is already bound. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "cycle")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Cycle;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
+		[NativeName(NativeNameType.Field, "padding3")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
-		public unsafe SDLGPUStorageBufferReadWriteBinding(SDLGPUBuffer* buffer = default, bool cycle = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
+		public unsafe SDLGPUStorageBufferReadWriteBinding(SDLGPUBufferPtr buffer = default, bool cycle = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
 		{
 			Buffer = buffer;
 			Cycle = cycle ? (byte)1 : (byte)0;
@@ -48,6 +59,64 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying parameters related to binding buffers in a compute<br/>
+	/// pass.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUStorageBufferReadWriteBinding")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUStorageBufferReadWriteBindingPtr : IEquatable<SDLGPUStorageBufferReadWriteBindingPtr>
+	{
+		public SDLGPUStorageBufferReadWriteBindingPtr(SDLGPUStorageBufferReadWriteBinding* handle) { Handle = handle; }
+
+		public SDLGPUStorageBufferReadWriteBinding* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUStorageBufferReadWriteBindingPtr Null => new SDLGPUStorageBufferReadWriteBindingPtr(null);
+
+		public SDLGPUStorageBufferReadWriteBinding this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUStorageBufferReadWriteBindingPtr(SDLGPUStorageBufferReadWriteBinding* handle) => new SDLGPUStorageBufferReadWriteBindingPtr(handle);
+
+		public static implicit operator SDLGPUStorageBufferReadWriteBinding*(SDLGPUStorageBufferReadWriteBindingPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUStorageBufferReadWriteBindingPtr left, SDLGPUStorageBufferReadWriteBindingPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUStorageBufferReadWriteBindingPtr left, SDLGPUStorageBufferReadWriteBindingPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUStorageBufferReadWriteBindingPtr left, SDLGPUStorageBufferReadWriteBinding* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUStorageBufferReadWriteBindingPtr left, SDLGPUStorageBufferReadWriteBinding* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUStorageBufferReadWriteBindingPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUStorageBufferReadWriteBindingPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUStorageBufferReadWriteBindingPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The buffer to bind. Must have been created with SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_WRITE. <br/>
+		/// </summary>
+		public ref SDLGPUBufferPtr Buffer => ref Unsafe.AsRef<SDLGPUBufferPtr>(&Handle->Buffer);
+		/// <summary>
+		/// true cycles the buffer if it is already bound. <br/>
+		/// </summary>
+		public ref bool Cycle => ref Unsafe.AsRef<bool>(&Handle->Cycle);
+		public ref byte Padding1 => ref Unsafe.AsRef<byte>(&Handle->Padding1);
+		public ref byte Padding2 => ref Unsafe.AsRef<byte>(&Handle->Padding2);
+		public ref byte Padding3 => ref Unsafe.AsRef<byte>(&Handle->Padding3);
 	}
 
 }

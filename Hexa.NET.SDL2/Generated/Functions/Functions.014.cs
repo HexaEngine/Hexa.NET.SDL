@@ -18,4163 +18,4783 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static IDirect3DDevice9* RenderGetD3D9DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, IDirect3DDevice9*>)funcTable[810])(renderer);
-			#else
-			return (IDirect3DDevice9*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[810])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static IDirect3DDevice9* RenderGetD3D9Device(SDLRenderer* renderer)
-		{
-			IDirect3DDevice9* ret = RenderGetD3D9DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static IDirect3DDevice9* RenderGetD3D9Device(ref SDLRenderer renderer)
+		public static int RenderCopyEx(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLRect dstrect, double angle, SDLPointPtr center, SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				IDirect3DDevice9* ret = RenderGetD3D9DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ID3D11Device* RenderGetD3D11DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D11Device*>)funcTable[811])(renderer);
-			#else
-			return (ID3D11Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[811])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D11Device* RenderGetD3D11Device(SDLRenderer* renderer)
-		{
-			ID3D11Device* ret = RenderGetD3D11DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D11Device* RenderGetD3D11Device(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				ID3D11Device* ret = RenderGetD3D11DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ID3D12Device* RenderGetD3D12DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D12Device*>)funcTable[812])(renderer);
-			#else
-			return (ID3D12Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[812])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D12Device* RenderGetD3D12Device(SDLRenderer* renderer)
-		{
-			ID3D12Device* ret = RenderGetD3D12DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D12Device* RenderGetD3D12Device(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				ID3D12Device* ret = RenderGetD3D12DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
-		/// returns an SDL_bool.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool DXGIGetOutputInfoNative(int displayIndex, int* adapterIndex, int* outputIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int*, int*, SDLBool>)funcTable[813])(displayIndex, adapterIndex, outputIndex);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<int, nint, nint, SDLBool>)funcTable[813])(displayIndex, (nint)adapterIndex, (nint)outputIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
-		/// returns an SDL_bool.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool DXGIGetOutputInfo(int displayIndex, int* adapterIndex, int* outputIndex)
-		{
-			SDLBool ret = DXGIGetOutputInfoNative(displayIndex, adapterIndex, outputIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
-		/// returns an SDL_bool.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool DXGIGetOutputInfo(int displayIndex, ref int adapterIndex, int* outputIndex)
-		{
-			fixed (int* padapterIndex = &adapterIndex)
-			{
-				SDLBool ret = DXGIGetOutputInfoNative(displayIndex, (int*)padapterIndex, outputIndex);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
-		/// returns an SDL_bool.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool DXGIGetOutputInfo(int displayIndex, int* adapterIndex, ref int outputIndex)
-		{
-			fixed (int* poutputIndex = &outputIndex)
-			{
-				SDLBool ret = DXGIGetOutputInfoNative(displayIndex, adapterIndex, (int*)poutputIndex);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
-		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
-		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
-		/// DX11 device and swap chain.<br/>
-		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
-		/// returns an SDL_bool.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool DXGIGetOutputInfo(int displayIndex, ref int adapterIndex, ref int outputIndex)
-		{
-			fixed (int* padapterIndex = &adapterIndex)
-			{
-				fixed (int* poutputIndex = &outputIndex)
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					SDLBool ret = DXGIGetOutputInfoNative(displayIndex, (int*)padapterIndex, (int*)poutputIndex);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query if the current device is a tablet.<br/>
-		/// If SDL can't determine this, it will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsTabletNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[814])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[814])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query if the current device is a tablet.<br/>
-		/// If SDL can't determine this, it will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsTablet()
-		{
-			SDLBool ret = IsTabletNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Functions used by iOS application delegates to notify SDL about state changes <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationWillTerminateNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[815])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[815])();
-			#endif
-		}
-
-		/// <summary>
-		/// Functions used by iOS application delegates to notify SDL about state changes <br/>
-		/// </summary>
-		public static void OnApplicationWillTerminate()
-		{
-			OnApplicationWillTerminateNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationDidReceiveMemoryWarningNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[816])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[816])();
-			#endif
-		}
-
-		public static void OnApplicationDidReceiveMemoryWarning()
-		{
-			OnApplicationDidReceiveMemoryWarningNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationWillResignActiveNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[817])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[817])();
-			#endif
-		}
-
-		public static void OnApplicationWillResignActive()
-		{
-			OnApplicationWillResignActiveNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationDidEnterBackgroundNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[818])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[818])();
-			#endif
-		}
-
-		public static void OnApplicationDidEnterBackground()
-		{
-			OnApplicationDidEnterBackgroundNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationWillEnterForegroundNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[819])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[819])();
-			#endif
-		}
-
-		public static void OnApplicationWillEnterForeground()
-		{
-			OnApplicationWillEnterForegroundNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void OnApplicationDidBecomeActiveNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[820])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[820])();
-			#endif
-		}
-
-		public static void OnApplicationDidBecomeActive()
-		{
-			OnApplicationDidBecomeActiveNative();
-		}
-
-		/// <summary>
-		/// Get the number of milliseconds since SDL library initialization.<br/>
-		/// This value wraps if the program runs for more than ~49 days.<br/>
-		/// This function is not recommended as of SDL 2.0.18; use SDL_GetTicks64()<br/>
-		/// instead, where the value doesn't wrap every ~49 days. There are places in<br/>
-		/// SDL where we provide a 32-bit timestamp that can not change without<br/>
-		/// breaking binary compatibility, though, so this function isn't officially<br/>
-		/// deprecated.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetTicksNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[821])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[821])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of milliseconds since SDL library initialization.<br/>
-		/// This value wraps if the program runs for more than ~49 days.<br/>
-		/// This function is not recommended as of SDL 2.0.18; use SDL_GetTicks64()<br/>
-		/// instead, where the value doesn't wrap every ~49 days. There are places in<br/>
-		/// SDL where we provide a 32-bit timestamp that can not change without<br/>
-		/// breaking binary compatibility, though, so this function isn't officially<br/>
-		/// deprecated.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetTicks()
-		{
-			uint ret = GetTicksNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of milliseconds since SDL library initialization.<br/>
-		/// Note that you should not use the SDL_TICKS_PASSED macro with values<br/>
-		/// returned by this function, as that macro does clever math to compensate for<br/>
-		/// the 32-bit overflow every ~49 days that SDL_GetTicks() suffers from. 64-bit<br/>
-		/// values from this function can be safely compared directly.<br/>
-		/// For example, if you want to wait 100 ms, you could do this:<br/>
-		/// ```c<br/>
-		/// const Uint64 timeout = SDL_GetTicks64() + 100;<br/>
-		/// while (SDL_GetTicks64() <br/>
-		/// <<br/>
-		/// timeout) {<br/>
-		/// // ... do work until timeout has elapsed<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong GetTicks64Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[822])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[822])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of milliseconds since SDL library initialization.<br/>
-		/// Note that you should not use the SDL_TICKS_PASSED macro with values<br/>
-		/// returned by this function, as that macro does clever math to compensate for<br/>
-		/// the 32-bit overflow every ~49 days that SDL_GetTicks() suffers from. 64-bit<br/>
-		/// values from this function can be safely compared directly.<br/>
-		/// For example, if you want to wait 100 ms, you could do this:<br/>
-		/// ```c<br/>
-		/// const Uint64 timeout = SDL_GetTicks64() + 100;<br/>
-		/// while (SDL_GetTicks64() <br/>
-		/// <<br/>
-		/// timeout) {<br/>
-		/// // ... do work until timeout has elapsed<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong GetTicks64()
-		{
-			ulong ret = GetTicks64Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current value of the high resolution counter.<br/>
-		/// This function is typically used for profiling.<br/>
-		/// The counter values are only meaningful relative to each other. Differences<br/>
-		/// between values can be converted to times by using<br/>
-		/// SDL_GetPerformanceFrequency().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong GetPerformanceCounterNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[823])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[823])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current value of the high resolution counter.<br/>
-		/// This function is typically used for profiling.<br/>
-		/// The counter values are only meaningful relative to each other. Differences<br/>
-		/// between values can be converted to times by using<br/>
-		/// SDL_GetPerformanceFrequency().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong GetPerformanceCounter()
-		{
-			ulong ret = GetPerformanceCounterNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the count per second of the high resolution counter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong GetPerformanceFrequencyNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[824])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[824])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the count per second of the high resolution counter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong GetPerformanceFrequency()
-		{
-			ulong ret = GetPerformanceFrequencyNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Wait a specified number of milliseconds before returning.<br/>
-		/// This function waits a specified number of milliseconds before returning. It<br/>
-		/// waits at least the specified time, but possibly longer due to OS<br/>
-		/// scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DelayNative(uint ms)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[825])(ms);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[825])(ms);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait a specified number of milliseconds before returning.<br/>
-		/// This function waits a specified number of milliseconds before returning. It<br/>
-		/// waits at least the specified time, but possibly longer due to OS<br/>
-		/// scheduling.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void Delay(uint ms)
-		{
-			DelayNative(ms);
-		}
-
-		/// <summary>
-		/// Call a callback function at a future time.<br/>
-		/// If you use this function, you must pass `SDL_INIT_TIMER` to SDL_Init().<br/>
-		/// The callback function is passed the current timer interval and the user<br/>
-		/// supplied parameter from the SDL_AddTimer() call and should return the next<br/>
-		/// timer interval. If the value returned from the callback is 0, the timer is<br/>
-		/// canceled.<br/>
-		/// The callback is run on a separate thread.<br/>
-		/// Timers take into account the amount of time it took to execute the<br/>
-		/// callback. For example, if the callback took 250 ms to execute and returned<br/>
-		/// 1000 (ms), the timer would only wait another 750 ms before its next<br/>
-		/// iteration.<br/>
-		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
-		/// time with SDL_GetTicks() or SDL_GetPerformanceCounter() in case your<br/>
-		/// callback needs to adjust for variances.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AddTimerNative(uint interval, SDLTimerCallback callback, void* param)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, delegate*<uint, void*, uint>, void*, int>)funcTable[826])(interval, (delegate*<uint, void*, uint>)Utils.GetFunctionPointerForDelegate(callback), param);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[826])(interval, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)param);
-			#endif
-		}
-
-		/// <summary>
-		/// Call a callback function at a future time.<br/>
-		/// If you use this function, you must pass `SDL_INIT_TIMER` to SDL_Init().<br/>
-		/// The callback function is passed the current timer interval and the user<br/>
-		/// supplied parameter from the SDL_AddTimer() call and should return the next<br/>
-		/// timer interval. If the value returned from the callback is 0, the timer is<br/>
-		/// canceled.<br/>
-		/// The callback is run on a separate thread.<br/>
-		/// Timers take into account the amount of time it took to execute the<br/>
-		/// callback. For example, if the callback took 250 ms to execute and returned<br/>
-		/// 1000 (ms), the timer would only wait another 750 ms before its next<br/>
-		/// iteration.<br/>
-		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
-		/// time with SDL_GetTicks() or SDL_GetPerformanceCounter() in case your<br/>
-		/// callback needs to adjust for variances.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AddTimer(uint interval, SDLTimerCallback callback, void* param)
-		{
-			int ret = AddTimerNative(interval, callback, param);
-			return ret;
-		}
-
-		/// <summary>
-		/// Remove a timer created with SDL_AddTimer().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool RemoveTimerNative(int id)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLBool>)funcTable[827])(id);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<int, SDLBool>)funcTable[827])(id);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove a timer created with SDL_AddTimer().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool RemoveTimer(int id)
-		{
-			SDLBool ret = RemoveTimerNative(id);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the version of SDL that is linked against your program.<br/>
-		/// If you are linking to SDL dynamically, then it is possible that the current<br/>
-		/// version will be different than the version you compiled against. This<br/>
-		/// function returns the current version, while SDL_VERSION() is a macro that<br/>
-		/// tells you what version you compiled with.<br/>
-		/// This function may be called safely at any time, even before SDL_Init().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetVersionNative(SDLVersion* ver)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLVersion*, void>)funcTable[828])(ver);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[828])((nint)ver);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the version of SDL that is linked against your program.<br/>
-		/// If you are linking to SDL dynamically, then it is possible that the current<br/>
-		/// version will be different than the version you compiled against. This<br/>
-		/// function returns the current version, while SDL_VERSION() is a macro that<br/>
-		/// tells you what version you compiled with.<br/>
-		/// This function may be called safely at any time, even before SDL_Init().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetVersion(SDLVersion* ver)
-		{
-			GetVersionNative(ver);
-		}
-
-		/// <summary>
-		/// Get the version of SDL that is linked against your program.<br/>
-		/// If you are linking to SDL dynamically, then it is possible that the current<br/>
-		/// version will be different than the version you compiled against. This<br/>
-		/// function returns the current version, while SDL_VERSION() is a macro that<br/>
-		/// tells you what version you compiled with.<br/>
-		/// This function may be called safely at any time, even before SDL_Init().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetVersion(ref SDLVersion ver)
-		{
-			fixed (SDLVersion* pver = &ver)
-			{
-				GetVersionNative((SDLVersion*)pver);
-			}
-		}
-
-		/// <summary>
-		/// Get the code revision of SDL that is linked against your program.<br/>
-		/// This value is the revision of the code you are linked with and may be<br/>
-		/// different from the code you are compiling with, which is found in the<br/>
-		/// constant SDL_REVISION.<br/>
-		/// The revision is arbitrary string (a hash value) uniquely identifying the<br/>
-		/// exact revision of the SDL library in use, and is only useful in comparing<br/>
-		/// against other revisions. It is NOT an incrementing number.<br/>
-		/// If SDL wasn't built from a git repository with the appropriate tools, this<br/>
-		/// will return an empty string.<br/>
-		/// Prior to SDL 2.0.16, before development moved to GitHub, this returned a<br/>
-		/// hash for a Mercurial repository.<br/>
-		/// You shouldn't use this function for anything but logging it for debugging<br/>
-		/// purposes. The string is not intended to be reliable in any way.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetRevisionNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[829])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[829])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the code revision of SDL that is linked against your program.<br/>
-		/// This value is the revision of the code you are linked with and may be<br/>
-		/// different from the code you are compiling with, which is found in the<br/>
-		/// constant SDL_REVISION.<br/>
-		/// The revision is arbitrary string (a hash value) uniquely identifying the<br/>
-		/// exact revision of the SDL library in use, and is only useful in comparing<br/>
-		/// against other revisions. It is NOT an incrementing number.<br/>
-		/// If SDL wasn't built from a git repository with the appropriate tools, this<br/>
-		/// will return an empty string.<br/>
-		/// Prior to SDL 2.0.16, before development moved to GitHub, this returned a<br/>
-		/// hash for a Mercurial repository.<br/>
-		/// You shouldn't use this function for anything but logging it for debugging<br/>
-		/// purposes. The string is not intended to be reliable in any way.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetRevision()
-		{
-			byte* ret = GetRevisionNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the code revision of SDL that is linked against your program.<br/>
-		/// This value is the revision of the code you are linked with and may be<br/>
-		/// different from the code you are compiling with, which is found in the<br/>
-		/// constant SDL_REVISION.<br/>
-		/// The revision is arbitrary string (a hash value) uniquely identifying the<br/>
-		/// exact revision of the SDL library in use, and is only useful in comparing<br/>
-		/// against other revisions. It is NOT an incrementing number.<br/>
-		/// If SDL wasn't built from a git repository with the appropriate tools, this<br/>
-		/// will return an empty string.<br/>
-		/// Prior to SDL 2.0.16, before development moved to GitHub, this returned a<br/>
-		/// hash for a Mercurial repository.<br/>
-		/// You shouldn't use this function for anything but logging it for debugging<br/>
-		/// purposes. The string is not intended to be reliable in any way.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetRevisionS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetRevisionNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Obsolete function, do not use.<br/>
-		/// When SDL was hosted in a Mercurial repository, and was built carefully,<br/>
-		/// this would return the revision number that the build was created from. This<br/>
-		/// number was not reliable for several reasons, but more importantly, SDL is<br/>
-		/// now hosted in a git repository, which does not offer numbers at all, only<br/>
-		/// hashes. This function only ever returns zero now. Don't use it.<br/>
-		/// Before SDL 2.0.16, this might have returned an unreliable, but non-zero<br/>
-		/// number.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetRevisionNumberNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[830])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[830])();
-			#endif
-		}
-
-		/// <summary>
-		/// Obsolete function, do not use.<br/>
-		/// When SDL was hosted in a Mercurial repository, and was built carefully,<br/>
-		/// this would return the revision number that the build was created from. This<br/>
-		/// number was not reliable for several reasons, but more importantly, SDL is<br/>
-		/// now hosted in a git repository, which does not offer numbers at all, only<br/>
-		/// hashes. This function only ever returns zero now. Don't use it.<br/>
-		/// Before SDL 2.0.16, this might have returned an unreliable, but non-zero<br/>
-		/// number.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRevisionNumber()
-		{
-			int ret = GetRevisionNumberNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// This returns an array of SDL_Locale structs, the final item zeroed out.<br/>
-		/// When the caller is done with this array, it should call SDL_free() on the<br/>
-		/// returned value; all the memory involved is allocated in a single block, so<br/>
-		/// a single SDL_free() will suffice.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_LOCALECHANGED event in this case, if<br/>
-		/// possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLLocale* GetPreferredLocalesNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLLocale*>)funcTable[831])();
-			#else
-			return (SDLLocale*)((delegate* unmanaged[Cdecl]<nint>)funcTable[831])();
-			#endif
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// This returns an array of SDL_Locale structs, the final item zeroed out.<br/>
-		/// When the caller is done with this array, it should call SDL_free() on the<br/>
-		/// returned value; all the memory involved is allocated in a single block, so<br/>
-		/// a single SDL_free() will suffice.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_LOCALECHANGED event in this case, if<br/>
-		/// possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLLocale* GetPreferredLocales()
-		{
-			SDLLocale* ret = GetPreferredLocalesNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int OpenURLNative(byte* url)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[832])(url);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[832])((nint)url);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int OpenURL(byte* url)
-		{
-			int ret = OpenURLNative(url);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int OpenURL(ref byte url)
-		{
-			fixed (byte* purl = &url)
-			{
-				int ret = OpenURLNative((byte*)purl);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int OpenURL(ReadOnlySpan<byte> url)
-		{
-			fixed (byte* purl = url)
-			{
-				int ret = OpenURLNative((byte*)purl);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int OpenURL(string url)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (url != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(url);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(url, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = OpenURLNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Initialize the SDL library.<br/>
-		/// SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the<br/>
-		/// two may be used interchangeably. Though for readability of your code<br/>
-		/// SDL_InitSubSystem() might be preferred.<br/>
-		/// The file I/O (for example: SDL_RWFromFile) and threading (SDL_CreateThread)<br/>
-		/// subsystems are initialized by default. Message boxes<br/>
-		/// (SDL_ShowSimpleMessageBox) also attempt to work without initializing the<br/>
-		/// video subsystem, in hopes of being useful in showing an error dialog when<br/>
-		/// SDL_Init fails. You must specifically initialize other subsystems if you<br/>
-		/// use them in your application.<br/>
-		/// Logging (such as SDL_Log) works without initialization, too.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_INIT_TIMER`: timer subsystem<br/>
-		/// - `SDL_INIT_AUDIO`: audio subsystem<br/>
-		/// - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the<br/>
-		/// events subsystem<br/>
-		/// - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem<br/>
-		/// - `SDL_INIT_GAMECONTROLLER`: controller subsystem; automatically<br/>
-		/// initializes the joystick subsystem<br/>
-		/// - `SDL_INIT_EVENTS`: events subsystem<br/>
-		/// - `SDL_INIT_EVERYTHING`: all of the above subsystems<br/>
-		/// - `SDL_INIT_NOPARACHUTE`: compatibility; this flag is ignored<br/>
-		/// Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()<br/>
-		/// for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or<br/>
-		/// call SDL_Quit() to force shutdown). If a subsystem is already loaded then<br/>
-		/// this call will increase the ref-count and return.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int InitNative(uint flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[833])(flags);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[833])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize the SDL library.<br/>
-		/// SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the<br/>
-		/// two may be used interchangeably. Though for readability of your code<br/>
-		/// SDL_InitSubSystem() might be preferred.<br/>
-		/// The file I/O (for example: SDL_RWFromFile) and threading (SDL_CreateThread)<br/>
-		/// subsystems are initialized by default. Message boxes<br/>
-		/// (SDL_ShowSimpleMessageBox) also attempt to work without initializing the<br/>
-		/// video subsystem, in hopes of being useful in showing an error dialog when<br/>
-		/// SDL_Init fails. You must specifically initialize other subsystems if you<br/>
-		/// use them in your application.<br/>
-		/// Logging (such as SDL_Log) works without initialization, too.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_INIT_TIMER`: timer subsystem<br/>
-		/// - `SDL_INIT_AUDIO`: audio subsystem<br/>
-		/// - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the<br/>
-		/// events subsystem<br/>
-		/// - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem<br/>
-		/// - `SDL_INIT_GAMECONTROLLER`: controller subsystem; automatically<br/>
-		/// initializes the joystick subsystem<br/>
-		/// - `SDL_INIT_EVENTS`: events subsystem<br/>
-		/// - `SDL_INIT_EVERYTHING`: all of the above subsystems<br/>
-		/// - `SDL_INIT_NOPARACHUTE`: compatibility; this flag is ignored<br/>
-		/// Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()<br/>
-		/// for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or<br/>
-		/// call SDL_Quit() to force shutdown). If a subsystem is already loaded then<br/>
-		/// this call will increase the ref-count and return.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Init(uint flags)
-		{
-			int ret = InitNative(flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compatibility function to initialize the SDL library.<br/>
-		/// In SDL2, this function and SDL_Init() are interchangeable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int InitSubSystemNative(uint flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[834])(flags);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[834])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Compatibility function to initialize the SDL library.<br/>
-		/// In SDL2, this function and SDL_Init() are interchangeable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int InitSubSystem(uint flags)
-		{
-			int ret = InitSubSystemNative(flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Shut down specific SDL subsystems.<br/>
-		/// If you start a subsystem using a call to that subsystem's init function<br/>
-		/// (for example SDL_VideoInit()) instead of SDL_Init() or SDL_InitSubSystem(),<br/>
-		/// SDL_QuitSubSystem() and SDL_WasInit() will not work. You will need to use<br/>
-		/// that subsystem's quit function (SDL_VideoQuit()) directly instead. But<br/>
-		/// generally, you should not be using those functions directly anyhow; use<br/>
-		/// SDL_Init() instead.<br/>
-		/// You still need to call SDL_Quit() even if you close all open subsystems<br/>
-		/// with SDL_QuitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QuitSubSystemNative(uint flags)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[835])(flags);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[835])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Shut down specific SDL subsystems.<br/>
-		/// If you start a subsystem using a call to that subsystem's init function<br/>
-		/// (for example SDL_VideoInit()) instead of SDL_Init() or SDL_InitSubSystem(),<br/>
-		/// SDL_QuitSubSystem() and SDL_WasInit() will not work. You will need to use<br/>
-		/// that subsystem's quit function (SDL_VideoQuit()) directly instead. But<br/>
-		/// generally, you should not be using those functions directly anyhow; use<br/>
-		/// SDL_Init() instead.<br/>
-		/// You still need to call SDL_Quit() even if you close all open subsystems<br/>
-		/// with SDL_QuitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void QuitSubSystem(uint flags)
-		{
-			QuitSubSystemNative(flags);
-		}
-
-		/// <summary>
-		/// Get a mask of the specified subsystems which are currently initialized.<br/>
-		/// <br/>
-		/// The return value does not include SDL_INIT_NOPARACHUTE.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint WasInitNative(uint flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[836])(flags);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[836])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a mask of the specified subsystems which are currently initialized.<br/>
-		/// <br/>
-		/// The return value does not include SDL_INIT_NOPARACHUTE.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint WasInit(uint flags)
-		{
-			uint ret = WasInitNative(flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Clean up all initialized subsystems.<br/>
-		/// You should call this function even if you have already shutdown each<br/>
-		/// initialized subsystem with SDL_QuitSubSystem(). It is safe to call this<br/>
-		/// function even in the case of errors in initialization.<br/>
-		/// If you start a subsystem using a call to that subsystem's init function<br/>
-		/// (for example SDL_VideoInit()) instead of SDL_Init() or SDL_InitSubSystem(),<br/>
-		/// then you must use that subsystem's quit function (SDL_VideoQuit()) to shut<br/>
-		/// it down before calling SDL_Quit(). But generally, you should not be using<br/>
-		/// those functions directly anyhow; use SDL_Init() instead.<br/>
-		/// You can use this function with atexit() to ensure that it is run when your<br/>
-		/// application is shutdown, but it is not wise to do this from a library or<br/>
-		/// other dynamically loaded code.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QuitNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[837])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[837])();
-			#endif
-		}
-
-		/// <summary>
-		/// Clean up all initialized subsystems.<br/>
-		/// You should call this function even if you have already shutdown each<br/>
-		/// initialized subsystem with SDL_QuitSubSystem(). It is safe to call this<br/>
-		/// function even in the case of errors in initialization.<br/>
-		/// If you start a subsystem using a call to that subsystem's init function<br/>
-		/// (for example SDL_VideoInit()) instead of SDL_Init() or SDL_InitSubSystem(),<br/>
-		/// then you must use that subsystem's quit function (SDL_VideoQuit()) to shut<br/>
-		/// it down before calling SDL_Quit(). But generally, you should not be using<br/>
-		/// those functions directly anyhow; use SDL_Init() instead.<br/>
-		/// You can use this function with atexit() to ensure that it is run when your<br/>
-		/// application is shutdown, but it is not wise to do this from a library or<br/>
-		/// other dynamically loaded code.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void Quit()
-		{
-			QuitNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglChooseConfigNative(EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, int* numConfig)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int*, EGLConfig*, int, int*, uint>)funcTable[838])(dpy, attribList, configs, configSize, numConfig);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, nint, int, nint, uint>)funcTable[838])(dpy, (nint)attribList, (nint)configs, configSize, (nint)numConfig);
-			#endif
-		}
-
-		public static uint EglChooseConfig(EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, int* numConfig)
-		{
-			uint ret = EglChooseConfigNative(dpy, attribList, configs, configSize, numConfig);
-			return ret;
-		}
-
-		public static uint EglChooseConfig(EGLDisplay dpy, ref int attribList, EGLConfig* configs, int configSize, int* numConfig)
-		{
-			fixed (int* pattribList = &attribList)
-			{
-				uint ret = EglChooseConfigNative(dpy, (int*)pattribList, configs, configSize, numConfig);
-				return ret;
-			}
-		}
-
-		public static uint EglChooseConfig(EGLDisplay dpy, int* attribList, ref EGLConfig configs, int configSize, int* numConfig)
-		{
-			fixed (EGLConfig* pconfigs = &configs)
-			{
-				uint ret = EglChooseConfigNative(dpy, attribList, (EGLConfig*)pconfigs, configSize, numConfig);
-				return ret;
-			}
-		}
-
-		public static uint EglChooseConfig(EGLDisplay dpy, ref int attribList, ref EGLConfig configs, int configSize, int* numConfig)
-		{
-			fixed (int* pattribList = &attribList)
-			{
-				fixed (EGLConfig* pconfigs = &configs)
-				{
-					uint ret = EglChooseConfigNative(dpy, (int*)pattribList, (EGLConfig*)pconfigs, configSize, numConfig);
-					return ret;
-				}
-			}
-		}
-
-		public static uint EglChooseConfig(EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, ref int numConfig)
-		{
-			fixed (int* pnumConfig = &numConfig)
-			{
-				uint ret = EglChooseConfigNative(dpy, attribList, configs, configSize, (int*)pnumConfig);
-				return ret;
-			}
-		}
-
-		public static uint EglChooseConfig(EGLDisplay dpy, ref int attribList, EGLConfig* configs, int configSize, ref int numConfig)
-		{
-			fixed (int* pattribList = &attribList)
-			{
-				fixed (int* pnumConfig = &numConfig)
-				{
-					uint ret = EglChooseConfigNative(dpy, (int*)pattribList, configs, configSize, (int*)pnumConfig);
-					return ret;
-				}
-			}
-		}
-
-		public static uint EglChooseConfig(EGLDisplay dpy, int* attribList, ref EGLConfig configs, int configSize, ref int numConfig)
-		{
-			fixed (EGLConfig* pconfigs = &configs)
-			{
-				fixed (int* pnumConfig = &numConfig)
-				{
-					uint ret = EglChooseConfigNative(dpy, attribList, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
-					return ret;
-				}
-			}
-		}
-
-		public static uint EglChooseConfig(EGLDisplay dpy, ref int attribList, ref EGLConfig configs, int configSize, ref int numConfig)
-		{
-			fixed (int* pattribList = &attribList)
-			{
-				fixed (EGLConfig* pconfigs = &configs)
-				{
-					fixed (int* pnumConfig = &numConfig)
+					fixed (SDLRect* psrcrect = &srcrect)
 					{
-						uint ret = EglChooseConfigNative(dpy, (int*)pattribList, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)center, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(SDLRendererPtr renderer, SDLTexturePtr texture, SDLRectPtr srcrect, SDLRectPtr dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLPoint* pcenter = &center)
+			{
+				int ret = RenderCopyExNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLRect*)dstrect, angle, (SDLPoint*)pcenter, flip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(ref SDLRenderer renderer, SDLTexturePtr texture, SDLRectPtr srcrect, SDLRectPtr dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLPoint* pcenter = &center)
+				{
+					int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLRect*)dstrect, angle, (SDLPoint*)pcenter, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(SDLRendererPtr renderer, ref SDLTexture texture, SDLRectPtr srcrect, SDLRectPtr dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLPoint* pcenter = &center)
+				{
+					int ret = RenderCopyExNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLRect*)dstrect, angle, (SDLPoint*)pcenter, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(ref SDLRenderer renderer, ref SDLTexture texture, SDLRectPtr srcrect, SDLRectPtr dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLRect*)dstrect, angle, (SDLPoint*)pcenter, flip);
 						return ret;
 					}
 				}
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglCopyBuffersNative(EGLDisplay dpy, EGLSurface surface, nint target)
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLRect srcrect, SDLRectPtr dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, nint, uint>)funcTable[839])(dpy, surface, target);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, nint, uint>)funcTable[839])(dpy, surface, target);
-			#endif
-		}
-
-		public static uint EglCopyBuffers(EGLDisplay dpy, EGLSurface surface, nint target)
-		{
-			uint ret = EglCopyBuffersNative(dpy, surface, target);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLContext EglCreateContextNative(EGLDisplay dpy, EGLConfig config, EGLContext shareContext, int* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, EGLContext, int*, EGLContext>)funcTable[840])(dpy, config, shareContext, attribList);
-			#else
-			return (EGLContext)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, EGLContext, nint, EGLContext>)funcTable[840])(dpy, config, shareContext, (nint)attribList);
-			#endif
-		}
-
-		public static EGLContext EglCreateContext(EGLDisplay dpy, EGLConfig config, EGLContext shareContext, int* attribList)
-		{
-			EGLContext ret = EglCreateContextNative(dpy, config, shareContext, attribList);
-			return ret;
-		}
-
-		public static EGLContext EglCreateContext(EGLDisplay dpy, EGLConfig config, EGLContext shareContext, ref int attribList)
-		{
-			fixed (int* pattribList = &attribList)
+			fixed (SDLRect* psrcrect = &srcrect)
 			{
-				EGLContext ret = EglCreateContextNative(dpy, config, shareContext, (int*)pattribList);
-				return ret;
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLSurface EglCreatePbufferSurfaceNative(EGLDisplay dpy, EGLConfig config, int* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int*, EGLSurface>)funcTable[841])(dpy, config, attribList);
-			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, EGLSurface>)funcTable[841])(dpy, config, (nint)attribList);
-			#endif
-		}
-
-		public static EGLSurface EglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config, int* attribList)
-		{
-			EGLSurface ret = EglCreatePbufferSurfaceNative(dpy, config, attribList);
-			return ret;
-		}
-
-		public static EGLSurface EglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config, ref int attribList)
-		{
-			fixed (int* pattribList = &attribList)
-			{
-				EGLSurface ret = EglCreatePbufferSurfaceNative(dpy, config, (int*)pattribList);
-				return ret;
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLSurface EglCreatePixmapSurfaceNative(EGLDisplay dpy, EGLConfig config, nint pixmap, int* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, int*, EGLSurface>)funcTable[842])(dpy, config, pixmap, attribList);
-			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[842])(dpy, config, pixmap, (nint)attribList);
-			#endif
-		}
-
-		public static EGLSurface EglCreatePixmapSurface(EGLDisplay dpy, EGLConfig config, nint pixmap, int* attribList)
-		{
-			EGLSurface ret = EglCreatePixmapSurfaceNative(dpy, config, pixmap, attribList);
-			return ret;
-		}
-
-		public static EGLSurface EglCreatePixmapSurface(EGLDisplay dpy, EGLConfig config, nint pixmap, ref int attribList)
-		{
-			fixed (int* pattribList = &attribList)
-			{
-				EGLSurface ret = EglCreatePixmapSurfaceNative(dpy, config, pixmap, (int*)pattribList);
-				return ret;
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLSurface EglCreateWindowSurfaceNative(EGLDisplay dpy, EGLConfig config, nint win, int* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, int*, EGLSurface>)funcTable[843])(dpy, config, win, attribList);
-			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[843])(dpy, config, win, (nint)attribList);
-			#endif
-		}
-
-		public static EGLSurface EglCreateWindowSurface(EGLDisplay dpy, EGLConfig config, nint win, int* attribList)
-		{
-			EGLSurface ret = EglCreateWindowSurfaceNative(dpy, config, win, attribList);
-			return ret;
-		}
-
-		public static EGLSurface EglCreateWindowSurface(EGLDisplay dpy, EGLConfig config, nint win, ref int attribList)
-		{
-			fixed (int* pattribList = &attribList)
-			{
-				EGLSurface ret = EglCreateWindowSurfaceNative(dpy, config, win, (int*)pattribList);
-				return ret;
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglDestroyContextNative(EGLDisplay dpy, EGLContext ctx)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint>)funcTable[844])(dpy, ctx);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint>)funcTable[844])(dpy, ctx);
-			#endif
-		}
-
-		public static uint EglDestroyContext(EGLDisplay dpy, EGLContext ctx)
-		{
-			uint ret = EglDestroyContextNative(dpy, ctx);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglDestroySurfaceNative(EGLDisplay dpy, EGLSurface surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[845])(dpy, surface);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[845])(dpy, surface);
-			#endif
-		}
-
-		public static uint EglDestroySurface(EGLDisplay dpy, EGLSurface surface)
-		{
-			uint ret = EglDestroySurfaceNative(dpy, surface);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglGetConfigAttribNative(EGLDisplay dpy, EGLConfig config, int attribute, int* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int, int*, uint>)funcTable[846])(dpy, config, attribute, value);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int, nint, uint>)funcTable[846])(dpy, config, attribute, (nint)value);
-			#endif
-		}
-
-		public static uint EglGetConfigAttrib(EGLDisplay dpy, EGLConfig config, int attribute, int* value)
-		{
-			uint ret = EglGetConfigAttribNative(dpy, config, attribute, value);
-			return ret;
-		}
-
-		public static uint EglGetConfigAttrib(EGLDisplay dpy, EGLConfig config, int attribute, ref int value)
-		{
-			fixed (int* pvalue = &value)
-			{
-				uint ret = EglGetConfigAttribNative(dpy, config, attribute, (int*)pvalue);
-				return ret;
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglGetConfigsNative(EGLDisplay dpy, EGLConfig* configs, int configSize, int* numConfig)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig*, int, int*, uint>)funcTable[847])(dpy, configs, configSize, numConfig);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, int, nint, uint>)funcTable[847])(dpy, (nint)configs, configSize, (nint)numConfig);
-			#endif
-		}
-
-		public static uint EglGetConfigs(EGLDisplay dpy, EGLConfig* configs, int configSize, int* numConfig)
-		{
-			uint ret = EglGetConfigsNative(dpy, configs, configSize, numConfig);
-			return ret;
-		}
-
-		public static uint EglGetConfigs(EGLDisplay dpy, ref EGLConfig configs, int configSize, int* numConfig)
-		{
-			fixed (EGLConfig* pconfigs = &configs)
-			{
-				uint ret = EglGetConfigsNative(dpy, (EGLConfig*)pconfigs, configSize, numConfig);
-				return ret;
-			}
-		}
-
-		public static uint EglGetConfigs(EGLDisplay dpy, EGLConfig* configs, int configSize, ref int numConfig)
-		{
-			fixed (int* pnumConfig = &numConfig)
-			{
-				uint ret = EglGetConfigsNative(dpy, configs, configSize, (int*)pnumConfig);
-				return ret;
-			}
-		}
-
-		public static uint EglGetConfigs(EGLDisplay dpy, ref EGLConfig configs, int configSize, ref int numConfig)
-		{
-			fixed (EGLConfig* pconfigs = &configs)
-			{
-				fixed (int* pnumConfig = &numConfig)
+				fixed (SDLPoint* pcenter = &center)
 				{
-					uint ret = EglGetConfigsNative(dpy, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
+					int ret = RenderCopyExNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLRect*)dstrect, angle, (SDLPoint*)pcenter, flip);
 					return ret;
 				}
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLDisplay EglGetCurrentDisplayNative()
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLRect srcrect, SDLRectPtr dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay>)funcTable[848])();
-			#else
-			return (EGLDisplay)((delegate* unmanaged[Cdecl]<EGLDisplay>)funcTable[848])();
-			#endif
-		}
-
-		public static EGLDisplay EglGetCurrentDisplay()
-		{
-			EGLDisplay ret = EglGetCurrentDisplayNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLSurface EglGetCurrentSurfaceNative(int readdraw)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, EGLSurface>)funcTable[849])(readdraw);
-			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<int, EGLSurface>)funcTable[849])(readdraw);
-			#endif
-		}
-
-		public static EGLSurface EglGetCurrentSurface(int readdraw)
-		{
-			EGLSurface ret = EglGetCurrentSurfaceNative(readdraw);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLDisplay EglGetDisplayNative(nint displayId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<nint, EGLDisplay>)funcTable[850])(displayId);
-			#else
-			return (EGLDisplay)((delegate* unmanaged[Cdecl]<nint, EGLDisplay>)funcTable[850])(displayId);
-			#endif
-		}
-
-		public static EGLDisplay EglGetDisplay(nint displayId)
-		{
-			EGLDisplay ret = EglGetDisplayNative(displayId);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int EglGetErrorNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[851])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[851])();
-			#endif
-		}
-
-		public static int EglGetError()
-		{
-			int ret = EglGetErrorNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static delegate*<void> EglGetProcAddressNative(byte* procname)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void>>)funcTable[852])(procname);
-			#else
-			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[852])((nint)procname);
-			#endif
-		}
-
-		public static delegate*<void> EglGetProcAddress(byte* procname)
-		{
-			delegate*<void> ret = EglGetProcAddressNative(procname);
-			return ret;
-		}
-
-		public static delegate*<void> EglGetProcAddress(ref byte procname)
-		{
-			fixed (byte* pprocname = &procname)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				delegate*<void> ret = EglGetProcAddressNative((byte*)pprocname);
-				return ret;
-			}
-		}
-
-		public static delegate*<void> EglGetProcAddress(ReadOnlySpan<byte> procname)
-		{
-			fixed (byte* pprocname = procname)
-			{
-				delegate*<void> ret = EglGetProcAddressNative((byte*)pprocname);
-				return ret;
-			}
-		}
-
-		public static delegate*<void> EglGetProcAddress(string procname)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (procname != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(procname);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					fixed (SDLPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLRect*)dstrect, angle, (SDLPoint*)pcenter, flip);
+						return ret;
+					}
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(SDLRendererPtr renderer, ref SDLTexture texture, in SDLRect srcrect, SDLRectPtr dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					fixed (SDLPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)dstrect, angle, (SDLPoint*)pcenter, flip);
+						return ret;
+					}
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(procname, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			delegate*<void> ret = EglGetProcAddressNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglInitializeNative(EGLDisplay dpy, int* major, int* minor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int*, int*, uint>)funcTable[853])(dpy, major, minor);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, nint, uint>)funcTable[853])(dpy, (nint)major, (nint)minor);
-			#endif
-		}
-
-		public static uint EglInitialize(EGLDisplay dpy, int* major, int* minor)
-		{
-			uint ret = EglInitializeNative(dpy, major, minor);
-			return ret;
-		}
-
-		public static uint EglInitialize(EGLDisplay dpy, ref int major, int* minor)
-		{
-			fixed (int* pmajor = &major)
-			{
-				uint ret = EglInitializeNative(dpy, (int*)pmajor, minor);
-				return ret;
 			}
 		}
 
-		public static uint EglInitialize(EGLDisplay dpy, int* major, ref int minor)
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, SDLRectPtr dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
 		{
-			fixed (int* pminor = &minor)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				uint ret = EglInitializeNative(dpy, major, (int*)pminor);
-				return ret;
-			}
-		}
-
-		public static uint EglInitialize(EGLDisplay dpy, ref int major, ref int minor)
-		{
-			fixed (int* pmajor = &major)
-			{
-				fixed (int* pminor = &minor)
+				fixed (SDLTexture* ptexture = &texture)
 				{
-					uint ret = EglInitializeNative(dpy, (int*)pmajor, (int*)pminor);
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						fixed (SDLPoint* pcenter = &center)
+						{
+							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)dstrect, angle, (SDLPoint*)pcenter, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(SDLRendererPtr renderer, SDLTexturePtr texture, SDLRectPtr srcrect, in SDLRect dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				fixed (SDLPoint* pcenter = &center)
+				{
+					int ret = RenderCopyExNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 					return ret;
 				}
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglMakeCurrentNative(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx)
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(ref SDLRenderer renderer, SDLTexturePtr texture, SDLRectPtr srcrect, in SDLRect dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, EGLSurface, EGLContext, uint>)funcTable[854])(dpy, draw, read, ctx);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, EGLSurface, EGLContext, uint>)funcTable[854])(dpy, draw, read, ctx);
-			#endif
-		}
-
-		public static uint EglMakeCurrent(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx)
-		{
-			uint ret = EglMakeCurrentNative(dpy, draw, read, ctx);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglQueryContextNative(EGLDisplay dpy, EGLContext ctx, int attribute, int* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, int, int*, uint>)funcTable[855])(dpy, ctx, attribute, value);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, int, nint, uint>)funcTable[855])(dpy, ctx, attribute, (nint)value);
-			#endif
-		}
-
-		public static uint EglQueryContext(EGLDisplay dpy, EGLContext ctx, int attribute, int* value)
-		{
-			uint ret = EglQueryContextNative(dpy, ctx, attribute, value);
-			return ret;
-		}
-
-		public static uint EglQueryContext(EGLDisplay dpy, EGLContext ctx, int attribute, ref int value)
-		{
-			fixed (int* pvalue = &value)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				uint ret = EglQueryContextNative(dpy, ctx, attribute, (int*)pvalue);
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					fixed (SDLPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(SDLRendererPtr renderer, ref SDLTexture texture, SDLRectPtr srcrect, in SDLRect dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					fixed (SDLPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(ref SDLRenderer renderer, ref SDLTexture texture, SDLRectPtr srcrect, in SDLRect dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						fixed (SDLPoint* pcenter = &center)
+						{
+							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLRect srcrect, in SDLRect dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					fixed (SDLPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLRect srcrect, in SDLRect dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						fixed (SDLPoint* pcenter = &center)
+						{
+							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(SDLRendererPtr renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLRect dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						fixed (SDLPoint* pcenter = &center)
+						{
+							int ret = RenderCopyExNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering, with optional<br/>
+		/// rotation and flipping.<br/>
+		/// Copy a portion of the texture to the current rendering target, optionally<br/>
+		/// rotating it by angle around the given center and also flipping it<br/>
+		/// top-bottom and/or left-right.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyEx(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLRect dstrect, double angle, in SDLPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							fixed (SDLPoint* pcenter = &center)
+							{
+								int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draw a point on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawPointFNative(SDLRenderer* renderer, float x, float y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int>)funcTable[782])(renderer, x, y);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, int>)funcTable[782])((nint)renderer, x, y);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw a point on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPointF(SDLRendererPtr renderer, float x, float y)
+		{
+			int ret = RenderDrawPointFNative((SDLRenderer*)renderer, x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw a point on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPointF(ref SDLRenderer renderer, float x, float y)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawPointFNative((SDLRenderer*)prenderer, x, y);
 				return ret;
 			}
 		}
 
+		/// <summary>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* EglQueryStringNative(EGLDisplay dpy, int name)
+		internal static int RenderDrawPointsFNative(SDLRenderer* renderer, SDLFPoint* points, int count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int, byte*>)funcTable[856])(dpy, name);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, int>)funcTable[783])(renderer, points, count);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<EGLDisplay, int, nint>)funcTable[856])(dpy, name);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[783])((nint)renderer, (nint)points, count);
 			#endif
 		}
 
-		public static byte* EglQueryString(EGLDisplay dpy, int name)
+		/// <summary>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPointsF(SDLRendererPtr renderer, SDLFPointPtr points, int count)
 		{
-			byte* ret = EglQueryStringNative(dpy, name);
+			int ret = RenderDrawPointsFNative((SDLRenderer*)renderer, (SDLFPoint*)points, count);
 			return ret;
 		}
 
-		public static string EglQueryStringS(EGLDisplay dpy, int name)
+		/// <summary>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPointsF(ref SDLRenderer renderer, SDLFPointPtr points, int count)
 		{
-			string ret = Utils.DecodeStringUTF8(EglQueryStringNative(dpy, name));
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglQuerySurfaceNative(EGLDisplay dpy, EGLSurface surface, int attribute, int* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int*, uint>)funcTable[857])(dpy, surface, attribute, value);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, nint, uint>)funcTable[857])(dpy, surface, attribute, (nint)value);
-			#endif
-		}
-
-		public static uint EglQuerySurface(EGLDisplay dpy, EGLSurface surface, int attribute, int* value)
-		{
-			uint ret = EglQuerySurfaceNative(dpy, surface, attribute, value);
-			return ret;
-		}
-
-		public static uint EglQuerySurface(EGLDisplay dpy, EGLSurface surface, int attribute, ref int value)
-		{
-			fixed (int* pvalue = &value)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				uint ret = EglQuerySurfaceNative(dpy, surface, attribute, (int*)pvalue);
+				int ret = RenderDrawPointsFNative((SDLRenderer*)prenderer, (SDLFPoint*)points, count);
 				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglSwapBuffersNative(EGLDisplay dpy, EGLSurface surface)
+		/// <summary>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPointsF(SDLRendererPtr renderer, in SDLFPoint points, int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[858])(dpy, surface);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[858])(dpy, surface);
-			#endif
-		}
-
-		public static uint EglSwapBuffers(EGLDisplay dpy, EGLSurface surface)
-		{
-			uint ret = EglSwapBuffersNative(dpy, surface);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglTerminateNative(EGLDisplay dpy)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint>)funcTable[859])(dpy);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, uint>)funcTable[859])(dpy);
-			#endif
-		}
-
-		public static uint EglTerminate(EGLDisplay dpy)
-		{
-			uint ret = EglTerminateNative(dpy);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglWaitGLNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[860])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[860])();
-			#endif
-		}
-
-		public static uint EglWaitGL()
-		{
-			uint ret = EglWaitGLNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglWaitNativeNative(int engine)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[861])(engine);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[861])(engine);
-			#endif
-		}
-
-		public static uint EglWaitNative(int engine)
-		{
-			uint ret = EglWaitNativeNative(engine);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglBindTexImageNative(EGLDisplay dpy, EGLSurface surface, int buffer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[862])(dpy, surface, buffer);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[862])(dpy, surface, buffer);
-			#endif
-		}
-
-		public static uint EglBindTexImage(EGLDisplay dpy, EGLSurface surface, int buffer)
-		{
-			uint ret = EglBindTexImageNative(dpy, surface, buffer);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglReleaseTexImageNative(EGLDisplay dpy, EGLSurface surface, int buffer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[863])(dpy, surface, buffer);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[863])(dpy, surface, buffer);
-			#endif
-		}
-
-		public static uint EglReleaseTexImage(EGLDisplay dpy, EGLSurface surface, int buffer)
-		{
-			uint ret = EglReleaseTexImageNative(dpy, surface, buffer);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglSurfaceAttribNative(EGLDisplay dpy, EGLSurface surface, int attribute, int value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int, uint>)funcTable[864])(dpy, surface, attribute, value);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int, uint>)funcTable[864])(dpy, surface, attribute, value);
-			#endif
-		}
-
-		public static uint EglSurfaceAttrib(EGLDisplay dpy, EGLSurface surface, int attribute, int value)
-		{
-			uint ret = EglSurfaceAttribNative(dpy, surface, attribute, value);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglSwapIntervalNative(EGLDisplay dpy, int interval)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int, uint>)funcTable[865])(dpy, interval);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, int, uint>)funcTable[865])(dpy, interval);
-			#endif
-		}
-
-		public static uint EglSwapInterval(EGLDisplay dpy, int interval)
-		{
-			uint ret = EglSwapIntervalNative(dpy, interval);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglBindAPINative(uint api)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[866])(api);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[866])(api);
-			#endif
-		}
-
-		public static uint EglBindAPI(uint api)
-		{
-			uint ret = EglBindAPINative(api);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglQueryAPINative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[867])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[867])();
-			#endif
-		}
-
-		public static uint EglQueryAPI()
-		{
-			uint ret = EglQueryAPINative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLSurface EglCreatePbufferFromClientBufferNative(EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, int* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint, EGLClientBuffer, EGLConfig, int*, EGLSurface>)funcTable[868])(dpy, buftype, buffer, config, attribList);
-			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, uint, EGLClientBuffer, EGLConfig, nint, EGLSurface>)funcTable[868])(dpy, buftype, buffer, config, (nint)attribList);
-			#endif
-		}
-
-		public static EGLSurface EglCreatePbufferFromClientBuffer(EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, int* attribList)
-		{
-			EGLSurface ret = EglCreatePbufferFromClientBufferNative(dpy, buftype, buffer, config, attribList);
-			return ret;
-		}
-
-		public static EGLSurface EglCreatePbufferFromClientBuffer(EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, ref int attribList)
-		{
-			fixed (int* pattribList = &attribList)
+			fixed (SDLFPoint* ppoints = &points)
 			{
-				EGLSurface ret = EglCreatePbufferFromClientBufferNative(dpy, buftype, buffer, config, (int*)pattribList);
+				int ret = RenderDrawPointsFNative((SDLRenderer*)renderer, (SDLFPoint*)ppoints, count);
 				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglReleaseThreadNative()
+		/// <summary>
+		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPointsF(ref SDLRenderer renderer, in SDLFPoint points, int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[869])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[869])();
-			#endif
-		}
-
-		public static uint EglReleaseThread()
-		{
-			uint ret = EglReleaseThreadNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglWaitClientNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[870])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[870])();
-			#endif
-		}
-
-		public static uint EglWaitClient()
-		{
-			uint ret = EglWaitClientNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLContext EglGetCurrentContextNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLContext>)funcTable[871])();
-			#else
-			return (EGLContext)((delegate* unmanaged[Cdecl]<EGLContext>)funcTable[871])();
-			#endif
-		}
-
-		public static EGLContext EglGetCurrentContext()
-		{
-			EGLContext ret = EglGetCurrentContextNative();
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLSync EglCreateSyncNative(EGLDisplay dpy, uint type, nint* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint, nint*, EGLSync>)funcTable[872])(dpy, type, attribList);
-			#else
-			return (EGLSync)((delegate* unmanaged[Cdecl]<EGLDisplay, uint, nint, EGLSync>)funcTable[872])(dpy, type, (nint)attribList);
-			#endif
-		}
-
-		public static EGLSync EglCreateSync(EGLDisplay dpy, uint type, nint* attribList)
-		{
-			EGLSync ret = EglCreateSyncNative(dpy, type, attribList);
-			return ret;
-		}
-
-		public static EGLSync EglCreateSync(EGLDisplay dpy, uint type, ref nint attribList)
-		{
-			fixed (nint* pattribList = &attribList)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				EGLSync ret = EglCreateSyncNative(dpy, type, (nint*)pattribList);
+				fixed (SDLFPoint* ppoints = &points)
+				{
+					int ret = RenderDrawPointsFNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draw a line on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawLineFNative(SDLRenderer* renderer, float x1, float y1, float x2, float y2)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float, float, int>)funcTable[784])(renderer, x1, y1, x2, y2);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, float, float, int>)funcTable[784])((nint)renderer, x1, y1, x2, y2);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw a line on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLineF(SDLRendererPtr renderer, float x1, float y1, float x2, float y2)
+		{
+			int ret = RenderDrawLineFNative((SDLRenderer*)renderer, x1, y1, x2, y2);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw a line on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLineF(ref SDLRenderer renderer, float x1, float y1, float x2, float y2)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawLineFNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
 				return ret;
 			}
 		}
 
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglDestroySyncNative(EGLDisplay dpy, EGLSync sync)
+		internal static int RenderDrawLinesFNative(SDLRenderer* renderer, SDLFPoint* points, int count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, uint>)funcTable[873])(dpy, sync);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, int>)funcTable[785])(renderer, points, count);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, uint>)funcTable[873])(dpy, sync);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[785])((nint)renderer, (nint)points, count);
 			#endif
 		}
 
-		public static uint EglDestroySync(EGLDisplay dpy, EGLSync sync)
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLinesF(SDLRendererPtr renderer, SDLFPointPtr points, int count)
 		{
-			uint ret = EglDestroySyncNative(dpy, sync);
+			int ret = RenderDrawLinesFNative((SDLRenderer*)renderer, (SDLFPoint*)points, count);
 			return ret;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int EglClientWaitSyncNative(EGLDisplay dpy, EGLSync sync, int flags, ulong timeout)
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLinesF(ref SDLRenderer renderer, SDLFPointPtr points, int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, ulong, int>)funcTable[874])(dpy, sync, flags, timeout);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, ulong, int>)funcTable[874])(dpy, sync, flags, timeout);
-			#endif
-		}
-
-		public static int EglClientWaitSync(EGLDisplay dpy, EGLSync sync, int flags, ulong timeout)
-		{
-			int ret = EglClientWaitSyncNative(dpy, sync, flags, timeout);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglGetSyncAttribNative(EGLDisplay dpy, EGLSync sync, int attribute, nint* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, nint*, uint>)funcTable[875])(dpy, sync, attribute, value);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, nint, uint>)funcTable[875])(dpy, sync, attribute, (nint)value);
-			#endif
-		}
-
-		public static uint EglGetSyncAttrib(EGLDisplay dpy, EGLSync sync, int attribute, nint* value)
-		{
-			uint ret = EglGetSyncAttribNative(dpy, sync, attribute, value);
-			return ret;
-		}
-
-		public static uint EglGetSyncAttrib(EGLDisplay dpy, EGLSync sync, int attribute, ref nint value)
-		{
-			fixed (nint* pvalue = &value)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				uint ret = EglGetSyncAttribNative(dpy, sync, attribute, (nint*)pvalue);
+				int ret = RenderDrawLinesFNative((SDLRenderer*)prenderer, (SDLFPoint*)points, count);
 				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLImage EglCreateImageNative(EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, nint* attribList)
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLinesF(SDLRendererPtr renderer, in SDLFPoint points, int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint, EGLClientBuffer, nint*, EGLImage>)funcTable[876])(dpy, ctx, target, buffer, attribList);
-			#else
-			return (EGLImage)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint, EGLClientBuffer, nint, EGLImage>)funcTable[876])(dpy, ctx, target, buffer, (nint)attribList);
-			#endif
-		}
-
-		public static EGLImage EglCreateImage(EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, nint* attribList)
-		{
-			EGLImage ret = EglCreateImageNative(dpy, ctx, target, buffer, attribList);
-			return ret;
-		}
-
-		public static EGLImage EglCreateImage(EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, ref nint attribList)
-		{
-			fixed (nint* pattribList = &attribList)
+			fixed (SDLFPoint* ppoints = &points)
 			{
-				EGLImage ret = EglCreateImageNative(dpy, ctx, target, buffer, (nint*)pattribList);
+				int ret = RenderDrawLinesFNative((SDLRenderer*)renderer, (SDLFPoint*)ppoints, count);
 				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglDestroyImageNative(EGLDisplay dpy, EGLImage image)
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLinesF(ref SDLRenderer renderer, in SDLFPoint points, int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLImage, uint>)funcTable[877])(dpy, image);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLImage, uint>)funcTable[877])(dpy, image);
-			#endif
-		}
-
-		public static uint EglDestroyImage(EGLDisplay dpy, EGLImage image)
-		{
-			uint ret = EglDestroyImageNative(dpy, image);
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLDisplay EglGetPlatformDisplayNative(uint platform, void* nativeDisplay, nint* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, nint*, EGLDisplay>)funcTable[878])(platform, nativeDisplay, attribList);
-			#else
-			return (EGLDisplay)((delegate* unmanaged[Cdecl]<uint, nint, nint, EGLDisplay>)funcTable[878])(platform, (nint)nativeDisplay, (nint)attribList);
-			#endif
-		}
-
-		public static EGLDisplay EglGetPlatformDisplay(uint platform, void* nativeDisplay, nint* attribList)
-		{
-			EGLDisplay ret = EglGetPlatformDisplayNative(platform, nativeDisplay, attribList);
-			return ret;
-		}
-
-		public static EGLDisplay EglGetPlatformDisplay(uint platform, void* nativeDisplay, ref nint attribList)
-		{
-			fixed (nint* pattribList = &attribList)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				EGLDisplay ret = EglGetPlatformDisplayNative(platform, nativeDisplay, (nint*)pattribList);
+				fixed (SDLFPoint* ppoints = &points)
+				{
+					int ret = RenderDrawLinesFNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawRectFNative(SDLRenderer* renderer, SDLFRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int>)funcTable[786])(renderer, rect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[786])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRectF(SDLRendererPtr renderer, SDLFRectPtr rect)
+		{
+			int ret = RenderDrawRectFNative((SDLRenderer*)renderer, (SDLFRect*)rect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRectF(ref SDLRenderer renderer, SDLFRectPtr rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawRectFNative((SDLRenderer*)prenderer, (SDLFRect*)rect);
 				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLSurface EglCreatePlatformWindowSurfaceNative(EGLDisplay dpy, EGLConfig config, void* nativeWindow, nint* attribList)
+		/// <summary>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRectF(SDLRendererPtr renderer, in SDLFRect rect)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, void*, nint*, EGLSurface>)funcTable[879])(dpy, config, nativeWindow, attribList);
-			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[879])(dpy, config, (nint)nativeWindow, (nint)attribList);
-			#endif
-		}
-
-		public static EGLSurface EglCreatePlatformWindowSurface(EGLDisplay dpy, EGLConfig config, void* nativeWindow, nint* attribList)
-		{
-			EGLSurface ret = EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, attribList);
-			return ret;
-		}
-
-		public static EGLSurface EglCreatePlatformWindowSurface(EGLDisplay dpy, EGLConfig config, void* nativeWindow, ref nint attribList)
-		{
-			fixed (nint* pattribList = &attribList)
+			fixed (SDLFRect* prect = &rect)
 			{
-				EGLSurface ret = EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, (nint*)pattribList);
+				int ret = RenderDrawRectFNative((SDLRenderer*)renderer, (SDLFRect*)prect);
 				return ret;
 			}
 		}
 
+		/// <summary>
+		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRectF(ref SDLRenderer renderer, in SDLFRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* prect = &rect)
+				{
+					int ret = RenderDrawRectFNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static EGLSurface EglCreatePlatformPixmapSurfaceNative(EGLDisplay dpy, EGLConfig config, void* nativePixmap, nint* attribList)
+		internal static int RenderDrawRectsFNative(SDLRenderer* renderer, SDLFRect* rects, int count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, void*, nint*, EGLSurface>)funcTable[880])(dpy, config, nativePixmap, attribList);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, int>)funcTable[787])(renderer, rects, count);
 			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[880])(dpy, config, (nint)nativePixmap, (nint)attribList);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[787])((nint)renderer, (nint)rects, count);
 			#endif
 		}
 
-		public static EGLSurface EglCreatePlatformPixmapSurface(EGLDisplay dpy, EGLConfig config, void* nativePixmap, nint* attribList)
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRectsF(SDLRendererPtr renderer, SDLFRectPtr rects, int count)
 		{
-			EGLSurface ret = EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, attribList);
+			int ret = RenderDrawRectsFNative((SDLRenderer*)renderer, (SDLFRect*)rects, count);
 			return ret;
 		}
 
-		public static EGLSurface EglCreatePlatformPixmapSurface(EGLDisplay dpy, EGLConfig config, void* nativePixmap, ref nint attribList)
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRectsF(ref SDLRenderer renderer, SDLFRectPtr rects, int count)
 		{
-			fixed (nint* pattribList = &attribList)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				EGLSurface ret = EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, (nint*)pattribList);
+				int ret = RenderDrawRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)rects, count);
 				return ret;
 			}
 		}
 
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRectsF(SDLRendererPtr renderer, in SDLFRect rects, int count)
+		{
+			fixed (SDLFRect* prects = &rects)
+			{
+				int ret = RenderDrawRectsFNative((SDLRenderer*)renderer, (SDLFRect*)prects, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRectsF(ref SDLRenderer renderer, in SDLFRect rects, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* prects = &rects)
+				{
+					int ret = RenderDrawRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint EglWaitSyncNative(EGLDisplay dpy, EGLSync sync, int flags)
+		internal static int RenderFillRectFNative(SDLRenderer* renderer, SDLFRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, uint>)funcTable[881])(dpy, sync, flags);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int>)funcTable[788])(renderer, rect);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, uint>)funcTable[881])(dpy, sync, flags);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[788])((nint)renderer, (nint)rect);
 			#endif
 		}
 
-		public static uint EglWaitSync(EGLDisplay dpy, EGLSync sync, int flags)
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRectF(SDLRendererPtr renderer, SDLFRectPtr rect)
 		{
-			uint ret = EglWaitSyncNative(dpy, sync, flags);
+			int ret = RenderFillRectFNative((SDLRenderer*)renderer, (SDLFRect*)rect);
 			return ret;
 		}
 
 		/// <summary>
-		/// Miscellaneous<br/>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRectF(ref SDLRenderer renderer, SDLFRectPtr rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderFillRectFNative((SDLRenderer*)prenderer, (SDLFRect*)rect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRectF(SDLRendererPtr renderer, in SDLFRect rect)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				int ret = RenderFillRectFNative((SDLRenderer*)renderer, (SDLFRect*)prect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
+		/// subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRectF(ref SDLRenderer renderer, in SDLFRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* prect = &rect)
+				{
+					int ret = RenderFillRectFNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlClearIndexNative(float c)
+		internal static int RenderFillRectsFNative(SDLRenderer* renderer, SDLFRect* rects, int count)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)funcTable[882])(c);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, int>)funcTable[789])(renderer, rects, count);
 			#else
-			((delegate* unmanaged[Cdecl]<float, void>)funcTable[882])(c);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[789])((nint)renderer, (nint)rects, count);
 			#endif
 		}
 
 		/// <summary>
-		/// Miscellaneous<br/>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
-		public static void GlClearIndex(float c)
+		public static int RenderFillRectsF(SDLRendererPtr renderer, SDLFRectPtr rects, int count)
 		{
-			GlClearIndexNative(c);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlClearColorNative(float red, float green, float blue, float alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[883])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[883])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlClearColor(float red, float green, float blue, float alpha)
-		{
-			GlClearColorNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlClearNative(uint mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[884])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[884])(mask);
-			#endif
-		}
-
-		public static void GlClear(uint mask)
-		{
-			GlClearNative(mask);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexMaskNative(uint mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[885])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[885])(mask);
-			#endif
-		}
-
-		public static void GlIndexMask(uint mask)
-		{
-			GlIndexMaskNative(mask);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColorMaskNative(byte red, byte green, byte blue, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[886])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[886])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColorMask(byte red, byte green, byte blue, byte alpha)
-		{
-			GlColorMaskNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlAlphaFuncNative(uint func, float reference)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[887])(func, reference);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[887])(func, reference);
-			#endif
-		}
-
-		public static void GlAlphaFunc(uint func, float reference)
-		{
-			GlAlphaFuncNative(func, reference);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlBlendFuncNative(uint sfactor, uint dfactor)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[888])(sfactor, dfactor);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[888])(sfactor, dfactor);
-			#endif
-		}
-
-		public static void GlBlendFunc(uint sfactor, uint dfactor)
-		{
-			GlBlendFuncNative(sfactor, dfactor);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlLogicOpNative(uint opcode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[889])(opcode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[889])(opcode);
-			#endif
-		}
-
-		public static void GlLogicOp(uint opcode)
-		{
-			GlLogicOpNative(opcode);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlCullFaceNative(uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[890])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[890])(mode);
-			#endif
-		}
-
-		public static void GlCullFace(uint mode)
-		{
-			GlCullFaceNative(mode);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlFrontFaceNative(uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[891])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[891])(mode);
-			#endif
-		}
-
-		public static void GlFrontFace(uint mode)
-		{
-			GlFrontFaceNative(mode);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPointSizeNative(float size)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)funcTable[892])(size);
-			#else
-			((delegate* unmanaged[Cdecl]<float, void>)funcTable[892])(size);
-			#endif
-		}
-
-		public static void GlPointSize(float size)
-		{
-			GlPointSizeNative(size);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlLineWidthNative(float width)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)funcTable[893])(width);
-			#else
-			((delegate* unmanaged[Cdecl]<float, void>)funcTable[893])(width);
-			#endif
-		}
-
-		public static void GlLineWidth(float width)
-		{
-			GlLineWidthNative(width);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlLineStippleNative(int factor, ushort pattern)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, ushort, void>)funcTable[894])(factor, pattern);
-			#else
-			((delegate* unmanaged[Cdecl]<int, ushort, void>)funcTable[894])(factor, pattern);
-			#endif
-		}
-
-		public static void GlLineStipple(int factor, ushort pattern)
-		{
-			GlLineStippleNative(factor, pattern);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPolygonModeNative(uint face, uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[895])(face, mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[895])(face, mode);
-			#endif
-		}
-
-		public static void GlPolygonMode(uint face, uint mode)
-		{
-			GlPolygonModeNative(face, mode);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPolygonOffsetNative(float factor, float units)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[896])(factor, units);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[896])(factor, units);
-			#endif
-		}
-
-		public static void GlPolygonOffset(float factor, float units)
-		{
-			GlPolygonOffsetNative(factor, units);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPolygonStippleNative(byte* mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[897])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[897])((nint)mask);
-			#endif
-		}
-
-		public static void GlPolygonStipple(byte* mask)
-		{
-			GlPolygonStippleNative(mask);
-		}
-
-		public static void GlPolygonStipple(ref byte mask)
-		{
-			fixed (byte* pmask = &mask)
-			{
-				GlPolygonStippleNative((byte*)pmask);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlGetPolygonStippleNative(byte* mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[898])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[898])((nint)mask);
-			#endif
-		}
-
-		public static void GlGetPolygonStipple(byte* mask)
-		{
-			GlGetPolygonStippleNative(mask);
-		}
-
-		public static void GlGetPolygonStipple(ref byte mask)
-		{
-			fixed (byte* pmask = &mask)
-			{
-				GlGetPolygonStippleNative((byte*)pmask);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlEdgeFlagNative(byte flag)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[899])(flag);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[899])(flag);
-			#endif
-		}
-
-		public static void GlEdgeFlag(byte flag)
-		{
-			GlEdgeFlagNative(flag);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlEdgeFlagvNative(byte* flag)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[900])(flag);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[900])((nint)flag);
-			#endif
-		}
-
-		public static void GlEdgeFlagv(byte* flag)
-		{
-			GlEdgeFlagvNative(flag);
-		}
-
-		public static void GlEdgeFlagv(ref byte flag)
-		{
-			fixed (byte* pflag = &flag)
-			{
-				GlEdgeFlagvNative((byte*)pflag);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlScissorNative(int x, int y, int width, int height)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[901])(x, y, width, height);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[901])(x, y, width, height);
-			#endif
-		}
-
-		public static void GlScissor(int x, int y, int width, int height)
-		{
-			GlScissorNative(x, y, width, height);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlClipPlaneNative(uint plane, double* equation)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[902])(plane, equation);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[902])(plane, (nint)equation);
-			#endif
-		}
-
-		public static void GlClipPlane(uint plane, double* equation)
-		{
-			GlClipPlaneNative(plane, equation);
-		}
-
-		public static void GlClipPlane(uint plane, ref double equation)
-		{
-			fixed (double* pequation = &equation)
-			{
-				GlClipPlaneNative(plane, (double*)pequation);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlGetClipPlaneNative(uint plane, double* equation)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[903])(plane, equation);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[903])(plane, (nint)equation);
-			#endif
-		}
-
-		public static void GlGetClipPlane(uint plane, double* equation)
-		{
-			GlGetClipPlaneNative(plane, equation);
-		}
-
-		public static void GlGetClipPlane(uint plane, ref double equation)
-		{
-			fixed (double* pequation = &equation)
-			{
-				GlGetClipPlaneNative(plane, (double*)pequation);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlDrawBufferNative(uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[904])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[904])(mode);
-			#endif
-		}
-
-		public static void GlDrawBuffer(uint mode)
-		{
-			GlDrawBufferNative(mode);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlReadBufferNative(uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[905])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[905])(mode);
-			#endif
-		}
-
-		public static void GlReadBuffer(uint mode)
-		{
-			GlReadBufferNative(mode);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlEnableNative(uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[906])(cap);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[906])(cap);
-			#endif
-		}
-
-		public static void GlEnable(uint cap)
-		{
-			GlEnableNative(cap);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlDisableNative(uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[907])(cap);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[907])(cap);
-			#endif
-		}
-
-		public static void GlDisable(uint cap)
-		{
-			GlDisableNative(cap);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GlIsEnabledNative(uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[908])(cap);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[908])(cap);
-			#endif
-		}
-
-		public static byte GlIsEnabled(uint cap)
-		{
-			byte ret = GlIsEnabledNative(cap);
+			int ret = RenderFillRectsFNative((SDLRenderer*)renderer, (SDLFRect*)rects, count);
 			return ret;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlEnableClientStateNative(uint cap)
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRectsF(ref SDLRenderer renderer, SDLFRectPtr rects, int count)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[909])(cap);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[909])(cap);
-			#endif
-		}
-
-		public static void GlEnableClientState(uint cap)
-		{
-			GlEnableClientStateNative(cap);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlDisableClientStateNative(uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[910])(cap);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[910])(cap);
-			#endif
-		}
-
-		public static void GlDisableClientState(uint cap)
-		{
-			GlDisableClientStateNative(cap);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlGetBooleanvNative(uint pname, byte* @params)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, byte*, void>)funcTable[911])(pname, @params);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[911])(pname, (nint)@params);
-			#endif
-		}
-
-		public static void GlGetBooleanv(uint pname, byte* @params)
-		{
-			GlGetBooleanvNative(pname, @params);
-		}
-
-		public static void GlGetBooleanv(uint pname, ref byte @params)
-		{
-			fixed (byte* pparams = &@params)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				GlGetBooleanvNative(pname, (byte*)pparams);
+				int ret = RenderFillRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)rects, count);
+				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlGetDoublevNative(uint pname, double* @params)
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRectsF(SDLRendererPtr renderer, in SDLFRect rects, int count)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[912])(pname, @params);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[912])(pname, (nint)@params);
-			#endif
-		}
-
-		public static void GlGetDoublev(uint pname, double* @params)
-		{
-			GlGetDoublevNative(pname, @params);
-		}
-
-		public static void GlGetDoublev(uint pname, ref double @params)
-		{
-			fixed (double* pparams = &@params)
+			fixed (SDLFRect* prects = &rects)
 			{
-				GlGetDoublevNative(pname, (double*)pparams);
+				int ret = RenderFillRectsFNative((SDLRenderer*)renderer, (SDLFRect*)prects, count);
+				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlGetFloatvNative(uint pname, float* @params)
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRectsF(ref SDLRenderer renderer, in SDLFRect rects, int count)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[913])(pname, @params);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[913])(pname, (nint)@params);
-			#endif
-		}
-
-		public static void GlGetFloatv(uint pname, float* @params)
-		{
-			GlGetFloatvNative(pname, @params);
-		}
-
-		public static void GlGetFloatv(uint pname, ref float @params)
-		{
-			fixed (float* pparams = &@params)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				GlGetFloatvNative(pname, (float*)pparams);
+				fixed (SDLFRect* prects = &rects)
+				{
+					int ret = RenderFillRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
+					return ret;
+				}
 			}
 		}
 
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlGetIntegervNative(uint pname, int* @params)
+		internal static int RenderCopyFNative(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, SDLFRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[914])(pname, @params);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLFRect*, int>)funcTable[790])(renderer, texture, srcrect, dstrect);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[914])(pname, (nint)@params);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[790])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect);
 			#endif
 		}
 
-		public static void GlGetIntegerv(uint pname, int* @params)
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(SDLRendererPtr renderer, SDLTexturePtr texture, SDLRectPtr srcrect, SDLFRectPtr dstrect)
 		{
-			GlGetIntegervNative(pname, @params);
-		}
-
-		public static void GlGetIntegerv(uint pname, ref int @params)
-		{
-			fixed (int* pparams = &@params)
-			{
-				GlGetIntegervNative(pname, (int*)pparams);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPushAttribNative(uint mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[915])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[915])(mask);
-			#endif
-		}
-
-		public static void GlPushAttrib(uint mask)
-		{
-			GlPushAttribNative(mask);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPopAttribNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[916])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[916])();
-			#endif
-		}
-
-		public static void GlPopAttrib()
-		{
-			GlPopAttribNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPushClientAttribNative(uint mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[917])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[917])(mask);
-			#endif
-		}
-
-		public static void GlPushClientAttrib(uint mask)
-		{
-			GlPushClientAttribNative(mask);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPopClientAttribNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[918])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[918])();
-			#endif
-		}
-
-		public static void GlPopClientAttrib()
-		{
-			GlPopClientAttribNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GlRenderModeNative(uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[919])(mode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[919])(mode);
-			#endif
-		}
-
-		public static int GlRenderMode(uint mode)
-		{
-			int ret = GlRenderModeNative(mode);
+			int ret = RenderCopyFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)dstrect);
 			return ret;
 		}
 
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(ref SDLRenderer renderer, SDLTexturePtr texture, SDLRectPtr srcrect, SDLFRectPtr dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(SDLRendererPtr renderer, ref SDLTexture texture, SDLRectPtr srcrect, SDLFRectPtr dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = RenderCopyFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(ref SDLRenderer renderer, ref SDLTexture texture, SDLRectPtr srcrect, SDLFRectPtr dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLRect srcrect, SDLFRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = RenderCopyFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLRect srcrect, SDLFRectPtr dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(SDLRendererPtr renderer, ref SDLTexture texture, in SDLRect srcrect, SDLFRectPtr dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = RenderCopyFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, SDLFRectPtr dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(SDLRendererPtr renderer, SDLTexturePtr texture, SDLRectPtr srcrect, in SDLFRect dstrect)
+		{
+			fixed (SDLFRect* pdstrect = &dstrect)
+			{
+				int ret = RenderCopyFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(ref SDLRenderer renderer, SDLTexturePtr texture, SDLRectPtr srcrect, in SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(SDLRendererPtr renderer, ref SDLTexture texture, SDLRectPtr srcrect, in SDLFRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(ref SDLRenderer renderer, ref SDLTexture texture, SDLRectPtr srcrect, in SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLRect srcrect, in SDLFRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLRect srcrect, in SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(SDLRendererPtr renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLFRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						int ret = RenderCopyFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
+		/// precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyF(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLFRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFRect* pdstrect = &dstrect)
+						{
+							int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GlGetErrorNative()
+		internal static int RenderCopyExFNative(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, SDLFRect* dstrect, double angle, SDLFPoint* center, SDLRendererFlip flip)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[920])();
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLFRect*, double, SDLFPoint*, SDLRendererFlip, int>)funcTable[791])(renderer, texture, srcrect, dstrect, angle, center, flip);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[920])();
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, double, nint, SDLRendererFlip, int>)funcTable[791])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect, angle, (nint)center, flip);
 			#endif
 		}
 
-		public static uint GlGetError()
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, SDLTexturePtr texture, SDLRectPtr srcrect, SDLFRectPtr dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
 		{
-			uint ret = GlGetErrorNative();
+			int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)center, flip);
 			return ret;
 		}
 
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, SDLTexturePtr texture, SDLRectPtr srcrect, SDLFRectPtr dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)center, flip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, ref SDLTexture texture, SDLRectPtr srcrect, SDLFRectPtr dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)center, flip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, ref SDLTexture texture, SDLRectPtr srcrect, SDLFRectPtr dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)center, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLRect srcrect, SDLFRectPtr dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)center, flip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLRect srcrect, SDLFRectPtr dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)center, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, ref SDLTexture texture, in SDLRect srcrect, SDLFRectPtr dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)center, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, SDLFRectPtr dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)center, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, SDLTexturePtr texture, SDLRectPtr srcrect, in SDLFRect dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLFRect* pdstrect = &dstrect)
+			{
+				int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)center, flip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, SDLTexturePtr texture, SDLRectPtr srcrect, in SDLFRect dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)center, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, ref SDLTexture texture, SDLRectPtr srcrect, in SDLFRect dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)center, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, ref SDLTexture texture, SDLRectPtr srcrect, in SDLFRect dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)center, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLRect srcrect, in SDLFRect dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)center, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLRect srcrect, in SDLFRect dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)center, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLFRect dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)center, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLFRect dstrect, double angle, SDLFPointPtr center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFRect* pdstrect = &dstrect)
+						{
+							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)center, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, SDLTexturePtr texture, SDLRectPtr srcrect, SDLFRectPtr dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLFPoint* pcenter = &center)
+			{
+				int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)pcenter, flip);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, SDLTexturePtr texture, SDLRectPtr srcrect, SDLFRectPtr dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFPoint* pcenter = &center)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)pcenter, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, ref SDLTexture texture, SDLRectPtr srcrect, SDLFRectPtr dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFPoint* pcenter = &center)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)pcenter, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, ref SDLTexture texture, SDLRectPtr srcrect, SDLFRectPtr dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLRect srcrect, SDLFRectPtr dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFPoint* pcenter = &center)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)pcenter, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLRect srcrect, SDLFRectPtr dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, ref SDLTexture texture, in SDLRect srcrect, SDLFRectPtr dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, SDLFRectPtr dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFPoint* pcenter = &center)
+						{
+							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)dstrect, angle, (SDLFPoint*)pcenter, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, SDLTexturePtr texture, SDLRectPtr srcrect, in SDLFRect dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLFRect* pdstrect = &dstrect)
+			{
+				fixed (SDLFPoint* pcenter = &center)
+				{
+					int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, SDLTexturePtr texture, SDLRectPtr srcrect, in SDLFRect dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, ref SDLTexture texture, SDLRectPtr srcrect, in SDLFRect dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, ref SDLTexture texture, SDLRectPtr srcrect, in SDLFRect dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						fixed (SDLFPoint* pcenter = &center)
+						{
+							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLRect srcrect, in SDLFRect dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLFRect* pdstrect = &dstrect)
+				{
+					fixed (SDLFPoint* pcenter = &center)
+					{
+						int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLRect srcrect, in SDLFRect dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						fixed (SDLFPoint* pcenter = &center)
+						{
+							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(SDLRendererPtr renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLFRect dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLFRect* pdstrect = &dstrect)
+					{
+						fixed (SDLFPoint* pcenter = &center)
+						{
+							int ret = RenderCopyExFNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the source texture to the current rendering target, with<br/>
+		/// rotation and flipping, at subpixel precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopyExF(ref SDLRenderer renderer, ref SDLTexture texture, in SDLRect srcrect, in SDLFRect dstrect, double angle, in SDLFPoint center, SDLRendererFlip flip)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						fixed (SDLFRect* pdstrect = &dstrect)
+						{
+							fixed (SDLFPoint* pcenter = &center)
+							{
+								int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GlGetStringNative(uint name)
+		internal static int RenderGeometryNative(SDLRenderer* renderer, SDLTexture* texture, SDLVertex* vertices, int numVertices, int* indices, int numIndices)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[921])(name);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLVertex*, int, int*, int, int>)funcTable[792])(renderer, texture, vertices, numVertices, indices, numIndices);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[921])(name);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, int>)funcTable[792])((nint)renderer, (nint)texture, (nint)vertices, numVertices, (nint)indices, numIndices);
 			#endif
 		}
 
-		public static byte* GlGetString(uint name)
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(SDLRendererPtr renderer, SDLTexturePtr texture, SDLVertexPtr vertices, int numVertices, int* indices, int numIndices)
 		{
-			byte* ret = GlGetStringNative(name);
+			int ret = RenderGeometryNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLVertex*)vertices, numVertices, indices, numIndices);
 			return ret;
 		}
 
-		public static string GlGetStringS(uint name)
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(ref SDLRenderer renderer, SDLTexturePtr texture, SDLVertexPtr vertices, int numVertices, int* indices, int numIndices)
 		{
-			string ret = Utils.DecodeStringUTF8(GlGetStringNative(name));
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLVertex*)vertices, numVertices, indices, numIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(SDLRendererPtr renderer, ref SDLTexture texture, SDLVertexPtr vertices, int numVertices, int* indices, int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = RenderGeometryNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLVertex*)vertices, numVertices, indices, numIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(ref SDLRenderer renderer, ref SDLTexture texture, SDLVertexPtr vertices, int numVertices, int* indices, int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)vertices, numVertices, indices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLVertex vertices, int numVertices, int* indices, int numIndices)
+		{
+			fixed (SDLVertex* pvertices = &vertices)
+			{
+				int ret = RenderGeometryNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLVertex vertices, int numVertices, int* indices, int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(SDLRendererPtr renderer, ref SDLTexture texture, in SDLVertex vertices, int numVertices, int* indices, int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					int ret = RenderGeometryNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(ref SDLRenderer renderer, ref SDLTexture texture, in SDLVertex vertices, int numVertices, int* indices, int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLVertex* pvertices = &vertices)
+					{
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(SDLRendererPtr renderer, SDLTexturePtr texture, SDLVertexPtr vertices, int numVertices, in int indices, int numIndices)
+		{
+			fixed (int* pindices = &indices)
+			{
+				int ret = RenderGeometryNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLVertex*)vertices, numVertices, (int*)pindices, numIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(ref SDLRenderer renderer, SDLTexturePtr texture, SDLVertexPtr vertices, int numVertices, in int indices, int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pindices = &indices)
+				{
+					int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLVertex*)vertices, numVertices, (int*)pindices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(SDLRendererPtr renderer, ref SDLTexture texture, SDLVertexPtr vertices, int numVertices, in int indices, int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* pindices = &indices)
+				{
+					int ret = RenderGeometryNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLVertex*)vertices, numVertices, (int*)pindices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(ref SDLRenderer renderer, ref SDLTexture texture, SDLVertexPtr vertices, int numVertices, in int indices, int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (int* pindices = &indices)
+					{
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)vertices, numVertices, (int*)pindices, numIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(SDLRendererPtr renderer, SDLTexturePtr texture, in SDLVertex vertices, int numVertices, in int indices, int numIndices)
+		{
+			fixed (SDLVertex* pvertices = &vertices)
+			{
+				fixed (int* pindices = &indices)
+				{
+					int ret = RenderGeometryNative((SDLRenderer*)renderer, (SDLTexture*)texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(ref SDLRenderer renderer, SDLTexturePtr texture, in SDLVertex vertices, int numVertices, in int indices, int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					fixed (int* pindices = &indices)
+					{
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(SDLRendererPtr renderer, ref SDLTexture texture, in SDLVertex vertices, int numVertices, in int indices, int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					fixed (int* pindices = &indices)
+					{
+						int ret = RenderGeometryNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometry(ref SDLRenderer renderer, ref SDLTexture texture, in SDLVertex vertices, int numVertices, in int indices, int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLVertex* pvertices = &vertices)
+					{
+						fixed (int* pindices = &indices)
+						{
+							int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderGeometryRawNative(SDLRenderer* renderer, SDLTexture* texture, float* xy, int xyStride, SDLColor* color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, float*, int, SDLColor*, int, float*, int, int, void*, int, int, int>)funcTable[793])(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, int, nint, int, int, int>)funcTable[793])((nint)renderer, (nint)texture, (nint)xy, xyStride, (nint)color, colorStride, (nint)uv, uvStride, numVertices, (nint)indices, numIndices, sizeIndices);
+			#endif
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 			return ret;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlFinishNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[922])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[922])();
-			#endif
-		}
-
-		public static void GlFinish()
-		{
-			GlFinishNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlFlushNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[923])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[923])();
-			#endif
-		}
-
-		public static void GlFlush()
-		{
-			GlFlushNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlHintNative(uint target, uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[924])(target, mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[924])(target, mode);
-			#endif
-		}
-
-		public static void GlHint(uint target, uint mode)
-		{
-			GlHintNative(target, mode);
-		}
-
 		/// <summary>
-		/// Depth Buffer<br/>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlClearDepthNative(double depth)
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, void>)funcTable[925])(depth);
-			#else
-			((delegate* unmanaged[Cdecl]<double, void>)funcTable[925])(depth);
-			#endif
-		}
-
-		/// <summary>
-		/// Depth Buffer<br/>
-		/// </summary>
-		public static void GlClearDepth(double depth)
-		{
-			GlClearDepthNative(depth);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlDepthFuncNative(uint func)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[926])(func);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[926])(func);
-			#endif
-		}
-
-		public static void GlDepthFunc(uint func)
-		{
-			GlDepthFuncNative(func);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlDepthMaskNative(byte flag)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[927])(flag);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[927])(flag);
-			#endif
-		}
-
-		public static void GlDepthMask(byte flag)
-		{
-			GlDepthMaskNative(flag);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlDepthRangeNative(double nearVal, double farVal)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[928])(nearVal, farVal);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[928])(nearVal, farVal);
-			#endif
-		}
-
-		public static void GlDepthRange(double nearVal, double farVal)
-		{
-			GlDepthRangeNative(nearVal, farVal);
-		}
-
-		/// <summary>
-		/// Accumulation Buffer<br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlClearAccumNative(float red, float green, float blue, float alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[929])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[929])(red, green, blue, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Accumulation Buffer<br/>
-		/// </summary>
-		public static void GlClearAccum(float red, float green, float blue, float alpha)
-		{
-			GlClearAccumNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlAccumNative(uint op, float value)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[930])(op, value);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[930])(op, value);
-			#endif
-		}
-
-		public static void GlAccum(uint op, float value)
-		{
-			GlAccumNative(op, value);
-		}
-
-		/// <summary>
-		/// Transformation<br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMatrixModeNative(uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[931])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[931])(mode);
-			#endif
-		}
-
-		/// <summary>
-		/// Transformation<br/>
-		/// </summary>
-		public static void GlMatrixMode(uint mode)
-		{
-			GlMatrixModeNative(mode);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlOrthoNative(double left, double right, double bottom, double top, double nearVal, double farVal)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, double, double, double, void>)funcTable[932])(left, right, bottom, top, nearVal, farVal);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, double, double, double, void>)funcTable[932])(left, right, bottom, top, nearVal, farVal);
-			#endif
-		}
-
-		public static void GlOrtho(double left, double right, double bottom, double top, double nearVal, double farVal)
-		{
-			GlOrthoNative(left, right, bottom, top, nearVal, farVal);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlFrustumNative(double left, double right, double bottom, double top, double nearVal, double farVal)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, double, double, double, void>)funcTable[933])(left, right, bottom, top, nearVal, farVal);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, double, double, double, void>)funcTable[933])(left, right, bottom, top, nearVal, farVal);
-			#endif
-		}
-
-		public static void GlFrustum(double left, double right, double bottom, double top, double nearVal, double farVal)
-		{
-			GlFrustumNative(left, right, bottom, top, nearVal, farVal);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlViewportNative(int x, int y, int width, int height)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[934])(x, y, width, height);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[934])(x, y, width, height);
-			#endif
-		}
-
-		public static void GlViewport(int x, int y, int width, int height)
-		{
-			GlViewportNative(x, y, width, height);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPushMatrixNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[935])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[935])();
-			#endif
-		}
-
-		public static void GlPushMatrix()
-		{
-			GlPushMatrixNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlPopMatrixNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[936])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[936])();
-			#endif
-		}
-
-		public static void GlPopMatrix()
-		{
-			GlPopMatrixNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlLoadIdentityNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[937])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[937])();
-			#endif
-		}
-
-		public static void GlLoadIdentity()
-		{
-			GlLoadIdentityNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlLoadMatrixdNative(double* m)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[938])(m);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[938])((nint)m);
-			#endif
-		}
-
-		public static void GlLoadMatrixd(double* m)
-		{
-			GlLoadMatrixdNative(m);
-		}
-
-		public static void GlLoadMatrixd(ref double m)
-		{
-			fixed (double* pm = &m)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				GlLoadMatrixdNative((double*)pm);
+				int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlLoadMatrixfNative(float* m)
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[939])(m);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[939])((nint)m);
-			#endif
-		}
-
-		public static void GlLoadMatrixf(float* m)
-		{
-			GlLoadMatrixfNative(m);
-		}
-
-		public static void GlLoadMatrixf(ref float m)
-		{
-			fixed (float* pm = &m)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				GlLoadMatrixfNative((float*)pm);
+				int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
 			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultMatrixdNative(double* m)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[940])(m);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[940])((nint)m);
-			#endif
-		}
-
-		public static void GlMultMatrixd(double* m)
-		{
-			GlMultMatrixdNative(m);
-		}
-
-		public static void GlMultMatrixd(ref double m)
-		{
-			fixed (double* pm = &m)
-			{
-				GlMultMatrixdNative((double*)pm);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlMultMatrixfNative(float* m)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[941])(m);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[941])((nint)m);
-			#endif
-		}
-
-		public static void GlMultMatrixf(float* m)
-		{
-			GlMultMatrixfNative(m);
-		}
-
-		public static void GlMultMatrixf(ref float m)
-		{
-			fixed (float* pm = &m)
-			{
-				GlMultMatrixfNative((float*)pm);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlRotatedNative(double angle, double x, double y, double z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[942])(angle, x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[942])(angle, x, y, z);
-			#endif
-		}
-
-		public static void GlRotated(double angle, double x, double y, double z)
-		{
-			GlRotatedNative(angle, x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlRotatefNative(float angle, float x, float y, float z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[943])(angle, x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[943])(angle, x, y, z);
-			#endif
-		}
-
-		public static void GlRotatef(float angle, float x, float y, float z)
-		{
-			GlRotatefNative(angle, x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlScaledNative(double x, double y, double z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[944])(x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[944])(x, y, z);
-			#endif
-		}
-
-		public static void GlScaled(double x, double y, double z)
-		{
-			GlScaledNative(x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlScalefNative(float x, float y, float z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[945])(x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[945])(x, y, z);
-			#endif
-		}
-
-		public static void GlScalef(float x, float y, float z)
-		{
-			GlScalefNative(x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlTranslatedNative(double x, double y, double z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[946])(x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[946])(x, y, z);
-			#endif
-		}
-
-		public static void GlTranslated(double x, double y, double z)
-		{
-			GlTranslatedNative(x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlTranslatefNative(float x, float y, float z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[947])(x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[947])(x, y, z);
-			#endif
-		}
-
-		public static void GlTranslatef(float x, float y, float z)
-		{
-			GlTranslatefNative(x, y, z);
 		}
 
 		/// <summary>
-		/// Display Lists<br/>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GlIsListNative(uint list)
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[948])(list);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[948])(list);
-			#endif
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
 		}
 
 		/// <summary>
-		/// Display Lists<br/>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
-		public static byte GlIsList(uint list)
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
 		{
-			byte ret = GlIsListNative(list);
+			fixed (float* pxy = &xy)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, float* xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLColor* pcolor = &color)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, float* xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, float* xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, in float xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, in float xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, in float xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, in float xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						fixed (SDLColor* pcolor = &color)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* puv = &uv)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						fixed (float* puv = &uv)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, float* xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLColor* pcolor = &color)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, float* xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, float* xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						fixed (float* puv = &uv)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, in float xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, in float xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						fixed (float* puv = &uv)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, in float xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						fixed (float* puv = &uv)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, in float xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						fixed (SDLColor* pcolor = &color)
+						{
+							fixed (float* puv = &uv)
+							{
+								int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
 			return ret;
 		}
 
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, float* xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLColor* pcolor = &color)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, float* xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, float* xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, in float xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, in float xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, in float xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, in float xy, int xyStride, in SDLColor color, int colorStride, float* uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						fixed (SDLColor* pcolor = &color)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* puv = &uv)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, in float xy, int xyStride, SDLColorPtr color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						fixed (float* puv = &uv)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)color, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, float* xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLColor* pcolor = &color)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, float* xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, xy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, float* xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						fixed (float* puv = &uv)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, SDLTexturePtr texture, in float xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, SDLTexturePtr texture, in float xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						fixed (float* puv = &uv)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(SDLRendererPtr renderer, ref SDLTexture texture, in float xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						fixed (float* puv = &uv)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, in float xy, int xyStride, in SDLColor color, int colorStride, in float uv, int uvStride, int numVertices, nint indices, int numIndices, int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						fixed (SDLColor* pcolor = &color)
+						{
+							fixed (float* puv = &uv)
+							{
+								int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, (void*)indices, numIndices, sizeIndices);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlDeleteListsNative(uint list, int range)
+		internal static int RenderReadPixelsNative(SDLRenderer* renderer, SDLRect* rect, uint format, void* pixels, int pitch)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[949])(list, range);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, uint, void*, int, int>)funcTable[794])(renderer, rect, format, pixels, pitch);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[949])(list, range);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int, int>)funcTable[794])((nint)renderer, (nint)rect, format, (nint)pixels, pitch);
 			#endif
 		}
 
-		public static void GlDeleteLists(uint list, int range)
+		/// <summary>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderReadPixels(SDLRendererPtr renderer, SDLRectPtr rect, uint format, void* pixels, int pitch)
 		{
-			GlDeleteListsNative(list, range);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GlGenListsNative(int range)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[950])(range);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[950])(range);
-			#endif
-		}
-
-		public static uint GlGenLists(int range)
-		{
-			uint ret = GlGenListsNative(range);
+			int ret = RenderReadPixelsNative((SDLRenderer*)renderer, (SDLRect*)rect, format, pixels, pitch);
 			return ret;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNewListNative(uint list, uint mode)
+		/// <summary>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderReadPixels(ref SDLRenderer renderer, SDLRectPtr rect, uint format, void* pixels, int pitch)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[951])(list, mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[951])(list, mode);
-			#endif
-		}
-
-		public static void GlNewList(uint list, uint mode)
-		{
-			GlNewListNative(list, mode);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlEndListNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[952])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[952])();
-			#endif
-		}
-
-		public static void GlEndList()
-		{
-			GlEndListNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlCallListNative(uint list)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[953])(list);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[953])(list);
-			#endif
-		}
-
-		public static void GlCallList(uint list)
-		{
-			GlCallListNative(list);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlCallListsNative(int n, uint type, void* lists)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, uint, void*, void>)funcTable[954])(n, type, lists);
-			#else
-			((delegate* unmanaged[Cdecl]<int, uint, nint, void>)funcTable[954])(n, type, (nint)lists);
-			#endif
-		}
-
-		public static void GlCallLists(int n, uint type, void* lists)
-		{
-			GlCallListsNative(n, type, lists);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlListBaseNative(uint baseValue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[955])(baseValue);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[955])(baseValue);
-			#endif
-		}
-
-		public static void GlListBase(uint baseValue)
-		{
-			GlListBaseNative(baseValue);
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderReadPixelsNative((SDLRenderer*)prenderer, (SDLRect*)rect, format, pixels, pitch);
+				return ret;
+			}
 		}
 
 		/// <summary>
-		/// Drawing Functions<br/>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderReadPixels(SDLRendererPtr renderer, in SDLRect rect, uint format, void* pixels, int pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = RenderReadPixelsNative((SDLRenderer*)renderer, (SDLRect*)prect, format, pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderReadPixels(ref SDLRenderer renderer, in SDLRect rect, uint format, void* pixels, int pitch)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = RenderReadPixelsNative((SDLRenderer*)prenderer, (SDLRect*)prect, format, pixels, pitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderReadPixels(SDLRendererPtr renderer, SDLRectPtr rect, uint format, nint pixels, int pitch)
+		{
+			int ret = RenderReadPixelsNative((SDLRenderer*)renderer, (SDLRect*)rect, format, (void*)pixels, pitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderReadPixels(ref SDLRenderer renderer, SDLRectPtr rect, uint format, nint pixels, int pitch)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderReadPixelsNative((SDLRenderer*)prenderer, (SDLRect*)rect, format, (void*)pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderReadPixels(SDLRendererPtr renderer, in SDLRect rect, uint format, nint pixels, int pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = RenderReadPixelsNative((SDLRenderer*)renderer, (SDLRect*)prect, format, (void*)pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read pixels from the current rendering target to an array of pixels.<br/>
+		/// **WARNING**: This is a very slow operation, and should not be used<br/>
+		/// frequently. If you're using this on the main rendering target, it should be<br/>
+		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// `pitch` specifies the number of bytes between rows in the destination<br/>
+		/// `pixels` data. This allows you to write to a subrectangle or have padded<br/>
+		/// rows in the destination. Generally, `pitch` should equal the number of<br/>
+		/// pixels per row in the `pixels` data times the number of bytes per pixel,<br/>
+		/// but it might contain additional padding (for example, 24bit RGB Windows<br/>
+		/// Bitmap data pads all rows to multiples of 4 bytes).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderReadPixels(ref SDLRenderer renderer, in SDLRect rect, uint format, nint pixels, int pitch)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = RenderReadPixelsNative((SDLRenderer*)prenderer, (SDLRect*)prect, format, (void*)pixels, pitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update the screen with any rendering performed since the previous call.<br/>
+		/// SDL's rendering functions operate on a backbuffer; that is, calling a<br/>
+		/// rendering function such as SDL_RenderDrawLine() does not directly put a<br/>
+		/// line on the screen, but rather updates the backbuffer. As such, you compose<br/>
+		/// your entire scene and *present* the composed backbuffer to the screen as a<br/>
+		/// complete picture.<br/>
+		/// Therefore, when using SDL's rendering API, one does all drawing intended<br/>
+		/// for the frame, and then calls this function once per frame to present the<br/>
+		/// final drawing to the user.<br/>
+		/// The backbuffer should be considered invalidated after each present; do not<br/>
+		/// assume that previous contents will exist between frames. You are strongly<br/>
+		/// encouraged to call SDL_RenderClear() to initialize the backbuffer before<br/>
+		/// starting each new frame's drawing, even if you plan to overwrite every<br/>
+		/// pixel.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function on the main thread. If this<br/>
+		/// happens to work on a background thread on any given platform<br/>
+		/// or backend, it's purely by luck and you should not rely on it<br/>
+		/// to work next time.<br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlBeginNative(uint mode)
+		internal static void RenderPresentNative(SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[956])(mode);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, void>)funcTable[795])(renderer);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[956])(mode);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[795])((nint)renderer);
 			#endif
 		}
 
 		/// <summary>
-		/// Drawing Functions<br/>
+		/// Update the screen with any rendering performed since the previous call.<br/>
+		/// SDL's rendering functions operate on a backbuffer; that is, calling a<br/>
+		/// rendering function such as SDL_RenderDrawLine() does not directly put a<br/>
+		/// line on the screen, but rather updates the backbuffer. As such, you compose<br/>
+		/// your entire scene and *present* the composed backbuffer to the screen as a<br/>
+		/// complete picture.<br/>
+		/// Therefore, when using SDL's rendering API, one does all drawing intended<br/>
+		/// for the frame, and then calls this function once per frame to present the<br/>
+		/// final drawing to the user.<br/>
+		/// The backbuffer should be considered invalidated after each present; do not<br/>
+		/// assume that previous contents will exist between frames. You are strongly<br/>
+		/// encouraged to call SDL_RenderClear() to initialize the backbuffer before<br/>
+		/// starting each new frame's drawing, even if you plan to overwrite every<br/>
+		/// pixel.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function on the main thread. If this<br/>
+		/// happens to work on a background thread on any given platform<br/>
+		/// or backend, it's purely by luck and you should not rely on it<br/>
+		/// to work next time.<br/>
+		/// <br/>
+		/// <br/>
 		/// </summary>
-		public static void GlBegin(uint mode)
+		public static void RenderPresent(SDLRendererPtr renderer)
 		{
-			GlBeginNative(mode);
+			RenderPresentNative((SDLRenderer*)renderer);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlEndNative()
+		/// <summary>
+		/// Update the screen with any rendering performed since the previous call.<br/>
+		/// SDL's rendering functions operate on a backbuffer; that is, calling a<br/>
+		/// rendering function such as SDL_RenderDrawLine() does not directly put a<br/>
+		/// line on the screen, but rather updates the backbuffer. As such, you compose<br/>
+		/// your entire scene and *present* the composed backbuffer to the screen as a<br/>
+		/// complete picture.<br/>
+		/// Therefore, when using SDL's rendering API, one does all drawing intended<br/>
+		/// for the frame, and then calls this function once per frame to present the<br/>
+		/// final drawing to the user.<br/>
+		/// The backbuffer should be considered invalidated after each present; do not<br/>
+		/// assume that previous contents will exist between frames. You are strongly<br/>
+		/// encouraged to call SDL_RenderClear() to initialize the backbuffer before<br/>
+		/// starting each new frame's drawing, even if you plan to overwrite every<br/>
+		/// pixel.<br/>
+		/// <br/>
+		/// <br/>
+		/// You may only call this function on the main thread. If this<br/>
+		/// happens to work on a background thread on any given platform<br/>
+		/// or backend, it's purely by luck and you should not rely on it<br/>
+		/// to work next time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderPresent(ref SDLRenderer renderer)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[957])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[957])();
-			#endif
-		}
-
-		public static void GlEnd()
-		{
-			GlEndNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex2DNative(double x, double y)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[958])(x, y);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[958])(x, y);
-			#endif
-		}
-
-		public static void GlVertex2D(double x, double y)
-		{
-			GlVertex2DNative(x, y);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex2FNative(float x, float y)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[959])(x, y);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[959])(x, y);
-			#endif
-		}
-
-		public static void GlVertex2F(float x, float y)
-		{
-			GlVertex2FNative(x, y);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex2INative(int x, int y)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[960])(x, y);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[960])(x, y);
-			#endif
-		}
-
-		public static void GlVertex2I(int x, int y)
-		{
-			GlVertex2INative(x, y);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex2SNative(short x, short y)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[961])(x, y);
-			#else
-			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[961])(x, y);
-			#endif
-		}
-
-		public static void GlVertex2S(short x, short y)
-		{
-			GlVertex2SNative(x, y);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex3DNative(double x, double y, double z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[962])(x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[962])(x, y, z);
-			#endif
-		}
-
-		public static void GlVertex3D(double x, double y, double z)
-		{
-			GlVertex3DNative(x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex3FNative(float x, float y, float z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[963])(x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[963])(x, y, z);
-			#endif
-		}
-
-		public static void GlVertex3F(float x, float y, float z)
-		{
-			GlVertex3FNative(x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex3INative(int x, int y, int z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[964])(x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[964])(x, y, z);
-			#endif
-		}
-
-		public static void GlVertex3I(int x, int y, int z)
-		{
-			GlVertex3INative(x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex3SNative(short x, short y, short z)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[965])(x, y, z);
-			#else
-			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[965])(x, y, z);
-			#endif
-		}
-
-		public static void GlVertex3S(short x, short y, short z)
-		{
-			GlVertex3SNative(x, y, z);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex4DNative(double x, double y, double z, double w)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[966])(x, y, z, w);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[966])(x, y, z, w);
-			#endif
-		}
-
-		public static void GlVertex4D(double x, double y, double z, double w)
-		{
-			GlVertex4DNative(x, y, z, w);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex4FNative(float x, float y, float z, float w)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[967])(x, y, z, w);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[967])(x, y, z, w);
-			#endif
-		}
-
-		public static void GlVertex4F(float x, float y, float z, float w)
-		{
-			GlVertex4FNative(x, y, z, w);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex4INative(int x, int y, int z, int w)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[968])(x, y, z, w);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[968])(x, y, z, w);
-			#endif
-		}
-
-		public static void GlVertex4I(int x, int y, int z, int w)
-		{
-			GlVertex4INative(x, y, z, w);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex4SNative(short x, short y, short z, short w)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[969])(x, y, z, w);
-			#else
-			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[969])(x, y, z, w);
-			#endif
-		}
-
-		public static void GlVertex4S(short x, short y, short z, short w)
-		{
-			GlVertex4SNative(x, y, z, w);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex2DvNative(double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[970])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[970])((nint)v);
-			#endif
-		}
-
-		public static void GlVertex2Dv(double* v)
-		{
-			GlVertex2DvNative(v);
-		}
-
-		public static void GlVertex2Dv(ref double v)
-		{
-			fixed (double* pv = &v)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				GlVertex2DvNative((double*)pv);
+				RenderPresentNative((SDLRenderer*)prenderer);
 			}
 		}
 
+		/// <summary>
+		/// Destroy the specified texture.<br/>
+		/// Passing NULL or an otherwise invalid texture will set the SDL error message<br/>
+		/// to "Invalid texture".<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex2FvNative(float* v)
+		internal static void DestroyTextureNative(SDLTexture* texture)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[971])(v);
+			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)funcTable[796])(texture);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[971])((nint)v);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[796])((nint)texture);
 			#endif
 		}
 
-		public static void GlVertex2Fv(float* v)
+		/// <summary>
+		/// Destroy the specified texture.<br/>
+		/// Passing NULL or an otherwise invalid texture will set the SDL error message<br/>
+		/// to "Invalid texture".<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DestroyTexture(SDLTexturePtr texture)
 		{
-			GlVertex2FvNative(v);
+			DestroyTextureNative((SDLTexture*)texture);
 		}
 
-		public static void GlVertex2Fv(ref float v)
+		/// <summary>
+		/// Destroy the specified texture.<br/>
+		/// Passing NULL or an otherwise invalid texture will set the SDL error message<br/>
+		/// to "Invalid texture".<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DestroyTexture(ref SDLTexture texture)
 		{
-			fixed (float* pv = &v)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				GlVertex2FvNative((float*)pv);
+				DestroyTextureNative((SDLTexture*)ptexture);
 			}
 		}
 
+		/// <summary>
+		/// Destroy the rendering context for a window and free associated textures.<br/>
+		/// If `renderer` is NULL, this function will return immediately after setting<br/>
+		/// the SDL error message to "Invalid renderer". See SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex2IvNative(int* v)
+		internal static void DestroyRendererNative(SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[972])(v);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, void>)funcTable[797])(renderer);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[972])((nint)v);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[797])((nint)renderer);
 			#endif
 		}
 
-		public static void GlVertex2Iv(int* v)
+		/// <summary>
+		/// Destroy the rendering context for a window and free associated textures.<br/>
+		/// If `renderer` is NULL, this function will return immediately after setting<br/>
+		/// the SDL error message to "Invalid renderer". See SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DestroyRenderer(SDLRendererPtr renderer)
 		{
-			GlVertex2IvNative(v);
+			DestroyRendererNative((SDLRenderer*)renderer);
 		}
 
-		public static void GlVertex2Iv(ref int v)
+		/// <summary>
+		/// Destroy the rendering context for a window and free associated textures.<br/>
+		/// If `renderer` is NULL, this function will return immediately after setting<br/>
+		/// the SDL error message to "Invalid renderer". See SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DestroyRenderer(ref SDLRenderer renderer)
 		{
-			fixed (int* pv = &v)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				GlVertex2IvNative((int*)pv);
+				DestroyRendererNative((SDLRenderer*)prenderer);
 			}
 		}
 
+		/// <summary>
+		/// Force the rendering context to flush any pending commands to the underlying<br/>
+		/// rendering API.<br/>
+		/// You do not need to (and in fact, shouldn't) call this function unless you<br/>
+		/// are planning to call into OpenGL/Direct3D/Metal/whatever directly in<br/>
+		/// addition to using an SDL_Renderer.<br/>
+		/// This is for a very-specific case: if you are using SDL's render API, you<br/>
+		/// asked for a specific renderer backend (OpenGL, Direct3D, etc), you set<br/>
+		/// SDL_HINT_RENDER_BATCHING to "1", and you plan to make OpenGL/D3D/whatever<br/>
+		/// calls in addition to SDL render API calls. If all of this applies, you<br/>
+		/// should call SDL_RenderFlush() between calls to SDL's render API and the<br/>
+		/// low-level API you're using in cooperation.<br/>
+		/// In all other cases, you can ignore this function. This is only here to get<br/>
+		/// maximum performance out of a specific situation. In all other cases, SDL<br/>
+		/// will do the right thing, perhaps at a performance loss.<br/>
+		/// This function is first available in SDL 2.0.10, and is not needed in 2.0.9<br/>
+		/// and earlier, as earlier versions did not queue rendering commands at all,<br/>
+		/// instead flushing them to the OS immediately.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex2SvNative(short* v)
+		internal static int RenderFlushNative(SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[973])(v);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int>)funcTable[798])(renderer);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[973])((nint)v);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[798])((nint)renderer);
 			#endif
 		}
 
-		public static void GlVertex2Sv(short* v)
+		/// <summary>
+		/// Force the rendering context to flush any pending commands to the underlying<br/>
+		/// rendering API.<br/>
+		/// You do not need to (and in fact, shouldn't) call this function unless you<br/>
+		/// are planning to call into OpenGL/Direct3D/Metal/whatever directly in<br/>
+		/// addition to using an SDL_Renderer.<br/>
+		/// This is for a very-specific case: if you are using SDL's render API, you<br/>
+		/// asked for a specific renderer backend (OpenGL, Direct3D, etc), you set<br/>
+		/// SDL_HINT_RENDER_BATCHING to "1", and you plan to make OpenGL/D3D/whatever<br/>
+		/// calls in addition to SDL render API calls. If all of this applies, you<br/>
+		/// should call SDL_RenderFlush() between calls to SDL's render API and the<br/>
+		/// low-level API you're using in cooperation.<br/>
+		/// In all other cases, you can ignore this function. This is only here to get<br/>
+		/// maximum performance out of a specific situation. In all other cases, SDL<br/>
+		/// will do the right thing, perhaps at a performance loss.<br/>
+		/// This function is first available in SDL 2.0.10, and is not needed in 2.0.9<br/>
+		/// and earlier, as earlier versions did not queue rendering commands at all,<br/>
+		/// instead flushing them to the OS immediately.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFlush(SDLRendererPtr renderer)
 		{
-			GlVertex2SvNative(v);
+			int ret = RenderFlushNative((SDLRenderer*)renderer);
+			return ret;
 		}
 
-		public static void GlVertex2Sv(ref short v)
+		/// <summary>
+		/// Force the rendering context to flush any pending commands to the underlying<br/>
+		/// rendering API.<br/>
+		/// You do not need to (and in fact, shouldn't) call this function unless you<br/>
+		/// are planning to call into OpenGL/Direct3D/Metal/whatever directly in<br/>
+		/// addition to using an SDL_Renderer.<br/>
+		/// This is for a very-specific case: if you are using SDL's render API, you<br/>
+		/// asked for a specific renderer backend (OpenGL, Direct3D, etc), you set<br/>
+		/// SDL_HINT_RENDER_BATCHING to "1", and you plan to make OpenGL/D3D/whatever<br/>
+		/// calls in addition to SDL render API calls. If all of this applies, you<br/>
+		/// should call SDL_RenderFlush() between calls to SDL's render API and the<br/>
+		/// low-level API you're using in cooperation.<br/>
+		/// In all other cases, you can ignore this function. This is only here to get<br/>
+		/// maximum performance out of a specific situation. In all other cases, SDL<br/>
+		/// will do the right thing, perhaps at a performance loss.<br/>
+		/// This function is first available in SDL 2.0.10, and is not needed in 2.0.9<br/>
+		/// and earlier, as earlier versions did not queue rendering commands at all,<br/>
+		/// instead flushing them to the OS immediately.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFlush(ref SDLRenderer renderer)
 		{
-			fixed (short* pv = &v)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				GlVertex2SvNative((short*)pv);
+				int ret = RenderFlushNative((SDLRenderer*)prenderer);
+				return ret;
 			}
 		}
 
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex3DvNative(double* v)
+		internal static int GLBindTextureNative(SDLTexture* texture, float* texw, float* texh)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[974])(v);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, int>)funcTable[799])(texture, texw, texh);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[974])((nint)v);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[799])((nint)texture, (nint)texw, (nint)texh);
 			#endif
 		}
 
-		public static void GlVertex3Dv(double* v)
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLBindTexture(SDLTexturePtr texture, float* texw, float* texh)
 		{
-			GlVertex3DvNative(v);
+			int ret = GLBindTextureNative((SDLTexture*)texture, texw, texh);
+			return ret;
 		}
 
-		public static void GlVertex3Dv(ref double v)
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLBindTexture(ref SDLTexture texture, float* texw, float* texh)
 		{
-			fixed (double* pv = &v)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				GlVertex3DvNative((double*)pv);
+				int ret = GLBindTextureNative((SDLTexture*)ptexture, texw, texh);
+				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex3FvNative(float* v)
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLBindTexture(SDLTexturePtr texture, ref float texw, float* texh)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[975])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[975])((nint)v);
-			#endif
-		}
-
-		public static void GlVertex3Fv(float* v)
-		{
-			GlVertex3FvNative(v);
-		}
-
-		public static void GlVertex3Fv(ref float v)
-		{
-			fixed (float* pv = &v)
+			fixed (float* ptexw = &texw)
 			{
-				GlVertex3FvNative((float*)pv);
+				int ret = GLBindTextureNative((SDLTexture*)texture, (float*)ptexw, texh);
+				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex3IvNative(int* v)
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLBindTexture(ref SDLTexture texture, ref float texw, float* texh)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[976])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[976])((nint)v);
-			#endif
-		}
-
-		public static void GlVertex3Iv(int* v)
-		{
-			GlVertex3IvNative(v);
-		}
-
-		public static void GlVertex3Iv(ref int v)
-		{
-			fixed (int* pv = &v)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				GlVertex3IvNative((int*)pv);
+				fixed (float* ptexw = &texw)
+				{
+					int ret = GLBindTextureNative((SDLTexture*)ptexture, (float*)ptexw, texh);
+					return ret;
+				}
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex3SvNative(short* v)
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLBindTexture(SDLTexturePtr texture, float* texw, ref float texh)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[977])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[977])((nint)v);
-			#endif
-		}
-
-		public static void GlVertex3Sv(short* v)
-		{
-			GlVertex3SvNative(v);
-		}
-
-		public static void GlVertex3Sv(ref short v)
-		{
-			fixed (short* pv = &v)
+			fixed (float* ptexh = &texh)
 			{
-				GlVertex3SvNative((short*)pv);
+				int ret = GLBindTextureNative((SDLTexture*)texture, texw, (float*)ptexh);
+				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex4DvNative(double* v)
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLBindTexture(ref SDLTexture texture, float* texw, ref float texh)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[978])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[978])((nint)v);
-			#endif
-		}
-
-		public static void GlVertex4Dv(double* v)
-		{
-			GlVertex4DvNative(v);
-		}
-
-		public static void GlVertex4Dv(ref double v)
-		{
-			fixed (double* pv = &v)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				GlVertex4DvNative((double*)pv);
+				fixed (float* ptexh = &texh)
+				{
+					int ret = GLBindTextureNative((SDLTexture*)ptexture, texw, (float*)ptexh);
+					return ret;
+				}
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex4FvNative(float* v)
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLBindTexture(SDLTexturePtr texture, ref float texw, ref float texh)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[979])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[979])((nint)v);
-			#endif
-		}
-
-		public static void GlVertex4Fv(float* v)
-		{
-			GlVertex4FvNative(v);
-		}
-
-		public static void GlVertex4Fv(ref float v)
-		{
-			fixed (float* pv = &v)
+			fixed (float* ptexw = &texw)
 			{
-				GlVertex4FvNative((float*)pv);
+				fixed (float* ptexh = &texh)
+				{
+					int ret = GLBindTextureNative((SDLTexture*)texture, (float*)ptexw, (float*)ptexh);
+					return ret;
+				}
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex4IvNative(int* v)
+		/// <summary>
+		/// Bind an OpenGL/ES/ES2 texture to the current context.<br/>
+		/// This is for use with OpenGL instructions when rendering OpenGL primitives<br/>
+		/// directly.<br/>
+		/// If not NULL, `texw` and `texh` will be filled with the width and height<br/>
+		/// values suitable for the provided texture. In most cases, both will be 1.0,<br/>
+		/// however, on systems that support the GL_ARB_texture_rectangle extension,<br/>
+		/// these values will actually be the pixel width and height used to create the<br/>
+		/// texture, so this factor needs to be taken into account when providing<br/>
+		/// texture coordinates to OpenGL.<br/>
+		/// You need a renderer to create an SDL_Texture, therefore you can only use<br/>
+		/// this function with an implicit OpenGL context from SDL_CreateRenderer(),<br/>
+		/// not with your own OpenGL context. If you need control over your OpenGL<br/>
+		/// context, you need to write your own texture-loading methods.<br/>
+		/// Also note that SDL may upload RGB textures as BGR (or vice-versa), and<br/>
+		/// re-order the color channels in the shaders phase, so the uploaded texture<br/>
+		/// may have swapped color channels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLBindTexture(ref SDLTexture texture, ref float texw, ref float texh)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[980])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[980])((nint)v);
-			#endif
-		}
-
-		public static void GlVertex4Iv(int* v)
-		{
-			GlVertex4IvNative(v);
-		}
-
-		public static void GlVertex4Iv(ref int v)
-		{
-			fixed (int* pv = &v)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				GlVertex4IvNative((int*)pv);
+				fixed (float* ptexw = &texw)
+				{
+					fixed (float* ptexh = &texh)
+					{
+						int ret = GLBindTextureNative((SDLTexture*)ptexture, (float*)ptexw, (float*)ptexh);
+						return ret;
+					}
+				}
 			}
 		}
 
+		/// <summary>
+		/// Unbind an OpenGL/ES/ES2 texture from the current context.<br/>
+		/// See SDL_GL_BindTexture() for examples on how to use these functions<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlVertex4SvNative(short* v)
+		internal static int GLUnbindTextureNative(SDLTexture* texture)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[981])(v);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, int>)funcTable[800])(texture);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[981])((nint)v);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[800])((nint)texture);
 			#endif
 		}
 
-		public static void GlVertex4Sv(short* v)
+		/// <summary>
+		/// Unbind an OpenGL/ES/ES2 texture from the current context.<br/>
+		/// See SDL_GL_BindTexture() for examples on how to use these functions<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLUnbindTexture(SDLTexturePtr texture)
 		{
-			GlVertex4SvNative(v);
+			int ret = GLUnbindTextureNative((SDLTexture*)texture);
+			return ret;
 		}
 
-		public static void GlVertex4Sv(ref short v)
+		/// <summary>
+		/// Unbind an OpenGL/ES/ES2 texture from the current context.<br/>
+		/// See SDL_GL_BindTexture() for examples on how to use these functions<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLUnbindTexture(ref SDLTexture texture)
 		{
-			fixed (short* pv = &v)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				GlVertex4SvNative((short*)pv);
+				int ret = GLUnbindTextureNative((SDLTexture*)ptexture);
+				return ret;
 			}
 		}
 
+		/// <summary>
+		/// Get the CAMetalLayer associated with the given Metal renderer.<br/>
+		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
+		/// headers, but it can be safely cast to a `CAMetalLayer *`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3BNative(byte nx, byte ny, byte nz)
+		internal static void* RenderGetMetalLayerNative(SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[982])(nx, ny, nz);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, void*>)funcTable[801])(renderer);
 			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[982])(nx, ny, nz);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[801])((nint)renderer);
 			#endif
 		}
 
-		public static void GlNormal3B(byte nx, byte ny, byte nz)
+		/// <summary>
+		/// Get the CAMetalLayer associated with the given Metal renderer.<br/>
+		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
+		/// headers, but it can be safely cast to a `CAMetalLayer *`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* RenderGetMetalLayer(SDLRendererPtr renderer)
 		{
-			GlNormal3BNative(nx, ny, nz);
+			void* ret = RenderGetMetalLayerNative((SDLRenderer*)renderer);
+			return ret;
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3DNative(double nx, double ny, double nz)
+		/// <summary>
+		/// Get the CAMetalLayer associated with the given Metal renderer.<br/>
+		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
+		/// headers, but it can be safely cast to a `CAMetalLayer *`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* RenderGetMetalLayer(ref SDLRenderer renderer)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[983])(nx, ny, nz);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[983])(nx, ny, nz);
-			#endif
-		}
-
-		public static void GlNormal3D(double nx, double ny, double nz)
-		{
-			GlNormal3DNative(nx, ny, nz);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3FNative(float nx, float ny, float nz)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[984])(nx, ny, nz);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[984])(nx, ny, nz);
-			#endif
-		}
-
-		public static void GlNormal3F(float nx, float ny, float nz)
-		{
-			GlNormal3FNative(nx, ny, nz);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3INative(int nx, int ny, int nz)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[985])(nx, ny, nz);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[985])(nx, ny, nz);
-			#endif
-		}
-
-		public static void GlNormal3I(int nx, int ny, int nz)
-		{
-			GlNormal3INative(nx, ny, nz);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3SNative(short nx, short ny, short nz)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[986])(nx, ny, nz);
-			#else
-			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[986])(nx, ny, nz);
-			#endif
-		}
-
-		public static void GlNormal3S(short nx, short ny, short nz)
-		{
-			GlNormal3SNative(nx, ny, nz);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3BvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[987])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[987])((nint)v);
-			#endif
-		}
-
-		public static void GlNormal3Bv(byte* v)
-		{
-			GlNormal3BvNative(v);
-		}
-
-		public static void GlNormal3Bv(ref byte v)
-		{
-			fixed (byte* pv = &v)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				GlNormal3BvNative((byte*)pv);
+				void* ret = RenderGetMetalLayerNative((SDLRenderer*)prenderer);
+				return ret;
 			}
 		}
 
-		public static void GlNormal3Bv(ReadOnlySpan<byte> v)
+		/// <summary>
+		/// Get the Metal command encoder for the current frame<br/>
+		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
+		/// headers, but it can be safely cast to an `id<br/>
+		/// <MTLRenderCommandEncoder<br/>
+		/// >`.<br/>
+		/// Note that as of SDL 2.0.18, this will return NULL if Metal refuses to give<br/>
+		/// SDL a drawable to render to, which might happen if the window is<br/>
+		/// hidden/minimized/offscreen. This doesn't apply to command encoders for<br/>
+		/// render targets, just the window's backbuffer. Check your return values!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* RenderGetMetalCommandEncoderNative(SDLRenderer* renderer)
 		{
-			fixed (byte* pv = v)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, void*>)funcTable[802])(renderer);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[802])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the Metal command encoder for the current frame<br/>
+		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
+		/// headers, but it can be safely cast to an `id<br/>
+		/// <MTLRenderCommandEncoder<br/>
+		/// >`.<br/>
+		/// Note that as of SDL 2.0.18, this will return NULL if Metal refuses to give<br/>
+		/// SDL a drawable to render to, which might happen if the window is<br/>
+		/// hidden/minimized/offscreen. This doesn't apply to command encoders for<br/>
+		/// render targets, just the window's backbuffer. Check your return values!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* RenderGetMetalCommandEncoder(SDLRendererPtr renderer)
+		{
+			void* ret = RenderGetMetalCommandEncoderNative((SDLRenderer*)renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the Metal command encoder for the current frame<br/>
+		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
+		/// headers, but it can be safely cast to an `id<br/>
+		/// <MTLRenderCommandEncoder<br/>
+		/// >`.<br/>
+		/// Note that as of SDL 2.0.18, this will return NULL if Metal refuses to give<br/>
+		/// SDL a drawable to render to, which might happen if the window is<br/>
+		/// hidden/minimized/offscreen. This doesn't apply to command encoders for<br/>
+		/// render targets, just the window's backbuffer. Check your return values!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* RenderGetMetalCommandEncoder(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				GlNormal3BvNative((byte*)pv);
+				void* ret = RenderGetMetalCommandEncoderNative((SDLRenderer*)prenderer);
+				return ret;
 			}
 		}
 
-		public static void GlNormal3Bv(string v)
+		/// <summary>
+		/// Toggle VSync of the given renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderSetVSyncNative(SDLRenderer* renderer, int vsync)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int>)funcTable[803])(renderer, vsync);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[803])((nint)renderer, vsync);
+			#endif
+		}
+
+		/// <summary>
+		/// Toggle VSync of the given renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetVSync(SDLRendererPtr renderer, int vsync)
+		{
+			int ret = RenderSetVSyncNative((SDLRenderer*)renderer, vsync);
+			return ret;
+		}
+
+		/// <summary>
+		/// Toggle VSync of the given renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetVSync(ref SDLRenderer renderer, int vsync)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderSetVSyncNative((SDLRenderer*)prenderer, vsync);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* CreateShapedWindowNative(byte* title, uint x, uint y, uint w, uint h, uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, uint, uint, uint, uint, uint, SDLWindow*>)funcTable[804])(title, x, y, w, h, flags);
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, uint, nint>)funcTable[804])((nint)title, x, y, w, h, flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr CreateShapedWindow(byte* title, uint x, uint y, uint w, uint h, uint flags)
+		{
+			SDLWindowPtr ret = CreateShapedWindowNative(title, x, y, w, h, flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr CreateShapedWindow(in byte title, uint x, uint y, uint w, uint h, uint flags)
+		{
+			fixed (byte* ptitle = &title)
+			{
+				SDLWindowPtr ret = CreateShapedWindowNative((byte*)ptitle, x, y, w, h, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr CreateShapedWindow(ReadOnlySpan<byte> title, uint x, uint y, uint w, uint h, uint flags)
+		{
+			fixed (byte* ptitle = title)
+			{
+				SDLWindowPtr ret = CreateShapedWindowNative((byte*)ptitle, x, y, w, h, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr CreateShapedWindow(string title, uint x, uint y, uint w, uint h, uint flags)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (v != null)
+			if (title != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(v);
+				pStrSize0 = Utils.GetByteCountUTF8(title);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -4184,843 +4804,221 @@ namespace Hexa.NET.SDL2
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			GlNormal3BvNative(pStr0);
+			SDLWindowPtr ret = CreateShapedWindowNative(pStr0, x, y, w, h, flags);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
+			return ret;
 		}
 
+		/// <summary>
+		/// Return whether the given window is a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3DvNative(double* v)
+		internal static SDLBool IsShapedWindowNative(SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[988])(v);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[805])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[988])((nint)v);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[805])((nint)window);
 			#endif
 		}
 
-		public static void GlNormal3Dv(double* v)
+		/// <summary>
+		/// Return whether the given window is a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsShapedWindow(SDLWindowPtr window)
 		{
-			GlNormal3DvNative(v);
+			SDLBool ret = IsShapedWindowNative((SDLWindow*)window);
+			return ret;
 		}
 
-		public static void GlNormal3Dv(ref double v)
+		/// <summary>
+		/// Return whether the given window is a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsShapedWindow(in SDLWindow window)
 		{
-			fixed (double* pv = &v)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				GlNormal3DvNative((double*)pv);
+				SDLBool ret = IsShapedWindowNative((SDLWindow*)pwindow);
+				return ret;
 			}
 		}
 
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3FvNative(float* v)
+		internal static int SetWindowShapeNative(SDLWindow* window, SDLSurface* shape, SDLWindowShapeMode* shapeMode)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[989])(v);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, SDLWindowShapeMode*, int>)funcTable[806])(window, shape, shapeMode);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[989])((nint)v);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[806])((nint)window, (nint)shape, (nint)shapeMode);
 			#endif
 		}
 
-		public static void GlNormal3Fv(float* v)
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(SDLWindowPtr window, SDLSurfacePtr shape, SDLWindowShapeModePtr shapeMode)
 		{
-			GlNormal3FvNative(v);
+			int ret = SetWindowShapeNative((SDLWindow*)window, (SDLSurface*)shape, (SDLWindowShapeMode*)shapeMode);
+			return ret;
 		}
 
-		public static void GlNormal3Fv(ref float v)
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(ref SDLWindow window, SDLSurfacePtr shape, SDLWindowShapeModePtr shapeMode)
 		{
-			fixed (float* pv = &v)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				GlNormal3FvNative((float*)pv);
+				int ret = SetWindowShapeNative((SDLWindow*)pwindow, (SDLSurface*)shape, (SDLWindowShapeMode*)shapeMode);
+				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3IvNative(int* v)
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(SDLWindowPtr window, ref SDLSurface shape, SDLWindowShapeModePtr shapeMode)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[990])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[990])((nint)v);
-			#endif
-		}
-
-		public static void GlNormal3Iv(int* v)
-		{
-			GlNormal3IvNative(v);
-		}
-
-		public static void GlNormal3Iv(ref int v)
-		{
-			fixed (int* pv = &v)
+			fixed (SDLSurface* pshape = &shape)
 			{
-				GlNormal3IvNative((int*)pv);
+				int ret = SetWindowShapeNative((SDLWindow*)window, (SDLSurface*)pshape, (SDLWindowShapeMode*)shapeMode);
+				return ret;
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlNormal3SvNative(short* v)
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(ref SDLWindow window, ref SDLSurface shape, SDLWindowShapeModePtr shapeMode)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[991])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[991])((nint)v);
-			#endif
-		}
-
-		public static void GlNormal3Sv(short* v)
-		{
-			GlNormal3SvNative(v);
-		}
-
-		public static void GlNormal3Sv(ref short v)
-		{
-			fixed (short* pv = &v)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				GlNormal3SvNative((short*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexdNative(double c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, void>)funcTable[992])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<double, void>)funcTable[992])(c);
-			#endif
-		}
-
-		public static void GlIndexd(double c)
-		{
-			GlIndexdNative(c);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexfNative(float c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)funcTable[993])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<float, void>)funcTable[993])(c);
-			#endif
-		}
-
-		public static void GlIndexf(float c)
-		{
-			GlIndexfNative(c);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexiNative(int c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, void>)funcTable[994])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<int, void>)funcTable[994])(c);
-			#endif
-		}
-
-		public static void GlIndexi(int c)
-		{
-			GlIndexiNative(c);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexsNative(short c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short, void>)funcTable[995])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<short, void>)funcTable[995])(c);
-			#endif
-		}
-
-		public static void GlIndexs(short c)
-		{
-			GlIndexsNative(c);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexubNative(byte c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[996])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[996])(c);
-			#endif
-		}
-
-		public static void GlIndexub(byte c)
-		{
-			GlIndexubNative(c);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexdvNative(double* c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[997])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[997])((nint)c);
-			#endif
-		}
-
-		public static void GlIndexdv(double* c)
-		{
-			GlIndexdvNative(c);
-		}
-
-		public static void GlIndexdv(ref double c)
-		{
-			fixed (double* pc = &c)
-			{
-				GlIndexdvNative((double*)pc);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexfvNative(float* c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[998])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[998])((nint)c);
-			#endif
-		}
-
-		public static void GlIndexfv(float* c)
-		{
-			GlIndexfvNative(c);
-		}
-
-		public static void GlIndexfv(ref float c)
-		{
-			fixed (float* pc = &c)
-			{
-				GlIndexfvNative((float*)pc);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexivNative(int* c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[999])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[999])((nint)c);
-			#endif
-		}
-
-		public static void GlIndexiv(int* c)
-		{
-			GlIndexivNative(c);
-		}
-
-		public static void GlIndexiv(ref int c)
-		{
-			fixed (int* pc = &c)
-			{
-				GlIndexivNative((int*)pc);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexsvNative(short* c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1000])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1000])((nint)c);
-			#endif
-		}
-
-		public static void GlIndexsv(short* c)
-		{
-			GlIndexsvNative(c);
-		}
-
-		public static void GlIndexsv(ref short c)
-		{
-			fixed (short* pc = &c)
-			{
-				GlIndexsvNative((short*)pc);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlIndexubvNative(byte* c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1001])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1001])((nint)c);
-			#endif
-		}
-
-		public static void GlIndexubv(byte* c)
-		{
-			GlIndexubvNative(c);
-		}
-
-		public static void GlIndexubv(ref byte c)
-		{
-			fixed (byte* pc = &c)
-			{
-				GlIndexubvNative((byte*)pc);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3BNative(byte red, byte green, byte blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1002])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1002])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3B(byte red, byte green, byte blue)
-		{
-			GlColor3BNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3DNative(double red, double green, double blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1003])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1003])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3D(double red, double green, double blue)
-		{
-			GlColor3DNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3FNative(float red, float green, float blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1004])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1004])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3F(float red, float green, float blue)
-		{
-			GlColor3FNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3INative(int red, int green, int blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1005])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1005])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3I(int red, int green, int blue)
-		{
-			GlColor3INative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3SNative(short red, short green, short blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1006])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1006])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3S(short red, short green, short blue)
-		{
-			GlColor3SNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UbNative(byte red, byte green, byte blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1007])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1007])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3Ub(byte red, byte green, byte blue)
-		{
-			GlColor3UbNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UiNative(uint red, uint green, uint blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3Ui(uint red, uint green, uint blue)
-		{
-			GlColor3UiNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UsNative(ushort red, ushort green, ushort blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3Us(ushort red, ushort green, ushort blue)
-		{
-			GlColor3UsNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4BNative(byte red, byte green, byte blue, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4B(byte red, byte green, byte blue, byte alpha)
-		{
-			GlColor4BNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4DNative(double red, double green, double blue, double alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4D(double red, double green, double blue, double alpha)
-		{
-			GlColor4DNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4FNative(float red, float green, float blue, float alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4F(float red, float green, float blue, float alpha)
-		{
-			GlColor4FNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4INative(int red, int green, int blue, int alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4I(int red, int green, int blue, int alpha)
-		{
-			GlColor4INative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4SNative(short red, short green, short blue, short alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4S(short red, short green, short blue, short alpha)
-		{
-			GlColor4SNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UbNative(byte red, byte green, byte blue, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4Ub(byte red, byte green, byte blue, byte alpha)
-		{
-			GlColor4UbNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UiNative(uint red, uint green, uint blue, uint alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4Ui(uint red, uint green, uint blue, uint alpha)
-		{
-			GlColor4UiNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UsNative(ushort red, ushort green, ushort blue, ushort alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4Us(ushort red, ushort green, ushort blue, ushort alpha)
-		{
-			GlColor4UsNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3BvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1018])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1018])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Bv(byte* v)
-		{
-			GlColor3BvNative(v);
-		}
-
-		public static void GlColor3Bv(ref byte v)
-		{
-			fixed (byte* pv = &v)
-			{
-				GlColor3BvNative((byte*)pv);
-			}
-		}
-
-		public static void GlColor3Bv(ReadOnlySpan<byte> v)
-		{
-			fixed (byte* pv = v)
-			{
-				GlColor3BvNative((byte*)pv);
-			}
-		}
-
-		public static void GlColor3Bv(string v)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (v != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(v);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLSurface* pshape = &shape)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					int ret = SetWindowShapeNative((SDLWindow*)pwindow, (SDLSurface*)pshape, (SDLWindowShapeMode*)shapeMode);
+					return ret;
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(SDLWindowPtr window, SDLSurfacePtr shape, ref SDLWindowShapeMode shapeMode)
+		{
+			fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
+			{
+				int ret = SetWindowShapeNative((SDLWindow*)window, (SDLSurface*)shape, (SDLWindowShapeMode*)pshapeMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(ref SDLWindow window, SDLSurfacePtr shape, ref SDLWindowShapeMode shapeMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					int ret = SetWindowShapeNative((SDLWindow*)pwindow, (SDLSurface*)shape, (SDLWindowShapeMode*)pshapeMode);
+					return ret;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			GlColor3BvNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
 			}
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3DvNative(double* v)
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(SDLWindowPtr window, ref SDLSurface shape, ref SDLWindowShapeMode shapeMode)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1019])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1019])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Dv(double* v)
-		{
-			GlColor3DvNative(v);
-		}
-
-		public static void GlColor3Dv(ref double v)
-		{
-			fixed (double* pv = &v)
+			fixed (SDLSurface* pshape = &shape)
 			{
-				GlColor3DvNative((double*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3FvNative(float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1020])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1020])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Fv(float* v)
-		{
-			GlColor3FvNative(v);
-		}
-
-		public static void GlColor3Fv(ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlColor3FvNative((float*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3IvNative(int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1021])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1021])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Iv(int* v)
-		{
-			GlColor3IvNative(v);
-		}
-
-		public static void GlColor3Iv(ref int v)
-		{
-			fixed (int* pv = &v)
-			{
-				GlColor3IvNative((int*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3SvNative(short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1022])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1022])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Sv(short* v)
-		{
-			GlColor3SvNative(v);
-		}
-
-		public static void GlColor3Sv(ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlColor3SvNative((short*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UbvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1023])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1023])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Ubv(byte* v)
-		{
-			GlColor3UbvNative(v);
-		}
-
-		public static void GlColor3Ubv(ref byte v)
-		{
-			fixed (byte* pv = &v)
-			{
-				GlColor3UbvNative((byte*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UivNative(uint* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1024])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1024])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Uiv(uint* v)
-		{
-			GlColor3UivNative(v);
-		}
-
-		public static void GlColor3Uiv(ref uint v)
-		{
-			fixed (uint* pv = &v)
-			{
-				GlColor3UivNative((uint*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UsvNative(ushort* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1025])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1025])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Usv(ushort* v)
-		{
-			GlColor3UsvNative(v);
-		}
-
-		public static void GlColor3Usv(ref ushort v)
-		{
-			fixed (ushort* pv = &v)
-			{
-				GlColor3UsvNative((ushort*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4BvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1026])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1026])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Bv(byte* v)
-		{
-			GlColor4BvNative(v);
-		}
-
-		public static void GlColor4Bv(ref byte v)
-		{
-			fixed (byte* pv = &v)
-			{
-				GlColor4BvNative((byte*)pv);
-			}
-		}
-
-		public static void GlColor4Bv(ReadOnlySpan<byte> v)
-		{
-			fixed (byte* pv = v)
-			{
-				GlColor4BvNative((byte*)pv);
-			}
-		}
-
-		public static void GlColor4Bv(string v)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (v != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(v);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					int ret = SetWindowShapeNative((SDLWindow*)window, (SDLSurface*)pshape, (SDLWindowShapeMode*)pshapeMode);
+					return ret;
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(ref SDLWindow window, ref SDLSurface shape, ref SDLWindowShapeMode shapeMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLSurface* pshape = &shape)
 				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
+					{
+						int ret = SetWindowShapeNative((SDLWindow*)pwindow, (SDLSurface*)pshape, (SDLWindowShapeMode*)pshapeMode);
+						return ret;
+					}
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			GlColor4BvNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
 			}
 		}
 
+		/// <summary>
+		/// Get the shape parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4DvNative(double* v)
+		internal static int GetShapedWindowModeNative(SDLWindow* window, SDLWindowShapeMode* shapeMode)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1027])(v);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindowShapeMode*, int>)funcTable[807])(window, shapeMode);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1027])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Dv(double* v)
-		{
-			GlColor4DvNative(v);
-		}
-
-		public static void GlColor4Dv(ref double v)
-		{
-			fixed (double* pv = &v)
-			{
-				GlColor4DvNative((double*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4FvNative(float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1028])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1028])((nint)v);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[807])((nint)window, (nint)shapeMode);
 			#endif
 		}
 	}

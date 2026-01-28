@@ -16,22 +16,35 @@ namespace Hexa.NET.SDL3
 	/// The flip mode.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_FlipMode")]
 	public enum SDLFlipMode : int
 	{
 		/// <summary>
 		/// Do not flip <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_FLIP_NONE")]
+		[NativeName(NativeNameType.Value, "0")]
 		None = unchecked(0),
 
 		/// <summary>
 		/// flip horizontally <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_FLIP_HORIZONTAL")]
+		[NativeName(NativeNameType.Value, "1")]
 		Horizontal = unchecked(1),
 
 		/// <summary>
 		/// flip vertically <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_FLIP_VERTICAL")]
+		[NativeName(NativeNameType.Value, "2")]
 		Vertical = unchecked(2),
+
+		/// <summary>
+		/// flip horizontally and vertically (not a diagonal flip) <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_FLIP_HORIZONTAL_AND_VERTICAL")]
+		[NativeName(NativeNameType.Value, "3")]
+		HorizontalAndVertical = unchecked(3),
 	}
 }

@@ -19,22 +19,29 @@ namespace Hexa.NET.SDL3
 	/// Vertex structure.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Vertex")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVertex
 	{
 		/// <summary>
 		/// Vertex position, in SDL_Renderer coordinates  <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "position")]
+		[NativeName(NativeNameType.Type, "SDL_FPoint")]
 		public SDLFPoint Position;
 
 		/// <summary>
 		/// Vertex color <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "color")]
+		[NativeName(NativeNameType.Type, "SDL_FColor")]
 		public SDLFColor Color;
 
 		/// <summary>
 		/// Normalized texture coordinates, if needed <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "tex_coord")]
+		[NativeName(NativeNameType.Type, "SDL_FPoint")]
 		public SDLFPoint TexCoord;
 
 
@@ -46,6 +53,63 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Vertex structure.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Vertex")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLVertexPtr : IEquatable<SDLVertexPtr>
+	{
+		public SDLVertexPtr(SDLVertex* handle) { Handle = handle; }
+
+		public SDLVertex* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLVertexPtr Null => new SDLVertexPtr(null);
+
+		public SDLVertex this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLVertexPtr(SDLVertex* handle) => new SDLVertexPtr(handle);
+
+		public static implicit operator SDLVertex*(SDLVertexPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLVertexPtr left, SDLVertexPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLVertexPtr left, SDLVertexPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLVertexPtr left, SDLVertex* right) => left.Handle == right;
+
+		public static bool operator !=(SDLVertexPtr left, SDLVertex* right) => left.Handle != right;
+
+		public bool Equals(SDLVertexPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLVertexPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLVertexPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Vertex position, in SDL_Renderer coordinates  <br/>
+		/// </summary>
+		public ref SDLFPoint Position => ref Unsafe.AsRef<SDLFPoint>(&Handle->Position);
+		/// <summary>
+		/// Vertex color <br/>
+		/// </summary>
+		public ref SDLFColor Color => ref Unsafe.AsRef<SDLFColor>(&Handle->Color);
+		/// <summary>
+		/// Normalized texture coordinates, if needed <br/>
+		/// </summary>
+		public ref SDLFPoint TexCoord => ref Unsafe.AsRef<SDLFPoint>(&Handle->TexCoord);
 	}
 
 }

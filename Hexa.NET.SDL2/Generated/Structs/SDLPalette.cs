@@ -23,7 +23,7 @@ namespace Hexa.NET.SDL2
 		public uint Version;
 		public int Refcount;
 
-		public unsafe SDLPalette(int ncolors = default, SDLColor* colors = default, uint version = default, int refcount = default)
+		public unsafe SDLPalette(int ncolors = default, SDLColorPtr colors = default, uint version = default, int refcount = default)
 		{
 			Ncolors = ncolors;
 			Colors = colors;
@@ -32,6 +32,50 @@ namespace Hexa.NET.SDL2
 		}
 
 
+	}
+
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLPalettePtr : IEquatable<SDLPalettePtr>
+	{
+		public SDLPalettePtr(SDLPalette* handle) { Handle = handle; }
+
+		public SDLPalette* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLPalettePtr Null => new SDLPalettePtr(null);
+
+		public SDLPalette this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLPalettePtr(SDLPalette* handle) => new SDLPalettePtr(handle);
+
+		public static implicit operator SDLPalette*(SDLPalettePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLPalettePtr left, SDLPalettePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLPalettePtr left, SDLPalettePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLPalettePtr left, SDLPalette* right) => left.Handle == right;
+
+		public static bool operator !=(SDLPalettePtr left, SDLPalette* right) => left.Handle != right;
+
+		public bool Equals(SDLPalettePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLPalettePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLPalettePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref int Ncolors => ref Unsafe.AsRef<int>(&Handle->Ncolors);
+		public ref SDLColorPtr Colors => ref Unsafe.AsRef<SDLColorPtr>(&Handle->Colors);
+		public ref uint Version => ref Unsafe.AsRef<uint>(&Handle->Version);
+		public ref int Refcount => ref Unsafe.AsRef<int>(&Handle->Refcount);
 	}
 
 }

@@ -19,54 +19,77 @@ namespace Hexa.NET.SDL3
 	/// Mouse button event structure (event.button.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_MouseButtonEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMouseButtonEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_MOUSE_BUTTON_DOWN or SDL_EVENT_MOUSE_BUTTON_UP <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The window with mouse focus, if any <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "windowID")]
+		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The mouse instance id in relative mode, SDL_TOUCH_MOUSEID for touch events, or 0 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_MouseID")]
 		public uint Which;
 
 		/// <summary>
 		/// The mouse button index <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "button")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Button;
 
 		/// <summary>
 		/// true if the button is pressed <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "down")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Down;
 
 		/// <summary>
 		/// 1 for single-click, 2 for double-click, etc. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "clicks")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Clicks;
 
+		[NativeName(NativeNameType.Field, "padding")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding;
 		/// <summary>
 		/// X coordinate, relative to window <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// Y coordinate, relative to window <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 

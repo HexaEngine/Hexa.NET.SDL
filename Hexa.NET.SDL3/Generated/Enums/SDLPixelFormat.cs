@@ -19,7 +19,7 @@ namespace Hexa.NET.SDL3
 	/// ABGR32, define a platform-independent encoding into bytes in the order<br/>
 	/// specified. For example, in RGB24 data, each pixel is encoded in 3 bytes<br/>
 	/// (red, green, blue) in that order, and in ABGR32 data, each pixel is<br/>
-	/// encoded in 4 bytes alpha, blue, green, red) in that order. Use these<br/>
+	/// encoded in 4 bytes (alpha, blue, green, red) in that order. Use these<br/>
 	/// names if the property of a format that is important to you is the order<br/>
 	/// of the bytes in memory or on disk.<br/>
 	/// - Names with a bit count per component, such as ARGB8888 and XRGB1555, are<br/>
@@ -45,333 +45,480 @@ namespace Hexa.NET.SDL3
 	/// RGBA8888 on big-endian CPUs.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_PixelFormat")]
 	[Flags]
 	public enum SDLPixelFormat : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_UNKNOWN")]
+		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_INDEX1LSB")]
+		[NativeName(NativeNameType.Value, "0x11100100u")]
 		Index1Lsb = unchecked((int)0x11100100u),
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX1, SDL_BITMAPORDER_4321, 0, 1, 0), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_INDEX1MSB")]
+		[NativeName(NativeNameType.Value, "0x11200100u")]
 		Index1Msb = unchecked((int)0x11200100u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX1, SDL_BITMAPORDER_1234, 0, 1, 0), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_INDEX2LSB")]
+		[NativeName(NativeNameType.Value, "0x1c100200u")]
 		Index2Lsb = unchecked((int)0x1c100200u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX2, SDL_BITMAPORDER_4321, 0, 2, 0), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_INDEX2MSB")]
+		[NativeName(NativeNameType.Value, "0x1c200200u")]
 		Index2Msb = unchecked((int)0x1c200200u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX2, SDL_BITMAPORDER_1234, 0, 2, 0), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_INDEX4LSB")]
+		[NativeName(NativeNameType.Value, "0x12100400u")]
 		Index4Lsb = unchecked((int)0x12100400u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX4, SDL_BITMAPORDER_4321, 0, 4, 0), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_INDEX4MSB")]
+		[NativeName(NativeNameType.Value, "0x12200400u")]
 		Index4Msb = unchecked((int)0x12200400u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX4, SDL_BITMAPORDER_1234, 0, 4, 0), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_INDEX8")]
+		[NativeName(NativeNameType.Value, "0x13000801u")]
 		Index8 = unchecked((int)0x13000801u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX8, 0, 0, 8, 1), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGB332")]
+		[NativeName(NativeNameType.Value, "0x14110801u")]
 		Rgb332 = unchecked((int)0x14110801u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED8, SDL_PACKEDORDER_XRGB, SDL_PACKEDLAYOUT_332, 8, 1), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XRGB4444")]
+		[NativeName(NativeNameType.Value, "0x15120c02u")]
 		Xrgb4444 = unchecked((int)0x15120c02u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, SDL_PACKEDLAYOUT_4444, 12, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XBGR4444")]
+		[NativeName(NativeNameType.Value, "0x15520c02u")]
 		Xbgr4444 = unchecked((int)0x15520c02u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, SDL_PACKEDLAYOUT_4444, 12, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XRGB1555")]
+		[NativeName(NativeNameType.Value, "0x15130f02u")]
 		Xrgb1555 = unchecked((int)0x15130f02u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, SDL_PACKEDLAYOUT_1555, 15, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XBGR1555")]
+		[NativeName(NativeNameType.Value, "0x15530f02u")]
 		Xbgr1555 = unchecked((int)0x15530f02u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, SDL_PACKEDLAYOUT_1555, 15, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB4444")]
+		[NativeName(NativeNameType.Value, "0x15321002u")]
 		Argb4444 = unchecked((int)0x15321002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ARGB, SDL_PACKEDLAYOUT_4444, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA4444")]
+		[NativeName(NativeNameType.Value, "0x15421002u")]
 		Rgba4444 = unchecked((int)0x15421002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_RGBA, SDL_PACKEDLAYOUT_4444, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR4444")]
+		[NativeName(NativeNameType.Value, "0x15721002u")]
 		Abgr4444 = unchecked((int)0x15721002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ABGR, SDL_PACKEDLAYOUT_4444, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRA4444")]
+		[NativeName(NativeNameType.Value, "0x15821002u")]
 		Bgra4444 = unchecked((int)0x15821002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_BGRA, SDL_PACKEDLAYOUT_4444, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB1555")]
+		[NativeName(NativeNameType.Value, "0x15331002u")]
 		Argb1555 = unchecked((int)0x15331002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ARGB, SDL_PACKEDLAYOUT_1555, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA5551")]
+		[NativeName(NativeNameType.Value, "0x15441002u")]
 		Rgba5551 = unchecked((int)0x15441002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_RGBA, SDL_PACKEDLAYOUT_5551, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR1555")]
+		[NativeName(NativeNameType.Value, "0x15731002u")]
 		Abgr1555 = unchecked((int)0x15731002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ABGR, SDL_PACKEDLAYOUT_1555, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRA5551")]
+		[NativeName(NativeNameType.Value, "0x15841002u")]
 		Bgra5551 = unchecked((int)0x15841002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_BGRA, SDL_PACKEDLAYOUT_5551, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGB565")]
+		[NativeName(NativeNameType.Value, "0x15151002u")]
 		Rgb565 = unchecked((int)0x15151002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, SDL_PACKEDLAYOUT_565, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGR565")]
+		[NativeName(NativeNameType.Value, "0x15551002u")]
 		Bgr565 = unchecked((int)0x15551002u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, SDL_PACKEDLAYOUT_565, 16, 2), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGB24")]
+		[NativeName(NativeNameType.Value, "0x17101803u")]
 		Rgb24 = unchecked((int)0x17101803u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU8, SDL_ARRAYORDER_RGB, 0, 24, 3), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGR24")]
+		[NativeName(NativeNameType.Value, "0x17401803u")]
 		Bgr24 = unchecked((int)0x17401803u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU8, SDL_ARRAYORDER_BGR, 0, 24, 3), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XRGB8888")]
+		[NativeName(NativeNameType.Value, "0x16161804u")]
 		Xrgb8888 = unchecked((int)0x16161804u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_XRGB, SDL_PACKEDLAYOUT_8888, 24, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBX8888")]
+		[NativeName(NativeNameType.Value, "0x16261804u")]
 		Rgbx8888 = unchecked((int)0x16261804u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_RGBX, SDL_PACKEDLAYOUT_8888, 24, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XBGR8888")]
+		[NativeName(NativeNameType.Value, "0x16561804u")]
 		Xbgr8888 = unchecked((int)0x16561804u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_XBGR, SDL_PACKEDLAYOUT_8888, 24, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRX8888")]
+		[NativeName(NativeNameType.Value, "0x16661804u")]
 		Bgrx8888 = unchecked((int)0x16661804u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_BGRX, SDL_PACKEDLAYOUT_8888, 24, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB8888")]
+		[NativeName(NativeNameType.Value, "0x16362004u")]
 		Argb8888 = unchecked((int)0x16362004u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ARGB, SDL_PACKEDLAYOUT_8888, 32, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA8888")]
+		[NativeName(NativeNameType.Value, "0x16462004u")]
 		Rgba8888 = unchecked((int)0x16462004u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_RGBA, SDL_PACKEDLAYOUT_8888, 32, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR8888")]
+		[NativeName(NativeNameType.Value, "0x16762004u")]
 		Abgr8888 = unchecked((int)0x16762004u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ABGR, SDL_PACKEDLAYOUT_8888, 32, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRA8888")]
+		[NativeName(NativeNameType.Value, "0x16862004u")]
 		Bgra8888 = unchecked((int)0x16862004u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_BGRA, SDL_PACKEDLAYOUT_8888, 32, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XRGB2101010")]
+		[NativeName(NativeNameType.Value, "0x16172004u")]
 		Xrgb2101010 = unchecked((int)0x16172004u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_XRGB, SDL_PACKEDLAYOUT_2101010, 32, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XBGR2101010")]
+		[NativeName(NativeNameType.Value, "0x16572004u")]
 		Xbgr2101010 = unchecked((int)0x16572004u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_XBGR, SDL_PACKEDLAYOUT_2101010, 32, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB2101010")]
+		[NativeName(NativeNameType.Value, "0x16372004u")]
 		Argb2101010 = unchecked((int)0x16372004u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ARGB, SDL_PACKEDLAYOUT_2101010, 32, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR2101010")]
+		[NativeName(NativeNameType.Value, "0x16772004u")]
 		Abgr2101010 = unchecked((int)0x16772004u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ABGR, SDL_PACKEDLAYOUT_2101010, 32, 4), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGB48")]
+		[NativeName(NativeNameType.Value, "0x18103006u")]
 		Rgb48 = unchecked((int)0x18103006u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU16, SDL_ARRAYORDER_RGB, 0, 48, 6), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGR48")]
+		[NativeName(NativeNameType.Value, "0x18403006u")]
 		Bgr48 = unchecked((int)0x18403006u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU16, SDL_ARRAYORDER_BGR, 0, 48, 6), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA64")]
+		[NativeName(NativeNameType.Value, "0x18204008u")]
 		Rgba64 = unchecked((int)0x18204008u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU16, SDL_ARRAYORDER_RGBA, 0, 64, 8), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB64")]
+		[NativeName(NativeNameType.Value, "0x18304008u")]
 		Argb64 = unchecked((int)0x18304008u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU16, SDL_ARRAYORDER_ARGB, 0, 64, 8), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRA64")]
+		[NativeName(NativeNameType.Value, "0x18504008u")]
 		Bgra64 = unchecked((int)0x18504008u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU16, SDL_ARRAYORDER_BGRA, 0, 64, 8), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR64")]
+		[NativeName(NativeNameType.Value, "0x18604008u")]
 		Abgr64 = unchecked((int)0x18604008u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU16, SDL_ARRAYORDER_ABGR, 0, 64, 8), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGB48_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1a103006u")]
 		Rgb48Float = unchecked((int)0x1a103006u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF16, SDL_ARRAYORDER_RGB, 0, 48, 6), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGR48_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1a403006u")]
 		Bgr48Float = unchecked((int)0x1a403006u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF16, SDL_ARRAYORDER_BGR, 0, 48, 6), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA64_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1a204008u")]
 		Rgba64Float = unchecked((int)0x1a204008u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF16, SDL_ARRAYORDER_RGBA, 0, 64, 8), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB64_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1a304008u")]
 		Argb64Float = unchecked((int)0x1a304008u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF16, SDL_ARRAYORDER_ARGB, 0, 64, 8), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRA64_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1a504008u")]
 		Bgra64Float = unchecked((int)0x1a504008u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF16, SDL_ARRAYORDER_BGRA, 0, 64, 8), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR64_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1a604008u")]
 		Abgr64Float = unchecked((int)0x1a604008u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF16, SDL_ARRAYORDER_ABGR, 0, 64, 8), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGB96_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1b10600cu")]
 		Rgb96Float = unchecked((int)0x1b10600cu),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF32, SDL_ARRAYORDER_RGB, 0, 96, 12), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGR96_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1b40600cu")]
 		Bgr96Float = unchecked((int)0x1b40600cu),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF32, SDL_ARRAYORDER_BGR, 0, 96, 12), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA128_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1b208010u")]
 		Rgba128Float = unchecked((int)0x1b208010u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF32, SDL_ARRAYORDER_RGBA, 0, 128, 16), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB128_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1b308010u")]
 		Argb128Float = unchecked((int)0x1b308010u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF32, SDL_ARRAYORDER_ARGB, 0, 128, 16), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRA128_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1b508010u")]
 		Bgra128Float = unchecked((int)0x1b508010u),
 
 		/// <summary>
 		/// SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYF32, SDL_ARRAYORDER_BGRA, 0, 128, 16), <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR128_FLOAT")]
+		[NativeName(NativeNameType.Value, "0x1b608010u")]
 		Abgr128Float = unchecked((int)0x1b608010u),
 
 		/// <summary>
 		/// Planar mode: Y + V + U  (3 planes) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_YV12")]
+		[NativeName(NativeNameType.Value, "0x32315659u")]
 		Yv12 = unchecked((int)0x32315659u),
 
 		/// <summary>
 		/// Planar mode: Y + U + V  (3 planes) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_IYUV")]
+		[NativeName(NativeNameType.Value, "0x56555949u")]
 		Iyuv = unchecked((int)0x56555949u),
 
 		/// <summary>
 		/// Packed mode: Y0+U0+Y1+V0 (1 plane) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_YUY2")]
+		[NativeName(NativeNameType.Value, "0x32595559u")]
 		Yuy2 = unchecked((int)0x32595559u),
 
 		/// <summary>
 		/// Packed mode: U0+Y0+V0+Y1 (1 plane) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_UYVY")]
+		[NativeName(NativeNameType.Value, "0x59565955u")]
 		Uyvy = unchecked((int)0x59565955u),
 
 		/// <summary>
 		/// Packed mode: Y0+V0+Y1+U0 (1 plane) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_YVYU")]
+		[NativeName(NativeNameType.Value, "0x55595659u")]
 		Yvyu = unchecked((int)0x55595659u),
 
 		/// <summary>
 		/// Planar mode: Y + U/V interleaved  (2 planes) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_NV12")]
+		[NativeName(NativeNameType.Value, "0x3231564eu")]
 		Nv12 = unchecked((int)0x3231564eu),
 
 		/// <summary>
 		/// Planar mode: Y + V/U interleaved  (2 planes) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_NV21")]
+		[NativeName(NativeNameType.Value, "0x3132564eu")]
 		Nv21 = unchecked((int)0x3132564eu),
 
 		/// <summary>
 		/// Planar mode: Y + U/V interleaved  (2 planes) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_P010")]
+		[NativeName(NativeNameType.Value, "0x30313050u")]
 		P010 = unchecked((int)0x30313050u),
 
 		/// <summary>
 		/// Android video texture format <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_EXTERNAL_OES")]
+		[NativeName(NativeNameType.Value, "0x2053454fu")]
 		ExternalOes = unchecked((int)0x2053454fu),
 
 		/// <summary>
 		/// Motion JPEG <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_MJPG")]
+		[NativeName(NativeNameType.Value, "0x47504a4du")]
 		Mjpg = unchecked((int)0x47504a4du),
 
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_ABGR8888")]
 		Rgba32 = Abgr8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_BGRA8888")]
 		Argb32 = Bgra8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRA32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_ARGB8888")]
 		Bgra32 = Argb8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_RGBA8888")]
 		Abgr32 = Rgba8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBX32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_XBGR8888")]
 		Rgbx32 = Xbgr8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XRGB32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_BGRX8888")]
 		Xrgb32 = Bgrx8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRX32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_XRGB8888")]
 		Bgrx32 = Xrgb8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XBGR32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_RGBX8888")]
 		Xbgr32 = Rgbx8888,
 	}
 }

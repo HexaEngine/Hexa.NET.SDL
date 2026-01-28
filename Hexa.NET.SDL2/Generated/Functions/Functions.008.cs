@@ -18,6 +18,3099 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowGammaRamp(ref SDLWindow window, in ushort red, in ushort green, in ushort blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pred = &red)
+				{
+					fixed (ushort* pgreen = &green)
+					{
+						fixed (ushort* pblue = &blue)
+						{
+							int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetWindowGammaRampNative(SDLWindow* window, ushort* red, ushort* green, ushort* blue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ushort*, ushort*, ushort*, int>)funcTable[417])(window, red, green, blue);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[417])((nint)window, (nint)red, (nint)green, (nint)blue);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(SDLWindowPtr window, ushort* red, ushort* green, ushort* blue)
+		{
+			int ret = GetWindowGammaRampNative((SDLWindow*)window, red, green, blue);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(ref SDLWindow window, ushort* red, ushort* green, ushort* blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, red, green, blue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(SDLWindowPtr window, ref ushort red, ushort* green, ushort* blue)
+		{
+			fixed (ushort* pred = &red)
+			{
+				int ret = GetWindowGammaRampNative((SDLWindow*)window, (ushort*)pred, green, blue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(ref SDLWindow window, ref ushort red, ushort* green, ushort* blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pred = &red)
+				{
+					int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, blue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(SDLWindowPtr window, ushort* red, ref ushort green, ushort* blue)
+		{
+			fixed (ushort* pgreen = &green)
+			{
+				int ret = GetWindowGammaRampNative((SDLWindow*)window, red, (ushort*)pgreen, blue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(ref SDLWindow window, ushort* red, ref ushort green, ushort* blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pgreen = &green)
+				{
+					int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, blue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(SDLWindowPtr window, ref ushort red, ref ushort green, ushort* blue)
+		{
+			fixed (ushort* pred = &red)
+			{
+				fixed (ushort* pgreen = &green)
+				{
+					int ret = GetWindowGammaRampNative((SDLWindow*)window, (ushort*)pred, (ushort*)pgreen, blue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(ref SDLWindow window, ref ushort red, ref ushort green, ushort* blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pred = &red)
+				{
+					fixed (ushort* pgreen = &green)
+					{
+						int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, blue);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(SDLWindowPtr window, ushort* red, ushort* green, ref ushort blue)
+		{
+			fixed (ushort* pblue = &blue)
+			{
+				int ret = GetWindowGammaRampNative((SDLWindow*)window, red, green, (ushort*)pblue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(ref SDLWindow window, ushort* red, ushort* green, ref ushort blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pblue = &blue)
+				{
+					int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, red, green, (ushort*)pblue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(SDLWindowPtr window, ref ushort red, ushort* green, ref ushort blue)
+		{
+			fixed (ushort* pred = &red)
+			{
+				fixed (ushort* pblue = &blue)
+				{
+					int ret = GetWindowGammaRampNative((SDLWindow*)window, (ushort*)pred, green, (ushort*)pblue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(ref SDLWindow window, ref ushort red, ushort* green, ref ushort blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pred = &red)
+				{
+					fixed (ushort* pblue = &blue)
+					{
+						int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, (ushort*)pblue);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(SDLWindowPtr window, ushort* red, ref ushort green, ref ushort blue)
+		{
+			fixed (ushort* pgreen = &green)
+			{
+				fixed (ushort* pblue = &blue)
+				{
+					int ret = GetWindowGammaRampNative((SDLWindow*)window, red, (ushort*)pgreen, (ushort*)pblue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(ref SDLWindow window, ushort* red, ref ushort green, ref ushort blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pgreen = &green)
+				{
+					fixed (ushort* pblue = &blue)
+					{
+						int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, (ushort*)pblue);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(SDLWindowPtr window, ref ushort red, ref ushort green, ref ushort blue)
+		{
+			fixed (ushort* pred = &red)
+			{
+				fixed (ushort* pgreen = &green)
+				{
+					fixed (ushort* pblue = &blue)
+					{
+						int ret = GetWindowGammaRampNative((SDLWindow*)window, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the gamma ramp for a given window's display.<br/>
+		/// Despite the name and signature, this method retrieves the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().)<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowGammaRamp(ref SDLWindow window, ref ushort red, ref ushort green, ref ushort blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pred = &red)
+				{
+					fixed (ushort* pgreen = &green)
+					{
+						fixed (ushort* pblue = &blue)
+						{
+							int ret = GetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetWindowHitTestNative(SDLWindow* window, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult> callback, void* callbackData)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>, void*, int>)funcTable[418])(window, callback, callbackData);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[418])((nint)window, (nint)callback, (nint)callbackData);
+			#endif
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowHitTest(SDLWindowPtr window, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult> callback, void* callbackData)
+		{
+			int ret = SetWindowHitTestNative((SDLWindow*)window, callback, callbackData);
+			return ret;
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowHitTest(ref SDLWindow window, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult> callback, void* callbackData)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = SetWindowHitTestNative((SDLWindow*)pwindow, callback, callbackData);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowHitTest(SDLWindowPtr window, SDLHitTest callback, void* callbackData)
+		{
+			int ret = SetWindowHitTestNative((SDLWindow*)window, (delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>)Utils.GetFunctionPointerForDelegate(callback), callbackData);
+			return ret;
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowHitTest(ref SDLWindow window, SDLHitTest callback, void* callbackData)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = SetWindowHitTestNative((SDLWindow*)pwindow, (delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>)Utils.GetFunctionPointerForDelegate(callback), callbackData);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowHitTest(SDLWindowPtr window, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult> callback, nint callbackData)
+		{
+			int ret = SetWindowHitTestNative((SDLWindow*)window, callback, (void*)callbackData);
+			return ret;
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowHitTest(ref SDLWindow window, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult> callback, nint callbackData)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = SetWindowHitTestNative((SDLWindow*)pwindow, callback, (void*)callbackData);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowHitTest(SDLWindowPtr window, SDLHitTest callback, nint callbackData)
+		{
+			int ret = SetWindowHitTestNative((SDLWindow*)window, (delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>)Utils.GetFunctionPointerForDelegate(callback), (void*)callbackData);
+			return ret;
+		}
+
+		/// <summary>
+		/// Provide a callback that decides if a window region has special properties.<br/>
+		/// Normally windows are dragged and resized by decorations provided by the<br/>
+		/// system window manager (a title bar, borders, etc), but for some apps, it<br/>
+		/// makes sense to drag them from somewhere else inside the window itself; for<br/>
+		/// example, one might have a borderless window that wants to be draggable from<br/>
+		/// any part, or simulate its own title bar, etc.<br/>
+		/// This function lets the app provide a callback that designates pieces of a<br/>
+		/// given window as special. This callback is run during event processing if we<br/>
+		/// need to tell the OS to treat a region of the window specially; the use of<br/>
+		/// this callback is known as "hit testing."<br/>
+		/// Mouse input may not be delivered to your application if it is within a<br/>
+		/// special area; the OS will often apply that input to moving the window or<br/>
+		/// resizing the window and not deliver it to the application.<br/>
+		/// Specifying NULL for a callback disables hit-testing. Hit-testing is<br/>
+		/// disabled by default.<br/>
+		/// Platforms that don't support this functionality will return -1<br/>
+		/// unconditionally, even if you're attempting to disable hit-testing.<br/>
+		/// Your callback may fire at any time, and its firing does not indicate any<br/>
+		/// specific behavior (for example, on Windows, this certainly might fire when<br/>
+		/// the OS is deciding whether to drag your window, but it fires for lots of<br/>
+		/// other reasons, too, some unrelated to anything you probably care about _and<br/>
+		/// when the mouse isn't actually at the location it is testing_). Since this<br/>
+		/// can fire at any time, you should try to keep your callback efficient,<br/>
+		/// devoid of allocations, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowHitTest(ref SDLWindow window, SDLHitTest callback, nint callbackData)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = SetWindowHitTestNative((SDLWindow*)pwindow, (delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>)Utils.GetFunctionPointerForDelegate(callback), (void*)callbackData);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Request a window to demand attention from the user.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int FlashWindowNative(SDLWindow* window, SDLFlashOperation operation)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLFlashOperation, int>)funcTable[419])(window, operation);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLFlashOperation, int>)funcTable[419])((nint)window, operation);
+			#endif
+		}
+
+		/// <summary>
+		/// Request a window to demand attention from the user.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FlashWindow(SDLWindowPtr window, SDLFlashOperation operation)
+		{
+			int ret = FlashWindowNative((SDLWindow*)window, operation);
+			return ret;
+		}
+
+		/// <summary>
+		/// Request a window to demand attention from the user.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FlashWindow(ref SDLWindow window, SDLFlashOperation operation)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = FlashWindowNative((SDLWindow*)pwindow, operation);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Destroy a window.<br/>
+		/// If `window` is NULL, this function will return immediately after setting<br/>
+		/// the SDL error message to "Invalid window". See SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyWindowNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[420])(window);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[420])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a window.<br/>
+		/// If `window` is NULL, this function will return immediately after setting<br/>
+		/// the SDL error message to "Invalid window". See SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DestroyWindow(SDLWindowPtr window)
+		{
+			DestroyWindowNative((SDLWindow*)window);
+		}
+
+		/// <summary>
+		/// Destroy a window.<br/>
+		/// If `window` is NULL, this function will return immediately after setting<br/>
+		/// the SDL error message to "Invalid window". See SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DestroyWindow(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				DestroyWindowNative((SDLWindow*)pwindow);
+			}
+		}
+
+		/// <summary>
+		/// Check whether the screensaver is currently enabled.<br/>
+		/// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2<br/>
+		/// the screensaver was enabled by default.<br/>
+		/// The default can also be changed using `SDL_HINT_VIDEO_ALLOW_SCREENSAVER`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsScreenSaverEnabledNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[421])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[421])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether the screensaver is currently enabled.<br/>
+		/// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2<br/>
+		/// the screensaver was enabled by default.<br/>
+		/// The default can also be changed using `SDL_HINT_VIDEO_ALLOW_SCREENSAVER`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsScreenSaverEnabled()
+		{
+			SDLBool ret = IsScreenSaverEnabledNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Allow the screen to be blanked by a screen saver.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EnableScreenSaverNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[422])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[422])();
+			#endif
+		}
+
+		/// <summary>
+		/// Allow the screen to be blanked by a screen saver.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void EnableScreenSaver()
+		{
+			EnableScreenSaverNative();
+		}
+
+		/// <summary>
+		/// Prevent the screen from being blanked by a screen saver.<br/>
+		/// If you disable the screensaver, it is automatically re-enabled when SDL<br/>
+		/// quits.<br/>
+		/// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2<br/>
+		/// the screensaver was enabled by default.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DisableScreenSaverNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[423])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[423])();
+			#endif
+		}
+
+		/// <summary>
+		/// Prevent the screen from being blanked by a screen saver.<br/>
+		/// If you disable the screensaver, it is automatically re-enabled when SDL<br/>
+		/// quits.<br/>
+		/// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2<br/>
+		/// the screensaver was enabled by default.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DisableScreenSaver()
+		{
+			DisableScreenSaverNative();
+		}
+
+		/// <summary>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GLLoadLibraryNative(byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[424])(path);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[424])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLLoadLibrary(byte* path)
+		{
+			int ret = GLLoadLibraryNative(path);
+			return ret;
+		}
+
+		/// <summary>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLLoadLibrary(in byte path)
+		{
+			fixed (byte* ppath = &path)
+			{
+				int ret = GLLoadLibraryNative((byte*)ppath);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLLoadLibrary(ReadOnlySpan<byte> path)
+		{
+			fixed (byte* ppath = path)
+			{
+				int ret = GLLoadLibraryNative((byte*)ppath);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLLoadLibrary(string path)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = GLLoadLibraryNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* GLGetProcAddressNative(byte* proc)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, void*>)funcTable[425])(proc);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[425])((nint)proc);
+			#endif
+		}
+
+		/// <summary>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GLGetProcAddress(byte* proc)
+		{
+			void* ret = GLGetProcAddressNative(proc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GLGetProcAddress(in byte proc)
+		{
+			fixed (byte* pproc = &proc)
+			{
+				void* ret = GLGetProcAddressNative((byte*)pproc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GLGetProcAddress(ReadOnlySpan<byte> proc)
+		{
+			fixed (byte* pproc = proc)
+			{
+				void* ret = GLGetProcAddressNative((byte*)pproc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GLGetProcAddress(string proc)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (proc != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(proc);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(proc, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			void* ret = GLGetProcAddressNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GLUnloadLibraryNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[426])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[426])();
+			#endif
+		}
+
+		/// <summary>
+		/// Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLUnloadLibrary()
+		{
+			GLUnloadLibraryNative();
+		}
+
+		/// <summary>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GLExtensionSupportedNative(byte* extension)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)funcTable[427])(extension);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[427])((nint)extension);
+			#endif
+		}
+
+		/// <summary>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GLExtensionSupported(byte* extension)
+		{
+			SDLBool ret = GLExtensionSupportedNative(extension);
+			return ret;
+		}
+
+		/// <summary>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GLExtensionSupported(in byte extension)
+		{
+			fixed (byte* pextension = &extension)
+			{
+				SDLBool ret = GLExtensionSupportedNative((byte*)pextension);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GLExtensionSupported(ReadOnlySpan<byte> extension)
+		{
+			fixed (byte* pextension = extension)
+			{
+				SDLBool ret = GLExtensionSupportedNative((byte*)pextension);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool GLExtensionSupported(string extension)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (extension != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(extension);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(extension, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLBool ret = GLExtensionSupportedNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Reset all previously set OpenGL context attributes to their default values.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GLResetAttributesNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[428])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[428])();
+			#endif
+		}
+
+		/// <summary>
+		/// Reset all previously set OpenGL context attributes to their default values.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLResetAttributes()
+		{
+			GLResetAttributesNative();
+		}
+
+		/// <summary>
+		/// Set an OpenGL window attribute before window creation.<br/>
+		/// This function sets the OpenGL attribute `attr` to `value`. The requested<br/>
+		/// attributes should be set before creating an OpenGL window. You should use<br/>
+		/// SDL_GL_GetAttribute() to check the values after creating the OpenGL<br/>
+		/// context, since the values obtained can differ from the requested ones.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GLSetAttributeNative(SDLGLattr attr, int value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGLattr, int, int>)funcTable[429])(attr, value);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<SDLGLattr, int, int>)funcTable[429])(attr, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an OpenGL window attribute before window creation.<br/>
+		/// This function sets the OpenGL attribute `attr` to `value`. The requested<br/>
+		/// attributes should be set before creating an OpenGL window. You should use<br/>
+		/// SDL_GL_GetAttribute() to check the values after creating the OpenGL<br/>
+		/// context, since the values obtained can differ from the requested ones.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLSetAttribute(SDLGLattr attr, int value)
+		{
+			int ret = GLSetAttributeNative(attr, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the actual value for an attribute from the current context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GLGetAttributeNative(SDLGLattr attr, int* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGLattr, int*, int>)funcTable[430])(attr, value);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<SDLGLattr, nint, int>)funcTable[430])(attr, (nint)value);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the actual value for an attribute from the current context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLGetAttribute(SDLGLattr attr, int* value)
+		{
+			int ret = GLGetAttributeNative(attr, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the actual value for an attribute from the current context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLGetAttribute(SDLGLattr attr, ref int value)
+		{
+			fixed (int* pvalue = &value)
+			{
+				int ret = GLGetAttributeNative(attr, (int*)pvalue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is an alias for `void *`. It's opaque to the application.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* GLCreateContextNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, void*>)funcTable[431])(window);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[431])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is an alias for `void *`. It's opaque to the application.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GLCreateContext(SDLWindowPtr window)
+		{
+			void* ret = GLCreateContextNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is an alias for `void *`. It's opaque to the application.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GLCreateContext(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				void* ret = GLCreateContextNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GLMakeCurrentNative(SDLWindow* window, void* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, void*, int>)funcTable[432])(window, context);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[432])((nint)window, (nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLMakeCurrent(SDLWindowPtr window, void* context)
+		{
+			int ret = GLMakeCurrentNative((SDLWindow*)window, context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLMakeCurrent(ref SDLWindow window, void* context)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = GLMakeCurrentNative((SDLWindow*)pwindow, context);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLMakeCurrent(SDLWindowPtr window, nint context)
+		{
+			int ret = GLMakeCurrentNative((SDLWindow*)window, (void*)context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLMakeCurrent(ref SDLWindow window, nint context)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = GLMakeCurrentNative((SDLWindow*)pwindow, (void*)context);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GLGetCurrentWindowNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[433])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[433])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr GLGetCurrentWindow()
+		{
+			SDLWindowPtr ret = GLGetCurrentWindowNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* GLGetCurrentContextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*>)funcTable[434])();
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint>)funcTable[434])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GLGetCurrentContext()
+		{
+			void* ret = GLGetCurrentContextNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GLGetDrawableSizeNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[435])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[435])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLGetDrawableSize(SDLWindowPtr window, int* w, int* h)
+		{
+			GLGetDrawableSizeNative((SDLWindow*)window, w, h);
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLGetDrawableSize(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GLGetDrawableSizeNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLGetDrawableSize(SDLWindowPtr window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				GLGetDrawableSizeNative((SDLWindow*)window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLGetDrawableSize(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					GLGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLGetDrawableSize(SDLWindowPtr window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				GLGetDrawableSizeNative((SDLWindow*)window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLGetDrawableSize(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					GLGetDrawableSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLGetDrawableSize(SDLWindowPtr window, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					GLGetDrawableSizeNative((SDLWindow*)window, (int*)pw, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels.<br/>
+		/// This returns info useful for calling glViewport().<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLGetDrawableSize(ref SDLWindow window, ref int w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						GLGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the swap interval for the current OpenGL context.<br/>
+		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
+		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
+		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
+		/// might be less jarring for the user during occasional framerate drops. If an<br/>
+		/// application requests adaptive vsync and the system does not support it,<br/>
+		/// this function will fail and return -1. In such a case, you should probably<br/>
+		/// retry the call with 1 for the interval.<br/>
+		/// Adaptive vsync is implemented for some glX drivers with<br/>
+		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
+		/// WGL_EXT_swap_control_tear.<br/>
+		/// Read more on the Khronos wiki:<br/>
+		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GLSetSwapIntervalNative(int interval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[436])(interval);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[436])(interval);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the swap interval for the current OpenGL context.<br/>
+		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
+		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
+		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
+		/// might be less jarring for the user during occasional framerate drops. If an<br/>
+		/// application requests adaptive vsync and the system does not support it,<br/>
+		/// this function will fail and return -1. In such a case, you should probably<br/>
+		/// retry the call with 1 for the interval.<br/>
+		/// Adaptive vsync is implemented for some glX drivers with<br/>
+		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
+		/// WGL_EXT_swap_control_tear.<br/>
+		/// Read more on the Khronos wiki:<br/>
+		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLSetSwapInterval(int interval)
+		{
+			int ret = GLSetSwapIntervalNative(interval);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the swap interval for the current OpenGL context.<br/>
+		/// If the system can't determine the swap interval, or there isn't a valid<br/>
+		/// current context, this function will return 0 as a safe default.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GLGetSwapIntervalNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[437])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[437])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the swap interval for the current OpenGL context.<br/>
+		/// If the system can't determine the swap interval, or there isn't a valid<br/>
+		/// current context, this function will return 0 as a safe default.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GLGetSwapInterval()
+		{
+			int ret = GLGetSwapIntervalNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GLSwapWindowNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[438])(window);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[438])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLSwapWindow(SDLWindowPtr window)
+		{
+			GLSwapWindowNative((SDLWindow*)window);
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLSwapWindow(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GLSwapWindowNative((SDLWindow*)pwindow);
+			}
+		}
+
+		/// <summary>
+		/// Delete an OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GLDeleteContextNative(void* context)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[439])(context);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[439])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Delete an OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLDeleteContext(void* context)
+		{
+			GLDeleteContextNative(context);
+		}
+
+		/// <summary>
+		/// Delete an OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GLDeleteContext(nint context)
+		{
+			GLDeleteContextNative((void*)context);
+		}
+
+		/// <summary>
+		/// Query the window which currently has keyboard focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetKeyboardFocusNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[440])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[440])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query the window which currently has keyboard focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr GetKeyboardFocus()
+		{
+			SDLWindowPtr ret = GetKeyboardFocusNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a snapshot of the current state of the keyboard.<br/>
+		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
+		/// valid for the whole lifetime of the application and should not be freed by<br/>
+		/// the caller.<br/>
+		/// A array element with a value of 1 means that the key is pressed and a value<br/>
+		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
+		/// SDL_Scancode values.<br/>
+		/// Use SDL_PumpEvents() to update the state array.<br/>
+		/// This function gives you the current state after all events have been<br/>
+		/// processed, so if a key or button has been pressed and released before you<br/>
+		/// process events, then the pressed state will never show up in the<br/>
+		/// SDL_GetKeyboardState() calls.<br/>
+		/// Note: This function doesn't take into account whether shift has been<br/>
+		/// pressed or not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetKeyboardStateNative(int* numkeys)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, byte*>)funcTable[441])(numkeys);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[441])((nint)numkeys);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a snapshot of the current state of the keyboard.<br/>
+		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
+		/// valid for the whole lifetime of the application and should not be freed by<br/>
+		/// the caller.<br/>
+		/// A array element with a value of 1 means that the key is pressed and a value<br/>
+		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
+		/// SDL_Scancode values.<br/>
+		/// Use SDL_PumpEvents() to update the state array.<br/>
+		/// This function gives you the current state after all events have been<br/>
+		/// processed, so if a key or button has been pressed and released before you<br/>
+		/// process events, then the pressed state will never show up in the<br/>
+		/// SDL_GetKeyboardState() calls.<br/>
+		/// Note: This function doesn't take into account whether shift has been<br/>
+		/// pressed or not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetKeyboardState(int* numkeys)
+		{
+			byte* ret = GetKeyboardStateNative(numkeys);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a snapshot of the current state of the keyboard.<br/>
+		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
+		/// valid for the whole lifetime of the application and should not be freed by<br/>
+		/// the caller.<br/>
+		/// A array element with a value of 1 means that the key is pressed and a value<br/>
+		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
+		/// SDL_Scancode values.<br/>
+		/// Use SDL_PumpEvents() to update the state array.<br/>
+		/// This function gives you the current state after all events have been<br/>
+		/// processed, so if a key or button has been pressed and released before you<br/>
+		/// process events, then the pressed state will never show up in the<br/>
+		/// SDL_GetKeyboardState() calls.<br/>
+		/// Note: This function doesn't take into account whether shift has been<br/>
+		/// pressed or not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetKeyboardStateS(int* numkeys)
+		{
+			string ret = Utils.DecodeStringUTF8(GetKeyboardStateNative(numkeys));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a snapshot of the current state of the keyboard.<br/>
+		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
+		/// valid for the whole lifetime of the application and should not be freed by<br/>
+		/// the caller.<br/>
+		/// A array element with a value of 1 means that the key is pressed and a value<br/>
+		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
+		/// SDL_Scancode values.<br/>
+		/// Use SDL_PumpEvents() to update the state array.<br/>
+		/// This function gives you the current state after all events have been<br/>
+		/// processed, so if a key or button has been pressed and released before you<br/>
+		/// process events, then the pressed state will never show up in the<br/>
+		/// SDL_GetKeyboardState() calls.<br/>
+		/// Note: This function doesn't take into account whether shift has been<br/>
+		/// pressed or not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetKeyboardState(ref int numkeys)
+		{
+			fixed (int* pnumkeys = &numkeys)
+			{
+				byte* ret = GetKeyboardStateNative((int*)pnumkeys);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a snapshot of the current state of the keyboard.<br/>
+		/// The pointer returned is a pointer to an internal SDL array. It will be<br/>
+		/// valid for the whole lifetime of the application and should not be freed by<br/>
+		/// the caller.<br/>
+		/// A array element with a value of 1 means that the key is pressed and a value<br/>
+		/// of 0 means that it is not. Indexes into this array are obtained by using<br/>
+		/// SDL_Scancode values.<br/>
+		/// Use SDL_PumpEvents() to update the state array.<br/>
+		/// This function gives you the current state after all events have been<br/>
+		/// processed, so if a key or button has been pressed and released before you<br/>
+		/// process events, then the pressed state will never show up in the<br/>
+		/// SDL_GetKeyboardState() calls.<br/>
+		/// Note: This function doesn't take into account whether shift has been<br/>
+		/// pressed or not.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetKeyboardStateS(ref int numkeys)
+		{
+			fixed (int* pnumkeys = &numkeys)
+			{
+				string ret = Utils.DecodeStringUTF8(GetKeyboardStateNative((int*)pnumkeys));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Clear the state of the keyboard<br/>
+		/// This function will generate key up events for all pressed keys.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ResetKeyboardNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[442])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[442])();
+			#endif
+		}
+
+		/// <summary>
+		/// Clear the state of the keyboard<br/>
+		/// This function will generate key up events for all pressed keys.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ResetKeyboard()
+		{
+			ResetKeyboardNative();
+		}
+
+		/// <summary>
+		/// Get the current key modifier state for the keyboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLKeymod GetModStateNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[443])();
+			#else
+			return (SDLKeymod)((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[443])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current key modifier state for the keyboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLKeymod GetModState()
+		{
+			SDLKeymod ret = GetModStateNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the current key modifier state for the keyboard.<br/>
+		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
+		/// modifier key states on your application. Simply pass your desired modifier<br/>
+		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
+		/// SDL_Keymod values.<br/>
+		/// This does not change the keyboard state, only the key modifier flags that<br/>
+		/// SDL reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetModStateNative(SDLKeymod modstate)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[444])(modstate);
+			#else
+			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[444])(modstate);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the current key modifier state for the keyboard.<br/>
+		/// The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose<br/>
+		/// modifier key states on your application. Simply pass your desired modifier<br/>
+		/// states into `modstate`. This value may be a bitwise, OR'd combination of<br/>
+		/// SDL_Keymod values.<br/>
+		/// This does not change the keyboard state, only the key modifier flags that<br/>
+		/// SDL reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetModState(SDLKeymod modstate)
+		{
+			SetModStateNative(modstate);
+		}
+
+		/// <summary>
+		/// Get the key code corresponding to the given scancode according to the<br/>
+		/// current keyboard layout.<br/>
+		/// See SDL_Keycode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetKeyFromScancodeNative(SDLScancode scancode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLScancode, int>)funcTable[445])(scancode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<SDLScancode, int>)funcTable[445])(scancode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the key code corresponding to the given scancode according to the<br/>
+		/// current keyboard layout.<br/>
+		/// See SDL_Keycode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromScancode(SDLScancode scancode)
+		{
+			int ret = GetKeyFromScancodeNative(scancode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the scancode corresponding to the given key code according to the<br/>
+		/// current keyboard layout.<br/>
+		/// See SDL_Scancode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLScancode GetScancodeFromKeyNative(int key)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLScancode>)funcTable[446])(key);
+			#else
+			return (SDLScancode)((delegate* unmanaged[Cdecl]<int, SDLScancode>)funcTable[446])(key);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the scancode corresponding to the given key code according to the<br/>
+		/// current keyboard layout.<br/>
+		/// See SDL_Scancode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLScancode GetScancodeFromKey(int key)
+		{
+			SDLScancode ret = GetScancodeFromKeyNative(key);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a scancode.<br/>
+		/// See SDL_Scancode for details.<br/>
+		/// **Warning**: The returned name is by design not stable across platforms,<br/>
+		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
+		/// Windows" under Microsoft Windows, and some scancodes like<br/>
+		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
+		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
+		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
+		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
+		/// strings and scancodes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetScancodeNameNative(SDLScancode scancode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*>)funcTable[447])(scancode);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLScancode, nint>)funcTable[447])(scancode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a scancode.<br/>
+		/// See SDL_Scancode for details.<br/>
+		/// **Warning**: The returned name is by design not stable across platforms,<br/>
+		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
+		/// Windows" under Microsoft Windows, and some scancodes like<br/>
+		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
+		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
+		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
+		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
+		/// strings and scancodes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetScancodeName(SDLScancode scancode)
+		{
+			byte* ret = GetScancodeNameNative(scancode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a scancode.<br/>
+		/// See SDL_Scancode for details.<br/>
+		/// **Warning**: The returned name is by design not stable across platforms,<br/>
+		/// e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left<br/>
+		/// Windows" under Microsoft Windows, and some scancodes like<br/>
+		/// `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even<br/>
+		/// scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and<br/>
+		/// `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore<br/>
+		/// unsuitable for creating a stable cross-platform two-way mapping between<br/>
+		/// strings and scancodes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetScancodeNameS(SDLScancode scancode)
+		{
+			string ret = Utils.DecodeStringUTF8(GetScancodeNameNative(scancode));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a scancode from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLScancode GetScancodeFromNameNative(byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLScancode>)funcTable[448])(name);
+			#else
+			return (SDLScancode)((delegate* unmanaged[Cdecl]<nint, SDLScancode>)funcTable[448])((nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a scancode from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLScancode GetScancodeFromName(byte* name)
+		{
+			SDLScancode ret = GetScancodeFromNameNative(name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a scancode from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLScancode GetScancodeFromName(in byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a scancode from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLScancode GetScancodeFromName(ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLScancode ret = GetScancodeFromNameNative((byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a scancode from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLScancode GetScancodeFromName(string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLScancode ret = GetScancodeFromNameNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a key.<br/>
+		/// See SDL_Scancode and SDL_Keycode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetKeyNameNative(int key)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[449])(key);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[449])(key);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a key.<br/>
+		/// See SDL_Scancode and SDL_Keycode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetKeyName(int key)
+		{
+			byte* ret = GetKeyNameNative(key);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a key.<br/>
+		/// See SDL_Scancode and SDL_Keycode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetKeyNameS(int key)
+		{
+			string ret = Utils.DecodeStringUTF8(GetKeyNameNative(key));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetKeyFromNameNative(byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[450])(name);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[450])((nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromName(byte* name)
+		{
+			int ret = GetKeyFromNameNative(name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromName(in byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				int ret = GetKeyFromNameNative((byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromName(ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				int ret = GetKeyFromNameNative((byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromName(string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = GetKeyFromNameNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events.<br/>
+		/// This function will start accepting Unicode text input events in the focused<br/>
+		/// SDL window, and start emitting SDL_TextInputEvent (SDL_TEXTINPUT) and<br/>
+		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
+		/// pair with SDL_StopTextInput().<br/>
+		/// On some platforms using this function activates the screen keyboard.<br/>
+		/// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL<br/>
+		/// video subsystem initialization which will cause SDL_TextInputEvent and<br/>
+		/// SDL_TextEditingEvent to begin emitting.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void StartTextInputNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
+			#endif
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events.<br/>
+		/// This function will start accepting Unicode text input events in the focused<br/>
+		/// SDL window, and start emitting SDL_TextInputEvent (SDL_TEXTINPUT) and<br/>
+		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
+		/// pair with SDL_StopTextInput().<br/>
+		/// On some platforms using this function activates the screen keyboard.<br/>
+		/// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL<br/>
+		/// video subsystem initialization which will cause SDL_TextInputEvent and<br/>
+		/// SDL_TextEditingEvent to begin emitting.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void StartTextInput()
+		{
+			StartTextInputNative();
+		}
+
+		/// <summary>
+		/// Check whether or not Unicode text input events are enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsTextInputActiveNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether or not Unicode text input events are enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsTextInputActive()
+		{
+			SDLBool ret = IsTextInputActiveNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Stop receiving any text input events.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void StopTextInputNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
+			#endif
+		}
+
+		/// <summary>
+		/// Stop receiving any text input events.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void StopTextInput()
+		{
+			StopTextInputNative();
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ClearCompositionNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
+			#endif
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ClearComposition()
+		{
+			ClearCompositionNative();
+		}
+
+		/// <summary>
+		/// Returns if an IME Composite or Candidate window is currently shown.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsTextInputShownNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
+			#endif
+		}
+
+		/// <summary>
+		/// Returns if an IME Composite or Candidate window is currently shown.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsTextInputShown()
+		{
+			SDLBool ret = IsTextInputShownNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the rectangle used to type Unicode text inputs.<br/>
+		/// Native input methods will place a window with word suggestions near it,<br/>
+		/// without covering the text being inputted.<br/>
+		/// To start text input in a given location, this function is intended to be<br/>
+		/// called before SDL_StartTextInput, although some platforms support moving<br/>
+		/// the rectangle even while text input (and a composition) is active.<br/>
+		/// Note: If you want to use the system native IME window, try setting hint<br/>
+		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
+		/// any feedback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetTextInputRectNative(SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRect*, void>)funcTable[456])(rect);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[456])((nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the rectangle used to type Unicode text inputs.<br/>
+		/// Native input methods will place a window with word suggestions near it,<br/>
+		/// without covering the text being inputted.<br/>
+		/// To start text input in a given location, this function is intended to be<br/>
+		/// called before SDL_StartTextInput, although some platforms support moving<br/>
+		/// the rectangle even while text input (and a composition) is active.<br/>
+		/// Note: If you want to use the system native IME window, try setting hint<br/>
+		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
+		/// any feedback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTextInputRect(SDLRectPtr rect)
+		{
+			SetTextInputRectNative((SDLRect*)rect);
+		}
+
+		/// <summary>
+		/// Set the rectangle used to type Unicode text inputs.<br/>
+		/// Native input methods will place a window with word suggestions near it,<br/>
+		/// without covering the text being inputted.<br/>
+		/// To start text input in a given location, this function is intended to be<br/>
+		/// called before SDL_StartTextInput, although some platforms support moving<br/>
+		/// the rectangle even while text input (and a composition) is active.<br/>
+		/// Note: If you want to use the system native IME window, try setting hint<br/>
+		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
+		/// any feedback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTextInputRect(in SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				SetTextInputRectNative((SDLRect*)prect);
+			}
+		}
+
+		/// <summary>
+		/// Check whether the platform has screen keyboard support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasScreenKeyboardSupportNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether the platform has screen keyboard support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasScreenKeyboardSupport()
+		{
+			SDLBool ret = HasScreenKeyboardSupportNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsScreenKeyboardShownNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[458])(window);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[458])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsScreenKeyboardShown(SDLWindowPtr window)
+		{
+			SDLBool ret = IsScreenKeyboardShownNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsScreenKeyboardShown(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLBool ret = IsScreenKeyboardShownNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the window which currently has mouse focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetMouseFocusNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[459])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[459])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the window which currently has mouse focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr GetMouseFocus()
+		{
+			SDLWindowPtr ret = GetMouseFocusNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetMouseStateNative(int* x, int* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[460])(x, y);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[460])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetMouseState(int* x, int* y)
+		{
+			uint ret = GetMouseStateNative(x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetMouseState(ref int x, int* y)
+		{
+			fixed (int* px = &x)
+			{
+				uint ret = GetMouseStateNative((int*)px, y);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetMouseState(int* x, ref int y)
+		{
+			fixed (int* py = &y)
+			{
+				uint ret = GetMouseStateNative(x, (int*)py);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Retrieve the current state of the mouse.<br/>
 		/// The current button state is returned as a button bitmask, which can be<br/>
 		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
@@ -304,9 +3397,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void WarpMouseInWindow(SDLWindow* window, int x, int y)
+		public static void WarpMouseInWindow(SDLWindowPtr window, int x, int y)
 		{
-			WarpMouseInWindowNative(window, x, y);
+			WarpMouseInWindowNative((SDLWindow*)window, x, y);
 		}
 
 		/// <summary>
@@ -566,9 +3659,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* CreateCursor(byte* data, byte* mask, int w, int h, int hotX, int hotY)
+		public static SDLCursorPtr CreateCursor(byte* data, byte* mask, int w, int h, int hotX, int hotY)
 		{
-			SDLCursor* ret = CreateCursorNative(data, mask, w, h, hotX, hotY);
+			SDLCursorPtr ret = CreateCursorNative(data, mask, w, h, hotX, hotY);
 			return ret;
 		}
 
@@ -592,11 +3685,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* CreateCursor(ref byte data, byte* mask, int w, int h, int hotX, int hotY)
+		public static SDLCursorPtr CreateCursor(in byte data, byte* mask, int w, int h, int hotX, int hotY)
 		{
 			fixed (byte* pdata = &data)
 			{
-				SDLCursor* ret = CreateCursorNative((byte*)pdata, mask, w, h, hotX, hotY);
+				SDLCursorPtr ret = CreateCursorNative((byte*)pdata, mask, w, h, hotX, hotY);
 				return ret;
 			}
 		}
@@ -621,11 +3714,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* CreateCursor(byte* data, ref byte mask, int w, int h, int hotX, int hotY)
+		public static SDLCursorPtr CreateCursor(byte* data, in byte mask, int w, int h, int hotX, int hotY)
 		{
 			fixed (byte* pmask = &mask)
 			{
-				SDLCursor* ret = CreateCursorNative(data, (byte*)pmask, w, h, hotX, hotY);
+				SDLCursorPtr ret = CreateCursorNative(data, (byte*)pmask, w, h, hotX, hotY);
 				return ret;
 			}
 		}
@@ -650,13 +3743,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* CreateCursor(ref byte data, ref byte mask, int w, int h, int hotX, int hotY)
+		public static SDLCursorPtr CreateCursor(in byte data, in byte mask, int w, int h, int hotX, int hotY)
 		{
 			fixed (byte* pdata = &data)
 			{
 				fixed (byte* pmask = &mask)
 				{
-					SDLCursor* ret = CreateCursorNative((byte*)pdata, (byte*)pmask, w, h, hotX, hotY);
+					SDLCursorPtr ret = CreateCursorNative((byte*)pdata, (byte*)pmask, w, h, hotX, hotY);
 					return ret;
 				}
 			}
@@ -684,9 +3777,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* CreateColorCursor(SDLSurface* surface, int hotX, int hotY)
+		public static SDLCursorPtr CreateColorCursor(SDLSurfacePtr surface, int hotX, int hotY)
 		{
-			SDLCursor* ret = CreateColorCursorNative(surface, hotX, hotY);
+			SDLCursorPtr ret = CreateColorCursorNative((SDLSurface*)surface, hotX, hotY);
 			return ret;
 		}
 
@@ -696,11 +3789,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* CreateColorCursor(ref SDLSurface surface, int hotX, int hotY)
+		public static SDLCursorPtr CreateColorCursor(ref SDLSurface surface, int hotX, int hotY)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLCursor* ret = CreateColorCursorNative((SDLSurface*)psurface, hotX, hotY);
+				SDLCursorPtr ret = CreateColorCursorNative((SDLSurface*)psurface, hotX, hotY);
 				return ret;
 			}
 		}
@@ -727,9 +3820,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* CreateSystemCursor(SDLSystemCursor id)
+		public static SDLCursorPtr CreateSystemCursor(SDLSystemCursor id)
 		{
-			SDLCursor* ret = CreateSystemCursorNative(id);
+			SDLCursorPtr ret = CreateSystemCursorNative(id);
 			return ret;
 		}
 
@@ -763,9 +3856,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void SetCursor(SDLCursor* cursor)
+		public static void SetCursor(SDLCursorPtr cursor)
 		{
-			SetCursorNative(cursor);
+			SetCursorNative((SDLCursor*)cursor);
 		}
 
 		/// <summary>
@@ -812,9 +3905,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* GetCursor()
+		public static SDLCursorPtr GetCursor()
 		{
-			SDLCursor* ret = GetCursorNative();
+			SDLCursorPtr ret = GetCursorNative();
 			return ret;
 		}
 
@@ -844,9 +3937,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCursor* GetDefaultCursor()
+		public static SDLCursorPtr GetDefaultCursor()
 		{
-			SDLCursor* ret = GetDefaultCursorNative();
+			SDLCursorPtr ret = GetDefaultCursorNative();
 			return ret;
 		}
 
@@ -876,9 +3969,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void FreeCursor(SDLCursor* cursor)
+		public static void FreeCursor(SDLCursorPtr cursor)
 		{
-			FreeCursorNative(cursor);
+			FreeCursorNative((SDLCursor*)cursor);
 		}
 
 		/// <summary>
@@ -1054,7 +4147,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SdlGuid GUIDFromString(ref byte pchGUID)
+		public static SdlGuid GUIDFromString(in byte pchGUID)
 		{
 			fixed (byte* ppchGUID = &pchGUID)
 			{
@@ -1647,9 +4740,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int JoystickAttachVirtualEx(SDLVirtualJoystickDesc* desc)
+		public static int JoystickAttachVirtualEx(SDLVirtualJoystickDescPtr desc)
 		{
-			int ret = JoystickAttachVirtualExNative(desc);
+			int ret = JoystickAttachVirtualExNative((SDLVirtualJoystickDesc*)desc);
 			return ret;
 		}
 
@@ -1658,7 +4751,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int JoystickAttachVirtualEx(ref SDLVirtualJoystickDesc desc)
+		public static int JoystickAttachVirtualEx(in SDLVirtualJoystickDesc desc)
 		{
 			fixed (SDLVirtualJoystickDesc* pdesc = &desc)
 			{
@@ -1931,3091 +5024,6 @@ namespace Hexa.NET.SDL2
 		{
 			string ret = Utils.DecodeStringUTF8(JoystickNameNative(joystick));
 			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* JoystickName(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte* ret = JoystickNameNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string JoystickNameS(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				string ret = Utils.DecodeStringUTF8(JoystickNameNative((SDLJoystick*)pjoystick));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* JoystickPathNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[501])(joystick);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[501])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* JoystickPath(SDLJoystick* joystick)
-		{
-			byte* ret = JoystickPathNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string JoystickPathS(SDLJoystick* joystick)
-		{
-			string ret = Utils.DecodeStringUTF8(JoystickPathNative(joystick));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* JoystickPath(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte* ret = JoystickPathNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string JoystickPathS(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				string ret = Utils.DecodeStringUTF8(JoystickPathNative((SDLJoystick*)pjoystick));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the player index of an opened joystick.<br/>
-		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
-		/// will not be able to supply this information.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickGetPlayerIndexNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[502])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[502])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the player index of an opened joystick.<br/>
-		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
-		/// will not be able to supply this information.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetPlayerIndex(SDLJoystick* joystick)
-		{
-			int ret = JoystickGetPlayerIndexNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the player index of an opened joystick.<br/>
-		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
-		/// will not be able to supply this information.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetPlayerIndex(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickGetPlayerIndexNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the player index of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void JoystickSetPlayerIndexNative(SDLJoystick* joystick, int playerIndex)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLJoystick*, int, void>)funcTable[503])(joystick, playerIndex);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[503])((nint)joystick, playerIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the player index of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void JoystickSetPlayerIndex(SDLJoystick* joystick, int playerIndex)
-		{
-			JoystickSetPlayerIndexNative(joystick, playerIndex);
-		}
-
-		/// <summary>
-		/// Set the player index of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void JoystickSetPlayerIndex(ref SDLJoystick joystick, int playerIndex)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				JoystickSetPlayerIndexNative((SDLJoystick*)pjoystick, playerIndex);
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation-dependent GUID for the joystick.<br/>
-		/// This function requires an open joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static Guid JoystickGetGUIDNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, Guid>)funcTable[504])(joystick);
-			#else
-			return (Guid)((delegate* unmanaged[Cdecl]<nint, Guid>)funcTable[504])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation-dependent GUID for the joystick.<br/>
-		/// This function requires an open joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static Guid JoystickGetGUID(SDLJoystick* joystick)
-		{
-			Guid ret = JoystickGetGUIDNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation-dependent GUID for the joystick.<br/>
-		/// This function requires an open joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static Guid JoystickGetGUID(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				Guid ret = JoystickGetGUIDNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the USB vendor ID of an opened joystick, if available.<br/>
-		/// If the vendor ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort JoystickGetVendorNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[505])(joystick);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[505])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the USB vendor ID of an opened joystick, if available.<br/>
-		/// If the vendor ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort JoystickGetVendor(SDLJoystick* joystick)
-		{
-			ushort ret = JoystickGetVendorNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the USB vendor ID of an opened joystick, if available.<br/>
-		/// If the vendor ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort JoystickGetVendor(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				ushort ret = JoystickGetVendorNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the USB product ID of an opened joystick, if available.<br/>
-		/// If the product ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort JoystickGetProductNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[506])(joystick);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[506])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the USB product ID of an opened joystick, if available.<br/>
-		/// If the product ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort JoystickGetProduct(SDLJoystick* joystick)
-		{
-			ushort ret = JoystickGetProductNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the USB product ID of an opened joystick, if available.<br/>
-		/// If the product ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort JoystickGetProduct(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				ushort ret = JoystickGetProductNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the product version of an opened joystick, if available.<br/>
-		/// If the product version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort JoystickGetProductVersionNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[507])(joystick);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[507])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the product version of an opened joystick, if available.<br/>
-		/// If the product version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort JoystickGetProductVersion(SDLJoystick* joystick)
-		{
-			ushort ret = JoystickGetProductVersionNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the product version of an opened joystick, if available.<br/>
-		/// If the product version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort JoystickGetProductVersion(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				ushort ret = JoystickGetProductVersionNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the firmware version of an opened joystick, if available.<br/>
-		/// If the firmware version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort JoystickGetFirmwareVersionNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[508])(joystick);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[508])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the firmware version of an opened joystick, if available.<br/>
-		/// If the firmware version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort JoystickGetFirmwareVersion(SDLJoystick* joystick)
-		{
-			ushort ret = JoystickGetFirmwareVersionNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the firmware version of an opened joystick, if available.<br/>
-		/// If the firmware version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort JoystickGetFirmwareVersion(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				ushort ret = JoystickGetFirmwareVersionNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* JoystickGetSerialNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[509])(joystick);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[509])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* JoystickGetSerial(SDLJoystick* joystick)
-		{
-			byte* ret = JoystickGetSerialNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string JoystickGetSerialS(SDLJoystick* joystick)
-		{
-			string ret = Utils.DecodeStringUTF8(JoystickGetSerialNative(joystick));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* JoystickGetSerial(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte* ret = JoystickGetSerialNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string JoystickGetSerialS(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				string ret = Utils.DecodeStringUTF8(JoystickGetSerialNative((SDLJoystick*)pjoystick));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the type of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLJoystickType JoystickGetTypeNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickType>)funcTable[510])(joystick);
-			#else
-			return (SDLJoystickType)((delegate* unmanaged[Cdecl]<nint, SDLJoystickType>)funcTable[510])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystickType JoystickGetType(SDLJoystick* joystick)
-		{
-			SDLJoystickType ret = JoystickGetTypeNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystickType JoystickGetType(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLJoystickType ret = JoystickGetTypeNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get an ASCII string representation for a given SDL_JoystickGUID.<br/>
-		/// You should supply at least 33 bytes for pszGUID.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void JoystickGetGUIDStringNative(Guid guid, byte* pszGUID, int cbGUID)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<Guid, byte*, int, void>)funcTable[511])(guid, pszGUID, cbGUID);
-			#else
-			((delegate* unmanaged[Cdecl]<Guid, nint, int, void>)funcTable[511])(guid, (nint)pszGUID, cbGUID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get an ASCII string representation for a given SDL_JoystickGUID.<br/>
-		/// You should supply at least 33 bytes for pszGUID.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void JoystickGetGUIDString(Guid guid, byte* pszGUID, int cbGUID)
-		{
-			JoystickGetGUIDStringNative(guid, pszGUID, cbGUID);
-		}
-
-		/// <summary>
-		/// Get an ASCII string representation for a given SDL_JoystickGUID.<br/>
-		/// You should supply at least 33 bytes for pszGUID.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void JoystickGetGUIDString(Guid guid, ref byte pszGUID, int cbGUID)
-		{
-			fixed (byte* ppszGUID = &pszGUID)
-			{
-				JoystickGetGUIDStringNative(guid, (byte*)ppszGUID, cbGUID);
-			}
-		}
-
-		/// <summary>
-		/// Get an ASCII string representation for a given SDL_JoystickGUID.<br/>
-		/// You should supply at least 33 bytes for pszGUID.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void JoystickGetGUIDString(Guid guid, ref string pszGUID, int cbGUID)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (pszGUID != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(pszGUID);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pszGUID, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			JoystickGetGUIDStringNative(guid, pStr0, cbGUID);
-			pszGUID = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static Guid JoystickGetGUIDFromStringNative(byte* pchGUID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, Guid>)funcTable[512])(pchGUID);
-			#else
-			return (Guid)((delegate* unmanaged[Cdecl]<nint, Guid>)funcTable[512])((nint)pchGUID);
-			#endif
-		}
-
-		/// <summary>
-		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static Guid JoystickGetGUIDFromString(byte* pchGUID)
-		{
-			Guid ret = JoystickGetGUIDFromStringNative(pchGUID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static Guid JoystickGetGUIDFromString(ref byte pchGUID)
-		{
-			fixed (byte* ppchGUID = &pchGUID)
-			{
-				Guid ret = JoystickGetGUIDFromStringNative((byte*)ppchGUID);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static Guid JoystickGetGUIDFromString(ReadOnlySpan<byte> pchGUID)
-		{
-			fixed (byte* ppchGUID = pchGUID)
-			{
-				Guid ret = JoystickGetGUIDFromStringNative((byte*)ppchGUID);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static Guid JoystickGetGUIDFromString(string pchGUID)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (pchGUID != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(pchGUID);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pchGUID, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			Guid ret = JoystickGetGUIDFromStringNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetJoystickGUIDInfoNative(Guid guid, ushort* vendor, ushort* product, ushort* version, ushort* crc16)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<Guid, ushort*, ushort*, ushort*, ushort*, void>)funcTable[513])(guid, vendor, product, version, crc16);
-			#else
-			((delegate* unmanaged[Cdecl]<Guid, nint, nint, nint, nint, void>)funcTable[513])(guid, (nint)vendor, (nint)product, (nint)version, (nint)crc16);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ushort* product, ushort* version, ushort* crc16)
-		{
-			GetJoystickGUIDInfoNative(guid, vendor, product, version, crc16);
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ushort* product, ushort* version, ushort* crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, crc16);
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ref ushort product, ushort* version, ushort* crc16)
-		{
-			fixed (ushort* pproduct = &product)
-			{
-				GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, crc16);
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ref ushort product, ushort* version, ushort* crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pproduct = &product)
-				{
-					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, crc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ushort* product, ref ushort version, ushort* crc16)
-		{
-			fixed (ushort* pversion = &version)
-			{
-				GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, crc16);
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ushort* product, ref ushort version, ushort* crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pversion = &version)
-				{
-					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, crc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ref ushort product, ref ushort version, ushort* crc16)
-		{
-			fixed (ushort* pproduct = &product)
-			{
-				fixed (ushort* pversion = &version)
-				{
-					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, crc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ref ushort product, ref ushort version, ushort* crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pproduct = &product)
-				{
-					fixed (ushort* pversion = &version)
-					{
-						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, crc16);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ushort* product, ushort* version, ref ushort crc16)
-		{
-			fixed (ushort* pcrc16 = &crc16)
-			{
-				GetJoystickGUIDInfoNative(guid, vendor, product, version, (ushort*)pcrc16);
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ushort* product, ushort* version, ref ushort crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pcrc16 = &crc16)
-				{
-					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, (ushort*)pcrc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ref ushort product, ushort* version, ref ushort crc16)
-		{
-			fixed (ushort* pproduct = &product)
-			{
-				fixed (ushort* pcrc16 = &crc16)
-				{
-					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, (ushort*)pcrc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ref ushort product, ushort* version, ref ushort crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pproduct = &product)
-				{
-					fixed (ushort* pcrc16 = &crc16)
-					{
-						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, (ushort*)pcrc16);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ushort* product, ref ushort version, ref ushort crc16)
-		{
-			fixed (ushort* pversion = &version)
-			{
-				fixed (ushort* pcrc16 = &crc16)
-				{
-					GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, (ushort*)pcrc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ushort* product, ref ushort version, ref ushort crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pversion = &version)
-				{
-					fixed (ushort* pcrc16 = &crc16)
-					{
-						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, (ushort*)pcrc16);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ref ushort product, ref ushort version, ref ushort crc16)
-		{
-			fixed (ushort* pproduct = &product)
-			{
-				fixed (ushort* pversion = &version)
-				{
-					fixed (ushort* pcrc16 = &crc16)
-					{
-						GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ref ushort product, ref ushort version, ref ushort crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pproduct = &product)
-				{
-					fixed (ushort* pversion = &version)
-					{
-						fixed (ushort* pcrc16 = &crc16)
-						{
-							GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the status of a specified joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool JoystickGetAttachedNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)funcTable[514])(joystick);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[514])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the status of a specified joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickGetAttached(SDLJoystick* joystick)
-		{
-			SDLBool ret = JoystickGetAttachedNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the status of a specified joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickGetAttached(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLBool ret = JoystickGetAttachedNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the instance ID of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickInstanceIDNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[515])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[515])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the instance ID of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickInstanceID(SDLJoystick* joystick)
-		{
-			int ret = JoystickInstanceIDNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the instance ID of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickInstanceID(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickInstanceIDNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of general axis controls on a joystick.<br/>
-		/// Often, the directional pad on a game controller will either look like 4<br/>
-		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
-		/// device and platform.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickNumAxesNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[516])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[516])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of general axis controls on a joystick.<br/>
-		/// Often, the directional pad on a game controller will either look like 4<br/>
-		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
-		/// device and platform.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickNumAxes(SDLJoystick* joystick)
-		{
-			int ret = JoystickNumAxesNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of general axis controls on a joystick.<br/>
-		/// Often, the directional pad on a game controller will either look like 4<br/>
-		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
-		/// device and platform.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickNumAxes(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickNumAxesNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of trackballs on a joystick.<br/>
-		/// Joystick trackballs have only relative motion events associated with them<br/>
-		/// and their state cannot be polled.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickNumBallsNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[517])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[517])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of trackballs on a joystick.<br/>
-		/// Joystick trackballs have only relative motion events associated with them<br/>
-		/// and their state cannot be polled.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickNumBalls(SDLJoystick* joystick)
-		{
-			int ret = JoystickNumBallsNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of trackballs on a joystick.<br/>
-		/// Joystick trackballs have only relative motion events associated with them<br/>
-		/// and their state cannot be polled.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickNumBalls(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickNumBallsNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of POV hats on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickNumHatsNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[518])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[518])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of POV hats on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickNumHats(SDLJoystick* joystick)
-		{
-			int ret = JoystickNumHatsNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of POV hats on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickNumHats(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickNumHatsNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of buttons on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickNumButtonsNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[519])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[519])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of buttons on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickNumButtons(SDLJoystick* joystick)
-		{
-			int ret = JoystickNumButtonsNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of buttons on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickNumButtons(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickNumButtonsNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update the current state of the open joysticks.<br/>
-		/// This is called automatically by the event loop if any joystick events are<br/>
-		/// enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void JoystickUpdateNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[520])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[520])();
-			#endif
-		}
-
-		/// <summary>
-		/// Update the current state of the open joysticks.<br/>
-		/// This is called automatically by the event loop if any joystick events are<br/>
-		/// enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void JoystickUpdate()
-		{
-			JoystickUpdateNative();
-		}
-
-		/// <summary>
-		/// Enable/disable joystick event polling.<br/>
-		/// If joystick events are disabled, you must call SDL_JoystickUpdate()<br/>
-		/// yourself and manually check the state of the joystick when you want<br/>
-		/// joystick information.<br/>
-		/// It is recommended that you leave joystick event handling enabled.<br/>
-		/// **WARNING**: Calling this function may delete all events currently in SDL's<br/>
-		/// event queue.<br/>
-		/// While `param` is meant to be one of `SDL_QUERY`, `SDL_IGNORE`, or<br/>
-		/// `SDL_ENABLE`, this function accepts any value, with any non-zero value that<br/>
-		/// isn't `SDL_QUERY` being treated as `SDL_ENABLE`.<br/>
-		/// If SDL was built with events disabled (extremely uncommon!), this will do<br/>
-		/// nothing and always return `SDL_IGNORE`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickEventStateNative(int state)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[521])(state);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[521])(state);
-			#endif
-		}
-
-		/// <summary>
-		/// Enable/disable joystick event polling.<br/>
-		/// If joystick events are disabled, you must call SDL_JoystickUpdate()<br/>
-		/// yourself and manually check the state of the joystick when you want<br/>
-		/// joystick information.<br/>
-		/// It is recommended that you leave joystick event handling enabled.<br/>
-		/// **WARNING**: Calling this function may delete all events currently in SDL's<br/>
-		/// event queue.<br/>
-		/// While `param` is meant to be one of `SDL_QUERY`, `SDL_IGNORE`, or<br/>
-		/// `SDL_ENABLE`, this function accepts any value, with any non-zero value that<br/>
-		/// isn't `SDL_QUERY` being treated as `SDL_ENABLE`.<br/>
-		/// If SDL was built with events disabled (extremely uncommon!), this will do<br/>
-		/// nothing and always return `SDL_IGNORE`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickEventState(int state)
-		{
-			int ret = JoystickEventStateNative(state);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of an axis control on a joystick.<br/>
-		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
-		/// to. Your game should have some sort of configuration UI to let users<br/>
-		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
-		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
-		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
-		/// The value returned by SDL_JoystickGetAxis() is a signed integer (-32768 to<br/>
-		/// 32767) representing the current position of the axis. It may be necessary<br/>
-		/// to impose certain tolerances on these values to account for jitter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static short JoystickGetAxisNative(SDLJoystick* joystick, int axis)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short>)funcTable[522])(joystick, axis);
-			#else
-			return (short)((delegate* unmanaged[Cdecl]<nint, int, short>)funcTable[522])((nint)joystick, axis);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of an axis control on a joystick.<br/>
-		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
-		/// to. Your game should have some sort of configuration UI to let users<br/>
-		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
-		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
-		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
-		/// The value returned by SDL_JoystickGetAxis() is a signed integer (-32768 to<br/>
-		/// 32767) representing the current position of the axis. It may be necessary<br/>
-		/// to impose certain tolerances on these values to account for jitter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static short JoystickGetAxis(SDLJoystick* joystick, int axis)
-		{
-			short ret = JoystickGetAxisNative(joystick, axis);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of an axis control on a joystick.<br/>
-		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
-		/// to. Your game should have some sort of configuration UI to let users<br/>
-		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
-		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
-		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
-		/// The value returned by SDL_JoystickGetAxis() is a signed integer (-32768 to<br/>
-		/// 32767) representing the current position of the axis. It may be necessary<br/>
-		/// to impose certain tolerances on these values to account for jitter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static short JoystickGetAxis(ref SDLJoystick joystick, int axis)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				short ret = JoystickGetAxisNative((SDLJoystick*)pjoystick, axis);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the initial state of an axis control on a joystick.<br/>
-		/// The state is a value ranging from -32768 to 32767.<br/>
-		/// The axis indices start at index 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool JoystickGetAxisInitialStateNative(SDLJoystick* joystick, int axis, short* state)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short*, SDLBool>)funcTable[523])(joystick, axis, state);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, SDLBool>)funcTable[523])((nint)joystick, axis, (nint)state);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the initial state of an axis control on a joystick.<br/>
-		/// The state is a value ranging from -32768 to 32767.<br/>
-		/// The axis indices start at index 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickGetAxisInitialState(SDLJoystick* joystick, int axis, short* state)
-		{
-			SDLBool ret = JoystickGetAxisInitialStateNative(joystick, axis, state);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the initial state of an axis control on a joystick.<br/>
-		/// The state is a value ranging from -32768 to 32767.<br/>
-		/// The axis indices start at index 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickGetAxisInitialState(ref SDLJoystick joystick, int axis, short* state)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLBool ret = JoystickGetAxisInitialStateNative((SDLJoystick*)pjoystick, axis, state);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the initial state of an axis control on a joystick.<br/>
-		/// The state is a value ranging from -32768 to 32767.<br/>
-		/// The axis indices start at index 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickGetAxisInitialState(SDLJoystick* joystick, int axis, ref short state)
-		{
-			fixed (short* pstate = &state)
-			{
-				SDLBool ret = JoystickGetAxisInitialStateNative(joystick, axis, (short*)pstate);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the initial state of an axis control on a joystick.<br/>
-		/// The state is a value ranging from -32768 to 32767.<br/>
-		/// The axis indices start at index 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickGetAxisInitialState(ref SDLJoystick joystick, int axis, ref short state)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				fixed (short* pstate = &state)
-				{
-					SDLBool ret = JoystickGetAxisInitialStateNative((SDLJoystick*)pjoystick, axis, (short*)pstate);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a POV hat on a joystick.<br/>
-		/// The returned value will be one of the following positions:<br/>
-		/// - `SDL_HAT_CENTERED`<br/>
-		/// - `SDL_HAT_UP`<br/>
-		/// - `SDL_HAT_RIGHT`<br/>
-		/// - `SDL_HAT_DOWN`<br/>
-		/// - `SDL_HAT_LEFT`<br/>
-		/// - `SDL_HAT_RIGHTUP`<br/>
-		/// - `SDL_HAT_RIGHTDOWN`<br/>
-		/// - `SDL_HAT_LEFTUP`<br/>
-		/// - `SDL_HAT_LEFTDOWN`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte JoystickGetHatNative(SDLJoystick* joystick, int hat)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[524])(joystick, hat);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[524])((nint)joystick, hat);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of a POV hat on a joystick.<br/>
-		/// The returned value will be one of the following positions:<br/>
-		/// - `SDL_HAT_CENTERED`<br/>
-		/// - `SDL_HAT_UP`<br/>
-		/// - `SDL_HAT_RIGHT`<br/>
-		/// - `SDL_HAT_DOWN`<br/>
-		/// - `SDL_HAT_LEFT`<br/>
-		/// - `SDL_HAT_RIGHTUP`<br/>
-		/// - `SDL_HAT_RIGHTDOWN`<br/>
-		/// - `SDL_HAT_LEFTUP`<br/>
-		/// - `SDL_HAT_LEFTDOWN`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte JoystickGetHat(SDLJoystick* joystick, int hat)
-		{
-			byte ret = JoystickGetHatNative(joystick, hat);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of a POV hat on a joystick.<br/>
-		/// The returned value will be one of the following positions:<br/>
-		/// - `SDL_HAT_CENTERED`<br/>
-		/// - `SDL_HAT_UP`<br/>
-		/// - `SDL_HAT_RIGHT`<br/>
-		/// - `SDL_HAT_DOWN`<br/>
-		/// - `SDL_HAT_LEFT`<br/>
-		/// - `SDL_HAT_RIGHTUP`<br/>
-		/// - `SDL_HAT_RIGHTDOWN`<br/>
-		/// - `SDL_HAT_LEFTUP`<br/>
-		/// - `SDL_HAT_LEFTDOWN`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte JoystickGetHat(ref SDLJoystick joystick, int hat)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte ret = JoystickGetHatNative((SDLJoystick*)pjoystick, hat);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickGetBallNative(SDLJoystick* joystick, int ball, int* dx, int* dy)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, int*, int*, int>)funcTable[525])(joystick, ball, dx, dy);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, int>)funcTable[525])((nint)joystick, ball, (nint)dx, (nint)dy);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetBall(SDLJoystick* joystick, int ball, int* dx, int* dy)
-		{
-			int ret = JoystickGetBallNative(joystick, ball, dx, dy);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetBall(ref SDLJoystick joystick, int ball, int* dx, int* dy)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, dx, dy);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetBall(SDLJoystick* joystick, int ball, ref int dx, int* dy)
-		{
-			fixed (int* pdx = &dx)
-			{
-				int ret = JoystickGetBallNative(joystick, ball, (int*)pdx, dy);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetBall(ref SDLJoystick joystick, int ball, ref int dx, int* dy)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				fixed (int* pdx = &dx)
-				{
-					int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, dy);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetBall(SDLJoystick* joystick, int ball, int* dx, ref int dy)
-		{
-			fixed (int* pdy = &dy)
-			{
-				int ret = JoystickGetBallNative(joystick, ball, dx, (int*)pdy);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetBall(ref SDLJoystick joystick, int ball, int* dx, ref int dy)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				fixed (int* pdy = &dy)
-				{
-					int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, dx, (int*)pdy);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetBall(SDLJoystick* joystick, int ball, ref int dx, ref int dy)
-		{
-			fixed (int* pdx = &dx)
-			{
-				fixed (int* pdy = &dy)
-				{
-					int ret = JoystickGetBallNative(joystick, ball, (int*)pdx, (int*)pdy);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the ball axis change since the last poll.<br/>
-		/// Trackballs can only return relative motion since the last call to<br/>
-		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickGetBall(ref SDLJoystick joystick, int ball, ref int dx, ref int dy)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				fixed (int* pdx = &dx)
-				{
-					fixed (int* pdy = &dy)
-					{
-						int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, (int*)pdy);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a button on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte JoystickGetButtonNative(SDLJoystick* joystick, int button)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[526])(joystick, button);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[526])((nint)joystick, button);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of a button on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte JoystickGetButton(SDLJoystick* joystick, int button)
-		{
-			byte ret = JoystickGetButtonNative(joystick, button);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of a button on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte JoystickGetButton(ref SDLJoystick joystick, int button)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte ret = JoystickGetButtonNative((SDLJoystick*)pjoystick, button);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Start a rumble effect.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickRumbleNative(SDLJoystick* joystick, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort, ushort, uint, int>)funcTable[527])(joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, int>)funcTable[527])((nint)joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			#endif
-		}
-
-		/// <summary>
-		/// Start a rumble effect.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickRumble(SDLJoystick* joystick, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
-		{
-			int ret = JoystickRumbleNative(joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			return ret;
-		}
-
-		/// <summary>
-		/// Start a rumble effect.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickRumble(ref SDLJoystick joystick, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickRumbleNative((SDLJoystick*)pjoystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the joystick's triggers<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
-		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
-		/// want the (more common) whole-controller rumble, use SDL_JoystickRumble()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickRumbleTriggersNative(SDLJoystick* joystick, ushort leftRumble, ushort rightRumble, uint durationMs)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort, ushort, uint, int>)funcTable[528])(joystick, leftRumble, rightRumble, durationMs);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, int>)funcTable[528])((nint)joystick, leftRumble, rightRumble, durationMs);
-			#endif
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the joystick's triggers<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
-		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
-		/// want the (more common) whole-controller rumble, use SDL_JoystickRumble()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickRumbleTriggers(SDLJoystick* joystick, ushort leftRumble, ushort rightRumble, uint durationMs)
-		{
-			int ret = JoystickRumbleTriggersNative(joystick, leftRumble, rightRumble, durationMs);
-			return ret;
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the joystick's triggers<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
-		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
-		/// want the (more common) whole-controller rumble, use SDL_JoystickRumble()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickRumbleTriggers(ref SDLJoystick joystick, ushort leftRumble, ushort rightRumble, uint durationMs)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickRumbleTriggersNative((SDLJoystick*)pjoystick, leftRumble, rightRumble, durationMs);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether a joystick has an LED.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool JoystickHasLEDNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)funcTable[529])(joystick);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[529])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether a joystick has an LED.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickHasLED(SDLJoystick* joystick)
-		{
-			SDLBool ret = JoystickHasLEDNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether a joystick has an LED.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickHasLED(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLBool ret = JoystickHasLEDNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether a joystick has rumble support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool JoystickHasRumbleNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)funcTable[530])(joystick);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[530])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether a joystick has rumble support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickHasRumble(SDLJoystick* joystick)
-		{
-			SDLBool ret = JoystickHasRumbleNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether a joystick has rumble support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickHasRumble(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLBool ret = JoystickHasRumbleNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether a joystick has rumble support on triggers.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool JoystickHasRumbleTriggersNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)funcTable[531])(joystick);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[531])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether a joystick has rumble support on triggers.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickHasRumbleTriggers(SDLJoystick* joystick)
-		{
-			SDLBool ret = JoystickHasRumbleTriggersNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether a joystick has rumble support on triggers.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool JoystickHasRumbleTriggers(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLBool ret = JoystickHasRumbleTriggersNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a joystick's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickSetLEDNative(SDLJoystick* joystick, byte red, byte green, byte blue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte, byte, byte, int>)funcTable[532])(joystick, red, green, blue);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)funcTable[532])((nint)joystick, red, green, blue);
-			#endif
-		}
-
-		/// <summary>
-		/// Update a joystick's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickSetLED(SDLJoystick* joystick, byte red, byte green, byte blue)
-		{
-			int ret = JoystickSetLEDNative(joystick, red, green, blue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Update a joystick's LED color.<br/>
-		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
-		/// DualShock 4 controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickSetLED(ref SDLJoystick joystick, byte red, byte green, byte blue)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickSetLEDNative((SDLJoystick*)pjoystick, red, green, blue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a joystick specific effect packet<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickSendEffectNative(SDLJoystick* joystick, void* data, int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, void*, int, int>)funcTable[533])(joystick, data, size);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[533])((nint)joystick, (nint)data, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a joystick specific effect packet<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickSendEffect(SDLJoystick* joystick, void* data, int size)
-		{
-			int ret = JoystickSendEffectNative(joystick, data, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Send a joystick specific effect packet<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int JoystickSendEffect(ref SDLJoystick joystick, void* data, int size)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickSendEffectNative((SDLJoystick*)pjoystick, data, size);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Close a joystick previously opened with SDL_JoystickOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void JoystickCloseNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLJoystick*, void>)funcTable[534])(joystick);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[534])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a joystick previously opened with SDL_JoystickOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void JoystickClose(SDLJoystick* joystick)
-		{
-			JoystickCloseNative(joystick);
-		}
-
-		/// <summary>
-		/// Close a joystick previously opened with SDL_JoystickOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void JoystickClose(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				JoystickCloseNative((SDLJoystick*)pjoystick);
-			}
-		}
-
-		/// <summary>
-		/// Get the battery level of a joystick as SDL_JoystickPowerLevel.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLJoystickPowerLevel JoystickCurrentPowerLevelNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickPowerLevel>)funcTable[535])(joystick);
-			#else
-			return (SDLJoystickPowerLevel)((delegate* unmanaged[Cdecl]<nint, SDLJoystickPowerLevel>)funcTable[535])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the battery level of a joystick as SDL_JoystickPowerLevel.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystickPowerLevel JoystickCurrentPowerLevel(SDLJoystick* joystick)
-		{
-			SDLJoystickPowerLevel ret = JoystickCurrentPowerLevelNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the battery level of a joystick as SDL_JoystickPowerLevel.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystickPowerLevel JoystickCurrentPowerLevel(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLJoystickPowerLevel ret = JoystickCurrentPowerLevelNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Locking for multi-threaded access to the sensor API<br/>
-		/// If you are using the sensor API or handling events from multiple threads<br/>
-		/// you should use these locking functions to protect access to the sensors.<br/>
-		/// In particular, you are guaranteed that the sensor list won't change, so the<br/>
-		/// API functions that take a sensor index will be valid, and sensor events<br/>
-		/// will not be delivered.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockSensorsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[536])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[536])();
-			#endif
-		}
-
-		/// <summary>
-		/// Locking for multi-threaded access to the sensor API<br/>
-		/// If you are using the sensor API or handling events from multiple threads<br/>
-		/// you should use these locking functions to protect access to the sensors.<br/>
-		/// In particular, you are guaranteed that the sensor list won't change, so the<br/>
-		/// API functions that take a sensor index will be valid, and sensor events<br/>
-		/// will not be delivered.<br/>
-		/// <br/>
-		/// </summary>
-		public static void LockSensors()
-		{
-			LockSensorsNative();
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnlockSensorsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[537])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[537])();
-			#endif
-		}
-
-		public static void UnlockSensors()
-		{
-			UnlockSensorsNative();
-		}
-
-		/// <summary>
-		/// Count the number of sensors attached to the system right now.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int NumSensorsNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[538])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[538])();
-			#endif
-		}
-
-		/// <summary>
-		/// Count the number of sensors attached to the system right now.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int NumSensors()
-		{
-			int ret = NumSensorsNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* SensorGetDeviceNameNative(int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[539])(deviceIndex);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[539])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* SensorGetDeviceName(int deviceIndex)
-		{
-			byte* ret = SensorGetDeviceNameNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string SensorGetDeviceNameS(int deviceIndex)
-		{
-			string ret = Utils.DecodeStringUTF8(SensorGetDeviceNameNative(deviceIndex));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSensorType SensorGetDeviceTypeNative(int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[540])(deviceIndex);
-			#else
-			return (SDLSensorType)((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[540])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSensorType SensorGetDeviceType(int deviceIndex)
-		{
-			SDLSensorType ret = SensorGetDeviceTypeNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SensorGetDeviceNonPortableTypeNative(int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[541])(deviceIndex);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[541])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDeviceNonPortableType(int deviceIndex)
-		{
-			int ret = SensorGetDeviceNonPortableTypeNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SensorGetDeviceInstanceIDNative(int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[542])(deviceIndex);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[542])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDeviceInstanceID(int deviceIndex)
-		{
-			int ret = SensorGetDeviceInstanceIDNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a sensor for use.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSensor* SensorOpenNative(int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[543])(deviceIndex);
-			#else
-			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[543])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a sensor for use.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSensor* SensorOpen(int deviceIndex)
-		{
-			SDLSensor* ret = SensorOpenNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the SDL_Sensor associated with an instance id.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSensor* SensorFromInstanceIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[544])(instanceId);
-			#else
-			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[544])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Return the SDL_Sensor associated with an instance id.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSensor* SensorFromInstanceID(int instanceId)
-		{
-			SDLSensor* ret = SensorFromInstanceIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* SensorGetNameNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, byte*>)funcTable[545])(sensor);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[545])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* SensorGetName(SDLSensor* sensor)
-		{
-			byte* ret = SensorGetNameNative(sensor);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string SensorGetNameS(SDLSensor* sensor)
-		{
-			string ret = Utils.DecodeStringUTF8(SensorGetNameNative(sensor));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* SensorGetName(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				byte* ret = SensorGetNameNative((SDLSensor*)psensor);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string SensorGetNameS(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				string ret = Utils.DecodeStringUTF8(SensorGetNameNative((SDLSensor*)psensor));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSensorType SensorGetTypeNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, SDLSensorType>)funcTable[546])(sensor);
-			#else
-			return (SDLSensorType)((delegate* unmanaged[Cdecl]<nint, SDLSensorType>)funcTable[546])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSensorType SensorGetType(SDLSensor* sensor)
-		{
-			SDLSensorType ret = SensorGetTypeNative(sensor);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSensorType SensorGetType(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				SDLSensorType ret = SensorGetTypeNative((SDLSensor*)psensor);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SensorGetNonPortableTypeNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[547])(sensor);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[547])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetNonPortableType(SDLSensor* sensor)
-		{
-			int ret = SensorGetNonPortableTypeNative(sensor);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetNonPortableType(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = SensorGetNonPortableTypeNative((SDLSensor*)psensor);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SensorGetInstanceIDNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[548])(sensor);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[548])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetInstanceID(SDLSensor* sensor)
-		{
-			int ret = SensorGetInstanceIDNative(sensor);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetInstanceID(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = SensorGetInstanceIDNative((SDLSensor*)psensor);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SensorGetDataNative(SDLSensor* sensor, float* data, int numValues)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, float*, int, int>)funcTable[549])(sensor, data, numValues);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[549])((nint)sensor, (nint)data, numValues);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetData(SDLSensor* sensor, float* data, int numValues)
-		{
-			int ret = SensorGetDataNative(sensor, data, numValues);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetData(ref SDLSensor sensor, float* data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = SensorGetDataNative((SDLSensor*)psensor, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetData(SDLSensor* sensor, ref float data, int numValues)
-		{
-			fixed (float* pdata = &data)
-			{
-				int ret = SensorGetDataNative(sensor, (float*)pdata, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetData(ref SDLSensor sensor, ref float data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = SensorGetDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SensorGetDataWithTimestampNative(SDLSensor* sensor, ulong* timestamp, float* data, int numValues)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, ulong*, float*, int, int>)funcTable[550])(sensor, timestamp, data, numValues);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, int>)funcTable[550])((nint)sensor, (nint)timestamp, (nint)data, numValues);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ulong* timestamp, float* data, int numValues)
-		{
-			int ret = SensorGetDataWithTimestampNative(sensor, timestamp, data, numValues);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ulong* timestamp, float* data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ref ulong timestamp, float* data, int numValues)
-		{
-			fixed (ulong* ptimestamp = &timestamp)
-			{
-				int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ref ulong timestamp, float* data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				fixed (ulong* ptimestamp = &timestamp)
-				{
-					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, data, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ulong* timestamp, ref float data, int numValues)
-		{
-			fixed (float* pdata = &data)
-			{
-				int ret = SensorGetDataWithTimestampNative(sensor, timestamp, (float*)pdata, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ulong* timestamp, ref float data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ref ulong timestamp, ref float data, int numValues)
-		{
-			fixed (ulong* ptimestamp = &timestamp)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ref ulong timestamp, ref float data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				fixed (ulong* ptimestamp = &timestamp)
-				{
-					fixed (float* pdata = &data)
-					{
-						int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, (float*)pdata, numValues);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SensorCloseNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSensor*, void>)funcTable[551])(sensor);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[551])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SensorClose(SDLSensor* sensor)
-		{
-			SensorCloseNative(sensor);
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SensorClose(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				SensorCloseNative((SDLSensor*)psensor);
-			}
-		}
-
-		/// <summary>
-		/// Update the current state of the open sensors.<br/>
-		/// This is called automatically by the event loop if sensor events are<br/>
-		/// enabled.<br/>
-		/// This needs to be called from the thread that initialized the sensor<br/>
-		/// subsystem.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SensorUpdateNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[552])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[552])();
-			#endif
-		}
-
-		/// <summary>
-		/// Update the current state of the open sensors.<br/>
-		/// This is called automatically by the event loop if sensor events are<br/>
-		/// enabled.<br/>
-		/// This needs to be called from the thread that initialized the sensor<br/>
-		/// subsystem.<br/>
-		/// <br/>
-		/// </summary>
-		public static void SensorUpdate()
-		{
-			SensorUpdateNative();
-		}
-
-		/// <summary>
-		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
-		/// You can call this function several times, if needed, to load different<br/>
-		/// database files.<br/>
-		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
-		/// version will overwrite the one currently loaded.<br/>
-		/// If this function is called before SDL_Init, SDL will generate an<br/>
-		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
-		/// in at the time that SDL_Init is called.<br/>
-		/// Mappings not belonging to the current platform or with no platform field<br/>
-		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
-		/// Windows, etc).<br/>
-		/// This function will load the text database entirely in memory before<br/>
-		/// processing it, so take this into consideration if you are in a memory<br/>
-		/// constrained environment.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerAddMappingsFromRWNative(SDLRWops* rw, int freerw)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, int>)funcTable[553])(rw, freerw);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[553])((nint)rw, freerw);
-			#endif
-		}
-
-		/// <summary>
-		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
-		/// You can call this function several times, if needed, to load different<br/>
-		/// database files.<br/>
-		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
-		/// version will overwrite the one currently loaded.<br/>
-		/// If this function is called before SDL_Init, SDL will generate an<br/>
-		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
-		/// in at the time that SDL_Init is called.<br/>
-		/// Mappings not belonging to the current platform or with no platform field<br/>
-		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
-		/// Windows, etc).<br/>
-		/// This function will load the text database entirely in memory before<br/>
-		/// processing it, so take this into consideration if you are in a memory<br/>
-		/// constrained environment.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMappingsFromRW(SDLRWops* rw, int freerw)
-		{
-			int ret = GameControllerAddMappingsFromRWNative(rw, freerw);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
-		/// You can call this function several times, if needed, to load different<br/>
-		/// database files.<br/>
-		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
-		/// version will overwrite the one currently loaded.<br/>
-		/// If this function is called before SDL_Init, SDL will generate an<br/>
-		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
-		/// in at the time that SDL_Init is called.<br/>
-		/// Mappings not belonging to the current platform or with no platform field<br/>
-		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
-		/// Windows, etc).<br/>
-		/// This function will load the text database entirely in memory before<br/>
-		/// processing it, so take this into consideration if you are in a memory<br/>
-		/// constrained environment.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMappingsFromRW(ref SDLRWops rw, int freerw)
-		{
-			fixed (SDLRWops* prw = &rw)
-			{
-				int ret = GameControllerAddMappingsFromRWNative((SDLRWops*)prw, freerw);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// If this function is called before SDL_Init, SDL will generate an<br/>
-		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
-		/// in at the time that SDL_Init is called.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerAddMappingNative(byte* mappingString)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[554])(mappingString);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[554])((nint)mappingString);
-			#endif
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// If this function is called before SDL_Init, SDL will generate an<br/>
-		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
-		/// in at the time that SDL_Init is called.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMapping(byte* mappingString)
-		{
-			int ret = GameControllerAddMappingNative(mappingString);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// If this function is called before SDL_Init, SDL will generate an<br/>
-		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
-		/// in at the time that SDL_Init is called.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMapping(ref byte mappingString)
-		{
-			fixed (byte* pmappingString = &mappingString)
-			{
-				int ret = GameControllerAddMappingNative((byte*)pmappingString);
-				return ret;
-			}
 		}
 	}
 }

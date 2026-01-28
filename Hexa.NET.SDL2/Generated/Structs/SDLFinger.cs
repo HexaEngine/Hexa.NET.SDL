@@ -34,4 +34,48 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLFingerPtr : IEquatable<SDLFingerPtr>
+	{
+		public SDLFingerPtr(SDLFinger* handle) { Handle = handle; }
+
+		public SDLFinger* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLFingerPtr Null => new SDLFingerPtr(null);
+
+		public SDLFinger this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLFingerPtr(SDLFinger* handle) => new SDLFingerPtr(handle);
+
+		public static implicit operator SDLFinger*(SDLFingerPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLFingerPtr left, SDLFingerPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLFingerPtr left, SDLFingerPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLFingerPtr left, SDLFinger* right) => left.Handle == right;
+
+		public static bool operator !=(SDLFingerPtr left, SDLFinger* right) => left.Handle != right;
+
+		public bool Equals(SDLFingerPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLFingerPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLFingerPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref long Id => ref Unsafe.AsRef<long>(&Handle->Id);
+		public ref float X => ref Unsafe.AsRef<float>(&Handle->X);
+		public ref float Y => ref Unsafe.AsRef<float>(&Handle->Y);
+		public ref float Pressure => ref Unsafe.AsRef<float>(&Handle->Pressure);
+	}
+
 }

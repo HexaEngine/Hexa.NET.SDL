@@ -25,4 +25,90 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// An efficient driver-specific representation of pixel data<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTexturePtr : IEquatable<SDLTexturePtr>
+	{
+		public SDLTexturePtr(SDLTexture* handle) { Handle = handle; }
+
+		public SDLTexture* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTexturePtr Null => new SDLTexturePtr(null);
+
+		public SDLTexture this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTexturePtr(SDLTexture* handle) => new SDLTexturePtr(handle);
+
+		public static implicit operator SDLTexture*(SDLTexturePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTexturePtr left, SDLTexturePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTexturePtr left, SDLTexturePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTexturePtr left, SDLTexture* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTexturePtr left, SDLTexture* right) => left.Handle != right;
+
+		public bool Equals(SDLTexturePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTexturePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTexturePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
+	/// <summary>
+	/// An efficient driver-specific representation of pixel data<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTexturePtrPtr : IEquatable<SDLTexturePtrPtr>
+	{
+		public SDLTexturePtrPtr(SDLTexture** handle) { Handle = handle; }
+
+		public SDLTexture** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTexturePtrPtr Null => new SDLTexturePtrPtr(null);
+
+		public SDLTexture* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTexturePtrPtr(SDLTexture** handle) => new SDLTexturePtrPtr(handle);
+
+		public static implicit operator SDLTexture**(SDLTexturePtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTexturePtrPtr left, SDLTexturePtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTexturePtrPtr left, SDLTexturePtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTexturePtrPtr left, SDLTexture** right) => left.Handle == right;
+
+		public static bool operator !=(SDLTexturePtrPtr left, SDLTexture** right) => left.Handle != right;
+
+		public bool Equals(SDLTexturePtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTexturePtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTexturePtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
 }

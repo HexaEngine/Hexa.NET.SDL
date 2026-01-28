@@ -22,67 +22,92 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_VirtualJoystickDesc")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVirtualJoystickDesc
 	{
 		/// <summary>
 		/// the version of this interface <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "version")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Version;
 
 		/// <summary>
 		/// `SDL_JoystickType` <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Type;
 
 		/// <summary>
 		/// unused <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "padding")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Padding;
 
 		/// <summary>
 		/// the USB vendor ID of this joystick <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "vendor_id")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort VendorId;
 
 		/// <summary>
 		/// the USB product ID of this joystick <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "product_id")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort ProductId;
 
 		/// <summary>
 		/// the number of axes on this joystick <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "naxes")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Naxes;
 
 		/// <summary>
 		/// the number of buttons on this joystick <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "nbuttons")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Nbuttons;
 
 		/// <summary>
 		/// the number of balls on this joystick <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "nballs")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Nballs;
 
 		/// <summary>
 		/// the number of hats on this joystick <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "nhats")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Nhats;
 
 		/// <summary>
 		/// the number of touchpads on this joystick, requires `touchpads` to point at valid descriptions <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "ntouchpads")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Ntouchpads;
 
 		/// <summary>
 		/// the number of sensors on this joystick, requires `sensors` to point at valid descriptions <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "nsensors")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Nsensors;
 
 		/// <summary>
 		/// unused <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint16[2]")]
 		public ushort Padding2_0;
 		public ushort Padding2_1;
 
@@ -93,6 +118,8 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// SDL_GAMEPAD_BUTTON_SOUTH) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "button_mask")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ButtonMask;
 
 		/// <summary>
@@ -102,70 +129,96 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// SDL_GAMEPAD_AXIS_LEFTX) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "axis_mask")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint AxisMask;
 
 		/// <summary>
 		/// the name of the joystick <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "name")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Name;
 
 		/// <summary>
 		/// A pointer to an array of touchpad descriptions, required if `ntouchpads` is > 0 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "touchpads")]
+		[NativeName(NativeNameType.Type, "SDL_VirtualJoystickTouchpadDesc const *")]
 		public unsafe SDLVirtualJoystickTouchpadDesc* Touchpads;
 
 		/// <summary>
 		/// A pointer to an array of sensor descriptions, required if `nsensors` is > 0 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sensors")]
+		[NativeName(NativeNameType.Type, "SDL_VirtualJoystickSensorDesc const *")]
 		public unsafe SDLVirtualJoystickSensorDesc* Sensors;
 
 		/// <summary>
 		/// User data pointer passed to callbacks <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "userdata")]
+		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Userdata;
 
 		/// <summary>
 		/// Called when the joystick state should be updated <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "Update")]
+		[NativeName(NativeNameType.Type, "void (*)(void * userdata) *")]
 		public unsafe void* Update;
 
 		/// <summary>
 		/// Called when the player index is set <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "SetPlayerIndex")]
+		[NativeName(NativeNameType.Type, "void (*)(void * userdata, int player_index) *")]
 		public unsafe void* SetPlayerIndex;
 
 		/// <summary>
 		/// Implements SDL_RumbleJoystick() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "Rumble")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble) *")]
 		public unsafe void* Rumble;
 
 		/// <summary>
 		/// Implements SDL_RumbleJoystickTriggers() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "RumbleTriggers")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, Uint16 left_rumble, Uint16 right_rumble) *")]
 		public unsafe void* RumbleTriggers;
 
 		/// <summary>
 		/// Implements SDL_SetJoystickLED() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "SetLED")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, Uint8 red, Uint8 green, Uint8 blue) *")]
 		public unsafe void* SetLED;
 
 		/// <summary>
 		/// Implements SDL_SendJoystickEffect() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "SendEffect")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, void const * data, int size) *")]
 		public unsafe void* SendEffect;
 
 		/// <summary>
 		/// Implements SDL_SetGamepadSensorEnabled() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "SetSensorsEnabled")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, bool enabled) *")]
 		public unsafe void* SetSensorsEnabled;
 
 		/// <summary>
 		/// Cleans up the userdata when the joystick is detached <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "Cleanup")]
+		[NativeName(NativeNameType.Type, "void (*)(void * userdata) *")]
 		public unsafe void* Cleanup;
 
 
-		public unsafe SDLVirtualJoystickDesc(uint version = default, ushort type = default, ushort padding = default, ushort vendorId = default, ushort productId = default, ushort naxes = default, ushort nbuttons = default, ushort nballs = default, ushort nhats = default, ushort ntouchpads = default, ushort nsensors = default, ushort* padding2 = default, uint buttonMask = default, uint axisMask = default, byte* name = default, SDLVirtualJoystickTouchpadDesc* touchpads = default, SDLVirtualJoystickSensorDesc* sensors = default, void* userdata = default, delegate*<void*, void> update = default, delegate*<void*, int, void> setPlayerIndex = default, delegate*<void*, ushort, ushort, bool> rumble = default, delegate*<void*, ushort, ushort, bool> rumbleTriggers = default, delegate*<void*, byte, byte, byte, bool> setLed = default, delegate*<void*, void*, int, bool> sendEffect = default, delegate*<void*, byte, bool> setSensorsEnabled = default, delegate*<void*, void> cleanup = default)
+		public unsafe SDLVirtualJoystickDesc(uint version = default, ushort type = default, ushort padding = default, ushort vendorId = default, ushort productId = default, ushort naxes = default, ushort nbuttons = default, ushort nballs = default, ushort nhats = default, ushort ntouchpads = default, ushort nsensors = default, ushort* padding2 = default, uint buttonMask = default, uint axisMask = default, byte* name = default, SDLVirtualJoystickTouchpadDescPtr touchpads = default, SDLVirtualJoystickSensorDescPtr sensors = default, void* userdata = default, delegate*<void*, void> update = default, delegate*<void*, int, void> setPlayerIndex = default, delegate*<void*, ushort, ushort, bool> rumble = default, delegate*<void*, ushort, ushort, bool> rumbleTriggers = default, delegate*<void*, byte, byte, byte, bool> setLed = default, delegate*<void*, void*, int, bool> sendEffect = default, delegate*<void*, byte, bool> setSensorsEnabled = default, delegate*<void*, void> cleanup = default)
 		{
 			Version = version;
 			Type = type;
@@ -199,7 +252,7 @@ namespace Hexa.NET.SDL3
 			Cleanup = (delegate*<void*, void>*)cleanup;
 		}
 
-		public unsafe SDLVirtualJoystickDesc(uint version = default, ushort type = default, ushort padding = default, ushort vendorId = default, ushort productId = default, ushort naxes = default, ushort nbuttons = default, ushort nballs = default, ushort nhats = default, ushort ntouchpads = default, ushort nsensors = default, Span<ushort> padding2 = default, uint buttonMask = default, uint axisMask = default, byte* name = default, SDLVirtualJoystickTouchpadDesc* touchpads = default, SDLVirtualJoystickSensorDesc* sensors = default, void* userdata = default, delegate*<void*, void> update = default, delegate*<void*, int, void> setPlayerIndex = default, delegate*<void*, ushort, ushort, bool> rumble = default, delegate*<void*, ushort, ushort, bool> rumbleTriggers = default, delegate*<void*, byte, byte, byte, bool> setLed = default, delegate*<void*, void*, int, bool> sendEffect = default, delegate*<void*, byte, bool> setSensorsEnabled = default, delegate*<void*, void> cleanup = default)
+		public unsafe SDLVirtualJoystickDesc(uint version = default, ushort type = default, ushort padding = default, ushort vendorId = default, ushort productId = default, ushort naxes = default, ushort nbuttons = default, ushort nballs = default, ushort nhats = default, ushort ntouchpads = default, ushort nsensors = default, Span<ushort> padding2 = default, uint buttonMask = default, uint axisMask = default, byte* name = default, SDLVirtualJoystickTouchpadDescPtr touchpads = default, SDLVirtualJoystickSensorDescPtr sensors = default, void* userdata = default, delegate*<void*, void> update = default, delegate*<void*, int, void> setPlayerIndex = default, delegate*<void*, ushort, ushort, bool> rumble = default, delegate*<void*, ushort, ushort, bool> rumbleTriggers = default, delegate*<void*, byte, byte, byte, bool> setLed = default, delegate*<void*, void*, int, bool> sendEffect = default, delegate*<void*, byte, bool> setSensorsEnabled = default, delegate*<void*, void> cleanup = default)
 		{
 			Version = version;
 			Type = type;
@@ -234,6 +287,173 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The structure that describes a virtual joystick.<br/>
+	/// This structure should be initialized using SDL_INIT_INTERFACE(). All<br/>
+	/// elements of this structure are optional.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_VirtualJoystickDesc")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLVirtualJoystickDescPtr : IEquatable<SDLVirtualJoystickDescPtr>
+	{
+		public SDLVirtualJoystickDescPtr(SDLVirtualJoystickDesc* handle) { Handle = handle; }
+
+		public SDLVirtualJoystickDesc* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLVirtualJoystickDescPtr Null => new SDLVirtualJoystickDescPtr(null);
+
+		public SDLVirtualJoystickDesc this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLVirtualJoystickDescPtr(SDLVirtualJoystickDesc* handle) => new SDLVirtualJoystickDescPtr(handle);
+
+		public static implicit operator SDLVirtualJoystickDesc*(SDLVirtualJoystickDescPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLVirtualJoystickDescPtr left, SDLVirtualJoystickDescPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLVirtualJoystickDescPtr left, SDLVirtualJoystickDescPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLVirtualJoystickDescPtr left, SDLVirtualJoystickDesc* right) => left.Handle == right;
+
+		public static bool operator !=(SDLVirtualJoystickDescPtr left, SDLVirtualJoystickDesc* right) => left.Handle != right;
+
+		public bool Equals(SDLVirtualJoystickDescPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLVirtualJoystickDescPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLVirtualJoystickDescPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// the version of this interface <br/>
+		/// </summary>
+		public ref uint Version => ref Unsafe.AsRef<uint>(&Handle->Version);
+		/// <summary>
+		/// `SDL_JoystickType` <br/>
+		/// </summary>
+		public ref ushort Type => ref Unsafe.AsRef<ushort>(&Handle->Type);
+		/// <summary>
+		/// unused <br/>
+		/// </summary>
+		public ref ushort Padding => ref Unsafe.AsRef<ushort>(&Handle->Padding);
+		/// <summary>
+		/// the USB vendor ID of this joystick <br/>
+		/// </summary>
+		public ref ushort VendorId => ref Unsafe.AsRef<ushort>(&Handle->VendorId);
+		/// <summary>
+		/// the USB product ID of this joystick <br/>
+		/// </summary>
+		public ref ushort ProductId => ref Unsafe.AsRef<ushort>(&Handle->ProductId);
+		/// <summary>
+		/// the number of axes on this joystick <br/>
+		/// </summary>
+		public ref ushort Naxes => ref Unsafe.AsRef<ushort>(&Handle->Naxes);
+		/// <summary>
+		/// the number of buttons on this joystick <br/>
+		/// </summary>
+		public ref ushort Nbuttons => ref Unsafe.AsRef<ushort>(&Handle->Nbuttons);
+		/// <summary>
+		/// the number of balls on this joystick <br/>
+		/// </summary>
+		public ref ushort Nballs => ref Unsafe.AsRef<ushort>(&Handle->Nballs);
+		/// <summary>
+		/// the number of hats on this joystick <br/>
+		/// </summary>
+		public ref ushort Nhats => ref Unsafe.AsRef<ushort>(&Handle->Nhats);
+		/// <summary>
+		/// the number of touchpads on this joystick, requires `touchpads` to point at valid descriptions <br/>
+		/// </summary>
+		public ref ushort Ntouchpads => ref Unsafe.AsRef<ushort>(&Handle->Ntouchpads);
+		/// <summary>
+		/// the number of sensors on this joystick, requires `sensors` to point at valid descriptions <br/>
+		/// </summary>
+		public ref ushort Nsensors => ref Unsafe.AsRef<ushort>(&Handle->Nsensors);
+		/// <summary>
+		/// unused <br/>
+		/// </summary>
+		public unsafe Span<ushort> Padding2
+		
+		{
+			get
+			{
+				return new Span<ushort>(&Handle->Padding2_0, 2);
+			}
+		}
+		/// <summary>
+		/// A mask of which buttons are valid for this controller<br/>
+		/// e.g. (1 <br/>
+		/// <<br/>
+		/// <<br/>
+		/// SDL_GAMEPAD_BUTTON_SOUTH) <br/>
+		/// </summary>
+		public ref uint ButtonMask => ref Unsafe.AsRef<uint>(&Handle->ButtonMask);
+		/// <summary>
+		/// A mask of which axes are valid for this controller<br/>
+		/// e.g. (1 <br/>
+		/// <<br/>
+		/// <<br/>
+		/// SDL_GAMEPAD_AXIS_LEFTX) <br/>
+		/// </summary>
+		public ref uint AxisMask => ref Unsafe.AsRef<uint>(&Handle->AxisMask);
+		/// <summary>
+		/// the name of the joystick <br/>
+		/// </summary>
+		public byte* Name { get => Handle->Name; set => Handle->Name = value; }
+		/// <summary>
+		/// A pointer to an array of touchpad descriptions, required if `ntouchpads` is > 0 <br/>
+		/// </summary>
+		public ref SDLVirtualJoystickTouchpadDescPtr Touchpads => ref Unsafe.AsRef<SDLVirtualJoystickTouchpadDescPtr>(&Handle->Touchpads);
+		/// <summary>
+		/// A pointer to an array of sensor descriptions, required if `nsensors` is > 0 <br/>
+		/// </summary>
+		public ref SDLVirtualJoystickSensorDescPtr Sensors => ref Unsafe.AsRef<SDLVirtualJoystickSensorDescPtr>(&Handle->Sensors);
+		/// <summary>
+		/// User data pointer passed to callbacks <br/>
+		/// </summary>
+		public void* Userdata { get => Handle->Userdata; set => Handle->Userdata = value; }
+		/// <summary>
+		/// Called when the joystick state should be updated <br/>
+		/// </summary>
+		public void* Update { get => Handle->Update; set => Handle->Update = value; }
+		/// <summary>
+		/// Called when the player index is set <br/>
+		/// </summary>
+		public void* SetPlayerIndex { get => Handle->SetPlayerIndex; set => Handle->SetPlayerIndex = value; }
+		/// <summary>
+		/// Implements SDL_RumbleJoystick() <br/>
+		/// </summary>
+		public void* Rumble { get => Handle->Rumble; set => Handle->Rumble = value; }
+		/// <summary>
+		/// Implements SDL_RumbleJoystickTriggers() <br/>
+		/// </summary>
+		public void* RumbleTriggers { get => Handle->RumbleTriggers; set => Handle->RumbleTriggers = value; }
+		/// <summary>
+		/// Implements SDL_SetJoystickLED() <br/>
+		/// </summary>
+		public void* SetLED { get => Handle->SetLED; set => Handle->SetLED = value; }
+		/// <summary>
+		/// Implements SDL_SendJoystickEffect() <br/>
+		/// </summary>
+		public void* SendEffect { get => Handle->SendEffect; set => Handle->SendEffect = value; }
+		/// <summary>
+		/// Implements SDL_SetGamepadSensorEnabled() <br/>
+		/// </summary>
+		public void* SetSensorsEnabled { get => Handle->SetSensorsEnabled; set => Handle->SetSensorsEnabled = value; }
+		/// <summary>
+		/// Cleans up the userdata when the joystick is detached <br/>
+		/// </summary>
+		public void* Cleanup { get => Handle->Cleanup; set => Handle->Cleanup = value; }
 	}
 
 }

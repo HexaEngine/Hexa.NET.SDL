@@ -18,5022 +18,5008 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
-		/// initialization.<br/>
-		/// Callbacks that aren't needed can be set to NULL.<br/>
-		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// Perform a scaled and tiled blit to a destination surface, which may be of a<br/>
+		/// different format.<br/>
+		/// The pixels in `srcrect` will be scaled and repeated as many times as needed<br/>
+		/// to completely fill `dstrect`.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static void EGLSetAttributeCallbacks(SDLEGLAttribArrayCallback platformAttribCallback, SDLEGLIntArrayCallback surfaceAttribCallback, SDLEGLIntArrayCallback contextAttribCallback, void* userdata)
-		{
-			EGLSetAttributeCallbacksNative(platformAttribCallback, surfaceAttribCallback, contextAttribCallback, userdata);
-		}
-
-		/// <summary>
-		/// Set the swap interval for the current OpenGL context.<br/>
-		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
-		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
-		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
-		/// might be less jarring for the user during occasional framerate drops. If an<br/>
-		/// application requests adaptive vsync and the system does not support it,<br/>
-		/// this function will fail and return false. In such a case, you should<br/>
-		/// probably retry the call with 1 for the interval.<br/>
-		/// Adaptive vsync is implemented for some glX drivers with<br/>
-		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
-		/// WGL_EXT_swap_control_tear.<br/>
-		/// Read more on the Khronos wiki:<br/>
-		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GLSetSwapIntervalNative(int interval)
+		[NativeName(NativeNameType.Func, "SDL_BlitSurfaceTiledWithScale")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurfaceTiledWithScale([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[595])(interval);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[595])(interval);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the swap interval for the current OpenGL context.<br/>
-		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
-		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
-		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
-		/// might be less jarring for the user during occasional framerate drops. If an<br/>
-		/// application requests adaptive vsync and the system does not support it,<br/>
-		/// this function will fail and return false. In such a case, you should<br/>
-		/// probably retry the call with 1 for the interval.<br/>
-		/// Adaptive vsync is implemented for some glX drivers with<br/>
-		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
-		/// WGL_EXT_swap_control_tear.<br/>
-		/// Read more on the Khronos wiki:<br/>
-		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GLSetSwapInterval(int interval)
-		{
-			byte ret = GLSetSwapIntervalNative(interval);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the swap interval for the current OpenGL context.<br/>
-		/// If the system can't determine the swap interval, or there isn't a valid<br/>
-		/// current context, this function will set *interval to 0 as a safe default.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GLGetSwapIntervalNative(int* interval)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, byte>)funcTable[596])(interval);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[596])((nint)interval);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the swap interval for the current OpenGL context.<br/>
-		/// If the system can't determine the swap interval, or there isn't a valid<br/>
-		/// current context, this function will set *interval to 0 as a safe default.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GLGetSwapInterval(int* interval)
-		{
-			byte ret = GLGetSwapIntervalNative(interval);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the swap interval for the current OpenGL context.<br/>
-		/// If the system can't determine the swap interval, or there isn't a valid<br/>
-		/// current context, this function will set *interval to 0 as a safe default.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GLGetSwapInterval(ref int interval)
-		{
-			fixed (int* pinterval = &interval)
+			fixed (SDLSurface* psrc = &src)
 			{
-				byte ret = GLGetSwapIntervalNative((int*)pinterval);
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							byte ret = BlitSurfaceTiledWithScaleNative((SDLSurface*)psrc, (SDLRect*)psrcrect, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte BlitSurface9GridNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, int, int, int, int, float, SDLScaleMode, SDLSurface*, SDLRect*, byte>)funcTable[449])(src, srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, dst, dstrect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int, int, float, SDLScaleMode, nint, nint, byte>)funcTable[449])((nint)src, (nint)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr dstrect)
+		{
+			byte ret = BlitSurface9GridNative((SDLSurface*)src, (SDLRect*)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)dst, (SDLRect*)dstrect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				byte ret = BlitSurface9GridNative((SDLSurface*)psrc, (SDLRect*)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)dst, (SDLRect*)dstrect);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Update a window with OpenGL rendering.<br/>
-		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
-		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
-		/// window, otherwise nothing will happen. If you aren't using<br/>
-		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
-		/// extra.<br/>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GLSwapWindowNative(SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr dstrect)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[597])(window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[597])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Update a window with OpenGL rendering.<br/>
-		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
-		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
-		/// window, otherwise nothing will happen. If you aren't using<br/>
-		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
-		/// extra.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GLSwapWindow(SDLWindow* window)
-		{
-			byte ret = GLSwapWindowNative(window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Update a window with OpenGL rendering.<br/>
-		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
-		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
-		/// window, otherwise nothing will happen. If you aren't using<br/>
-		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
-		/// extra.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GLSwapWindow(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLRect* psrcrect = &srcrect)
 			{
-				byte ret = GLSwapWindowNative((SDLWindow*)pwindow);
+				byte ret = BlitSurface9GridNative((SDLSurface*)src, (SDLRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)dst, (SDLRect*)dstrect);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Delete an OpenGL context.<br/>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					byte ret = BlitSurface9GridNative((SDLSurface*)psrc, (SDLRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)dst, (SDLRect*)dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				byte ret = BlitSurface9GridNative((SDLSurface*)src, (SDLRect*)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)dstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					byte ret = BlitSurface9GridNative((SDLSurface*)psrc, (SDLRect*)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					byte ret = BlitSurface9GridNative((SDLSurface*)src, (SDLRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						byte ret = BlitSurface9GridNative((SDLSurface*)psrc, (SDLRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)dstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				byte ret = BlitSurface9GridNative((SDLSurface*)src, (SDLRect*)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)dst, (SDLRect*)pdstrect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					byte ret = BlitSurface9GridNative((SDLSurface*)psrc, (SDLRect*)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					byte ret = BlitSurface9GridNative((SDLSurface*)src, (SDLRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						byte ret = BlitSurface9GridNative((SDLSurface*)psrc, (SDLRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)dst, (SDLRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					byte ret = BlitSurface9GridNative((SDLSurface*)src, (SDLRect*)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						byte ret = BlitSurface9GridNative((SDLSurface*)psrc, (SDLRect*)srcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						byte ret = BlitSurface9GridNative((SDLSurface*)src, (SDLRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled blit using the 9-grid algorithm to a destination surface,<br/>
+		/// which may be of a different format.<br/>
+		/// The pixels in the source surface are split into a 3x3 grid, using the<br/>
+		/// different corner sizes for each corner, and the sides and center making up<br/>
+		/// the remaining pixels. The corners are then scaled using `scale` and fit<br/>
+		/// into the corners of the destination rectangle. The sides and center are<br/>
+		/// then stretched into place to cover the remaining destination rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// Only one thread should be using the `src` and `dst` surfaces<br/>
+		/// at any given time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BlitSurface9Grid")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool BlitSurface9Grid([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect srcrect, [NativeName(NativeNameType.Param, "left_width")] [NativeName(NativeNameType.Type, "int")] int leftWidth, [NativeName(NativeNameType.Param, "right_width")] [NativeName(NativeNameType.Type, "int")] int rightWidth, [NativeName(NativeNameType.Param, "top_height")] [NativeName(NativeNameType.Type, "int")] int topHeight, [NativeName(NativeNameType.Param, "bottom_height")] [NativeName(NativeNameType.Type, "int")] int bottomHeight, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "float")] float scale, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							byte ret = BlitSurface9GridNative((SDLSurface*)psrc, (SDLRect*)psrcrect, leftWidth, rightWidth, topHeight, bottomHeight, scale, scaleMode, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a surface.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the surface has a palette, the index of the closest matching color in<br/>
+		/// the palette will be returned.<br/>
+		/// If the surface pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapSurfaceRGB")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GLDestroyContextNative(SDLGLContext context)
+		internal static uint MapSurfaceRGBNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGLContext, byte>)funcTable[598])(context);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte, byte, uint>)funcTable[450])(surface, r, g, b);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLGLContext, byte>)funcTable[598])(context);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, uint>)funcTable[450])((nint)surface, r, g, b);
 			#endif
 		}
 
 		/// <summary>
-		/// Delete an OpenGL context.<br/>
+		/// Map an RGB triple to an opaque pixel value for a surface.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the surface has a palette, the index of the closest matching color in<br/>
+		/// the palette will be returned.<br/>
+		/// If the surface pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GLDestroyContext(SDLGLContext context)
+		[NativeName(NativeNameType.Func, "SDL_MapSurfaceRGB")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapSurfaceRGB([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
-			byte ret = GLDestroyContextNative(context);
+			uint ret = MapSurfaceRGBNative((SDLSurface*)surface, r, g, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a surface.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the surface has a palette, the index of the closest matching color in<br/>
+		/// the palette will be returned.<br/>
+		/// If the surface pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapSurfaceRGB")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapSurfaceRGB([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				uint ret = MapSurfaceRGBNative((SDLSurface*)psurface, r, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Map an RGBA quadruple to a pixel value for a surface.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the surface pixel format has no alpha component the alpha value will be<br/>
+		/// ignored (as it will be in formats with a palette).<br/>
+		/// If the surface has a palette, the index of the closest matching color in<br/>
+		/// the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapSurfaceRGBA")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint MapSurfaceRGBANative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte, byte, byte, uint>)funcTable[451])(surface, r, g, b, a);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, uint>)funcTable[451])((nint)surface, r, g, b, a);
+			#endif
+		}
+
+		/// <summary>
+		/// Map an RGBA quadruple to a pixel value for a surface.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the surface pixel format has no alpha component the alpha value will be<br/>
+		/// ignored (as it will be in formats with a palette).<br/>
+		/// If the surface has a palette, the index of the closest matching color in<br/>
+		/// the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapSurfaceRGBA")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapSurfaceRGBA([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		{
+			uint ret = MapSurfaceRGBANative((SDLSurface*)surface, r, g, b, a);
+			return ret;
+		}
+
+		/// <summary>
+		/// Map an RGBA quadruple to a pixel value for a surface.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the surface pixel format has no alpha component the alpha value will be<br/>
+		/// ignored (as it will be in formats with a palette).<br/>
+		/// If the surface has a palette, the index of the closest matching color in<br/>
+		/// the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MapSurfaceRGBA")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint MapSurfaceRGBA([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				uint ret = MapSurfaceRGBANative((SDLSurface*)psurface, r, g, b, a);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ReadSurfacePixelNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, byte*, byte*, byte*, byte*, byte>)funcTable[452])(surface, x, y, r, g, b, a);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, nint, nint, byte>)funcTable[452])((nint)surface, x, y, (nint)r, (nint)g, (nint)b, (nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, r, g, b, a);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ShowOpenFileDialogNative(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, byte* defaultLocation, byte allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, SDLDialogFileFilter*, int, byte*, byte, void>)funcTable[599])((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, window, filters, nfilters, defaultLocation, allowMany);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int, nint, byte, void>)funcTable[599])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, (nint)window, (nint)filters, nfilters, (nint)defaultLocation, allowMany);
-			#endif
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, byte* defaultLocation, bool allowMany)
-		{
-			ShowOpenFileDialogNative(callback, userdata, window, filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, SDLDialogFileFilter* filters, int nfilters, byte* defaultLocation, bool allowMany)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+				byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, r, g, b, a);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref SDLDialogFileFilter filters, int nfilters, byte* defaultLocation, bool allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLDialogFileFilter* pfilters = &filters)
+			fixed (byte* pr = &r)
 			{
-				ShowOpenFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+				byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, (byte*)pr, g, b, a);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref SDLDialogFileFilter filters, int nfilters, byte* defaultLocation, bool allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				fixed (SDLDialogFileFilter* pfilters = &filters)
+				fixed (byte* pr = &r)
 				{
-					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+					byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, (byte*)pr, g, b, a);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, ref byte defaultLocation, bool allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (byte* pdefaultLocation = &defaultLocation)
+			fixed (byte* pg = &g)
 			{
-				ShowOpenFileDialogNative(callback, userdata, window, filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, r, (byte*)pg, b, a);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, ReadOnlySpan<byte> defaultLocation, bool allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (byte* pdefaultLocation = defaultLocation)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				ShowOpenFileDialogNative(callback, userdata, window, filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, string defaultLocation, bool allowMany)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (defaultLocation != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* pg = &g)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ShowOpenFileDialogNative(callback, userdata, window, filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, SDLDialogFileFilter* filters, int nfilters, ref byte defaultLocation, bool allowMany)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pdefaultLocation = &defaultLocation)
-				{
-					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, r, (byte*)pg, b, a);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, SDLDialogFileFilter* filters, int nfilters, ReadOnlySpan<byte> defaultLocation, bool allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pr = &r)
 			{
-				fixed (byte* pdefaultLocation = defaultLocation)
+				fixed (byte* pg = &g)
 				{
-					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, (byte*)pr, (byte*)pg, b, a);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, SDLDialogFileFilter* filters, int nfilters, string defaultLocation, bool allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (defaultLocation != null)
+				fixed (byte* pr = &r)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (byte* pg = &g)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref SDLDialogFileFilter filters, int nfilters, ref byte defaultLocation, bool allowMany)
-		{
-			fixed (SDLDialogFileFilter* pfilters = &filters)
-			{
-				fixed (byte* pdefaultLocation = &defaultLocation)
-				{
-					ShowOpenFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref SDLDialogFileFilter filters, int nfilters, ReadOnlySpan<byte> defaultLocation, bool allowMany)
-		{
-			fixed (SDLDialogFileFilter* pfilters = &filters)
-			{
-				fixed (byte* pdefaultLocation = defaultLocation)
-				{
-					ShowOpenFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref SDLDialogFileFilter filters, int nfilters, string defaultLocation, bool allowMany)
-		{
-			fixed (SDLDialogFileFilter* pfilters = &filters)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (defaultLocation != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				ShowOpenFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref SDLDialogFileFilter filters, int nfilters, ref byte defaultLocation, bool allowMany)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLDialogFileFilter* pfilters = &filters)
-				{
-					fixed (byte* pdefaultLocation = &defaultLocation)
-					{
-						ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+						byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, (byte*)pr, (byte*)pg, b, a);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref SDLDialogFileFilter filters, int nfilters, ReadOnlySpan<byte> defaultLocation, bool allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pb = &b)
 			{
-				fixed (SDLDialogFileFilter* pfilters = &filters)
+				byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, r, g, (byte*)pb, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pb = &b)
 				{
-					fixed (byte* pdefaultLocation = defaultLocation)
+					byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, r, g, (byte*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, (byte*)pr, g, (byte*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
 					{
-						ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+						byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, (byte*)pr, g, (byte*)pb, a);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowOpenFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref SDLDialogFileFilter filters, int nfilters, string defaultLocation, bool allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pg = &g)
 			{
-				fixed (SDLDialogFileFilter* pfilters = &filters)
+				fixed (byte* pb = &b)
 				{
-					byte* pStr0 = null;
-					int pStrSize0 = 0;
-					if (defaultLocation != null)
+					byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, r, (byte*)pg, (byte*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
 					{
-						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-						if (pStrSize0 >= Utils.MaxStackallocSize)
+						byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, r, (byte*)pg, (byte*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, (byte*)pr, (byte*)pg, (byte*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
 						{
-							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+							byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, (byte*)pr, (byte*)pg, (byte*)pb, a);
+							return ret != 0;
 						}
-						else
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pa = &a)
+			{
+				byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, r, g, b, (byte*)pa);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pa = &a)
+				{
+					byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, r, g, b, (byte*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pa = &a)
+				{
+					byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, (byte*)pr, g, b, (byte*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, (byte*)pr, g, b, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pa = &a)
+				{
+					byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, r, (byte*)pg, b, (byte*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, r, (byte*)pg, b, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, (byte*)pr, (byte*)pg, b, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pa = &a)
 						{
-							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-							pStr0 = pStrStack0;
+							byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, (byte*)pr, (byte*)pg, b, (byte*)pa);
+							return ret != 0;
 						}
-						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-						pStr0[pStrOffset0] = 0;
-					}
-					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ShowSaveFileDialogNative(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, byte* defaultLocation)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, SDLDialogFileFilter*, int, byte*, void>)funcTable[600])((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, window, filters, nfilters, defaultLocation);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int, nint, void>)funcTable[600])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, (nint)window, (nint)filters, nfilters, (nint)defaultLocation);
-			#endif
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, byte* defaultLocation)
-		{
-			ShowSaveFileDialogNative(callback, userdata, window, filters, nfilters, defaultLocation);
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, SDLDialogFileFilter* filters, int nfilters, byte* defaultLocation)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pb = &b)
 			{
-				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, defaultLocation);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref SDLDialogFileFilter filters, int nfilters, byte* defaultLocation)
-		{
-			fixed (SDLDialogFileFilter* pfilters = &filters)
-			{
-				ShowSaveFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref SDLDialogFileFilter filters, int nfilters, byte* defaultLocation)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLDialogFileFilter* pfilters = &filters)
+				fixed (byte* pa = &a)
 				{
-					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
+					byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, r, g, (byte*)pb, (byte*)pa);
+					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, ref byte defaultLocation)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
 		{
-			fixed (byte* pdefaultLocation = &defaultLocation)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				ShowSaveFileDialogNative(callback, userdata, window, filters, nfilters, (byte*)pdefaultLocation);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, ReadOnlySpan<byte> defaultLocation)
-		{
-			fixed (byte* pdefaultLocation = defaultLocation)
-			{
-				ShowSaveFileDialogNative(callback, userdata, window, filters, nfilters, (byte*)pdefaultLocation);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, SDLDialogFileFilter* filters, int nfilters, string defaultLocation)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (defaultLocation != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* pb = &b)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ShowSaveFileDialogNative(callback, userdata, window, filters, nfilters, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, SDLDialogFileFilter* filters, int nfilters, ref byte defaultLocation)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pdefaultLocation = &defaultLocation)
-				{
-					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, (byte*)pdefaultLocation);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, SDLDialogFileFilter* filters, int nfilters, ReadOnlySpan<byte> defaultLocation)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pdefaultLocation = defaultLocation)
-				{
-					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, (byte*)pdefaultLocation);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, SDLDialogFileFilter* filters, int nfilters, string defaultLocation)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (defaultLocation != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (byte* pa = &a)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, filters, nfilters, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref SDLDialogFileFilter filters, int nfilters, ref byte defaultLocation)
-		{
-			fixed (SDLDialogFileFilter* pfilters = &filters)
-			{
-				fixed (byte* pdefaultLocation = &defaultLocation)
-				{
-					ShowSaveFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref SDLDialogFileFilter filters, int nfilters, ReadOnlySpan<byte> defaultLocation)
-		{
-			fixed (SDLDialogFileFilter* pfilters = &filters)
-			{
-				fixed (byte* pdefaultLocation = defaultLocation)
-				{
-					ShowSaveFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref SDLDialogFileFilter filters, int nfilters, string defaultLocation)
-		{
-			fixed (SDLDialogFileFilter* pfilters = &filters)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (defaultLocation != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				ShowSaveFileDialogNative(callback, userdata, window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref SDLDialogFileFilter filters, int nfilters, ref byte defaultLocation)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLDialogFileFilter* pfilters = &filters)
-				{
-					fixed (byte* pdefaultLocation = &defaultLocation)
-					{
-						ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+						byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, r, g, (byte*)pb, (byte*)pa);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref SDLDialogFileFilter filters, int nfilters, ReadOnlySpan<byte> defaultLocation)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pr = &r)
 			{
-				fixed (SDLDialogFileFilter* pfilters = &filters)
+				fixed (byte* pb = &b)
 				{
-					fixed (byte* pdefaultLocation = defaultLocation)
+					fixed (byte* pa = &a)
 					{
-						ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation);
+						byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						return ret != 0;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
-		/// filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// The chosen file may or may not already exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowSaveFileDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref SDLDialogFileFilter filters, int nfilters, string defaultLocation)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				fixed (SDLDialogFileFilter* pfilters = &filters)
+				fixed (byte* pr = &r)
 				{
-					byte* pStr0 = null;
-					int pStrSize0 = 0;
-					if (defaultLocation != null)
+					fixed (byte* pb = &b)
 					{
-						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-						if (pStrSize0 >= Utils.MaxStackallocSize)
+						fixed (byte* pa = &a)
 						{
-							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+							byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, (byte*)pr, g, (byte*)pb, (byte*)pa);
+							return ret != 0;
 						}
-						else
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
 						{
-							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-							pStr0 = pStrStack0;
+							byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, r, (byte*)pg, (byte*)pb, (byte*)pa);
+							return ret != 0;
 						}
-						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-						pStr0[pStrOffset0] = 0;
 					}
-					ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
 					{
-						Utils.Free(pStr0);
+						fixed (byte* pa = &a)
+						{
+							byte ret = ReadSurfacePixelNative((SDLSurface*)surface, x, y, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							return ret != 0;
+						}
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_GetRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ShowOpenFolderDialogNative(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, byte* defaultLocation, byte allowMany)
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte a)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, byte*, byte, void>)funcTable[601])((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, window, defaultLocation, allowMany);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte, void>)funcTable[601])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, (nint)window, (nint)defaultLocation, allowMany);
-			#endif
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFolderDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, byte* defaultLocation, bool allowMany)
-		{
-			ShowOpenFolderDialogNative(callback, userdata, window, defaultLocation, allowMany ? (byte)1 : (byte)0);
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFolderDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, byte* defaultLocation, bool allowMany)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, defaultLocation, allowMany ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFolderDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ref byte defaultLocation, bool allowMany)
-		{
-			fixed (byte* pdefaultLocation = &defaultLocation)
-			{
-				ShowOpenFolderDialogNative(callback, userdata, window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFolderDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, ReadOnlySpan<byte> defaultLocation, bool allowMany)
-		{
-			fixed (byte* pdefaultLocation = defaultLocation)
-			{
-				ShowOpenFolderDialogNative(callback, userdata, window, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFolderDialog(SDLDialogFileCallback callback, void* userdata, SDLWindow* window, string defaultLocation, bool allowMany)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (defaultLocation != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* pr = &r)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ShowOpenFolderDialogNative(callback, userdata, window, pStr0, allowMany ? (byte)1 : (byte)0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFolderDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ref byte defaultLocation, bool allowMany)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pdefaultLocation = &defaultLocation)
-				{
-					ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFolderDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, ReadOnlySpan<byte> defaultLocation, bool allowMany)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pdefaultLocation = defaultLocation)
-				{
-					ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Displays a dialog that lets the user select a folder on their filesystem.<br/>
-		/// This is an asynchronous function; it will return immediately, and the<br/>
-		/// result will be passed to the callback.<br/>
-		/// The callback will be invoked with a null-terminated list of files the user<br/>
-		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
-		/// be NULL if an error occurred.<br/>
-		/// Note that the callback may be called from a different thread than the one<br/>
-		/// the function was invoked on.<br/>
-		/// Depending on the platform, the user may be allowed to input paths that<br/>
-		/// don't yet exist.<br/>
-		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
-		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
-		/// should add a call to SDL_PumpEvents in their main loop.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ShowOpenFolderDialog(SDLDialogFileCallback callback, void* userdata, ref SDLWindow window, string defaultLocation, bool allowMany)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (defaultLocation != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (byte* pg = &g)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								byte ret = ReadSurfacePixelNative((SDLSurface*)psurface, x, y, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+								return ret != 0;
+							}
+						}
 					}
-					else
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ReadSurfacePixelFloatNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, float*, float*, float*, float*, byte>)funcTable[453])(surface, x, y, r, g, b, a);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, nint, nint, byte>)funcTable[453])((nint)surface, x, y, (nint)r, (nint)g, (nint)b, (nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, g, b, a);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (float* pr = &r)
+			{
+				byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, (float*)pr, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pr = &r)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, (float*)pr, g, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (float* pg = &g)
+			{
+				byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, (float*)pg, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pg = &g)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, (float*)pg, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, (float*)pr, (float*)pg, b, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
 					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, (float*)pr, (float*)pg, b, a);
+						return ret != 0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				ShowOpenFolderDialogNative(callback, userdata, (SDLWindow*)pwindow, pStr0, allowMany ? (byte)1 : (byte)0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Create and launch a file dialog with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
-		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
-		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
-		/// If non-NULL, the array of filters must remain valid at least until the<br/>
-		/// callback is invoked.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
-		/// array of filters, if it exists.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
-		/// be modal for.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
-		/// start the dialog at.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
-		/// more than one entry.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
-		/// should have.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
-		/// should have.<br/>
-		/// Note that each platform may or may not support any of the properties.<br/>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (float* pb = &b)
+			{
+				byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, g, (float*)pb, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, g, (float*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, (float*)pr, g, (float*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, (float*)pr, g, (float*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (float* pg = &g)
+			{
+				fixed (float* pb = &b)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, (float*)pg, (float*)pb, a);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, (float*)pg, (float*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, (float*)pr, (float*)pg, (float*)pb, a);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] float* a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						fixed (float* pb = &b)
+						{
+							byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, (float*)pr, (float*)pg, (float*)pb, a);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (float* pa = &a)
+			{
+				byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, g, b, (float*)pa);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pa = &a)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, g, b, (float*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pa = &a)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, (float*)pr, g, b, (float*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, (float*)pr, g, b, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (float* pg = &g)
+			{
+				fixed (float* pa = &a)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, (float*)pg, b, (float*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, (float*)pg, b, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, (float*)pr, (float*)pg, b, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] float* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						fixed (float* pa = &a)
+						{
+							byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, (float*)pr, (float*)pg, b, (float*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (float* pb = &b)
+			{
+				fixed (float* pa = &a)
+				{
+					byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, g, (float*)pb, (float*)pa);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pb = &b)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, g, (float*)pb, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pb = &b)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, (float*)pr, g, (float*)pb, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] float* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pb = &b)
+					{
+						fixed (float* pa = &a)
+						{
+							byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, (float*)pr, g, (float*)pb, (float*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (float* pg = &g)
+			{
+				fixed (float* pb = &b)
+				{
+					fixed (float* pa = &a)
+					{
+						byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, (float*)pg, (float*)pb, (float*)pa);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] float* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						fixed (float* pa = &a)
+						{
+							byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, (float*)pg, (float*)pb, (float*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (float* pr = &r)
+			{
+				fixed (float* pg = &g)
+				{
+					fixed (float* pb = &b)
+					{
+						fixed (float* pa = &a)
+						{
+							byte ret = ReadSurfacePixelFloatNative((SDLSurface*)surface, x, y, (float*)pr, (float*)pg, (float*)pb, (float*)pa);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retrieves a single pixel from a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReadSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float *")] ref float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float *")] ref float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float *")] ref float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float *")] ref float a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (float* pr = &r)
+				{
+					fixed (float* pg = &g)
+					{
+						fixed (float* pb = &b)
+						{
+							fixed (float* pa = &a)
+							{
+								byte ret = ReadSurfacePixelFloatNative((SDLSurface*)psurface, x, y, (float*)pr, (float*)pg, (float*)pb, (float*)pa);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Writes a single pixel to a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_MapRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WriteSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ShowFileDialogWithPropertiesNative(SDLFileDialogType type, SDLDialogFileCallback callback, void* userdata, uint props)
+		internal static byte WriteSurfacePixelNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLFileDialogType, delegate*<void*, byte**, int, void>, void*, uint, void>)funcTable[602])(type, (delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, props);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, byte, byte, byte, byte, byte>)funcTable[454])(surface, x, y, r, g, b, a);
 			#else
-			((delegate* unmanaged[Cdecl]<SDLFileDialogType, nint, nint, uint, void>)funcTable[602])(type, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata, props);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, byte, byte, byte, byte, byte>)funcTable[454])((nint)surface, x, y, r, g, b, a);
 			#endif
 		}
 
 		/// <summary>
-		/// Create and launch a file dialog with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_FILE_DIALOG_FILTERS_POINTER`: a pointer to a list of<br/>
-		/// SDL_DialogFileFilter structs, which will be used as filters for<br/>
-		/// file-based selections. Ignored if the dialog is an "Open Folder" dialog.<br/>
-		/// If non-NULL, the array of filters must remain valid at least until the<br/>
-		/// callback is invoked.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER`: the number of filters in the<br/>
-		/// array of filters, if it exists.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_WINDOW_POINTER`: the window that the dialog should<br/>
-		/// be modal for.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_LOCATION_STRING`: the default folder or file to<br/>
-		/// start the dialog at.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_MANY_BOOLEAN`: true to allow the user to select<br/>
-		/// more than one entry.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_TITLE_STRING`: the title for the dialog.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_ACCEPT_STRING`: the label that the accept button<br/>
-		/// should have.<br/>
-		/// - `SDL_PROP_FILE_DIALOG_CANCEL_STRING`: the label that the cancel button<br/>
-		/// should have.<br/>
-		/// Note that each platform may or may not support any of the properties.<br/>
+		/// Writes a single pixel to a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_MapRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should be called only from the main thread. The<br/>
-		/// callback may be invoked from the same thread or from a<br/>
-		/// different one, depending on the OS's constraints.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void ShowFileDialogWithProperties(SDLFileDialogType type, SDLDialogFileCallback callback, void* userdata, uint props)
+		[NativeName(NativeNameType.Func, "SDL_WriteSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WriteSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
-			ShowFileDialogWithPropertiesNative(type, callback, userdata, props);
+			byte ret = WriteSurfacePixelNative((SDLSurface*)surface, x, y, r, g, b, a);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get an ASCII string representation for a given SDL_GUID.<br/>
+		/// Writes a single pixel to a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// Like SDL_MapRGBA, this uses the entire 0..255 range when converting color<br/>
+		/// components from pixel formats with less than 8 bits per RGB component.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WriteSurfacePixel")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WriteSurfacePixel([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = WriteSurfacePixelNative((SDLSurface*)psurface, x, y, r, g, b, a);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Writes a single pixel to a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WriteSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GUIDToStringNative(SdlGuid guid, byte* pszGUID, int cbGUID)
+		internal static byte WriteSurfacePixelFloatNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float")] float a)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SdlGuid, byte*, int, void>)funcTable[603])(guid, pszGUID, cbGUID);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, float, float, float, float, byte>)funcTable[455])(surface, x, y, r, g, b, a);
 			#else
-			((delegate* unmanaged[Cdecl]<SdlGuid, nint, int, void>)funcTable[603])(guid, (nint)pszGUID, cbGUID);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, float, float, float, float, byte>)funcTable[455])((nint)surface, x, y, r, g, b, a);
 			#endif
 		}
 
 		/// <summary>
-		/// Get an ASCII string representation for a given SDL_GUID.<br/>
+		/// Writes a single pixel to a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void GUIDToString(SdlGuid guid, byte* pszGUID, int cbGUID)
+		[NativeName(NativeNameType.Func, "SDL_WriteSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WriteSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float")] float a)
 		{
-			GUIDToStringNative(guid, pszGUID, cbGUID);
+			byte ret = WriteSurfacePixelFloatNative((SDLSurface*)surface, x, y, r, g, b, a);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get an ASCII string representation for a given SDL_GUID.<br/>
+		/// Writes a single pixel to a surface.<br/>
+		/// This function prioritizes correctness over speed: it is suitable for unit<br/>
+		/// tests, but is not intended for use in a game engine.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// </summary>
-		public static void GUIDToString(SdlGuid guid, ref byte pszGUID, int cbGUID)
+		[NativeName(NativeNameType.Func, "SDL_WriteSurfacePixelFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WriteSurfacePixelFloat([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "float")] float r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "float")] float g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "float")] float b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "float")] float a)
 		{
-			fixed (byte* ppszGUID = &pszGUID)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				GUIDToStringNative(guid, (byte*)ppszGUID, cbGUID);
+				byte ret = WriteSurfacePixelFloatNative((SDLSurface*)psurface, x, y, r, g, b, a);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get an ASCII string representation for a given SDL_GUID.<br/>
+		/// Use this function to get the number of built-in camera drivers.<br/>
+		/// This function returns a hardcoded number. This never returns a negative<br/>
+		/// value; if there are no drivers compiled into this build of SDL, this<br/>
+		/// function returns zero. The presence of a driver in this list does not mean<br/>
+		/// it will function, it just means SDL is capable of interacting with that<br/>
+		/// interface. For example, a build of SDL might have v4l2 support, but if<br/>
+		/// there's no kernel support available, SDL's v4l2 driver would fail if used.<br/>
+		/// By default, SDL tries all drivers, in its preferred order, until one is<br/>
+		/// found to be usable.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void GUIDToString(SdlGuid guid, ref string pszGUID, int cbGUID)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (pszGUID != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(pszGUID);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pszGUID, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			GUIDToStringNative(guid, pStr0, cbGUID);
-			pszGUID = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Convert a GUID string into a SDL_GUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumCameraDrivers")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SdlGuid StringToGUIDNative(byte* pchGUID)
+		internal static int GetNumCameraDriversNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SdlGuid>)funcTable[604])(pchGUID);
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[456])();
 			#else
-			return (SdlGuid)((delegate* unmanaged[Cdecl]<nint, SdlGuid>)funcTable[604])((nint)pchGUID);
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[456])();
 			#endif
 		}
 
 		/// <summary>
-		/// Convert a GUID string into a SDL_GUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
+		/// Use this function to get the number of built-in camera drivers.<br/>
+		/// This function returns a hardcoded number. This never returns a negative<br/>
+		/// value; if there are no drivers compiled into this build of SDL, this<br/>
+		/// function returns zero. The presence of a driver in this list does not mean<br/>
+		/// it will function, it just means SDL is capable of interacting with that<br/>
+		/// interface. For example, a build of SDL might have v4l2 support, but if<br/>
+		/// there's no kernel support available, SDL's v4l2 driver would fail if used.<br/>
+		/// By default, SDL tries all drivers, in its preferred order, until one is<br/>
+		/// found to be usable.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SdlGuid StringToGUID(byte* pchGUID)
+		[NativeName(NativeNameType.Func, "SDL_GetNumCameraDrivers")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumCameraDrivers()
 		{
-			SdlGuid ret = StringToGUIDNative(pchGUID);
+			int ret = GetNumCameraDriversNative();
 			return ret;
 		}
 
 		/// <summary>
-		/// Convert a GUID string into a SDL_GUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
+		/// Use this function to get the name of a built in camera driver.<br/>
+		/// The list of camera drivers is given in the order that they are normally<br/>
+		/// initialized by default; the drivers that seem more reasonable to choose<br/>
+		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "v4l2",<br/>
+		/// "coremedia" or "android". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SdlGuid StringToGUID(ref byte pchGUID)
-		{
-			fixed (byte* ppchGUID = &pchGUID)
-			{
-				SdlGuid ret = StringToGUIDNative((byte*)ppchGUID);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert a GUID string into a SDL_GUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SdlGuid StringToGUID(ReadOnlySpan<byte> pchGUID)
-		{
-			fixed (byte* ppchGUID = pchGUID)
-			{
-				SdlGuid ret = StringToGUIDNative((byte*)ppchGUID);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert a GUID string into a SDL_GUID structure.<br/>
-		/// Performs no error checking. If this function is given a string containing<br/>
-		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
-		/// will not be useful.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SdlGuid StringToGUID(string pchGUID)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (pchGUID != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(pchGUID);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pchGUID, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SdlGuid ret = StringToGUIDNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current power supply details.<br/>
-		/// You should never take a battery status as absolute truth. Batteries<br/>
-		/// (especially failing batteries) are delicate hardware, and the values<br/>
-		/// reported here are best estimates based on what that hardware reports. It's<br/>
-		/// not uncommon for older batteries to lose stored power much faster than it<br/>
-		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
-		/// Battery status can change at any time; if you are concerned with power<br/>
-		/// state, you should call this function frequently, and perhaps ignore changes<br/>
-		/// until they seem to be stable for a few seconds.<br/>
-		/// It's possible a platform can only report battery percentage or time left<br/>
-		/// but not both.<br/>
-		/// On some platforms, retrieving power supply details might be expensive. If<br/>
-		/// you want to display continuous status you could call this function every<br/>
-		/// minute or so.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLPowerState GetPowerInfoNative(int* seconds, int* percent)
+		internal static byte* GetCameraDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, SDLPowerState>)funcTable[605])(seconds, percent);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[457])(index);
 			#else
-			return (SDLPowerState)((delegate* unmanaged[Cdecl]<nint, nint, SDLPowerState>)funcTable[605])((nint)seconds, (nint)percent);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[457])(index);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the current power supply details.<br/>
-		/// You should never take a battery status as absolute truth. Batteries<br/>
-		/// (especially failing batteries) are delicate hardware, and the values<br/>
-		/// reported here are best estimates based on what that hardware reports. It's<br/>
-		/// not uncommon for older batteries to lose stored power much faster than it<br/>
-		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
-		/// Battery status can change at any time; if you are concerned with power<br/>
-		/// state, you should call this function frequently, and perhaps ignore changes<br/>
-		/// until they seem to be stable for a few seconds.<br/>
-		/// It's possible a platform can only report battery percentage or time left<br/>
-		/// but not both.<br/>
-		/// On some platforms, retrieving power supply details might be expensive. If<br/>
-		/// you want to display continuous status you could call this function every<br/>
-		/// minute or so.<br/>
+		/// Use this function to get the name of a built in camera driver.<br/>
+		/// The list of camera drivers is given in the order that they are normally<br/>
+		/// initialized by default; the drivers that seem more reasonable to choose<br/>
+		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "v4l2",<br/>
+		/// "coremedia" or "android". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLPowerState GetPowerInfo(int* seconds, int* percent)
+		[NativeName(NativeNameType.Func, "SDL_GetCameraDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetCameraDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			SDLPowerState ret = GetPowerInfoNative(seconds, percent);
+			byte* ret = GetCameraDriverNative(index);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the current power supply details.<br/>
-		/// You should never take a battery status as absolute truth. Batteries<br/>
-		/// (especially failing batteries) are delicate hardware, and the values<br/>
-		/// reported here are best estimates based on what that hardware reports. It's<br/>
-		/// not uncommon for older batteries to lose stored power much faster than it<br/>
-		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
-		/// Battery status can change at any time; if you are concerned with power<br/>
-		/// state, you should call this function frequently, and perhaps ignore changes<br/>
-		/// until they seem to be stable for a few seconds.<br/>
-		/// It's possible a platform can only report battery percentage or time left<br/>
-		/// but not both.<br/>
-		/// On some platforms, retrieving power supply details might be expensive. If<br/>
-		/// you want to display continuous status you could call this function every<br/>
-		/// minute or so.<br/>
+		/// Use this function to get the name of a built in camera driver.<br/>
+		/// The list of camera drivers is given in the order that they are normally<br/>
+		/// initialized by default; the drivers that seem more reasonable to choose<br/>
+		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "v4l2",<br/>
+		/// "coremedia" or "android". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLPowerState GetPowerInfo(ref int seconds, int* percent)
+		[NativeName(NativeNameType.Func, "SDL_GetCameraDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetCameraDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			fixed (int* pseconds = &seconds)
+			string ret = Utils.DecodeStringUTF8(GetCameraDriverNative(index));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of the current camera driver.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "v4l2",<br/>
+		/// "coremedia" or "android". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCurrentCameraDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetCurrentCameraDriverNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[458])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[458])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the name of the current camera driver.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "v4l2",<br/>
+		/// "coremedia" or "android". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCurrentCameraDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetCurrentCameraDriver()
+		{
+			byte* ret = GetCurrentCameraDriverNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of the current camera driver.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "v4l2",<br/>
+		/// "coremedia" or "android". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCurrentCameraDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetCurrentCameraDriverS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetCurrentCameraDriverNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected camera devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameras")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraID *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint* GetCamerasNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[459])(count);
+			#else
+			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[459])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of currently connected camera devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameras")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraID *")]
+		public static uint* GetCameras([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			uint* ret = GetCamerasNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected camera devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameras")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraID *")]
+		public static uint* GetCameras([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
 			{
-				SDLPowerState ret = GetPowerInfoNative((int*)pseconds, percent);
+				uint* ret = GetCamerasNative((int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the current power supply details.<br/>
-		/// You should never take a battery status as absolute truth. Batteries<br/>
-		/// (especially failing batteries) are delicate hardware, and the values<br/>
-		/// reported here are best estimates based on what that hardware reports. It's<br/>
-		/// not uncommon for older batteries to lose stored power much faster than it<br/>
-		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
-		/// Battery status can change at any time; if you are concerned with power<br/>
-		/// state, you should call this function frequently, and perhaps ignore changes<br/>
-		/// until they seem to be stable for a few seconds.<br/>
-		/// It's possible a platform can only report battery percentage or time left<br/>
-		/// but not both.<br/>
-		/// On some platforms, retrieving power supply details might be expensive. If<br/>
-		/// you want to display continuous status you could call this function every<br/>
-		/// minute or so.<br/>
+		/// Get the list of native formats/sizes a camera supports.<br/>
+		/// This returns a list of all formats and frame sizes that a specific camera<br/>
+		/// can offer. This is useful if your app can accept a variety of image formats<br/>
+		/// and sizes and so want to find the optimal spec that doesn't require<br/>
+		/// conversion.<br/>
+		/// This function isn't strictly required; if you call SDL_OpenCamera with a<br/>
+		/// NULL spec, SDL will choose a native format for you, and if you instead<br/>
+		/// specify a desired format, it will transparently convert to the requested<br/>
+		/// format on your behalf.<br/>
+		/// If `count` is not NULL, it will be filled with the number of elements in<br/>
+		/// the returned array.<br/>
+		/// Note that it's legal for a camera to supply an empty list. This is what<br/>
+		/// will happen on Emscripten builds, since that platform won't tell _anything_<br/>
+		/// about available cameras until you've opened one, and won't even tell if<br/>
+		/// there _is_ a camera until the user has given you permission to check<br/>
+		/// through a scary warning popup.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLPowerState GetPowerInfo(int* seconds, ref int percent)
+		[NativeName(NativeNameType.Func, "SDL_GetCameraSupportedFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraSpec * *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCameraSpec** GetCameraSupportedFormatsNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
-			fixed (int* ppercent = &percent)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int*, SDLCameraSpec**>)funcTable[460])(instanceId, count);
+			#else
+			return (SDLCameraSpec**)((delegate* unmanaged[Cdecl]<uint, nint, nint>)funcTable[460])(instanceId, (nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the list of native formats/sizes a camera supports.<br/>
+		/// This returns a list of all formats and frame sizes that a specific camera<br/>
+		/// can offer. This is useful if your app can accept a variety of image formats<br/>
+		/// and sizes and so want to find the optimal spec that doesn't require<br/>
+		/// conversion.<br/>
+		/// This function isn't strictly required; if you call SDL_OpenCamera with a<br/>
+		/// NULL spec, SDL will choose a native format for you, and if you instead<br/>
+		/// specify a desired format, it will transparently convert to the requested<br/>
+		/// format on your behalf.<br/>
+		/// If `count` is not NULL, it will be filled with the number of elements in<br/>
+		/// the returned array.<br/>
+		/// Note that it's legal for a camera to supply an empty list. This is what<br/>
+		/// will happen on Emscripten builds, since that platform won't tell _anything_<br/>
+		/// about available cameras until you've opened one, and won't even tell if<br/>
+		/// there _is_ a camera until the user has given you permission to check<br/>
+		/// through a scary warning popup.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraSupportedFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraSpec * *")]
+		public static SDLCameraSpecPtrPtr GetCameraSupportedFormats([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			SDLCameraSpecPtrPtr ret = GetCameraSupportedFormatsNative(instanceId, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the list of native formats/sizes a camera supports.<br/>
+		/// This returns a list of all formats and frame sizes that a specific camera<br/>
+		/// can offer. This is useful if your app can accept a variety of image formats<br/>
+		/// and sizes and so want to find the optimal spec that doesn't require<br/>
+		/// conversion.<br/>
+		/// This function isn't strictly required; if you call SDL_OpenCamera with a<br/>
+		/// NULL spec, SDL will choose a native format for you, and if you instead<br/>
+		/// specify a desired format, it will transparently convert to the requested<br/>
+		/// format on your behalf.<br/>
+		/// If `count` is not NULL, it will be filled with the number of elements in<br/>
+		/// the returned array.<br/>
+		/// Note that it's legal for a camera to supply an empty list. This is what<br/>
+		/// will happen on Emscripten builds, since that platform won't tell _anything_<br/>
+		/// about available cameras until you've opened one, and won't even tell if<br/>
+		/// there _is_ a camera until the user has given you permission to check<br/>
+		/// through a scary warning popup.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraSupportedFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraSpec * *")]
+		public static SDLCameraSpecPtrPtr GetCameraSupportedFormats([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
 			{
-				SDLPowerState ret = GetPowerInfoNative(seconds, (int*)ppercent);
+				SDLCameraSpecPtrPtr ret = GetCameraSupportedFormatsNative(instanceId, (int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the current power supply details.<br/>
-		/// You should never take a battery status as absolute truth. Batteries<br/>
-		/// (especially failing batteries) are delicate hardware, and the values<br/>
-		/// reported here are best estimates based on what that hardware reports. It's<br/>
-		/// not uncommon for older batteries to lose stored power much faster than it<br/>
-		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
-		/// Battery status can change at any time; if you are concerned with power<br/>
-		/// state, you should call this function frequently, and perhaps ignore changes<br/>
-		/// until they seem to be stable for a few seconds.<br/>
-		/// It's possible a platform can only report battery percentage or time left<br/>
-		/// but not both.<br/>
-		/// On some platforms, retrieving power supply details might be expensive. If<br/>
-		/// you want to display continuous status you could call this function every<br/>
-		/// minute or so.<br/>
+		/// Get the human-readable device name for a camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLPowerState GetPowerInfo(ref int seconds, ref int percent)
+		[NativeName(NativeNameType.Func, "SDL_GetCameraName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetCameraNameNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId)
 		{
-			fixed (int* pseconds = &seconds)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[461])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[461])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the human-readable device name for a camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetCameraName([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId)
+		{
+			byte* ret = GetCameraNameNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the human-readable device name for a camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetCameraNameS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetCameraNameNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the position of the camera in relation to the system.<br/>
+		/// Most platforms will report UNKNOWN, but mobile devices, like phones, can<br/>
+		/// often make a distinction between cameras on the front of the device (that<br/>
+		/// points towards the user, for taking "selfies") and cameras on the back (for<br/>
+		/// filming in the direction the user is facing).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraPosition")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraPosition")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCameraPosition GetCameraPositionNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLCameraPosition>)funcTable[462])(instanceId);
+			#else
+			return (SDLCameraPosition)((delegate* unmanaged[Cdecl]<uint, SDLCameraPosition>)funcTable[462])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the position of the camera in relation to the system.<br/>
+		/// Most platforms will report UNKNOWN, but mobile devices, like phones, can<br/>
+		/// often make a distinction between cameras on the front of the device (that<br/>
+		/// points towards the user, for taking "selfies") and cameras on the back (for<br/>
+		/// filming in the direction the user is facing).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraPosition")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraPosition")]
+		public static SDLCameraPosition GetCameraPosition([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId)
+		{
+			SDLCameraPosition ret = GetCameraPositionNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a video recording device (a "camera").<br/>
+		/// You can open the device with any reasonable spec, and if the hardware can't<br/>
+		/// directly support it, it will convert data seamlessly to the requested<br/>
+		/// format. This might incur overhead, including scaling of image data.<br/>
+		/// If you would rather accept whatever format the device offers, you can pass<br/>
+		/// a NULL spec here and it will choose one for you (and you can use<br/>
+		/// SDL_Surface's conversion/scaling functions directly if necessary).<br/>
+		/// You can call SDL_GetCameraFormat() to get the actual data format if passing<br/>
+		/// a NULL spec here. You can see the exact specs a device can support without<br/>
+		/// conversion with SDL_GetCameraSupportedFormats().<br/>
+		/// SDL will not attempt to emulate framerate; it will try to set the hardware<br/>
+		/// to the rate closest to the requested speed, but it won't attempt to limit<br/>
+		/// or duplicate frames artificially; call SDL_GetCameraFormat() to see the<br/>
+		/// actual framerate of the opened the device, and check your timestamps if<br/>
+		/// this is crucial to your app!<br/>
+		/// Note that the camera is not usable until the user approves its use! On some<br/>
+		/// platforms, the operating system will prompt the user to permit access to<br/>
+		/// the camera, and they can choose Yes or No at that point. Until they do, the<br/>
+		/// camera will not be usable. The app should either wait for an<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event,<br/>
+		/// or poll SDL_GetCameraPermissionState() occasionally until it returns<br/>
+		/// non-zero. On platforms that don't require explicit user approval (and<br/>
+		/// perhaps in places where the user previously permitted access), the approval<br/>
+		/// event might come immediately, but it might come seconds, minutes, or hours<br/>
+		/// later!<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenCamera")]
+		[return: NativeName(NativeNameType.Type, "SDL_Camera *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCamera* OpenCameraNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_CameraSpec const *")] SDLCameraSpec* spec)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLCameraSpec*, SDLCamera*>)funcTable[463])(instanceId, spec);
+			#else
+			return (SDLCamera*)((delegate* unmanaged[Cdecl]<uint, nint, nint>)funcTable[463])(instanceId, (nint)spec);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a video recording device (a "camera").<br/>
+		/// You can open the device with any reasonable spec, and if the hardware can't<br/>
+		/// directly support it, it will convert data seamlessly to the requested<br/>
+		/// format. This might incur overhead, including scaling of image data.<br/>
+		/// If you would rather accept whatever format the device offers, you can pass<br/>
+		/// a NULL spec here and it will choose one for you (and you can use<br/>
+		/// SDL_Surface's conversion/scaling functions directly if necessary).<br/>
+		/// You can call SDL_GetCameraFormat() to get the actual data format if passing<br/>
+		/// a NULL spec here. You can see the exact specs a device can support without<br/>
+		/// conversion with SDL_GetCameraSupportedFormats().<br/>
+		/// SDL will not attempt to emulate framerate; it will try to set the hardware<br/>
+		/// to the rate closest to the requested speed, but it won't attempt to limit<br/>
+		/// or duplicate frames artificially; call SDL_GetCameraFormat() to see the<br/>
+		/// actual framerate of the opened the device, and check your timestamps if<br/>
+		/// this is crucial to your app!<br/>
+		/// Note that the camera is not usable until the user approves its use! On some<br/>
+		/// platforms, the operating system will prompt the user to permit access to<br/>
+		/// the camera, and they can choose Yes or No at that point. Until they do, the<br/>
+		/// camera will not be usable. The app should either wait for an<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event,<br/>
+		/// or poll SDL_GetCameraPermissionState() occasionally until it returns<br/>
+		/// non-zero. On platforms that don't require explicit user approval (and<br/>
+		/// perhaps in places where the user previously permitted access), the approval<br/>
+		/// event might come immediately, but it might come seconds, minutes, or hours<br/>
+		/// later!<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenCamera")]
+		[return: NativeName(NativeNameType.Type, "SDL_Camera *")]
+		public static SDLCameraPtr OpenCamera([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_CameraSpec const *")] SDLCameraSpecPtr spec)
+		{
+			SDLCameraPtr ret = OpenCameraNative(instanceId, (SDLCameraSpec*)spec);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a video recording device (a "camera").<br/>
+		/// You can open the device with any reasonable spec, and if the hardware can't<br/>
+		/// directly support it, it will convert data seamlessly to the requested<br/>
+		/// format. This might incur overhead, including scaling of image data.<br/>
+		/// If you would rather accept whatever format the device offers, you can pass<br/>
+		/// a NULL spec here and it will choose one for you (and you can use<br/>
+		/// SDL_Surface's conversion/scaling functions directly if necessary).<br/>
+		/// You can call SDL_GetCameraFormat() to get the actual data format if passing<br/>
+		/// a NULL spec here. You can see the exact specs a device can support without<br/>
+		/// conversion with SDL_GetCameraSupportedFormats().<br/>
+		/// SDL will not attempt to emulate framerate; it will try to set the hardware<br/>
+		/// to the rate closest to the requested speed, but it won't attempt to limit<br/>
+		/// or duplicate frames artificially; call SDL_GetCameraFormat() to see the<br/>
+		/// actual framerate of the opened the device, and check your timestamps if<br/>
+		/// this is crucial to your app!<br/>
+		/// Note that the camera is not usable until the user approves its use! On some<br/>
+		/// platforms, the operating system will prompt the user to permit access to<br/>
+		/// the camera, and they can choose Yes or No at that point. Until they do, the<br/>
+		/// camera will not be usable. The app should either wait for an<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event,<br/>
+		/// or poll SDL_GetCameraPermissionState() occasionally until it returns<br/>
+		/// non-zero. On platforms that don't require explicit user approval (and<br/>
+		/// perhaps in places where the user previously permitted access), the approval<br/>
+		/// event might come immediately, but it might come seconds, minutes, or hours<br/>
+		/// later!<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenCamera")]
+		[return: NativeName(NativeNameType.Type, "SDL_Camera *")]
+		public static SDLCameraPtr OpenCamera([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_CameraID")] uint instanceId, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_CameraSpec const *")] in SDLCameraSpec spec)
+		{
+			fixed (SDLCameraSpec* pspec = &spec)
 			{
-				fixed (int* ppercent = &percent)
+				SDLCameraPtr ret = OpenCameraNative(instanceId, (SDLCameraSpec*)pspec);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query if camera access has been approved by the user.<br/>
+		/// Cameras will not function between when the device is opened by the app and<br/>
+		/// when the user permits access to the hardware. On some platforms, this<br/>
+		/// presents as a popup dialog where the user has to explicitly approve access;<br/>
+		/// on others the approval might be implicit and not alert the user at all.<br/>
+		/// This function can be used to check the status of that approval. It will<br/>
+		/// return SDL_CAMERA_PERMISSION_STATE_PENDING if waiting for user response,<br/>
+		/// SDL_CAMERA_PERMISSION_STATE_APPROVED if the camera is approved for use, and<br/>
+		/// SDL_CAMERA_PERMISSION_STATE_DENIED if the user denied access.<br/>
+		/// Instead of polling with this function, you can wait for a<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event<br/>
+		/// in the standard SDL event loop, which is guaranteed to be sent once when<br/>
+		/// permission to use the camera is decided.<br/>
+		/// If a camera is declined, there's nothing to be done but call<br/>
+		/// SDL_CloseCamera() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraPermissionState")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraPermissionState")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCameraPermissionState GetCameraPermissionStateNative([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCamera* camera)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCamera*, SDLCameraPermissionState>)funcTable[464])(camera);
+			#else
+			return (SDLCameraPermissionState)((delegate* unmanaged[Cdecl]<nint, SDLCameraPermissionState>)funcTable[464])((nint)camera);
+			#endif
+		}
+
+		/// <summary>
+		/// Query if camera access has been approved by the user.<br/>
+		/// Cameras will not function between when the device is opened by the app and<br/>
+		/// when the user permits access to the hardware. On some platforms, this<br/>
+		/// presents as a popup dialog where the user has to explicitly approve access;<br/>
+		/// on others the approval might be implicit and not alert the user at all.<br/>
+		/// This function can be used to check the status of that approval. It will<br/>
+		/// return SDL_CAMERA_PERMISSION_STATE_PENDING if waiting for user response,<br/>
+		/// SDL_CAMERA_PERMISSION_STATE_APPROVED if the camera is approved for use, and<br/>
+		/// SDL_CAMERA_PERMISSION_STATE_DENIED if the user denied access.<br/>
+		/// Instead of polling with this function, you can wait for a<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event<br/>
+		/// in the standard SDL event loop, which is guaranteed to be sent once when<br/>
+		/// permission to use the camera is decided.<br/>
+		/// If a camera is declined, there's nothing to be done but call<br/>
+		/// SDL_CloseCamera() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraPermissionState")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraPermissionState")]
+		public static SDLCameraPermissionState GetCameraPermissionState([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera)
+		{
+			SDLCameraPermissionState ret = GetCameraPermissionStateNative((SDLCamera*)camera);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query if camera access has been approved by the user.<br/>
+		/// Cameras will not function between when the device is opened by the app and<br/>
+		/// when the user permits access to the hardware. On some platforms, this<br/>
+		/// presents as a popup dialog where the user has to explicitly approve access;<br/>
+		/// on others the approval might be implicit and not alert the user at all.<br/>
+		/// This function can be used to check the status of that approval. It will<br/>
+		/// return SDL_CAMERA_PERMISSION_STATE_PENDING if waiting for user response,<br/>
+		/// SDL_CAMERA_PERMISSION_STATE_APPROVED if the camera is approved for use, and<br/>
+		/// SDL_CAMERA_PERMISSION_STATE_DENIED if the user denied access.<br/>
+		/// Instead of polling with this function, you can wait for a<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event<br/>
+		/// in the standard SDL event loop, which is guaranteed to be sent once when<br/>
+		/// permission to use the camera is decided.<br/>
+		/// If a camera is declined, there's nothing to be done but call<br/>
+		/// SDL_CloseCamera() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraPermissionState")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraPermissionState")]
+		public static SDLCameraPermissionState GetCameraPermissionState([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera)
+		{
+			fixed (SDLCamera* pcamera = &camera)
+			{
+				SDLCameraPermissionState ret = GetCameraPermissionStateNative((SDLCamera*)pcamera);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraID")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetCameraIDNative([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCamera* camera)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCamera*, uint>)funcTable[465])(camera);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[465])((nint)camera);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraID")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraID")]
+		public static uint GetCameraID([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera)
+		{
+			uint ret = GetCameraIDNative((SDLCamera*)camera);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraID")]
+		[return: NativeName(NativeNameType.Type, "SDL_CameraID")]
+		public static uint GetCameraID([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera)
+		{
+			fixed (SDLCamera* pcamera = &camera)
+			{
+				uint ret = GetCameraIDNative((SDLCamera*)pcamera);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the properties associated with an opened camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetCameraPropertiesNative([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCamera* camera)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCamera*, uint>)funcTable[466])(camera);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[466])((nint)camera);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with an opened camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetCameraProperties([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera)
+		{
+			uint ret = GetCameraPropertiesNative((SDLCamera*)camera);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with an opened camera.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetCameraProperties([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera)
+		{
+			fixed (SDLCamera* pcamera = &camera)
+			{
+				uint ret = GetCameraPropertiesNative((SDLCamera*)pcamera);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the spec that a camera is using when generating images.<br/>
+		/// Note that this might not be the native format of the hardware, as SDL might<br/>
+		/// be converting to this format behind the scenes.<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return false, but this isn't necessarily<br/>
+		/// a fatal error; you should either wait for an<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event,<br/>
+		/// or poll SDL_GetCameraPermissionState() occasionally until it returns<br/>
+		/// non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetCameraFormatNative([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCamera* camera, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_CameraSpec *")] SDLCameraSpec* spec)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCamera*, SDLCameraSpec*, byte>)funcTable[467])(camera, spec);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[467])((nint)camera, (nint)spec);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the spec that a camera is using when generating images.<br/>
+		/// Note that this might not be the native format of the hardware, as SDL might<br/>
+		/// be converting to this format behind the scenes.<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return false, but this isn't necessarily<br/>
+		/// a fatal error; you should either wait for an<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event,<br/>
+		/// or poll SDL_GetCameraPermissionState() occasionally until it returns<br/>
+		/// non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetCameraFormat([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_CameraSpec *")] SDLCameraSpecPtr spec)
+		{
+			byte ret = GetCameraFormatNative((SDLCamera*)camera, (SDLCameraSpec*)spec);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the spec that a camera is using when generating images.<br/>
+		/// Note that this might not be the native format of the hardware, as SDL might<br/>
+		/// be converting to this format behind the scenes.<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return false, but this isn't necessarily<br/>
+		/// a fatal error; you should either wait for an<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event,<br/>
+		/// or poll SDL_GetCameraPermissionState() occasionally until it returns<br/>
+		/// non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetCameraFormat([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_CameraSpec *")] SDLCameraSpecPtr spec)
+		{
+			fixed (SDLCamera* pcamera = &camera)
+			{
+				byte ret = GetCameraFormatNative((SDLCamera*)pcamera, (SDLCameraSpec*)spec);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the spec that a camera is using when generating images.<br/>
+		/// Note that this might not be the native format of the hardware, as SDL might<br/>
+		/// be converting to this format behind the scenes.<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return false, but this isn't necessarily<br/>
+		/// a fatal error; you should either wait for an<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event,<br/>
+		/// or poll SDL_GetCameraPermissionState() occasionally until it returns<br/>
+		/// non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetCameraFormat([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_CameraSpec *")] ref SDLCameraSpec spec)
+		{
+			fixed (SDLCameraSpec* pspec = &spec)
+			{
+				byte ret = GetCameraFormatNative((SDLCamera*)camera, (SDLCameraSpec*)pspec);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the spec that a camera is using when generating images.<br/>
+		/// Note that this might not be the native format of the hardware, as SDL might<br/>
+		/// be converting to this format behind the scenes.<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return false, but this isn't necessarily<br/>
+		/// a fatal error; you should either wait for an<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event,<br/>
+		/// or poll SDL_GetCameraPermissionState() occasionally until it returns<br/>
+		/// non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCameraFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetCameraFormat([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_CameraSpec *")] ref SDLCameraSpec spec)
+		{
+			fixed (SDLCamera* pcamera = &camera)
+			{
+				fixed (SDLCameraSpec* pspec = &spec)
 				{
-					SDLPowerState ret = GetPowerInfoNative((int*)pseconds, (int*)ppercent);
+					byte ret = GetCameraFormatNative((SDLCamera*)pcamera, (SDLCameraSpec*)pspec);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Acquire a frame.<br/>
+		/// The frame is a memory pointer to the image data, whose size and format are<br/>
+		/// given by the spec requested when opening the device.<br/>
+		/// This is a non blocking API. If there is a frame available, a non-NULL<br/>
+		/// surface is returned, and timestampNS will be filled with a non-zero value.<br/>
+		/// Note that an error case can also return NULL, but a NULL by itself is<br/>
+		/// normal and just signifies that a new frame is not yet available. Note that<br/>
+		/// even if a camera device fails outright (a USB camera is unplugged while in<br/>
+		/// use, etc), SDL will send an event separately to notify the app, but<br/>
+		/// continue to provide blank frames at ongoing intervals until<br/>
+		/// SDL_CloseCamera() is called, so real failure here is almost always an out<br/>
+		/// of memory condition.<br/>
+		/// After use, the frame should be released with SDL_ReleaseCameraFrame(). If<br/>
+		/// you don't do this, the system may stop providing more video!<br/>
+		/// Do not call SDL_DestroySurface() on the returned surface! It must be given<br/>
+		/// back to the camera subsystem with SDL_ReleaseCameraFrame!<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return NULL (no frames available); you<br/>
+		/// should either wait for an SDL_EVENT_CAMERA_DEVICE_APPROVED (or<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_DENIED) event, or poll<br/>
+		/// SDL_GetCameraPermissionState() occasionally until it returns non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* AcquireCameraFrameNative([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCamera* camera, [NativeName(NativeNameType.Param, "timestampNS")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* timestampNS)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCamera*, ulong*, SDLSurface*>)funcTable[468])(camera, timestampNS);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[468])((nint)camera, (nint)timestampNS);
+			#endif
+		}
+
+		/// <summary>
+		/// Acquire a frame.<br/>
+		/// The frame is a memory pointer to the image data, whose size and format are<br/>
+		/// given by the spec requested when opening the device.<br/>
+		/// This is a non blocking API. If there is a frame available, a non-NULL<br/>
+		/// surface is returned, and timestampNS will be filled with a non-zero value.<br/>
+		/// Note that an error case can also return NULL, but a NULL by itself is<br/>
+		/// normal and just signifies that a new frame is not yet available. Note that<br/>
+		/// even if a camera device fails outright (a USB camera is unplugged while in<br/>
+		/// use, etc), SDL will send an event separately to notify the app, but<br/>
+		/// continue to provide blank frames at ongoing intervals until<br/>
+		/// SDL_CloseCamera() is called, so real failure here is almost always an out<br/>
+		/// of memory condition.<br/>
+		/// After use, the frame should be released with SDL_ReleaseCameraFrame(). If<br/>
+		/// you don't do this, the system may stop providing more video!<br/>
+		/// Do not call SDL_DestroySurface() on the returned surface! It must be given<br/>
+		/// back to the camera subsystem with SDL_ReleaseCameraFrame!<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return NULL (no frames available); you<br/>
+		/// should either wait for an SDL_EVENT_CAMERA_DEVICE_APPROVED (or<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_DENIED) event, or poll<br/>
+		/// SDL_GetCameraPermissionState() occasionally until it returns non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr AcquireCameraFrame([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera, [NativeName(NativeNameType.Param, "timestampNS")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* timestampNS)
+		{
+			SDLSurfacePtr ret = AcquireCameraFrameNative((SDLCamera*)camera, timestampNS);
+			return ret;
+		}
+
+		/// <summary>
+		/// Acquire a frame.<br/>
+		/// The frame is a memory pointer to the image data, whose size and format are<br/>
+		/// given by the spec requested when opening the device.<br/>
+		/// This is a non blocking API. If there is a frame available, a non-NULL<br/>
+		/// surface is returned, and timestampNS will be filled with a non-zero value.<br/>
+		/// Note that an error case can also return NULL, but a NULL by itself is<br/>
+		/// normal and just signifies that a new frame is not yet available. Note that<br/>
+		/// even if a camera device fails outright (a USB camera is unplugged while in<br/>
+		/// use, etc), SDL will send an event separately to notify the app, but<br/>
+		/// continue to provide blank frames at ongoing intervals until<br/>
+		/// SDL_CloseCamera() is called, so real failure here is almost always an out<br/>
+		/// of memory condition.<br/>
+		/// After use, the frame should be released with SDL_ReleaseCameraFrame(). If<br/>
+		/// you don't do this, the system may stop providing more video!<br/>
+		/// Do not call SDL_DestroySurface() on the returned surface! It must be given<br/>
+		/// back to the camera subsystem with SDL_ReleaseCameraFrame!<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return NULL (no frames available); you<br/>
+		/// should either wait for an SDL_EVENT_CAMERA_DEVICE_APPROVED (or<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_DENIED) event, or poll<br/>
+		/// SDL_GetCameraPermissionState() occasionally until it returns non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr AcquireCameraFrame([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera, [NativeName(NativeNameType.Param, "timestampNS")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* timestampNS)
+		{
+			fixed (SDLCamera* pcamera = &camera)
+			{
+				SDLSurfacePtr ret = AcquireCameraFrameNative((SDLCamera*)pcamera, timestampNS);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a frame.<br/>
+		/// The frame is a memory pointer to the image data, whose size and format are<br/>
+		/// given by the spec requested when opening the device.<br/>
+		/// This is a non blocking API. If there is a frame available, a non-NULL<br/>
+		/// surface is returned, and timestampNS will be filled with a non-zero value.<br/>
+		/// Note that an error case can also return NULL, but a NULL by itself is<br/>
+		/// normal and just signifies that a new frame is not yet available. Note that<br/>
+		/// even if a camera device fails outright (a USB camera is unplugged while in<br/>
+		/// use, etc), SDL will send an event separately to notify the app, but<br/>
+		/// continue to provide blank frames at ongoing intervals until<br/>
+		/// SDL_CloseCamera() is called, so real failure here is almost always an out<br/>
+		/// of memory condition.<br/>
+		/// After use, the frame should be released with SDL_ReleaseCameraFrame(). If<br/>
+		/// you don't do this, the system may stop providing more video!<br/>
+		/// Do not call SDL_DestroySurface() on the returned surface! It must be given<br/>
+		/// back to the camera subsystem with SDL_ReleaseCameraFrame!<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return NULL (no frames available); you<br/>
+		/// should either wait for an SDL_EVENT_CAMERA_DEVICE_APPROVED (or<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_DENIED) event, or poll<br/>
+		/// SDL_GetCameraPermissionState() occasionally until it returns non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr AcquireCameraFrame([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera, [NativeName(NativeNameType.Param, "timestampNS")] [NativeName(NativeNameType.Type, "Uint64 *")] ref ulong timestampNS)
+		{
+			fixed (ulong* ptimestampNS = &timestampNS)
+			{
+				SDLSurfacePtr ret = AcquireCameraFrameNative((SDLCamera*)camera, (ulong*)ptimestampNS);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Acquire a frame.<br/>
+		/// The frame is a memory pointer to the image data, whose size and format are<br/>
+		/// given by the spec requested when opening the device.<br/>
+		/// This is a non blocking API. If there is a frame available, a non-NULL<br/>
+		/// surface is returned, and timestampNS will be filled with a non-zero value.<br/>
+		/// Note that an error case can also return NULL, but a NULL by itself is<br/>
+		/// normal and just signifies that a new frame is not yet available. Note that<br/>
+		/// even if a camera device fails outright (a USB camera is unplugged while in<br/>
+		/// use, etc), SDL will send an event separately to notify the app, but<br/>
+		/// continue to provide blank frames at ongoing intervals until<br/>
+		/// SDL_CloseCamera() is called, so real failure here is almost always an out<br/>
+		/// of memory condition.<br/>
+		/// After use, the frame should be released with SDL_ReleaseCameraFrame(). If<br/>
+		/// you don't do this, the system may stop providing more video!<br/>
+		/// Do not call SDL_DestroySurface() on the returned surface! It must be given<br/>
+		/// back to the camera subsystem with SDL_ReleaseCameraFrame!<br/>
+		/// If the system is waiting for the user to approve access to the camera, as<br/>
+		/// some platforms require, this will return NULL (no frames available); you<br/>
+		/// should either wait for an SDL_EVENT_CAMERA_DEVICE_APPROVED (or<br/>
+		/// SDL_EVENT_CAMERA_DEVICE_DENIED) event, or poll<br/>
+		/// SDL_GetCameraPermissionState() occasionally until it returns non-zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AcquireCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr AcquireCameraFrame([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera, [NativeName(NativeNameType.Param, "timestampNS")] [NativeName(NativeNameType.Type, "Uint64 *")] ref ulong timestampNS)
+		{
+			fixed (SDLCamera* pcamera = &camera)
+			{
+				fixed (ulong* ptimestampNS = &timestampNS)
+				{
+					SDLSurfacePtr ret = AcquireCameraFrameNative((SDLCamera*)pcamera, (ulong*)ptimestampNS);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get a list of currently connected sensors.<br/>
+		/// Release a frame of video acquired from a camera.<br/>
+		/// Let the back-end re-use the internal buffer for camera.<br/>
+		/// This function _must_ be called only on surface objects returned by<br/>
+		/// SDL_AcquireCameraFrame(). This function should be called as quickly as<br/>
+		/// possible after acquisition, as SDL keeps a small FIFO queue of surfaces for<br/>
+		/// video frames; if surfaces aren't released in a timely manner, SDL may drop<br/>
+		/// upcoming video frames from the camera.<br/>
+		/// If the app needs to keep the surface for a significant time, they should<br/>
+		/// make a copy of it and release the original.<br/>
+		/// The app should not use the surface again after calling this function;<br/>
+		/// assume the surface is freed and the pointer is invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int* GetSensorsNative(int* count)
+		internal static void ReleaseCameraFrameNative([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCamera* camera, [NativeName(NativeNameType.Param, "frame")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* frame)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*>)funcTable[606])(count);
+			((delegate* unmanaged[Cdecl]<SDLCamera*, SDLSurface*, void>)funcTable[469])(camera, frame);
 			#else
-			return (int*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[606])((nint)count);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[469])((nint)camera, (nint)frame);
 			#endif
 		}
 
 		/// <summary>
-		/// Get a list of currently connected sensors.<br/>
+		/// Release a frame of video acquired from a camera.<br/>
+		/// Let the back-end re-use the internal buffer for camera.<br/>
+		/// This function _must_ be called only on surface objects returned by<br/>
+		/// SDL_AcquireCameraFrame(). This function should be called as quickly as<br/>
+		/// possible after acquisition, as SDL keeps a small FIFO queue of surfaces for<br/>
+		/// video frames; if surfaces aren't released in a timely manner, SDL may drop<br/>
+		/// upcoming video frames from the camera.<br/>
+		/// If the app needs to keep the surface for a significant time, they should<br/>
+		/// make a copy of it and release the original.<br/>
+		/// The app should not use the surface again after calling this function;<br/>
+		/// assume the surface is freed and the pointer is invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int* GetSensors(int* count)
+		[NativeName(NativeNameType.Func, "SDL_ReleaseCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseCameraFrame([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera, [NativeName(NativeNameType.Param, "frame")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr frame)
 		{
-			int* ret = GetSensorsNative(count);
-			return ret;
+			ReleaseCameraFrameNative((SDLCamera*)camera, (SDLSurface*)frame);
 		}
 
 		/// <summary>
-		/// Get a list of currently connected sensors.<br/>
+		/// Release a frame of video acquired from a camera.<br/>
+		/// Let the back-end re-use the internal buffer for camera.<br/>
+		/// This function _must_ be called only on surface objects returned by<br/>
+		/// SDL_AcquireCameraFrame(). This function should be called as quickly as<br/>
+		/// possible after acquisition, as SDL keeps a small FIFO queue of surfaces for<br/>
+		/// video frames; if surfaces aren't released in a timely manner, SDL may drop<br/>
+		/// upcoming video frames from the camera.<br/>
+		/// If the app needs to keep the surface for a significant time, they should<br/>
+		/// make a copy of it and release the original.<br/>
+		/// The app should not use the surface again after calling this function;<br/>
+		/// assume the surface is freed and the pointer is invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int* GetSensors(ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ReleaseCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseCameraFrame([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera, [NativeName(NativeNameType.Param, "frame")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr frame)
 		{
-			fixed (int* pcount = &count)
+			fixed (SDLCamera* pcamera = &camera)
 			{
-				int* ret = GetSensorsNative((int*)pcount);
-				return ret;
+				ReleaseCameraFrameNative((SDLCamera*)pcamera, (SDLSurface*)frame);
 			}
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// This can be called before any sensors are opened.<br/>
+		/// Release a frame of video acquired from a camera.<br/>
+		/// Let the back-end re-use the internal buffer for camera.<br/>
+		/// This function _must_ be called only on surface objects returned by<br/>
+		/// SDL_AcquireCameraFrame(). This function should be called as quickly as<br/>
+		/// possible after acquisition, as SDL keeps a small FIFO queue of surfaces for<br/>
+		/// video frames; if surfaces aren't released in a timely manner, SDL may drop<br/>
+		/// upcoming video frames from the camera.<br/>
+		/// If the app needs to keep the surface for a significant time, they should<br/>
+		/// make a copy of it and release the original.<br/>
+		/// The app should not use the surface again after calling this function;<br/>
+		/// assume the surface is freed and the pointer is invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetSensorNameForIDNative(int instanceId)
+		[NativeName(NativeNameType.Func, "SDL_ReleaseCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseCameraFrame([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera, [NativeName(NativeNameType.Param, "frame")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface frame)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[607])(instanceId);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[607])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// This can be called before any sensors are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetSensorNameForID(int instanceId)
-		{
-			byte* ret = GetSensorNameForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// This can be called before any sensors are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetSensorNameForIDS(int instanceId)
-		{
-			string ret = Utils.DecodeStringUTF8(GetSensorNameForIDNative(instanceId));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of a sensor.<br/>
-		/// This can be called before any sensors are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSensorType GetSensorTypeForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[608])(instanceId);
-			#else
-			return (SDLSensorType)((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[608])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of a sensor.<br/>
-		/// This can be called before any sensors are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSensorType GetSensorTypeForID(int instanceId)
-		{
-			SDLSensorType ret = GetSensorTypeForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
-		/// This can be called before any sensors are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetSensorNonPortableTypeForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[609])(instanceId);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[609])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
-		/// This can be called before any sensors are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSensorNonPortableTypeForID(int instanceId)
-		{
-			int ret = GetSensorNonPortableTypeForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a sensor for use.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSensor* OpenSensorNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[610])(instanceId);
-			#else
-			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[610])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a sensor for use.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSensor* OpenSensor(int instanceId)
-		{
-			SDLSensor* ret = OpenSensorNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the SDL_Sensor associated with an instance ID.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSensor* GetSensorFromIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[611])(instanceId);
-			#else
-			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[611])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Return the SDL_Sensor associated with an instance ID.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSensor* GetSensorFromID(int instanceId)
-		{
-			SDLSensor* ret = GetSensorFromIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetSensorPropertiesNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, uint>)funcTable[612])(sensor);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[612])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetSensorProperties(SDLSensor* sensor)
-		{
-			uint ret = GetSensorPropertiesNative(sensor);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetSensorProperties(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
+			fixed (SDLSurface* pframe = &frame)
 			{
-				uint ret = GetSensorPropertiesNative((SDLSensor*)psensor);
-				return ret;
+				ReleaseCameraFrameNative((SDLCamera*)camera, (SDLSurface*)pframe);
 			}
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
+		/// Release a frame of video acquired from a camera.<br/>
+		/// Let the back-end re-use the internal buffer for camera.<br/>
+		/// This function _must_ be called only on surface objects returned by<br/>
+		/// SDL_AcquireCameraFrame(). This function should be called as quickly as<br/>
+		/// possible after acquisition, as SDL keeps a small FIFO queue of surfaces for<br/>
+		/// video frames; if surfaces aren't released in a timely manner, SDL may drop<br/>
+		/// upcoming video frames from the camera.<br/>
+		/// If the app needs to keep the surface for a significant time, they should<br/>
+		/// make a copy of it and release the original.<br/>
+		/// The app should not use the surface again after calling this function;<br/>
+		/// assume the surface is freed and the pointer is invalid.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetSensorNameNative(SDLSensor* sensor)
+		[NativeName(NativeNameType.Func, "SDL_ReleaseCameraFrame")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseCameraFrame([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera, [NativeName(NativeNameType.Param, "frame")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface frame)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, byte*>)funcTable[613])(sensor);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[613])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetSensorName(SDLSensor* sensor)
-		{
-			byte* ret = GetSensorNameNative(sensor);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetSensorNameS(SDLSensor* sensor)
-		{
-			string ret = Utils.DecodeStringUTF8(GetSensorNameNative(sensor));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetSensorName(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
+			fixed (SDLCamera* pcamera = &camera)
 			{
-				byte* ret = GetSensorNameNative((SDLSensor*)psensor);
-				return ret;
+				fixed (SDLSurface* pframe = &frame)
+				{
+					ReleaseCameraFrameNative((SDLCamera*)pcamera, (SDLSurface*)pframe);
+				}
 			}
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a sensor.<br/>
+		/// Use this function to shut down camera processing and close the camera<br/>
+		/// device.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but no<br/>
+		/// thread may reference `device` once this function is called.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetSensorNameS(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				string ret = Utils.DecodeStringUTF8(GetSensorNameNative((SDLSensor*)psensor));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseCamera")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSensorType GetSensorTypeNative(SDLSensor* sensor)
+		internal static void CloseCameraNative([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCamera* camera)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, SDLSensorType>)funcTable[614])(sensor);
+			((delegate* unmanaged[Cdecl]<SDLCamera*, void>)funcTable[470])(camera);
 			#else
-			return (SDLSensorType)((delegate* unmanaged[Cdecl]<nint, SDLSensorType>)funcTable[614])((nint)sensor);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[470])((nint)camera);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the type of a sensor.<br/>
+		/// Use this function to shut down camera processing and close the camera<br/>
+		/// device.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but no<br/>
+		/// thread may reference `device` once this function is called.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSensorType GetSensorType(SDLSensor* sensor)
+		[NativeName(NativeNameType.Func, "SDL_CloseCamera")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseCamera([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] SDLCameraPtr camera)
 		{
-			SDLSensorType ret = GetSensorTypeNative(sensor);
-			return ret;
+			CloseCameraNative((SDLCamera*)camera);
 		}
 
 		/// <summary>
-		/// Get the type of a sensor.<br/>
+		/// Use this function to shut down camera processing and close the camera<br/>
+		/// device.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but no<br/>
+		/// thread may reference `device` once this function is called.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSensorType GetSensorType(ref SDLSensor sensor)
+		[NativeName(NativeNameType.Func, "SDL_CloseCamera")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseCamera([NativeName(NativeNameType.Param, "camera")] [NativeName(NativeNameType.Type, "SDL_Camera *")] ref SDLCamera camera)
 		{
-			fixed (SDLSensor* psensor = &sensor)
+			fixed (SDLCamera* pcamera = &camera)
 			{
-				SDLSensorType ret = GetSensorTypeNative((SDLSensor*)psensor);
-				return ret;
+				CloseCameraNative((SDLCamera*)pcamera);
 			}
 		}
 
 		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
+		/// Put UTF-8 text into the clipboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetSensorNonPortableTypeNative(SDLSensor* sensor)
+		internal static byte SetClipboardTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[615])(sensor);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[471])(text);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[615])((nint)sensor);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[471])((nint)text);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
+		/// Put UTF-8 text into the clipboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetSensorNonPortableType(SDLSensor* sensor)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
 		{
-			int ret = GetSensorNonPortableTypeNative(sensor);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the platform dependent type of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSensorNonPortableType(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = GetSensorNonPortableTypeNative((SDLSensor*)psensor);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetSensorIDNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[616])(sensor);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[616])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSensorID(SDLSensor* sensor)
-		{
-			int ret = GetSensorIDNative(sensor);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSensorID(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = GetSensorIDNative((SDLSensor*)psensor);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSensorDataNative(SDLSensor* sensor, float* data, int numValues)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, float*, int, byte>)funcTable[617])(sensor, data, numValues);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[617])((nint)sensor, (nint)data, numValues);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSensorData(SDLSensor* sensor, float* data, int numValues)
-		{
-			byte ret = GetSensorDataNative(sensor, data, numValues);
+			byte ret = SetClipboardTextNative(text);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// Put UTF-8 text into the clipboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSensorData(ref SDLSensor sensor, float* data, int numValues)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] in byte text)
 		{
-			fixed (SDLSensor* psensor = &sensor)
+			fixed (byte* ptext = &text)
 			{
-				byte ret = GetSensorDataNative((SDLSensor*)psensor, data, numValues);
+				byte ret = SetClipboardTextNative((byte*)ptext);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// Put UTF-8 text into the clipboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSensorData(SDLSensor* sensor, ref float data, int numValues)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
 		{
-			fixed (float* pdata = &data)
+			fixed (byte* ptext = text)
 			{
-				byte ret = GetSensorDataNative(sensor, (float*)pdata, numValues);
+				byte ret = SetClipboardTextNative((byte*)ptext);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// Put UTF-8 text into the clipboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSensorData(ref SDLSensor sensor, ref float data, int numValues)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
 		{
-			fixed (SDLSensor* psensor = &sensor)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
 			{
-				fixed (float* pdata = &data)
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					byte ret = GetSensorDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
-					return ret != 0;
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CloseSensorNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSensor*, void>)funcTable[618])(sensor);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[618])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CloseSensor(SDLSensor* sensor)
-		{
-			CloseSensorNative(sensor);
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_OpenSensor().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CloseSensor(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
+			byte ret = SetClipboardTextNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				CloseSensorNative((SDLSensor*)psensor);
+				Utils.Free(pStr0);
 			}
-		}
-
-		/// <summary>
-		/// Update the current state of the open sensors.<br/>
-		/// This is called automatically by the event loop if sensor events are<br/>
-		/// enabled.<br/>
-		/// This needs to be called from the thread that initialized the sensor<br/>
-		/// subsystem.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UpdateSensorsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[619])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[619])();
-			#endif
-		}
-
-		/// <summary>
-		/// Update the current state of the open sensors.<br/>
-		/// This is called automatically by the event loop if sensor events are<br/>
-		/// enabled.<br/>
-		/// This needs to be called from the thread that initialized the sensor<br/>
-		/// subsystem.<br/>
-		/// <br/>
-		/// </summary>
-		public static void UpdateSensors()
-		{
-			UpdateSensorsNative();
-		}
-
-		/// <summary>
-		/// Locking for atomic access to the joystick API.<br/>
-		/// The SDL joystick functions are thread-safe, however you can lock the<br/>
-		/// joysticks while processing to guarantee that the joystick list won't change<br/>
-		/// and joystick and gamepad events will not be delivered.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockJoysticksNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[620])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[620])();
-			#endif
-		}
-
-		/// <summary>
-		/// Locking for atomic access to the joystick API.<br/>
-		/// The SDL joystick functions are thread-safe, however you can lock the<br/>
-		/// joysticks while processing to guarantee that the joystick list won't change<br/>
-		/// and joystick and gamepad events will not be delivered.<br/>
-		/// <br/>
-		/// </summary>
-		public static void LockJoysticks()
-		{
-			LockJoysticksNative();
-		}
-
-		/// <summary>
-		/// Unlocking for atomic access to the joystick API.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnlockJoysticksNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[621])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[621])();
-			#endif
-		}
-
-		/// <summary>
-		/// Unlocking for atomic access to the joystick API.<br/>
-		/// <br/>
-		/// </summary>
-		public static void UnlockJoysticks()
-		{
-			UnlockJoysticksNative();
-		}
-
-		/// <summary>
-		/// Return whether a joystick is currently connected.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasJoystickNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[622])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[622])();
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether a joystick is currently connected.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasJoystick()
-		{
-			byte ret = HasJoystickNative();
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get a list of currently connected joysticks.<br/>
+		/// Get UTF-8 text from the clipboard.<br/>
+		/// This function returns an empty string if there is not enough memory left<br/>
+		/// for a copy of the clipboard's content.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
+		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int* GetJoysticksNative(int* count)
+		internal static byte* GetClipboardTextNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*>)funcTable[623])(count);
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[472])();
 			#else
-			return (int*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[623])((nint)count);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[472])();
 			#endif
 		}
 
 		/// <summary>
-		/// Get a list of currently connected joysticks.<br/>
+		/// Get UTF-8 text from the clipboard.<br/>
+		/// This function returns an empty string if there is not enough memory left<br/>
+		/// for a copy of the clipboard's content.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int* GetJoysticks(int* count)
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetClipboardText()
 		{
-			int* ret = GetJoysticksNative(count);
+			byte* ret = GetClipboardTextNative();
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a list of currently connected joysticks.<br/>
+		/// Get UTF-8 text from the clipboard.<br/>
+		/// This function returns an empty string if there is not enough memory left<br/>
+		/// for a copy of the clipboard's content.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int* GetJoysticks(ref int count)
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetClipboardTextS()
 		{
-			fixed (int* pcount = &count)
-			{
-				int* ret = GetJoysticksNative((int*)pcount);
-				return ret;
-			}
+			string ret = Utils.DecodeStringUTF8(GetClipboardTextNative());
+			return ret;
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
+		/// Query whether the clipboard exists and contains a non-empty text string.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasClipboardText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetJoystickNameForIDNative(int instanceId)
+		internal static byte HasClipboardTextNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[624])(instanceId);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[473])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[624])(instanceId);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[473])();
 			#endif
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
+		/// Query whether the clipboard exists and contains a non-empty text string.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetJoystickNameForID(int instanceId)
-		{
-			byte* ret = GetJoystickNameForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetJoystickNameForIDS(int instanceId)
+		[NativeName(NativeNameType.Func, "SDL_HasClipboardText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasClipboardText()
 		{
-			string ret = Utils.DecodeStringUTF8(GetJoystickNameForIDNative(instanceId));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetJoystickPathForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[625])(instanceId);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[625])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetJoystickPathForID(int instanceId)
-		{
-			byte* ret = GetJoystickPathForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetJoystickPathForIDS(int instanceId)
-		{
-			string ret = Utils.DecodeStringUTF8(GetJoystickPathForIDNative(instanceId));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the player index of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetJoystickPlayerIndexForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[626])(instanceId);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[626])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the player index of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetJoystickPlayerIndexForID(int instanceId)
-		{
-			int ret = GetJoystickPlayerIndexForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation-dependent GUID of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SdlGuid GetJoystickGUIDForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SdlGuid>)funcTable[627])(instanceId);
-			#else
-			return (SdlGuid)((delegate* unmanaged[Cdecl]<int, SdlGuid>)funcTable[627])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation-dependent GUID of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SdlGuid GetJoystickGUIDForID(int instanceId)
-		{
-			SdlGuid ret = GetJoystickGUIDForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the USB vendor ID of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened. If the vendor ID isn't<br/>
-		/// available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort GetJoystickVendorForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[628])(instanceId);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[628])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the USB vendor ID of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened. If the vendor ID isn't<br/>
-		/// available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickVendorForID(int instanceId)
-		{
-			ushort ret = GetJoystickVendorForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the USB product ID of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened. If the product ID isn't<br/>
-		/// available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort GetJoystickProductForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[629])(instanceId);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[629])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the USB product ID of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened. If the product ID isn't<br/>
-		/// available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickProductForID(int instanceId)
-		{
-			ushort ret = GetJoystickProductForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the product version of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened. If the product version<br/>
-		/// isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort GetJoystickProductVersionForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[630])(instanceId);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[630])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the product version of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened. If the product version<br/>
-		/// isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickProductVersionForID(int instanceId)
-		{
-			ushort ret = GetJoystickProductVersionForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLJoystickType GetJoystickTypeForIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLJoystickType>)funcTable[631])(instanceId);
-			#else
-			return (SDLJoystickType)((delegate* unmanaged[Cdecl]<int, SDLJoystickType>)funcTable[631])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystickType GetJoystickTypeForID(int instanceId)
-		{
-			SDLJoystickType ret = GetJoystickTypeForIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a joystick for use.<br/>
-		/// The joystick subsystem must be initialized before a joystick can be opened<br/>
-		/// for use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLJoystick* OpenJoystickNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[632])(instanceId);
-			#else
-			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[632])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a joystick for use.<br/>
-		/// The joystick subsystem must be initialized before a joystick can be opened<br/>
-		/// for use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystick* OpenJoystick(int instanceId)
-		{
-			SDLJoystick* ret = OpenJoystickNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_Joystick associated with an instance ID, if it has been opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLJoystick* GetJoystickFromIDNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[633])(instanceId);
-			#else
-			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[633])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_Joystick associated with an instance ID, if it has been opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystick* GetJoystickFromID(int instanceId)
-		{
-			SDLJoystick* ret = GetJoystickFromIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_Joystick associated with a player index.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLJoystick* GetJoystickFromPlayerIndexNative(int playerIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[634])(playerIndex);
-			#else
-			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[634])(playerIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_Joystick associated with a player index.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystick* GetJoystickFromPlayerIndex(int playerIndex)
-		{
-			SDLJoystick* ret = GetJoystickFromPlayerIndexNative(playerIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Attach a new virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AttachVirtualJoystickNative(SDLVirtualJoystickDesc* desc)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLVirtualJoystickDesc*, int>)funcTable[635])(desc);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[635])((nint)desc);
-			#endif
-		}
-
-		/// <summary>
-		/// Attach a new virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AttachVirtualJoystick(SDLVirtualJoystickDesc* desc)
-		{
-			int ret = AttachVirtualJoystickNative(desc);
-			return ret;
-		}
-
-		/// <summary>
-		/// Attach a new virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AttachVirtualJoystick(ref SDLVirtualJoystickDesc desc)
-		{
-			fixed (SDLVirtualJoystickDesc* pdesc = &desc)
-			{
-				int ret = AttachVirtualJoystickNative((SDLVirtualJoystickDesc*)pdesc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Detach a virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte DetachVirtualJoystickNative(int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[636])(instanceId);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[636])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Detach a virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool DetachVirtualJoystick(int instanceId)
-		{
-			byte ret = DetachVirtualJoystickNative(instanceId);
+			byte ret = HasClipboardTextNative();
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Query whether or not a joystick is virtual.<br/>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte IsJoystickVirtualNative(int instanceId)
+		internal static byte SetPrimarySelectionTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[637])(instanceId);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[474])(text);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[637])(instanceId);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[474])((nint)text);
 			#endif
 		}
 
 		/// <summary>
-		/// Query whether or not a joystick is virtual.<br/>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool IsJoystickVirtual(int instanceId)
+		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text)
 		{
-			byte ret = IsJoystickVirtualNative(instanceId);
+			byte ret = SetPrimarySelectionTextNative(text);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Set the state of an axis on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// Note that when sending trigger axes, you should scale the value to the full<br/>
-		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
-		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetJoystickVirtualAxisNative(SDLJoystick* joystick, int axis, short value)
+		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] in byte text)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short, byte>)funcTable[638])(joystick, axis, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, short, byte>)funcTable[638])((nint)joystick, axis, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the state of an axis on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// Note that when sending trigger axes, you should scale the value to the full<br/>
-		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
-		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualAxis(SDLJoystick* joystick, int axis, short value)
-		{
-			byte ret = SetJoystickVirtualAxisNative(joystick, axis, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the state of an axis on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// Note that when sending trigger axes, you should scale the value to the full<br/>
-		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
-		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualAxis(ref SDLJoystick joystick, int axis, short value)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte* ptext = &text)
 			{
-				byte ret = SetJoystickVirtualAxisNative((SDLJoystick*)pjoystick, axis, value);
+				byte ret = SetPrimarySelectionTextNative((byte*)ptext);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Generate ball motion on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetJoystickVirtualBallNative(SDLJoystick* joystick, int ball, short xrel, short yrel)
+		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short, short, byte>)funcTable[639])(joystick, ball, xrel, yrel);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, short, short, byte>)funcTable[639])((nint)joystick, ball, xrel, yrel);
-			#endif
-		}
-
-		/// <summary>
-		/// Generate ball motion on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualBall(SDLJoystick* joystick, int ball, short xrel, short yrel)
-		{
-			byte ret = SetJoystickVirtualBallNative(joystick, ball, xrel, yrel);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Generate ball motion on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualBall(ref SDLJoystick joystick, int ball, short xrel, short yrel)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte* ptext = text)
 			{
-				byte ret = SetJoystickVirtualBallNative((SDLJoystick*)pjoystick, ball, xrel, yrel);
+				byte ret = SetPrimarySelectionTextNative((byte*)ptext);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set the state of a button on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetJoystickVirtualButtonNative(SDLJoystick* joystick, int button, byte down)
+		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte, byte>)funcTable[640])(joystick, button, down);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte, byte>)funcTable[640])((nint)joystick, button, down);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the state of a button on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualButton(SDLJoystick* joystick, int button, bool down)
-		{
-			byte ret = SetJoystickVirtualButtonNative(joystick, button, down ? (byte)1 : (byte)0);
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetPrimarySelectionTextNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Set the state of a button on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
+		/// Get UTF-8 text from the primary selection.<br/>
+		/// This function returns an empty string if there is not enough memory left<br/>
+		/// for a copy of the primary selection's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetJoystickVirtualButton(ref SDLJoystick joystick, int button, bool down)
+		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPrimarySelectionTextNative()
 		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[475])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[475])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get UTF-8 text from the primary selection.<br/>
+		/// This function returns an empty string if there is not enough memory left<br/>
+		/// for a copy of the primary selection's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrimarySelectionText()
+		{
+			byte* ret = GetPrimarySelectionTextNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get UTF-8 text from the primary selection.<br/>
+		/// This function returns an empty string if there is not enough memory left<br/>
+		/// for a copy of the primary selection's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrimarySelectionTextS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetPrimarySelectionTextNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether the primary selection exists and contains a non-empty text<br/>
+		/// string.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HasPrimarySelectionTextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[476])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[476])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether the primary selection exists and contains a non-empty text<br/>
+		/// string.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasPrimarySelectionText")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasPrimarySelectionText()
+		{
+			byte ret = HasPrimarySelectionTextNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetClipboardDataNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, byte*, nuint*, void*>, delegate*<void*, void>, void*, byte**, nuint, byte>)funcTable[477])(callback, cleanup, userdata, mimeTypes, numMimeTypes);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nuint, byte>)funcTable[477])((nint)callback, (nint)cleanup, (nint)userdata, (nint)mimeTypes, numMimeTypes);
+			#endif
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			byte ret = SetClipboardDataNative(callback, cleanup, userdata, mimeTypes, numMimeTypes);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] SDLClipboardDataCallback callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			byte ret = SetClipboardDataNative((delegate*<void*, byte*, nuint*, void*>)Utils.GetFunctionPointerForDelegate(callback), cleanup, userdata, mimeTypes, numMimeTypes);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] SDLClipboardCleanupCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			byte ret = SetClipboardDataNative(callback, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata, mimeTypes, numMimeTypes);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] SDLClipboardDataCallback callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] SDLClipboardCleanupCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			byte ret = SetClipboardDataNative((delegate*<void*, byte*, nuint*, void*>)Utils.GetFunctionPointerForDelegate(callback), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata, mimeTypes, numMimeTypes);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			byte ret = SetClipboardDataNative(callback, cleanup, (void*)userdata, mimeTypes, numMimeTypes);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] SDLClipboardDataCallback callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			byte ret = SetClipboardDataNative((delegate*<void*, byte*, nuint*, void*>)Utils.GetFunctionPointerForDelegate(callback), cleanup, (void*)userdata, mimeTypes, numMimeTypes);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] SDLClipboardCleanupCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			byte ret = SetClipboardDataNative(callback, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata, mimeTypes, numMimeTypes);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] SDLClipboardDataCallback callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] SDLClipboardCleanupCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] byte** mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			byte ret = SetClipboardDataNative((delegate*<void*, byte*, nuint*, void*>)Utils.GetFunctionPointerForDelegate(callback), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata, mimeTypes, numMimeTypes);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
+		{
+			fixed (byte** pmimeTypes = &mimeTypes)
 			{
-				byte ret = SetJoystickVirtualButtonNative((SDLJoystick*)pjoystick, button, down ? (byte)1 : (byte)0);
+				byte ret = SetClipboardDataNative(callback, cleanup, userdata, (byte**)pmimeTypes, numMimeTypes);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set the state of a hat on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetJoystickVirtualHatNative(SDLJoystick* joystick, int hat, byte value)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] SDLClipboardDataCallback callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte, byte>)funcTable[641])(joystick, hat, value);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte, byte>)funcTable[641])((nint)joystick, hat, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the state of a hat on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualHat(SDLJoystick* joystick, int hat, byte value)
-		{
-			byte ret = SetJoystickVirtualHatNative(joystick, hat, value);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the state of a hat on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualHat(ref SDLJoystick joystick, int hat, byte value)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte** pmimeTypes = &mimeTypes)
 			{
-				byte ret = SetJoystickVirtualHatNative((SDLJoystick*)pjoystick, hat, value);
+				byte ret = SetClipboardDataNative((delegate*<void*, byte*, nuint*, void*>)Utils.GetFunctionPointerForDelegate(callback), cleanup, userdata, (byte**)pmimeTypes, numMimeTypes);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set touchpad finger state on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetJoystickVirtualTouchpadNative(SDLJoystick* joystick, int touchpad, int finger, byte down, float x, float y, float pressure)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] SDLClipboardCleanupCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, int, byte, float, float, float, byte>)funcTable[642])(joystick, touchpad, finger, down, x, y, pressure);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, byte, float, float, float, byte>)funcTable[642])((nint)joystick, touchpad, finger, down, x, y, pressure);
-			#endif
-		}
-
-		/// <summary>
-		/// Set touchpad finger state on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualTouchpad(SDLJoystick* joystick, int touchpad, int finger, bool down, float x, float y, float pressure)
-		{
-			byte ret = SetJoystickVirtualTouchpadNative(joystick, touchpad, finger, down ? (byte)1 : (byte)0, x, y, pressure);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set touchpad finger state on an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickVirtualTouchpad(ref SDLJoystick joystick, int touchpad, int finger, bool down, float x, float y, float pressure)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte** pmimeTypes = &mimeTypes)
 			{
-				byte ret = SetJoystickVirtualTouchpadNative((SDLJoystick*)pjoystick, touchpad, finger, down ? (byte)1 : (byte)0, x, y, pressure);
+				byte ret = SetClipboardDataNative(callback, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata, (byte**)pmimeTypes, numMimeTypes);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Send a sensor update for an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SendJoystickVirtualSensorDataNative(SDLJoystick* joystick, SDLSensorType type, ulong sensorTimestamp, float* data, int numValues)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] SDLClipboardDataCallback callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] SDLClipboardCleanupCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLSensorType, ulong, float*, int, byte>)funcTable[643])(joystick, type, sensorTimestamp, data, numValues);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, ulong, nint, int, byte>)funcTable[643])((nint)joystick, type, sensorTimestamp, (nint)data, numValues);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a sensor update for an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SendJoystickVirtualSensorData(SDLJoystick* joystick, SDLSensorType type, ulong sensorTimestamp, float* data, int numValues)
-		{
-			byte ret = SendJoystickVirtualSensorDataNative(joystick, type, sensorTimestamp, data, numValues);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Send a sensor update for an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SendJoystickVirtualSensorData(ref SDLJoystick joystick, SDLSensorType type, ulong sensorTimestamp, float* data, int numValues)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte** pmimeTypes = &mimeTypes)
 			{
-				byte ret = SendJoystickVirtualSensorDataNative((SDLJoystick*)pjoystick, type, sensorTimestamp, data, numValues);
+				byte ret = SetClipboardDataNative((delegate*<void*, byte*, nuint*, void*>)Utils.GetFunctionPointerForDelegate(callback), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata, (byte**)pmimeTypes, numMimeTypes);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Send a sensor update for an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SendJoystickVirtualSensorData(SDLJoystick* joystick, SDLSensorType type, ulong sensorTimestamp, ref float data, int numValues)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
 		{
-			fixed (float* pdata = &data)
+			fixed (byte** pmimeTypes = &mimeTypes)
 			{
-				byte ret = SendJoystickVirtualSensorDataNative(joystick, type, sensorTimestamp, (float*)pdata, numValues);
+				byte ret = SetClipboardDataNative(callback, cleanup, (void*)userdata, (byte**)pmimeTypes, numMimeTypes);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Send a sensor update for an opened virtual joystick.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SendJoystickVirtualSensorData(ref SDLJoystick joystick, SDLSensorType type, ulong sensorTimestamp, ref float data, int numValues)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] SDLClipboardDataCallback callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] delegate*<void*, void> cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
 		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte** pmimeTypes = &mimeTypes)
 			{
-				fixed (float* pdata = &data)
-				{
-					byte ret = SendJoystickVirtualSensorDataNative((SDLJoystick*)pjoystick, type, sensorTimestamp, (float*)pdata, numValues);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the properties associated with a joystick.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
-		/// LED that has adjustable brightness<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
-		/// that has adjustable color<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
-		/// player LED<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
-		/// left/right rumble<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
-		/// simple trigger rumble<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetJoystickPropertiesNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, uint>)funcTable[644])(joystick);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[644])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a joystick.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
-		/// LED that has adjustable brightness<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
-		/// that has adjustable color<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
-		/// player LED<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
-		/// left/right rumble<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
-		/// simple trigger rumble<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetJoystickProperties(SDLJoystick* joystick)
-		{
-			uint ret = GetJoystickPropertiesNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a joystick.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
-		/// LED that has adjustable brightness<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
-		/// that has adjustable color<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
-		/// player LED<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
-		/// left/right rumble<br/>
-		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
-		/// simple trigger rumble<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetJoystickProperties(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				uint ret = GetJoystickPropertiesNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetJoystickNameNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[645])(joystick);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[645])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetJoystickName(SDLJoystick* joystick)
-		{
-			byte* ret = GetJoystickNameNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetJoystickNameS(SDLJoystick* joystick)
-		{
-			string ret = Utils.DecodeStringUTF8(GetJoystickNameNative(joystick));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetJoystickName(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte* ret = GetJoystickNameNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetJoystickNameS(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				string ret = Utils.DecodeStringUTF8(GetJoystickNameNative((SDLJoystick*)pjoystick));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetJoystickPathNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[646])(joystick);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[646])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetJoystickPath(SDLJoystick* joystick)
-		{
-			byte* ret = GetJoystickPathNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetJoystickPathS(SDLJoystick* joystick)
-		{
-			string ret = Utils.DecodeStringUTF8(GetJoystickPathNative(joystick));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetJoystickPath(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte* ret = GetJoystickPathNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent path of a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetJoystickPathS(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				string ret = Utils.DecodeStringUTF8(GetJoystickPathNative((SDLJoystick*)pjoystick));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the player index of an opened joystick.<br/>
-		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
-		/// will not be able to supply this information.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetJoystickPlayerIndexNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[647])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[647])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the player index of an opened joystick.<br/>
-		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
-		/// will not be able to supply this information.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetJoystickPlayerIndex(SDLJoystick* joystick)
-		{
-			int ret = GetJoystickPlayerIndexNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the player index of an opened joystick.<br/>
-		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
-		/// will not be able to supply this information.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetJoystickPlayerIndex(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = GetJoystickPlayerIndexNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the player index of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetJoystickPlayerIndexNative(SDLJoystick* joystick, int playerIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[648])(joystick, playerIndex);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[648])((nint)joystick, playerIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the player index of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickPlayerIndex(SDLJoystick* joystick, int playerIndex)
-		{
-			byte ret = SetJoystickPlayerIndexNative(joystick, playerIndex);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the player index of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetJoystickPlayerIndex(ref SDLJoystick joystick, int playerIndex)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte ret = SetJoystickPlayerIndexNative((SDLJoystick*)pjoystick, playerIndex);
+				byte ret = SetClipboardDataNative((delegate*<void*, byte*, nuint*, void*>)Utils.GetFunctionPointerForDelegate(callback), cleanup, (void*)userdata, (byte**)pmimeTypes, numMimeTypes);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the implementation-dependent GUID for the joystick.<br/>
-		/// This function requires an open joystick.<br/>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SdlGuid GetJoystickGUIDNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SdlGuid>)funcTable[649])(joystick);
-			#else
-			return (SdlGuid)((delegate* unmanaged[Cdecl]<nint, SdlGuid>)funcTable[649])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation-dependent GUID for the joystick.<br/>
-		/// This function requires an open joystick.<br/>
-		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SdlGuid GetJoystickGUID(SDLJoystick* joystick)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] delegate*<void*, byte*, nuint*, void*> callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] SDLClipboardCleanupCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
 		{
-			SdlGuid ret = GetJoystickGUIDNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation-dependent GUID for the joystick.<br/>
-		/// This function requires an open joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SdlGuid GetJoystickGUID(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte** pmimeTypes = &mimeTypes)
 			{
-				SdlGuid ret = GetJoystickGUIDNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the USB vendor ID of an opened joystick, if available.<br/>
-		/// If the vendor ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort GetJoystickVendorNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[650])(joystick);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[650])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the USB vendor ID of an opened joystick, if available.<br/>
-		/// If the vendor ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickVendor(SDLJoystick* joystick)
-		{
-			ushort ret = GetJoystickVendorNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the USB vendor ID of an opened joystick, if available.<br/>
-		/// If the vendor ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickVendor(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				ushort ret = GetJoystickVendorNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the USB product ID of an opened joystick, if available.<br/>
-		/// If the product ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort GetJoystickProductNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[651])(joystick);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[651])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the USB product ID of an opened joystick, if available.<br/>
-		/// If the product ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickProduct(SDLJoystick* joystick)
-		{
-			ushort ret = GetJoystickProductNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the USB product ID of an opened joystick, if available.<br/>
-		/// If the product ID isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickProduct(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				ushort ret = GetJoystickProductNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the product version of an opened joystick, if available.<br/>
-		/// If the product version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort GetJoystickProductVersionNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[652])(joystick);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[652])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the product version of an opened joystick, if available.<br/>
-		/// If the product version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickProductVersion(SDLJoystick* joystick)
-		{
-			ushort ret = GetJoystickProductVersionNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the product version of an opened joystick, if available.<br/>
-		/// If the product version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickProductVersion(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				ushort ret = GetJoystickProductVersionNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the firmware version of an opened joystick, if available.<br/>
-		/// If the firmware version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort GetJoystickFirmwareVersionNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[653])(joystick);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[653])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the firmware version of an opened joystick, if available.<br/>
-		/// If the firmware version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickFirmwareVersion(SDLJoystick* joystick)
-		{
-			ushort ret = GetJoystickFirmwareVersionNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the firmware version of an opened joystick, if available.<br/>
-		/// If the firmware version isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort GetJoystickFirmwareVersion(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				ushort ret = GetJoystickFirmwareVersionNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetJoystickSerialNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[654])(joystick);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[654])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetJoystickSerial(SDLJoystick* joystick)
-		{
-			byte* ret = GetJoystickSerialNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetJoystickSerialS(SDLJoystick* joystick)
-		{
-			string ret = Utils.DecodeStringUTF8(GetJoystickSerialNative(joystick));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetJoystickSerial(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte* ret = GetJoystickSerialNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the serial number of an opened joystick, if available.<br/>
-		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetJoystickSerialS(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				string ret = Utils.DecodeStringUTF8(GetJoystickSerialNative((SDLJoystick*)pjoystick));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the type of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLJoystickType GetJoystickTypeNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickType>)funcTable[655])(joystick);
-			#else
-			return (SDLJoystickType)((delegate* unmanaged[Cdecl]<nint, SDLJoystickType>)funcTable[655])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystickType GetJoystickType(SDLJoystick* joystick)
-		{
-			SDLJoystickType ret = GetJoystickTypeNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLJoystickType GetJoystickType(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLJoystickType ret = GetJoystickTypeNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetJoystickGUIDInfoNative(SdlGuid guid, ushort* vendor, ushort* product, ushort* version, ushort* crc16)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SdlGuid, ushort*, ushort*, ushort*, ushort*, void>)funcTable[656])(guid, vendor, product, version, crc16);
-			#else
-			((delegate* unmanaged[Cdecl]<SdlGuid, nint, nint, nint, nint, void>)funcTable[656])(guid, (nint)vendor, (nint)product, (nint)version, (nint)crc16);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ushort* vendor, ushort* product, ushort* version, ushort* crc16)
-		{
-			GetJoystickGUIDInfoNative(guid, vendor, product, version, crc16);
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ref ushort vendor, ushort* product, ushort* version, ushort* crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, crc16);
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ushort* vendor, ref ushort product, ushort* version, ushort* crc16)
-		{
-			fixed (ushort* pproduct = &product)
-			{
-				GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, crc16);
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ref ushort vendor, ref ushort product, ushort* version, ushort* crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pproduct = &product)
-				{
-					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, crc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ushort* vendor, ushort* product, ref ushort version, ushort* crc16)
-		{
-			fixed (ushort* pversion = &version)
-			{
-				GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, crc16);
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ref ushort vendor, ushort* product, ref ushort version, ushort* crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pversion = &version)
-				{
-					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, crc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ushort* vendor, ref ushort product, ref ushort version, ushort* crc16)
-		{
-			fixed (ushort* pproduct = &product)
-			{
-				fixed (ushort* pversion = &version)
-				{
-					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, crc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ref ushort vendor, ref ushort product, ref ushort version, ushort* crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pproduct = &product)
-				{
-					fixed (ushort* pversion = &version)
-					{
-						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, crc16);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ushort* vendor, ushort* product, ushort* version, ref ushort crc16)
-		{
-			fixed (ushort* pcrc16 = &crc16)
-			{
-				GetJoystickGUIDInfoNative(guid, vendor, product, version, (ushort*)pcrc16);
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ref ushort vendor, ushort* product, ushort* version, ref ushort crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pcrc16 = &crc16)
-				{
-					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, (ushort*)pcrc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ushort* vendor, ref ushort product, ushort* version, ref ushort crc16)
-		{
-			fixed (ushort* pproduct = &product)
-			{
-				fixed (ushort* pcrc16 = &crc16)
-				{
-					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, (ushort*)pcrc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ref ushort vendor, ref ushort product, ushort* version, ref ushort crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pproduct = &product)
-				{
-					fixed (ushort* pcrc16 = &crc16)
-					{
-						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, (ushort*)pcrc16);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ushort* vendor, ushort* product, ref ushort version, ref ushort crc16)
-		{
-			fixed (ushort* pversion = &version)
-			{
-				fixed (ushort* pcrc16 = &crc16)
-				{
-					GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, (ushort*)pcrc16);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ref ushort vendor, ushort* product, ref ushort version, ref ushort crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pversion = &version)
-				{
-					fixed (ushort* pcrc16 = &crc16)
-					{
-						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, (ushort*)pcrc16);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ushort* vendor, ref ushort product, ref ushort version, ref ushort crc16)
-		{
-			fixed (ushort* pproduct = &product)
-			{
-				fixed (ushort* pversion = &version)
-				{
-					fixed (ushort* pcrc16 = &crc16)
-					{
-						GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the device information encoded in a SDL_GUID structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetJoystickGUIDInfo(SdlGuid guid, ref ushort vendor, ref ushort product, ref ushort version, ref ushort crc16)
-		{
-			fixed (ushort* pvendor = &vendor)
-			{
-				fixed (ushort* pproduct = &product)
-				{
-					fixed (ushort* pversion = &version)
-					{
-						fixed (ushort* pcrc16 = &crc16)
-						{
-							GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the status of a specified joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte JoystickConnectedNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte>)funcTable[657])(joystick);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[657])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the status of a specified joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool JoystickConnected(SDLJoystick* joystick)
-		{
-			byte ret = JoystickConnectedNative(joystick);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the status of a specified joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool JoystickConnected(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				byte ret = JoystickConnectedNative((SDLJoystick*)pjoystick);
+				byte ret = SetClipboardDataNative(callback, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata, (byte**)pmimeTypes, numMimeTypes);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the instance ID of an opened joystick.<br/>
+		/// Offer clipboard data to the OS.<br/>
+		/// Tell the operating system that the application is offering clipboard data<br/>
+		/// for each of the provided mime-types. Once another application requests the<br/>
+		/// data the callback function will be called, allowing it to generate and<br/>
+		/// respond with the data for the requested mime-type.<br/>
+		/// The size of text data does not include any terminator, and the text does<br/>
+		/// not need to be null-terminated (e.g., you can directly copy a portion of a<br/>
+		/// document).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetJoystickIDNative(SDLJoystick* joystick)
+		[NativeName(NativeNameType.Func, "SDL_SetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetClipboardData([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_ClipboardDataCallback")] SDLClipboardDataCallback callback, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_ClipboardCleanupCallback")] SDLClipboardCleanupCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_types")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* mimeTypes, [NativeName(NativeNameType.Param, "num_mime_types")] [NativeName(NativeNameType.Type, "size_t")] nuint numMimeTypes)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[658])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[658])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the instance ID of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetJoystickID(SDLJoystick* joystick)
-		{
-			int ret = GetJoystickIDNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the instance ID of an opened joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetJoystickID(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte** pmimeTypes = &mimeTypes)
 			{
-				int ret = GetJoystickIDNative((SDLJoystick*)pjoystick);
-				return ret;
+				byte ret = SetClipboardDataNative((delegate*<void*, byte*, nuint*, void*>)Utils.GetFunctionPointerForDelegate(callback), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), (void*)userdata, (byte**)pmimeTypes, numMimeTypes);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the number of general axis controls on a joystick.<br/>
-		/// Often, the directional pad on a game controller will either look like 4<br/>
-		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
-		/// device and platform.<br/>
+		/// Clear the clipboard data.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumJoystickAxesNative(SDLJoystick* joystick)
+		internal static byte ClearClipboardDataNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[659])(joystick);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[478])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[659])((nint)joystick);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[478])();
 			#endif
 		}
 
 		/// <summary>
-		/// Get the number of general axis controls on a joystick.<br/>
-		/// Often, the directional pad on a game controller will either look like 4<br/>
-		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
-		/// device and platform.<br/>
+		/// Clear the clipboard data.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumJoystickAxes(SDLJoystick* joystick)
-		{
-			int ret = GetNumJoystickAxesNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of general axis controls on a joystick.<br/>
-		/// Often, the directional pad on a game controller will either look like 4<br/>
-		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
-		/// device and platform.<br/>
-		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetNumJoystickAxes(ref SDLJoystick joystick)
+		[NativeName(NativeNameType.Func, "SDL_ClearClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearClipboardData()
 		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = GetNumJoystickAxesNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of trackballs on a joystick.<br/>
-		/// Joystick trackballs have only relative motion events associated with them<br/>
-		/// and their state cannot be polled.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumJoystickBallsNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[660])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[660])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of trackballs on a joystick.<br/>
-		/// Joystick trackballs have only relative motion events associated with them<br/>
-		/// and their state cannot be polled.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumJoystickBalls(SDLJoystick* joystick)
-		{
-			int ret = GetNumJoystickBallsNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of trackballs on a joystick.<br/>
-		/// Joystick trackballs have only relative motion events associated with them<br/>
-		/// and their state cannot be polled.<br/>
-		/// Most joysticks do not have trackballs.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumJoystickBalls(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = GetNumJoystickBallsNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of POV hats on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumJoystickHatsNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[661])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[661])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of POV hats on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumJoystickHats(SDLJoystick* joystick)
-		{
-			int ret = GetNumJoystickHatsNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of POV hats on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumJoystickHats(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = GetNumJoystickHatsNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of buttons on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumJoystickButtonsNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[662])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[662])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of buttons on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumJoystickButtons(SDLJoystick* joystick)
-		{
-			int ret = GetNumJoystickButtonsNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of buttons on a joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumJoystickButtons(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = GetNumJoystickButtonsNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the state of joystick event processing.<br/>
-		/// If joystick events are disabled, you must call SDL_UpdateJoysticks()<br/>
-		/// yourself and check the state of the joystick when you want joystick<br/>
-		/// information.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetJoystickEventsEnabledNative(byte enabled)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[663])(enabled);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[663])(enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the state of joystick event processing.<br/>
-		/// If joystick events are disabled, you must call SDL_UpdateJoysticks()<br/>
-		/// yourself and check the state of the joystick when you want joystick<br/>
-		/// information.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetJoystickEventsEnabled(bool enabled)
-		{
-			SetJoystickEventsEnabledNative(enabled ? (byte)1 : (byte)0);
-		}
-
-		/// <summary>
-		/// Query the state of joystick event processing.<br/>
-		/// If joystick events are disabled, you must call SDL_UpdateJoysticks()<br/>
-		/// yourself and check the state of the joystick when you want joystick<br/>
-		/// information.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte JoystickEventsEnabledNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[664])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[664])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query the state of joystick event processing.<br/>
-		/// If joystick events are disabled, you must call SDL_UpdateJoysticks()<br/>
-		/// yourself and check the state of the joystick when you want joystick<br/>
-		/// information.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool JoystickEventsEnabled()
-		{
-			byte ret = JoystickEventsEnabledNative();
+			byte ret = ClearClipboardDataNative();
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Update the current state of the open joysticks.<br/>
-		/// This is called automatically by the event loop if any joystick events are<br/>
-		/// enabled.<br/>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UpdateJoysticksNative()
+		internal static void* GetClipboardDataNative([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] byte* mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] nuint* size)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[665])();
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint*, void*>)funcTable[479])(mimeType, size);
 			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[665])();
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[479])((nint)mimeType, (nint)size);
 			#endif
 		}
 
 		/// <summary>
-		/// Update the current state of the open joysticks.<br/>
-		/// This is called automatically by the event loop if any joystick events are<br/>
-		/// enabled.<br/>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UpdateJoysticks()
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] byte* mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] nuint* size)
 		{
-			UpdateJoysticksNative();
+			void* ret = GetClipboardDataNative(mimeType, size);
+			return ret;
 		}
 
 		/// <summary>
-		/// Get the current state of an axis control on a joystick.<br/>
-		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
-		/// to. Your game should have some sort of configuration UI to let users<br/>
-		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
-		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
-		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
-		/// The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to<br/>
-		/// 32767) representing the current position of the axis. It may be necessary<br/>
-		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] in byte mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] nuint* size)
+		{
+			fixed (byte* pmimeType = &mimeType)
+			{
+				void* ret = GetClipboardDataNative((byte*)pmimeType, size);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] nuint* size)
+		{
+			fixed (byte* pmimeType = mimeType)
+			{
+				void* ret = GetClipboardDataNative((byte*)pmimeType, size);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] string mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] nuint* size)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (mimeType != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(mimeType);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(mimeType, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			void* ret = GetClipboardDataNative(pStr0, size);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] byte* mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint size)
+		{
+			fixed (nuint* psize = &size)
+			{
+				void* ret = GetClipboardDataNative(mimeType, (nuint*)psize);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] in byte mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint size)
+		{
+			fixed (byte* pmimeType = &mimeType)
+			{
+				fixed (nuint* psize = &size)
+				{
+					void* ret = GetClipboardDataNative((byte*)pmimeType, (nuint*)psize);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint size)
+		{
+			fixed (byte* pmimeType = mimeType)
+			{
+				fixed (nuint* psize = &size)
+				{
+					void* ret = GetClipboardDataNative((byte*)pmimeType, (nuint*)psize);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the data from the clipboard for a given mime type.<br/>
+		/// The size of text data does not include the terminator, but the text is<br/>
+		/// guaranteed to be null-terminated.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetClipboardData")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] string mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint size)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (mimeType != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(mimeType);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(mimeType, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (nuint* psize = &size)
+			{
+				void* ret = GetClipboardDataNative(pStr0, (nuint*)psize);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether there is data in the clipboard for the provided mime type.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static short GetJoystickAxisNative(SDLJoystick* joystick, int axis)
+		internal static byte HasClipboardDataNative([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] byte* mimeType)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short>)funcTable[666])(joystick, axis);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[480])(mimeType);
 			#else
-			return (short)((delegate* unmanaged[Cdecl]<nint, int, short>)funcTable[666])((nint)joystick, axis);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[480])((nint)mimeType);
 			#endif
+		}
+
+		/// <summary>
+		/// Query whether there is data in the clipboard for the provided mime type.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasClipboardData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasClipboardData([NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] byte* mimeType)
+		{
+			byte ret = HasClipboardDataNative(mimeType);
+			return ret != 0;
 		}
 	}
 }

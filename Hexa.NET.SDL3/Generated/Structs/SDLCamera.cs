@@ -15,15 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The opaque structure used to identify an opened SDL camera.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Camera")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCamera
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Camera")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLCameraPtr : IEquatable<SDLCameraPtr>
+	{
+		public SDLCameraPtr(SDLCamera* handle) { Handle = handle; }
+
+		public SDLCamera* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLCameraPtr Null => new SDLCameraPtr(null);
+
+		public SDLCamera this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLCameraPtr(SDLCamera* handle) => new SDLCameraPtr(handle);
+
+		public static implicit operator SDLCamera*(SDLCameraPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLCameraPtr left, SDLCameraPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLCameraPtr left, SDLCameraPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLCameraPtr left, SDLCamera* right) => left.Handle == right;
+
+		public static bool operator !=(SDLCameraPtr left, SDLCamera* right) => left.Handle != right;
+
+		public bool Equals(SDLCameraPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLCameraPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLCameraPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

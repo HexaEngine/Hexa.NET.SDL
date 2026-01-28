@@ -18,140 +18,151 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, ref SDLTexture texture, ref float xy, int xyStride, ref SDLFColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pxy = &xy)
-				{
-					fixed (SDLFColor* pcolor = &color)
-					{
-						byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLFColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, ref float xy, int xyStride, ref SDLFColor color, int colorStride, float* uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (float* pxy = &xy)
-					{
-						fixed (SDLFColor* pcolor = &color)
-						{
-							byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLFColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, SDLTexture* texture, float* xy, int xyStride, SDLFColor* color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
-		{
-			fixed (float* puv = &uv)
-			{
-				byte ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, SDLTexture* texture, float* xy, int xyStride, SDLFColor* color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (float* puv = &uv)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, ref SDLTexture texture, float* xy, int xyStride, SDLFColor* color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (float* puv = &uv)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, SDLFColor* color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLWindow* pwindow = &window)
 				{
-					fixed (float* puv = &uv)
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 					{
-						byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -159,46 +170,151 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, SDLTexture* texture, ref float xy, int xyStride, SDLFColor* color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (float* pxy = &xy)
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 			{
-				fixed (float* puv = &uv)
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					byte ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, SDLTexture* texture, ref float xy, int xyStride, SDLFColor* color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (float* pxy = &xy)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (float* puv = &uv)
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -206,24 +322,78 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, ref SDLTexture texture, ref float xy, int xyStride, SDLFColor* color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				fixed (float* pxy = &xy)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (float* puv = &uv)
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -231,26 +401,83 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, ref float xy, int xyStride, SDLFColor* color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (float* pxy = &xy)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						fixed (float* puv = &uv)
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 						{
-							byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -259,46 +486,151 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, SDLTexture* texture, float* xy, int xyStride, ref SDLFColor color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLFColor* pcolor = &color)
+			fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 			{
-				fixed (float* puv = &uv)
+				byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					byte ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, (SDLFColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, SDLTexture* texture, float* xy, int xyStride, ref SDLFColor color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLFColor* pcolor = &color)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					fixed (float* puv = &uv)
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, (SDLFColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -306,24 +638,78 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, ref SDLTexture texture, float* xy, int xyStride, ref SDLFColor color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				fixed (SDLFColor* pcolor = &color)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					fixed (float* puv = &uv)
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLFColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -331,26 +717,83 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, float* xy, int xyStride, ref SDLFColor color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (SDLFColor* pcolor = &color)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						fixed (float* puv = &uv)
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLFColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -359,24 +802,78 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, SDLTexture* texture, ref float xy, int xyStride, ref SDLFColor color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (float* pxy = &xy)
+			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 			{
-				fixed (SDLFColor* pcolor = &color)
+				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 				{
-					fixed (float* puv = &uv)
+					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+				{
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						byte ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, (SDLFColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 						return ret != 0;
 					}
 				}
@@ -384,26 +881,83 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, SDLTexture* texture, ref float xy, int xyStride, ref SDLFColor color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (float* pxy = &xy)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (SDLFColor* pcolor = &color)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						fixed (float* puv = &uv)
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] SDLGPUTexturePtrPtr swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, (SDLFColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -412,26 +966,83 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(SDLRenderer* renderer, ref SDLTexture texture, ref float xy, int xyStride, ref SDLFColor color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 			{
-				fixed (float* pxy = &xy)
+				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 				{
-					fixed (SDLFColor* pcolor = &color)
+					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 					{
-						fixed (float* puv = &uv)
+						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+				{
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+					{
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							byte ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLFColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 							return ret != 0;
 						}
 					}
@@ -440,28 +1051,88 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex arrays Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderGeometryRaw(ref SDLRenderer renderer, ref SDLTexture texture, ref float xy, int xyStride, ref SDLFColor color, int colorStride, ref float uv, int uvStride, int numVertices, void* indices, int numIndices, int sizeIndices)
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (SDLTexture* ptexture = &texture)
+				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
 				{
-					fixed (float* pxy = &xy)
+					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
 					{
-						fixed (SDLFColor* pcolor = &color)
+						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 						{
-							fixed (float* puv = &uv)
+							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
+		/// and then acquires it.<br/>
+		/// When a swapchain texture is acquired on a command buffer, it will<br/>
+		/// automatically be submitted for presentation when the command buffer is<br/>
+		/// submitted. The swapchain texture should only be referenced by the command<br/>
+		/// buffer used to acquire it. It is an error to call<br/>
+		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
+		/// This function can fill the swapchain texture handle with NULL in certain<br/>
+		/// cases, for example if the window is minimized. This is not an error. You<br/>
+		/// should always make sure to check whether the pointer is NULL before<br/>
+		/// actually using it.<br/>
+		/// The swapchain texture is managed by the implementation and must not be<br/>
+		/// freed by the user. You MUST NOT call this function from any thread other<br/>
+		/// than the one that created the window.<br/>
+		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
+		/// another reading operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called from the thread that<br/>
+		/// created the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitAndAcquireGPUSwapchainTexture")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitAndAcquireGPUSwapchainTexture([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "swapchain_texture")] [NativeName(NativeNameType.Type, "SDL_GPUTexture * *")] ref SDLGPUTexture* swapchainTexture, [NativeName(NativeNameType.Param, "swapchain_texture_width")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureWidth, [NativeName(NativeNameType.Param, "swapchain_texture_height")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint swapchainTextureHeight)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
+					{
+						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
+						{
+							fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
 							{
-								byte ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLFColor*)pcolor, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+								byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
 								return ret != 0;
 							}
 						}
@@ -471,4570 +1142,3880 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Read pixels from the current rendering target.<br/>
-		/// The returned surface contains pixels inside the desired area clipped to the<br/>
-		/// current viewport, and should be freed with SDL_DestroySurface().<br/>
-		/// Note that this returns the actual pixels on the screen, so if you are using<br/>
-		/// logical presentation you should use SDL_GetRenderLogicalPresentationRect()<br/>
-		/// to get the area containing your content.<br/>
-		/// **WARNING**: This is a very slow operation, and should not be used<br/>
-		/// frequently. If you're using this on the main rendering target, it should be<br/>
-		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* RenderReadPixelsNative(SDLRenderer* renderer, SDLRect* rect)
+		internal static byte SubmitGPUCommandBufferNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, SDLSurface*>)funcTable[1109])(renderer, rect);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte>)funcTable[933])(commandBuffer);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1109])((nint)renderer, (nint)rect);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[933])((nint)commandBuffer);
 			#endif
 		}
 
 		/// <summary>
-		/// Read pixels from the current rendering target.<br/>
-		/// The returned surface contains pixels inside the desired area clipped to the<br/>
-		/// current viewport, and should be freed with SDL_DestroySurface().<br/>
-		/// Note that this returns the actual pixels on the screen, so if you are using<br/>
-		/// logical presentation you should use SDL_GetRenderLogicalPresentationRect()<br/>
-		/// to get the area containing your content.<br/>
-		/// **WARNING**: This is a very slow operation, and should not be used<br/>
-		/// frequently. If you're using this on the main rendering target, it should be<br/>
-		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* RenderReadPixels(SDLRenderer* renderer, SDLRect* rect)
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SubmitGPUCommandBuffer([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer)
 		{
-			SDLSurface* ret = RenderReadPixelsNative(renderer, rect);
+			byte ret = SubmitGPUCommandBufferNative((SDLGPUCommandBuffer*)commandBuffer);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
+		/// It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SubmitGPUCommandBuffer([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			{
+				byte ret = SubmitGPUCommandBufferNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBufferAndAcquireFence")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUFence *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFenceNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUFence*>)funcTable[934])(commandBuffer);
+			#else
+			return (SDLGPUFence*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[934])((nint)commandBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBufferAndAcquireFence")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUFence *")]
+		public static SDLGPUFencePtr SubmitGPUCommandBufferAndAcquireFence([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer)
+		{
+			SDLGPUFencePtr ret = SubmitGPUCommandBufferAndAcquireFenceNative((SDLGPUCommandBuffer*)commandBuffer);
 			return ret;
 		}
 
 		/// <summary>
-		/// Read pixels from the current rendering target.<br/>
-		/// The returned surface contains pixels inside the desired area clipped to the<br/>
-		/// current viewport, and should be freed with SDL_DestroySurface().<br/>
-		/// Note that this returns the actual pixels on the screen, so if you are using<br/>
-		/// logical presentation you should use SDL_GetRenderLogicalPresentationRect()<br/>
-		/// to get the area containing your content.<br/>
-		/// **WARNING**: This is a very slow operation, and should not be used<br/>
-		/// frequently. If you're using this on the main rendering target, it should be<br/>
-		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
+		/// acquires a fence associated with the command buffer.<br/>
+		/// You must release this fence when it is no longer needed or it will cause a<br/>
+		/// leak. It is invalid to use the command buffer after this is called.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// All commands in the submission are guaranteed to begin executing before any<br/>
+		/// command in a subsequent submission begins executing.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* RenderReadPixels(ref SDLRenderer renderer, SDLRect* rect)
+		[NativeName(NativeNameType.Func, "SDL_SubmitGPUCommandBufferAndAcquireFence")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUFence *")]
+		public static SDLGPUFencePtr SubmitGPUCommandBufferAndAcquireFence([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				SDLSurface* ret = RenderReadPixelsNative((SDLRenderer*)prenderer, rect);
+				SDLGPUFencePtr ret = SubmitGPUCommandBufferAndAcquireFenceNative((SDLGPUCommandBuffer*)pcommandBuffer);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Read pixels from the current rendering target.<br/>
-		/// The returned surface contains pixels inside the desired area clipped to the<br/>
-		/// current viewport, and should be freed with SDL_DestroySurface().<br/>
-		/// Note that this returns the actual pixels on the screen, so if you are using<br/>
-		/// logical presentation you should use SDL_GetRenderLogicalPresentationRect()<br/>
-		/// to get the area containing your content.<br/>
-		/// **WARNING**: This is a very slow operation, and should not be used<br/>
-		/// frequently. If you're using this on the main rendering target, it should be<br/>
-		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* RenderReadPixels(SDLRenderer* renderer, ref SDLRect rect)
+		[NativeName(NativeNameType.Func, "SDL_CancelGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CancelGPUCommandBufferNative([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBuffer* commandBuffer)
 		{
-			fixed (SDLRect* prect = &rect)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte>)funcTable[935])(commandBuffer);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[935])((nint)commandBuffer);
+			#endif
+		}
+
+		/// <summary>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CancelGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CancelGPUCommandBuffer([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] SDLGPUCommandBufferPtr commandBuffer)
+		{
+			byte ret = CancelGPUCommandBufferNative((SDLGPUCommandBuffer*)commandBuffer);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Cancels a command buffer.<br/>
+		/// None of the enqueued commands are executed.<br/>
+		/// It is an error to call this function after a swapchain texture has been<br/>
+		/// acquired.<br/>
+		/// This must be called from the thread the command buffer was acquired on.<br/>
+		/// You must not reference the command buffer after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CancelGPUCommandBuffer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CancelGPUCommandBuffer([NativeName(NativeNameType.Param, "command_buffer")] [NativeName(NativeNameType.Type, "SDL_GPUCommandBuffer *")] ref SDLGPUCommandBuffer commandBuffer)
+		{
+			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
 			{
-				SDLSurface* ret = RenderReadPixelsNative(renderer, (SDLRect*)prect);
-				return ret;
+				byte ret = CancelGPUCommandBufferNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Read pixels from the current rendering target.<br/>
-		/// The returned surface contains pixels inside the desired area clipped to the<br/>
-		/// current viewport, and should be freed with SDL_DestroySurface().<br/>
-		/// Note that this returns the actual pixels on the screen, so if you are using<br/>
-		/// logical presentation you should use SDL_GetRenderLogicalPresentationRect()<br/>
-		/// to get the area containing your content.<br/>
-		/// **WARNING**: This is a very slow operation, and should not be used<br/>
-		/// frequently. If you're using this on the main rendering target, it should be<br/>
-		/// called after rendering and before SDL_RenderPresent().<br/>
+		/// Blocks the thread until the GPU is completely idle.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* RenderReadPixels(ref SDLRenderer renderer, ref SDLRect rect)
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUIdle")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitForGPUIdleNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte>)funcTable[936])(device);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[936])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUIdle")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUIdle([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device)
+		{
+			byte ret = WaitForGPUIdleNative((SDLGPUDevice*)device);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUIdle")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUIdle([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				fixed (SDLRect* prect = &rect)
+				byte ret = WaitForGPUIdleNative((SDLGPUDevice*)pdevice);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitForGPUFencesNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] byte waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] SDLGPUFence** fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte, SDLGPUFence**, uint, byte>)funcTable[937])(device, waitAll, fences, numFences);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, uint, byte>)funcTable[937])((nint)device, waitAll, (nint)fences, numFences);
+			#endif
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUFences([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] bool waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] SDLGPUFence** fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			byte ret = WaitForGPUFencesNative((SDLGPUDevice*)device, waitAll ? (byte)1 : (byte)0, fences, numFences);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUFences([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] bool waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] SDLGPUFence** fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = WaitForGPUFencesNative((SDLGPUDevice*)pdevice, waitAll ? (byte)1 : (byte)0, fences, numFences);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUFences([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] bool waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] in SDLGPUFence* fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			fixed (SDLGPUFence** pfences = &fences)
+			{
+				byte ret = WaitForGPUFencesNative((SDLGPUDevice*)device, waitAll ? (byte)1 : (byte)0, (SDLGPUFence**)pfences, numFences);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Blocks the thread until the given fences are signaled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitForGPUFences")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitForGPUFences([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "wait_all")] [NativeName(NativeNameType.Type, "bool")] bool waitAll, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "SDL_GPUFence * const *")] in SDLGPUFence* fences, [NativeName(NativeNameType.Param, "num_fences")] [NativeName(NativeNameType.Type, "Uint32")] uint numFences)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUFence** pfences = &fences)
 				{
-					SDLSurface* ret = RenderReadPixelsNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update the screen with any rendering performed since the previous call.<br/>
-		/// SDL's rendering functions operate on a backbuffer; that is, calling a<br/>
-		/// rendering function such as SDL_RenderLine() does not directly put a line on<br/>
-		/// the screen, but rather updates the backbuffer. As such, you compose your<br/>
-		/// entire scene and *present* the composed backbuffer to the screen as a<br/>
-		/// complete picture.<br/>
-		/// Therefore, when using SDL's rendering API, one does all drawing intended<br/>
-		/// for the frame, and then calls this function once per frame to present the<br/>
-		/// final drawing to the user.<br/>
-		/// The backbuffer should be considered invalidated after each present; do not<br/>
-		/// assume that previous contents will exist between frames. You are strongly<br/>
-		/// encouraged to call SDL_RenderClear() to initialize the backbuffer before<br/>
-		/// starting each new frame's drawing, even if you plan to overwrite every<br/>
-		/// pixel.<br/>
-		/// Please note, that in case of rendering to a texture - there is **no need**<br/>
-		/// to call `SDL_RenderPresent` after drawing needed objects to a texture, and<br/>
-		/// should not be done; you are only required to change back the rendering<br/>
-		/// target to default via `SDL_SetRenderTarget(renderer, NULL)` afterwards, as<br/>
-		/// textures by themselves do not have a concept of backbuffers. Calling<br/>
-		/// SDL_RenderPresent while rendering to a texture will still update the screen<br/>
-		/// with any current drawing that has been done _to the window itself_.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderPresentNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte>)funcTable[1110])(renderer);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1110])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Update the screen with any rendering performed since the previous call.<br/>
-		/// SDL's rendering functions operate on a backbuffer; that is, calling a<br/>
-		/// rendering function such as SDL_RenderLine() does not directly put a line on<br/>
-		/// the screen, but rather updates the backbuffer. As such, you compose your<br/>
-		/// entire scene and *present* the composed backbuffer to the screen as a<br/>
-		/// complete picture.<br/>
-		/// Therefore, when using SDL's rendering API, one does all drawing intended<br/>
-		/// for the frame, and then calls this function once per frame to present the<br/>
-		/// final drawing to the user.<br/>
-		/// The backbuffer should be considered invalidated after each present; do not<br/>
-		/// assume that previous contents will exist between frames. You are strongly<br/>
-		/// encouraged to call SDL_RenderClear() to initialize the backbuffer before<br/>
-		/// starting each new frame's drawing, even if you plan to overwrite every<br/>
-		/// pixel.<br/>
-		/// Please note, that in case of rendering to a texture - there is **no need**<br/>
-		/// to call `SDL_RenderPresent` after drawing needed objects to a texture, and<br/>
-		/// should not be done; you are only required to change back the rendering<br/>
-		/// target to default via `SDL_SetRenderTarget(renderer, NULL)` afterwards, as<br/>
-		/// textures by themselves do not have a concept of backbuffers. Calling<br/>
-		/// SDL_RenderPresent while rendering to a texture will still update the screen<br/>
-		/// with any current drawing that has been done _to the window itself_.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderPresent(SDLRenderer* renderer)
-		{
-			byte ret = RenderPresentNative(renderer);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Update the screen with any rendering performed since the previous call.<br/>
-		/// SDL's rendering functions operate on a backbuffer; that is, calling a<br/>
-		/// rendering function such as SDL_RenderLine() does not directly put a line on<br/>
-		/// the screen, but rather updates the backbuffer. As such, you compose your<br/>
-		/// entire scene and *present* the composed backbuffer to the screen as a<br/>
-		/// complete picture.<br/>
-		/// Therefore, when using SDL's rendering API, one does all drawing intended<br/>
-		/// for the frame, and then calls this function once per frame to present the<br/>
-		/// final drawing to the user.<br/>
-		/// The backbuffer should be considered invalidated after each present; do not<br/>
-		/// assume that previous contents will exist between frames. You are strongly<br/>
-		/// encouraged to call SDL_RenderClear() to initialize the backbuffer before<br/>
-		/// starting each new frame's drawing, even if you plan to overwrite every<br/>
-		/// pixel.<br/>
-		/// Please note, that in case of rendering to a texture - there is **no need**<br/>
-		/// to call `SDL_RenderPresent` after drawing needed objects to a texture, and<br/>
-		/// should not be done; you are only required to change back the rendering<br/>
-		/// target to default via `SDL_SetRenderTarget(renderer, NULL)` afterwards, as<br/>
-		/// textures by themselves do not have a concept of backbuffers. Calling<br/>
-		/// SDL_RenderPresent while rendering to a texture will still update the screen<br/>
-		/// with any current drawing that has been done _to the window itself_.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderPresent(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderPresentNative((SDLRenderer*)prenderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Destroy the specified texture.<br/>
-		/// Passing NULL or an otherwise invalid texture will set the SDL error message<br/>
-		/// to "Invalid texture".<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyTextureNative(SDLTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)funcTable[1111])(texture);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1111])((nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy the specified texture.<br/>
-		/// Passing NULL or an otherwise invalid texture will set the SDL error message<br/>
-		/// to "Invalid texture".<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyTexture(SDLTexture* texture)
-		{
-			DestroyTextureNative(texture);
-		}
-
-		/// <summary>
-		/// Destroy the specified texture.<br/>
-		/// Passing NULL or an otherwise invalid texture will set the SDL error message<br/>
-		/// to "Invalid texture".<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyTexture(ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				DestroyTextureNative((SDLTexture*)ptexture);
-			}
-		}
-
-		/// <summary>
-		/// Destroy the rendering context for a window and free all associated<br/>
-		/// textures.<br/>
-		/// This should be called before destroying the associated window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyRendererNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, void>)funcTable[1112])(renderer);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1112])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy the rendering context for a window and free all associated<br/>
-		/// textures.<br/>
-		/// This should be called before destroying the associated window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyRenderer(SDLRenderer* renderer)
-		{
-			DestroyRendererNative(renderer);
-		}
-
-		/// <summary>
-		/// Destroy the rendering context for a window and free all associated<br/>
-		/// textures.<br/>
-		/// This should be called before destroying the associated window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyRenderer(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				DestroyRendererNative((SDLRenderer*)prenderer);
-			}
-		}
-
-		/// <summary>
-		/// Force the rendering context to flush any pending commands and state.<br/>
-		/// You do not need to (and in fact, shouldn't) call this function unless you<br/>
-		/// are planning to call into OpenGL/Direct3D/Metal/whatever directly, in<br/>
-		/// addition to using an SDL_Renderer.<br/>
-		/// This is for a very-specific case: if you are using SDL's render API, and<br/>
-		/// you plan to make OpenGL/D3D/whatever calls in addition to SDL render API<br/>
-		/// calls. If this applies, you should call this function between calls to<br/>
-		/// SDL's render API and the low-level API you're using in cooperation.<br/>
-		/// In all other cases, you can ignore this function.<br/>
-		/// This call makes SDL flush any pending rendering work it was queueing up to<br/>
-		/// do later in a single batch, and marks any internal cached state as invalid,<br/>
-		/// so it'll prepare all its state again later, from scratch.<br/>
-		/// This means you do not need to save state in your rendering code to protect<br/>
-		/// the SDL renderer. However, there lots of arbitrary pieces of Direct3D and<br/>
-		/// OpenGL state that can confuse things; you should use your best judgment and<br/>
-		/// be prepared to make changes if specific state needs to be protected.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FlushRendererNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte>)funcTable[1113])(renderer);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1113])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Force the rendering context to flush any pending commands and state.<br/>
-		/// You do not need to (and in fact, shouldn't) call this function unless you<br/>
-		/// are planning to call into OpenGL/Direct3D/Metal/whatever directly, in<br/>
-		/// addition to using an SDL_Renderer.<br/>
-		/// This is for a very-specific case: if you are using SDL's render API, and<br/>
-		/// you plan to make OpenGL/D3D/whatever calls in addition to SDL render API<br/>
-		/// calls. If this applies, you should call this function between calls to<br/>
-		/// SDL's render API and the low-level API you're using in cooperation.<br/>
-		/// In all other cases, you can ignore this function.<br/>
-		/// This call makes SDL flush any pending rendering work it was queueing up to<br/>
-		/// do later in a single batch, and marks any internal cached state as invalid,<br/>
-		/// so it'll prepare all its state again later, from scratch.<br/>
-		/// This means you do not need to save state in your rendering code to protect<br/>
-		/// the SDL renderer. However, there lots of arbitrary pieces of Direct3D and<br/>
-		/// OpenGL state that can confuse things; you should use your best judgment and<br/>
-		/// be prepared to make changes if specific state needs to be protected.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool FlushRenderer(SDLRenderer* renderer)
-		{
-			byte ret = FlushRendererNative(renderer);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Force the rendering context to flush any pending commands and state.<br/>
-		/// You do not need to (and in fact, shouldn't) call this function unless you<br/>
-		/// are planning to call into OpenGL/Direct3D/Metal/whatever directly, in<br/>
-		/// addition to using an SDL_Renderer.<br/>
-		/// This is for a very-specific case: if you are using SDL's render API, and<br/>
-		/// you plan to make OpenGL/D3D/whatever calls in addition to SDL render API<br/>
-		/// calls. If this applies, you should call this function between calls to<br/>
-		/// SDL's render API and the low-level API you're using in cooperation.<br/>
-		/// In all other cases, you can ignore this function.<br/>
-		/// This call makes SDL flush any pending rendering work it was queueing up to<br/>
-		/// do later in a single batch, and marks any internal cached state as invalid,<br/>
-		/// so it'll prepare all its state again later, from scratch.<br/>
-		/// This means you do not need to save state in your rendering code to protect<br/>
-		/// the SDL renderer. However, there lots of arbitrary pieces of Direct3D and<br/>
-		/// OpenGL state that can confuse things; you should use your best judgment and<br/>
-		/// be prepared to make changes if specific state needs to be protected.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool FlushRenderer(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = FlushRendererNative((SDLRenderer*)prenderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the CAMetalLayer associated with the given Metal renderer.<br/>
-		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
-		/// headers, but it can be safely cast to a `CAMetalLayer *`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* GetRenderMetalLayerNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, void*>)funcTable[1114])(renderer);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1114])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the CAMetalLayer associated with the given Metal renderer.<br/>
-		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
-		/// headers, but it can be safely cast to a `CAMetalLayer *`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetRenderMetalLayer(SDLRenderer* renderer)
-		{
-			void* ret = GetRenderMetalLayerNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the CAMetalLayer associated with the given Metal renderer.<br/>
-		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
-		/// headers, but it can be safely cast to a `CAMetalLayer *`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetRenderMetalLayer(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				void* ret = GetRenderMetalLayerNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the Metal command encoder for the current frame.<br/>
-		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
-		/// headers, but it can be safely cast to an `id<br/>
-		/// <MTLRenderCommandEncoder<br/>
-		/// >`.<br/>
-		/// This will return NULL if Metal refuses to give SDL a drawable to render to,<br/>
-		/// which might happen if the window is hidden/minimized/offscreen. This<br/>
-		/// doesn't apply to command encoders for render targets, just the window's<br/>
-		/// backbuffer. Check your return values!<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* GetRenderMetalCommandEncoderNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, void*>)funcTable[1115])(renderer);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1115])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the Metal command encoder for the current frame.<br/>
-		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
-		/// headers, but it can be safely cast to an `id<br/>
-		/// <MTLRenderCommandEncoder<br/>
-		/// >`.<br/>
-		/// This will return NULL if Metal refuses to give SDL a drawable to render to,<br/>
-		/// which might happen if the window is hidden/minimized/offscreen. This<br/>
-		/// doesn't apply to command encoders for render targets, just the window's<br/>
-		/// backbuffer. Check your return values!<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetRenderMetalCommandEncoder(SDLRenderer* renderer)
-		{
-			void* ret = GetRenderMetalCommandEncoderNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the Metal command encoder for the current frame.<br/>
-		/// This function returns `void *`, so SDL doesn't have to include Metal's<br/>
-		/// headers, but it can be safely cast to an `id<br/>
-		/// <MTLRenderCommandEncoder<br/>
-		/// >`.<br/>
-		/// This will return NULL if Metal refuses to give SDL a drawable to render to,<br/>
-		/// which might happen if the window is hidden/minimized/offscreen. This<br/>
-		/// doesn't apply to command encoders for render targets, just the window's<br/>
-		/// backbuffer. Check your return values!<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetRenderMetalCommandEncoder(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				void* ret = GetRenderMetalCommandEncoderNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add a set of synchronization semaphores for the current frame.<br/>
-		/// The Vulkan renderer will wait for `wait_semaphore` before submitting<br/>
-		/// rendering commands and signal `signal_semaphore` after rendering commands<br/>
-		/// are complete for this frame.<br/>
-		/// This should be called each frame that you want semaphore synchronization.<br/>
-		/// The Vulkan renderer may have multiple frames in flight on the GPU, so you<br/>
-		/// should have multiple semaphores that are used for synchronization. Querying<br/>
-		/// SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER will give you the<br/>
-		/// maximum number of semaphores you'll need.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is **NOT** safe to call this function from two threads at<br/>
-		/// once.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte AddVulkanRenderSemaphoresNative(SDLRenderer* renderer, uint waitStageMask, long waitSemaphore, long signalSemaphore)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint, long, long, byte>)funcTable[1116])(renderer, waitStageMask, waitSemaphore, signalSemaphore);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, long, long, byte>)funcTable[1116])((nint)renderer, waitStageMask, waitSemaphore, signalSemaphore);
-			#endif
-		}
-
-		/// <summary>
-		/// Add a set of synchronization semaphores for the current frame.<br/>
-		/// The Vulkan renderer will wait for `wait_semaphore` before submitting<br/>
-		/// rendering commands and signal `signal_semaphore` after rendering commands<br/>
-		/// are complete for this frame.<br/>
-		/// This should be called each frame that you want semaphore synchronization.<br/>
-		/// The Vulkan renderer may have multiple frames in flight on the GPU, so you<br/>
-		/// should have multiple semaphores that are used for synchronization. Querying<br/>
-		/// SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER will give you the<br/>
-		/// maximum number of semaphores you'll need.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is **NOT** safe to call this function from two threads at<br/>
-		/// once.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool AddVulkanRenderSemaphores(SDLRenderer* renderer, uint waitStageMask, long waitSemaphore, long signalSemaphore)
-		{
-			byte ret = AddVulkanRenderSemaphoresNative(renderer, waitStageMask, waitSemaphore, signalSemaphore);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Add a set of synchronization semaphores for the current frame.<br/>
-		/// The Vulkan renderer will wait for `wait_semaphore` before submitting<br/>
-		/// rendering commands and signal `signal_semaphore` after rendering commands<br/>
-		/// are complete for this frame.<br/>
-		/// This should be called each frame that you want semaphore synchronization.<br/>
-		/// The Vulkan renderer may have multiple frames in flight on the GPU, so you<br/>
-		/// should have multiple semaphores that are used for synchronization. Querying<br/>
-		/// SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER will give you the<br/>
-		/// maximum number of semaphores you'll need.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is **NOT** safe to call this function from two threads at<br/>
-		/// once.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool AddVulkanRenderSemaphores(ref SDLRenderer renderer, uint waitStageMask, long waitSemaphore, long signalSemaphore)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = AddVulkanRenderSemaphoresNative((SDLRenderer*)prenderer, waitStageMask, waitSemaphore, signalSemaphore);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Toggle VSync of the given renderer.<br/>
-		/// When a renderer is created, vsync defaults to SDL_RENDERER_VSYNC_DISABLED.<br/>
-		/// The `vsync` parameter can be 1 to synchronize present with every vertical<br/>
-		/// refresh, 2 to synchronize present with every second vertical refresh, etc.,<br/>
-		/// SDL_RENDERER_VSYNC_ADAPTIVE for late swap tearing (adaptive vsync), or<br/>
-		/// SDL_RENDERER_VSYNC_DISABLED to disable. Not every value is supported by<br/>
-		/// every driver, so you should check the return value to see whether the<br/>
-		/// requested setting is supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetRenderVSyncNative(SDLRenderer* renderer, int vsync)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, byte>)funcTable[1117])(renderer, vsync);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[1117])((nint)renderer, vsync);
-			#endif
-		}
-
-		/// <summary>
-		/// Toggle VSync of the given renderer.<br/>
-		/// When a renderer is created, vsync defaults to SDL_RENDERER_VSYNC_DISABLED.<br/>
-		/// The `vsync` parameter can be 1 to synchronize present with every vertical<br/>
-		/// refresh, 2 to synchronize present with every second vertical refresh, etc.,<br/>
-		/// SDL_RENDERER_VSYNC_ADAPTIVE for late swap tearing (adaptive vsync), or<br/>
-		/// SDL_RENDERER_VSYNC_DISABLED to disable. Not every value is supported by<br/>
-		/// every driver, so you should check the return value to see whether the<br/>
-		/// requested setting is supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetRenderVSync(SDLRenderer* renderer, int vsync)
-		{
-			byte ret = SetRenderVSyncNative(renderer, vsync);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Toggle VSync of the given renderer.<br/>
-		/// When a renderer is created, vsync defaults to SDL_RENDERER_VSYNC_DISABLED.<br/>
-		/// The `vsync` parameter can be 1 to synchronize present with every vertical<br/>
-		/// refresh, 2 to synchronize present with every second vertical refresh, etc.,<br/>
-		/// SDL_RENDERER_VSYNC_ADAPTIVE for late swap tearing (adaptive vsync), or<br/>
-		/// SDL_RENDERER_VSYNC_DISABLED to disable. Not every value is supported by<br/>
-		/// every driver, so you should check the return value to see whether the<br/>
-		/// requested setting is supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetRenderVSync(ref SDLRenderer renderer, int vsync)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = SetRenderVSyncNative((SDLRenderer*)prenderer, vsync);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get VSync of the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRenderVSyncNative(SDLRenderer* renderer, int* vsync)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, byte>)funcTable[1118])(renderer, vsync);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1118])((nint)renderer, (nint)vsync);
-			#endif
-		}
-
-		/// <summary>
-		/// Get VSync of the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderVSync(SDLRenderer* renderer, int* vsync)
-		{
-			byte ret = GetRenderVSyncNative(renderer, vsync);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get VSync of the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderVSync(ref SDLRenderer renderer, int* vsync)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = GetRenderVSyncNative((SDLRenderer*)prenderer, vsync);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get VSync of the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderVSync(SDLRenderer* renderer, ref int vsync)
-		{
-			fixed (int* pvsync = &vsync)
-			{
-				byte ret = GetRenderVSyncNative(renderer, (int*)pvsync);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get VSync of the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderVSync(ref SDLRenderer renderer, ref int vsync)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pvsync = &vsync)
-				{
-					byte ret = GetRenderVSyncNative((SDLRenderer*)prenderer, (int*)pvsync);
+					byte ret = WaitForGPUFencesNative((SDLGPUDevice*)pdevice, waitAll ? (byte)1 : (byte)0, (SDLGPUFence**)pfences, numFences);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
+		/// Checks the status of a fence.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderDebugTextNative(SDLRenderer* renderer, float x, float y, byte* str)
+		internal static byte QueryGPUFenceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFence* fence)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, byte*, byte>)funcTable[1119])(renderer, x, y, str);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUFence*, byte>)funcTable[938])(device, fence);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, nint, byte>)funcTable[1119])((nint)renderer, x, y, (nint)str);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[938])((nint)device, (nint)fence);
 			#endif
 		}
 
 		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
+		/// Checks the status of a fence.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderDebugText(SDLRenderer* renderer, float x, float y, byte* str)
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool QueryGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFencePtr fence)
 		{
-			byte ret = RenderDebugTextNative(renderer, x, y, str);
+			byte ret = QueryGPUFenceNative((SDLGPUDevice*)device, (SDLGPUFence*)fence);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
+		/// Checks the status of a fence.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderDebugText(ref SDLRenderer renderer, float x, float y, byte* str)
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool QueryGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFencePtr fence)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				byte ret = RenderDebugTextNative((SDLRenderer*)prenderer, x, y, str);
+				byte ret = QueryGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)fence);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
+		/// Checks the status of a fence.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderDebugText(SDLRenderer* renderer, float x, float y, ref byte str)
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool QueryGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] ref SDLGPUFence fence)
 		{
-			fixed (byte* pstr = &str)
+			fixed (SDLGPUFence* pfence = &fence)
 			{
-				byte ret = RenderDebugTextNative(renderer, x, y, (byte*)pstr);
+				byte ret = QueryGPUFenceNative((SDLGPUDevice*)device, (SDLGPUFence*)pfence);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
+		/// Checks the status of a fence.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderDebugText(SDLRenderer* renderer, float x, float y, ReadOnlySpan<byte> str)
+		[NativeName(NativeNameType.Func, "SDL_QueryGPUFence")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool QueryGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] ref SDLGPUFence fence)
 		{
-			fixed (byte* pstr = str)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				byte ret = RenderDebugTextNative(renderer, x, y, (byte*)pstr);
+				fixed (SDLGPUFence* pfence = &fence)
+				{
+					byte ret = QueryGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)pfence);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ReleaseGPUFenceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFence* fence)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUFence*, void>)funcTable[939])(device, fence);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[939])((nint)device, (nint)fence);
+			#endif
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFencePtr fence)
+		{
+			ReleaseGPUFenceNative((SDLGPUDevice*)device, (SDLGPUFence*)fence);
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] SDLGPUFencePtr fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				ReleaseGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)fence);
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUFence* pfence = &fence)
+			{
+				ReleaseGPUFenceNative((SDLGPUDevice*)device, (SDLGPUFence*)pfence);
+			}
+		}
+
+		/// <summary>
+		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
+		/// You must not reference the fence after calling this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReleaseGPUFence")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ReleaseGPUFence([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "SDL_GPUFence *")] ref SDLGPUFence fence)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				fixed (SDLGPUFence* pfence = &fence)
+				{
+					ReleaseGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)pfence);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Obtains the texel block size for a texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureFormatTexelBlockSize")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GPUTextureFormatTexelBlockSizeNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint>)funcTable[940])(format);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint>)funcTable[940])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Obtains the texel block size for a texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureFormatTexelBlockSize")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GPUTextureFormatTexelBlockSize([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format)
+		{
+			uint ret = GPUTextureFormatTexelBlockSizeNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUTextureSupportsFormatNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GPUTextureType")] SDLGPUTextureType type, [NativeName(NativeNameType.Param, "usage")] [NativeName(NativeNameType.Type, "SDL_GPUTextureUsageFlags")] uint usage)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureFormat, SDLGPUTextureType, uint, byte>)funcTable[941])(device, format, type, usage);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGPUTextureFormat, SDLGPUTextureType, uint, byte>)funcTable[941])((nint)device, format, type, usage);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUTextureSupportsFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GPUTextureType")] SDLGPUTextureType type, [NativeName(NativeNameType.Param, "usage")] [NativeName(NativeNameType.Type, "SDL_GPUTextureUsageFlags")] uint usage)
+		{
+			byte ret = GPUTextureSupportsFormatNative((SDLGPUDevice*)device, format, type, usage);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines whether a texture format is supported for a given type and<br/>
+		/// usage.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUTextureSupportsFormat([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_GPUTextureType")] SDLGPUTextureType type, [NativeName(NativeNameType.Param, "usage")] [NativeName(NativeNameType.Type, "SDL_GPUTextureUsageFlags")] uint usage)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = GPUTextureSupportsFormatNative((SDLGPUDevice*)pdevice, format, type, usage);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Determines if a sample count for a texture format is supported.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderDebugText(SDLRenderer* renderer, float x, float y, string str)
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsSampleCount")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUTextureSupportsSampleCountNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "sample_count")] [NativeName(NativeNameType.Type, "SDL_GPUSampleCount")] SDLGPUSampleCount sampleCount)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureFormat, SDLGPUSampleCount, byte>)funcTable[942])(device, format, sampleCount);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGPUTextureFormat, SDLGPUSampleCount, byte>)funcTable[942])((nint)device, format, sampleCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Determines if a sample count for a texture format is supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsSampleCount")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUTextureSupportsSampleCount([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "sample_count")] [NativeName(NativeNameType.Type, "SDL_GPUSampleCount")] SDLGPUSampleCount sampleCount)
+		{
+			byte ret = GPUTextureSupportsSampleCountNative((SDLGPUDevice*)device, format, sampleCount);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Determines if a sample count for a texture format is supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUTextureSupportsSampleCount")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUTextureSupportsSampleCount([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "sample_count")] [NativeName(NativeNameType.Type, "SDL_GPUSampleCount")] SDLGPUSampleCount sampleCount)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte ret = GPUTextureSupportsSampleCountNative((SDLGPUDevice*)pdevice, format, sampleCount);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the size in bytes of a texture format with dimensions.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CalculateGPUTextureFormatSize")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint CalculateGPUTextureFormatSizeNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "Uint32")] uint width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "Uint32")] uint height, [NativeName(NativeNameType.Param, "depth_or_layer_count")] [NativeName(NativeNameType.Type, "Uint32")] uint depthOrLayerCount)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint, uint, uint, uint>)funcTable[943])(format, width, height, depthOrLayerCount);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint, uint, uint, uint>)funcTable[943])(format, width, height, depthOrLayerCount);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the size in bytes of a texture format with dimensions.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CalculateGPUTextureFormatSize")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint CalculateGPUTextureFormatSize([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "Uint32")] uint width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "Uint32")] uint height, [NativeName(NativeNameType.Param, "depth_or_layer_count")] [NativeName(NativeNameType.Type, "Uint32")] uint depthOrLayerCount)
+		{
+			uint ret = CalculateGPUTextureFormatSizeNative(format, width, height, depthOrLayerCount);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL pixel format corresponding to a GPU texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatFromGPUTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPixelFormat GetPixelFormatFromGPUTextureFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, SDLPixelFormat>)funcTable[944])(format);
+			#else
+			return (SDLPixelFormat)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, SDLPixelFormat>)funcTable[944])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL pixel format corresponding to a GPU texture format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatFromGPUTextureFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat")]
+		public static SDLPixelFormat GetPixelFormatFromGPUTextureFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")] SDLGPUTextureFormat format)
+		{
+			SDLPixelFormat ret = GetPixelFormatFromGPUTextureFormatNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the GPU texture format corresponding to an SDL pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUTextureFormatFromPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUTextureFormat GetGPUTextureFormatFromPixelFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat, SDLGPUTextureFormat>)funcTable[945])(format);
+			#else
+			return (SDLGPUTextureFormat)((delegate* unmanaged[Cdecl]<SDLPixelFormat, SDLGPUTextureFormat>)funcTable[945])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the GPU texture format corresponding to an SDL pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUTextureFormatFromPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUTextureFormat")]
+		public static SDLGPUTextureFormat GetGPUTextureFormatFromPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			SDLGPUTextureFormat ret = GetGPUTextureFormatFromPixelFormatNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHaptics")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint* GetHapticsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[946])(count);
+			#else
+			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[946])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHaptics")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID *")]
+		public static uint* GetHaptics([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			uint* ret = GetHapticsNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected haptic devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHaptics")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID *")]
+		public static uint* GetHaptics([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				uint* ret = GetHapticsNative((int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetHapticNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[947])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[947])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetHapticNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			byte* ret = GetHapticNameForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// This can be called before any haptic devices are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetHapticNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetHapticNameForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a haptic device for use.<br/>
+		/// The index passed as an argument refers to the N'th haptic device on this<br/>
+		/// system.<br/>
+		/// When opening a haptic device, its gain will be set to maximum and<br/>
+		/// autocenter will be disabled. To modify these values use SDL_SetHapticGain()<br/>
+		/// and SDL_SetHapticAutocenter().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHaptic")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLHaptic*>)funcTable[948])(instanceId);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[948])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a haptic device for use.<br/>
+		/// The index passed as an argument refers to the N'th haptic device on this<br/>
+		/// system.<br/>
+		/// When opening a haptic device, its gain will be set to maximum and<br/>
+		/// autocenter will be disabled. To modify these values use SDL_SetHapticGain()<br/>
+		/// and SDL_SetHapticAutocenter().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHaptic")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHapticPtr OpenHaptic([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			SDLHapticPtr ret = OpenHapticNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Haptic associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* GetHapticFromIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLHaptic*>)funcTable[949])(instanceId);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[949])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Haptic associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHapticPtr GetHapticFromID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_HapticID")] uint instanceId)
+		{
+			SDLHapticPtr ret = GetHapticFromIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticID")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetHapticIDNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[950])(haptic);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[950])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticID")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID")]
+		public static uint GetHapticID([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			uint ret = GetHapticIDNative((SDLHaptic*)haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticID")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticID")]
+		public static uint GetHapticID([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				uint ret = GetHapticIDNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetHapticNameNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte*>)funcTable[951])(haptic);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[951])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetHapticName([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			byte* ret = GetHapticNameNative((SDLHaptic*)haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetHapticNameS([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			string ret = Utils.DecodeStringUTF8(GetHapticNameNative((SDLHaptic*)haptic));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetHapticName([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte* ret = GetHapticNameNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetHapticNameS([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				string ret = Utils.DecodeStringUTF8(GetHapticNameNative((SDLHaptic*)phaptic));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether or not the current mouse has haptic capabilities.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsMouseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte IsMouseHapticNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[952])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[952])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether or not the current mouse has haptic capabilities.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsMouseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool IsMouseHaptic()
+		{
+			byte ret = IsMouseHapticNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Try to open a haptic device from the current mouse.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromMouse")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticFromMouseNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*>)funcTable[953])();
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint>)funcTable[953])();
+			#endif
+		}
+
+		/// <summary>
+		/// Try to open a haptic device from the current mouse.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromMouse")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHapticPtr OpenHapticFromMouse()
+		{
+			SDLHapticPtr ret = OpenHapticFromMouseNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte IsJoystickHapticNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte>)funcTable[954])(joystick);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[954])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool IsJoystickHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			byte ret = IsJoystickHapticNative((SDLJoystick*)joystick);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Query if a joystick has haptic features.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool IsJoystickHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = IsJoystickHapticNative((SDLJoystick*)pjoystick);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHaptic* OpenHapticFromJoystickNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLHaptic*>)funcTable[955])(joystick);
+			#else
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[955])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHapticPtr OpenHapticFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			SDLHapticPtr ret = OpenHapticFromJoystickNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a haptic device for use from a joystick device.<br/>
+		/// You must still close the haptic device separately. It will not be closed<br/>
+		/// with the joystick.<br/>
+		/// When opened from a joystick you should first close the haptic device before<br/>
+		/// closing the joystick device. If not, on some implementations the haptic<br/>
+		/// device will also get unallocated and you'll be unable to use force feedback<br/>
+		/// on that device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenHapticFromJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Haptic *")]
+		public static SDLHapticPtr OpenHapticFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLHapticPtr ret = OpenHapticFromJoystickNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseHaptic")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CloseHapticNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLHaptic*, void>)funcTable[956])(haptic);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[956])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseHaptic")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			CloseHapticNative((SDLHaptic*)haptic);
+		}
+
+		/// <summary>
+		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseHaptic")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				CloseHapticNative((SDLHaptic*)phaptic);
+			}
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetMaxHapticEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[957])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[957])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetMaxHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			int ret = GetMaxHapticEffectsNative((SDLHaptic*)haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can store.<br/>
+		/// On some platforms this isn't fully supported, and therefore is an<br/>
+		/// approximation. Always check to see if your created effect was actually<br/>
+		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetMaxHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetMaxHapticEffectsNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffectsPlaying")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetMaxHapticEffectsPlayingNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[958])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[958])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffectsPlaying")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetMaxHapticEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			int ret = GetMaxHapticEffectsPlayingNative((SDLHaptic*)haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of effects a haptic device can play at the same time.<br/>
+		/// This is not supported on all platforms, but will always return a value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMaxHapticEffectsPlaying")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetMaxHapticEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetMaxHapticEffectsPlayingNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFeatures")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetHapticFeaturesNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[959])(haptic);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[959])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFeatures")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetHapticFeatures([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			uint ret = GetHapticFeaturesNative((SDLHaptic*)haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the haptic device's supported features in bitwise manner.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticFeatures")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetHapticFeatures([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				uint ret = GetHapticFeaturesNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumHapticAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumHapticAxesNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[960])(haptic);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[960])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumHapticAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumHapticAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			int ret = GetNumHapticAxesNative((SDLHaptic*)haptic);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of haptic axes the device has.<br/>
+		/// The number of haptic axes might be useful if working with the<br/>
+		/// SDL_HapticDirection effect.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumHapticAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumHapticAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = GetNumHapticAxesNative((SDLHaptic*)phaptic);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HapticEffectSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, byte>)funcTable[961])(haptic, effect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[961])((nint)haptic, (nint)effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffectPtr effect)
+		{
+			byte ret = HapticEffectSupportedNative((SDLHaptic*)haptic, (SDLHapticEffect*)effect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffectPtr effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)effect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] in SDLHapticEffect effect)
+		{
+			fixed (SDLHapticEffect* peffect = &effect)
+			{
+				byte ret = HapticEffectSupportedNative((SDLHaptic*)haptic, (SDLHapticEffect*)peffect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] in SDLHapticEffect effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				fixed (SDLHapticEffect* peffect = &effect)
+				{
+					byte ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticEffectID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int CreateHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[962])(haptic, effect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[962])((nint)haptic, (nint)effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticEffectID")]
+		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffectPtr effect)
+		{
+			int ret = CreateHapticEffectNative((SDLHaptic*)haptic, (SDLHapticEffect*)effect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticEffectID")]
+		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffectPtr effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				int ret = CreateHapticEffectNative((SDLHaptic*)phaptic, (SDLHapticEffect*)effect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticEffectID")]
+		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] in SDLHapticEffect effect)
+		{
+			fixed (SDLHapticEffect* peffect = &effect)
+			{
+				int ret = CreateHapticEffectNative((SDLHaptic*)haptic, (SDLHapticEffect*)peffect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a new haptic effect on a specified device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "SDL_HapticEffectID")]
+		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] in SDLHapticEffect effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				fixed (SDLHapticEffect* peffect = &effect)
+				{
+					int ret = CreateHapticEffectNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte UpdateHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* data)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, SDLHapticEffect*, byte>)funcTable[963])(haptic, effect, data);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, nint, byte>)funcTable[963])((nint)haptic, effect, (nint)data);
+			#endif
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffectPtr data)
+		{
+			byte ret = UpdateHapticEffectNative((SDLHaptic*)haptic, effect, (SDLHapticEffect*)data);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffectPtr data)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = UpdateHapticEffectNative((SDLHaptic*)phaptic, effect, (SDLHapticEffect*)data);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] in SDLHapticEffect data)
+		{
+			fixed (SDLHapticEffect* pdata = &data)
+			{
+				byte ret = UpdateHapticEffectNative((SDLHaptic*)haptic, effect, (SDLHapticEffect*)pdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update the properties of an effect.<br/>
+		/// Can be used dynamically, although behavior when dynamically changing<br/>
+		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
+		/// start playing from the start. You also cannot change the type either when<br/>
+		/// running SDL_UpdateHapticEffect().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] in SDLHapticEffect data)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				fixed (SDLHapticEffect* pdata = &data)
+				{
+					byte ret = UpdateHapticEffectNative((SDLHaptic*)phaptic, effect, (SDLHapticEffect*)pdata);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Run the haptic effect on its associated haptic device.<br/>
+		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
+		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
+		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
+		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RunHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, uint, byte>)funcTable[964])(haptic, effect, iterations);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, uint, byte>)funcTable[964])((nint)haptic, effect, iterations);
+			#endif
+		}
+
+		/// <summary>
+		/// Run the haptic effect on its associated haptic device.<br/>
+		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
+		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
+		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
+		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RunHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		{
+			byte ret = RunHapticEffectNative((SDLHaptic*)haptic, effect, iterations);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Run the haptic effect on its associated haptic device.<br/>
+		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
+		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
+		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
+		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RunHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = RunHapticEffectNative((SDLHaptic*)phaptic, effect, iterations);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Stop the haptic effect on its associated haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StopHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, byte>)funcTable[965])(haptic, effect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[965])((nint)haptic, effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Stop the haptic effect on its associated haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			byte ret = StopHapticEffectNative((SDLHaptic*)haptic, effect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Stop the haptic effect on its associated haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = StopHapticEffectNative((SDLHaptic*)phaptic, effect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Destroy a haptic effect on the device.<br/>
+		/// This will stop the effect if it's running. Effects are automatically<br/>
+		/// destroyed when the device is closed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLHaptic*, int, void>)funcTable[966])(haptic, effect);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[966])((nint)haptic, effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a haptic effect on the device.<br/>
+		/// This will stop the effect if it's running. Effects are automatically<br/>
+		/// destroyed when the device is closed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			DestroyHapticEffectNative((SDLHaptic*)haptic, effect);
+		}
+
+		/// <summary>
+		/// Destroy a haptic effect on the device.<br/>
+		/// This will stop the effect if it's running. Effects are automatically<br/>
+		/// destroyed when the device is closed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				DestroyHapticEffectNative((SDLHaptic*)phaptic, effect);
+			}
+		}
+
+		/// <summary>
+		/// Get the status of the current effect on the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetHapticEffectStatusNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, byte>)funcTable[967])(haptic, effect);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[967])((nint)haptic, effect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the status of the current effect on the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetHapticEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			byte ret = GetHapticEffectStatusNative((SDLHaptic*)haptic, effect);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the status of the current effect on the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetHapticEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffectID")] int effect)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = GetHapticEffectStatusNative((SDLHaptic*)phaptic, effect);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the global gain of the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
+		/// The user may specify the maximum gain by setting the environment variable<br/>
+		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
+		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
+		/// maximum.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetHapticGainNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, byte>)funcTable[968])(haptic, gain);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[968])((nint)haptic, gain);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the global gain of the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
+		/// The user may specify the maximum gain by setting the environment variable<br/>
+		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
+		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
+		/// maximum.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetHapticGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		{
+			byte ret = SetHapticGainNative((SDLHaptic*)haptic, gain);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the global gain of the specified haptic device.<br/>
+		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
+		/// The user may specify the maximum gain by setting the environment variable<br/>
+		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
+		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
+		/// maximum.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetHapticGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = SetHapticGainNative((SDLHaptic*)phaptic, gain);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the global autocenter of the device.<br/>
+		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
+		/// autocentering.<br/>
+		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetHapticAutocenterNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, byte>)funcTable[969])(haptic, autocenter);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[969])((nint)haptic, autocenter);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the global autocenter of the device.<br/>
+		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
+		/// autocentering.<br/>
+		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetHapticAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		{
+			byte ret = SetHapticAutocenterNative((SDLHaptic*)haptic, autocenter);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the global autocenter of the device.<br/>
+		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
+		/// autocentering.<br/>
+		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetHapticAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = SetHapticAutocenterNative((SDLHaptic*)phaptic, autocenter);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Pause a haptic device.<br/>
+		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
+		/// to resume playback.<br/>
+		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
+		/// can cause all sorts of weird errors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte PauseHapticNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[970])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[970])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Pause a haptic device.<br/>
+		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
+		/// to resume playback.<br/>
+		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
+		/// can cause all sorts of weird errors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PauseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			byte ret = PauseHapticNative((SDLHaptic*)haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Pause a haptic device.<br/>
+		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
+		/// to resume playback.<br/>
+		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
+		/// can cause all sorts of weird errors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PauseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = PauseHapticNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Resume a haptic device.<br/>
+		/// Call to unpause after SDL_PauseHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ResumeHapticNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[971])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[971])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Resume a haptic device.<br/>
+		/// Call to unpause after SDL_PauseHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ResumeHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			byte ret = ResumeHapticNative((SDLHaptic*)haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Resume a haptic device.<br/>
+		/// Call to unpause after SDL_PauseHaptic().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ResumeHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = ResumeHapticNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Stop all the currently playing effects on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StopHapticEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[972])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[972])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Stop all the currently playing effects on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			byte ret = StopHapticEffectsNative((SDLHaptic*)haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Stop all the currently playing effects on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = StopHapticEffectsNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Check whether rumble is supported on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HapticRumbleSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[973])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[973])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether rumble is supported on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			byte ret = HapticRumbleSupportedNative((SDLHaptic*)haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Check whether rumble is supported on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = HapticRumbleSupportedNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Initialize a haptic device for simple rumble playback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte InitHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[974])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[974])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Initialize a haptic device for simple rumble playback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool InitHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			byte ret = InitHapticRumbleNative((SDLHaptic*)haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Initialize a haptic device for simple rumble playback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool InitHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = InitHapticRumbleNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Run a simple rumble effect on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte PlayHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, float, uint, byte>)funcTable[975])(haptic, strength, length);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, uint, byte>)funcTable[975])((nint)haptic, strength, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Run a simple rumble effect on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PlayHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		{
+			byte ret = PlayHapticRumbleNative((SDLHaptic*)haptic, strength, length);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Run a simple rumble effect on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PlayHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = PlayHapticRumbleNative((SDLHaptic*)phaptic, strength, length);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Stop the simple rumble on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StopHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte>)funcTable[976])(haptic);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[976])((nint)haptic);
+			#endif
+		}
+
+		/// <summary>
+		/// Stop the simple rumble on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHapticPtr haptic)
+		{
+			byte ret = StopHapticRumbleNative((SDLHaptic*)haptic);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Stop the simple rumble on a haptic device.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
+		{
+			fixed (SDLHaptic* phaptic = &haptic)
+			{
+				byte ret = StopHapticRumbleNative((SDLHaptic*)phaptic);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Initialize the HIDAPI library.<br/>
+		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
+		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
+		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
+		/// be called at the beginning of execution however, if there is a chance of<br/>
+		/// HIDAPI handles being opened by different threads simultaneously.<br/>
+		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_init")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidInitNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[977])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[977])();
+			#endif
+		}
+
+		/// <summary>
+		/// Initialize the HIDAPI library.<br/>
+		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
+		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
+		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
+		/// be called at the beginning of execution however, if there is a chance of<br/>
+		/// HIDAPI handles being opened by different threads simultaneously.<br/>
+		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_init")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidInit()
+		{
+			int ret = HidInitNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Finalize the HIDAPI library.<br/>
+		/// This function frees all of the static data associated with HIDAPI. It<br/>
+		/// should be called at the end of execution to avoid memory leaks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidExitNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[978])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[978])();
+			#endif
+		}
+
+		/// <summary>
+		/// Finalize the HIDAPI library.<br/>
+		/// This function frees all of the static data associated with HIDAPI. It<br/>
+		/// should be called at the end of execution to avoid memory leaks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidExit()
+		{
+			int ret = HidExitNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Check to see if devices may have been added or removed.<br/>
+		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
+		/// to see if there have been any system device changes since the last call to<br/>
+		/// this function. A change in the counter returned doesn't necessarily mean<br/>
+		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
+		/// updated device list.<br/>
+		/// Calling this function for the first time may cause a thread or other system<br/>
+		/// resource to be allocated to track device change notifications.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint HidDeviceChangeCountNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[979])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[979])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check to see if devices may have been added or removed.<br/>
+		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
+		/// to see if there have been any system device changes since the last call to<br/>
+		/// this function. A change in the counter returned doesn't necessarily mean<br/>
+		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
+		/// updated device list.<br/>
+		/// Calling this function for the first time may cause a thread or other system<br/>
+		/// resource to be allocated to track device change notifications.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint HidDeviceChangeCount()
+		{
+			uint ret = HidDeviceChangeCountNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate the HID Devices.<br/>
+		/// This function returns a linked list of all the HID devices attached to the<br/>
+		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
+		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
+		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
+		/// devices will be returned.<br/>
+		/// By default SDL will only enumerate controllers, to reduce risk of hanging<br/>
+		/// or crashing on bad drivers, but SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS<br/>
+		/// can be set to "0" to enumerate all HID devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHidDeviceInfo* HidEnumerateNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLHidDeviceInfo*>)funcTable[980])(vendorId, productId);
+			#else
+			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint>)funcTable[980])(vendorId, productId);
+			#endif
+		}
+
+		/// <summary>
+		/// Enumerate the HID Devices.<br/>
+		/// This function returns a linked list of all the HID devices attached to the<br/>
+		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
+		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
+		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
+		/// devices will be returned.<br/>
+		/// By default SDL will only enumerate controllers, to reduce risk of hanging<br/>
+		/// or crashing on bad drivers, but SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS<br/>
+		/// can be set to "0" to enumerate all HID devices.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
+		public static SDLHidDeviceInfoPtr HidEnumerate([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
+		{
+			SDLHidDeviceInfoPtr ret = HidEnumerateNative(vendorId, productId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Free an enumeration linked list.<br/>
+		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void HidFreeEnumerationNative([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] SDLHidDeviceInfo* devs)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLHidDeviceInfo*, void>)funcTable[981])(devs);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[981])((nint)devs);
+			#endif
+		}
+
+		/// <summary>
+		/// Free an enumeration linked list.<br/>
+		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] SDLHidDeviceInfoPtr devs)
+		{
+			HidFreeEnumerationNative((SDLHidDeviceInfo*)devs);
+		}
+
+		/// <summary>
+		/// Free an enumeration linked list.<br/>
+		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] ref SDLHidDeviceInfo devs)
+		{
+			fixed (SDLHidDeviceInfo* pdevs = &devs)
+			{
+				HidFreeEnumerationNative((SDLHidDeviceInfo*)pdevs);
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHidDevice* HidOpenNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* serialNumber)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ushort, ushort, char*, SDLHidDevice*>)funcTable[982])(vendorId, productId, serialNumber);
+			#else
+			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint, nint>)funcTable[982])(vendorId, productId, (nint)serialNumber);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevicePtr HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* serialNumber)
+		{
+			SDLHidDevicePtr ret = HidOpenNative(vendorId, productId, serialNumber);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevicePtr HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar_t const *")] in char serialNumber)
+		{
+			fixed (char* pserialNumber = &serialNumber)
+			{
+				SDLHidDevicePtr ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevicePtr HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar_t const *")] ReadOnlySpan<char> serialNumber)
+		{
+			fixed (char* pserialNumber = serialNumber)
+			{
+				SDLHidDevicePtr ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
+		/// a serial number.<br/>
+		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
+		/// is opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevicePtr HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar_t const *")] string serialNumber)
+		{
+			fixed (char* pserialNumber = serialNumber)
+			{
+				SDLHidDevicePtr ret = HidOpenNative(vendorId, productId, pserialNumber);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLHidDevice* HidOpenPathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLHidDevice*>)funcTable[983])(path);
+			#else
+			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[983])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevicePtr HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			SDLHidDevicePtr ret = HidOpenPathNative(path);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevicePtr HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path)
+		{
+			fixed (byte* ppath = &path)
+			{
+				SDLHidDevicePtr ret = HidOpenPathNative((byte*)ppath);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevicePtr HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
+		{
+			fixed (byte* ppath = path)
+			{
+				SDLHidDevicePtr ret = HidOpenPathNative((byte*)ppath);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a HID device by its path name.<br/>
+		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
+		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
+		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		public static SDLHidDevicePtr HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
 		{
 			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLHidDevicePtr ret = HidOpenPathNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with an SDL_hid_device.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_HIDAPI_LIBUSB_DEVICE_HANDLE_POINTER`: the libusb_device_handle<br/>
+		/// associated with the device, if it was opened using libusb.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_properties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint HidGetPropertiesNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, uint>)funcTable[984])(dev);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[984])((nint)dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with an SDL_hid_device.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_HIDAPI_LIBUSB_DEVICE_HANDLE_POINTER`: the libusb_device_handle<br/>
+		/// associated with the device, if it was opened using libusb.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_properties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint HidGetProperties([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev)
+		{
+			uint ret = HidGetPropertiesNative((SDLHidDevice*)dev);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with an SDL_hid_device.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_HIDAPI_LIBUSB_DEVICE_HANDLE_POINTER`: the libusb_device_handle<br/>
+		/// associated with the device, if it was opened using libusb.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_properties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint HidGetProperties([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				uint ret = HidGetPropertiesNative((SDLHidDevice*)pdev);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidWriteNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[985])(dev, data, length);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[985])((nint)dev, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			int ret = HidWriteNative((SDLHidDevice*)dev, data, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidWriteNative((SDLHidDevice*)pdev, data, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] in byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidWriteNative((SDLHidDevice*)dev, (byte*)pdata, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write an Output report to a HID device.<br/>
+		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
+		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
+		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
+		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
+		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
+		/// followed by the report data (16 bytes). In this example, the length passed<br/>
+		/// in would be 17.<br/>
+		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
+		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
+		/// (Endpoint 0).<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_write")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] in byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidReadTimeoutNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int, int>)funcTable[986])(dev, data, length, milliseconds);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int, int>)funcTable[986])((nint)dev, (nint)data, length, milliseconds);
+			#endif
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			int ret = HidReadTimeoutNative((SDLHidDevice*)dev, data, length, milliseconds);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidReadTimeoutNative((SDLHidDevice*)dev, (byte*)pdata, length, milliseconds);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device with timeout.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidReadNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[987])(dev, data, length);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[987])((nint)dev, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			int ret = HidReadNative((SDLHidDevice*)dev, data, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidReadNative((SDLHidDevice*)pdev, data, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidReadNative((SDLHidDevice*)dev, (byte*)pdata, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read an Input report from a HID device.<br/>
+		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
+		/// The first byte will contain the Report number if the device uses numbered<br/>
+		/// reports.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_read")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the device handle to be non-blocking.<br/>
+		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
+		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
+		/// will wait (block) until there is data to read before returning.<br/>
+		/// Nonblocking can be turned on and off at any time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidSetNonblockingNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, int>)funcTable[988])(dev, nonblock);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[988])((nint)dev, nonblock);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the device handle to be non-blocking.<br/>
+		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
+		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
+		/// will wait (block) until there is data to read before returning.<br/>
+		/// Nonblocking can be turned on and off at any time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		{
+			int ret = HidSetNonblockingNative((SDLHidDevice*)dev, nonblock);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the device handle to be non-blocking.<br/>
+		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
+		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
+		/// will wait (block) until there is data to read before returning.<br/>
+		/// Nonblocking can be turned on and off at any time.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidSetNonblockingNative((SDLHidDevice*)pdev, nonblock);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidSendFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[989])(dev, data, length);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[989])((nint)dev, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			int ret = HidSendFeatureReportNative((SDLHidDevice*)dev, data, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] in byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidSendFeatureReportNative((SDLHidDevice*)dev, (byte*)pdata, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a Feature report to the device.<br/>
+		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
+		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
+		/// which only support a single report, this must be set to 0x0. The remaining<br/>
+		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
+		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
+		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
+		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
+		/// devices which do not use numbered reports), followed by the report data (16<br/>
+		/// bytes). In this example, the length passed in would be 17.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] in byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a feature report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidGetFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[990])(dev, data, length);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[990])((nint)dev, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a feature report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			int ret = HidGetFeatureReportNative((SDLHidDevice*)dev, data, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a feature report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a feature report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidGetFeatureReportNative((SDLHidDevice*)dev, (byte*)pdata, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a feature report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get an input report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidGetInputReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[991])(dev, data, length);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[991])((nint)dev, (nint)data, length);
+			#endif
+		}
+
+		/// <summary>
+		/// Get an input report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			int ret = HidGetInputReportNative((SDLHidDevice*)dev, data, length);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get an input report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidGetInputReportNative((SDLHidDevice*)pdev, data, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get an input report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (byte* pdata = &data)
+			{
+				int ret = HidGetInputReportNative((SDLHidDevice*)dev, (byte*)pdata, length);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get an input report from a HID device.<br/>
+		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
+		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
+		/// first byte will still contain the Report ID, and the report data will start<br/>
+		/// in data[1].<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (byte* pdata = &data)
+				{
+					int ret = HidGetInputReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Close a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_close")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidCloseNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int>)funcTable[992])(dev);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[992])((nint)dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_close")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev)
+		{
+			int ret = HidCloseNative((SDLHidDevice*)dev);
+			return ret;
+		}
+
+		/// <summary>
+		/// Close a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_close")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidCloseNative((SDLHidDevice*)pdev);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get The Manufacturer String from a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidGetManufacturerStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[993])(dev, str, maxlen);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[993])((nint)dev, (nint)str, maxlen);
+			#endif
+		}
+
+		/// <summary>
+		/// Get The Manufacturer String from a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			int ret = HidGetManufacturerStringNative((SDLHidDevice*)dev, str, maxlen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get The Manufacturer String from a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get The Manufacturer String from a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (char* pstr = &str)
+			{
+				int ret = HidGetManufacturerStringNative((SDLHidDevice*)dev, (char*)pstr, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get The Manufacturer String from a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			char* pStr0 = null;
 			int pStrSize0 = 0;
 			if (str != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
+				pStrSize0 = Utils.GetByteCountUTF16(str);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
 				}
 				else
 				{
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
+					pStr0 = (char*)pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
+				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = '\0';
 			}
-			byte ret = RenderDebugTextNative(renderer, x, y, pStr0);
+			int ret = HidGetManufacturerStringNative((SDLHidDevice*)dev, pStr0, maxlen);
+			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret != 0;
+			return ret;
 		}
 
 		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get The Manufacturer String from a HID device.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderDebugText(ref SDLRenderer renderer, float x, float y, ref byte str)
+		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLHidDevice* pdev = &dev)
 			{
-				fixed (byte* pstr = &str)
+				fixed (char* pstr = &str)
 				{
-					byte ret = RenderDebugTextNative((SDLRenderer*)prenderer, x, y, (byte*)pstr);
-					return ret != 0;
+					int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// Get The Manufacturer String from a HID device.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool RenderDebugText(ref SDLRenderer renderer, float x, float y, ReadOnlySpan<byte> str)
+		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLHidDevice* pdev = &dev)
 			{
-				fixed (byte* pstr = str)
-				{
-					byte ret = RenderDebugTextNative((SDLRenderer*)prenderer, x, y, (byte*)pstr);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a string of text to an SDL_Renderer. Note that<br/>
-		/// this is a convenience function for debugging, with severe limitations, and<br/>
-		/// not intended to be used for production apps and games.<br/>
-		/// Among these limitations:<br/>
-		/// - It accepts UTF-8 strings, but will only renders ASCII characters.<br/>
-		/// - It has a single, tiny size (8x8 pixels). One can use logical presentation<br/>
-		/// or scaling to adjust it, but it will be blurry.<br/>
-		/// - It uses a simple, hardcoded bitmap font. It does not allow different font<br/>
-		/// selections and it does not support truetype, for proper scaling.<br/>
-		/// - It does no word-wrapping and does not treat newline characters as a line<br/>
-		/// break. If the text goes out of the window, it's gone.<br/>
-		/// For serious text rendering, there are several good options, such as<br/>
-		/// SDL_ttf, stb_truetype, or other external libraries.<br/>
-		/// On first use, this will create an internal texture for rendering glyphs.<br/>
-		/// This texture will live until the renderer is destroyed.<br/>
-		/// The text is drawn in the color specified by SDL_SetRenderDrawColor().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugText(ref SDLRenderer renderer, float x, float y, string str)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte* pStr0 = null;
+				char* pStr0 = null;
 				int pStrSize0 = 0;
 				if (str != null)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(str);
+					pStrSize0 = Utils.GetByteCountUTF16(str);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
 					}
 					else
 					{
 						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
+						pStr0 = (char*)pStrStack0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
+					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = '\0';
 				}
-				byte ret = RenderDebugTextNative((SDLRenderer*)prenderer, x, y, pStr0);
+				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
+				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
 				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenderDebugTextFormatNative(SDLRenderer* renderer, float x, float y, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, byte*, byte>)funcTable[1120])(renderer, x, y, fmt);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, nint, byte>)funcTable[1120])((nint)renderer, x, y, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugTextFormat(SDLRenderer* renderer, float x, float y, byte* fmt)
-		{
-			byte ret = RenderDebugTextFormatNative(renderer, x, y, fmt);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugTextFormat(ref SDLRenderer renderer, float x, float y, byte* fmt)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = RenderDebugTextFormatNative((SDLRenderer*)prenderer, x, y, fmt);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugTextFormat(SDLRenderer* renderer, float x, float y, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				byte ret = RenderDebugTextFormatNative(renderer, x, y, (byte*)pfmt);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugTextFormat(SDLRenderer* renderer, float x, float y, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				byte ret = RenderDebugTextFormatNative(renderer, x, y, (byte*)pfmt);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugTextFormat(SDLRenderer* renderer, float x, float y, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RenderDebugTextFormatNative(renderer, x, y, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugTextFormat(ref SDLRenderer renderer, float x, float y, ref byte fmt)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pfmt = &fmt)
-				{
-					byte ret = RenderDebugTextFormatNative((SDLRenderer*)prenderer, x, y, (byte*)pfmt);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugTextFormat(ref SDLRenderer renderer, float x, float y, ReadOnlySpan<byte> fmt)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pfmt = fmt)
-				{
-					byte ret = RenderDebugTextFormatNative((SDLRenderer*)prenderer, x, y, (byte*)pfmt);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw debug text to an SDL_Renderer.<br/>
-		/// This function will render a printf()-style format string to a renderer.<br/>
-		/// Note that this is a convinence function for debugging, with severe<br/>
-		/// limitations, and is not intended to be used for production apps and games.<br/>
-		/// For the full list of limitations and other useful information, see<br/>
-		/// SDL_RenderDebugText.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenderDebugTextFormat(ref SDLRenderer renderer, float x, float y, string fmt)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (fmt != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(fmt);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = RenderDebugTextFormatNative((SDLRenderer*)prenderer, x, y, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Opens up a read-only container for the application's filesystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLStorage* OpenTitleStorageNative(byte* @override, uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, uint, SDLStorage*>)funcTable[1121])(@override, props);
-			#else
-			return (SDLStorage*)((delegate* unmanaged[Cdecl]<nint, uint, nint>)funcTable[1121])((nint)@override, props);
-			#endif
-		}
-
-		/// <summary>
-		/// Opens up a read-only container for the application's filesystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenTitleStorage(byte* @override, uint props)
-		{
-			SDLStorage* ret = OpenTitleStorageNative(@override, props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a read-only container for the application's filesystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenTitleStorage(ref byte @override, uint props)
-		{
-			fixed (byte* poverride = &@override)
-			{
-				SDLStorage* ret = OpenTitleStorageNative((byte*)poverride, props);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Opens up a read-only container for the application's filesystem.<br/>
-		/// <br/>
+		/// Get The Product String from a HID device.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLStorage* OpenTitleStorage(ReadOnlySpan<byte> @override, uint props)
+		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int HidGetProductStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
-			fixed (byte* poverride = @override)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[994])(dev, str, maxlen);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[994])((nint)dev, (nint)str, maxlen);
+			#endif
+		}
+
+		/// <summary>
+		/// Get The Product String from a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			int ret = HidGetProductStringNative((SDLHidDevice*)dev, str, maxlen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get The Product String from a HID device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
 			{
-				SDLStorage* ret = OpenTitleStorageNative((byte*)poverride, props);
+				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Opens up a read-only container for the application's filesystem.<br/>
-		/// <br/>
+		/// Get The Product String from a HID device.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLStorage* OpenTitleStorage(string @override, uint props)
+		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevicePtr dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (@override != null)
+			fixed (char* pstr = &str)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(@override);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(@override, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLStorage* ret = OpenTitleStorageNative(pStr0, props);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLStorage* OpenUserStorageNative(byte* org, byte* app, uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, uint, SDLStorage*>)funcTable[1122])(org, app, props);
-			#else
-			return (SDLStorage*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint>)funcTable[1122])((nint)org, (nint)app, props);
-			#endif
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(byte* org, byte* app, uint props)
-		{
-			SDLStorage* ret = OpenUserStorageNative(org, app, props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(ref byte org, byte* app, uint props)
-		{
-			fixed (byte* porg = &org)
-			{
-				SDLStorage* ret = OpenUserStorageNative((byte*)porg, app, props);
+				int ret = HidGetProductStringNative((SDLHidDevice*)dev, (char*)pstr, maxlen);
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(ReadOnlySpan<byte> org, byte* app, uint props)
-		{
-			fixed (byte* porg = org)
-			{
-				SDLStorage* ret = OpenUserStorageNative((byte*)porg, app, props);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(string org, byte* app, uint props)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLStorage* ret = OpenUserStorageNative(pStr0, app, props);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(byte* org, ref byte app, uint props)
-		{
-			fixed (byte* papp = &app)
-			{
-				SDLStorage* ret = OpenUserStorageNative(org, (byte*)papp, props);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(byte* org, ReadOnlySpan<byte> app, uint props)
-		{
-			fixed (byte* papp = app)
-			{
-				SDLStorage* ret = OpenUserStorageNative(org, (byte*)papp, props);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(byte* org, string app, uint props)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (app != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(app);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLStorage* ret = OpenUserStorageNative(org, pStr0, props);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(ref byte org, ref byte app, uint props)
-		{
-			fixed (byte* porg = &org)
-			{
-				fixed (byte* papp = &app)
-				{
-					SDLStorage* ret = OpenUserStorageNative((byte*)porg, (byte*)papp, props);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(ReadOnlySpan<byte> org, ReadOnlySpan<byte> app, uint props)
-		{
-			fixed (byte* porg = org)
-			{
-				fixed (byte* papp = app)
-				{
-					SDLStorage* ret = OpenUserStorageNative((byte*)porg, (byte*)papp, props);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Opens up a container for a user's unique read/write filesystem.<br/>
-		/// While title storage can generally be kept open throughout runtime, user<br/>
-		/// storage should only be opened when the client is ready to read/write files.<br/>
-		/// This allows the backend to properly batch file operations and flush them<br/>
-		/// when the container has been closed; ensuring safe and optimal save I/O.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenUserStorage(string org, string app, uint props)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (app != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(app);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			SDLStorage* ret = OpenUserStorageNative(pStr0, pStr1, props);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a container for local filesystem storage.<br/>
-		/// This is provided for development and tools. Portable applications should<br/>
-		/// use SDL_OpenTitleStorage() for access to game data and<br/>
-		/// SDL_OpenUserStorage() for access to user data.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLStorage* OpenFileStorageNative(byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLStorage*>)funcTable[1123])(path);
-			#else
-			return (SDLStorage*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1123])((nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Opens up a container for local filesystem storage.<br/>
-		/// This is provided for development and tools. Portable applications should<br/>
-		/// use SDL_OpenTitleStorage() for access to game data and<br/>
-		/// SDL_OpenUserStorage() for access to user data.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenFileStorage(byte* path)
-		{
-			SDLStorage* ret = OpenFileStorageNative(path);
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a container for local filesystem storage.<br/>
-		/// This is provided for development and tools. Portable applications should<br/>
-		/// use SDL_OpenTitleStorage() for access to game data and<br/>
-		/// SDL_OpenUserStorage() for access to user data.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenFileStorage(ref byte path)
-		{
-			fixed (byte* ppath = &path)
-			{
-				SDLStorage* ret = OpenFileStorageNative((byte*)ppath);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Opens up a container for local filesystem storage.<br/>
-		/// This is provided for development and tools. Portable applications should<br/>
-		/// use SDL_OpenTitleStorage() for access to game data and<br/>
-		/// SDL_OpenUserStorage() for access to user data.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenFileStorage(ReadOnlySpan<byte> path)
-		{
-			fixed (byte* ppath = path)
-			{
-				SDLStorage* ret = OpenFileStorageNative((byte*)ppath);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Opens up a container for local filesystem storage.<br/>
-		/// This is provided for development and tools. Portable applications should<br/>
-		/// use SDL_OpenTitleStorage() for access to game data and<br/>
-		/// SDL_OpenUserStorage() for access to user data.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenFileStorage(string path)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLStorage* ret = OpenFileStorageNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a container using a client-provided storage interface.<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_Storage implementation. If you just need an SDL_Storage, you<br/>
-		/// should use the built-in implementations in SDL, like SDL_OpenTitleStorage()<br/>
-		/// or SDL_OpenUserStorage().<br/>
-		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
-		/// it around after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLStorage* OpenStorageNative(SDLStorageInterface* iface, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorageInterface*, void*, SDLStorage*>)funcTable[1124])(iface, userdata);
-			#else
-			return (SDLStorage*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1124])((nint)iface, (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Opens up a container using a client-provided storage interface.<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_Storage implementation. If you just need an SDL_Storage, you<br/>
-		/// should use the built-in implementations in SDL, like SDL_OpenTitleStorage()<br/>
-		/// or SDL_OpenUserStorage().<br/>
-		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
-		/// it around after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenStorage(SDLStorageInterface* iface, void* userdata)
-		{
-			SDLStorage* ret = OpenStorageNative(iface, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Opens up a container using a client-provided storage interface.<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_Storage implementation. If you just need an SDL_Storage, you<br/>
-		/// should use the built-in implementations in SDL, like SDL_OpenTitleStorage()<br/>
-		/// or SDL_OpenUserStorage().<br/>
-		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
-		/// it around after this call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLStorage* OpenStorage(ref SDLStorageInterface iface, void* userdata)
-		{
-			fixed (SDLStorageInterface* piface = &iface)
-			{
-				SDLStorage* ret = OpenStorageNative((SDLStorageInterface*)piface, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Closes and frees a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CloseStorageNative(SDLStorage* storage)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte>)funcTable[1125])(storage);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1125])((nint)storage);
-			#endif
-		}
-
-		/// <summary>
-		/// Closes and frees a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CloseStorage(SDLStorage* storage)
-		{
-			byte ret = CloseStorageNative(storage);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Closes and frees a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CloseStorage(ref SDLStorage storage)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = CloseStorageNative((SDLStorage*)pstorage);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Checks if the storage container is ready to use.<br/>
-		/// This function should be called in regular intervals until it returns true -<br/>
-		/// however, it is not recommended to spinwait on this call, as the backend may<br/>
-		/// depend on a synchronous message loop. You might instead poll this in your<br/>
-		/// game's main loop while processing events and drawing a loading screen.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte StorageReadyNative(SDLStorage* storage)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte>)funcTable[1126])(storage);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1126])((nint)storage);
-			#endif
-		}
-
-		/// <summary>
-		/// Checks if the storage container is ready to use.<br/>
-		/// This function should be called in regular intervals until it returns true -<br/>
-		/// however, it is not recommended to spinwait on this call, as the backend may<br/>
-		/// depend on a synchronous message loop. You might instead poll this in your<br/>
-		/// game's main loop while processing events and drawing a loading screen.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StorageReady(SDLStorage* storage)
-		{
-			byte ret = StorageReadyNative(storage);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Checks if the storage container is ready to use.<br/>
-		/// This function should be called in regular intervals until it returns true -<br/>
-		/// however, it is not recommended to spinwait on this call, as the backend may<br/>
-		/// depend on a synchronous message loop. You might instead poll this in your<br/>
-		/// game's main loop while processing events and drawing a loading screen.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StorageReady(ref SDLStorage storage)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = StorageReadyNative((SDLStorage*)pstorage);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetStorageFileSizeNative(SDLStorage* storage, byte* path, ulong* length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, ulong*, byte>)funcTable[1127])(storage, path, length);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1127])((nint)storage, (nint)path, (nint)length);
-			#endif
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(SDLStorage* storage, byte* path, ulong* length)
-		{
-			byte ret = GetStorageFileSizeNative(storage, path, length);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(ref SDLStorage storage, byte* path, ulong* length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = GetStorageFileSizeNative((SDLStorage*)pstorage, path, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(SDLStorage* storage, ref byte path, ulong* length)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = GetStorageFileSizeNative(storage, (byte*)ppath, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(SDLStorage* storage, ReadOnlySpan<byte> path, ulong* length)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = GetStorageFileSizeNative(storage, (byte*)ppath, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(SDLStorage* storage, string path, ulong* length)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = GetStorageFileSizeNative(storage, pStr0, length);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(ref SDLStorage storage, ref byte path, ulong* length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					byte ret = GetStorageFileSizeNative((SDLStorage*)pstorage, (byte*)ppath, length);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(ref SDLStorage storage, ReadOnlySpan<byte> path, ulong* length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte ret = GetStorageFileSizeNative((SDLStorage*)pstorage, (byte*)ppath, length);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(ref SDLStorage storage, string path, ulong* length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = GetStorageFileSizeNative((SDLStorage*)pstorage, pStr0, length);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(SDLStorage* storage, byte* path, ref ulong length)
-		{
-			fixed (ulong* plength = &length)
-			{
-				byte ret = GetStorageFileSizeNative(storage, path, (ulong*)plength);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(ref SDLStorage storage, byte* path, ref ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (ulong* plength = &length)
-				{
-					byte ret = GetStorageFileSizeNative((SDLStorage*)pstorage, path, (ulong*)plength);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(SDLStorage* storage, ref byte path, ref ulong length)
-		{
-			fixed (byte* ppath = &path)
-			{
-				fixed (ulong* plength = &length)
-				{
-					byte ret = GetStorageFileSizeNative(storage, (byte*)ppath, (ulong*)plength);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(SDLStorage* storage, ReadOnlySpan<byte> path, ref ulong length)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (ulong* plength = &length)
-				{
-					byte ret = GetStorageFileSizeNative(storage, (byte*)ppath, (ulong*)plength);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(SDLStorage* storage, string path, ref ulong length)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (ulong* plength = &length)
-			{
-				byte ret = GetStorageFileSizeNative(storage, pStr0, (ulong*)plength);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(ref SDLStorage storage, ref byte path, ref ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					fixed (ulong* plength = &length)
-					{
-						byte ret = GetStorageFileSizeNative((SDLStorage*)pstorage, (byte*)ppath, (ulong*)plength);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(ref SDLStorage storage, ReadOnlySpan<byte> path, ref ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					fixed (ulong* plength = &length)
-					{
-						byte ret = GetStorageFileSizeNative((SDLStorage*)pstorage, (byte*)ppath, (ulong*)plength);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the size of a file within a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStorageFileSize(ref SDLStorage storage, string path, ref ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				fixed (ulong* plength = &length)
-				{
-					byte ret = GetStorageFileSizeNative((SDLStorage*)pstorage, pStr0, (ulong*)plength);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadStorageFileNative(SDLStorage* storage, byte* path, void* destination, ulong length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, void*, ulong, byte>)funcTable[1128])(storage, path, destination, length);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, ulong, byte>)funcTable[1128])((nint)storage, (nint)path, (nint)destination, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadStorageFile(SDLStorage* storage, byte* path, void* destination, ulong length)
-		{
-			byte ret = ReadStorageFileNative(storage, path, destination, length);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadStorageFile(ref SDLStorage storage, byte* path, void* destination, ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = ReadStorageFileNative((SDLStorage*)pstorage, path, destination, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadStorageFile(SDLStorage* storage, ref byte path, void* destination, ulong length)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = ReadStorageFileNative(storage, (byte*)ppath, destination, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadStorageFile(SDLStorage* storage, ReadOnlySpan<byte> path, void* destination, ulong length)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = ReadStorageFileNative(storage, (byte*)ppath, destination, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadStorageFile(SDLStorage* storage, string path, void* destination, ulong length)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = ReadStorageFileNative(storage, pStr0, destination, length);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadStorageFile(ref SDLStorage storage, ref byte path, void* destination, ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					byte ret = ReadStorageFileNative((SDLStorage*)pstorage, (byte*)ppath, destination, length);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadStorageFile(ref SDLStorage storage, ReadOnlySpan<byte> path, void* destination, ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte ret = ReadStorageFileNative((SDLStorage*)pstorage, (byte*)ppath, destination, length);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Synchronously read a file from a storage container into a client-provided<br/>
-		/// buffer.<br/>
-		/// The value of `length` must match the length of the file exactly; call<br/>
-		/// SDL_GetStorageFileSize() to get this value. This behavior may be relaxed in<br/>
-		/// a future release.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ReadStorageFile(ref SDLStorage storage, string path, void* destination, ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = ReadStorageFileNative((SDLStorage*)pstorage, pStr0, destination, length);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WriteStorageFileNative(SDLStorage* storage, byte* path, void* source, ulong length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, void*, ulong, byte>)funcTable[1129])(storage, path, source, length);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, ulong, byte>)funcTable[1129])((nint)storage, (nint)path, (nint)source, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteStorageFile(SDLStorage* storage, byte* path, void* source, ulong length)
-		{
-			byte ret = WriteStorageFileNative(storage, path, source, length);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteStorageFile(ref SDLStorage storage, byte* path, void* source, ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = WriteStorageFileNative((SDLStorage*)pstorage, path, source, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteStorageFile(SDLStorage* storage, ref byte path, void* source, ulong length)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = WriteStorageFileNative(storage, (byte*)ppath, source, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteStorageFile(SDLStorage* storage, ReadOnlySpan<byte> path, void* source, ulong length)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = WriteStorageFileNative(storage, (byte*)ppath, source, length);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteStorageFile(SDLStorage* storage, string path, void* source, ulong length)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = WriteStorageFileNative(storage, pStr0, source, length);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteStorageFile(ref SDLStorage storage, ref byte path, void* source, ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					byte ret = WriteStorageFileNative((SDLStorage*)pstorage, (byte*)ppath, source, length);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteStorageFile(ref SDLStorage storage, ReadOnlySpan<byte> path, void* source, ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte ret = WriteStorageFileNative((SDLStorage*)pstorage, (byte*)ppath, source, length);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Synchronously write a file from client memory into a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WriteStorageFile(ref SDLStorage storage, string path, void* source, ulong length)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = WriteStorageFileNative((SDLStorage*)pstorage, pStr0, source, length);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CreateStorageDirectoryNative(SDLStorage* storage, byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, byte>)funcTable[1130])(storage, path);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1130])((nint)storage, (nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateStorageDirectory(SDLStorage* storage, byte* path)
-		{
-			byte ret = CreateStorageDirectoryNative(storage, path);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateStorageDirectory(ref SDLStorage storage, byte* path)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = CreateStorageDirectoryNative((SDLStorage*)pstorage, path);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateStorageDirectory(SDLStorage* storage, ref byte path)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = CreateStorageDirectoryNative(storage, (byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateStorageDirectory(SDLStorage* storage, ReadOnlySpan<byte> path)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = CreateStorageDirectoryNative(storage, (byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateStorageDirectory(SDLStorage* storage, string path)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CreateStorageDirectoryNative(storage, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateStorageDirectory(ref SDLStorage storage, ref byte path)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					byte ret = CreateStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateStorageDirectory(ref SDLStorage storage, ReadOnlySpan<byte> path)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte ret = CreateStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateStorageDirectory(ref SDLStorage storage, string path)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = CreateStorageDirectoryNative((SDLStorage*)pstorage, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte EnumerateStorageDirectoryNative(SDLStorage* storage, byte* path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, delegate*<void*, byte*, byte*, SDLEnumerationResult>, void*, byte>)funcTable[1131])(storage, path, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1131])((nint)storage, (nint)path, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateStorageDirectory(SDLStorage* storage, byte* path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			byte ret = EnumerateStorageDirectoryNative(storage, path, callback, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateStorageDirectory(ref SDLStorage storage, byte* path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = EnumerateStorageDirectoryNative((SDLStorage*)pstorage, path, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateStorageDirectory(SDLStorage* storage, ref byte path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = EnumerateStorageDirectoryNative(storage, (byte*)ppath, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateStorageDirectory(SDLStorage* storage, ReadOnlySpan<byte> path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = EnumerateStorageDirectoryNative(storage, (byte*)ppath, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateStorageDirectory(SDLStorage* storage, string path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = EnumerateStorageDirectoryNative(storage, pStr0, callback, userdata);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateStorageDirectory(ref SDLStorage storage, ref byte path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					byte ret = EnumerateStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, callback, userdata);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateStorageDirectory(ref SDLStorage storage, ReadOnlySpan<byte> path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte ret = EnumerateStorageDirectoryNative((SDLStorage*)pstorage, (byte*)ppath, callback, userdata);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory in a storage container through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// If `path` is NULL, this is treated as a request to enumerate the root of<br/>
-		/// the storage container's tree. An empty string also works for this.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateStorageDirectory(ref SDLStorage storage, string path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = EnumerateStorageDirectoryNative((SDLStorage*)pstorage, pStr0, callback, userdata);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RemoveStoragePathNative(SDLStorage* storage, byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, byte>)funcTable[1132])(storage, path);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1132])((nint)storage, (nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemoveStoragePath(SDLStorage* storage, byte* path)
-		{
-			byte ret = RemoveStoragePathNative(storage, path);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemoveStoragePath(ref SDLStorage storage, byte* path)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = RemoveStoragePathNative((SDLStorage*)pstorage, path);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemoveStoragePath(SDLStorage* storage, ref byte path)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = RemoveStoragePathNative(storage, (byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemoveStoragePath(SDLStorage* storage, ReadOnlySpan<byte> path)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = RemoveStoragePathNative(storage, (byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemoveStoragePath(SDLStorage* storage, string path)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RemoveStoragePathNative(storage, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemoveStoragePath(ref SDLStorage storage, ref byte path)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					byte ret = RemoveStoragePathNative((SDLStorage*)pstorage, (byte*)ppath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemoveStoragePath(ref SDLStorage storage, ReadOnlySpan<byte> path)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte ret = RemoveStoragePathNative((SDLStorage*)pstorage, (byte*)ppath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemoveStoragePath(ref SDLStorage storage, string path)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = RemoveStoragePathNative((SDLStorage*)pstorage, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenameStoragePathNative(SDLStorage* storage, byte* oldpath, byte* newpath)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, byte*, byte>)funcTable[1133])(storage, oldpath, newpath);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1133])((nint)storage, (nint)oldpath, (nint)newpath);
-			#endif
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, byte* oldpath, byte* newpath)
-		{
-			byte ret = RenameStoragePathNative(storage, oldpath, newpath);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, byte* oldpath, byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = RenameStoragePathNative((SDLStorage*)pstorage, oldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, ref byte oldpath, byte* newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				byte ret = RenameStoragePathNative(storage, (byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, ReadOnlySpan<byte> oldpath, byte* newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				byte ret = RenameStoragePathNative(storage, (byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, string oldpath, byte* newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RenameStoragePathNative(storage, pStr0, newpath);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, ref byte oldpath, byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = &oldpath)
-				{
-					byte ret = RenameStoragePathNative((SDLStorage*)pstorage, (byte*)poldpath, newpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, ReadOnlySpan<byte> oldpath, byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = oldpath)
-				{
-					byte ret = RenameStoragePathNative((SDLStorage*)pstorage, (byte*)poldpath, newpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, string oldpath, byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (oldpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = RenameStoragePathNative((SDLStorage*)pstorage, pStr0, newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, byte* oldpath, ref byte newpath)
-		{
-			fixed (byte* pnewpath = &newpath)
-			{
-				byte ret = RenameStoragePathNative(storage, oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, byte* oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* pnewpath = newpath)
-			{
-				byte ret = RenameStoragePathNative(storage, oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, byte* oldpath, string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (newpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RenameStoragePathNative(storage, oldpath, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, byte* oldpath, ref byte newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = RenameStoragePathNative((SDLStorage*)pstorage, oldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, byte* oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = RenameStoragePathNative((SDLStorage*)pstorage, oldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, byte* oldpath, string newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (newpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(newpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = RenameStoragePathNative((SDLStorage*)pstorage, oldpath, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, ref byte oldpath, ref byte newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = RenameStoragePathNative(storage, (byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, ReadOnlySpan<byte> oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = RenameStoragePathNative(storage, (byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(SDLStorage* storage, string oldpath, string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (newpath != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = RenameStoragePathNative(storage, pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, ref byte oldpath, ref byte newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = &oldpath)
-				{
-					fixed (byte* pnewpath = &newpath)
-					{
-						byte ret = RenameStoragePathNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, ReadOnlySpan<byte> oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = oldpath)
-				{
-					fixed (byte* pnewpath = newpath)
-					{
-						byte ret = RenameStoragePathNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenameStoragePath(ref SDLStorage storage, string oldpath, string newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (oldpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte* pStr1 = null;
-				int pStrSize1 = 0;
-				if (newpath != null)
-				{
-					pStrSize1 = Utils.GetByteCountUTF8(newpath);
-					if (pStrSize1 >= Utils.MaxStackallocSize)
-					{
-						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-					}
-					else
-					{
-						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-						pStr1 = pStrStack1;
-					}
-					int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-					pStr1[pStrOffset1] = 0;
-				}
-				byte ret = RenameStoragePathNative((SDLStorage*)pstorage, pStr0, pStr1);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CopyStorageFileNative(SDLStorage* storage, byte* oldpath, byte* newpath)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, byte*, byte>)funcTable[1134])(storage, oldpath, newpath);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1134])((nint)storage, (nint)oldpath, (nint)newpath);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, byte* oldpath, byte* newpath)
-		{
-			byte ret = CopyStorageFileNative(storage, oldpath, newpath);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, byte* oldpath, byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, ref byte oldpath, byte* newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				byte ret = CopyStorageFileNative(storage, (byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, ReadOnlySpan<byte> oldpath, byte* newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				byte ret = CopyStorageFileNative(storage, (byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, string oldpath, byte* newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CopyStorageFileNative(storage, pStr0, newpath);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, ref byte oldpath, byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = &oldpath)
-				{
-					byte ret = CopyStorageFileNative((SDLStorage*)pstorage, (byte*)poldpath, newpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, ReadOnlySpan<byte> oldpath, byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = oldpath)
-				{
-					byte ret = CopyStorageFileNative((SDLStorage*)pstorage, (byte*)poldpath, newpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, string oldpath, byte* newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (oldpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, pStr0, newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, byte* oldpath, ref byte newpath)
-		{
-			fixed (byte* pnewpath = &newpath)
-			{
-				byte ret = CopyStorageFileNative(storage, oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, byte* oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* pnewpath = newpath)
-			{
-				byte ret = CopyStorageFileNative(storage, oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, byte* oldpath, string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (newpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CopyStorageFileNative(storage, oldpath, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, byte* oldpath, ref byte newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, byte* oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, byte* oldpath, string newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (newpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(newpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, oldpath, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, ref byte oldpath, ref byte newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = CopyStorageFileNative(storage, (byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, ReadOnlySpan<byte> oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = CopyStorageFileNative(storage, (byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(SDLStorage* storage, string oldpath, string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (newpath != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = CopyStorageFileNative(storage, pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, ref byte oldpath, ref byte newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = &oldpath)
-				{
-					fixed (byte* pnewpath = &newpath)
-					{
-						byte ret = CopyStorageFileNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, ReadOnlySpan<byte> oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* poldpath = oldpath)
-				{
-					fixed (byte* pnewpath = newpath)
-					{
-						byte ret = CopyStorageFileNative((SDLStorage*)pstorage, (byte*)poldpath, (byte*)pnewpath);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file in a writable storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyStorageFile(ref SDLStorage storage, string oldpath, string newpath)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (oldpath != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte* pStr1 = null;
-				int pStrSize1 = 0;
-				if (newpath != null)
-				{
-					pStrSize1 = Utils.GetByteCountUTF8(newpath);
-					if (pStrSize1 >= Utils.MaxStackallocSize)
-					{
-						pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-					}
-					else
-					{
-						byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-						pStr1 = pStrStack1;
-					}
-					int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-					pStr1[pStrOffset1] = 0;
-				}
-				byte ret = CopyStorageFileNative((SDLStorage*)pstorage, pStr0, pStr1);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetStoragePathInfoNative(SDLStorage* storage, byte* path, SDLPathInfo* info)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLStorage*, byte*, SDLPathInfo*, byte>)funcTable[1135])(storage, path, info);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1135])((nint)storage, (nint)path, (nint)info);
-			#endif
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStoragePathInfo(SDLStorage* storage, byte* path, SDLPathInfo* info)
-		{
-			byte ret = GetStoragePathInfoNative(storage, path, info);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStoragePathInfo(ref SDLStorage storage, byte* path, SDLPathInfo* info)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, path, info);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStoragePathInfo(SDLStorage* storage, ref byte path, SDLPathInfo* info)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = GetStoragePathInfoNative(storage, (byte*)ppath, info);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStoragePathInfo(SDLStorage* storage, ReadOnlySpan<byte> path, SDLPathInfo* info)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = GetStoragePathInfoNative(storage, (byte*)ppath, info);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStoragePathInfo(SDLStorage* storage, string path, SDLPathInfo* info)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = GetStoragePathInfoNative(storage, pStr0, info);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStoragePathInfo(ref SDLStorage storage, ref byte path, SDLPathInfo* info)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = &path)
-				{
-					byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, (byte*)ppath, info);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStoragePathInfo(ref SDLStorage storage, ReadOnlySpan<byte> path, SDLPathInfo* info)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				fixed (byte* ppath = path)
-				{
-					byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, (byte*)ppath, info);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path in a storage container.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetStoragePathInfo(ref SDLStorage storage, string path, SDLPathInfo* info)
-		{
-			fixed (SDLStorage* pstorage = &storage)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (path != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(path);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				byte ret = GetStoragePathInfoNative((SDLStorage*)pstorage, pStr0, info);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
 			}
 		}
 	}

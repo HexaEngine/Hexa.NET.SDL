@@ -21,56 +21,75 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureRegion")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureRegion
 	{
 		/// <summary>
 		/// The texture used in the copy operation. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "texture")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The mip level index to transfer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mip_level")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint MipLevel;
 
 		/// <summary>
 		/// The layer index to transfer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "layer")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Layer;
 
 		/// <summary>
 		/// The left offset of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint X;
 
 		/// <summary>
 		/// The top offset of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Y;
 
 		/// <summary>
 		/// The front offset of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "z")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Z;
 
 		/// <summary>
 		/// The width of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "w")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint W;
 
 		/// <summary>
 		/// The height of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "h")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint H;
 
 		/// <summary>
 		/// The depth of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "d")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint D;
 
 
-		public unsafe SDLGPUTextureRegion(SDLGPUTexture* texture = default, uint mipLevel = default, uint layer = default, uint x = default, uint y = default, uint z = default, uint w = default, uint h = default, uint d = default)
+		public unsafe SDLGPUTextureRegion(SDLGPUTexturePtr texture = default, uint mipLevel = default, uint layer = default, uint x = default, uint y = default, uint z = default, uint w = default, uint h = default, uint d = default)
 		{
 			Texture = texture;
 			MipLevel = mipLevel;
@@ -84,6 +103,89 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying a region of a texture.<br/>
+	/// Used when transferring data to or from a texture.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTextureRegion")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTextureRegionPtr : IEquatable<SDLGPUTextureRegionPtr>
+	{
+		public SDLGPUTextureRegionPtr(SDLGPUTextureRegion* handle) { Handle = handle; }
+
+		public SDLGPUTextureRegion* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTextureRegionPtr Null => new SDLGPUTextureRegionPtr(null);
+
+		public SDLGPUTextureRegion this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTextureRegionPtr(SDLGPUTextureRegion* handle) => new SDLGPUTextureRegionPtr(handle);
+
+		public static implicit operator SDLGPUTextureRegion*(SDLGPUTextureRegionPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTextureRegionPtr left, SDLGPUTextureRegionPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTextureRegionPtr left, SDLGPUTextureRegionPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTextureRegionPtr left, SDLGPUTextureRegion* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTextureRegionPtr left, SDLGPUTextureRegion* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTextureRegionPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTextureRegionPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTextureRegionPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The texture used in the copy operation. <br/>
+		/// </summary>
+		public ref SDLGPUTexturePtr Texture => ref Unsafe.AsRef<SDLGPUTexturePtr>(&Handle->Texture);
+		/// <summary>
+		/// The mip level index to transfer. <br/>
+		/// </summary>
+		public ref uint MipLevel => ref Unsafe.AsRef<uint>(&Handle->MipLevel);
+		/// <summary>
+		/// The layer index to transfer. <br/>
+		/// </summary>
+		public ref uint Layer => ref Unsafe.AsRef<uint>(&Handle->Layer);
+		/// <summary>
+		/// The left offset of the region. <br/>
+		/// </summary>
+		public ref uint X => ref Unsafe.AsRef<uint>(&Handle->X);
+		/// <summary>
+		/// The top offset of the region. <br/>
+		/// </summary>
+		public ref uint Y => ref Unsafe.AsRef<uint>(&Handle->Y);
+		/// <summary>
+		/// The front offset of the region. <br/>
+		/// </summary>
+		public ref uint Z => ref Unsafe.AsRef<uint>(&Handle->Z);
+		/// <summary>
+		/// The width of the region. <br/>
+		/// </summary>
+		public ref uint W => ref Unsafe.AsRef<uint>(&Handle->W);
+		/// <summary>
+		/// The height of the region. <br/>
+		/// </summary>
+		public ref uint H => ref Unsafe.AsRef<uint>(&Handle->H);
+		/// <summary>
+		/// The depth of the region. <br/>
+		/// </summary>
+		public ref uint D => ref Unsafe.AsRef<uint>(&Handle->D);
 	}
 
 }

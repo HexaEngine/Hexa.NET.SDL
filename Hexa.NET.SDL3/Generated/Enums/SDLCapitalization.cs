@@ -20,27 +20,35 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_Capitalization")]
 	public enum SDLCapitalization : int
 	{
 		/// <summary>
 		/// No auto-capitalization will be done <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_CAPITALIZE_NONE")]
+		[NativeName(NativeNameType.Value, "0")]
 		CapitalizeNone = unchecked(0),
 
 		/// <summary>
 		/// The first letter of sentences will be capitalized <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_CAPITALIZE_SENTENCES")]
+		[NativeName(NativeNameType.Value, "1")]
 		CapitalizeSentences = unchecked(1),
 
 		/// <summary>
 		/// The first letter of words will be capitalized <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_CAPITALIZE_WORDS")]
+		[NativeName(NativeNameType.Value, "2")]
 		CapitalizeWords = unchecked(2),
 
 		/// <summary>
 		/// All letters will be capitalized <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_CAPITALIZE_LETTERS")]
+		[NativeName(NativeNameType.Value, "3")]
 		CapitalizeLetters = unchecked(3),
 	}
 }

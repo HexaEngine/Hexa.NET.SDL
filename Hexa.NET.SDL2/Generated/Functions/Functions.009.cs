@@ -18,6 +18,3116 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* JoystickName(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte* ret = JoystickNameNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string JoystickNameS(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				string ret = Utils.DecodeStringUTF8(JoystickNameNative((SDLJoystick*)pjoystick));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* JoystickPathNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[501])(joystick);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[501])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* JoystickPath(SDLJoystick* joystick)
+		{
+			byte* ret = JoystickPathNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string JoystickPathS(SDLJoystick* joystick)
+		{
+			string ret = Utils.DecodeStringUTF8(JoystickPathNative(joystick));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* JoystickPath(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte* ret = JoystickPathNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string JoystickPathS(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				string ret = Utils.DecodeStringUTF8(JoystickPathNative((SDLJoystick*)pjoystick));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickGetPlayerIndexNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[502])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[502])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetPlayerIndex(SDLJoystick* joystick)
+		{
+			int ret = JoystickGetPlayerIndexNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetPlayerIndex(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickGetPlayerIndexNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void JoystickSetPlayerIndexNative(SDLJoystick* joystick, int playerIndex)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLJoystick*, int, void>)funcTable[503])(joystick, playerIndex);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[503])((nint)joystick, playerIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void JoystickSetPlayerIndex(SDLJoystick* joystick, int playerIndex)
+		{
+			JoystickSetPlayerIndexNative(joystick, playerIndex);
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void JoystickSetPlayerIndex(ref SDLJoystick joystick, int playerIndex)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				JoystickSetPlayerIndexNative((SDLJoystick*)pjoystick, playerIndex);
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static Guid JoystickGetGUIDNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, Guid>)funcTable[504])(joystick);
+			#else
+			return (Guid)((delegate* unmanaged[Cdecl]<nint, Guid>)funcTable[504])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static Guid JoystickGetGUID(SDLJoystick* joystick)
+		{
+			Guid ret = JoystickGetGUIDNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static Guid JoystickGetGUID(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				Guid ret = JoystickGetGUIDNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort JoystickGetVendorNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[505])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[505])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort JoystickGetVendor(SDLJoystick* joystick)
+		{
+			ushort ret = JoystickGetVendorNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort JoystickGetVendor(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = JoystickGetVendorNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort JoystickGetProductNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[506])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[506])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort JoystickGetProduct(SDLJoystick* joystick)
+		{
+			ushort ret = JoystickGetProductNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort JoystickGetProduct(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = JoystickGetProductNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort JoystickGetProductVersionNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[507])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[507])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort JoystickGetProductVersion(SDLJoystick* joystick)
+		{
+			ushort ret = JoystickGetProductVersionNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort JoystickGetProductVersion(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = JoystickGetProductVersionNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the firmware version of an opened joystick, if available.<br/>
+		/// If the firmware version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort JoystickGetFirmwareVersionNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[508])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[508])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the firmware version of an opened joystick, if available.<br/>
+		/// If the firmware version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort JoystickGetFirmwareVersion(SDLJoystick* joystick)
+		{
+			ushort ret = JoystickGetFirmwareVersionNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the firmware version of an opened joystick, if available.<br/>
+		/// If the firmware version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort JoystickGetFirmwareVersion(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = JoystickGetFirmwareVersionNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* JoystickGetSerialNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[509])(joystick);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[509])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* JoystickGetSerial(SDLJoystick* joystick)
+		{
+			byte* ret = JoystickGetSerialNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string JoystickGetSerialS(SDLJoystick* joystick)
+		{
+			string ret = Utils.DecodeStringUTF8(JoystickGetSerialNative(joystick));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* JoystickGetSerial(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte* ret = JoystickGetSerialNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string JoystickGetSerialS(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				string ret = Utils.DecodeStringUTF8(JoystickGetSerialNative((SDLJoystick*)pjoystick));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the type of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystickType JoystickGetTypeNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickType>)funcTable[510])(joystick);
+			#else
+			return (SDLJoystickType)((delegate* unmanaged[Cdecl]<nint, SDLJoystickType>)funcTable[510])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLJoystickType JoystickGetType(SDLJoystick* joystick)
+		{
+			SDLJoystickType ret = JoystickGetTypeNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLJoystickType JoystickGetType(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLJoystickType ret = JoystickGetTypeNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get an ASCII string representation for a given SDL_JoystickGUID.<br/>
+		/// You should supply at least 33 bytes for pszGUID.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void JoystickGetGUIDStringNative(Guid guid, byte* pszGUID, int cbGUID)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<Guid, byte*, int, void>)funcTable[511])(guid, pszGUID, cbGUID);
+			#else
+			((delegate* unmanaged[Cdecl]<Guid, nint, int, void>)funcTable[511])(guid, (nint)pszGUID, cbGUID);
+			#endif
+		}
+
+		/// <summary>
+		/// Get an ASCII string representation for a given SDL_JoystickGUID.<br/>
+		/// You should supply at least 33 bytes for pszGUID.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void JoystickGetGUIDString(Guid guid, byte* pszGUID, int cbGUID)
+		{
+			JoystickGetGUIDStringNative(guid, pszGUID, cbGUID);
+		}
+
+		/// <summary>
+		/// Get an ASCII string representation for a given SDL_JoystickGUID.<br/>
+		/// You should supply at least 33 bytes for pszGUID.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void JoystickGetGUIDString(Guid guid, ref byte pszGUID, int cbGUID)
+		{
+			fixed (byte* ppszGUID = &pszGUID)
+			{
+				JoystickGetGUIDStringNative(guid, (byte*)ppszGUID, cbGUID);
+			}
+		}
+
+		/// <summary>
+		/// Get an ASCII string representation for a given SDL_JoystickGUID.<br/>
+		/// You should supply at least 33 bytes for pszGUID.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void JoystickGetGUIDString(Guid guid, ref string pszGUID, int cbGUID)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pszGUID != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pszGUID);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pszGUID, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			JoystickGetGUIDStringNative(guid, pStr0, cbGUID);
+			pszGUID = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static Guid JoystickGetGUIDFromStringNative(byte* pchGUID)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, Guid>)funcTable[512])(pchGUID);
+			#else
+			return (Guid)((delegate* unmanaged[Cdecl]<nint, Guid>)funcTable[512])((nint)pchGUID);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static Guid JoystickGetGUIDFromString(byte* pchGUID)
+		{
+			Guid ret = JoystickGetGUIDFromStringNative(pchGUID);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static Guid JoystickGetGUIDFromString(in byte pchGUID)
+		{
+			fixed (byte* ppchGUID = &pchGUID)
+			{
+				Guid ret = JoystickGetGUIDFromStringNative((byte*)ppchGUID);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static Guid JoystickGetGUIDFromString(ReadOnlySpan<byte> pchGUID)
+		{
+			fixed (byte* ppchGUID = pchGUID)
+			{
+				Guid ret = JoystickGetGUIDFromStringNative((byte*)ppchGUID);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a GUID string into a SDL_JoystickGUID structure.<br/>
+		/// Performs no error checking. If this function is given a string containing<br/>
+		/// an invalid GUID, the function will silently succeed, but the GUID generated<br/>
+		/// will not be useful.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static Guid JoystickGetGUIDFromString(string pchGUID)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pchGUID != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pchGUID);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pchGUID, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			Guid ret = JoystickGetGUIDFromStringNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetJoystickGUIDInfoNative(Guid guid, ushort* vendor, ushort* product, ushort* version, ushort* crc16)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<Guid, ushort*, ushort*, ushort*, ushort*, void>)funcTable[513])(guid, vendor, product, version, crc16);
+			#else
+			((delegate* unmanaged[Cdecl]<Guid, nint, nint, nint, nint, void>)funcTable[513])(guid, (nint)vendor, (nint)product, (nint)version, (nint)crc16);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ushort* product, ushort* version, ushort* crc16)
+		{
+			GetJoystickGUIDInfoNative(guid, vendor, product, version, crc16);
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ushort* product, ushort* version, ushort* crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, crc16);
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ref ushort product, ushort* version, ushort* crc16)
+		{
+			fixed (ushort* pproduct = &product)
+			{
+				GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, crc16);
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ref ushort product, ushort* version, ushort* crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pproduct = &product)
+				{
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, crc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ushort* product, ref ushort version, ushort* crc16)
+		{
+			fixed (ushort* pversion = &version)
+			{
+				GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, crc16);
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ushort* product, ref ushort version, ushort* crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pversion = &version)
+				{
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, crc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ref ushort product, ref ushort version, ushort* crc16)
+		{
+			fixed (ushort* pproduct = &product)
+			{
+				fixed (ushort* pversion = &version)
+				{
+					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, crc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ref ushort product, ref ushort version, ushort* crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pproduct = &product)
+				{
+					fixed (ushort* pversion = &version)
+					{
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, crc16);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ushort* product, ushort* version, ref ushort crc16)
+		{
+			fixed (ushort* pcrc16 = &crc16)
+			{
+				GetJoystickGUIDInfoNative(guid, vendor, product, version, (ushort*)pcrc16);
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ushort* product, ushort* version, ref ushort crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pcrc16 = &crc16)
+				{
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, (ushort*)pcrc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ref ushort product, ushort* version, ref ushort crc16)
+		{
+			fixed (ushort* pproduct = &product)
+			{
+				fixed (ushort* pcrc16 = &crc16)
+				{
+					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, (ushort*)pcrc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ref ushort product, ushort* version, ref ushort crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pproduct = &product)
+				{
+					fixed (ushort* pcrc16 = &crc16)
+					{
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, (ushort*)pcrc16);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ushort* product, ref ushort version, ref ushort crc16)
+		{
+			fixed (ushort* pversion = &version)
+			{
+				fixed (ushort* pcrc16 = &crc16)
+				{
+					GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, (ushort*)pcrc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ushort* product, ref ushort version, ref ushort crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pversion = &version)
+				{
+					fixed (ushort* pcrc16 = &crc16)
+					{
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, (ushort*)pcrc16);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ushort* vendor, ref ushort product, ref ushort version, ref ushort crc16)
+		{
+			fixed (ushort* pproduct = &product)
+			{
+				fixed (ushort* pversion = &version)
+				{
+					fixed (ushort* pcrc16 = &crc16)
+					{
+						GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_JoystickGUID structure<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetJoystickGUIDInfo(Guid guid, ref ushort vendor, ref ushort product, ref ushort version, ref ushort crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pproduct = &product)
+				{
+					fixed (ushort* pversion = &version)
+					{
+						fixed (ushort* pcrc16 = &crc16)
+						{
+							GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the status of a specified joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool JoystickGetAttachedNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)funcTable[514])(joystick);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[514])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the status of a specified joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickGetAttached(SDLJoystick* joystick)
+		{
+			SDLBool ret = JoystickGetAttachedNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the status of a specified joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickGetAttached(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLBool ret = JoystickGetAttachedNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickInstanceIDNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[515])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[515])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickInstanceID(SDLJoystick* joystick)
+		{
+			int ret = JoystickInstanceIDNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickInstanceID(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickInstanceIDNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of general axis controls on a joystick.<br/>
+		/// Often, the directional pad on a game controller will either look like 4<br/>
+		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
+		/// device and platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickNumAxesNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[516])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[516])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of general axis controls on a joystick.<br/>
+		/// Often, the directional pad on a game controller will either look like 4<br/>
+		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
+		/// device and platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickNumAxes(SDLJoystick* joystick)
+		{
+			int ret = JoystickNumAxesNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of general axis controls on a joystick.<br/>
+		/// Often, the directional pad on a game controller will either look like 4<br/>
+		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
+		/// device and platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickNumAxes(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickNumAxesNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of trackballs on a joystick.<br/>
+		/// Joystick trackballs have only relative motion events associated with them<br/>
+		/// and their state cannot be polled.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickNumBallsNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[517])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[517])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of trackballs on a joystick.<br/>
+		/// Joystick trackballs have only relative motion events associated with them<br/>
+		/// and their state cannot be polled.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickNumBalls(SDLJoystick* joystick)
+		{
+			int ret = JoystickNumBallsNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of trackballs on a joystick.<br/>
+		/// Joystick trackballs have only relative motion events associated with them<br/>
+		/// and their state cannot be polled.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickNumBalls(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickNumBallsNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of POV hats on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickNumHatsNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[518])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[518])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of POV hats on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickNumHats(SDLJoystick* joystick)
+		{
+			int ret = JoystickNumHatsNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of POV hats on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickNumHats(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickNumHatsNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of buttons on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickNumButtonsNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[519])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[519])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of buttons on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickNumButtons(SDLJoystick* joystick)
+		{
+			int ret = JoystickNumButtonsNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of buttons on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickNumButtons(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickNumButtonsNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update the current state of the open joysticks.<br/>
+		/// This is called automatically by the event loop if any joystick events are<br/>
+		/// enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void JoystickUpdateNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[520])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[520])();
+			#endif
+		}
+
+		/// <summary>
+		/// Update the current state of the open joysticks.<br/>
+		/// This is called automatically by the event loop if any joystick events are<br/>
+		/// enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void JoystickUpdate()
+		{
+			JoystickUpdateNative();
+		}
+
+		/// <summary>
+		/// Enable/disable joystick event polling.<br/>
+		/// If joystick events are disabled, you must call SDL_JoystickUpdate()<br/>
+		/// yourself and manually check the state of the joystick when you want<br/>
+		/// joystick information.<br/>
+		/// It is recommended that you leave joystick event handling enabled.<br/>
+		/// **WARNING**: Calling this function may delete all events currently in SDL's<br/>
+		/// event queue.<br/>
+		/// While `param` is meant to be one of `SDL_QUERY`, `SDL_IGNORE`, or<br/>
+		/// `SDL_ENABLE`, this function accepts any value, with any non-zero value that<br/>
+		/// isn't `SDL_QUERY` being treated as `SDL_ENABLE`.<br/>
+		/// If SDL was built with events disabled (extremely uncommon!), this will do<br/>
+		/// nothing and always return `SDL_IGNORE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickEventStateNative(int state)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[521])(state);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[521])(state);
+			#endif
+		}
+
+		/// <summary>
+		/// Enable/disable joystick event polling.<br/>
+		/// If joystick events are disabled, you must call SDL_JoystickUpdate()<br/>
+		/// yourself and manually check the state of the joystick when you want<br/>
+		/// joystick information.<br/>
+		/// It is recommended that you leave joystick event handling enabled.<br/>
+		/// **WARNING**: Calling this function may delete all events currently in SDL's<br/>
+		/// event queue.<br/>
+		/// While `param` is meant to be one of `SDL_QUERY`, `SDL_IGNORE`, or<br/>
+		/// `SDL_ENABLE`, this function accepts any value, with any non-zero value that<br/>
+		/// isn't `SDL_QUERY` being treated as `SDL_ENABLE`.<br/>
+		/// If SDL was built with events disabled (extremely uncommon!), this will do<br/>
+		/// nothing and always return `SDL_IGNORE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickEventState(int state)
+		{
+			int ret = JoystickEventStateNative(state);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of an axis control on a joystick.<br/>
+		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
+		/// to. Your game should have some sort of configuration UI to let users<br/>
+		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
+		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
+		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
+		/// The value returned by SDL_JoystickGetAxis() is a signed integer (-32768 to<br/>
+		/// 32767) representing the current position of the axis. It may be necessary<br/>
+		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static short JoystickGetAxisNative(SDLJoystick* joystick, int axis)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short>)funcTable[522])(joystick, axis);
+			#else
+			return (short)((delegate* unmanaged[Cdecl]<nint, int, short>)funcTable[522])((nint)joystick, axis);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of an axis control on a joystick.<br/>
+		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
+		/// to. Your game should have some sort of configuration UI to let users<br/>
+		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
+		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
+		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
+		/// The value returned by SDL_JoystickGetAxis() is a signed integer (-32768 to<br/>
+		/// 32767) representing the current position of the axis. It may be necessary<br/>
+		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static short JoystickGetAxis(SDLJoystick* joystick, int axis)
+		{
+			short ret = JoystickGetAxisNative(joystick, axis);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of an axis control on a joystick.<br/>
+		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
+		/// to. Your game should have some sort of configuration UI to let users<br/>
+		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
+		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
+		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
+		/// The value returned by SDL_JoystickGetAxis() is a signed integer (-32768 to<br/>
+		/// 32767) representing the current position of the axis. It may be necessary<br/>
+		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static short JoystickGetAxis(ref SDLJoystick joystick, int axis)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				short ret = JoystickGetAxisNative((SDLJoystick*)pjoystick, axis);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool JoystickGetAxisInitialStateNative(SDLJoystick* joystick, int axis, short* state)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short*, SDLBool>)funcTable[523])(joystick, axis, state);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, SDLBool>)funcTable[523])((nint)joystick, axis, (nint)state);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickGetAxisInitialState(SDLJoystick* joystick, int axis, short* state)
+		{
+			SDLBool ret = JoystickGetAxisInitialStateNative(joystick, axis, state);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickGetAxisInitialState(ref SDLJoystick joystick, int axis, short* state)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLBool ret = JoystickGetAxisInitialStateNative((SDLJoystick*)pjoystick, axis, state);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickGetAxisInitialState(SDLJoystick* joystick, int axis, ref short state)
+		{
+			fixed (short* pstate = &state)
+			{
+				SDLBool ret = JoystickGetAxisInitialStateNative(joystick, axis, (short*)pstate);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickGetAxisInitialState(ref SDLJoystick joystick, int axis, ref short state)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (short* pstate = &state)
+				{
+					SDLBool ret = JoystickGetAxisInitialStateNative((SDLJoystick*)pjoystick, axis, (short*)pstate);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a POV hat on a joystick.<br/>
+		/// The returned value will be one of the following positions:<br/>
+		/// - `SDL_HAT_CENTERED`<br/>
+		/// - `SDL_HAT_UP`<br/>
+		/// - `SDL_HAT_RIGHT`<br/>
+		/// - `SDL_HAT_DOWN`<br/>
+		/// - `SDL_HAT_LEFT`<br/>
+		/// - `SDL_HAT_RIGHTUP`<br/>
+		/// - `SDL_HAT_RIGHTDOWN`<br/>
+		/// - `SDL_HAT_LEFTUP`<br/>
+		/// - `SDL_HAT_LEFTDOWN`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte JoystickGetHatNative(SDLJoystick* joystick, int hat)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[524])(joystick, hat);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[524])((nint)joystick, hat);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a POV hat on a joystick.<br/>
+		/// The returned value will be one of the following positions:<br/>
+		/// - `SDL_HAT_CENTERED`<br/>
+		/// - `SDL_HAT_UP`<br/>
+		/// - `SDL_HAT_RIGHT`<br/>
+		/// - `SDL_HAT_DOWN`<br/>
+		/// - `SDL_HAT_LEFT`<br/>
+		/// - `SDL_HAT_RIGHTUP`<br/>
+		/// - `SDL_HAT_RIGHTDOWN`<br/>
+		/// - `SDL_HAT_LEFTUP`<br/>
+		/// - `SDL_HAT_LEFTDOWN`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte JoystickGetHat(SDLJoystick* joystick, int hat)
+		{
+			byte ret = JoystickGetHatNative(joystick, hat);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of a POV hat on a joystick.<br/>
+		/// The returned value will be one of the following positions:<br/>
+		/// - `SDL_HAT_CENTERED`<br/>
+		/// - `SDL_HAT_UP`<br/>
+		/// - `SDL_HAT_RIGHT`<br/>
+		/// - `SDL_HAT_DOWN`<br/>
+		/// - `SDL_HAT_LEFT`<br/>
+		/// - `SDL_HAT_RIGHTUP`<br/>
+		/// - `SDL_HAT_RIGHTDOWN`<br/>
+		/// - `SDL_HAT_LEFTUP`<br/>
+		/// - `SDL_HAT_LEFTDOWN`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte JoystickGetHat(ref SDLJoystick joystick, int hat)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = JoystickGetHatNative((SDLJoystick*)pjoystick, hat);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickGetBallNative(SDLJoystick* joystick, int ball, int* dx, int* dy)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, int*, int*, int>)funcTable[525])(joystick, ball, dx, dy);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, int>)funcTable[525])((nint)joystick, ball, (nint)dx, (nint)dy);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetBall(SDLJoystick* joystick, int ball, int* dx, int* dy)
+		{
+			int ret = JoystickGetBallNative(joystick, ball, dx, dy);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetBall(ref SDLJoystick joystick, int ball, int* dx, int* dy)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, dx, dy);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetBall(SDLJoystick* joystick, int ball, ref int dx, int* dy)
+		{
+			fixed (int* pdx = &dx)
+			{
+				int ret = JoystickGetBallNative(joystick, ball, (int*)pdx, dy);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetBall(ref SDLJoystick joystick, int ball, ref int dx, int* dy)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (int* pdx = &dx)
+				{
+					int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, dy);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetBall(SDLJoystick* joystick, int ball, int* dx, ref int dy)
+		{
+			fixed (int* pdy = &dy)
+			{
+				int ret = JoystickGetBallNative(joystick, ball, dx, (int*)pdy);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetBall(ref SDLJoystick joystick, int ball, int* dx, ref int dy)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (int* pdy = &dy)
+				{
+					int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, dx, (int*)pdy);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetBall(SDLJoystick* joystick, int ball, ref int dx, ref int dy)
+		{
+			fixed (int* pdx = &dx)
+			{
+				fixed (int* pdy = &dy)
+				{
+					int ret = JoystickGetBallNative(joystick, ball, (int*)pdx, (int*)pdy);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_JoystickGetBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickGetBall(ref SDLJoystick joystick, int ball, ref int dx, ref int dy)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (int* pdx = &dx)
+				{
+					fixed (int* pdy = &dy)
+					{
+						int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, (int*)pdy);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte JoystickGetButtonNative(SDLJoystick* joystick, int button)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[526])(joystick, button);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[526])((nint)joystick, button);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte JoystickGetButton(SDLJoystick* joystick, int button)
+		{
+			byte ret = JoystickGetButtonNative(joystick, button);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte JoystickGetButton(ref SDLJoystick joystick, int button)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = JoystickGetButtonNative((SDLJoystick*)pjoystick, button);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Start a rumble effect.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickRumbleNative(SDLJoystick* joystick, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort, ushort, uint, int>)funcTable[527])(joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, int>)funcTable[527])((nint)joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			#endif
+		}
+
+		/// <summary>
+		/// Start a rumble effect.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickRumble(SDLJoystick* joystick, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
+		{
+			int ret = JoystickRumbleNative(joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			return ret;
+		}
+
+		/// <summary>
+		/// Start a rumble effect.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickRumble(ref SDLJoystick joystick, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickRumbleNative((SDLJoystick*)pjoystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the joystick's triggers<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use SDL_JoystickRumble()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickRumbleTriggersNative(SDLJoystick* joystick, ushort leftRumble, ushort rightRumble, uint durationMs)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort, ushort, uint, int>)funcTable[528])(joystick, leftRumble, rightRumble, durationMs);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, int>)funcTable[528])((nint)joystick, leftRumble, rightRumble, durationMs);
+			#endif
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the joystick's triggers<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use SDL_JoystickRumble()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickRumbleTriggers(SDLJoystick* joystick, ushort leftRumble, ushort rightRumble, uint durationMs)
+		{
+			int ret = JoystickRumbleTriggersNative(joystick, leftRumble, rightRumble, durationMs);
+			return ret;
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the joystick's triggers<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use SDL_JoystickRumble()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickRumbleTriggers(ref SDLJoystick joystick, ushort leftRumble, ushort rightRumble, uint durationMs)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickRumbleTriggersNative((SDLJoystick*)pjoystick, leftRumble, rightRumble, durationMs);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether a joystick has an LED.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool JoystickHasLEDNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)funcTable[529])(joystick);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[529])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether a joystick has an LED.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickHasLED(SDLJoystick* joystick)
+		{
+			SDLBool ret = JoystickHasLEDNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether a joystick has an LED.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickHasLED(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLBool ret = JoystickHasLEDNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether a joystick has rumble support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool JoystickHasRumbleNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)funcTable[530])(joystick);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[530])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether a joystick has rumble support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickHasRumble(SDLJoystick* joystick)
+		{
+			SDLBool ret = JoystickHasRumbleNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether a joystick has rumble support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickHasRumble(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLBool ret = JoystickHasRumbleNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query whether a joystick has rumble support on triggers.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool JoystickHasRumbleTriggersNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)funcTable[531])(joystick);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[531])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether a joystick has rumble support on triggers.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickHasRumbleTriggers(SDLJoystick* joystick)
+		{
+			SDLBool ret = JoystickHasRumbleTriggersNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether a joystick has rumble support on triggers.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool JoystickHasRumbleTriggers(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLBool ret = JoystickHasRumbleTriggersNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a joystick's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickSetLEDNative(SDLJoystick* joystick, byte red, byte green, byte blue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte, byte, byte, int>)funcTable[532])(joystick, red, green, blue);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)funcTable[532])((nint)joystick, red, green, blue);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a joystick's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickSetLED(SDLJoystick* joystick, byte red, byte green, byte blue)
+		{
+			int ret = JoystickSetLEDNative(joystick, red, green, blue);
+			return ret;
+		}
+
+		/// <summary>
+		/// Update a joystick's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickSetLED(ref SDLJoystick joystick, byte red, byte green, byte blue)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickSetLEDNative((SDLJoystick*)pjoystick, red, green, blue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int JoystickSendEffectNative(SDLJoystick* joystick, void* data, int size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, void*, int, int>)funcTable[533])(joystick, data, size);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[533])((nint)joystick, (nint)data, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickSendEffect(SDLJoystick* joystick, void* data, int size)
+		{
+			int ret = JoystickSendEffectNative(joystick, data, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickSendEffect(ref SDLJoystick joystick, void* data, int size)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickSendEffectNative((SDLJoystick*)pjoystick, data, size);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickSendEffect(SDLJoystick* joystick, nint data, int size)
+		{
+			int ret = JoystickSendEffectNative(joystick, (void*)data, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int JoystickSendEffect(ref SDLJoystick joystick, nint data, int size)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = JoystickSendEffectNative((SDLJoystick*)pjoystick, (void*)data, size);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Close a joystick previously opened with SDL_JoystickOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void JoystickCloseNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLJoystick*, void>)funcTable[534])(joystick);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[534])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a joystick previously opened with SDL_JoystickOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void JoystickClose(SDLJoystick* joystick)
+		{
+			JoystickCloseNative(joystick);
+		}
+
+		/// <summary>
+		/// Close a joystick previously opened with SDL_JoystickOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void JoystickClose(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				JoystickCloseNative((SDLJoystick*)pjoystick);
+			}
+		}
+
+		/// <summary>
+		/// Get the battery level of a joystick as SDL_JoystickPowerLevel.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystickPowerLevel JoystickCurrentPowerLevelNative(SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickPowerLevel>)funcTable[535])(joystick);
+			#else
+			return (SDLJoystickPowerLevel)((delegate* unmanaged[Cdecl]<nint, SDLJoystickPowerLevel>)funcTable[535])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the battery level of a joystick as SDL_JoystickPowerLevel.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLJoystickPowerLevel JoystickCurrentPowerLevel(SDLJoystick* joystick)
+		{
+			SDLJoystickPowerLevel ret = JoystickCurrentPowerLevelNative(joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the battery level of a joystick as SDL_JoystickPowerLevel.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLJoystickPowerLevel JoystickCurrentPowerLevel(ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLJoystickPowerLevel ret = JoystickCurrentPowerLevelNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Locking for multi-threaded access to the sensor API<br/>
+		/// If you are using the sensor API or handling events from multiple threads<br/>
+		/// you should use these locking functions to protect access to the sensors.<br/>
+		/// In particular, you are guaranteed that the sensor list won't change, so the<br/>
+		/// API functions that take a sensor index will be valid, and sensor events<br/>
+		/// will not be delivered.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockSensorsNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[536])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[536])();
+			#endif
+		}
+
+		/// <summary>
+		/// Locking for multi-threaded access to the sensor API<br/>
+		/// If you are using the sensor API or handling events from multiple threads<br/>
+		/// you should use these locking functions to protect access to the sensors.<br/>
+		/// In particular, you are guaranteed that the sensor list won't change, so the<br/>
+		/// API functions that take a sensor index will be valid, and sensor events<br/>
+		/// will not be delivered.<br/>
+		/// <br/>
+		/// </summary>
+		public static void LockSensors()
+		{
+			LockSensorsNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockSensorsNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[537])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[537])();
+			#endif
+		}
+
+		public static void UnlockSensors()
+		{
+			UnlockSensorsNative();
+		}
+
+		/// <summary>
+		/// Count the number of sensors attached to the system right now.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int NumSensorsNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[538])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[538])();
+			#endif
+		}
+
+		/// <summary>
+		/// Count the number of sensors attached to the system right now.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int NumSensors()
+		{
+			int ret = NumSensorsNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* SensorGetDeviceNameNative(int deviceIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[539])(deviceIndex);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[539])(deviceIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* SensorGetDeviceName(int deviceIndex)
+		{
+			byte* ret = SensorGetDeviceNameNative(deviceIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string SensorGetDeviceNameS(int deviceIndex)
+		{
+			string ret = Utils.DecodeStringUTF8(SensorGetDeviceNameNative(deviceIndex));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensorType SensorGetDeviceTypeNative(int deviceIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[540])(deviceIndex);
+			#else
+			return (SDLSensorType)((delegate* unmanaged[Cdecl]<int, SDLSensorType>)funcTable[540])(deviceIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSensorType SensorGetDeviceType(int deviceIndex)
+		{
+			SDLSensorType ret = SensorGetDeviceTypeNative(deviceIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SensorGetDeviceNonPortableTypeNative(int deviceIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[541])(deviceIndex);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[541])(deviceIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDeviceNonPortableType(int deviceIndex)
+		{
+			int ret = SensorGetDeviceNonPortableTypeNative(deviceIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SensorGetDeviceInstanceIDNative(int deviceIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[542])(deviceIndex);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[542])(deviceIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDeviceInstanceID(int deviceIndex)
+		{
+			int ret = SensorGetDeviceInstanceIDNative(deviceIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a sensor for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensor* SensorOpenNative(int deviceIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[543])(deviceIndex);
+			#else
+			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[543])(deviceIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a sensor for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSensor* SensorOpen(int deviceIndex)
+		{
+			SDLSensor* ret = SensorOpenNative(deviceIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return the SDL_Sensor associated with an instance id.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensor* SensorFromInstanceIDNative(int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)funcTable[544])(instanceId);
+			#else
+			return (SDLSensor*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[544])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Return the SDL_Sensor associated with an instance id.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSensor* SensorFromInstanceID(int instanceId)
+		{
+			SDLSensor* ret = SensorFromInstanceIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* SensorGetNameNative(SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, byte*>)funcTable[545])(sensor);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[545])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* SensorGetName(SDLSensor* sensor)
+		{
+			byte* ret = SensorGetNameNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string SensorGetNameS(SDLSensor* sensor)
+		{
+			string ret = Utils.DecodeStringUTF8(SensorGetNameNative(sensor));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* SensorGetName(ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				byte* ret = SensorGetNameNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a sensor<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string SensorGetNameS(ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				string ret = Utils.DecodeStringUTF8(SensorGetNameNative((SDLSensor*)psensor));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSensorType SensorGetTypeNative(SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, SDLSensorType>)funcTable[546])(sensor);
+			#else
+			return (SDLSensorType)((delegate* unmanaged[Cdecl]<nint, SDLSensorType>)funcTable[546])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSensorType SensorGetType(SDLSensor* sensor)
+		{
+			SDLSensorType ret = SensorGetTypeNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSensorType SensorGetType(ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				SDLSensorType ret = SensorGetTypeNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SensorGetNonPortableTypeNative(SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[547])(sensor);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[547])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetNonPortableType(SDLSensor* sensor)
+		{
+			int ret = SensorGetNonPortableTypeNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the platform dependent type of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetNonPortableType(ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = SensorGetNonPortableTypeNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SensorGetInstanceIDNative(SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)funcTable[548])(sensor);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[548])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetInstanceID(SDLSensor* sensor)
+		{
+			int ret = SensorGetInstanceIDNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetInstanceID(ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = SensorGetInstanceIDNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SensorGetDataNative(SDLSensor* sensor, float* data, int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, float*, int, int>)funcTable[549])(sensor, data, numValues);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[549])((nint)sensor, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetData(SDLSensor* sensor, float* data, int numValues)
+		{
+			int ret = SensorGetDataNative(sensor, data, numValues);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetData(ref SDLSensor sensor, float* data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = SensorGetDataNative((SDLSensor*)psensor, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetData(SDLSensor* sensor, ref float data, int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				int ret = SensorGetDataNative(sensor, (float*)pdata, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetData(ref SDLSensor sensor, ref float data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = SensorGetDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SensorGetDataWithTimestampNative(SDLSensor* sensor, ulong* timestamp, float* data, int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, ulong*, float*, int, int>)funcTable[550])(sensor, timestamp, data, numValues);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, int>)funcTable[550])((nint)sensor, (nint)timestamp, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ulong* timestamp, float* data, int numValues)
+		{
+			int ret = SensorGetDataWithTimestampNative(sensor, timestamp, data, numValues);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ulong* timestamp, float* data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ref ulong timestamp, float* data, int numValues)
+		{
+			fixed (ulong* ptimestamp = &timestamp)
+			{
+				int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ref ulong timestamp, float* data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (ulong* ptimestamp = &timestamp)
+				{
+					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, data, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ulong* timestamp, ref float data, int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				int ret = SensorGetDataWithTimestampNative(sensor, timestamp, (float*)pdata, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ulong* timestamp, ref float data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ref ulong timestamp, ref float data, int numValues)
+		{
+			fixed (ulong* ptimestamp = &timestamp)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ref ulong timestamp, ref float data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (ulong* ptimestamp = &timestamp)
+				{
+					fixed (float* pdata = &data)
+					{
+						int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, (float*)pdata, numValues);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SensorCloseNative(SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSensor*, void>)funcTable[551])(sensor);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[551])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SensorClose(SDLSensor* sensor)
+		{
+			SensorCloseNative(sensor);
+		}
+
+		/// <summary>
+		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SensorClose(ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				SensorCloseNative((SDLSensor*)psensor);
+			}
+		}
+
+		/// <summary>
+		/// Update the current state of the open sensors.<br/>
+		/// This is called automatically by the event loop if sensor events are<br/>
+		/// enabled.<br/>
+		/// This needs to be called from the thread that initialized the sensor<br/>
+		/// subsystem.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SensorUpdateNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[552])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[552])();
+			#endif
+		}
+
+		/// <summary>
+		/// Update the current state of the open sensors.<br/>
+		/// This is called automatically by the event loop if sensor events are<br/>
+		/// enabled.<br/>
+		/// This needs to be called from the thread that initialized the sensor<br/>
+		/// subsystem.<br/>
+		/// <br/>
+		/// </summary>
+		public static void SensorUpdate()
+		{
+			SensorUpdateNative();
+		}
+
+		/// <summary>
+		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerAddMappingsFromRWNative(SDLRWops* rw, int freerw)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, int>)funcTable[553])(rw, freerw);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[553])((nint)rw, freerw);
+			#endif
+		}
+
+		/// <summary>
+		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMappingsFromRW(SDLRWopsPtr rw, int freerw)
+		{
+			int ret = GameControllerAddMappingsFromRWNative((SDLRWops*)rw, freerw);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMappingsFromRW(ref SDLRWops rw, int freerw)
+		{
+			fixed (SDLRWops* prw = &rw)
+			{
+				int ret = GameControllerAddMappingsFromRWNative((SDLRWops*)prw, freerw);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerAddMappingNative(byte* mappingString)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[554])(mappingString);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[554])((nint)mappingString);
+			#endif
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMapping(byte* mappingString)
+		{
+			int ret = GameControllerAddMappingNative(mappingString);
+			return ret;
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// If this function is called before SDL_Init, SDL will generate an<br/>
+		/// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged<br/>
+		/// in at the time that SDL_Init is called.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMapping(in byte mappingString)
+		{
+			fixed (byte* pmappingString = &mappingString)
+			{
+				int ret = GameControllerAddMappingNative((byte*)pmappingString);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
 		/// controller to have a different binding.<br/>
 		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
@@ -1386,7 +4496,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGameControllerAxis GameControllerGetAxisFromString(ref byte str)
+		public static SDLGameControllerAxis GameControllerGetAxisFromString(in byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -1693,7 +4803,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGameControllerButton GameControllerGetButtonFromString(ref byte str)
+		public static SDLGameControllerButton GameControllerGetButtonFromString(in byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -1913,3108 +5023,6 @@ namespace Hexa.NET.SDL2
 		public static byte GameControllerGetButton(SDLGameController* gamecontroller, SDLGameControllerButton button)
 		{
 			byte ret = GameControllerGetButtonNative(gamecontroller, button);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of a button on a game controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte GameControllerGetButton(ref SDLGameController gamecontroller, SDLGameControllerButton button)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				byte ret = GameControllerGetButtonNative((SDLGameController*)pgamecontroller, button);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of touchpads on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerGetNumTouchpadsNative(SDLGameController* gamecontroller)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int>)funcTable[592])(gamecontroller);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[592])((nint)gamecontroller);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of touchpads on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetNumTouchpads(SDLGameController* gamecontroller)
-		{
-			int ret = GameControllerGetNumTouchpadsNative(gamecontroller);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of touchpads on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetNumTouchpads(ref SDLGameController gamecontroller)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerGetNumTouchpadsNative((SDLGameController*)pgamecontroller);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
-		/// controller.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerGetNumTouchpadFingersNative(SDLGameController* gamecontroller, int touchpad)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int, int>)funcTable[593])(gamecontroller, touchpad);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[593])((nint)gamecontroller, touchpad);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
-		/// controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetNumTouchpadFingers(SDLGameController* gamecontroller, int touchpad)
-		{
-			int ret = GameControllerGetNumTouchpadFingersNative(gamecontroller, touchpad);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of supported simultaneous fingers on a touchpad on a game<br/>
-		/// controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetNumTouchpadFingers(ref SDLGameController gamecontroller, int touchpad)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerGetNumTouchpadFingersNative((SDLGameController*)pgamecontroller, touchpad);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerGetTouchpadFingerNative(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, float* pressure)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int, int, byte*, float*, float*, float*, int>)funcTable[594])(gamecontroller, touchpad, finger, state, x, y, pressure);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, nint, nint, int>)funcTable[594])((nint)gamecontroller, touchpad, finger, (nint)state, (nint)x, (nint)y, (nint)pressure);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, float* pressure)
-		{
-			int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, y, pressure);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, float* pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, y, pressure);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, float* x, float* y, float* pressure)
-		{
-			fixed (byte* pstate = &state)
-			{
-				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, y, pressure);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, float* x, float* y, float* pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (byte* pstate = &state)
-				{
-					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, y, pressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, ref float x, float* y, float* pressure)
-		{
-			fixed (float* px = &x)
-			{
-				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, y, pressure);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, ref float x, float* y, float* pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* px = &x)
-				{
-					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, y, pressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, ref float x, float* y, float* pressure)
-		{
-			fixed (byte* pstate = &state)
-			{
-				fixed (float* px = &x)
-				{
-					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, pressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, ref float x, float* y, float* pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (byte* pstate = &state)
-				{
-					fixed (float* px = &x)
-					{
-						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, pressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, ref float y, float* pressure)
-		{
-			fixed (float* py = &y)
-			{
-				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, (float*)py, pressure);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, float* x, ref float y, float* pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* py = &y)
-				{
-					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, (float*)py, pressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, float* x, ref float y, float* pressure)
-		{
-			fixed (byte* pstate = &state)
-			{
-				fixed (float* py = &y)
-				{
-					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, pressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, float* x, ref float y, float* pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (byte* pstate = &state)
-				{
-					fixed (float* py = &y)
-					{
-						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, pressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, ref float x, ref float y, float* pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, (float*)py, pressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, ref float x, ref float y, float* pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, (float*)py, pressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, ref float x, ref float y, float* pressure)
-		{
-			fixed (byte* pstate = &state)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, pressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, ref float x, ref float y, float* pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (byte* pstate = &state)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* py = &y)
-						{
-							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, pressure);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, ref float pressure)
-		{
-			fixed (float* ppressure = &pressure)
-			{
-				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, y, (float*)ppressure);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, float* x, float* y, ref float pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, y, (float*)ppressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, float* x, float* y, ref float pressure)
-		{
-			fixed (byte* pstate = &state)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, y, (float*)ppressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, float* x, float* y, ref float pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (byte* pstate = &state)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, y, (float*)ppressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, ref float x, float* y, ref float pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, y, (float*)ppressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, ref float x, float* y, ref float pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, y, (float*)ppressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, ref float x, float* y, ref float pressure)
-		{
-			fixed (byte* pstate = &state)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, (float*)ppressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, ref float x, float* y, ref float pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (byte* pstate = &state)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, (float*)ppressure);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, float* x, ref float y, ref float pressure)
-		{
-			fixed (float* py = &y)
-			{
-				fixed (float* ppressure = &pressure)
-				{
-					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, (float*)py, (float*)ppressure);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, float* x, ref float y, ref float pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, (float*)py, (float*)ppressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, float* x, ref float y, ref float pressure)
-		{
-			fixed (byte* pstate = &state)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, (float*)ppressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, float* x, ref float y, ref float pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (byte* pstate = &state)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, (float*)ppressure);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, byte* state, ref float x, ref float y, ref float pressure)
-		{
-			fixed (float* px = &x)
-			{
-				fixed (float* py = &y)
-				{
-					fixed (float* ppressure = &pressure)
-					{
-						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, (float*)py, (float*)ppressure);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, byte* state, ref float x, ref float y, ref float pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, (float*)py, (float*)ppressure);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(SDLGameController* gamecontroller, int touchpad, int finger, ref byte state, ref float x, ref float y, ref float pressure)
-		{
-			fixed (byte* pstate = &state)
-			{
-				fixed (float* px = &x)
-				{
-					fixed (float* py = &y)
-					{
-						fixed (float* ppressure = &pressure)
-						{
-							int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, (float*)ppressure);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a finger on a touchpad on a game controller.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetTouchpadFinger(ref SDLGameController gamecontroller, int touchpad, int finger, ref byte state, ref float x, ref float y, ref float pressure)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (byte* pstate = &state)
-				{
-					fixed (float* px = &x)
-					{
-						fixed (float* py = &y)
-						{
-							fixed (float* ppressure = &pressure)
-							{
-								int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, (float*)ppressure);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Return whether a game controller has a particular sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GameControllerHasSensorNative(SDLGameController* gamecontroller, SDLSensorType type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool>)funcTable[595])(gamecontroller, type);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, SDLBool>)funcTable[595])((nint)gamecontroller, type);
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether a game controller has a particular sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerHasSensor(SDLGameController* gamecontroller, SDLSensorType type)
-		{
-			SDLBool ret = GameControllerHasSensorNative(gamecontroller, type);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether a game controller has a particular sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerHasSensor(ref SDLGameController gamecontroller, SDLSensorType type)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				SDLBool ret = GameControllerHasSensorNative((SDLGameController*)pgamecontroller, type);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a game controller sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerSetSensorEnabledNative(SDLGameController* gamecontroller, SDLSensorType type, SDLBool enabled)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool, int>)funcTable[596])(gamecontroller, type, enabled);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, SDLBool, int>)funcTable[596])((nint)gamecontroller, type, enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a game controller sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerSetSensorEnabled(SDLGameController* gamecontroller, SDLSensorType type, SDLBool enabled)
-		{
-			int ret = GameControllerSetSensorEnabledNative(gamecontroller, type, enabled);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set whether data reporting for a game controller sensor is enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerSetSensorEnabled(ref SDLGameController gamecontroller, SDLSensorType type, SDLBool enabled)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerSetSensorEnabledNative((SDLGameController*)pgamecontroller, type, enabled);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a game controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GameControllerIsSensorEnabledNative(SDLGameController* gamecontroller, SDLSensorType type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool>)funcTable[597])(gamecontroller, type);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, SDLBool>)funcTable[597])((nint)gamecontroller, type);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a game controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerIsSensorEnabled(SDLGameController* gamecontroller, SDLSensorType type)
-		{
-			SDLBool ret = GameControllerIsSensorEnabledNative(gamecontroller, type);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether sensor data reporting is enabled for a game controller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerIsSensorEnabled(ref SDLGameController gamecontroller, SDLSensorType type)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				SDLBool ret = GameControllerIsSensorEnabledNative((SDLGameController*)pgamecontroller, type);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the data rate (number of events per second) of a game controller<br/>
-		/// sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GameControllerGetSensorDataRateNative(SDLGameController* gamecontroller, SDLSensorType type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, float>)funcTable[598])(gamecontroller, type);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, float>)funcTable[598])((nint)gamecontroller, type);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the data rate (number of events per second) of a game controller<br/>
-		/// sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GameControllerGetSensorDataRate(SDLGameController* gamecontroller, SDLSensorType type)
-		{
-			float ret = GameControllerGetSensorDataRateNative(gamecontroller, type);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the data rate (number of events per second) of a game controller<br/>
-		/// sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GameControllerGetSensorDataRate(ref SDLGameController gamecontroller, SDLSensorType type)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				float ret = GameControllerGetSensorDataRateNative((SDLGameController*)pgamecontroller, type);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerGetSensorDataNative(SDLGameController* gamecontroller, SDLSensorType type, float* data, int numValues)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, float*, int, int>)funcTable[599])(gamecontroller, type, data, numValues);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, nint, int, int>)funcTable[599])((nint)gamecontroller, type, (nint)data, numValues);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorData(SDLGameController* gamecontroller, SDLSensorType type, float* data, int numValues)
-		{
-			int ret = GameControllerGetSensorDataNative(gamecontroller, type, data, numValues);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorData(ref SDLGameController gamecontroller, SDLSensorType type, float* data, int numValues)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerGetSensorDataNative((SDLGameController*)pgamecontroller, type, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorData(SDLGameController* gamecontroller, SDLSensorType type, ref float data, int numValues)
-		{
-			fixed (float* pdata = &data)
-			{
-				int ret = GameControllerGetSensorDataNative(gamecontroller, type, (float*)pdata, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorData(ref SDLGameController gamecontroller, SDLSensorType type, ref float data, int numValues)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = GameControllerGetSensorDataNative((SDLGameController*)pgamecontroller, type, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerGetSensorDataWithTimestampNative(SDLGameController* gamecontroller, SDLSensorType type, ulong* timestamp, float* data, int numValues)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, ulong*, float*, int, int>)funcTable[600])(gamecontroller, type, timestamp, data, numValues);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, nint, nint, int, int>)funcTable[600])((nint)gamecontroller, type, (nint)timestamp, (nint)data, numValues);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorDataWithTimestamp(SDLGameController* gamecontroller, SDLSensorType type, ulong* timestamp, float* data, int numValues)
-		{
-			int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, timestamp, data, numValues);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorDataWithTimestamp(ref SDLGameController gamecontroller, SDLSensorType type, ulong* timestamp, float* data, int numValues)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, timestamp, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorDataWithTimestamp(SDLGameController* gamecontroller, SDLSensorType type, ref ulong timestamp, float* data, int numValues)
-		{
-			fixed (ulong* ptimestamp = &timestamp)
-			{
-				int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, (ulong*)ptimestamp, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorDataWithTimestamp(ref SDLGameController gamecontroller, SDLSensorType type, ref ulong timestamp, float* data, int numValues)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (ulong* ptimestamp = &timestamp)
-				{
-					int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, (ulong*)ptimestamp, data, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorDataWithTimestamp(SDLGameController* gamecontroller, SDLSensorType type, ulong* timestamp, ref float data, int numValues)
-		{
-			fixed (float* pdata = &data)
-			{
-				int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, timestamp, (float*)pdata, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorDataWithTimestamp(ref SDLGameController gamecontroller, SDLSensorType type, ulong* timestamp, ref float data, int numValues)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, timestamp, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorDataWithTimestamp(SDLGameController* gamecontroller, SDLSensorType type, ref ulong timestamp, ref float data, int numValues)
-		{
-			fixed (ulong* ptimestamp = &timestamp)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, (ulong*)ptimestamp, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of a game controller sensor with the timestamp of the<br/>
-		/// last update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// See SDL_sensor.h for the details for each type of sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerGetSensorDataWithTimestamp(ref SDLGameController gamecontroller, SDLSensorType type, ref ulong timestamp, ref float data, int numValues)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				fixed (ulong* ptimestamp = &timestamp)
-				{
-					fixed (float* pdata = &data)
-					{
-						int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, (ulong*)ptimestamp, (float*)pdata, numValues);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Start a rumble effect on a game controller.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerRumbleNative(SDLGameController* gamecontroller, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort, ushort, uint, int>)funcTable[601])(gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, int>)funcTable[601])((nint)gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			#endif
-		}
-
-		/// <summary>
-		/// Start a rumble effect on a game controller.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerRumble(SDLGameController* gamecontroller, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
-		{
-			int ret = GameControllerRumbleNative(gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
-			return ret;
-		}
-
-		/// <summary>
-		/// Start a rumble effect on a game controller.<br/>
-		/// Each call to this function cancels any previous rumble effect, and calling<br/>
-		/// it with 0 intensity stops any rumbling.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerRumble(ref SDLGameController gamecontroller, ushort lowFrequencyRumble, ushort highFrequencyRumble, uint durationMs)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerRumbleNative((SDLGameController*)pgamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the game controller's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
-		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
-		/// want the (more common) whole-controller rumble, use<br/>
-		/// SDL_GameControllerRumble() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerRumbleTriggersNative(SDLGameController* gamecontroller, ushort leftRumble, ushort rightRumble, uint durationMs)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort, ushort, uint, int>)funcTable[602])(gamecontroller, leftRumble, rightRumble, durationMs);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, int>)funcTable[602])((nint)gamecontroller, leftRumble, rightRumble, durationMs);
-			#endif
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the game controller's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
-		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
-		/// want the (more common) whole-controller rumble, use<br/>
-		/// SDL_GameControllerRumble() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerRumbleTriggers(SDLGameController* gamecontroller, ushort leftRumble, ushort rightRumble, uint durationMs)
-		{
-			int ret = GameControllerRumbleTriggersNative(gamecontroller, leftRumble, rightRumble, durationMs);
-			return ret;
-		}
-
-		/// <summary>
-		/// Start a rumble effect in the game controller's triggers.<br/>
-		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
-		/// calling it with 0 intensity stops any rumbling.<br/>
-		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
-		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
-		/// want the (more common) whole-controller rumble, use<br/>
-		/// SDL_GameControllerRumble() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerRumbleTriggers(ref SDLGameController gamecontroller, ushort leftRumble, ushort rightRumble, uint durationMs)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerRumbleTriggersNative((SDLGameController*)pgamecontroller, leftRumble, rightRumble, durationMs);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether a game controller has an LED.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GameControllerHasLEDNative(SDLGameController* gamecontroller)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)funcTable[603])(gamecontroller);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[603])((nint)gamecontroller);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether a game controller has an LED.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerHasLED(SDLGameController* gamecontroller)
-		{
-			SDLBool ret = GameControllerHasLEDNative(gamecontroller);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether a game controller has an LED.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerHasLED(ref SDLGameController gamecontroller)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				SDLBool ret = GameControllerHasLEDNative((SDLGameController*)pgamecontroller);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether a game controller has rumble support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GameControllerHasRumbleNative(SDLGameController* gamecontroller)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)funcTable[604])(gamecontroller);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[604])((nint)gamecontroller);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether a game controller has rumble support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerHasRumble(SDLGameController* gamecontroller)
-		{
-			SDLBool ret = GameControllerHasRumbleNative(gamecontroller);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether a game controller has rumble support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerHasRumble(ref SDLGameController gamecontroller)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				SDLBool ret = GameControllerHasRumbleNative((SDLGameController*)pgamecontroller);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether a game controller has rumble support on triggers.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GameControllerHasRumbleTriggersNative(SDLGameController* gamecontroller)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)funcTable[605])(gamecontroller);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[605])((nint)gamecontroller);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether a game controller has rumble support on triggers.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerHasRumbleTriggers(SDLGameController* gamecontroller)
-		{
-			SDLBool ret = GameControllerHasRumbleTriggersNative(gamecontroller);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether a game controller has rumble support on triggers.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GameControllerHasRumbleTriggers(ref SDLGameController gamecontroller)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				SDLBool ret = GameControllerHasRumbleTriggersNative((SDLGameController*)pgamecontroller);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a game controller's LED color.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerSetLEDNative(SDLGameController* gamecontroller, byte red, byte green, byte blue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, byte, byte, byte, int>)funcTable[606])(gamecontroller, red, green, blue);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)funcTable[606])((nint)gamecontroller, red, green, blue);
-			#endif
-		}
-
-		/// <summary>
-		/// Update a game controller's LED color.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerSetLED(SDLGameController* gamecontroller, byte red, byte green, byte blue)
-		{
-			int ret = GameControllerSetLEDNative(gamecontroller, red, green, blue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Update a game controller's LED color.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerSetLED(ref SDLGameController gamecontroller, byte red, byte green, byte blue)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerSetLEDNative((SDLGameController*)pgamecontroller, red, green, blue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a controller specific effect packet<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerSendEffectNative(SDLGameController* gamecontroller, void* data, int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, void*, int, int>)funcTable[607])(gamecontroller, data, size);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[607])((nint)gamecontroller, (nint)data, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a controller specific effect packet<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerSendEffect(SDLGameController* gamecontroller, void* data, int size)
-		{
-			int ret = GameControllerSendEffectNative(gamecontroller, data, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Send a controller specific effect packet<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerSendEffect(ref SDLGameController gamecontroller, void* data, int size)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				int ret = GameControllerSendEffectNative((SDLGameController*)pgamecontroller, data, size);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Close a game controller previously opened with SDL_GameControllerOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GameControllerCloseNative(SDLGameController* gamecontroller)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGameController*, void>)funcTable[608])(gamecontroller);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[608])((nint)gamecontroller);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a game controller previously opened with SDL_GameControllerOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GameControllerClose(SDLGameController* gamecontroller)
-		{
-			GameControllerCloseNative(gamecontroller);
-		}
-
-		/// <summary>
-		/// Close a game controller previously opened with SDL_GameControllerOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GameControllerClose(ref SDLGameController gamecontroller)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				GameControllerCloseNative((SDLGameController*)pgamecontroller);
-			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GameControllerGetAppleSFSymbolsNameForButtonNative(SDLGameController* gamecontroller, SDLGameControllerButton button)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerButton, byte*>)funcTable[609])(gamecontroller, button);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGameControllerButton, nint>)funcTable[609])((nint)gamecontroller, button);
-			#endif
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GameControllerGetAppleSFSymbolsNameForButton(SDLGameController* gamecontroller, SDLGameControllerButton button)
-		{
-			byte* ret = GameControllerGetAppleSFSymbolsNameForButtonNative(gamecontroller, button);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GameControllerGetAppleSFSymbolsNameForButtonS(SDLGameController* gamecontroller, SDLGameControllerButton button)
-		{
-			string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForButtonNative(gamecontroller, button));
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GameControllerGetAppleSFSymbolsNameForButton(ref SDLGameController gamecontroller, SDLGameControllerButton button)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				byte* ret = GameControllerGetAppleSFSymbolsNameForButtonNative((SDLGameController*)pgamecontroller, button);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given button on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GameControllerGetAppleSFSymbolsNameForButtonS(ref SDLGameController gamecontroller, SDLGameControllerButton button)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForButtonNative((SDLGameController*)pgamecontroller, button));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GameControllerGetAppleSFSymbolsNameForAxisNative(SDLGameController* gamecontroller, SDLGameControllerAxis axis)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerAxis, byte*>)funcTable[610])(gamecontroller, axis);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, SDLGameControllerAxis, nint>)funcTable[610])((nint)gamecontroller, axis);
-			#endif
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GameControllerGetAppleSFSymbolsNameForAxis(SDLGameController* gamecontroller, SDLGameControllerAxis axis)
-		{
-			byte* ret = GameControllerGetAppleSFSymbolsNameForAxisNative(gamecontroller, axis);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GameControllerGetAppleSFSymbolsNameForAxisS(SDLGameController* gamecontroller, SDLGameControllerAxis axis)
-		{
-			string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForAxisNative(gamecontroller, axis));
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GameControllerGetAppleSFSymbolsNameForAxis(ref SDLGameController gamecontroller, SDLGameControllerAxis axis)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				byte* ret = GameControllerGetAppleSFSymbolsNameForAxisNative((SDLGameController*)pgamecontroller, axis);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return the sfSymbolsName for a given axis on a game controller on Apple<br/>
-		/// platforms.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GameControllerGetAppleSFSymbolsNameForAxisS(ref SDLGameController gamecontroller, SDLGameControllerAxis axis)
-		{
-			fixed (SDLGameController* pgamecontroller = &gamecontroller)
-			{
-				string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForAxisNative((SDLGameController*)pgamecontroller, axis));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of registered touch devices.<br/>
-		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
-		/// Therefore SDL_GetNumTouchDevices() may return 0 although devices are<br/>
-		/// available. After using all devices at least once the number will be<br/>
-		/// correct.<br/>
-		/// This was fixed for Android in SDL 2.0.1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumTouchDevicesNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[611])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[611])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of registered touch devices.<br/>
-		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
-		/// Therefore SDL_GetNumTouchDevices() may return 0 although devices are<br/>
-		/// available. After using all devices at least once the number will be<br/>
-		/// correct.<br/>
-		/// This was fixed for Android in SDL 2.0.1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumTouchDevices()
-		{
-			int ret = GetNumTouchDevicesNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the touch ID with the given index.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long GetTouchDeviceNative(int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, long>)funcTable[612])(index);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<int, long>)funcTable[612])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the touch ID with the given index.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long GetTouchDevice(int index)
-		{
-			long ret = GetTouchDeviceNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver or NULL if the index<br/>
-		/// is invalid.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetTouchNameNative(int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[613])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[613])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver or NULL if the index<br/>
-		/// is invalid.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetTouchName(int index)
-		{
-			byte* ret = GetTouchNameNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the touch device name as reported from the driver or NULL if the index<br/>
-		/// is invalid.<br/>
-		/// <br/>
-		/// </summary>
-		public static string GetTouchNameS(int index)
-		{
-			string ret = Utils.DecodeStringUTF8(GetTouchNameNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of the given touch device.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTouchDeviceType GetTouchDeviceTypeNative(long touchID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[614])(touchID);
-			#else
-			return (SDLTouchDeviceType)((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[614])(touchID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of the given touch device.<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTouchDeviceType GetTouchDeviceType(long touchID)
-		{
-			SDLTouchDeviceType ret = GetTouchDeviceTypeNative(touchID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of active fingers for a given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumTouchFingersNative(long touchID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, int>)funcTable[615])(touchID);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<long, int>)funcTable[615])(touchID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of active fingers for a given touch device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumTouchFingers(long touchID)
-		{
-			int ret = GetNumTouchFingersNative(touchID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the finger object for specified touch device ID and finger index.<br/>
-		/// The returned resource is owned by SDL and should not be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLFinger* GetTouchFingerNative(long touchID, int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, int, SDLFinger*>)funcTable[616])(touchID, index);
-			#else
-			return (SDLFinger*)((delegate* unmanaged[Cdecl]<long, int, nint>)funcTable[616])(touchID, index);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the finger object for specified touch device ID and finger index.<br/>
-		/// The returned resource is owned by SDL and should not be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLFinger* GetTouchFinger(long touchID, int index)
-		{
-			SDLFinger* ret = GetTouchFingerNative(touchID, index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Begin recording a gesture on a specified touch device or all touch devices.<br/>
-		/// If the parameter `touchId` is -1 (i.e., all devices), this function will<br/>
-		/// always return 1, regardless of whether there actually are any devices.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RecordGestureNative(long touchId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, int>)funcTable[617])(touchId);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<long, int>)funcTable[617])(touchId);
-			#endif
-		}
-
-		/// <summary>
-		/// Begin recording a gesture on a specified touch device or all touch devices.<br/>
-		/// If the parameter `touchId` is -1 (i.e., all devices), this function will<br/>
-		/// always return 1, regardless of whether there actually are any devices.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RecordGesture(long touchId)
-		{
-			int ret = RecordGestureNative(touchId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Save all currently loaded Dollar Gesture templates.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SaveAllDollarTemplatesNative(SDLRWops* dst)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int>)funcTable[618])(dst);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[618])((nint)dst);
-			#endif
-		}
-
-		/// <summary>
-		/// Save all currently loaded Dollar Gesture templates.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SaveAllDollarTemplates(SDLRWops* dst)
-		{
-			int ret = SaveAllDollarTemplatesNative(dst);
-			return ret;
-		}
-
-		/// <summary>
-		/// Save all currently loaded Dollar Gesture templates.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SaveAllDollarTemplates(ref SDLRWops dst)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				int ret = SaveAllDollarTemplatesNative((SDLRWops*)pdst);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Save a currently loaded Dollar Gesture template.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SaveDollarTemplateNative(long gestureId, SDLRWops* dst)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, SDLRWops*, int>)funcTable[619])(gestureId, dst);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<long, nint, int>)funcTable[619])(gestureId, (nint)dst);
-			#endif
-		}
-
-		/// <summary>
-		/// Save a currently loaded Dollar Gesture template.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SaveDollarTemplate(long gestureId, SDLRWops* dst)
-		{
-			int ret = SaveDollarTemplateNative(gestureId, dst);
-			return ret;
-		}
-
-		/// <summary>
-		/// Save a currently loaded Dollar Gesture template.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SaveDollarTemplate(long gestureId, ref SDLRWops dst)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				int ret = SaveDollarTemplateNative(gestureId, (SDLRWops*)pdst);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load Dollar Gesture templates from a file.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LoadDollarTemplatesNative(long touchId, SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, SDLRWops*, int>)funcTable[620])(touchId, src);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<long, nint, int>)funcTable[620])(touchId, (nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Load Dollar Gesture templates from a file.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LoadDollarTemplates(long touchId, SDLRWops* src)
-		{
-			int ret = LoadDollarTemplatesNative(touchId, src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load Dollar Gesture templates from a file.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LoadDollarTemplates(long touchId, ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				int ret = LoadDollarTemplatesNative(touchId, (SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Pump the event loop, gathering events from the input devices.<br/>
-		/// This function updates the event queue and internal input device state.<br/>
-		/// **WARNING**: This should only be run in the thread that initialized the<br/>
-		/// video subsystem, and for extra safety, you should consider only doing those<br/>
-		/// things on the main thread in any case.<br/>
-		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
-		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
-		/// would ever be placed on the queue. Often the need for calls to<br/>
-		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
-		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
-		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
-		/// call SDL_PumpEvents() to force an event queue update.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PumpEventsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[621])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[621])();
-			#endif
-		}
-
-		/// <summary>
-		/// Pump the event loop, gathering events from the input devices.<br/>
-		/// This function updates the event queue and internal input device state.<br/>
-		/// **WARNING**: This should only be run in the thread that initialized the<br/>
-		/// video subsystem, and for extra safety, you should consider only doing those<br/>
-		/// things on the main thread in any case.<br/>
-		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
-		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
-		/// would ever be placed on the queue. Often the need for calls to<br/>
-		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
-		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
-		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
-		/// call SDL_PumpEvents() to force an event queue update.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void PumpEvents()
-		{
-			PumpEventsNative();
-		}
-
-		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// This function is thread-safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int PeepEventsNative(SDLEvent* events, int numevents, SDLEventaction action, uint minType, uint maxType)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, SDLEventaction, uint, uint, int>)funcTable[622])(events, numevents, action, minType, maxType);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, SDLEventaction, uint, uint, int>)funcTable[622])((nint)events, numevents, action, minType, maxType);
-			#endif
-		}
-
-		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// This function is thread-safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int PeepEvents(SDLEvent* events, int numevents, SDLEventaction action, uint minType, uint maxType)
-		{
-			int ret = PeepEventsNative(events, numevents, action, minType, maxType);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check the event queue for messages and optionally return them.<br/>
-		/// `action` may be any of the following:<br/>
-		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
-		/// event queue.<br/>
-		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will _not_ be removed from the queue.<br/>
-		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
-		/// within the specified minimum and maximum type, will be returned to the<br/>
-		/// caller and will be removed from the queue.<br/>
-		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
-		/// Otherwise, the events may not be ready to be filtered when you call<br/>
-		/// SDL_PeepEvents().<br/>
-		/// This function is thread-safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int PeepEvents(ref SDLEvent events, int numevents, SDLEventaction action, uint minType, uint maxType)
-		{
-			fixed (SDLEvent* pevents = &events)
-			{
-				int ret = PeepEventsNative((SDLEvent*)pevents, numevents, action, minType, maxType);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check for the existence of a certain event type in the event queue.<br/>
-		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasEventNative(uint type)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLBool>)funcTable[623])(type);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<uint, SDLBool>)funcTable[623])(type);
-			#endif
-		}
-
-		/// <summary>
-		/// Check for the existence of a certain event type in the event queue.<br/>
-		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasEvent(uint type)
-		{
-			SDLBool ret = HasEventNative(type);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check for the existence of certain event types in the event queue.<br/>
-		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasEventsNative(uint minType, uint maxType)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint, SDLBool>)funcTable[624])(minType, maxType);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<uint, uint, SDLBool>)funcTable[624])(minType, maxType);
-			#endif
-		}
-
-		/// <summary>
-		/// Check for the existence of certain event types in the event queue.<br/>
-		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasEvents(uint minType, uint maxType)
-		{
-			SDLBool ret = HasEventsNative(minType, maxType);
-			return ret;
-		}
-
-		/// <summary>
-		/// Clear events of a specific type from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that match<br/>
-		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
-		/// instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FlushEventNative(uint type)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[625])(type);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[625])(type);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear events of a specific type from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that match<br/>
-		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
-		/// instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FlushEvent(uint type)
-		{
-			FlushEventNative(type);
-		}
-
-		/// <summary>
-		/// Clear events of a range of types from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that are in the<br/>
-		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
-		/// event type, use SDL_FlushEvent() instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FlushEventsNative(uint minType, uint maxType)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[626])(minType, maxType);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[626])(minType, maxType);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear events of a range of types from the event queue.<br/>
-		/// This will unconditionally remove any events from the queue that are in the<br/>
-		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
-		/// event type, use SDL_FlushEvent() instead.<br/>
-		/// It's also normal to just ignore events you don't care about in your event<br/>
-		/// loop without calling this function.<br/>
-		/// This function only affects currently queued events. If you want to make<br/>
-		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
-		/// on the main thread immediately before the flush call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FlushEvents(uint minType, uint maxType)
-		{
-			FlushEventsNative(minType, maxType);
-		}
-
-		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int PollEventNative(SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)funcTable[627])(evnt);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[627])((nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int PollEvent(SDLEvent* evnt)
-		{
-			int ret = PollEventNative(evnt);
-			return ret;
-		}
-
-		/// <summary>
-		/// Poll for currently pending events.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
-		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
-		/// to follow.<br/>
-		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
-		/// but will not remove it from the queue.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that set the video mode.<br/>
-		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
-		/// be done from the main loop and does not suspend the main loop while waiting<br/>
-		/// on an event to be posted.<br/>
-		/// The common practice is to fully process the event queue once every frame,<br/>
-		/// usually as a first step before updating the game's state:<br/>
-		/// ```c<br/>
-		/// while (game_is_still_running) {<br/>
-		/// SDL_Event event;<br/>
-		/// while (SDL_PollEvent(<br/>
-		/// &event<br/>
-		/// )) {  // poll until all events are handled!<br/>
-		/// // decide what to do with this event.<br/>
-		/// }<br/>
-		/// // update game state, draw the current frame<br/>
-		/// }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int PollEvent(ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				int ret = PollEventNative((SDLEvent*)pevnt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Wait indefinitely for the next available event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WaitEventNative(SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)funcTable[628])(evnt);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[628])((nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait indefinitely for the next available event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int WaitEvent(SDLEvent* evnt)
-		{
-			int ret = WaitEventNative(evnt);
-			return ret;
-		}
-
-		/// <summary>
-		/// Wait indefinitely for the next available event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int WaitEvent(ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				int ret = WaitEventNative((SDLEvent*)pevnt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
-		/// event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WaitEventTimeoutNative(SDLEvent* evnt, int timeout)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, int>)funcTable[629])(evnt, timeout);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[629])((nint)evnt, timeout);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
-		/// event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int WaitEventTimeout(SDLEvent* evnt, int timeout)
-		{
-			int ret = WaitEventTimeoutNative(evnt, timeout);
-			return ret;
-		}
-
-		/// <summary>
-		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
-		/// event.<br/>
-		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
-		/// in the SDL_Event structure pointed to by `event`.<br/>
-		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
-		/// this function in the thread that initialized the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int WaitEventTimeout(ref SDLEvent evnt, int timeout)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				int ret = WaitEventTimeoutNative((SDLEvent*)pevnt, timeout);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add an event to the event queue.<br/>
-		/// The event queue can actually be used as a two way communication channel.<br/>
-		/// Not only can events be read from the queue, but the user can also push<br/>
-		/// their own events onto it. `event` is a pointer to the event structure you<br/>
-		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
-		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
-		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
-		/// of the device within SDL.<br/>
-		/// This function is thread-safe, and can be called from other threads safely.<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
-		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
-		/// get an event type that does not conflict with other code that also wants<br/>
-		/// its own custom event types.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int PushEventNative(SDLEvent* evnt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)funcTable[630])(evnt);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[630])((nint)evnt);
-			#endif
-		}
-
-		/// <summary>
-		/// Add an event to the event queue.<br/>
-		/// The event queue can actually be used as a two way communication channel.<br/>
-		/// Not only can events be read from the queue, but the user can also push<br/>
-		/// their own events onto it. `event` is a pointer to the event structure you<br/>
-		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
-		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
-		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
-		/// of the device within SDL.<br/>
-		/// This function is thread-safe, and can be called from other threads safely.<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
-		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
-		/// get an event type that does not conflict with other code that also wants<br/>
-		/// its own custom event types.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int PushEvent(SDLEvent* evnt)
-		{
-			int ret = PushEventNative(evnt);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add an event to the event queue.<br/>
-		/// The event queue can actually be used as a two way communication channel.<br/>
-		/// Not only can events be read from the queue, but the user can also push<br/>
-		/// their own events onto it. `event` is a pointer to the event structure you<br/>
-		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
-		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
-		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
-		/// of the device within SDL.<br/>
-		/// This function is thread-safe, and can be called from other threads safely.<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
-		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
-		/// get an event type that does not conflict with other code that also wants<br/>
-		/// its own custom event types.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int PushEvent(ref SDLEvent evnt)
-		{
-			fixed (SDLEvent* pevnt = &evnt)
-			{
-				int ret = PushEventNative((SDLEvent*)pevnt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set up a filter to process all events before they change internal state and<br/>
-		/// are posted to the internal event queue.<br/>
-		/// If the filter function returns 1 when called, then the event will be added<br/>
-		/// to the internal queue. If it returns 0, then the event will be dropped from<br/>
-		/// the queue, but the internal state will still be updated. This allows<br/>
-		/// selective filtering of dynamically arriving events.<br/>
-		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
-		/// as it may run in a different thread!<br/>
-		/// On platforms that support it, if the quit event is generated by an<br/>
-		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
-		/// application at the next event poll.<br/>
-		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
-		/// event filter is only called when the window manager desires to close the<br/>
-		/// application window. If the event filter returns 1, then the window will be<br/>
-		/// closed, otherwise the window will remain open if possible.<br/>
-		/// Note: Disabled events never make it to the event filter function; see<br/>
-		/// SDL_EventState().<br/>
-		/// Note: If you just want to inspect events without filtering, you should use<br/>
-		/// SDL_AddEventWatch() instead.<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
-		/// not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetEventFilterNative(SDLEventFilter filter, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[631])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[631])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Set up a filter to process all events before they change internal state and<br/>
-		/// are posted to the internal event queue.<br/>
-		/// If the filter function returns 1 when called, then the event will be added<br/>
-		/// to the internal queue. If it returns 0, then the event will be dropped from<br/>
-		/// the queue, but the internal state will still be updated. This allows<br/>
-		/// selective filtering of dynamically arriving events.<br/>
-		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
-		/// as it may run in a different thread!<br/>
-		/// On platforms that support it, if the quit event is generated by an<br/>
-		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
-		/// application at the next event poll.<br/>
-		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
-		/// event filter is only called when the window manager desires to close the<br/>
-		/// application window. If the event filter returns 1, then the window will be<br/>
-		/// closed, otherwise the window will remain open if possible.<br/>
-		/// Note: Disabled events never make it to the event filter function; see<br/>
-		/// SDL_EventState().<br/>
-		/// Note: If you just want to inspect events without filtering, you should use<br/>
-		/// SDL_AddEventWatch() instead.<br/>
-		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
-		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
-		/// not.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetEventFilter(SDLEventFilter filter, void* userdata)
-		{
-			SetEventFilterNative(filter, userdata);
-		}
-
-		/// <summary>
-		/// Query the current event filter.<br/>
-		/// This function can be used to "chain" filters, by saving the existing filter<br/>
-		/// before replacing it with a function that will call that saved filter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GetEventFilterNative(delegate*<void*, SDLEvent*, int>* filter, void** userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>*, void**, SDLBool>)funcTable[632])(filter, userdata);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[632])((nint)filter, (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Query the current event filter.<br/>
-		/// This function can be used to "chain" filters, by saving the existing filter<br/>
-		/// before replacing it with a function that will call that saved filter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetEventFilter(delegate*<void*, SDLEvent*, int>* filter, void** userdata)
-		{
-			SDLBool ret = GetEventFilterNative(filter, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add a callback to be triggered when an event is added to the event queue.<br/>
-		/// `filter` will be called when an event happens, and its return value is<br/>
-		/// ignored.<br/>
-		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
-		/// as it may run in a different thread!<br/>
-		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
-		/// the internal queue and be delivered to the watch callback immediately, and<br/>
-		/// arrive at the next event poll.<br/>
-		/// Note: the callback is called for events posted by the user through<br/>
-		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
-		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
-		/// through SDL_PeepEvents().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AddEventWatchNative(SDLEventFilter filter, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[633])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[633])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Add a callback to be triggered when an event is added to the event queue.<br/>
-		/// `filter` will be called when an event happens, and its return value is<br/>
-		/// ignored.<br/>
-		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
-		/// as it may run in a different thread!<br/>
-		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
-		/// the internal queue and be delivered to the watch callback immediately, and<br/>
-		/// arrive at the next event poll.<br/>
-		/// Note: the callback is called for events posted by the user through<br/>
-		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
-		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
-		/// through SDL_PeepEvents().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void AddEventWatch(SDLEventFilter filter, void* userdata)
-		{
-			AddEventWatchNative(filter, userdata);
-		}
-
-		/// <summary>
-		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
-		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
-		/// delete the corresponding callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DelEventWatchNative(SDLEventFilter filter, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[634])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[634])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
-		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
-		/// delete the corresponding callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DelEventWatch(SDLEventFilter filter, void* userdata)
-		{
-			DelEventWatchNative(filter, userdata);
-		}
-
-		/// <summary>
-		/// Run a specific filter function on the current event queue, removing any<br/>
-		/// events for which the filter returns 0.<br/>
-		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
-		/// this function does not change the filter permanently, it only uses the<br/>
-		/// supplied filter until this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FilterEventsNative(SDLEventFilter filter, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[635])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[635])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Run a specific filter function on the current event queue, removing any<br/>
-		/// events for which the filter returns 0.<br/>
-		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
-		/// this function does not change the filter permanently, it only uses the<br/>
-		/// supplied filter until this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FilterEvents(SDLEventFilter filter, void* userdata)
-		{
-			FilterEventsNative(filter, userdata);
-		}
-
-		/// <summary>
-		/// Set the state of processing events by type.<br/>
-		/// `state` may be any of the following:<br/>
-		/// - `SDL_QUERY`: returns the current processing state of the specified event<br/>
-		/// - `SDL_IGNORE` (aka `SDL_DISABLE`): the event will automatically be dropped<br/>
-		/// from the event queue and will not be filtered<br/>
-		/// - `SDL_ENABLE`: the event will be processed normally<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte EventStateNative(uint type, int state)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int, byte>)funcTable[636])(type, state);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, int, byte>)funcTable[636])(type, state);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the state of processing events by type.<br/>
-		/// `state` may be any of the following:<br/>
-		/// - `SDL_QUERY`: returns the current processing state of the specified event<br/>
-		/// - `SDL_IGNORE` (aka `SDL_DISABLE`): the event will automatically be dropped<br/>
-		/// from the event queue and will not be filtered<br/>
-		/// - `SDL_ENABLE`: the event will be processed normally<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte EventState(uint type, int state)
-		{
-			byte ret = EventStateNative(type, state);
-			return ret;
-		}
-
-		/// <summary>
-		/// Allocate a set of user-defined events, and return the beginning event<br/>
-		/// number for that set of events.<br/>
-		/// Calling this function with `numevents` <br/>
-		/// <<br/>
-		/// = 0 is an error and will return<br/>
-		/// (Uint32)-1.<br/>
-		/// Note, (Uint32)-1 means the maximum unsigned 32-bit integer value (or<br/>
-		/// 0xFFFFFFFF), but is clearer to write.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint RegisterEventsNative(int numevents)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[637])(numevents);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[637])(numevents);
-			#endif
-		}
-
-		/// <summary>
-		/// Allocate a set of user-defined events, and return the beginning event<br/>
-		/// number for that set of events.<br/>
-		/// Calling this function with `numevents` <br/>
-		/// <<br/>
-		/// = 0 is an error and will return<br/>
-		/// (Uint32)-1.<br/>
-		/// Note, (Uint32)-1 means the maximum unsigned 32-bit integer value (or<br/>
-		/// 0xFFFFFFFF), but is clearer to write.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint RegisterEvents(int numevents)
-		{
-			uint ret = RegisterEventsNative(numevents);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the directory where the application was run from.<br/>
-		/// This is not necessarily a fast call, so you should call this once near<br/>
-		/// startup and save the string if you need it.<br/>
-		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
-		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
-		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
-		/// a property to the Info.plist file. Adding a string key with the name<br/>
-		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
-		/// behaviour.<br/>
-		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
-		/// application in /Applications/SDLApp/MyApp.app):<br/>
-		/// - `resource`: bundle resource directory (the default). For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
-		/// - `bundle`: the Bundle directory. For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/`<br/>
-		/// - `parent`: the containing directory of the bundle. For example:<br/>
-		/// `/Applications/SDLApp/`<br/>
-		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
-		/// directory of the application as it is uncommon to store resources outside<br/>
-		/// the executable. As such it is not a writable directory.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetBasePathNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[638])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[638])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the directory where the application was run from.<br/>
-		/// This is not necessarily a fast call, so you should call this once near<br/>
-		/// startup and save the string if you need it.<br/>
-		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
-		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
-		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
-		/// a property to the Info.plist file. Adding a string key with the name<br/>
-		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
-		/// behaviour.<br/>
-		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
-		/// application in /Applications/SDLApp/MyApp.app):<br/>
-		/// - `resource`: bundle resource directory (the default). For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
-		/// - `bundle`: the Bundle directory. For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/`<br/>
-		/// - `parent`: the containing directory of the bundle. For example:<br/>
-		/// `/Applications/SDLApp/`<br/>
-		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
-		/// directory of the application as it is uncommon to store resources outside<br/>
-		/// the executable. As such it is not a writable directory.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetBasePath()
-		{
-			byte* ret = GetBasePathNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the directory where the application was run from.<br/>
-		/// This is not necessarily a fast call, so you should call this once near<br/>
-		/// startup and save the string if you need it.<br/>
-		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
-		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
-		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
-		/// a property to the Info.plist file. Adding a string key with the name<br/>
-		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
-		/// behaviour.<br/>
-		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
-		/// application in /Applications/SDLApp/MyApp.app):<br/>
-		/// - `resource`: bundle resource directory (the default). For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
-		/// - `bundle`: the Bundle directory. For example:<br/>
-		/// `/Applications/SDLApp/MyApp.app/`<br/>
-		/// - `parent`: the containing directory of the bundle. For example:<br/>
-		/// `/Applications/SDLApp/`<br/>
-		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
-		/// directory of the application as it is uncommon to store resources outside<br/>
-		/// the executable. As such it is not a writable directory.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetBasePathS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetBasePathNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetPrefPathNative(byte* org, byte* app)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[639])(org, app);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[639])((nint)org, (nint)app);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPrefPath(byte* org, byte* app)
-		{
-			byte* ret = GetPrefPathNative(org, app);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetPrefPathS(byte* org, byte* app)
-		{
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, app));
 			return ret;
 		}
 	}

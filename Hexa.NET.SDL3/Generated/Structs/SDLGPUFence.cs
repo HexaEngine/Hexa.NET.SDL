@@ -15,16 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a fence.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUFence")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUFence
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUFence")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUFencePtr : IEquatable<SDLGPUFencePtr>
+	{
+		public SDLGPUFencePtr(SDLGPUFence* handle) { Handle = handle; }
+
+		public SDLGPUFence* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUFencePtr Null => new SDLGPUFencePtr(null);
+
+		public SDLGPUFence this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUFencePtr(SDLGPUFence* handle) => new SDLGPUFencePtr(handle);
+
+		public static implicit operator SDLGPUFence*(SDLGPUFencePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUFencePtr left, SDLGPUFencePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUFencePtr left, SDLGPUFencePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUFencePtr left, SDLGPUFence* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUFencePtr left, SDLGPUFence* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUFencePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUFencePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUFencePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

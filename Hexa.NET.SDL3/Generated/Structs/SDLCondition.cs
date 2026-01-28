@@ -15,20 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// A means to block multiple threads until a condition is satisfied.<br/>
-	/// Condition variables, paired with an SDL_Mutex, let an app halt multiple<br/>
-	/// threads until a condition has occurred, at which time the app can release<br/>
-	/// one or all waiting threads.<br/>
-	/// Wikipedia has a thorough explanation of the concept:<br/>
-	/// https://en.wikipedia.org/wiki/Condition_variable<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Condition")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCondition
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Condition")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLConditionPtr : IEquatable<SDLConditionPtr>
+	{
+		public SDLConditionPtr(SDLCondition* handle) { Handle = handle; }
+
+		public SDLCondition* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLConditionPtr Null => new SDLConditionPtr(null);
+
+		public SDLCondition this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLConditionPtr(SDLCondition* handle) => new SDLConditionPtr(handle);
+
+		public static implicit operator SDLCondition*(SDLConditionPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLConditionPtr left, SDLConditionPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLConditionPtr left, SDLConditionPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLConditionPtr left, SDLCondition* right) => left.Handle == right;
+
+		public static bool operator !=(SDLConditionPtr left, SDLCondition* right) => left.Handle != right;
+
+		public bool Equals(SDLConditionPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLConditionPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLConditionPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

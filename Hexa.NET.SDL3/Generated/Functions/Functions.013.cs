@@ -18,2474 +18,2759 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Retrieve the list of mime types available in the clipboard.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GetClipboardMimeTypes(nuint* numMimeTypes)
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRectIntersectionFloatNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
 		{
-			byte** ret = GetClipboardMimeTypesNative(numMimeTypes);
-			return ret;
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLFRect*, byte>)funcTable[387])(a, b, result);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[387])((nint)a, (nint)b, (nint)result);
+			#endif
 		}
 
 		/// <summary>
-		/// Retrieve the list of mime types available in the clipboard.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GetClipboardMimeTypes(ref nuint numMimeTypes)
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
 		{
-			fixed (nuint* pnumMimeTypes = &numMimeTypes)
+			byte ret = GetRectIntersectionFloatNative((SDLFRect*)a, (SDLFRect*)b, (SDLFRect*)result);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			fixed (SDLFRect* pa = &a)
 			{
-				byte** ret = GetClipboardMimeTypesNative((nuint*)pnumMimeTypes);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of logical CPU cores available.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumLogicalCPUCoresNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[472])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[472])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of logical CPU cores available.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumLogicalCPUCores()
-		{
-			int ret = GetNumLogicalCPUCoresNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine the L1 cache line size of the CPU.<br/>
-		/// This is useful for determining multi-threaded structure padding or SIMD<br/>
-		/// prefetch sizes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetCPUCacheLineSizeNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[473])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[473])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine the L1 cache line size of the CPU.<br/>
-		/// This is useful for determining multi-threaded structure padding or SIMD<br/>
-		/// prefetch sizes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GetCPUCacheLineSize()
-		{
-			int ret = GetCPUCacheLineSizeNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AltiVec features.<br/>
-		/// This always returns false on CPUs that aren't using PowerPC instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasAltiVecNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[474])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[474])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AltiVec features.<br/>
-		/// This always returns false on CPUs that aren't using PowerPC instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasAltiVec()
-		{
-			byte ret = HasAltiVecNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has MMX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasMMXNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[475])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[475])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has MMX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasMMX()
-		{
-			byte ret = HasMMXNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasSSENative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[476])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[476])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasSSE()
-		{
-			byte ret = HasSSENative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasSSE2Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[477])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[477])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasSSE2()
-		{
-			byte ret = HasSSE2Native();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE3 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasSSE3Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[478])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[478])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE3 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasSSE3()
-		{
-			byte ret = HasSSE3Native();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE4.1 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasSSE41Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[479])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[479])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE4.1 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasSSE41()
-		{
-			byte ret = HasSSE41Native();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE4.2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasSSE42Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[480])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[480])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE4.2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasSSE42()
-		{
-			byte ret = HasSSE42Native();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasAVXNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[481])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[481])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasAVX()
-		{
-			byte ret = HasAVXNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasAVX2Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[482])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[482])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasAVX2()
-		{
-			byte ret = HasAVX2Native();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX-512F (foundation) features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasAVX512FNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[483])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[483])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX-512F (foundation) features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasAVX512F()
-		{
-			byte ret = HasAVX512FNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has ARM SIMD (ARMv6) features.<br/>
-		/// This is different from ARM NEON, which is a different instruction set.<br/>
-		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasARMSIMDNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[484])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[484])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has ARM SIMD (ARMv6) features.<br/>
-		/// This is different from ARM NEON, which is a different instruction set.<br/>
-		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasARMSIMD()
-		{
-			byte ret = HasARMSIMDNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has NEON (ARM SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasNEONNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[485])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[485])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has NEON (ARM SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasNEON()
-		{
-			byte ret = HasNEONNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has LSX (LOONGARCH SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasLSXNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[486])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[486])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has LSX (LOONGARCH SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasLSX()
-		{
-			byte ret = HasLSXNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has LASX (LOONGARCH SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HasLASXNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[487])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[487])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has LASX (LOONGARCH SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool HasLASX()
-		{
-			byte ret = HasLASXNative();
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the amount of RAM configured in the system.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetSystemRAMNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[488])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[488])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the amount of RAM configured in the system.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSystemRAM()
-		{
-			int ret = GetSystemRAMNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Report the alignment this system needs for SIMD allocations.<br/>
-		/// This will return the minimum number of bytes to which a pointer must be<br/>
-		/// aligned to be compatible with SIMD instructions on the current machine. For<br/>
-		/// example, if the machine supports SSE only, it will return 16, but if it<br/>
-		/// supports AVX-512F, it'll return 64 (etc). This only reports values for<br/>
-		/// instruction sets SDL knows about, so if your SDL build doesn't have<br/>
-		/// SDL_HasAVX512F(), then it might return 16 for the SSE support it sees and<br/>
-		/// not 64 for the AVX-512 instructions that exist but SDL doesn't know about.<br/>
-		/// Plan accordingly.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint GetSIMDAlignmentNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<nuint>)funcTable[489])();
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nuint>)funcTable[489])();
-			#endif
-		}
-
-		/// <summary>
-		/// Report the alignment this system needs for SIMD allocations.<br/>
-		/// This will return the minimum number of bytes to which a pointer must be<br/>
-		/// aligned to be compatible with SIMD instructions on the current machine. For<br/>
-		/// example, if the machine supports SSE only, it will return 16, but if it<br/>
-		/// supports AVX-512F, it'll return 64 (etc). This only reports values for<br/>
-		/// instruction sets SDL knows about, so if your SDL build doesn't have<br/>
-		/// SDL_HasAVX512F(), then it might return 16 for the SSE support it sees and<br/>
-		/// not 64 for the AVX-512 instructions that exist but SDL doesn't know about.<br/>
-		/// Plan accordingly.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint GetSIMDAlignment()
-		{
-			nuint ret = GetSIMDAlignmentNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of video drivers compiled into SDL.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumVideoDriversNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[490])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[490])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of video drivers compiled into SDL.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumVideoDrivers()
-		{
-			int ret = GetNumVideoDriversNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a built in video driver.<br/>
-		/// The video drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "cocoa",<br/>
-		/// "x11" or "windows". These never have Unicode characters, and are not meant<br/>
-		/// to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetVideoDriverNative(int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[491])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[491])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of a built in video driver.<br/>
-		/// The video drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "cocoa",<br/>
-		/// "x11" or "windows". These never have Unicode characters, and are not meant<br/>
-		/// to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetVideoDriver(int index)
-		{
-			byte* ret = GetVideoDriverNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a built in video driver.<br/>
-		/// The video drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "cocoa",<br/>
-		/// "x11" or "windows". These never have Unicode characters, and are not meant<br/>
-		/// to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetVideoDriverS(int index)
-		{
-			string ret = Utils.DecodeStringUTF8(GetVideoDriverNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of the currently initialized video driver.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "cocoa",<br/>
-		/// "x11" or "windows". These never have Unicode characters, and are not meant<br/>
-		/// to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetCurrentVideoDriverNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[492])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[492])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of the currently initialized video driver.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "cocoa",<br/>
-		/// "x11" or "windows". These never have Unicode characters, and are not meant<br/>
-		/// to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetCurrentVideoDriver()
-		{
-			byte* ret = GetCurrentVideoDriverNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of the currently initialized video driver.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "cocoa",<br/>
-		/// "x11" or "windows". These never have Unicode characters, and are not meant<br/>
-		/// to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetCurrentVideoDriverS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetCurrentVideoDriverNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current system theme.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSystemTheme GetSystemThemeNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSystemTheme>)funcTable[493])();
-			#else
-			return (SDLSystemTheme)((delegate* unmanaged[Cdecl]<SDLSystemTheme>)funcTable[493])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current system theme.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSystemTheme GetSystemTheme()
-		{
-			SDLSystemTheme ret = GetSystemThemeNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of currently connected displays.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint* GetDisplaysNative(int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[494])(count);
-			#else
-			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[494])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of currently connected displays.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint* GetDisplays(int* count)
-		{
-			uint* ret = GetDisplaysNative(count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of currently connected displays.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint* GetDisplays(ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				uint* ret = GetDisplaysNative((int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return the primary display.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetPrimaryDisplayNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[495])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[495])();
-			#endif
-		}
-
-		/// <summary>
-		/// Return the primary display.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetPrimaryDisplay()
-		{
-			uint ret = GetPrimaryDisplayNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a display.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN`: true if the display has HDR<br/>
-		/// headroom above the SDR white point. This is for informational and<br/>
-		/// diagnostic purposes only, as not all platforms provide this information<br/>
-		/// at the display level.<br/>
-		/// On KMS/DRM:<br/>
-		/// - `SDL_PROP_DISPLAY_KMSDRM_PANEL_ORIENTATION_NUMBER`: the "panel<br/>
-		/// orientation" property for the display in degrees of clockwise rotation.<br/>
-		/// Note that this is provided only as a hint, and the application is<br/>
-		/// responsible for any coordinate transformations needed to conform to the<br/>
-		/// requested display orientation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetDisplayPropertiesNative(uint displayID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[496])(displayID);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[496])(displayID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a display.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN`: true if the display has HDR<br/>
-		/// headroom above the SDR white point. This is for informational and<br/>
-		/// diagnostic purposes only, as not all platforms provide this information<br/>
-		/// at the display level.<br/>
-		/// On KMS/DRM:<br/>
-		/// - `SDL_PROP_DISPLAY_KMSDRM_PANEL_ORIENTATION_NUMBER`: the "panel<br/>
-		/// orientation" property for the display in degrees of clockwise rotation.<br/>
-		/// Note that this is provided only as a hint, and the application is<br/>
-		/// responsible for any coordinate transformations needed to conform to the<br/>
-		/// requested display orientation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetDisplayProperties(uint displayID)
-		{
-			uint ret = GetDisplayPropertiesNative(displayID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a display in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetDisplayNameNative(uint displayID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[497])(displayID);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[497])(displayID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of a display in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetDisplayName(uint displayID)
-		{
-			byte* ret = GetDisplayNameNative(displayID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a display in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetDisplayNameS(uint displayID)
-		{
-			string ret = Utils.DecodeStringUTF8(GetDisplayNameNative(displayID));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the desktop area represented by a display.<br/>
-		/// The primary display is often located at (0,0), but may be placed at a<br/>
-		/// different location depending on monitor layout.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetDisplayBoundsNative(uint displayID, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLRect*, byte>)funcTable[498])(displayID, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, byte>)funcTable[498])(displayID, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the desktop area represented by a display.<br/>
-		/// The primary display is often located at (0,0), but may be placed at a<br/>
-		/// different location depending on monitor layout.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetDisplayBounds(uint displayID, SDLRect* rect)
-		{
-			byte ret = GetDisplayBoundsNative(displayID, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the desktop area represented by a display.<br/>
-		/// The primary display is often located at (0,0), but may be placed at a<br/>
-		/// different location depending on monitor layout.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetDisplayBounds(uint displayID, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = GetDisplayBoundsNative(displayID, (SDLRect*)prect);
+				byte ret = GetRectIntersectionFloatNative((SDLFRect*)pa, (SDLFRect*)b, (SDLFRect*)result);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the usable desktop area represented by a display, in screen<br/>
-		/// coordinates.<br/>
-		/// This is the same area as SDL_GetDisplayBounds() reports, but with portions<br/>
-		/// reserved by the system removed. For example, on Apple's macOS, this<br/>
-		/// subtracts the area occupied by the menu bar and dock.<br/>
-		/// Setting a window to be fullscreen generally bypasses these unusable areas,<br/>
-		/// so these are good guidelines for the maximum space available to a<br/>
-		/// non-fullscreen window.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetDisplayUsableBoundsNative(uint displayID, SDLRect* rect)
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLRect*, byte>)funcTable[499])(displayID, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, byte>)funcTable[499])(displayID, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the usable desktop area represented by a display, in screen<br/>
-		/// coordinates.<br/>
-		/// This is the same area as SDL_GetDisplayBounds() reports, but with portions<br/>
-		/// reserved by the system removed. For example, on Apple's macOS, this<br/>
-		/// subtracts the area occupied by the menu bar and dock.<br/>
-		/// Setting a window to be fullscreen generally bypasses these unusable areas,<br/>
-		/// so these are good guidelines for the maximum space available to a<br/>
-		/// non-fullscreen window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetDisplayUsableBounds(uint displayID, SDLRect* rect)
-		{
-			byte ret = GetDisplayUsableBoundsNative(displayID, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the usable desktop area represented by a display, in screen<br/>
-		/// coordinates.<br/>
-		/// This is the same area as SDL_GetDisplayBounds() reports, but with portions<br/>
-		/// reserved by the system removed. For example, on Apple's macOS, this<br/>
-		/// subtracts the area occupied by the menu bar and dock.<br/>
-		/// Setting a window to be fullscreen generally bypasses these unusable areas,<br/>
-		/// so these are good guidelines for the maximum space available to a<br/>
-		/// non-fullscreen window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetDisplayUsableBounds(uint displayID, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
+			fixed (SDLFRect* pb = &b)
 			{
-				byte ret = GetDisplayUsableBoundsNative(displayID, (SDLRect*)prect);
+				byte ret = GetRectIntersectionFloatNative((SDLFRect*)a, (SDLFRect*)pb, (SDLFRect*)result);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the orientation of a display when it is unrotated.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLDisplayOrientation GetNaturalDisplayOrientationNative(uint displayID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLDisplayOrientation>)funcTable[500])(displayID);
-			#else
-			return (SDLDisplayOrientation)((delegate* unmanaged[Cdecl]<uint, SDLDisplayOrientation>)funcTable[500])(displayID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the orientation of a display when it is unrotated.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLDisplayOrientation GetNaturalDisplayOrientation(uint displayID)
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
 		{
-			SDLDisplayOrientation ret = GetNaturalDisplayOrientationNative(displayID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the orientation of a display.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLDisplayOrientation GetCurrentDisplayOrientationNative(uint displayID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLDisplayOrientation>)funcTable[501])(displayID);
-			#else
-			return (SDLDisplayOrientation)((delegate* unmanaged[Cdecl]<uint, SDLDisplayOrientation>)funcTable[501])(displayID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the orientation of a display.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLDisplayOrientation GetCurrentDisplayOrientation(uint displayID)
-		{
-			SDLDisplayOrientation ret = GetCurrentDisplayOrientationNative(displayID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the content scale of a display.<br/>
-		/// The content scale is the expected scale for content based on the DPI<br/>
-		/// settings of the display. For example, a 4K display might have a 2.0 (200%)<br/>
-		/// display scale, which means that the user expects UI elements to be twice as<br/>
-		/// big on this display, to aid in readability.<br/>
-		/// After window creation, SDL_GetWindowDisplayScale() should be used to query<br/>
-		/// the content scale factor for individual windows instead of querying the<br/>
-		/// display for a window and calling this function, as the per-window content<br/>
-		/// scale factor may differ from the base value of the display it is on,<br/>
-		/// particularly on high-DPI and/or multi-monitor desktop configurations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetDisplayContentScaleNative(uint displayID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, float>)funcTable[502])(displayID);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<uint, float>)funcTable[502])(displayID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the content scale of a display.<br/>
-		/// The content scale is the expected scale for content based on the DPI<br/>
-		/// settings of the display. For example, a 4K display might have a 2.0 (200%)<br/>
-		/// display scale, which means that the user expects UI elements to be twice as<br/>
-		/// big on this display, to aid in readability.<br/>
-		/// After window creation, SDL_GetWindowDisplayScale() should be used to query<br/>
-		/// the content scale factor for individual windows instead of querying the<br/>
-		/// display for a window and calling this function, as the per-window content<br/>
-		/// scale factor may differ from the base value of the display it is on,<br/>
-		/// particularly on high-DPI and/or multi-monitor desktop configurations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GetDisplayContentScale(uint displayID)
-		{
-			float ret = GetDisplayContentScaleNative(displayID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of fullscreen display modes available on a display.<br/>
-		/// The display modes are sorted in this priority:<br/>
-		/// - w -> largest to smallest<br/>
-		/// - h -> largest to smallest<br/>
-		/// - bits per pixel -> more colors to fewer colors<br/>
-		/// - packed pixel layout -> largest to smallest<br/>
-		/// - refresh rate -> highest to lowest<br/>
-		/// - pixel density -> lowest to highest<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLDisplayMode** GetFullscreenDisplayModesNative(uint displayID, int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int*, SDLDisplayMode**>)funcTable[503])(displayID, count);
-			#else
-			return (SDLDisplayMode**)((delegate* unmanaged[Cdecl]<uint, nint, nint>)funcTable[503])(displayID, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a list of fullscreen display modes available on a display.<br/>
-		/// The display modes are sorted in this priority:<br/>
-		/// - w -> largest to smallest<br/>
-		/// - h -> largest to smallest<br/>
-		/// - bits per pixel -> more colors to fewer colors<br/>
-		/// - packed pixel layout -> largest to smallest<br/>
-		/// - refresh rate -> highest to lowest<br/>
-		/// - pixel density -> lowest to highest<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLDisplayMode** GetFullscreenDisplayModes(uint displayID, int* count)
-		{
-			SDLDisplayMode** ret = GetFullscreenDisplayModesNative(displayID, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a list of fullscreen display modes available on a display.<br/>
-		/// The display modes are sorted in this priority:<br/>
-		/// - w -> largest to smallest<br/>
-		/// - h -> largest to smallest<br/>
-		/// - bits per pixel -> more colors to fewer colors<br/>
-		/// - packed pixel layout -> largest to smallest<br/>
-		/// - refresh rate -> highest to lowest<br/>
-		/// - pixel density -> lowest to highest<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLDisplayMode** GetFullscreenDisplayModes(uint displayID, ref int count)
-		{
-			fixed (int* pcount = &count)
+			fixed (SDLFRect* pa = &a)
 			{
-				SDLDisplayMode** ret = GetFullscreenDisplayModesNative(displayID, (int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the closest match to the requested display mode.<br/>
-		/// The available display modes are scanned and `closest` is filled in with the<br/>
-		/// closest mode matching the requested mode and returned. The mode format and<br/>
-		/// refresh rate default to the desktop mode if they are set to 0. The modes<br/>
-		/// are scanned with size being first priority, format being second priority,<br/>
-		/// and finally checking the refresh rate. If all the available modes are too<br/>
-		/// small, then false is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetClosestFullscreenDisplayModeNative(uint displayID, int w, int h, float refreshRate, byte includeHighDensityModes, SDLDisplayMode* closest)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int, int, float, byte, SDLDisplayMode*, byte>)funcTable[504])(displayID, w, h, refreshRate, includeHighDensityModes, closest);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, int, int, float, byte, nint, byte>)funcTable[504])(displayID, w, h, refreshRate, includeHighDensityModes, (nint)closest);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the closest match to the requested display mode.<br/>
-		/// The available display modes are scanned and `closest` is filled in with the<br/>
-		/// closest mode matching the requested mode and returned. The mode format and<br/>
-		/// refresh rate default to the desktop mode if they are set to 0. The modes<br/>
-		/// are scanned with size being first priority, format being second priority,<br/>
-		/// and finally checking the refresh rate. If all the available modes are too<br/>
-		/// small, then false is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetClosestFullscreenDisplayMode(uint displayID, int w, int h, float refreshRate, bool includeHighDensityModes, SDLDisplayMode* closest)
-		{
-			byte ret = GetClosestFullscreenDisplayModeNative(displayID, w, h, refreshRate, includeHighDensityModes ? (byte)1 : (byte)0, closest);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the closest match to the requested display mode.<br/>
-		/// The available display modes are scanned and `closest` is filled in with the<br/>
-		/// closest mode matching the requested mode and returned. The mode format and<br/>
-		/// refresh rate default to the desktop mode if they are set to 0. The modes<br/>
-		/// are scanned with size being first priority, format being second priority,<br/>
-		/// and finally checking the refresh rate. If all the available modes are too<br/>
-		/// small, then false is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetClosestFullscreenDisplayMode(uint displayID, int w, int h, float refreshRate, bool includeHighDensityModes, ref SDLDisplayMode closest)
-		{
-			fixed (SDLDisplayMode* pclosest = &closest)
-			{
-				byte ret = GetClosestFullscreenDisplayModeNative(displayID, w, h, refreshRate, includeHighDensityModes ? (byte)1 : (byte)0, (SDLDisplayMode*)pclosest);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about the desktop's display mode.<br/>
-		/// There's a difference between this function and SDL_GetCurrentDisplayMode()<br/>
-		/// when SDL runs fullscreen and has changed the resolution. In that case this<br/>
-		/// function will return the previous native display mode, and not the current<br/>
-		/// display mode.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLDisplayMode* GetDesktopDisplayModeNative(uint displayID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLDisplayMode*>)funcTable[505])(displayID);
-			#else
-			return (SDLDisplayMode*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[505])(displayID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get information about the desktop's display mode.<br/>
-		/// There's a difference between this function and SDL_GetCurrentDisplayMode()<br/>
-		/// when SDL runs fullscreen and has changed the resolution. In that case this<br/>
-		/// function will return the previous native display mode, and not the current<br/>
-		/// display mode.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLDisplayMode* GetDesktopDisplayMode(uint displayID)
-		{
-			SDLDisplayMode* ret = GetDesktopDisplayModeNative(displayID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get information about the current display mode.<br/>
-		/// There's a difference between this function and SDL_GetDesktopDisplayMode()<br/>
-		/// when SDL runs fullscreen and has changed the resolution. In that case this<br/>
-		/// function will return the current display mode, and not the previous native<br/>
-		/// display mode.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLDisplayMode* GetCurrentDisplayModeNative(uint displayID)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLDisplayMode*>)funcTable[506])(displayID);
-			#else
-			return (SDLDisplayMode*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[506])(displayID);
-			#endif
-		}
-
-		/// <summary>
-		/// Get information about the current display mode.<br/>
-		/// There's a difference between this function and SDL_GetDesktopDisplayMode()<br/>
-		/// when SDL runs fullscreen and has changed the resolution. In that case this<br/>
-		/// function will return the current display mode, and not the previous native<br/>
-		/// display mode.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLDisplayMode* GetCurrentDisplayMode(uint displayID)
-		{
-			SDLDisplayMode* ret = GetCurrentDisplayModeNative(displayID);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the display containing a point.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetDisplayForPointNative(SDLPoint* point)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPoint*, uint>)funcTable[507])(point);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[507])((nint)point);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the display containing a point.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetDisplayForPoint(SDLPoint* point)
-		{
-			uint ret = GetDisplayForPointNative(point);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the display containing a point.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetDisplayForPoint(ref SDLPoint point)
-		{
-			fixed (SDLPoint* ppoint = &point)
-			{
-				uint ret = GetDisplayForPointNative((SDLPoint*)ppoint);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the display primarily containing a rect.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetDisplayForRectNative(SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, uint>)funcTable[508])(rect);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[508])((nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the display primarily containing a rect.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetDisplayForRect(SDLRect* rect)
-		{
-			uint ret = GetDisplayForRectNative(rect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the display primarily containing a rect.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetDisplayForRect(ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				uint ret = GetDisplayForRectNative((SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the display associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetDisplayForWindowNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[509])(window);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[509])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the display associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetDisplayForWindow(SDLWindow* window)
-		{
-			uint ret = GetDisplayForWindowNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the display associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetDisplayForWindow(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				uint ret = GetDisplayForWindowNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the pixel density of a window.<br/>
-		/// This is a ratio of pixel size to window size. For example, if the window is<br/>
-		/// 1920x1080 and it has a high density back buffer of 3840x2160 pixels, it<br/>
-		/// would have a pixel density of 2.0.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetWindowPixelDensityNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float>)funcTable[510])(window);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<nint, float>)funcTable[510])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the pixel density of a window.<br/>
-		/// This is a ratio of pixel size to window size. For example, if the window is<br/>
-		/// 1920x1080 and it has a high density back buffer of 3840x2160 pixels, it<br/>
-		/// would have a pixel density of 2.0.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GetWindowPixelDensity(SDLWindow* window)
-		{
-			float ret = GetWindowPixelDensityNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the pixel density of a window.<br/>
-		/// This is a ratio of pixel size to window size. For example, if the window is<br/>
-		/// 1920x1080 and it has a high density back buffer of 3840x2160 pixels, it<br/>
-		/// would have a pixel density of 2.0.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GetWindowPixelDensity(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				float ret = GetWindowPixelDensityNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the content display scale relative to a window's pixel size.<br/>
-		/// This is a combination of the window pixel density and the display content<br/>
-		/// scale, and is the expected scale for displaying content in this window. For<br/>
-		/// example, if a 3840x2160 window had a display scale of 2.0, the user expects<br/>
-		/// the content to take twice as many pixels and be the same physical size as<br/>
-		/// if it were being displayed in a 1920x1080 window with a display scale of<br/>
-		/// 1.0.<br/>
-		/// Conceptually this value corresponds to the scale display setting, and is<br/>
-		/// updated when that setting is changed, or the window moves to a display with<br/>
-		/// a different scale setting.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetWindowDisplayScaleNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float>)funcTable[511])(window);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<nint, float>)funcTable[511])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the content display scale relative to a window's pixel size.<br/>
-		/// This is a combination of the window pixel density and the display content<br/>
-		/// scale, and is the expected scale for displaying content in this window. For<br/>
-		/// example, if a 3840x2160 window had a display scale of 2.0, the user expects<br/>
-		/// the content to take twice as many pixels and be the same physical size as<br/>
-		/// if it were being displayed in a 1920x1080 window with a display scale of<br/>
-		/// 1.0.<br/>
-		/// Conceptually this value corresponds to the scale display setting, and is<br/>
-		/// updated when that setting is changed, or the window moves to a display with<br/>
-		/// a different scale setting.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static float GetWindowDisplayScale(SDLWindow* window)
-		{
-			float ret = GetWindowDisplayScaleNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the content display scale relative to a window's pixel size.<br/>
-		/// This is a combination of the window pixel density and the display content<br/>
-		/// scale, and is the expected scale for displaying content in this window. For<br/>
-		/// example, if a 3840x2160 window had a display scale of 2.0, the user expects<br/>
-		/// the content to take twice as many pixels and be the same physical size as<br/>
-		/// if it were being displayed in a 1920x1080 window with a display scale of<br/>
-		/// 1.0.<br/>
-		/// Conceptually this value corresponds to the scale display setting, and is<br/>
-		/// updated when that setting is changed, or the window moves to a display with<br/>
-		/// a different scale setting.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static float GetWindowDisplayScale(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				float ret = GetWindowDisplayScaleNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the display mode to use when a window is visible and fullscreen.<br/>
-		/// This only affects the display mode used when the window is fullscreen. To<br/>
-		/// change the window size when the window is not fullscreen, use<br/>
-		/// SDL_SetWindowSize().<br/>
-		/// If the window is currently in the fullscreen state, this request is<br/>
-		/// asynchronous on some windowing systems and the new mode dimensions may not<br/>
-		/// be applied immediately upon the return of this function. If an immediate<br/>
-		/// change is required, call SDL_SyncWindow() to block until the changes have<br/>
-		/// taken effect.<br/>
-		/// When the new mode takes effect, an SDL_EVENT_WINDOW_RESIZED and/or an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event will be emitted with the new mode<br/>
-		/// dimensions.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetWindowFullscreenModeNative(SDLWindow* window, SDLDisplayMode* mode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLDisplayMode*, byte>)funcTable[512])(window, mode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[512])((nint)window, (nint)mode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the display mode to use when a window is visible and fullscreen.<br/>
-		/// This only affects the display mode used when the window is fullscreen. To<br/>
-		/// change the window size when the window is not fullscreen, use<br/>
-		/// SDL_SetWindowSize().<br/>
-		/// If the window is currently in the fullscreen state, this request is<br/>
-		/// asynchronous on some windowing systems and the new mode dimensions may not<br/>
-		/// be applied immediately upon the return of this function. If an immediate<br/>
-		/// change is required, call SDL_SyncWindow() to block until the changes have<br/>
-		/// taken effect.<br/>
-		/// When the new mode takes effect, an SDL_EVENT_WINDOW_RESIZED and/or an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event will be emitted with the new mode<br/>
-		/// dimensions.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowFullscreenMode(SDLWindow* window, SDLDisplayMode* mode)
-		{
-			byte ret = SetWindowFullscreenModeNative(window, mode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the display mode to use when a window is visible and fullscreen.<br/>
-		/// This only affects the display mode used when the window is fullscreen. To<br/>
-		/// change the window size when the window is not fullscreen, use<br/>
-		/// SDL_SetWindowSize().<br/>
-		/// If the window is currently in the fullscreen state, this request is<br/>
-		/// asynchronous on some windowing systems and the new mode dimensions may not<br/>
-		/// be applied immediately upon the return of this function. If an immediate<br/>
-		/// change is required, call SDL_SyncWindow() to block until the changes have<br/>
-		/// taken effect.<br/>
-		/// When the new mode takes effect, an SDL_EVENT_WINDOW_RESIZED and/or an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event will be emitted with the new mode<br/>
-		/// dimensions.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowFullscreenMode(ref SDLWindow window, SDLDisplayMode* mode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = SetWindowFullscreenModeNative((SDLWindow*)pwindow, mode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the display mode to use when a window is visible and fullscreen.<br/>
-		/// This only affects the display mode used when the window is fullscreen. To<br/>
-		/// change the window size when the window is not fullscreen, use<br/>
-		/// SDL_SetWindowSize().<br/>
-		/// If the window is currently in the fullscreen state, this request is<br/>
-		/// asynchronous on some windowing systems and the new mode dimensions may not<br/>
-		/// be applied immediately upon the return of this function. If an immediate<br/>
-		/// change is required, call SDL_SyncWindow() to block until the changes have<br/>
-		/// taken effect.<br/>
-		/// When the new mode takes effect, an SDL_EVENT_WINDOW_RESIZED and/or an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event will be emitted with the new mode<br/>
-		/// dimensions.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowFullscreenMode(SDLWindow* window, ref SDLDisplayMode mode)
-		{
-			fixed (SDLDisplayMode* pmode = &mode)
-			{
-				byte ret = SetWindowFullscreenModeNative(window, (SDLDisplayMode*)pmode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the display mode to use when a window is visible and fullscreen.<br/>
-		/// This only affects the display mode used when the window is fullscreen. To<br/>
-		/// change the window size when the window is not fullscreen, use<br/>
-		/// SDL_SetWindowSize().<br/>
-		/// If the window is currently in the fullscreen state, this request is<br/>
-		/// asynchronous on some windowing systems and the new mode dimensions may not<br/>
-		/// be applied immediately upon the return of this function. If an immediate<br/>
-		/// change is required, call SDL_SyncWindow() to block until the changes have<br/>
-		/// taken effect.<br/>
-		/// When the new mode takes effect, an SDL_EVENT_WINDOW_RESIZED and/or an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event will be emitted with the new mode<br/>
-		/// dimensions.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowFullscreenMode(ref SDLWindow window, ref SDLDisplayMode mode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLDisplayMode* pmode = &mode)
+				fixed (SDLFRect* pb = &b)
 				{
-					byte ret = SetWindowFullscreenModeNative((SDLWindow*)pwindow, (SDLDisplayMode*)pmode);
+					byte ret = GetRectIntersectionFloatNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)result);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Query the display mode to use when a window is visible at fullscreen.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLDisplayMode* GetWindowFullscreenModeNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLDisplayMode*>)funcTable[513])(window);
-			#else
-			return (SDLDisplayMode*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[513])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Query the display mode to use when a window is visible at fullscreen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLDisplayMode* GetWindowFullscreenMode(SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
 		{
-			SDLDisplayMode* ret = GetWindowFullscreenModeNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query the display mode to use when a window is visible at fullscreen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLDisplayMode* GetWindowFullscreenMode(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLFRect* presult = &result)
 			{
-				SDLDisplayMode* ret = GetWindowFullscreenModeNative((SDLWindow*)pwindow);
-				return ret;
+				byte ret = GetRectIntersectionFloatNative((SDLFRect*)a, (SDLFRect*)b, (SDLFRect*)presult);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the raw ICC profile data for the screen the window is currently on.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* GetWindowICCProfileNative(SDLWindow* window, nuint* size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, nuint*, void*>)funcTable[514])(window, size);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[514])((nint)window, (nint)size);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the raw ICC profile data for the screen the window is currently on.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static void* GetWindowICCProfile(SDLWindow* window, nuint* size)
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
 		{
-			void* ret = GetWindowICCProfileNative(window, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the raw ICC profile data for the screen the window is currently on.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowICCProfile(ref SDLWindow window, nuint* size)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLFRect* pa = &a)
 			{
-				void* ret = GetWindowICCProfileNative((SDLWindow*)pwindow, size);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the raw ICC profile data for the screen the window is currently on.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowICCProfile(SDLWindow* window, ref nuint size)
-		{
-			fixed (nuint* psize = &size)
-			{
-				void* ret = GetWindowICCProfileNative(window, (nuint*)psize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the raw ICC profile data for the screen the window is currently on.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowICCProfile(ref SDLWindow window, ref nuint size)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (nuint* psize = &size)
+				fixed (SDLFRect* presult = &result)
 				{
-					void* ret = GetWindowICCProfileNative((SDLWindow*)pwindow, (nuint*)psize);
+					byte ret = GetRectIntersectionFloatNative((SDLFRect*)pa, (SDLFRect*)b, (SDLFRect*)presult);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFRect* pb = &b)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					byte ret = GetRectIntersectionFloatNative((SDLFRect*)a, (SDLFRect*)pb, (SDLFRect*)presult);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectIntersectionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* pb = &b)
+				{
+					fixed (SDLFRect* presult = &result)
+					{
+						byte ret = GetRectIntersectionFloatNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRectUnionFloatNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLFRect*, byte>)funcTable[388])(a, b, result);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[388])((nint)a, (nint)b, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			byte ret = GetRectUnionFloatNative((SDLFRect*)a, (SDLFRect*)b, (SDLFRect*)result);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				byte ret = GetRectUnionFloatNative((SDLFRect*)pa, (SDLFRect*)b, (SDLFRect*)result);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			fixed (SDLFRect* pb = &b)
+			{
+				byte ret = GetRectUnionFloatNative((SDLFRect*)a, (SDLFRect*)pb, (SDLFRect*)result);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* pb = &b)
+				{
+					byte ret = GetRectUnionFloatNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)result);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFRect* presult = &result)
+			{
+				byte ret = GetRectUnionFloatNative((SDLFRect*)a, (SDLFRect*)b, (SDLFRect*)presult);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					byte ret = GetRectUnionFloatNative((SDLFRect*)pa, (SDLFRect*)b, (SDLFRect*)presult);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFRect* pb = &b)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					byte ret = GetRectUnionFloatNative((SDLFRect*)a, (SDLFRect*)pb, (SDLFRect*)presult);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectUnionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectUnionFloat([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* pb = &b)
+				{
+					fixed (SDLFRect* presult = &result)
+					{
+						byte ret = GetRectUnionFloatNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRectEnclosingPointsFloatNative([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFPoint*, int, SDLFRect*, SDLFRect*, byte>)funcTable[389])(points, count, clip, result);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, byte>)funcTable[389])((nint)points, count, (nint)clip, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPointPtr points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)points, count, (SDLFRect*)clip, (SDLFRect*)result);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] in SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			fixed (SDLFPoint* ppoints = &points)
+			{
+				byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)ppoints, count, (SDLFRect*)clip, (SDLFRect*)result);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPointPtr points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			fixed (SDLFRect* pclip = &clip)
+			{
+				byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)points, count, (SDLFRect*)pclip, (SDLFRect*)result);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] in SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] SDLFRectPtr result)
+		{
+			fixed (SDLFPoint* ppoints = &points)
+			{
+				fixed (SDLFRect* pclip = &clip)
+				{
+					byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, (SDLFRect*)result);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPointPtr points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFRect* presult = &result)
+			{
+				byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)points, count, (SDLFRect*)clip, (SDLFRect*)presult);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] in SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFPoint* ppoints = &points)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)ppoints, count, (SDLFRect*)clip, (SDLFRect*)presult);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] SDLFPointPtr points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFRect* pclip = &clip)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)points, count, (SDLFRect*)pclip, (SDLFRect*)presult);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectEnclosingPointsFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectEnclosingPointsFloat([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "SDL_FPoint const *")] in SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect *")] ref SDLFRect result)
+		{
+			fixed (SDLFPoint* ppoints = &points)
+			{
+				fixed (SDLFRect* pclip = &clip)
+				{
+					fixed (SDLFRect* presult = &result)
+					{
+						byte ret = GetRectEnclosingPointsFloatNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, (SDLFRect*)presult);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetRectAndLineIntersectionFloatNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFRect*, float*, float*, float*, float*, byte>)funcTable[390])(rect, x1, y1, x2, y2);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[390])((nint)rect, (nint)x1, (nint)y1, (nint)x2, (nint)y2);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, x1, y1, x2, y2);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, y1, x2, y2);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, (float*)px1, y1, x2, y2);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, y1, x2, y2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (float* py1 = &y1)
+			{
+				byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, x1, (float*)py1, x2, y2);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* py1 = &y1)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, (float*)py1, x2, y2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* py1 = &y1)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, (float*)px1, (float*)py1, x2, y2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* py1 = &y1)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, y2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (float* px2 = &x2)
+			{
+				byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, x1, y1, (float*)px2, y2);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px2 = &x2)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, y1, (float*)px2, y2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* px2 = &x2)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, (float*)px1, y1, (float*)px2, y2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, y2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (float* py1 = &y1)
+			{
+				fixed (float* px2 = &x2)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, x1, (float*)py1, (float*)px2, y2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, y2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, (float*)px1, (float*)py1, (float*)px2, y2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] float* y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* py1 = &y1)
+					{
+						fixed (float* px2 = &x2)
+						{
+							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, y2);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (float* py2 = &y2)
+			{
+				byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, x1, y1, x2, (float*)py2);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* py2 = &y2)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, y1, x2, (float*)py2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* py2 = &y2)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, (float*)px1, y1, x2, (float*)py2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* py2 = &y2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, y1, x2, (float*)py2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (float* py1 = &y1)
+			{
+				fixed (float* py2 = &y2)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, x1, (float*)py1, x2, (float*)py2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* py2 = &y2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, (float*)py1, x2, (float*)py2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* py2 = &y2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, (float*)px1, (float*)py1, x2, (float*)py2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* py1 = &y1)
+					{
+						fixed (float* py2 = &y2)
+						{
+							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, (float*)py2);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (float* px2 = &x2)
+			{
+				fixed (float* py2 = &y2)
+				{
+					byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, x1, y1, (float*)px2, (float*)py2);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px2 = &x2)
+				{
+					fixed (float* py2 = &y2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, y1, (float*)px2, (float*)py2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* px2 = &x2)
+				{
+					fixed (float* py2 = &y2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, (float*)px1, y1, (float*)px2, (float*)py2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						fixed (float* py2 = &y2)
+						{
+							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, (float*)py2);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (float* py1 = &y1)
+			{
+				fixed (float* px2 = &x2)
+				{
+					fixed (float* py2 = &y2)
+					{
+						byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, x1, (float*)py1, (float*)px2, (float*)py2);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						fixed (float* py2 = &y2)
+						{
+							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, (float*)py2);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] SDLFRectPtr rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						fixed (float* py2 = &y2)
+						{
+							byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)rect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRectAndLineIntersectionFloat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetRectAndLineIntersectionFloat([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_FRect const *")] in SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float *")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float *")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float *")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float *")] ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* py1 = &y1)
+					{
+						fixed (float* px2 = &x2)
+						{
+							fixed (float* py2 = &y2)
+							{
+								byte ret = GetRectAndLineIntersectionFloatNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Allocate a new surface with a specific pixel format.<br/>
+		/// The pixels of the new surface are initialized to zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* CreateSurfaceNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, SDLSurface*>)funcTable[391])(width, height, format);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, nint>)funcTable[391])(width, height, format);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a new surface with a specific pixel format.<br/>
+		/// The pixels of the new surface are initialized to zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr CreateSurface([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			SDLSurfacePtr ret = CreateSurfaceNative(width, height, format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a new surface with a specific pixel format and existing pixel<br/>
+		/// data.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// Pitch is the offset in bytes from one row of pixels to the next, e.g.<br/>
+		/// `width*4` for `SDL_PIXELFORMAT_RGBA8888`.<br/>
+		/// You may pass NULL for pixels and 0 for pitch to create a surface that you<br/>
+		/// will fill in with valid values later.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSurfaceFrom")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* CreateSurfaceFromNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void *")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, void*, int, SDLSurface*>)funcTable[392])(width, height, format, pixels, pitch);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, nint, int, nint>)funcTable[392])(width, height, format, (nint)pixels, pitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a new surface with a specific pixel format and existing pixel<br/>
+		/// data.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// Pitch is the offset in bytes from one row of pixels to the next, e.g.<br/>
+		/// `width*4` for `SDL_PIXELFORMAT_RGBA8888`.<br/>
+		/// You may pass NULL for pixels and 0 for pitch to create a surface that you<br/>
+		/// will fill in with valid values later.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSurfaceFrom")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr CreateSurfaceFrom([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void *")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
+		{
+			SDLSurfacePtr ret = CreateSurfaceFromNative(width, height, format, pixels, pitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a new surface with a specific pixel format and existing pixel<br/>
+		/// data.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// Pitch is the offset in bytes from one row of pixels to the next, e.g.<br/>
+		/// `width*4` for `SDL_PIXELFORMAT_RGBA8888`.<br/>
+		/// You may pass NULL for pixels and 0 for pitch to create a surface that you<br/>
+		/// will fill in with valid values later.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSurfaceFrom")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr CreateSurfaceFrom([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void *")] nint pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
+		{
+			SDLSurfacePtr ret = CreateSurfaceFromNative(width, height, format, (void*)pixels, pitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Free a surface.<br/>
+		/// It is safe to pass NULL to this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// No other thread should be using the surface when it is freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroySurface")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroySurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)funcTable[393])(surface);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[393])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Free a surface.<br/>
+		/// It is safe to pass NULL to this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// No other thread should be using the surface when it is freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroySurface")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroySurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
+		{
+			DestroySurfaceNative((SDLSurface*)surface);
+		}
+
+		/// <summary>
+		/// Free a surface.<br/>
+		/// It is safe to pass NULL to this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// No other thread should be using the surface when it is freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroySurface")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroySurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				DestroySurfaceNative((SDLSurface*)psurface);
+			}
+		}
+
+		/// <summary>
+		/// Get the properties associated with a surface.<br/>
+		/// The following properties are understood by SDL:<br/>
+		/// - `SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
+		/// surfaces, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 203 for HDR10 surfaces and 1.0 for floating point surfaces.<br/>
+		/// - `SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
+		/// surfaces, this defines the maximum dynamic range used by the content, in<br/>
+		/// terms of the SDR white point. This defaults to 0.0, which disables tone<br/>
+		/// mapping.<br/>
+		/// - `SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING`: the tone mapping operator<br/>
+		/// used when compressing from a surface with high dynamic range to another<br/>
+		/// with lower dynamic range. Currently this supports "chrome", which uses<br/>
+		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
+		/// where N is a floating point scale factor applied in linear space, and<br/>
+		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_X_NUMBER`: the hotspot pixel offset from the<br/>
+		/// left edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER`: the hotspot pixel offset from the<br/>
+		/// top edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_ROTATION_FLOAT`: the number of degrees a surface's data<br/>
+		/// is meant to be rotated clockwise to make the image right-side up. Default<br/>
+		/// 0. This is used by the camera API, if a mobile device is oriented<br/>
+		/// differently than what its camera provides (i.e. - the camera always<br/>
+		/// provides portrait images but the phone is being held in landscape<br/>
+		/// orientation). Since SDL 3.4.0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetSurfacePropertiesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint>)funcTable[394])(surface);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[394])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with a surface.<br/>
+		/// The following properties are understood by SDL:<br/>
+		/// - `SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
+		/// surfaces, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 203 for HDR10 surfaces and 1.0 for floating point surfaces.<br/>
+		/// - `SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
+		/// surfaces, this defines the maximum dynamic range used by the content, in<br/>
+		/// terms of the SDR white point. This defaults to 0.0, which disables tone<br/>
+		/// mapping.<br/>
+		/// - `SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING`: the tone mapping operator<br/>
+		/// used when compressing from a surface with high dynamic range to another<br/>
+		/// with lower dynamic range. Currently this supports "chrome", which uses<br/>
+		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
+		/// where N is a floating point scale factor applied in linear space, and<br/>
+		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_X_NUMBER`: the hotspot pixel offset from the<br/>
+		/// left edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER`: the hotspot pixel offset from the<br/>
+		/// top edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_ROTATION_FLOAT`: the number of degrees a surface's data<br/>
+		/// is meant to be rotated clockwise to make the image right-side up. Default<br/>
+		/// 0. This is used by the camera API, if a mobile device is oriented<br/>
+		/// differently than what its camera provides (i.e. - the camera always<br/>
+		/// provides portrait images but the phone is being held in landscape<br/>
+		/// orientation). Since SDL 3.4.0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetSurfaceProperties([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
+		{
+			uint ret = GetSurfacePropertiesNative((SDLSurface*)surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a surface.<br/>
+		/// The following properties are understood by SDL:<br/>
+		/// - `SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
+		/// surfaces, this defines the value of 100% diffuse white, with higher<br/>
+		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
+		/// to 203 for HDR10 surfaces and 1.0 for floating point surfaces.<br/>
+		/// - `SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
+		/// surfaces, this defines the maximum dynamic range used by the content, in<br/>
+		/// terms of the SDR white point. This defaults to 0.0, which disables tone<br/>
+		/// mapping.<br/>
+		/// - `SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING`: the tone mapping operator<br/>
+		/// used when compressing from a surface with high dynamic range to another<br/>
+		/// with lower dynamic range. Currently this supports "chrome", which uses<br/>
+		/// the same tone mapping that Chrome uses for HDR content, the form "*=N",<br/>
+		/// where N is a floating point scale factor applied in linear space, and<br/>
+		/// "none", which disables tone mapping. This defaults to "chrome".<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_X_NUMBER`: the hotspot pixel offset from the<br/>
+		/// left edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER`: the hotspot pixel offset from the<br/>
+		/// top edge of the image, if this surface is being used as a cursor.<br/>
+		/// - `SDL_PROP_SURFACE_ROTATION_FLOAT`: the number of degrees a surface's data<br/>
+		/// is meant to be rotated clockwise to make the image right-side up. Default<br/>
+		/// 0. This is used by the camera API, if a mobile device is oriented<br/>
+		/// differently than what its camera provides (i.e. - the camera always<br/>
+		/// provides portrait images but the phone is being held in landscape<br/>
+		/// orientation). Since SDL 3.4.0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetSurfaceProperties([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				uint ret = GetSurfacePropertiesNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the colorspace used by a surface.<br/>
+		/// Setting the colorspace doesn't change the pixels, only how they are<br/>
+		/// interpreted in color operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorspace")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetSurfaceColorspaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLColorspace, byte>)funcTable[395])(surface, colorspace);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLColorspace, byte>)funcTable[395])((nint)surface, colorspace);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the colorspace used by a surface.<br/>
+		/// Setting the colorspace doesn't change the pixels, only how they are<br/>
+		/// interpreted in color operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorspace")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace)
+		{
+			byte ret = SetSurfaceColorspaceNative((SDLSurface*)surface, colorspace);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the colorspace used by a surface.<br/>
+		/// Setting the colorspace doesn't change the pixels, only how they are<br/>
+		/// interpreted in color operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorspace")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "colorspace")] [NativeName(NativeNameType.Type, "SDL_Colorspace")] SDLColorspace colorspace)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SetSurfaceColorspaceNative((SDLSurface*)psurface, colorspace);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the colorspace used by a surface.<br/>
+		/// The colorspace defaults to SDL_COLORSPACE_SRGB_LINEAR for floating point<br/>
+		/// formats, SDL_COLORSPACE_HDR10 for 10-bit formats, SDL_COLORSPACE_SRGB for<br/>
+		/// other RGB surfaces and SDL_COLORSPACE_BT709_FULL for YUV textures.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorspace")]
+		[return: NativeName(NativeNameType.Type, "SDL_Colorspace")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLColorspace GetSurfaceColorspaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLColorspace>)funcTable[396])(surface);
+			#else
+			return (SDLColorspace)((delegate* unmanaged[Cdecl]<nint, SDLColorspace>)funcTable[396])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the colorspace used by a surface.<br/>
+		/// The colorspace defaults to SDL_COLORSPACE_SRGB_LINEAR for floating point<br/>
+		/// formats, SDL_COLORSPACE_HDR10 for 10-bit formats, SDL_COLORSPACE_SRGB for<br/>
+		/// other RGB surfaces and SDL_COLORSPACE_BT709_FULL for YUV textures.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorspace")]
+		[return: NativeName(NativeNameType.Type, "SDL_Colorspace")]
+		public static SDLColorspace GetSurfaceColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
+		{
+			SDLColorspace ret = GetSurfaceColorspaceNative((SDLSurface*)surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the colorspace used by a surface.<br/>
+		/// The colorspace defaults to SDL_COLORSPACE_SRGB_LINEAR for floating point<br/>
+		/// formats, SDL_COLORSPACE_HDR10 for 10-bit formats, SDL_COLORSPACE_SRGB for<br/>
+		/// other RGB surfaces and SDL_COLORSPACE_BT709_FULL for YUV textures.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorspace")]
+		[return: NativeName(NativeNameType.Type, "SDL_Colorspace")]
+		public static SDLColorspace GetSurfaceColorspace([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLColorspace ret = GetSurfaceColorspaceNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a palette and associate it with a surface.<br/>
+		/// This function creates a palette compatible with the provided surface. The<br/>
+		/// palette is then returned for you to modify, and the surface will<br/>
+		/// automatically use the new palette in future operations. You do not need to<br/>
+		/// destroy the returned palette, it will be freed when the reference count<br/>
+		/// reaches 0, usually when the surface is destroyed.<br/>
+		/// Bitmap surfaces (with format SDL_PIXELFORMAT_INDEX1LSB or<br/>
+		/// SDL_PIXELFORMAT_INDEX1MSB) will have the palette initialized with 0 as<br/>
+		/// white and 1 as black. Other surfaces will get a palette initialized with<br/>
+		/// white in every entry.<br/>
+		/// If this function is called for a surface that already has a palette, a new<br/>
+		/// palette will be created to replace it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPalette* CreateSurfacePaletteNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPalette*>)funcTable[397])(surface);
+			#else
+			return (SDLPalette*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[397])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a palette and associate it with a surface.<br/>
+		/// This function creates a palette compatible with the provided surface. The<br/>
+		/// palette is then returned for you to modify, and the surface will<br/>
+		/// automatically use the new palette in future operations. You do not need to<br/>
+		/// destroy the returned palette, it will be freed when the reference count<br/>
+		/// reaches 0, usually when the surface is destroyed.<br/>
+		/// Bitmap surfaces (with format SDL_PIXELFORMAT_INDEX1LSB or<br/>
+		/// SDL_PIXELFORMAT_INDEX1MSB) will have the palette initialized with 0 as<br/>
+		/// white and 1 as black. Other surfaces will get a palette initialized with<br/>
+		/// white in every entry.<br/>
+		/// If this function is called for a surface that already has a palette, a new<br/>
+		/// palette will be created to replace it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		public static SDLPalettePtr CreateSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
+		{
+			SDLPalettePtr ret = CreateSurfacePaletteNative((SDLSurface*)surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a palette and associate it with a surface.<br/>
+		/// This function creates a palette compatible with the provided surface. The<br/>
+		/// palette is then returned for you to modify, and the surface will<br/>
+		/// automatically use the new palette in future operations. You do not need to<br/>
+		/// destroy the returned palette, it will be freed when the reference count<br/>
+		/// reaches 0, usually when the surface is destroyed.<br/>
+		/// Bitmap surfaces (with format SDL_PIXELFORMAT_INDEX1LSB or<br/>
+		/// SDL_PIXELFORMAT_INDEX1MSB) will have the palette initialized with 0 as<br/>
+		/// white and 1 as black. Other surfaces will get a palette initialized with<br/>
+		/// white in every entry.<br/>
+		/// If this function is called for a surface that already has a palette, a new<br/>
+		/// palette will be created to replace it.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		public static SDLPalettePtr CreateSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLPalettePtr ret = CreateSurfacePaletteNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// Setting the palette keeps an internal reference to the palette, which can<br/>
+		/// be safely destroyed afterwards.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetSurfacePaletteNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalette* palette)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPalette*, byte>)funcTable[398])(surface, palette);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[398])((nint)surface, (nint)palette);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// Setting the palette keeps an internal reference to the palette, which can<br/>
+		/// be safely destroyed afterwards.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalettePtr palette)
+		{
+			byte ret = SetSurfacePaletteNative((SDLSurface*)surface, (SDLPalette*)palette);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// Setting the palette keeps an internal reference to the palette, which can<br/>
+		/// be safely destroyed afterwards.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] SDLPalettePtr palette)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SetSurfacePaletteNative((SDLSurface*)psurface, (SDLPalette*)palette);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// Setting the palette keeps an internal reference to the palette, which can<br/>
+		/// be safely destroyed afterwards.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				byte ret = SetSurfacePaletteNative((SDLSurface*)surface, (SDLPalette*)ppalette);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// Setting the palette keeps an internal reference to the palette, which can<br/>
+		/// be safely destroyed afterwards.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette *")] ref SDLPalette palette)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					byte ret = SetSurfacePaletteNative((SDLSurface*)psurface, (SDLPalette*)ppalette);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the palette used by a surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPalette* GetSurfacePaletteNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPalette*>)funcTable[399])(surface);
+			#else
+			return (SDLPalette*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[399])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the palette used by a surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		public static SDLPalettePtr GetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
+		{
+			SDLPalettePtr ret = GetSurfacePaletteNative((SDLSurface*)surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the palette used by a surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfacePalette")]
+		[return: NativeName(NativeNameType.Type, "SDL_Palette *")]
+		public static SDLPalettePtr GetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLPalettePtr ret = GetSurfacePaletteNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add an alternate version of a surface.<br/>
+		/// This function adds an alternate version of this surface, usually used for<br/>
+		/// content with high DPI representations like cursors or icons. The size,<br/>
+		/// format, and content do not need to match the original surface, and these<br/>
+		/// alternate versions will not be updated when the original surface changes.<br/>
+		/// This function adds a reference to the alternate version, so you should call<br/>
+		/// SDL_DestroySurface() on the image after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte AddSurfaceAlternateImageNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* image)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*, byte>)funcTable[400])(surface, image);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[400])((nint)surface, (nint)image);
+			#endif
+		}
+
+		/// <summary>
+		/// Add an alternate version of a surface.<br/>
+		/// This function adds an alternate version of this surface, usually used for<br/>
+		/// content with high DPI representations like cursors or icons. The size,<br/>
+		/// format, and content do not need to match the original surface, and these<br/>
+		/// alternate versions will not be updated when the original surface changes.<br/>
+		/// This function adds a reference to the alternate version, so you should call<br/>
+		/// SDL_DestroySurface() on the image after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddSurfaceAlternateImage([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr image)
+		{
+			byte ret = AddSurfaceAlternateImageNative((SDLSurface*)surface, (SDLSurface*)image);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Add an alternate version of a surface.<br/>
+		/// This function adds an alternate version of this surface, usually used for<br/>
+		/// content with high DPI representations like cursors or icons. The size,<br/>
+		/// format, and content do not need to match the original surface, and these<br/>
+		/// alternate versions will not be updated when the original surface changes.<br/>
+		/// This function adds a reference to the alternate version, so you should call<br/>
+		/// SDL_DestroySurface() on the image after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddSurfaceAlternateImage([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr image)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = AddSurfaceAlternateImageNative((SDLSurface*)psurface, (SDLSurface*)image);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Add an alternate version of a surface.<br/>
+		/// This function adds an alternate version of this surface, usually used for<br/>
+		/// content with high DPI representations like cursors or icons. The size,<br/>
+		/// format, and content do not need to match the original surface, and these<br/>
+		/// alternate versions will not be updated when the original surface changes.<br/>
+		/// This function adds a reference to the alternate version, so you should call<br/>
+		/// SDL_DestroySurface() on the image after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddSurfaceAlternateImage([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface image)
+		{
+			fixed (SDLSurface* pimage = &image)
+			{
+				byte ret = AddSurfaceAlternateImageNative((SDLSurface*)surface, (SDLSurface*)pimage);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Add an alternate version of a surface.<br/>
+		/// This function adds an alternate version of this surface, usually used for<br/>
+		/// content with high DPI representations like cursors or icons. The size,<br/>
+		/// format, and content do not need to match the original surface, and these<br/>
+		/// alternate versions will not be updated when the original surface changes.<br/>
+		/// This function adds a reference to the alternate version, so you should call<br/>
+		/// SDL_DestroySurface() on the image after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddSurfaceAlternateImage")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddSurfaceAlternateImage([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface image)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLSurface* pimage = &image)
+				{
+					byte ret = AddSurfaceAlternateImageNative((SDLSurface*)psurface, (SDLSurface*)pimage);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return whether a surface has alternate versions available.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasAlternateImages")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SurfaceHasAlternateImagesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[401])(surface);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[401])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether a surface has alternate versions available.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasAlternateImages")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SurfaceHasAlternateImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
+		{
+			byte ret = SurfaceHasAlternateImagesNative((SDLSurface*)surface);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Return whether a surface has alternate versions available.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasAlternateImages")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SurfaceHasAlternateImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SurfaceHasAlternateImagesNative((SDLSurface*)psurface);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get an array including all versions of a surface.<br/>
+		/// This returns all versions of a surface, with the surface being queried as<br/>
+		/// the first element in the returned array.<br/>
+		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
+		/// They are still referenced by the surface being queried and will be cleaned<br/>
+		/// up normally.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface** GetSurfaceImagesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int*, SDLSurface**>)funcTable[402])(surface, count);
+			#else
+			return (SDLSurface**)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[402])((nint)surface, (nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get an array including all versions of a surface.<br/>
+		/// This returns all versions of a surface, with the surface being queried as<br/>
+		/// the first element in the returned array.<br/>
+		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
+		/// They are still referenced by the surface being queried and will be cleaned<br/>
+		/// up normally.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
+		public static SDLSurfacePtrPtr GetSurfaceImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			SDLSurfacePtrPtr ret = GetSurfaceImagesNative((SDLSurface*)surface, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get an array including all versions of a surface.<br/>
+		/// This returns all versions of a surface, with the surface being queried as<br/>
+		/// the first element in the returned array.<br/>
+		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
+		/// They are still referenced by the surface being queried and will be cleaned<br/>
+		/// up normally.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
+		public static SDLSurfacePtrPtr GetSurfaceImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLSurfacePtrPtr ret = GetSurfaceImagesNative((SDLSurface*)psurface, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get an array including all versions of a surface.<br/>
+		/// This returns all versions of a surface, with the surface being queried as<br/>
+		/// the first element in the returned array.<br/>
+		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
+		/// They are still referenced by the surface being queried and will be cleaned<br/>
+		/// up normally.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
+		public static SDLSurfacePtrPtr GetSurfaceImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				SDLSurfacePtrPtr ret = GetSurfaceImagesNative((SDLSurface*)surface, (int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get an array including all versions of a surface.<br/>
+		/// This returns all versions of a surface, with the surface being queried as<br/>
+		/// the first element in the returned array.<br/>
+		/// Freeing the array of surfaces does not affect the surfaces in the array.<br/>
+		/// They are still referenced by the surface being queried and will be cleaned<br/>
+		/// up normally.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceImages")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface * *")]
+		public static SDLSurfacePtrPtr GetSurfaceImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (int* pcount = &count)
+				{
+					SDLSurfacePtrPtr ret = GetSurfaceImagesNative((SDLSurface*)psurface, (int*)pcount);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the pixel format associated with the window.<br/>
+		/// Remove all alternate versions of a surface.<br/>
+		/// This function removes a reference from all the alternative versions,<br/>
+		/// destroying them if this is the last reference to them.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemoveSurfaceAlternateImages")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLPixelFormat GetWindowPixelFormatNative(SDLWindow* window)
+		internal static void RemoveSurfaceAlternateImagesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLPixelFormat>)funcTable[515])(window);
+			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)funcTable[403])(surface);
 			#else
-			return (SDLPixelFormat)((delegate* unmanaged[Cdecl]<nint, SDLPixelFormat>)funcTable[515])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[403])((nint)surface);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the pixel format associated with the window.<br/>
+		/// Remove all alternate versions of a surface.<br/>
+		/// This function removes a reference from all the alternative versions,<br/>
+		/// destroying them if this is the last reference to them.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLPixelFormat GetWindowPixelFormat(SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_RemoveSurfaceAlternateImages")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void RemoveSurfaceAlternateImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
 		{
-			SDLPixelFormat ret = GetWindowPixelFormatNative(window);
-			return ret;
+			RemoveSurfaceAlternateImagesNative((SDLSurface*)surface);
 		}
 
 		/// <summary>
-		/// Get the pixel format associated with the window.<br/>
+		/// Remove all alternate versions of a surface.<br/>
+		/// This function removes a reference from all the alternative versions,<br/>
+		/// destroying them if this is the last reference to them.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLPixelFormat GetWindowPixelFormat(ref SDLWindow window)
+		[NativeName(NativeNameType.Func, "SDL_RemoveSurfaceAlternateImages")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void RemoveSurfaceAlternateImages([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLPixelFormat ret = GetWindowPixelFormatNative((SDLWindow*)pwindow);
-				return ret;
+				RemoveSurfaceAlternateImagesNative((SDLSurface*)psurface);
 			}
 		}
 
 		/// <summary>
-		/// Get a list of valid windows.<br/>
+		/// Set up a surface for directly accessing the pixels.<br/>
+		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
+		/// and read from `surface->pixels`, using the pixel format stored in<br/>
+		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
+		/// SDL_UnlockSurface() to release it.<br/>
+		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
+		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
+		/// format of the surface will not change.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces. The locking referred to by this function<br/>
+		/// is making the pixels available for direct access, not<br/>
+		/// thread-safe locking.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow** GetWindowsNative(int* count)
+		internal static byte LockSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, SDLWindow**>)funcTable[516])(count);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[404])(surface);
 			#else
-			return (SDLWindow**)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[516])((nint)count);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[404])((nint)surface);
 			#endif
 		}
 
 		/// <summary>
-		/// Get a list of valid windows.<br/>
+		/// Set up a surface for directly accessing the pixels.<br/>
+		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
+		/// and read from `surface->pixels`, using the pixel format stored in<br/>
+		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
+		/// SDL_UnlockSurface() to release it.<br/>
+		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
+		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
+		/// format of the surface will not change.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces. The locking referred to by this function<br/>
+		/// is making the pixels available for direct access, not<br/>
+		/// thread-safe locking.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow** GetWindows(int* count)
+		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
 		{
-			SDLWindow** ret = GetWindowsNative(count);
-			return ret;
+			byte ret = LockSurfaceNative((SDLSurface*)surface);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get a list of valid windows.<br/>
+		/// Set up a surface for directly accessing the pixels.<br/>
+		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
+		/// and read from `surface->pixels`, using the pixel format stored in<br/>
+		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
+		/// SDL_UnlockSurface() to release it.<br/>
+		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
+		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
+		/// format of the surface will not change.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces. The locking referred to by this function<br/>
+		/// is making the pixels available for direct access, not<br/>
+		/// thread-safe locking.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow** GetWindows(ref int count)
+		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
 		{
-			fixed (int* pcount = &count)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLWindow** ret = GetWindowsNative((int*)pcount);
-				return ret;
+				byte ret = LockSurfaceNative((SDLSurface*)psurface);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a window with the specified dimensions and flags.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
-		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
-		/// - `SDL_WINDOW_OCCLUDED`: window partially or completely obscured by another<br/>
-		/// window<br/>
-		/// - `SDL_WINDOW_HIDDEN`: window is not visible<br/>
-		/// - `SDL_WINDOW_BORDERLESS`: no window decoration<br/>
-		/// - `SDL_WINDOW_RESIZABLE`: window can be resized<br/>
-		/// - `SDL_WINDOW_MINIMIZED`: window is minimized<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`: window is maximized<br/>
-		/// - `SDL_WINDOW_MOUSE_GRABBED`: window has grabbed mouse focus<br/>
-		/// - `SDL_WINDOW_INPUT_FOCUS`: window has input focus<br/>
-		/// - `SDL_WINDOW_MOUSE_FOCUS`: window has mouse focus<br/>
-		/// - `SDL_WINDOW_EXTERNAL`: window not created by SDL<br/>
-		/// - `SDL_WINDOW_MODAL`: window is modal<br/>
-		/// - `SDL_WINDOW_HIGH_PIXEL_DENSITY`: window uses high pixel density back<br/>
-		/// buffer if possible<br/>
-		/// - `SDL_WINDOW_MOUSE_CAPTURE`: window has mouse captured (unrelated to<br/>
-		/// MOUSE_GRABBED)<br/>
-		/// - `SDL_WINDOW_ALWAYS_ON_TOP`: window should always be above others<br/>
-		/// - `SDL_WINDOW_UTILITY`: window should be treated as a utility window, not<br/>
-		/// showing in the task bar and window list<br/>
-		/// - `SDL_WINDOW_TOOLTIP`: window should be treated as a tooltip and does not<br/>
-		/// get mouse or keyboard focus, requires a parent window<br/>
-		/// - `SDL_WINDOW_POPUP_MENU`: window should be treated as a popup menu,<br/>
-		/// requires a parent window<br/>
-		/// - `SDL_WINDOW_KEYBOARD_GRABBED`: window has grabbed keyboard input<br/>
-		/// - `SDL_WINDOW_VULKAN`: window usable with a Vulkan instance<br/>
-		/// - `SDL_WINDOW_METAL`: window usable with a Metal instance<br/>
-		/// - `SDL_WINDOW_TRANSPARENT`: window with transparent buffer<br/>
-		/// - `SDL_WINDOW_NOT_FOCUSABLE`: window should not be focusable<br/>
-		/// The SDL_Window is implicitly shown if SDL_WINDOW_HIDDEN is not set.<br/>
-		/// On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist<br/>
-		/// property to YES, otherwise you will not receive a High-DPI OpenGL canvas.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSize() to query<br/>
-		/// the client area's size in window coordinates, and<br/>
-		/// SDL_GetWindowSizeInPixels() or SDL_GetRenderOutputSize() to query the<br/>
-		/// drawable size in pixels. Note that the drawable size can vary after the<br/>
-		/// window is created and should be queried again if you get an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event.<br/>
-		/// If the window is created with any of the SDL_WINDOW_OPENGL or<br/>
-		/// SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function<br/>
-		/// (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the<br/>
-		/// corresponding UnloadLibrary function is called by SDL_DestroyWindow().<br/>
-		/// If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,<br/>
-		/// SDL_CreateWindow() will fail, because SDL_Vulkan_LoadLibrary() will fail.<br/>
-		/// If SDL_WINDOW_METAL is specified on an OS that does not support Metal,<br/>
-		/// SDL_CreateWindow() will fail.<br/>
-		/// If you intend to use this window with an SDL_Renderer, you should use<br/>
-		/// SDL_CreateWindowAndRenderer() instead of this function, to avoid window<br/>
-		/// flicker.<br/>
-		/// On non-Apple devices, SDL requires you to either not link to the Vulkan<br/>
-		/// loader or link to a dynamic library version. This limitation may be removed<br/>
-		/// in a future version of SDL.<br/>
+		/// Release a surface after directly accessing the pixels.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function is not thread safe. The locking referred to by<br/>
+		/// this function is making the pixels available for direct<br/>
+		/// access, not thread-safe locking.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* CreateWindowNative(byte* title, int w, int h, SDLWindowFlags flags)
+		internal static void UnlockSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, int, SDLWindowFlags, SDLWindow*>)funcTable[517])(title, w, h, flags);
+			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)funcTable[405])(surface);
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, int, int, SDLWindowFlags, nint>)funcTable[517])((nint)title, w, h, flags);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[405])((nint)surface);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a window with the specified dimensions and flags.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
-		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
-		/// - `SDL_WINDOW_OCCLUDED`: window partially or completely obscured by another<br/>
-		/// window<br/>
-		/// - `SDL_WINDOW_HIDDEN`: window is not visible<br/>
-		/// - `SDL_WINDOW_BORDERLESS`: no window decoration<br/>
-		/// - `SDL_WINDOW_RESIZABLE`: window can be resized<br/>
-		/// - `SDL_WINDOW_MINIMIZED`: window is minimized<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`: window is maximized<br/>
-		/// - `SDL_WINDOW_MOUSE_GRABBED`: window has grabbed mouse focus<br/>
-		/// - `SDL_WINDOW_INPUT_FOCUS`: window has input focus<br/>
-		/// - `SDL_WINDOW_MOUSE_FOCUS`: window has mouse focus<br/>
-		/// - `SDL_WINDOW_EXTERNAL`: window not created by SDL<br/>
-		/// - `SDL_WINDOW_MODAL`: window is modal<br/>
-		/// - `SDL_WINDOW_HIGH_PIXEL_DENSITY`: window uses high pixel density back<br/>
-		/// buffer if possible<br/>
-		/// - `SDL_WINDOW_MOUSE_CAPTURE`: window has mouse captured (unrelated to<br/>
-		/// MOUSE_GRABBED)<br/>
-		/// - `SDL_WINDOW_ALWAYS_ON_TOP`: window should always be above others<br/>
-		/// - `SDL_WINDOW_UTILITY`: window should be treated as a utility window, not<br/>
-		/// showing in the task bar and window list<br/>
-		/// - `SDL_WINDOW_TOOLTIP`: window should be treated as a tooltip and does not<br/>
-		/// get mouse or keyboard focus, requires a parent window<br/>
-		/// - `SDL_WINDOW_POPUP_MENU`: window should be treated as a popup menu,<br/>
-		/// requires a parent window<br/>
-		/// - `SDL_WINDOW_KEYBOARD_GRABBED`: window has grabbed keyboard input<br/>
-		/// - `SDL_WINDOW_VULKAN`: window usable with a Vulkan instance<br/>
-		/// - `SDL_WINDOW_METAL`: window usable with a Metal instance<br/>
-		/// - `SDL_WINDOW_TRANSPARENT`: window with transparent buffer<br/>
-		/// - `SDL_WINDOW_NOT_FOCUSABLE`: window should not be focusable<br/>
-		/// The SDL_Window is implicitly shown if SDL_WINDOW_HIDDEN is not set.<br/>
-		/// On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist<br/>
-		/// property to YES, otherwise you will not receive a High-DPI OpenGL canvas.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSize() to query<br/>
-		/// the client area's size in window coordinates, and<br/>
-		/// SDL_GetWindowSizeInPixels() or SDL_GetRenderOutputSize() to query the<br/>
-		/// drawable size in pixels. Note that the drawable size can vary after the<br/>
-		/// window is created and should be queried again if you get an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event.<br/>
-		/// If the window is created with any of the SDL_WINDOW_OPENGL or<br/>
-		/// SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function<br/>
-		/// (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the<br/>
-		/// corresponding UnloadLibrary function is called by SDL_DestroyWindow().<br/>
-		/// If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,<br/>
-		/// SDL_CreateWindow() will fail, because SDL_Vulkan_LoadLibrary() will fail.<br/>
-		/// If SDL_WINDOW_METAL is specified on an OS that does not support Metal,<br/>
-		/// SDL_CreateWindow() will fail.<br/>
-		/// If you intend to use this window with an SDL_Renderer, you should use<br/>
-		/// SDL_CreateWindowAndRenderer() instead of this function, to avoid window<br/>
-		/// flicker.<br/>
-		/// On non-Apple devices, SDL requires you to either not link to the Vulkan<br/>
-		/// loader or link to a dynamic library version. This limitation may be removed<br/>
-		/// in a future version of SDL.<br/>
+		/// Release a surface after directly accessing the pixels.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function is not thread safe. The locking referred to by<br/>
+		/// this function is making the pixels available for direct<br/>
+		/// access, not thread-safe locking.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindow(byte* title, int w, int h, SDLWindowFlags flags)
+		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
 		{
-			SDLWindow* ret = CreateWindowNative(title, w, h, flags);
+			UnlockSurfaceNative((SDLSurface*)surface);
+		}
+
+		/// <summary>
+		/// Release a surface after directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function is not thread safe. The locking referred to by<br/>
+		/// this function is making the pixels available for direct<br/>
+		/// access, not thread-safe locking.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				UnlockSurfaceNative((SDLSurface*)psurface);
+			}
+		}
+
+		/// <summary>
+		/// Load a BMP or PNG image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadSurface_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* LoadSurfaceIONative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, SDLSurface*>)funcTable[406])(src, closeio);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, byte, nint>)funcTable[406])((nint)src, closeio);
+			#endif
+		}
+
+		/// <summary>
+		/// Load a BMP or PNG image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadSurface_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadSurfaceIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		{
+			SDLSurfacePtr ret = LoadSurfaceIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a window with the specified dimensions and flags.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
-		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
-		/// - `SDL_WINDOW_OCCLUDED`: window partially or completely obscured by another<br/>
-		/// window<br/>
-		/// - `SDL_WINDOW_HIDDEN`: window is not visible<br/>
-		/// - `SDL_WINDOW_BORDERLESS`: no window decoration<br/>
-		/// - `SDL_WINDOW_RESIZABLE`: window can be resized<br/>
-		/// - `SDL_WINDOW_MINIMIZED`: window is minimized<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`: window is maximized<br/>
-		/// - `SDL_WINDOW_MOUSE_GRABBED`: window has grabbed mouse focus<br/>
-		/// - `SDL_WINDOW_INPUT_FOCUS`: window has input focus<br/>
-		/// - `SDL_WINDOW_MOUSE_FOCUS`: window has mouse focus<br/>
-		/// - `SDL_WINDOW_EXTERNAL`: window not created by SDL<br/>
-		/// - `SDL_WINDOW_MODAL`: window is modal<br/>
-		/// - `SDL_WINDOW_HIGH_PIXEL_DENSITY`: window uses high pixel density back<br/>
-		/// buffer if possible<br/>
-		/// - `SDL_WINDOW_MOUSE_CAPTURE`: window has mouse captured (unrelated to<br/>
-		/// MOUSE_GRABBED)<br/>
-		/// - `SDL_WINDOW_ALWAYS_ON_TOP`: window should always be above others<br/>
-		/// - `SDL_WINDOW_UTILITY`: window should be treated as a utility window, not<br/>
-		/// showing in the task bar and window list<br/>
-		/// - `SDL_WINDOW_TOOLTIP`: window should be treated as a tooltip and does not<br/>
-		/// get mouse or keyboard focus, requires a parent window<br/>
-		/// - `SDL_WINDOW_POPUP_MENU`: window should be treated as a popup menu,<br/>
-		/// requires a parent window<br/>
-		/// - `SDL_WINDOW_KEYBOARD_GRABBED`: window has grabbed keyboard input<br/>
-		/// - `SDL_WINDOW_VULKAN`: window usable with a Vulkan instance<br/>
-		/// - `SDL_WINDOW_METAL`: window usable with a Metal instance<br/>
-		/// - `SDL_WINDOW_TRANSPARENT`: window with transparent buffer<br/>
-		/// - `SDL_WINDOW_NOT_FOCUSABLE`: window should not be focusable<br/>
-		/// The SDL_Window is implicitly shown if SDL_WINDOW_HIDDEN is not set.<br/>
-		/// On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist<br/>
-		/// property to YES, otherwise you will not receive a High-DPI OpenGL canvas.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSize() to query<br/>
-		/// the client area's size in window coordinates, and<br/>
-		/// SDL_GetWindowSizeInPixels() or SDL_GetRenderOutputSize() to query the<br/>
-		/// drawable size in pixels. Note that the drawable size can vary after the<br/>
-		/// window is created and should be queried again if you get an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event.<br/>
-		/// If the window is created with any of the SDL_WINDOW_OPENGL or<br/>
-		/// SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function<br/>
-		/// (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the<br/>
-		/// corresponding UnloadLibrary function is called by SDL_DestroyWindow().<br/>
-		/// If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,<br/>
-		/// SDL_CreateWindow() will fail, because SDL_Vulkan_LoadLibrary() will fail.<br/>
-		/// If SDL_WINDOW_METAL is specified on an OS that does not support Metal,<br/>
-		/// SDL_CreateWindow() will fail.<br/>
-		/// If you intend to use this window with an SDL_Renderer, you should use<br/>
-		/// SDL_CreateWindowAndRenderer() instead of this function, to avoid window<br/>
-		/// flicker.<br/>
-		/// On non-Apple devices, SDL requires you to either not link to the Vulkan<br/>
-		/// loader or link to a dynamic library version. This limitation may be removed<br/>
-		/// in a future version of SDL.<br/>
+		/// Load a BMP or PNG image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindow(ref byte title, int w, int h, SDLWindowFlags flags)
+		[NativeName(NativeNameType.Func, "SDL_LoadSurface_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadSurfaceIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			fixed (byte* ptitle = &title)
+			fixed (SDLIOStream* psrc = &src)
 			{
-				SDLWindow* ret = CreateWindowNative((byte*)ptitle, w, h, flags);
+				SDLSurfacePtr ret = LoadSurfaceIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a window with the specified dimensions and flags.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
-		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
-		/// - `SDL_WINDOW_OCCLUDED`: window partially or completely obscured by another<br/>
-		/// window<br/>
-		/// - `SDL_WINDOW_HIDDEN`: window is not visible<br/>
-		/// - `SDL_WINDOW_BORDERLESS`: no window decoration<br/>
-		/// - `SDL_WINDOW_RESIZABLE`: window can be resized<br/>
-		/// - `SDL_WINDOW_MINIMIZED`: window is minimized<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`: window is maximized<br/>
-		/// - `SDL_WINDOW_MOUSE_GRABBED`: window has grabbed mouse focus<br/>
-		/// - `SDL_WINDOW_INPUT_FOCUS`: window has input focus<br/>
-		/// - `SDL_WINDOW_MOUSE_FOCUS`: window has mouse focus<br/>
-		/// - `SDL_WINDOW_EXTERNAL`: window not created by SDL<br/>
-		/// - `SDL_WINDOW_MODAL`: window is modal<br/>
-		/// - `SDL_WINDOW_HIGH_PIXEL_DENSITY`: window uses high pixel density back<br/>
-		/// buffer if possible<br/>
-		/// - `SDL_WINDOW_MOUSE_CAPTURE`: window has mouse captured (unrelated to<br/>
-		/// MOUSE_GRABBED)<br/>
-		/// - `SDL_WINDOW_ALWAYS_ON_TOP`: window should always be above others<br/>
-		/// - `SDL_WINDOW_UTILITY`: window should be treated as a utility window, not<br/>
-		/// showing in the task bar and window list<br/>
-		/// - `SDL_WINDOW_TOOLTIP`: window should be treated as a tooltip and does not<br/>
-		/// get mouse or keyboard focus, requires a parent window<br/>
-		/// - `SDL_WINDOW_POPUP_MENU`: window should be treated as a popup menu,<br/>
-		/// requires a parent window<br/>
-		/// - `SDL_WINDOW_KEYBOARD_GRABBED`: window has grabbed keyboard input<br/>
-		/// - `SDL_WINDOW_VULKAN`: window usable with a Vulkan instance<br/>
-		/// - `SDL_WINDOW_METAL`: window usable with a Metal instance<br/>
-		/// - `SDL_WINDOW_TRANSPARENT`: window with transparent buffer<br/>
-		/// - `SDL_WINDOW_NOT_FOCUSABLE`: window should not be focusable<br/>
-		/// The SDL_Window is implicitly shown if SDL_WINDOW_HIDDEN is not set.<br/>
-		/// On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist<br/>
-		/// property to YES, otherwise you will not receive a High-DPI OpenGL canvas.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSize() to query<br/>
-		/// the client area's size in window coordinates, and<br/>
-		/// SDL_GetWindowSizeInPixels() or SDL_GetRenderOutputSize() to query the<br/>
-		/// drawable size in pixels. Note that the drawable size can vary after the<br/>
-		/// window is created and should be queried again if you get an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event.<br/>
-		/// If the window is created with any of the SDL_WINDOW_OPENGL or<br/>
-		/// SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function<br/>
-		/// (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the<br/>
-		/// corresponding UnloadLibrary function is called by SDL_DestroyWindow().<br/>
-		/// If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,<br/>
-		/// SDL_CreateWindow() will fail, because SDL_Vulkan_LoadLibrary() will fail.<br/>
-		/// If SDL_WINDOW_METAL is specified on an OS that does not support Metal,<br/>
-		/// SDL_CreateWindow() will fail.<br/>
-		/// If you intend to use this window with an SDL_Renderer, you should use<br/>
-		/// SDL_CreateWindowAndRenderer() instead of this function, to avoid window<br/>
-		/// flicker.<br/>
-		/// On non-Apple devices, SDL requires you to either not link to the Vulkan<br/>
-		/// loader or link to a dynamic library version. This limitation may be removed<br/>
-		/// in a future version of SDL.<br/>
+		/// Load a BMP or PNG image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindow(ReadOnlySpan<byte> title, int w, int h, SDLWindowFlags flags)
+		[NativeName(NativeNameType.Func, "SDL_LoadSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* LoadSurfaceNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
-			fixed (byte* ptitle = title)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLSurface*>)funcTable[407])(file);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[407])((nint)file);
+			#endif
+		}
+
+		/// <summary>
+		/// Load a BMP or PNG image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadSurface([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
+		{
+			SDLSurfacePtr ret = LoadSurfaceNative(file);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load a BMP or PNG image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadSurface([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file)
+		{
+			fixed (byte* pfile = &file)
 			{
-				SDLWindow* ret = CreateWindowNative((byte*)ptitle, w, h, flags);
+				SDLSurfacePtr ret = LoadSurfaceNative((byte*)pfile);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a window with the specified dimensions and flags.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution<br/>
-		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
-		/// - `SDL_WINDOW_OCCLUDED`: window partially or completely obscured by another<br/>
-		/// window<br/>
-		/// - `SDL_WINDOW_HIDDEN`: window is not visible<br/>
-		/// - `SDL_WINDOW_BORDERLESS`: no window decoration<br/>
-		/// - `SDL_WINDOW_RESIZABLE`: window can be resized<br/>
-		/// - `SDL_WINDOW_MINIMIZED`: window is minimized<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`: window is maximized<br/>
-		/// - `SDL_WINDOW_MOUSE_GRABBED`: window has grabbed mouse focus<br/>
-		/// - `SDL_WINDOW_INPUT_FOCUS`: window has input focus<br/>
-		/// - `SDL_WINDOW_MOUSE_FOCUS`: window has mouse focus<br/>
-		/// - `SDL_WINDOW_EXTERNAL`: window not created by SDL<br/>
-		/// - `SDL_WINDOW_MODAL`: window is modal<br/>
-		/// - `SDL_WINDOW_HIGH_PIXEL_DENSITY`: window uses high pixel density back<br/>
-		/// buffer if possible<br/>
-		/// - `SDL_WINDOW_MOUSE_CAPTURE`: window has mouse captured (unrelated to<br/>
-		/// MOUSE_GRABBED)<br/>
-		/// - `SDL_WINDOW_ALWAYS_ON_TOP`: window should always be above others<br/>
-		/// - `SDL_WINDOW_UTILITY`: window should be treated as a utility window, not<br/>
-		/// showing in the task bar and window list<br/>
-		/// - `SDL_WINDOW_TOOLTIP`: window should be treated as a tooltip and does not<br/>
-		/// get mouse or keyboard focus, requires a parent window<br/>
-		/// - `SDL_WINDOW_POPUP_MENU`: window should be treated as a popup menu,<br/>
-		/// requires a parent window<br/>
-		/// - `SDL_WINDOW_KEYBOARD_GRABBED`: window has grabbed keyboard input<br/>
-		/// - `SDL_WINDOW_VULKAN`: window usable with a Vulkan instance<br/>
-		/// - `SDL_WINDOW_METAL`: window usable with a Metal instance<br/>
-		/// - `SDL_WINDOW_TRANSPARENT`: window with transparent buffer<br/>
-		/// - `SDL_WINDOW_NOT_FOCUSABLE`: window should not be focusable<br/>
-		/// The SDL_Window is implicitly shown if SDL_WINDOW_HIDDEN is not set.<br/>
-		/// On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist<br/>
-		/// property to YES, otherwise you will not receive a High-DPI OpenGL canvas.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSize() to query<br/>
-		/// the client area's size in window coordinates, and<br/>
-		/// SDL_GetWindowSizeInPixels() or SDL_GetRenderOutputSize() to query the<br/>
-		/// drawable size in pixels. Note that the drawable size can vary after the<br/>
-		/// window is created and should be queried again if you get an<br/>
-		/// SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED event.<br/>
-		/// If the window is created with any of the SDL_WINDOW_OPENGL or<br/>
-		/// SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function<br/>
-		/// (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the<br/>
-		/// corresponding UnloadLibrary function is called by SDL_DestroyWindow().<br/>
-		/// If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,<br/>
-		/// SDL_CreateWindow() will fail, because SDL_Vulkan_LoadLibrary() will fail.<br/>
-		/// If SDL_WINDOW_METAL is specified on an OS that does not support Metal,<br/>
-		/// SDL_CreateWindow() will fail.<br/>
-		/// If you intend to use this window with an SDL_Renderer, you should use<br/>
-		/// SDL_CreateWindowAndRenderer() instead of this function, to avoid window<br/>
-		/// flicker.<br/>
-		/// On non-Apple devices, SDL requires you to either not link to the Vulkan<br/>
-		/// loader or link to a dynamic library version. This limitation may be removed<br/>
-		/// in a future version of SDL.<br/>
+		/// Load a BMP or PNG image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindow(string title, int w, int h, SDLWindowFlags flags)
+		[NativeName(NativeNameType.Func, "SDL_LoadSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadSurface([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
+		{
+			fixed (byte* pfile = file)
+			{
+				SDLSurfacePtr ret = LoadSurfaceNative((byte*)pfile);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load a BMP or PNG image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadSurface([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (title != null)
+			if (file != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
+				pStrSize0 = Utils.GetByteCountUTF8(file);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -2495,10 +2780,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLWindow* ret = CreateWindowNative(pStr0, w, h, flags);
+			SDLSurfacePtr ret = LoadSurfaceNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2507,964 +2792,167 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Create a child popup window of the specified parent window.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// The flags parameter **must** contain at least one of the following:<br/>
-		/// - `SDL_WINDOW_TOOLTIP`: The popup window is a tooltip and will not pass any<br/>
-		/// input events.<br/>
-		/// - `SDL_WINDOW_POPUP_MENU`: The popup window is a popup menu. The topmost<br/>
-		/// popup menu will implicitly gain the keyboard focus.<br/>
-		/// The following flags are not relevant to popup window creation and will be<br/>
-		/// ignored:<br/>
-		/// - `SDL_WINDOW_MINIMIZED`<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`<br/>
-		/// - `SDL_WINDOW_BORDERLESS`<br/>
-		/// The following flags are incompatible with popup window creation and will<br/>
-		/// cause it to fail:<br/>
-		/// - `SDL_WINDOW_UTILITY`<br/>
-		/// - `SDL_WINDOW_MODAL`<br/>
-		/// The parent parameter **must** be non-null and a valid window. The parent of<br/>
-		/// a popup window can be either a regular, toplevel window, or another popup<br/>
-		/// window.<br/>
-		/// Popup windows cannot be minimized, maximized, made fullscreen, raised,<br/>
-		/// flash, be made a modal window, be the parent of a toplevel window, or grab<br/>
-		/// the mouse and/or keyboard. Attempts to do so will fail.<br/>
-		/// Popup windows implicitly do not have a border/decorations and do not appear<br/>
-		/// on the taskbar/dock or in lists of windows such as alt-tab menus.<br/>
-		/// If a parent window is hidden or destroyed, any child popup windows will be<br/>
-		/// recursively hidden or destroyed as well. Child popup windows not explicitly<br/>
-		/// hidden will be restored when the parent is shown.<br/>
+		/// Load a BMP image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadBMP_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* CreatePopupWindowNative(SDLWindow* parent, int offsetX, int offsetY, int w, int h, SDLWindowFlags flags)
+		internal static SDLSurface* LoadBMPIONative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, int, int, SDLWindowFlags, SDLWindow*>)funcTable[518])(parent, offsetX, offsetY, w, h, flags);
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, SDLSurface*>)funcTable[408])(src, closeio);
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, int, int, int, int, SDLWindowFlags, nint>)funcTable[518])((nint)parent, offsetX, offsetY, w, h, flags);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, byte, nint>)funcTable[408])((nint)src, closeio);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a child popup window of the specified parent window.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// The flags parameter **must** contain at least one of the following:<br/>
-		/// - `SDL_WINDOW_TOOLTIP`: The popup window is a tooltip and will not pass any<br/>
-		/// input events.<br/>
-		/// - `SDL_WINDOW_POPUP_MENU`: The popup window is a popup menu. The topmost<br/>
-		/// popup menu will implicitly gain the keyboard focus.<br/>
-		/// The following flags are not relevant to popup window creation and will be<br/>
-		/// ignored:<br/>
-		/// - `SDL_WINDOW_MINIMIZED`<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`<br/>
-		/// - `SDL_WINDOW_BORDERLESS`<br/>
-		/// The following flags are incompatible with popup window creation and will<br/>
-		/// cause it to fail:<br/>
-		/// - `SDL_WINDOW_UTILITY`<br/>
-		/// - `SDL_WINDOW_MODAL`<br/>
-		/// The parent parameter **must** be non-null and a valid window. The parent of<br/>
-		/// a popup window can be either a regular, toplevel window, or another popup<br/>
-		/// window.<br/>
-		/// Popup windows cannot be minimized, maximized, made fullscreen, raised,<br/>
-		/// flash, be made a modal window, be the parent of a toplevel window, or grab<br/>
-		/// the mouse and/or keyboard. Attempts to do so will fail.<br/>
-		/// Popup windows implicitly do not have a border/decorations and do not appear<br/>
-		/// on the taskbar/dock or in lists of windows such as alt-tab menus.<br/>
-		/// If a parent window is hidden or destroyed, any child popup windows will be<br/>
-		/// recursively hidden or destroyed as well. Child popup windows not explicitly<br/>
-		/// hidden will be restored when the parent is shown.<br/>
+		/// Load a BMP image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreatePopupWindow(SDLWindow* parent, int offsetX, int offsetY, int w, int h, SDLWindowFlags flags)
+		[NativeName(NativeNameType.Func, "SDL_LoadBMP_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadBMPIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			SDLWindow* ret = CreatePopupWindowNative(parent, offsetX, offsetY, w, h, flags);
+			SDLSurfacePtr ret = LoadBMPIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a child popup window of the specified parent window.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// The flags parameter **must** contain at least one of the following:<br/>
-		/// - `SDL_WINDOW_TOOLTIP`: The popup window is a tooltip and will not pass any<br/>
-		/// input events.<br/>
-		/// - `SDL_WINDOW_POPUP_MENU`: The popup window is a popup menu. The topmost<br/>
-		/// popup menu will implicitly gain the keyboard focus.<br/>
-		/// The following flags are not relevant to popup window creation and will be<br/>
-		/// ignored:<br/>
-		/// - `SDL_WINDOW_MINIMIZED`<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`<br/>
-		/// - `SDL_WINDOW_BORDERLESS`<br/>
-		/// The following flags are incompatible with popup window creation and will<br/>
-		/// cause it to fail:<br/>
-		/// - `SDL_WINDOW_UTILITY`<br/>
-		/// - `SDL_WINDOW_MODAL`<br/>
-		/// The parent parameter **must** be non-null and a valid window. The parent of<br/>
-		/// a popup window can be either a regular, toplevel window, or another popup<br/>
-		/// window.<br/>
-		/// Popup windows cannot be minimized, maximized, made fullscreen, raised,<br/>
-		/// flash, be made a modal window, be the parent of a toplevel window, or grab<br/>
-		/// the mouse and/or keyboard. Attempts to do so will fail.<br/>
-		/// Popup windows implicitly do not have a border/decorations and do not appear<br/>
-		/// on the taskbar/dock or in lists of windows such as alt-tab menus.<br/>
-		/// If a parent window is hidden or destroyed, any child popup windows will be<br/>
-		/// recursively hidden or destroyed as well. Child popup windows not explicitly<br/>
-		/// hidden will be restored when the parent is shown.<br/>
+		/// Load a BMP image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreatePopupWindow(ref SDLWindow parent, int offsetX, int offsetY, int w, int h, SDLWindowFlags flags)
+		[NativeName(NativeNameType.Func, "SDL_LoadBMP_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadBMPIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			fixed (SDLWindow* pparent = &parent)
+			fixed (SDLIOStream* psrc = &src)
 			{
-				SDLWindow* ret = CreatePopupWindowNative((SDLWindow*)pparent, offsetX, offsetY, w, h, flags);
+				SDLSurfacePtr ret = LoadBMPIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a window with the specified properties.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN`: true if the window should<br/>
-		/// be always on top<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_BORDERLESS_BOOLEAN`: true if the window has no<br/>
-		/// window decoration<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN`: true if the<br/>
-		/// window will be used with an externally managed graphics context.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN`: true if the window should<br/>
-		/// accept keyboard input (defaults true)<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_FULLSCREEN_BOOLEAN`: true if the window should<br/>
-		/// start in fullscreen mode at desktop resolution<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER`: the height of the window<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN`: true if the window should start<br/>
-		/// hidden<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN`: true if the window<br/>
-		/// uses a high pixel density buffer if possible<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MAXIMIZED_BOOLEAN`: true if the window should<br/>
-		/// start maximized<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MENU_BOOLEAN`: true if the window is a popup menu<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_METAL_BOOLEAN`: true if the window will be used<br/>
-		/// with Metal rendering<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MINIMIZED_BOOLEAN`: true if the window should<br/>
-		/// start minimized<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MODAL_BOOLEAN`: true if the window is modal to<br/>
-		/// its parent<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MOUSE_GRABBED_BOOLEAN`: true if the window starts<br/>
-		/// with grabbed mouse focus<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN`: true if the window will be used<br/>
-		/// with OpenGL rendering<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_PARENT_POINTER`: an SDL_Window that will be the<br/>
-		/// parent of this window, required for windows with the "tooltip", "menu",<br/>
-		/// and "modal" properties<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_RESIZABLE_BOOLEAN`: true if the window should be<br/>
-		/// resizable<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_TITLE_STRING`: the title of the window, in UTF-8<br/>
-		/// encoding<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN`: true if the window show<br/>
-		/// transparent in the areas with alpha of 0<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_TOOLTIP_BOOLEAN`: true if the window is a tooltip<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_UTILITY_BOOLEAN`: true if the window is a utility<br/>
-		/// window, not showing in the task bar and window list<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_VULKAN_BOOLEAN`: true if the window will be used<br/>
-		/// with Vulkan rendering<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER`: the width of the window<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_X_NUMBER`: the x position of the window, or<br/>
-		/// `SDL_WINDOWPOS_CENTERED`, defaults to `SDL_WINDOWPOS_UNDEFINED`. This is<br/>
-		/// relative to the parent for windows with the "tooltip" or "menu" property<br/>
-		/// set.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_Y_NUMBER`: the y position of the window, or<br/>
-		/// `SDL_WINDOWPOS_CENTERED`, defaults to `SDL_WINDOWPOS_UNDEFINED`. This is<br/>
-		/// relative to the parent for windows with the "tooltip" or "menu" property<br/>
-		/// set.<br/>
-		/// These are additional supported properties on macOS:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_COCOA_WINDOW_POINTER`: the<br/>
-		/// `(__unsafe_unretained)` NSWindow associated with the window, if you want<br/>
-		/// to wrap an existing window.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER`: the `(__unsafe_unretained)`<br/>
-		/// NSView associated with the window, defaults to `[window contentView]`<br/>
-		/// These are additional supported properties on Wayland:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN` - true if<br/>
-		/// the application wants to use the Wayland surface for a custom role and<br/>
-		/// does not want it attached to an XDG toplevel window. See<br/>
-		/// [README/wayland](README/wayland) for more information on using custom<br/>
-		/// surfaces.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN` - true if the<br/>
-		/// application wants an associated `wl_egl_window` object to be created and<br/>
-		/// attached to the window, even if the window does not have the OpenGL<br/>
-		/// property or `SDL_WINDOW_OPENGL` flag set.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER` - the wl_surface<br/>
-		/// associated with the window, if you want to wrap an existing window. See<br/>
-		/// [README/wayland](README/wayland) for more information.<br/>
-		/// These are additional supported properties on Windows:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER`: the HWND associated with the<br/>
-		/// window, if you want to wrap an existing window.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WIN32_PIXEL_FORMAT_HWND_POINTER`: optional,<br/>
-		/// another window to share pixel format with, useful for OpenGL windows<br/>
-		/// These are additional supported properties with X11:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER`: the X11 Window associated<br/>
-		/// with the window, if you want to wrap an existing window.<br/>
-		/// The window is implicitly shown if the "hidden" property is not set.<br/>
-		/// Windows with the "tooltip" and "menu" properties are popup windows and have<br/>
-		/// the behaviors and guidelines outlined in SDL_CreatePopupWindow().<br/>
-		/// If this window is being created to be used with an SDL_Renderer, you should<br/>
-		/// not add a graphics API specific property<br/>
-		/// (`SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN`, etc), as SDL will handle that<br/>
-		/// internally when it chooses a renderer. However, SDL might need to recreate<br/>
-		/// your window at that point, which may cause the window to appear briefly,<br/>
-		/// and then flicker as it is recreated. The correct approach to this is to<br/>
-		/// create the window with the `SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN` property<br/>
-		/// set to true, then create the renderer, then show the window with<br/>
-		/// SDL_ShowWindow().<br/>
+		/// Load a BMP image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* CreateWindowWithPropertiesNative(uint props)
+		internal static SDLSurface* LoadBMPNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLWindow*>)funcTable[519])(props);
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLSurface*>)funcTable[409])(file);
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[519])(props);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[409])((nint)file);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a window with the specified properties.<br/>
-		/// The window size is a request and may be different than expected based on<br/>
-		/// the desktop layout and window manager policies. Your application should be<br/>
-		/// prepared to handle a window of any size.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN`: true if the window should<br/>
-		/// be always on top<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_BORDERLESS_BOOLEAN`: true if the window has no<br/>
-		/// window decoration<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN`: true if the<br/>
-		/// window will be used with an externally managed graphics context.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN`: true if the window should<br/>
-		/// accept keyboard input (defaults true)<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_FULLSCREEN_BOOLEAN`: true if the window should<br/>
-		/// start in fullscreen mode at desktop resolution<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER`: the height of the window<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN`: true if the window should start<br/>
-		/// hidden<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN`: true if the window<br/>
-		/// uses a high pixel density buffer if possible<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MAXIMIZED_BOOLEAN`: true if the window should<br/>
-		/// start maximized<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MENU_BOOLEAN`: true if the window is a popup menu<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_METAL_BOOLEAN`: true if the window will be used<br/>
-		/// with Metal rendering<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MINIMIZED_BOOLEAN`: true if the window should<br/>
-		/// start minimized<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MODAL_BOOLEAN`: true if the window is modal to<br/>
-		/// its parent<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_MOUSE_GRABBED_BOOLEAN`: true if the window starts<br/>
-		/// with grabbed mouse focus<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN`: true if the window will be used<br/>
-		/// with OpenGL rendering<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_PARENT_POINTER`: an SDL_Window that will be the<br/>
-		/// parent of this window, required for windows with the "tooltip", "menu",<br/>
-		/// and "modal" properties<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_RESIZABLE_BOOLEAN`: true if the window should be<br/>
-		/// resizable<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_TITLE_STRING`: the title of the window, in UTF-8<br/>
-		/// encoding<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN`: true if the window show<br/>
-		/// transparent in the areas with alpha of 0<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_TOOLTIP_BOOLEAN`: true if the window is a tooltip<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_UTILITY_BOOLEAN`: true if the window is a utility<br/>
-		/// window, not showing in the task bar and window list<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_VULKAN_BOOLEAN`: true if the window will be used<br/>
-		/// with Vulkan rendering<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER`: the width of the window<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_X_NUMBER`: the x position of the window, or<br/>
-		/// `SDL_WINDOWPOS_CENTERED`, defaults to `SDL_WINDOWPOS_UNDEFINED`. This is<br/>
-		/// relative to the parent for windows with the "tooltip" or "menu" property<br/>
-		/// set.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_Y_NUMBER`: the y position of the window, or<br/>
-		/// `SDL_WINDOWPOS_CENTERED`, defaults to `SDL_WINDOWPOS_UNDEFINED`. This is<br/>
-		/// relative to the parent for windows with the "tooltip" or "menu" property<br/>
-		/// set.<br/>
-		/// These are additional supported properties on macOS:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_COCOA_WINDOW_POINTER`: the<br/>
-		/// `(__unsafe_unretained)` NSWindow associated with the window, if you want<br/>
-		/// to wrap an existing window.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER`: the `(__unsafe_unretained)`<br/>
-		/// NSView associated with the window, defaults to `[window contentView]`<br/>
-		/// These are additional supported properties on Wayland:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN` - true if<br/>
-		/// the application wants to use the Wayland surface for a custom role and<br/>
-		/// does not want it attached to an XDG toplevel window. See<br/>
-		/// [README/wayland](README/wayland) for more information on using custom<br/>
-		/// surfaces.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN` - true if the<br/>
-		/// application wants an associated `wl_egl_window` object to be created and<br/>
-		/// attached to the window, even if the window does not have the OpenGL<br/>
-		/// property or `SDL_WINDOW_OPENGL` flag set.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER` - the wl_surface<br/>
-		/// associated with the window, if you want to wrap an existing window. See<br/>
-		/// [README/wayland](README/wayland) for more information.<br/>
-		/// These are additional supported properties on Windows:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER`: the HWND associated with the<br/>
-		/// window, if you want to wrap an existing window.<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_WIN32_PIXEL_FORMAT_HWND_POINTER`: optional,<br/>
-		/// another window to share pixel format with, useful for OpenGL windows<br/>
-		/// These are additional supported properties with X11:<br/>
-		/// - `SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER`: the X11 Window associated<br/>
-		/// with the window, if you want to wrap an existing window.<br/>
-		/// The window is implicitly shown if the "hidden" property is not set.<br/>
-		/// Windows with the "tooltip" and "menu" properties are popup windows and have<br/>
-		/// the behaviors and guidelines outlined in SDL_CreatePopupWindow().<br/>
-		/// If this window is being created to be used with an SDL_Renderer, you should<br/>
-		/// not add a graphics API specific property<br/>
-		/// (`SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN`, etc), as SDL will handle that<br/>
-		/// internally when it chooses a renderer. However, SDL might need to recreate<br/>
-		/// your window at that point, which may cause the window to appear briefly,<br/>
-		/// and then flicker as it is recreated. The correct approach to this is to<br/>
-		/// create the window with the `SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN` property<br/>
-		/// set to true, then create the renderer, then show the window with<br/>
-		/// SDL_ShowWindow().<br/>
+		/// Load a BMP image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindowWithProperties(uint props)
+		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadBMP([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
-			SDLWindow* ret = CreateWindowWithPropertiesNative(props);
+			SDLSurfacePtr ret = LoadBMPNative(file);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
+		/// Load a BMP image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetWindowIDNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[520])(window);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[520])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint GetWindowID(SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadBMP([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file)
 		{
-			uint ret = GetWindowIDNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetWindowID(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pfile = &file)
 			{
-				uint ret = GetWindowIDNative((SDLWindow*)pwindow);
+				SDLSurfacePtr ret = LoadBMPNative((byte*)pfile);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get a window from a stored ID.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
+		/// Load a BMP image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetWindowFromIDNative(uint id)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLWindow*>)funcTable[521])(id);
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[521])(id);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a window from a stored ID.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* GetWindowFromID(uint id)
+		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadBMP([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
 		{
-			SDLWindow* ret = GetWindowFromIDNative(id);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get parent of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetWindowParentNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindow*>)funcTable[522])(window);
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[522])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get parent of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* GetWindowParent(SDLWindow* window)
-		{
-			SDLWindow* ret = GetWindowParentNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get parent of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* GetWindowParent(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pfile = file)
 			{
-				SDLWindow* ret = GetWindowParentNative((SDLWindow*)pwindow);
+				SDLSurfacePtr ret = LoadBMPNative((byte*)pfile);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the properties associated with a window.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_WINDOW_SHAPE_POINTER`: the surface associated with a shaped<br/>
-		/// window<br/>
-		/// - `SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN`: true if the window has HDR<br/>
-		/// headroom above the SDR white point. This property can change dynamically<br/>
-		/// when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. On Windows this corresponds to the<br/>
-		/// SDR white level in scRGB colorspace, and on Apple platforms this is<br/>
-		/// always 1.0 for EDR content. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// On Android:<br/>
-		/// - `SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER`: the ANativeWindow associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER`: the EGLSurface associated with<br/>
-		/// the window<br/>
-		/// On iOS:<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER`: the `(__unsafe_unretained)`<br/>
-		/// UIWindow associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER`: the NSInteger tag<br/>
-		/// associated with metal views on the window<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER`: the OpenGL view's<br/>
-		/// framebuffer object. It must be bound when rendering to the screen using<br/>
-		/// OpenGL.<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER`: the OpenGL view's<br/>
-		/// renderbuffer object. It must be bound when SDL_GL_SwapWindow is called.<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER`: the OpenGL<br/>
-		/// view's resolve framebuffer, when MSAA is used.<br/>
-		/// On KMS/DRM:<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER`: the device index associated<br/>
-		/// with the window (e.g. the X in /dev/dri/cardX)<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER`: the DRM FD associated with the<br/>
-		/// window<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER`: the GBM device associated<br/>
-		/// with the window<br/>
-		/// On macOS:<br/>
-		/// - `SDL_PROP_WINDOW_COCOA_WINDOW_POINTER`: the `(__unsafe_unretained)`<br/>
-		/// NSWindow associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER`: the NSInteger tag<br/>
-		/// assocated with metal views on the window<br/>
-		/// On OpenVR:<br/>
-		/// - `SDL_PROP_WINDOW_OPENVR_OVERLAY_ID`: the OpenVR Overlay Handle ID for the<br/>
-		/// associated overlay window.<br/>
-		/// On Vivante:<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER`: the EGLNativeDisplayType<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER`: the EGLNativeWindowType<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER`: the EGLSurface associated with<br/>
-		/// the window<br/>
-		/// On Windows:<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_HWND_POINTER`: the HWND associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_HDC_POINTER`: the HDC associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER`: the HINSTANCE associated with<br/>
-		/// the window<br/>
-		/// On Wayland:<br/>
-		/// Note: The `xdg_*` window objects do not internally persist across window<br/>
-		/// show/hide calls. They will be null if the window is hidden and must be<br/>
-		/// queried each time it is shown.<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER`: the wl_display associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER`: the wl_surface associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER`: the wp_viewport associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER`: the wl_egl_window<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER`: the xdg_surface associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER`: the xdg_toplevel role<br/>
-		/// associated with the window<br/>
-		/// - 'SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING': the export<br/>
-		/// handle associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER`: the xdg_popup role<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER`: the xdg_positioner<br/>
-		/// associated with the window, in popup mode<br/>
-		/// On X11:<br/>
-		/// - `SDL_PROP_WINDOW_X11_DISPLAY_POINTER`: the X11 Display associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_X11_SCREEN_NUMBER`: the screen number associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_X11_WINDOW_NUMBER`: the X11 Window associated with the<br/>
-		/// window<br/>
+		/// Load a BMP image from a file.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetWindowPropertiesNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[523])(window);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[523])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a window.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_WINDOW_SHAPE_POINTER`: the surface associated with a shaped<br/>
-		/// window<br/>
-		/// - `SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN`: true if the window has HDR<br/>
-		/// headroom above the SDR white point. This property can change dynamically<br/>
-		/// when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. On Windows this corresponds to the<br/>
-		/// SDR white level in scRGB colorspace, and on Apple platforms this is<br/>
-		/// always 1.0 for EDR content. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// On Android:<br/>
-		/// - `SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER`: the ANativeWindow associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER`: the EGLSurface associated with<br/>
-		/// the window<br/>
-		/// On iOS:<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER`: the `(__unsafe_unretained)`<br/>
-		/// UIWindow associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER`: the NSInteger tag<br/>
-		/// associated with metal views on the window<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER`: the OpenGL view's<br/>
-		/// framebuffer object. It must be bound when rendering to the screen using<br/>
-		/// OpenGL.<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER`: the OpenGL view's<br/>
-		/// renderbuffer object. It must be bound when SDL_GL_SwapWindow is called.<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER`: the OpenGL<br/>
-		/// view's resolve framebuffer, when MSAA is used.<br/>
-		/// On KMS/DRM:<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER`: the device index associated<br/>
-		/// with the window (e.g. the X in /dev/dri/cardX)<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER`: the DRM FD associated with the<br/>
-		/// window<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER`: the GBM device associated<br/>
-		/// with the window<br/>
-		/// On macOS:<br/>
-		/// - `SDL_PROP_WINDOW_COCOA_WINDOW_POINTER`: the `(__unsafe_unretained)`<br/>
-		/// NSWindow associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER`: the NSInteger tag<br/>
-		/// assocated with metal views on the window<br/>
-		/// On OpenVR:<br/>
-		/// - `SDL_PROP_WINDOW_OPENVR_OVERLAY_ID`: the OpenVR Overlay Handle ID for the<br/>
-		/// associated overlay window.<br/>
-		/// On Vivante:<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER`: the EGLNativeDisplayType<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER`: the EGLNativeWindowType<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER`: the EGLSurface associated with<br/>
-		/// the window<br/>
-		/// On Windows:<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_HWND_POINTER`: the HWND associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_HDC_POINTER`: the HDC associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER`: the HINSTANCE associated with<br/>
-		/// the window<br/>
-		/// On Wayland:<br/>
-		/// Note: The `xdg_*` window objects do not internally persist across window<br/>
-		/// show/hide calls. They will be null if the window is hidden and must be<br/>
-		/// queried each time it is shown.<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER`: the wl_display associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER`: the wl_surface associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER`: the wp_viewport associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER`: the wl_egl_window<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER`: the xdg_surface associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER`: the xdg_toplevel role<br/>
-		/// associated with the window<br/>
-		/// - 'SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING': the export<br/>
-		/// handle associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER`: the xdg_popup role<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER`: the xdg_positioner<br/>
-		/// associated with the window, in popup mode<br/>
-		/// On X11:<br/>
-		/// - `SDL_PROP_WINDOW_X11_DISPLAY_POINTER`: the X11 Display associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_X11_SCREEN_NUMBER`: the screen number associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_X11_WINDOW_NUMBER`: the X11 Window associated with the<br/>
-		/// window<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetWindowProperties(SDLWindow* window)
-		{
-			uint ret = GetWindowPropertiesNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a window.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_WINDOW_SHAPE_POINTER`: the surface associated with a shaped<br/>
-		/// window<br/>
-		/// - `SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN`: true if the window has HDR<br/>
-		/// headroom above the SDR white point. This property can change dynamically<br/>
-		/// when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. On Windows this corresponds to the<br/>
-		/// SDR white level in scRGB colorspace, and on Apple platforms this is<br/>
-		/// always 1.0 for EDR content. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// On Android:<br/>
-		/// - `SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER`: the ANativeWindow associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER`: the EGLSurface associated with<br/>
-		/// the window<br/>
-		/// On iOS:<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER`: the `(__unsafe_unretained)`<br/>
-		/// UIWindow associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER`: the NSInteger tag<br/>
-		/// associated with metal views on the window<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER`: the OpenGL view's<br/>
-		/// framebuffer object. It must be bound when rendering to the screen using<br/>
-		/// OpenGL.<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER`: the OpenGL view's<br/>
-		/// renderbuffer object. It must be bound when SDL_GL_SwapWindow is called.<br/>
-		/// - `SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER`: the OpenGL<br/>
-		/// view's resolve framebuffer, when MSAA is used.<br/>
-		/// On KMS/DRM:<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER`: the device index associated<br/>
-		/// with the window (e.g. the X in /dev/dri/cardX)<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER`: the DRM FD associated with the<br/>
-		/// window<br/>
-		/// - `SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER`: the GBM device associated<br/>
-		/// with the window<br/>
-		/// On macOS:<br/>
-		/// - `SDL_PROP_WINDOW_COCOA_WINDOW_POINTER`: the `(__unsafe_unretained)`<br/>
-		/// NSWindow associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER`: the NSInteger tag<br/>
-		/// assocated with metal views on the window<br/>
-		/// On OpenVR:<br/>
-		/// - `SDL_PROP_WINDOW_OPENVR_OVERLAY_ID`: the OpenVR Overlay Handle ID for the<br/>
-		/// associated overlay window.<br/>
-		/// On Vivante:<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER`: the EGLNativeDisplayType<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER`: the EGLNativeWindowType<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER`: the EGLSurface associated with<br/>
-		/// the window<br/>
-		/// On Windows:<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_HWND_POINTER`: the HWND associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_HDC_POINTER`: the HDC associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER`: the HINSTANCE associated with<br/>
-		/// the window<br/>
-		/// On Wayland:<br/>
-		/// Note: The `xdg_*` window objects do not internally persist across window<br/>
-		/// show/hide calls. They will be null if the window is hidden and must be<br/>
-		/// queried each time it is shown.<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER`: the wl_display associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER`: the wl_surface associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER`: the wp_viewport associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER`: the wl_egl_window<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER`: the xdg_surface associated<br/>
-		/// with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER`: the xdg_toplevel role<br/>
-		/// associated with the window<br/>
-		/// - 'SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING': the export<br/>
-		/// handle associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER`: the xdg_popup role<br/>
-		/// associated with the window<br/>
-		/// - `SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER`: the xdg_positioner<br/>
-		/// associated with the window, in popup mode<br/>
-		/// On X11:<br/>
-		/// - `SDL_PROP_WINDOW_X11_DISPLAY_POINTER`: the X11 Display associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_X11_SCREEN_NUMBER`: the screen number associated with<br/>
-		/// the window<br/>
-		/// - `SDL_PROP_WINDOW_X11_WINDOW_NUMBER`: the X11 Window associated with the<br/>
-		/// window<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetWindowProperties(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				uint ret = GetWindowPropertiesNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindowFlags GetWindowFlagsNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindowFlags>)funcTable[524])(window);
-			#else
-			return (SDLWindowFlags)((delegate* unmanaged[Cdecl]<nint, SDLWindowFlags>)funcTable[524])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindowFlags GetWindowFlags(SDLWindow* window)
-		{
-			SDLWindowFlags ret = GetWindowFlagsNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindowFlags GetWindowFlags(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLWindowFlags ret = GetWindowFlagsNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetWindowTitleNative(SDLWindow* window, byte* title)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, byte>)funcTable[525])(window, title);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[525])((nint)window, (nint)title);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowTitle(SDLWindow* window, byte* title)
-		{
-			byte ret = SetWindowTitleNative(window, title);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowTitle(ref SDLWindow window, byte* title)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = SetWindowTitleNative((SDLWindow*)pwindow, title);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowTitle(SDLWindow* window, ref byte title)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				byte ret = SetWindowTitleNative(window, (byte*)ptitle);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowTitle(SDLWindow* window, ReadOnlySpan<byte> title)
-		{
-			fixed (byte* ptitle = title)
-			{
-				byte ret = SetWindowTitleNative(window, (byte*)ptitle);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowTitle(SDLWindow* window, string title)
+		[NativeName(NativeNameType.Func, "SDL_LoadBMP")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadBMP([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (title != null)
+			if (file != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
+				pStrSize0 = Utils.GetByteCountUTF8(file);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -3474,10 +2962,302 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = SetWindowTitleNative(window, pStr0);
+			SDLSurfacePtr ret = LoadBMPNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SaveBMPIONative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLIOStream*, byte, byte>)funcTable[410])(surface, dst, closeio);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte, byte>)funcTable[410])((nint)surface, (nint)dst, closeio);
+			#endif
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMPIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		{
+			byte ret = SaveBMPIONative((SDLSurface*)surface, (SDLIOStream*)dst, closeio ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMPIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SaveBMPIONative((SDLSurface*)psurface, (SDLIOStream*)dst, closeio ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMPIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		{
+			fixed (SDLIOStream* pdst = &dst)
+			{
+				byte ret = SaveBMPIONative((SDLSurface*)surface, (SDLIOStream*)pdst, closeio ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMPIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLIOStream* pdst = &dst)
+				{
+					byte ret = SaveBMPIONative((SDLSurface*)psurface, (SDLIOStream*)pdst, closeio ? (byte)1 : (byte)0);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SaveBMPNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte>)funcTable[411])(surface, file);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[411])((nint)surface, (nint)file);
+			#endif
+		}
+
+		/// <summary>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
+		{
+			byte ret = SaveBMPNative((SDLSurface*)surface, file);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SaveBMPNative((SDLSurface*)psurface, file);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file)
+		{
+			fixed (byte* pfile = &file)
+			{
+				byte ret = SaveBMPNative((SDLSurface*)surface, (byte*)pfile);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
+		{
+			fixed (byte* pfile = file)
+			{
+				byte ret = SaveBMPNative((SDLSurface*)surface, (byte*)pfile);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SaveBMPNative((SDLSurface*)surface, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -3486,65 +3266,86 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowTitle(ref SDLWindow window, ref byte title)
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				fixed (byte* ptitle = &title)
+				fixed (byte* pfile = &file)
 				{
-					byte ret = SetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
+					byte ret = SaveBMPNative((SDLSurface*)psurface, (byte*)pfile);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowTitle(ref SDLWindow window, ReadOnlySpan<byte> title)
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				fixed (byte* ptitle = title)
+				fixed (byte* pfile = file)
 				{
-					byte ret = SetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
+					byte ret = SaveBMPNative((SDLSurface*)psurface, (byte*)pfile);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// Save a surface to a file in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowTitle(ref SDLWindow window, string title)
+		[NativeName(NativeNameType.Func, "SDL_SaveBMP")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SaveBMP([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
 				byte* pStr0 = null;
 				int pStrSize0 = 0;
-				if (title != null)
+				if (file != null)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(title);
+					pStrSize0 = Utils.GetByteCountUTF8(file);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
 						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -3554,10 +3355,10 @@ namespace Hexa.NET.SDL3
 						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 						pStr0 = pStrStack0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+					int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				byte ret = SetWindowTitleNative((SDLWindow*)pwindow, pStr0);
+				byte ret = SaveBMPNative((SDLSurface*)psurface, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -3567,507 +3368,1156 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the title of a window.<br/>
+		/// Load a PNG image from a seekable SDL data stream.<br/>
+		/// This is intended as a convenience function for loading images from trusted<br/>
+		/// sources. If you want to load arbitrary images you should use libpng or<br/>
+		/// another image loading library designed with security in mind.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadPNG_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetWindowTitleNative(SDLWindow* window)
+		internal static SDLSurface* LoadPNGIONative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*>)funcTable[526])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, SDLSurface*>)funcTable[412])(src, closeio);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[526])((nint)window);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, byte, nint>)funcTable[412])((nint)src, closeio);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the title of a window.<br/>
+		/// Load a PNG image from a seekable SDL data stream.<br/>
+		/// This is intended as a convenience function for loading images from trusted<br/>
+		/// sources. If you want to load arbitrary images you should use libpng or<br/>
+		/// another image loading library designed with security in mind.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetWindowTitle(SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_LoadPNG_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadPNGIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			byte* ret = GetWindowTitleNative(window);
+			SDLSurfacePtr ret = LoadPNGIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the title of a window.<br/>
+		/// Load a PNG image from a seekable SDL data stream.<br/>
+		/// This is intended as a convenience function for loading images from trusted<br/>
+		/// sources. If you want to load arbitrary images you should use libpng or<br/>
+		/// another image loading library designed with security in mind.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetWindowTitleS(SDLWindow* window)
-		{
-			string ret = Utils.DecodeStringUTF8(GetWindowTitleNative(window));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the title of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetWindowTitle(ref SDLWindow window)
+		[NativeName(NativeNameType.Func, "SDL_LoadPNG_IO")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadPNGIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLIOStream* psrc = &src)
 			{
-				byte* ret = GetWindowTitleNative((SDLWindow*)pwindow);
+				SDLSurfacePtr ret = LoadPNGIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the title of a window.<br/>
+		/// Load a PNG image from a file.<br/>
+		/// This is intended as a convenience function for loading images from trusted<br/>
+		/// sources. If you want to load arbitrary images you should use libpng or<br/>
+		/// another image loading library designed with security in mind.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetWindowTitleS(ref SDLWindow window)
+		[NativeName(NativeNameType.Func, "SDL_LoadPNG")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* LoadPNGNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLSurface*>)funcTable[413])(file);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[413])((nint)file);
+			#endif
+		}
+
+		/// <summary>
+		/// Load a PNG image from a file.<br/>
+		/// This is intended as a convenience function for loading images from trusted<br/>
+		/// sources. If you want to load arbitrary images you should use libpng or<br/>
+		/// another image loading library designed with security in mind.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadPNG")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadPNG([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
+		{
+			SDLSurfacePtr ret = LoadPNGNative(file);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load a PNG image from a file.<br/>
+		/// This is intended as a convenience function for loading images from trusted<br/>
+		/// sources. If you want to load arbitrary images you should use libpng or<br/>
+		/// another image loading library designed with security in mind.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadPNG")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadPNG([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file)
+		{
+			fixed (byte* pfile = &file)
 			{
-				string ret = Utils.DecodeStringUTF8(GetWindowTitleNative((SDLWindow*)pwindow));
+				SDLSurfacePtr ret = LoadPNGNative((byte*)pfile);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
+		/// Load a PNG image from a file.<br/>
+		/// This is intended as a convenience function for loading images from trusted<br/>
+		/// sources. If you want to load arbitrary images you should use libpng or<br/>
+		/// another image loading library designed with security in mind.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadPNG")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadPNG([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
+		{
+			fixed (byte* pfile = file)
+			{
+				SDLSurfacePtr ret = LoadPNGNative((byte*)pfile);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load a PNG image from a file.<br/>
+		/// This is intended as a convenience function for loading images from trusted<br/>
+		/// sources. If you want to load arbitrary images you should use libpng or<br/>
+		/// another image loading library designed with security in mind.<br/>
+		/// The new surface should be freed with SDL_DestroySurface(). Not doing so<br/>
+		/// will result in a memory leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadPNG")]
+		[return: NativeName(NativeNameType.Type, "SDL_Surface *")]
+		public static SDLSurfacePtr LoadPNG([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLSurfacePtr ret = LoadPNGNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in PNG format.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SavePNG_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetWindowIconNative(SDLWindow* window, SDLSurface* icon)
+		internal static byte SavePNGIONative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, byte>)funcTable[527])(window, icon);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLIOStream*, byte, byte>)funcTable[414])(surface, dst, closeio);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[527])((nint)window, (nint)icon);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte, byte>)funcTable[414])((nint)surface, (nint)dst, closeio);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
+		/// Save a surface to a seekable SDL data stream in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowIcon(SDLWindow* window, SDLSurface* icon)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNGIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			byte ret = SetWindowIconNative(window, icon);
+			byte ret = SavePNGIONative((SDLSurface*)surface, (SDLIOStream*)dst, closeio ? (byte)1 : (byte)0);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
+		/// Save a surface to a seekable SDL data stream in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowIcon(ref SDLWindow window, SDLSurface* icon)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNGIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				byte ret = SetWindowIconNative((SDLWindow*)pwindow, icon);
+				byte ret = SavePNGIONative((SDLSurface*)psurface, (SDLIOStream*)dst, closeio ? (byte)1 : (byte)0);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
+		/// Save a surface to a seekable SDL data stream in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowIcon(SDLWindow* window, ref SDLSurface icon)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNGIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			fixed (SDLSurface* picon = &icon)
+			fixed (SDLIOStream* pdst = &dst)
 			{
-				byte ret = SetWindowIconNative(window, (SDLSurface*)picon);
+				byte ret = SavePNGIONative((SDLSurface*)surface, (SDLIOStream*)pdst, closeio ? (byte)1 : (byte)0);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// If this function is passed a surface with alternate representations, the<br/>
-		/// surface will be interpreted as the content to be used for 100% display<br/>
-		/// scale, and the alternate representations will be used for high DPI<br/>
-		/// situations. For example, if the original surface is 32x32, then on a 2x<br/>
-		/// macOS display or 200% display scale on Windows, a 64x64 version of the<br/>
-		/// image will be used, if available. If a matching version of the image isn't<br/>
-		/// available, the closest larger size image will be downscaled to the<br/>
-		/// appropriate size and be used instead, if available. Otherwise, the closest<br/>
-		/// smaller image will be upscaled and be used instead.<br/>
+		/// Save a surface to a seekable SDL data stream in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowIcon(ref SDLWindow window, ref SDLSurface icon)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNGIO([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream dst, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				fixed (SDLSurface* picon = &icon)
+				fixed (SDLIOStream* pdst = &dst)
 				{
-					byte ret = SetWindowIconNative((SDLWindow*)pwindow, (SDLSurface*)picon);
+					byte ret = SavePNGIONative((SDLSurface*)psurface, (SDLIOStream*)pdst, closeio ? (byte)1 : (byte)0);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Request that the window's position be set.<br/>
-		/// If the window is in an exclusive fullscreen or maximized state, this<br/>
-		/// request has no effect.<br/>
-		/// This can be used to reposition fullscreen-desktop windows onto a different<br/>
-		/// display, however, as exclusive fullscreen windows are locked to a specific<br/>
-		/// display, they can only be repositioned programmatically via<br/>
-		/// SDL_SetWindowFullscreenMode().<br/>
-		/// On some windowing systems this request is asynchronous and the new<br/>
-		/// coordinates may not have have been applied immediately upon the return of<br/>
-		/// this function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window position changes, an SDL_EVENT_WINDOW_MOVED event will be<br/>
-		/// emitted with the window's new coordinates. Note that the new coordinates<br/>
-		/// may not match the exact coordinates requested, as some windowing systems<br/>
-		/// can restrict the position of the window in certain scenarios (e.g.<br/>
-		/// constraining the position so the window is always within desktop bounds).<br/>
-		/// Additionally, as this is just a request, it can be denied by the windowing<br/>
-		/// system.<br/>
+		/// Save a surface to a file in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetWindowPositionNative(SDLWindow* window, int x, int y)
+		internal static byte SavePNGNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, byte>)funcTable[528])(window, x, y);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte>)funcTable[415])(surface, file);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, byte>)funcTable[528])((nint)window, x, y);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[415])((nint)surface, (nint)file);
 			#endif
 		}
 
 		/// <summary>
-		/// Request that the window's position be set.<br/>
-		/// If the window is in an exclusive fullscreen or maximized state, this<br/>
-		/// request has no effect.<br/>
-		/// This can be used to reposition fullscreen-desktop windows onto a different<br/>
-		/// display, however, as exclusive fullscreen windows are locked to a specific<br/>
-		/// display, they can only be repositioned programmatically via<br/>
-		/// SDL_SetWindowFullscreenMode().<br/>
-		/// On some windowing systems this request is asynchronous and the new<br/>
-		/// coordinates may not have have been applied immediately upon the return of<br/>
-		/// this function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window position changes, an SDL_EVENT_WINDOW_MOVED event will be<br/>
-		/// emitted with the window's new coordinates. Note that the new coordinates<br/>
-		/// may not match the exact coordinates requested, as some windowing systems<br/>
-		/// can restrict the position of the window in certain scenarios (e.g.<br/>
-		/// constraining the position so the window is always within desktop bounds).<br/>
-		/// Additionally, as this is just a request, it can be denied by the windowing<br/>
-		/// system.<br/>
+		/// Save a surface to a file in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowPosition(SDLWindow* window, int x, int y)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
-			byte ret = SetWindowPositionNative(window, x, y);
+			byte ret = SavePNGNative((SDLSurface*)surface, file);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Request that the window's position be set.<br/>
-		/// If the window is in an exclusive fullscreen or maximized state, this<br/>
-		/// request has no effect.<br/>
-		/// This can be used to reposition fullscreen-desktop windows onto a different<br/>
-		/// display, however, as exclusive fullscreen windows are locked to a specific<br/>
-		/// display, they can only be repositioned programmatically via<br/>
-		/// SDL_SetWindowFullscreenMode().<br/>
-		/// On some windowing systems this request is asynchronous and the new<br/>
-		/// coordinates may not have have been applied immediately upon the return of<br/>
-		/// this function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window position changes, an SDL_EVENT_WINDOW_MOVED event will be<br/>
-		/// emitted with the window's new coordinates. Note that the new coordinates<br/>
-		/// may not match the exact coordinates requested, as some windowing systems<br/>
-		/// can restrict the position of the window in certain scenarios (e.g.<br/>
-		/// constraining the position so the window is always within desktop bounds).<br/>
-		/// Additionally, as this is just a request, it can be denied by the windowing<br/>
-		/// system.<br/>
+		/// Save a surface to a file in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetWindowPosition(ref SDLWindow window, int x, int y)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				byte ret = SetWindowPositionNative((SDLWindow*)pwindow, x, y);
+				byte ret = SavePNGNative((SDLSurface*)psurface, file);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
+		/// Save a surface to a file in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetWindowPositionNative(SDLWindow* window, int* x, int* y)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, byte>)funcTable[529])(window, x, y);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[529])((nint)window, (nint)x, (nint)y);
-			#endif
+			fixed (byte* pfile = &file)
+			{
+				byte ret = SavePNGNative((SDLSurface*)surface, (byte*)pfile);
+				return ret != 0;
+			}
 		}
 
 		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
+		/// Save a surface to a file in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetWindowPosition(SDLWindow* window, int* x, int* y)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
 		{
-			byte ret = GetWindowPositionNative(window, x, y);
+			fixed (byte* pfile = file)
+			{
+				byte ret = SavePNGNative((SDLSurface*)surface, (byte*)pfile);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a file in PNG format.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SavePNGNative((SDLSurface*)surface, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
+		/// Save a surface to a file in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetWindowPosition(ref SDLWindow window, int* x, int* y)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				byte ret = GetWindowPositionNative((SDLWindow*)pwindow, x, y);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowPosition(SDLWindow* window, ref int x, int* y)
-		{
-			fixed (int* px = &x)
-			{
-				byte ret = GetWindowPositionNative(window, (int*)px, y);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowPosition(ref SDLWindow window, ref int x, int* y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* px = &x)
+				fixed (byte* pfile = &file)
 				{
-					byte ret = GetWindowPositionNative((SDLWindow*)pwindow, (int*)px, y);
+					byte ret = SavePNGNative((SDLSurface*)psurface, (byte*)pfile);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
+		/// Save a surface to a file in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetWindowPosition(SDLWindow* window, int* x, ref int y)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
 		{
-			fixed (int* py = &y)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				byte ret = GetWindowPositionNative(window, x, (int*)py);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowPosition(ref SDLWindow window, int* x, ref int y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* py = &y)
+				fixed (byte* pfile = file)
 				{
-					byte ret = GetWindowPositionNative((SDLWindow*)pwindow, x, (int*)py);
+					byte ret = SavePNGNative((SDLSurface*)psurface, (byte*)pfile);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
+		/// Save a surface to a file in PNG format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetWindowPosition(SDLWindow* window, ref int x, ref int y)
+		[NativeName(NativeNameType.Func, "SDL_SavePNG")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SavePNG([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
 		{
-			fixed (int* px = &x)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				fixed (int* py = &y)
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (file != null)
 				{
-					byte ret = GetWindowPositionNative(window, (int*)px, (int*)py);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// This is the current position of the window as last reported by the<br/>
-		/// windowing system.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowPosition(ref SDLWindow window, ref int x, ref int y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* px = &x)
-				{
-					fixed (int* py = &y)
+					pStrSize0 = Utils.GetByteCountUTF8(file);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
-						byte ret = GetWindowPositionNative((SDLWindow*)pwindow, (int*)px, (int*)py);
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				byte ret = SavePNGNative((SDLSurface*)psurface, pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the RLE acceleration hint for a surface.<br/>
+		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
+		/// the surface must be locked before directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetSurfaceRLENative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte>)funcTable[416])(surface, enabled);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[416])((nint)surface, enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the RLE acceleration hint for a surface.<br/>
+		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
+		/// the surface must be locked before directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			byte ret = SetSurfaceRLENative((SDLSurface*)surface, enabled ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the RLE acceleration hint for a surface.<br/>
+		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
+		/// the surface must be locked before directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SetSurfaceRLENative((SDLSurface*)psurface, enabled ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Returns whether the surface is RLE enabled.<br/>
+		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasRLE")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SurfaceHasRLENative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[417])(surface);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[417])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns whether the surface is RLE enabled.<br/>
+		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasRLE")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SurfaceHasRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
+		{
+			byte ret = SurfaceHasRLENative((SDLSurface*)surface);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Returns whether the surface is RLE enabled.<br/>
+		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasRLE")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SurfaceHasRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SurfaceHasRLENative((SDLSurface*)psurface);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the color key (transparent pixel) in a surface.<br/>
+		/// The color key defines a pixel value that will be treated as transparent in<br/>
+		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
+		/// considered transparent, and therefore not rendered.<br/>
+		/// It is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetSurfaceColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, uint, byte>)funcTable[418])(surface, enabled, key);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, uint, byte>)funcTable[418])((nint)surface, enabled, key);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the color key (transparent pixel) in a surface.<br/>
+		/// The color key defines a pixel value that will be treated as transparent in<br/>
+		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
+		/// considered transparent, and therefore not rendered.<br/>
+		/// It is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
+		{
+			byte ret = SetSurfaceColorKeyNative((SDLSurface*)surface, enabled ? (byte)1 : (byte)0, key);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the color key (transparent pixel) in a surface.<br/>
+		/// The color key defines a pixel value that will be treated as transparent in<br/>
+		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
+		/// considered transparent, and therefore not rendered.<br/>
+		/// It is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SetSurfaceColorKeyNative((SDLSurface*)psurface, enabled ? (byte)1 : (byte)0, key);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Returns whether the surface has a color key.<br/>
+		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SurfaceHasColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[419])(surface);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[419])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns whether the surface has a color key.<br/>
+		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SurfaceHasColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface)
+		{
+			byte ret = SurfaceHasColorKeyNative((SDLSurface*)surface);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Returns whether the surface has a color key.<br/>
+		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SurfaceHasColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SurfaceHasColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SurfaceHasColorKeyNative((SDLSurface*)psurface);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetSurfaceColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* key)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint*, byte>)funcTable[420])(surface, key);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[420])((nint)surface, (nint)key);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* key)
+		{
+			byte ret = GetSurfaceColorKeyNative((SDLSurface*)surface, key);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* key)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = GetSurfaceColorKeyNative((SDLSurface*)psurface, key);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint key)
+		{
+			fixed (uint* pkey = &key)
+			{
+				byte ret = GetSurfaceColorKeyNative((SDLSurface*)surface, (uint*)pkey);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorKey")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint key)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (uint* pkey = &key)
+				{
+					byte ret = GetSurfaceColorKeyNative((SDLSurface*)psurface, (uint*)pkey);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into blit operations.<br/>
+		/// When this surface is blitted, during the blit operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetSurfaceColorModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte, byte, byte>)funcTable[421])(surface, r, g, b);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[421])((nint)surface, r, g, b);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into blit operations.<br/>
+		/// When this surface is blitted, during the blit operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			byte ret = SetSurfaceColorModNative((SDLSurface*)surface, r, g, b);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into blit operations.<br/>
+		/// When this surface is blitted, during the blit operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetSurfaceColorModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte*, byte*, byte>)funcTable[422])(surface, r, g, b);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[422])((nint)surface, (nint)r, (nint)g, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			byte ret = GetSurfaceColorModNative((SDLSurface*)surface, r, g, b);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				byte ret = GetSurfaceColorModNative((SDLSurface*)surface, (byte*)pr, g, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (byte* pg = &g)
+			{
+				byte ret = GetSurfaceColorModNative((SDLSurface*)surface, r, (byte*)pg, b);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pg = &g)
+				{
+					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					byte ret = GetSurfaceColorModNative((SDLSurface*)surface, (byte*)pr, (byte*)pg, b);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, b);
 						return ret != 0;
 					}
 				}
@@ -4075,283 +4525,91 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Request that the size of a window's client area be set.<br/>
-		/// If the window is in a fullscreen or maximized state, this request has no<br/>
-		/// effect.<br/>
-		/// To change the exclusive fullscreen mode of a window, use<br/>
-		/// SDL_SetWindowFullscreenMode().<br/>
-		/// On some windowing systems, this request is asynchronous and the new window<br/>
-		/// size may not have have been applied immediately upon the return of this<br/>
-		/// function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window size changes, an SDL_EVENT_WINDOW_RESIZED event will be<br/>
-		/// emitted with the new window dimensions. Note that the new dimensions may<br/>
-		/// not match the exact size requested, as some windowing systems can restrict<br/>
-		/// the window size in certain scenarios (e.g. constraining the size of the<br/>
-		/// content area to remain within the usable desktop bounds). Additionally, as<br/>
-		/// this is just a request, it can be denied by the windowing system.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetWindowSizeNative(SDLWindow* window, int w, int h)
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, byte>)funcTable[530])(window, w, h);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, byte>)funcTable[530])((nint)window, w, h);
-			#endif
-		}
-
-		/// <summary>
-		/// Request that the size of a window's client area be set.<br/>
-		/// If the window is in a fullscreen or maximized state, this request has no<br/>
-		/// effect.<br/>
-		/// To change the exclusive fullscreen mode of a window, use<br/>
-		/// SDL_SetWindowFullscreenMode().<br/>
-		/// On some windowing systems, this request is asynchronous and the new window<br/>
-		/// size may not have have been applied immediately upon the return of this<br/>
-		/// function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window size changes, an SDL_EVENT_WINDOW_RESIZED event will be<br/>
-		/// emitted with the new window dimensions. Note that the new dimensions may<br/>
-		/// not match the exact size requested, as some windowing systems can restrict<br/>
-		/// the window size in certain scenarios (e.g. constraining the size of the<br/>
-		/// content area to remain within the usable desktop bounds). Additionally, as<br/>
-		/// this is just a request, it can be denied by the windowing system.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowSize(SDLWindow* window, int w, int h)
-		{
-			byte ret = SetWindowSizeNative(window, w, h);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Request that the size of a window's client area be set.<br/>
-		/// If the window is in a fullscreen or maximized state, this request has no<br/>
-		/// effect.<br/>
-		/// To change the exclusive fullscreen mode of a window, use<br/>
-		/// SDL_SetWindowFullscreenMode().<br/>
-		/// On some windowing systems, this request is asynchronous and the new window<br/>
-		/// size may not have have been applied immediately upon the return of this<br/>
-		/// function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window size changes, an SDL_EVENT_WINDOW_RESIZED event will be<br/>
-		/// emitted with the new window dimensions. Note that the new dimensions may<br/>
-		/// not match the exact size requested, as some windowing systems can restrict<br/>
-		/// the window size in certain scenarios (e.g. constraining the size of the<br/>
-		/// content area to remain within the usable desktop bounds). Additionally, as<br/>
-		/// this is just a request, it can be denied by the windowing system.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowSize(ref SDLWindow window, int w, int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pb = &b)
 			{
-				byte ret = SetWindowSizeNative((SDLWindow*)pwindow, w, h);
+				byte ret = GetSurfaceColorModNative((SDLSurface*)surface, r, g, (byte*)pb);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetWindowSizeNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, byte>)funcTable[531])(window, w, h);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[531])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetWindowSize(SDLWindow* window, int* w, int* h)
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			byte ret = GetWindowSizeNative(window, w, h);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSize(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				byte ret = GetWindowSizeNative((SDLWindow*)pwindow, w, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSize(SDLWindow* window, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				byte ret = GetWindowSizeNative(window, (int*)pw, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSize(ref SDLWindow window, ref int w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
+				fixed (byte* pb = &b)
 				{
-					byte ret = GetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, (byte*)pb);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSize(SDLWindow* window, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				byte ret = GetWindowSizeNative(window, w, (int*)ph);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetWindowSize(ref SDLWindow window, int* w, ref int h)
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pr = &r)
 			{
-				fixed (int* ph = &h)
+				fixed (byte* pb = &b)
 				{
-					byte ret = GetWindowSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+					byte ret = GetSurfaceColorModNative((SDLSurface*)surface, (byte*)pr, g, (byte*)pb);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSize(SDLWindow* window, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetWindowSizeNative(window, (int*)pw, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// The window pixel size may differ from its window coordinate size if the<br/>
-		/// window is on a high pixel density display. Use SDL_GetWindowSizeInPixels()<br/>
-		/// or SDL_GetRenderOutputSize() to get the real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetWindowSize(ref SDLWindow window, ref int w, ref int h)
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				fixed (int* pw = &w)
+				fixed (byte* pr = &r)
 				{
-					fixed (int* ph = &h)
+					fixed (byte* pb = &b)
 					{
-						byte ret = GetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, (byte*)pb);
 						return ret != 0;
 					}
 				}
@@ -4359,376 +4617,48 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the safe area for this window.<br/>
-		/// Some devices have portions of the screen which are partially obscured or<br/>
-		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
-		/// notches, TV overscan, etc. This function provides the area of the window<br/>
-		/// which is safe to have interactable content. You should continue rendering<br/>
-		/// into the rest of the window, but it should not contain visually important<br/>
-		/// or interactible content.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetWindowSafeAreaNative(SDLWindow* window, SDLRect* rect)
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, byte>)funcTable[532])(window, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[532])((nint)window, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the safe area for this window.<br/>
-		/// Some devices have portions of the screen which are partially obscured or<br/>
-		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
-		/// notches, TV overscan, etc. This function provides the area of the window<br/>
-		/// which is safe to have interactable content. You should continue rendering<br/>
-		/// into the rest of the window, but it should not contain visually important<br/>
-		/// or interactible content.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSafeArea(SDLWindow* window, SDLRect* rect)
-		{
-			byte ret = GetWindowSafeAreaNative(window, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the safe area for this window.<br/>
-		/// Some devices have portions of the screen which are partially obscured or<br/>
-		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
-		/// notches, TV overscan, etc. This function provides the area of the window<br/>
-		/// which is safe to have interactable content. You should continue rendering<br/>
-		/// into the rest of the window, but it should not contain visually important<br/>
-		/// or interactible content.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSafeArea(ref SDLWindow window, SDLRect* rect)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pg = &g)
 			{
-				byte ret = GetWindowSafeAreaNative((SDLWindow*)pwindow, rect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the safe area for this window.<br/>
-		/// Some devices have portions of the screen which are partially obscured or<br/>
-		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
-		/// notches, TV overscan, etc. This function provides the area of the window<br/>
-		/// which is safe to have interactable content. You should continue rendering<br/>
-		/// into the rest of the window, but it should not contain visually important<br/>
-		/// or interactible content.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSafeArea(SDLWindow* window, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = GetWindowSafeAreaNative(window, (SDLRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the safe area for this window.<br/>
-		/// Some devices have portions of the screen which are partially obscured or<br/>
-		/// not interactive, possibly due to on-screen controls, curved edges, camera<br/>
-		/// notches, TV overscan, etc. This function provides the area of the window<br/>
-		/// which is safe to have interactable content. You should continue rendering<br/>
-		/// into the rest of the window, but it should not contain visually important<br/>
-		/// or interactible content.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowSafeArea(ref SDLWindow window, ref SDLRect rect)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLRect* prect = &rect)
+				fixed (byte* pb = &b)
 				{
-					byte ret = GetWindowSafeAreaNative((SDLWindow*)pwindow, (SDLRect*)prect);
+					byte ret = GetSurfaceColorModNative((SDLSurface*)surface, r, (byte*)pg, (byte*)pb);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Request that the aspect ratio of a window's client area be set.<br/>
-		/// The aspect ratio is the ratio of width divided by height, e.g. 2560x1600<br/>
-		/// would be 1.6. Larger aspect ratios are wider and smaller aspect ratios are<br/>
-		/// narrower.<br/>
-		/// If, at the time of this request, the window in a fixed-size state, such as<br/>
-		/// maximized or fullscreen, the request will be deferred until the window<br/>
-		/// exits this state and becomes resizable again.<br/>
-		/// On some windowing systems, this request is asynchronous and the new window<br/>
-		/// aspect ratio may not have have been applied immediately upon the return of<br/>
-		/// this function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window size changes, an SDL_EVENT_WINDOW_RESIZED event will be<br/>
-		/// emitted with the new window dimensions. Note that the new dimensions may<br/>
-		/// not match the exact aspect ratio requested, as some windowing systems can<br/>
-		/// restrict the window size in certain scenarios (e.g. constraining the size<br/>
-		/// of the content area to remain within the usable desktop bounds).<br/>
-		/// Additionally, as this is just a request, it can be denied by the windowing<br/>
-		/// system.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetWindowAspectRatioNative(SDLWindow* window, float minAspect, float maxAspect)
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float, float, byte>)funcTable[533])(window, minAspect, maxAspect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, byte>)funcTable[533])((nint)window, minAspect, maxAspect);
-			#endif
-		}
-
-		/// <summary>
-		/// Request that the aspect ratio of a window's client area be set.<br/>
-		/// The aspect ratio is the ratio of width divided by height, e.g. 2560x1600<br/>
-		/// would be 1.6. Larger aspect ratios are wider and smaller aspect ratios are<br/>
-		/// narrower.<br/>
-		/// If, at the time of this request, the window in a fixed-size state, such as<br/>
-		/// maximized or fullscreen, the request will be deferred until the window<br/>
-		/// exits this state and becomes resizable again.<br/>
-		/// On some windowing systems, this request is asynchronous and the new window<br/>
-		/// aspect ratio may not have have been applied immediately upon the return of<br/>
-		/// this function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window size changes, an SDL_EVENT_WINDOW_RESIZED event will be<br/>
-		/// emitted with the new window dimensions. Note that the new dimensions may<br/>
-		/// not match the exact aspect ratio requested, as some windowing systems can<br/>
-		/// restrict the window size in certain scenarios (e.g. constraining the size<br/>
-		/// of the content area to remain within the usable desktop bounds).<br/>
-		/// Additionally, as this is just a request, it can be denied by the windowing<br/>
-		/// system.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowAspectRatio(SDLWindow* window, float minAspect, float maxAspect)
-		{
-			byte ret = SetWindowAspectRatioNative(window, minAspect, maxAspect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Request that the aspect ratio of a window's client area be set.<br/>
-		/// The aspect ratio is the ratio of width divided by height, e.g. 2560x1600<br/>
-		/// would be 1.6. Larger aspect ratios are wider and smaller aspect ratios are<br/>
-		/// narrower.<br/>
-		/// If, at the time of this request, the window in a fixed-size state, such as<br/>
-		/// maximized or fullscreen, the request will be deferred until the window<br/>
-		/// exits this state and becomes resizable again.<br/>
-		/// On some windowing systems, this request is asynchronous and the new window<br/>
-		/// aspect ratio may not have have been applied immediately upon the return of<br/>
-		/// this function. If an immediate change is required, call SDL_SyncWindow() to<br/>
-		/// block until the changes have taken effect.<br/>
-		/// When the window size changes, an SDL_EVENT_WINDOW_RESIZED event will be<br/>
-		/// emitted with the new window dimensions. Note that the new dimensions may<br/>
-		/// not match the exact aspect ratio requested, as some windowing systems can<br/>
-		/// restrict the window size in certain scenarios (e.g. constraining the size<br/>
-		/// of the content area to remain within the usable desktop bounds).<br/>
-		/// Additionally, as this is just a request, it can be denied by the windowing<br/>
-		/// system.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetWindowAspectRatio(ref SDLWindow window, float minAspect, float maxAspect)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				byte ret = SetWindowAspectRatioNative((SDLWindow*)pwindow, minAspect, maxAspect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetWindowAspectRatioNative(SDLWindow* window, float* minAspect, float* maxAspect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float*, float*, byte>)funcTable[534])(window, minAspect, maxAspect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[534])((nint)window, (nint)minAspect, (nint)maxAspect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowAspectRatio(SDLWindow* window, float* minAspect, float* maxAspect)
-		{
-			byte ret = GetWindowAspectRatioNative(window, minAspect, maxAspect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowAspectRatio(ref SDLWindow window, float* minAspect, float* maxAspect)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = GetWindowAspectRatioNative((SDLWindow*)pwindow, minAspect, maxAspect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowAspectRatio(SDLWindow* window, ref float minAspect, float* maxAspect)
-		{
-			fixed (float* pminAspect = &minAspect)
-			{
-				byte ret = GetWindowAspectRatioNative(window, (float*)pminAspect, maxAspect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowAspectRatio(ref SDLWindow window, ref float minAspect, float* maxAspect)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (float* pminAspect = &minAspect)
+				fixed (byte* pg = &g)
 				{
-					byte ret = GetWindowAspectRatioNative((SDLWindow*)pwindow, (float*)pminAspect, maxAspect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowAspectRatio(SDLWindow* window, float* minAspect, ref float maxAspect)
-		{
-			fixed (float* pmaxAspect = &maxAspect)
-			{
-				byte ret = GetWindowAspectRatioNative(window, minAspect, (float*)pmaxAspect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowAspectRatio(ref SDLWindow window, float* minAspect, ref float maxAspect)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (float* pmaxAspect = &maxAspect)
-				{
-					byte ret = GetWindowAspectRatioNative((SDLWindow*)pwindow, minAspect, (float*)pmaxAspect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowAspectRatio(SDLWindow* window, ref float minAspect, ref float maxAspect)
-		{
-			fixed (float* pminAspect = &minAspect)
-			{
-				fixed (float* pmaxAspect = &maxAspect)
-				{
-					byte ret = GetWindowAspectRatioNative(window, (float*)pminAspect, (float*)pmaxAspect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowAspectRatio(ref SDLWindow window, ref float minAspect, ref float maxAspect)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (float* pminAspect = &minAspect)
-				{
-					fixed (float* pmaxAspect = &maxAspect)
+					fixed (byte* pb = &b)
 					{
-						byte ret = GetWindowAspectRatioNative((SDLWindow*)pwindow, (float*)pminAspect, (float*)pmaxAspect);
+						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
 						return ret != 0;
 					}
 				}
@@ -4736,255 +4666,25 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetWindowBordersSizeNative(SDLWindow* window, int* top, int* left, int* bottom, int* right)
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, int*, int*, byte>)funcTable[535])(window, top, left, bottom, right);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[535])((nint)window, (nint)top, (nint)left, (nint)bottom, (nint)right);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(SDLWindow* window, int* top, int* left, int* bottom, int* right)
-		{
-			byte ret = GetWindowBordersSizeNative(window, top, left, bottom, right);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(ref SDLWindow window, int* top, int* left, int* bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* pr = &r)
 			{
-				byte ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, right);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(SDLWindow* window, ref int top, int* left, int* bottom, int* right)
-		{
-			fixed (int* ptop = &top)
-			{
-				byte ret = GetWindowBordersSizeNative(window, (int*)ptop, left, bottom, right);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, int* bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
+				fixed (byte* pg = &g)
 				{
-					byte ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, right);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(SDLWindow* window, int* top, ref int left, int* bottom, int* right)
-		{
-			fixed (int* pleft = &left)
-			{
-				byte ret = GetWindowBordersSizeNative(window, top, (int*)pleft, bottom, right);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, int* bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pleft = &left)
-				{
-					byte ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, right);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(SDLWindow* window, ref int top, ref int left, int* bottom, int* right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pleft = &left)
-				{
-					byte ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, bottom, right);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, int* bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pleft = &left)
+					fixed (byte* pb = &b)
 					{
-						byte ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, right);
+						byte ret = GetSurfaceColorModNative((SDLSurface*)surface, (byte*)pr, (byte*)pg, (byte*)pb);
 						return ret != 0;
 					}
 				}
@@ -4992,28 +4692,334 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns false), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns false if getting the information is not<br/>
-		/// supported.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetWindowBordersSize(SDLWindow* window, int* top, int* left, ref int bottom, int* right)
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte b)
 		{
-			fixed (int* pbottom = &bottom)
+			fixed (SDLSurface* psurface = &surface)
 			{
-				byte ret = GetWindowBordersSizeNative(window, top, left, (int*)pbottom, right);
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, (byte*)pb);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte>)funcTable[423])(surface, alpha);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[423])((nint)surface, alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		{
+			byte ret = SetSurfaceAlphaModNative((SDLSurface*)surface, alpha);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte>)funcTable[424])(surface, alpha);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[424])((nint)surface, (nint)alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
+		{
+			byte ret = GetSurfaceAlphaModNative((SDLSurface*)surface, alpha);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte alpha)
+		{
+			fixed (byte* palpha = &alpha)
+			{
+				byte ret = GetSurfaceAlphaModNative((SDLSurface*)surface, (byte*)palpha);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* palpha = &alpha)
+				{
+					byte ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] uint blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint, byte>)funcTable[425])(surface, blendMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[425])((nint)surface, blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] uint blendMode)
+		{
+			byte ret = SetSurfaceBlendModeNative((SDLSurface*)surface, blendMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function can be called on different threads with<br/>
+		/// different surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] uint blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = SetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] uint* blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint*, byte>)funcTable[426])(surface, blendMode);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[426])((nint)surface, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] uint* blendMode)
+		{
+			byte ret = GetSurfaceBlendModeNative((SDLSurface*)surface, blendMode);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] uint* blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				byte ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode *")] ref uint blendMode)
+		{
+			fixed (uint* pblendMode = &blendMode)
+			{
+				byte ret = GetSurfaceBlendModeNative((SDLSurface*)surface, (uint*)pblendMode);
 				return ret != 0;
 			}
 		}

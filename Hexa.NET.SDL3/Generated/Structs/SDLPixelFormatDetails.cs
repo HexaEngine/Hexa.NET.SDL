@@ -19,25 +19,58 @@ namespace Hexa.NET.SDL3
 	/// Details about the format of a pixel.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_PixelFormatDetails")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPixelFormatDetails
 	{
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
+		[NativeName(NativeNameType.Field, "bits_per_pixel")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte BitsPerPixel;
+		[NativeName(NativeNameType.Field, "bytes_per_pixel")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte BytesPerPixel;
+		[NativeName(NativeNameType.Field, "padding")]
+		[NativeName(NativeNameType.Type, "Uint8[2]")]
 		public byte Padding_0;
 		public byte Padding_1;
+		[NativeName(NativeNameType.Field, "Rmask")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Rmask;
+		[NativeName(NativeNameType.Field, "Gmask")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Gmask;
+		[NativeName(NativeNameType.Field, "Bmask")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Bmask;
+		[NativeName(NativeNameType.Field, "Amask")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Amask;
+		[NativeName(NativeNameType.Field, "Rbits")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Rbits;
+		[NativeName(NativeNameType.Field, "Gbits")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Gbits;
+		[NativeName(NativeNameType.Field, "Bbits")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Bbits;
+		[NativeName(NativeNameType.Field, "Abits")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Abits;
+		[NativeName(NativeNameType.Field, "Rshift")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Rshift;
+		[NativeName(NativeNameType.Field, "Gshift")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Gshift;
+		[NativeName(NativeNameType.Field, "Bshift")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Bshift;
+		[NativeName(NativeNameType.Field, "Ashift")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Ashift;
 
 		public unsafe SDLPixelFormatDetails(SDLPixelFormat format = default, byte bitsPerPixel = default, byte bytesPerPixel = default, byte* padding = default, uint rmask = default, uint gmask = default, uint bmask = default, uint amask = default, byte rbits = default, byte gbits = default, byte bbits = default, byte abits = default, byte rshift = default, byte gshift = default, byte bshift = default, byte ashift = default)
@@ -89,6 +122,74 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Details about the format of a pixel.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_PixelFormatDetails")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLPixelFormatDetailsPtr : IEquatable<SDLPixelFormatDetailsPtr>
+	{
+		public SDLPixelFormatDetailsPtr(SDLPixelFormatDetails* handle) { Handle = handle; }
+
+		public SDLPixelFormatDetails* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLPixelFormatDetailsPtr Null => new SDLPixelFormatDetailsPtr(null);
+
+		public SDLPixelFormatDetails this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLPixelFormatDetailsPtr(SDLPixelFormatDetails* handle) => new SDLPixelFormatDetailsPtr(handle);
+
+		public static implicit operator SDLPixelFormatDetails*(SDLPixelFormatDetailsPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLPixelFormatDetailsPtr left, SDLPixelFormatDetailsPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLPixelFormatDetailsPtr left, SDLPixelFormatDetailsPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLPixelFormatDetailsPtr left, SDLPixelFormatDetails* right) => left.Handle == right;
+
+		public static bool operator !=(SDLPixelFormatDetailsPtr left, SDLPixelFormatDetails* right) => left.Handle != right;
+
+		public bool Equals(SDLPixelFormatDetailsPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLPixelFormatDetailsPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLPixelFormatDetailsPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref SDLPixelFormat Format => ref Unsafe.AsRef<SDLPixelFormat>(&Handle->Format);
+		public ref byte BitsPerPixel => ref Unsafe.AsRef<byte>(&Handle->BitsPerPixel);
+		public ref byte BytesPerPixel => ref Unsafe.AsRef<byte>(&Handle->BytesPerPixel);
+		public unsafe Span<byte> Padding
+		
+		{
+			get
+			{
+				return new Span<byte>(&Handle->Padding_0, 2);
+			}
+		}
+		public ref uint Rmask => ref Unsafe.AsRef<uint>(&Handle->Rmask);
+		public ref uint Gmask => ref Unsafe.AsRef<uint>(&Handle->Gmask);
+		public ref uint Bmask => ref Unsafe.AsRef<uint>(&Handle->Bmask);
+		public ref uint Amask => ref Unsafe.AsRef<uint>(&Handle->Amask);
+		public ref byte Rbits => ref Unsafe.AsRef<byte>(&Handle->Rbits);
+		public ref byte Gbits => ref Unsafe.AsRef<byte>(&Handle->Gbits);
+		public ref byte Bbits => ref Unsafe.AsRef<byte>(&Handle->Bbits);
+		public ref byte Abits => ref Unsafe.AsRef<byte>(&Handle->Abits);
+		public ref byte Rshift => ref Unsafe.AsRef<byte>(&Handle->Rshift);
+		public ref byte Gshift => ref Unsafe.AsRef<byte>(&Handle->Gshift);
+		public ref byte Bshift => ref Unsafe.AsRef<byte>(&Handle->Bshift);
+		public ref byte Ashift => ref Unsafe.AsRef<byte>(&Handle->Ashift);
 	}
 
 }

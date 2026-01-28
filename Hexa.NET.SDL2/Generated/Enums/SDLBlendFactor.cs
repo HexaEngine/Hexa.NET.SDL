@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The normalized factor used to multiply pixel components<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLBlendFactor : int
 	{
 		/// <summary>

@@ -15,15 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The structure used to identify an SDL gamepad<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Gamepad")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGamepad
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Gamepad")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGamepadPtr : IEquatable<SDLGamepadPtr>
+	{
+		public SDLGamepadPtr(SDLGamepad* handle) { Handle = handle; }
+
+		public SDLGamepad* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGamepadPtr Null => new SDLGamepadPtr(null);
+
+		public SDLGamepad this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGamepadPtr(SDLGamepad* handle) => new SDLGamepadPtr(handle);
+
+		public static implicit operator SDLGamepad*(SDLGamepadPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGamepadPtr left, SDLGamepadPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGamepadPtr left, SDLGamepadPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGamepadPtr left, SDLGamepad* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGamepadPtr left, SDLGamepad* right) => left.Handle != right;
+
+		public bool Equals(SDLGamepadPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGamepadPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGamepadPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

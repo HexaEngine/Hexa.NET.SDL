@@ -20,32 +20,43 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_PathInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPathInfo
 	{
 		/// <summary>
 		/// the path type <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_PathType")]
 		public SDLPathType Type;
 
 		/// <summary>
 		/// the file size in bytes <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "size")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Size;
 
 		/// <summary>
 		/// the time when the path was created <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "create_time")]
+		[NativeName(NativeNameType.Type, "SDL_Time")]
 		public long CreateTime;
 
 		/// <summary>
 		/// the last time the path was modified <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "modify_time")]
+		[NativeName(NativeNameType.Type, "SDL_Time")]
 		public long ModifyTime;
 
 		/// <summary>
 		/// the last time the path was read <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "access_time")]
+		[NativeName(NativeNameType.Type, "SDL_Time")]
 		public long AccessTime;
 
 
@@ -59,6 +70,72 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Information about a path on the filesystem.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_PathInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLPathInfoPtr : IEquatable<SDLPathInfoPtr>
+	{
+		public SDLPathInfoPtr(SDLPathInfo* handle) { Handle = handle; }
+
+		public SDLPathInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLPathInfoPtr Null => new SDLPathInfoPtr(null);
+
+		public SDLPathInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLPathInfoPtr(SDLPathInfo* handle) => new SDLPathInfoPtr(handle);
+
+		public static implicit operator SDLPathInfo*(SDLPathInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLPathInfoPtr left, SDLPathInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLPathInfoPtr left, SDLPathInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLPathInfoPtr left, SDLPathInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLPathInfoPtr left, SDLPathInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLPathInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLPathInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLPathInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// the path type <br/>
+		/// </summary>
+		public ref SDLPathType Type => ref Unsafe.AsRef<SDLPathType>(&Handle->Type);
+		/// <summary>
+		/// the file size in bytes <br/>
+		/// </summary>
+		public ref ulong Size => ref Unsafe.AsRef<ulong>(&Handle->Size);
+		/// <summary>
+		/// the time when the path was created <br/>
+		/// </summary>
+		public ref long CreateTime => ref Unsafe.AsRef<long>(&Handle->CreateTime);
+		/// <summary>
+		/// the last time the path was modified <br/>
+		/// </summary>
+		public ref long ModifyTime => ref Unsafe.AsRef<long>(&Handle->ModifyTime);
+		/// <summary>
+		/// the last time the path was read <br/>
+		/// </summary>
+		public ref long AccessTime => ref Unsafe.AsRef<long>(&Handle->AccessTime);
 	}
 
 }

@@ -18,6 +18,2365 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// The function prototype for `destructor` is:<br/>
+		/// ```c<br/>
+		/// void destructor(void *value)<br/>
+		/// ```<br/>
+		/// where its parameter `value` is what was passed as `value` to SDL_TLSSet().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int TLSSet(uint id, void* value, SDLTLSDestructorCallback destructor)
+		{
+			int ret = TLSSetNative(id, value, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(destructor));
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// The function prototype for `destructor` is:<br/>
+		/// ```c<br/>
+		/// void destructor(void *value)<br/>
+		/// ```<br/>
+		/// where its parameter `value` is what was passed as `value` to SDL_TLSSet().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int TLSSet(uint id, nint value, SDLTLSDestructorCallback destructor)
+		{
+			int ret = TLSSetNative(id, (void*)value, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(destructor));
+			return ret;
+		}
+
+		/// <summary>
+		/// Cleanup all TLS data for this thread.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TLSCleanupNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[183])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[183])();
+			#endif
+		}
+
+		/// <summary>
+		/// Cleanup all TLS data for this thread.<br/>
+		/// <br/>
+		/// </summary>
+		public static void TLSCleanup()
+		{
+			TLSCleanupNative();
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRWops* RWFromFileNative(byte* file, byte* mode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLRWops*>)funcTable[184])(file, mode);
+			#else
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[184])((nint)file, (nint)mode);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(byte* file, byte* mode)
+		{
+			SDLRWopsPtr ret = RWFromFileNative(file, mode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(in byte file, byte* mode)
+		{
+			fixed (byte* pfile = &file)
+			{
+				SDLRWopsPtr ret = RWFromFileNative((byte*)pfile, mode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(ReadOnlySpan<byte> file, byte* mode)
+		{
+			fixed (byte* pfile = file)
+			{
+				SDLRWopsPtr ret = RWFromFileNative((byte*)pfile, mode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(string file, byte* mode)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLRWopsPtr ret = RWFromFileNative(pStr0, mode);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(byte* file, in byte mode)
+		{
+			fixed (byte* pmode = &mode)
+			{
+				SDLRWopsPtr ret = RWFromFileNative(file, (byte*)pmode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(byte* file, ReadOnlySpan<byte> mode)
+		{
+			fixed (byte* pmode = mode)
+			{
+				SDLRWopsPtr ret = RWFromFileNative(file, (byte*)pmode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(byte* file, string mode)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (mode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(mode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(mode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLRWopsPtr ret = RWFromFileNative(file, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(in byte file, in byte mode)
+		{
+			fixed (byte* pfile = &file)
+			{
+				fixed (byte* pmode = &mode)
+				{
+					SDLRWopsPtr ret = RWFromFileNative((byte*)pfile, (byte*)pmode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(ReadOnlySpan<byte> file, ReadOnlySpan<byte> mode)
+		{
+			fixed (byte* pfile = file)
+			{
+				fixed (byte* pmode = mode)
+				{
+					SDLRWopsPtr ret = RWFromFileNative((byte*)pfile, (byte*)pmode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_RWops structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
+		/// in an Android app's `assets`.<br/>
+		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFile(string file, string mode)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (mode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(mode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(mode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			SDLRWopsPtr ret = RWFromFileNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create an SDL_RWops structure from a standard I/O file<br/>
+		/// pointer (stdio.h's `FILE*`).<br/>
+		/// This function is not available on Windows, since files opened in an<br/>
+		/// application on that platform cannot be used by a dynamically linked<br/>
+		/// library.<br/>
+		/// On some platforms, the first parameter is a `void*`, on others, it's a<br/>
+		/// `FILE*`, depending on what system headers are available to SDL. It is<br/>
+		/// always intended to be the `FILE*` type from the C runtime's stdio.h.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRWops* RWFromFPNative(void* fp, SDLBool autoclose)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, SDLBool, SDLRWops*>)funcTable[185])(fp, autoclose);
+			#else
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, SDLBool, nint>)funcTable[185])((nint)fp, autoclose);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to create an SDL_RWops structure from a standard I/O file<br/>
+		/// pointer (stdio.h's `FILE*`).<br/>
+		/// This function is not available on Windows, since files opened in an<br/>
+		/// application on that platform cannot be used by a dynamically linked<br/>
+		/// library.<br/>
+		/// On some platforms, the first parameter is a `void*`, on others, it's a<br/>
+		/// `FILE*`, depending on what system headers are available to SDL. It is<br/>
+		/// always intended to be the `FILE*` type from the C runtime's stdio.h.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFP(void* fp, SDLBool autoclose)
+		{
+			SDLRWopsPtr ret = RWFromFPNative(fp, autoclose);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create an SDL_RWops structure from a standard I/O file<br/>
+		/// pointer (stdio.h's `FILE*`).<br/>
+		/// This function is not available on Windows, since files opened in an<br/>
+		/// application on that platform cannot be used by a dynamically linked<br/>
+		/// library.<br/>
+		/// On some platforms, the first parameter is a `void*`, on others, it's a<br/>
+		/// `FILE*`, depending on what system headers are available to SDL. It is<br/>
+		/// always intended to be the `FILE*` type from the C runtime's stdio.h.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromFP(nint fp, SDLBool autoclose)
+		{
+			SDLRWopsPtr ret = RWFromFPNative((void*)fp, autoclose);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-write memory buffer for use with<br/>
+		/// SDL_RWops.<br/>
+		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
+		/// certain size, for both read and write access.<br/>
+		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
+		/// remain valid until you close the stream. Closing the stream will not free<br/>
+		/// the original buffer.<br/>
+		/// If you need to make sure the RWops never writes to the memory buffer, you<br/>
+		/// should use SDL_RWFromConstMem() with a read-only buffer of memory instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRWops* RWFromMemNative(void* mem, int size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, int, SDLRWops*>)funcTable[186])(mem, size);
+			#else
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[186])((nint)mem, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-write memory buffer for use with<br/>
+		/// SDL_RWops.<br/>
+		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
+		/// certain size, for both read and write access.<br/>
+		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
+		/// remain valid until you close the stream. Closing the stream will not free<br/>
+		/// the original buffer.<br/>
+		/// If you need to make sure the RWops never writes to the memory buffer, you<br/>
+		/// should use SDL_RWFromConstMem() with a read-only buffer of memory instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromMem(void* mem, int size)
+		{
+			SDLRWopsPtr ret = RWFromMemNative(mem, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-write memory buffer for use with<br/>
+		/// SDL_RWops.<br/>
+		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
+		/// certain size, for both read and write access.<br/>
+		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
+		/// remain valid until you close the stream. Closing the stream will not free<br/>
+		/// the original buffer.<br/>
+		/// If you need to make sure the RWops never writes to the memory buffer, you<br/>
+		/// should use SDL_RWFromConstMem() with a read-only buffer of memory instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromMem(nint mem, int size)
+		{
+			SDLRWopsPtr ret = RWFromMemNative((void*)mem, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-only memory buffer for use with RWops.<br/>
+		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
+		/// certain size. It assumes the memory area is not writable.<br/>
+		/// Attempting to write to this RWops stream will report an error without<br/>
+		/// writing to the memory buffer.<br/>
+		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
+		/// remain valid until you close the stream. Closing the stream will not free<br/>
+		/// the original buffer.<br/>
+		/// If you need to write to a memory buffer, you should use SDL_RWFromMem()<br/>
+		/// with a writable buffer of memory instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRWops* RWFromConstMemNative(void* mem, int size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, int, SDLRWops*>)funcTable[187])(mem, size);
+			#else
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[187])((nint)mem, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-only memory buffer for use with RWops.<br/>
+		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
+		/// certain size. It assumes the memory area is not writable.<br/>
+		/// Attempting to write to this RWops stream will report an error without<br/>
+		/// writing to the memory buffer.<br/>
+		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
+		/// remain valid until you close the stream. Closing the stream will not free<br/>
+		/// the original buffer.<br/>
+		/// If you need to write to a memory buffer, you should use SDL_RWFromMem()<br/>
+		/// with a writable buffer of memory instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromConstMem(void* mem, int size)
+		{
+			SDLRWopsPtr ret = RWFromConstMemNative(mem, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-only memory buffer for use with RWops.<br/>
+		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
+		/// certain size. It assumes the memory area is not writable.<br/>
+		/// Attempting to write to this RWops stream will report an error without<br/>
+		/// writing to the memory buffer.<br/>
+		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
+		/// remain valid until you close the stream. Closing the stream will not free<br/>
+		/// the original buffer.<br/>
+		/// If you need to write to a memory buffer, you should use SDL_RWFromMem()<br/>
+		/// with a writable buffer of memory instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr RWFromConstMem(nint mem, int size)
+		{
+			SDLRWopsPtr ret = RWFromConstMemNative((void*)mem, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to allocate an empty, unpopulated SDL_RWops structure.<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc.<br/>
+		/// You must free the returned pointer with SDL_FreeRW(). Depending on your<br/>
+		/// operating system and compiler, there may be a difference between the<br/>
+		/// malloc() and free() your program uses and the versions SDL calls<br/>
+		/// internally. Trying to mix the two can cause crashing such as segmentation<br/>
+		/// faults. Since all SDL_RWops must free themselves when their **close**<br/>
+		/// method is called, all SDL_RWops must be allocated through this function, so<br/>
+		/// they can all be freed correctly with SDL_FreeRW().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRWops* AllocRWNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*>)funcTable[188])();
+			#else
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint>)funcTable[188])();
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to allocate an empty, unpopulated SDL_RWops structure.<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc.<br/>
+		/// You must free the returned pointer with SDL_FreeRW(). Depending on your<br/>
+		/// operating system and compiler, there may be a difference between the<br/>
+		/// malloc() and free() your program uses and the versions SDL calls<br/>
+		/// internally. Trying to mix the two can cause crashing such as segmentation<br/>
+		/// faults. Since all SDL_RWops must free themselves when their **close**<br/>
+		/// method is called, all SDL_RWops must be allocated through this function, so<br/>
+		/// they can all be freed correctly with SDL_FreeRW().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRWopsPtr AllocRW()
+		{
+			SDLRWopsPtr ret = AllocRWNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to free an SDL_RWops structure allocated by<br/>
+		/// SDL_AllocRW().<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc, and<br/>
+		/// call the **close** method on those SDL_RWops pointers when you are done<br/>
+		/// with them.<br/>
+		/// Only use SDL_FreeRW() on pointers returned by SDL_AllocRW(). The pointer is<br/>
+		/// invalid as soon as this function returns. Any extra memory allocated during<br/>
+		/// creation of the SDL_RWops is not freed by SDL_FreeRW(); the programmer must<br/>
+		/// be responsible for managing that memory in their **close** method.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FreeRWNative(SDLRWops* area)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRWops*, void>)funcTable[189])(area);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[189])((nint)area);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to free an SDL_RWops structure allocated by<br/>
+		/// SDL_AllocRW().<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc, and<br/>
+		/// call the **close** method on those SDL_RWops pointers when you are done<br/>
+		/// with them.<br/>
+		/// Only use SDL_FreeRW() on pointers returned by SDL_AllocRW(). The pointer is<br/>
+		/// invalid as soon as this function returns. Any extra memory allocated during<br/>
+		/// creation of the SDL_RWops is not freed by SDL_FreeRW(); the programmer must<br/>
+		/// be responsible for managing that memory in their **close** method.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeRW(SDLRWopsPtr area)
+		{
+			FreeRWNative((SDLRWops*)area);
+		}
+
+		/// <summary>
+		/// Use this function to free an SDL_RWops structure allocated by<br/>
+		/// SDL_AllocRW().<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc, and<br/>
+		/// call the **close** method on those SDL_RWops pointers when you are done<br/>
+		/// with them.<br/>
+		/// Only use SDL_FreeRW() on pointers returned by SDL_AllocRW(). The pointer is<br/>
+		/// invalid as soon as this function returns. Any extra memory allocated during<br/>
+		/// creation of the SDL_RWops is not freed by SDL_FreeRW(); the programmer must<br/>
+		/// be responsible for managing that memory in their **close** method.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeRW(ref SDLRWops area)
+		{
+			fixed (SDLRWops* parea = &area)
+			{
+				FreeRWNative((SDLRWops*)parea);
+			}
+		}
+
+		/// <summary>
+		/// Use this function to get the size of the data stream in an SDL_RWops.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long RWsizeNative(SDLRWops* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long>)funcTable[190])(context);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[190])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to get the size of the data stream in an SDL_RWops.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long RWsize(SDLRWopsPtr context)
+		{
+			long ret = RWsizeNative((SDLRWops*)context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to get the size of the data stream in an SDL_RWops.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long RWsize(ref SDLRWops context)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				long ret = RWsizeNative((SDLRWops*)pcontext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Seek within an SDL_RWops data stream.<br/>
+		/// This function seeks to byte `offset`, relative to `whence`.<br/>
+		/// `whence` may be any of the following values:<br/>
+		/// - `RW_SEEK_SET`: seek from the beginning of data<br/>
+		/// - `RW_SEEK_CUR`: seek relative to current read point<br/>
+		/// - `RW_SEEK_END`: seek relative to the end of data<br/>
+		/// If this stream can not seek, it will return -1.<br/>
+		/// SDL_RWseek() is actually a wrapper function that calls the SDL_RWops's<br/>
+		/// `seek` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long RWseekNative(SDLRWops* context, long offset, int whence)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long, int, long>)funcTable[191])(context, offset, whence);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<nint, long, int, long>)funcTable[191])((nint)context, offset, whence);
+			#endif
+		}
+
+		/// <summary>
+		/// Seek within an SDL_RWops data stream.<br/>
+		/// This function seeks to byte `offset`, relative to `whence`.<br/>
+		/// `whence` may be any of the following values:<br/>
+		/// - `RW_SEEK_SET`: seek from the beginning of data<br/>
+		/// - `RW_SEEK_CUR`: seek relative to current read point<br/>
+		/// - `RW_SEEK_END`: seek relative to the end of data<br/>
+		/// If this stream can not seek, it will return -1.<br/>
+		/// SDL_RWseek() is actually a wrapper function that calls the SDL_RWops's<br/>
+		/// `seek` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long RWseek(SDLRWopsPtr context, long offset, int whence)
+		{
+			long ret = RWseekNative((SDLRWops*)context, offset, whence);
+			return ret;
+		}
+
+		/// <summary>
+		/// Seek within an SDL_RWops data stream.<br/>
+		/// This function seeks to byte `offset`, relative to `whence`.<br/>
+		/// `whence` may be any of the following values:<br/>
+		/// - `RW_SEEK_SET`: seek from the beginning of data<br/>
+		/// - `RW_SEEK_CUR`: seek relative to current read point<br/>
+		/// - `RW_SEEK_END`: seek relative to the end of data<br/>
+		/// If this stream can not seek, it will return -1.<br/>
+		/// SDL_RWseek() is actually a wrapper function that calls the SDL_RWops's<br/>
+		/// `seek` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long RWseek(ref SDLRWops context, long offset, int whence)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				long ret = RWseekNative((SDLRWops*)pcontext, offset, whence);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine the current read/write offset in an SDL_RWops data stream.<br/>
+		/// SDL_RWtell is actually a wrapper function that calls the SDL_RWops's `seek`<br/>
+		/// method, with an offset of 0 bytes from `RW_SEEK_CUR`, to simplify<br/>
+		/// application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long RWtellNative(SDLRWops* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long>)funcTable[192])(context);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[192])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Determine the current read/write offset in an SDL_RWops data stream.<br/>
+		/// SDL_RWtell is actually a wrapper function that calls the SDL_RWops's `seek`<br/>
+		/// method, with an offset of 0 bytes from `RW_SEEK_CUR`, to simplify<br/>
+		/// application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long RWtell(SDLRWopsPtr context)
+		{
+			long ret = RWtellNative((SDLRWops*)context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine the current read/write offset in an SDL_RWops data stream.<br/>
+		/// SDL_RWtell is actually a wrapper function that calls the SDL_RWops's `seek`<br/>
+		/// method, with an offset of 0 bytes from `RW_SEEK_CUR`, to simplify<br/>
+		/// application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static long RWtell(ref SDLRWops context)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				long ret = RWtellNative((SDLRWops*)pcontext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up to `maxnum` objects each of size `size` from the<br/>
+		/// data source to the area pointed at by `ptr`. This function may read less<br/>
+		/// objects than requested. It will return zero when there has been an error or<br/>
+		/// the data stream is completely read.<br/>
+		/// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `read` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint RWreadNative(SDLRWops* context, void* ptr, nuint size, nuint maxnum)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, void*, nuint, nuint, nuint>)funcTable[193])(context, ptr, size, maxnum);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nuint>)funcTable[193])((nint)context, (nint)ptr, size, maxnum);
+			#endif
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up to `maxnum` objects each of size `size` from the<br/>
+		/// data source to the area pointed at by `ptr`. This function may read less<br/>
+		/// objects than requested. It will return zero when there has been an error or<br/>
+		/// the data stream is completely read.<br/>
+		/// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `read` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint RWread(SDLRWopsPtr context, void* ptr, nuint size, nuint maxnum)
+		{
+			nuint ret = RWreadNative((SDLRWops*)context, ptr, size, maxnum);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up to `maxnum` objects each of size `size` from the<br/>
+		/// data source to the area pointed at by `ptr`. This function may read less<br/>
+		/// objects than requested. It will return zero when there has been an error or<br/>
+		/// the data stream is completely read.<br/>
+		/// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `read` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint RWread(ref SDLRWops context, void* ptr, nuint size, nuint maxnum)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				nuint ret = RWreadNative((SDLRWops*)pcontext, ptr, size, maxnum);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up to `maxnum` objects each of size `size` from the<br/>
+		/// data source to the area pointed at by `ptr`. This function may read less<br/>
+		/// objects than requested. It will return zero when there has been an error or<br/>
+		/// the data stream is completely read.<br/>
+		/// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `read` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint RWread(SDLRWopsPtr context, nint ptr, nuint size, nuint maxnum)
+		{
+			nuint ret = RWreadNative((SDLRWops*)context, (void*)ptr, size, maxnum);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up to `maxnum` objects each of size `size` from the<br/>
+		/// data source to the area pointed at by `ptr`. This function may read less<br/>
+		/// objects than requested. It will return zero when there has been an error or<br/>
+		/// the data stream is completely read.<br/>
+		/// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `read` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint RWread(ref SDLRWops context, nint ptr, nuint size, nuint maxnum)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				nuint ret = RWreadNative((SDLRWops*)pcontext, (void*)ptr, size, maxnum);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint RWwriteNative(SDLRWops* context, void* ptr, nuint size, nuint num)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, void*, nuint, nuint, nuint>)funcTable[194])(context, ptr, size, num);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nuint>)funcTable[194])((nint)context, (nint)ptr, size, num);
+			#endif
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint RWwrite(SDLRWopsPtr context, void* ptr, nuint size, nuint num)
+		{
+			nuint ret = RWwriteNative((SDLRWops*)context, ptr, size, num);
+			return ret;
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint RWwrite(ref SDLRWops context, void* ptr, nuint size, nuint num)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				nuint ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint RWwrite(SDLRWopsPtr context, nint ptr, nuint size, nuint num)
+		{
+			nuint ret = RWwriteNative((SDLRWops*)context, (void*)ptr, size, num);
+			return ret;
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint RWwrite(ref SDLRWops context, nint ptr, nuint size, nuint num)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				nuint ret = RWwriteNative((SDLRWops*)pcontext, (void*)ptr, size, num);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Close and free an allocated SDL_RWops structure.<br/>
+		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
+		/// resources used by the stream and frees the SDL_RWops itself with<br/>
+		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
+		/// flush to its output (e.g. to disk).<br/>
+		/// Note that if this fails to flush the stream to disk, this function reports<br/>
+		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RWcloseNative(SDLRWops* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int>)funcTable[195])(context);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[195])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Close and free an allocated SDL_RWops structure.<br/>
+		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
+		/// resources used by the stream and frees the SDL_RWops itself with<br/>
+		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
+		/// flush to its output (e.g. to disk).<br/>
+		/// Note that if this fails to flush the stream to disk, this function reports<br/>
+		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RWclose(SDLRWopsPtr context)
+		{
+			int ret = RWcloseNative((SDLRWops*)context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Close and free an allocated SDL_RWops structure.<br/>
+		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
+		/// resources used by the stream and frees the SDL_RWops itself with<br/>
+		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
+		/// flush to its output (e.g. to disk).<br/>
+		/// Note that if this fails to flush the stream to disk, this function reports<br/>
+		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RWclose(ref SDLRWops context)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				int ret = RWcloseNative((SDLRWops*)pcontext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from an SDL data stream.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* LoadFileRWNative(SDLRWops* src, nuint* datasize, int freesrc)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, nuint*, int, void*>)funcTable[196])(src, datasize, freesrc);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, int, nint>)funcTable[196])((nint)src, (nint)datasize, freesrc);
+			#endif
+		}
+
+		/// <summary>
+		/// Load all the data from an SDL data stream.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFileRW(SDLRWopsPtr src, nuint* datasize, int freesrc)
+		{
+			void* ret = LoadFileRWNative((SDLRWops*)src, datasize, freesrc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load all the data from an SDL data stream.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFileRW(ref SDLRWops src, nuint* datasize, int freesrc)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				void* ret = LoadFileRWNative((SDLRWops*)psrc, datasize, freesrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from an SDL data stream.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFileRW(SDLRWopsPtr src, ref nuint datasize, int freesrc)
+		{
+			fixed (nuint* pdatasize = &datasize)
+			{
+				void* ret = LoadFileRWNative((SDLRWops*)src, (nuint*)pdatasize, freesrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from an SDL data stream.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFileRW(ref SDLRWops src, ref nuint datasize, int freesrc)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (nuint* pdatasize = &datasize)
+				{
+					void* ret = LoadFileRWNative((SDLRWops*)psrc, (nuint*)pdatasize, freesrc);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* LoadFileNative(byte* file, nuint* datasize)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint*, void*>)funcTable[197])(file, datasize);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[197])((nint)file, (nint)datasize);
+			#endif
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFile(byte* file, nuint* datasize)
+		{
+			void* ret = LoadFileNative(file, datasize);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFile(in byte file, nuint* datasize)
+		{
+			fixed (byte* pfile = &file)
+			{
+				void* ret = LoadFileNative((byte*)pfile, datasize);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFile(ReadOnlySpan<byte> file, nuint* datasize)
+		{
+			fixed (byte* pfile = file)
+			{
+				void* ret = LoadFileNative((byte*)pfile, datasize);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFile(string file, nuint* datasize)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			void* ret = LoadFileNative(pStr0, datasize);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFile(byte* file, ref nuint datasize)
+		{
+			fixed (nuint* pdatasize = &datasize)
+			{
+				void* ret = LoadFileNative(file, (nuint*)pdatasize);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFile(in byte file, ref nuint datasize)
+		{
+			fixed (byte* pfile = &file)
+			{
+				fixed (nuint* pdatasize = &datasize)
+				{
+					void* ret = LoadFileNative((byte*)pfile, (nuint*)pdatasize);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFile(ReadOnlySpan<byte> file, ref nuint datasize)
+		{
+			fixed (byte* pfile = file)
+			{
+				fixed (nuint* pdatasize = &datasize)
+				{
+					void* ret = LoadFileNative((byte*)pfile, (nuint*)pdatasize);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load all the data from a file path.<br/>
+		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
+		/// convenience. This extra byte is not included in the value reported via<br/>
+		/// `datasize`.<br/>
+		/// The data should be freed with SDL_free().<br/>
+		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
+		/// SDL_LoadFile_RW.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* LoadFile(string file, ref nuint datasize)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (nuint* pdatasize = &datasize)
+			{
+				void* ret = LoadFileNative(pStr0, (nuint*)pdatasize);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read a byte from an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ReadU8Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte>)funcTable[198])(src);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[198])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read a byte from an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte ReadU8(SDLRWopsPtr src)
+		{
+			byte ret = ReadU8Native((SDLRWops*)src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read a byte from an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte ReadU8(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				byte ret = ReadU8Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort ReadLE16Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[199])(src);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[199])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort ReadLE16(SDLRWopsPtr src)
+		{
+			ushort ret = ReadLE16Native((SDLRWops*)src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort ReadLE16(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				ushort ret = ReadLE16Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort ReadBE16Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[200])(src);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[200])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort ReadBE16(SDLRWopsPtr src)
+		{
+			ushort ret = ReadBE16Native((SDLRWops*)src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort ReadBE16(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				ushort ret = ReadBE16Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint ReadLE32Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[201])(src);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[201])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint ReadLE32(SDLRWopsPtr src)
+		{
+			uint ret = ReadLE32Native((SDLRWops*)src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint ReadLE32(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				uint ret = ReadLE32Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint ReadBE32Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[202])(src);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[202])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint ReadBE32(SDLRWopsPtr src)
+		{
+			uint ret = ReadBE32Native((SDLRWops*)src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint ReadBE32(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				uint ret = ReadBE32Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong ReadLE64Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[203])(src);
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[203])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong ReadLE64(SDLRWopsPtr src)
+		{
+			ulong ret = ReadLE64Native((SDLRWops*)src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong ReadLE64(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				ulong ret = ReadLE64Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong ReadBE64Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[204])(src);
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[204])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong ReadBE64(SDLRWopsPtr src)
+		{
+			ulong ret = ReadBE64Native((SDLRWops*)src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong ReadBE64(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				ulong ret = ReadBE64Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write a byte to an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteU8Native(SDLRWops* dst, byte value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte, nuint>)funcTable[205])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, byte, nuint>)funcTable[205])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write a byte to an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteU8(SDLRWopsPtr dst, byte value)
+		{
+			nuint ret = WriteU8Native((SDLRWops*)dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write a byte to an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteU8(ref SDLRWops dst, byte value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteU8Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteLE16Native(SDLRWops* dst, ushort value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, nuint>)funcTable[206])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, ushort, nuint>)funcTable[206])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteLE16(SDLRWopsPtr dst, ushort value)
+		{
+			nuint ret = WriteLE16Native((SDLRWops*)dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteLE16(ref SDLRWops dst, ushort value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteLE16Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteBE16Native(SDLRWops* dst, ushort value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, nuint>)funcTable[207])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, ushort, nuint>)funcTable[207])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteBE16(SDLRWopsPtr dst, ushort value)
+		{
+			nuint ret = WriteBE16Native((SDLRWops*)dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteBE16(ref SDLRWops dst, ushort value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteBE16Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteLE32Native(SDLRWops* dst, uint value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, nuint>)funcTable[208])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, uint, nuint>)funcTable[208])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteLE32(SDLRWopsPtr dst, uint value)
+		{
+			nuint ret = WriteLE32Native((SDLRWops*)dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteLE32(ref SDLRWops dst, uint value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteLE32Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteBE32Native(SDLRWops* dst, uint value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, nuint>)funcTable[209])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, uint, nuint>)funcTable[209])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteBE32(SDLRWopsPtr dst, uint value)
+		{
+			nuint ret = WriteBE32Native((SDLRWops*)dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteBE32(ref SDLRWops dst, uint value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteBE32Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Use this function to write 64 bits in native format to a SDL_RWops as<br/>
 		/// little-endian data.<br/>
 		/// SDL byteswaps the data only if necessary, so the application always<br/>
@@ -47,9 +2406,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static nuint WriteLE64(SDLRWops* dst, ulong value)
+		public static nuint WriteLE64(SDLRWopsPtr dst, ulong value)
 		{
-			nuint ret = WriteLE64Native(dst, value);
+			nuint ret = WriteLE64Native((SDLRWops*)dst, value);
 			return ret;
 		}
 
@@ -100,9 +2459,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static nuint WriteBE64(SDLRWops* dst, ulong value)
+		public static nuint WriteBE64(SDLRWopsPtr dst, ulong value)
 		{
-			nuint ret = WriteBE64Native(dst, value);
+			nuint ret = WriteBE64Native((SDLRWops*)dst, value);
 			return ret;
 		}
 
@@ -269,7 +2628,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int AudioInit(ref byte driverName)
+		public static int AudioInit(in byte driverName)
 		{
 			fixed (byte* pdriverName = &driverName)
 			{
@@ -486,9 +2845,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int OpenAudio(SDLAudioSpec* desired, SDLAudioSpec* obtained)
+		public static int OpenAudio(SDLAudioSpecPtr desired, SDLAudioSpecPtr obtained)
 		{
-			int ret = OpenAudioNative(desired, obtained);
+			int ret = OpenAudioNative((SDLAudioSpec*)desired, (SDLAudioSpec*)obtained);
 			return ret;
 		}
 
@@ -520,11 +2879,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int OpenAudio(ref SDLAudioSpec desired, SDLAudioSpec* obtained)
+		public static int OpenAudio(ref SDLAudioSpec desired, SDLAudioSpecPtr obtained)
 		{
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
-				int ret = OpenAudioNative((SDLAudioSpec*)pdesired, obtained);
+				int ret = OpenAudioNative((SDLAudioSpec*)pdesired, (SDLAudioSpec*)obtained);
 				return ret;
 			}
 		}
@@ -557,11 +2916,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int OpenAudio(SDLAudioSpec* desired, ref SDLAudioSpec obtained)
+		public static int OpenAudio(SDLAudioSpecPtr desired, ref SDLAudioSpec obtained)
 		{
 			fixed (SDLAudioSpec* pobtained = &obtained)
 			{
-				int ret = OpenAudioNative(desired, (SDLAudioSpec*)pobtained);
+				int ret = OpenAudioNative((SDLAudioSpec*)desired, (SDLAudioSpec*)pobtained);
 				return ret;
 			}
 		}
@@ -790,9 +3149,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetAudioDeviceSpec(int index, int iscapture, SDLAudioSpec* spec)
+		public static int GetAudioDeviceSpec(int index, int iscapture, SDLAudioSpecPtr spec)
 		{
-			int ret = GetAudioDeviceSpecNative(index, iscapture, spec);
+			int ret = GetAudioDeviceSpecNative(index, iscapture, (SDLAudioSpec*)spec);
 			return ret;
 		}
 
@@ -859,9 +3218,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetDefaultAudioInfo(byte** name, SDLAudioSpec* spec, int iscapture)
+		public static int GetDefaultAudioInfo(byte** name, SDLAudioSpecPtr spec, int iscapture)
 		{
-			int ret = GetDefaultAudioInfoNative(name, spec, iscapture);
+			int ret = GetDefaultAudioInfoNative(name, (SDLAudioSpec*)spec, iscapture);
 			return ret;
 		}
 
@@ -881,11 +3240,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetDefaultAudioInfo(ref byte* name, SDLAudioSpec* spec, int iscapture)
+		public static int GetDefaultAudioInfo(ref byte* name, SDLAudioSpecPtr spec, int iscapture)
 		{
 			fixed (byte** pname = &name)
 			{
-				int ret = GetDefaultAudioInfoNative((byte**)pname, spec, iscapture);
+				int ret = GetDefaultAudioInfoNative((byte**)pname, (SDLAudioSpec*)spec, iscapture);
 				return ret;
 			}
 		}
@@ -1107,9 +3466,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(byte* device, int iscapture, SDLAudioSpec* desired, SDLAudioSpec* obtained, int allowedChanges)
+		public static uint OpenAudioDevice(byte* device, int iscapture, SDLAudioSpecPtr desired, SDLAudioSpecPtr obtained, int allowedChanges)
 		{
-			uint ret = OpenAudioDeviceNative(device, iscapture, desired, obtained, allowedChanges);
+			uint ret = OpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)desired, (SDLAudioSpec*)obtained, allowedChanges);
 			return ret;
 		}
 
@@ -1190,11 +3549,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(ref byte device, int iscapture, SDLAudioSpec* desired, SDLAudioSpec* obtained, int allowedChanges)
+		public static uint OpenAudioDevice(in byte device, int iscapture, SDLAudioSpecPtr desired, SDLAudioSpecPtr obtained, int allowedChanges)
 		{
 			fixed (byte* pdevice = &device)
 			{
-				uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, obtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)desired, (SDLAudioSpec*)obtained, allowedChanges);
 				return ret;
 			}
 		}
@@ -1276,11 +3635,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(ReadOnlySpan<byte> device, int iscapture, SDLAudioSpec* desired, SDLAudioSpec* obtained, int allowedChanges)
+		public static uint OpenAudioDevice(ReadOnlySpan<byte> device, int iscapture, SDLAudioSpecPtr desired, SDLAudioSpecPtr obtained, int allowedChanges)
 		{
 			fixed (byte* pdevice = device)
 			{
-				uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, obtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)desired, (SDLAudioSpec*)obtained, allowedChanges);
 				return ret;
 			}
 		}
@@ -1362,7 +3721,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(string device, int iscapture, SDLAudioSpec* desired, SDLAudioSpec* obtained, int allowedChanges)
+		public static uint OpenAudioDevice(string device, int iscapture, SDLAudioSpecPtr desired, SDLAudioSpecPtr obtained, int allowedChanges)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1381,7 +3740,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(device, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			uint ret = OpenAudioDeviceNative(pStr0, iscapture, desired, obtained, allowedChanges);
+			uint ret = OpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)desired, (SDLAudioSpec*)obtained, allowedChanges);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1466,11 +3825,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(byte* device, int iscapture, ref SDLAudioSpec desired, SDLAudioSpec* obtained, int allowedChanges)
+		public static uint OpenAudioDevice(byte* device, int iscapture, in SDLAudioSpec desired, SDLAudioSpecPtr obtained, int allowedChanges)
 		{
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
-				uint ret = OpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)obtained, allowedChanges);
 				return ret;
 			}
 		}
@@ -1552,13 +3911,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(ref byte device, int iscapture, ref SDLAudioSpec desired, SDLAudioSpec* obtained, int allowedChanges)
+		public static uint OpenAudioDevice(in byte device, int iscapture, in SDLAudioSpec desired, SDLAudioSpecPtr obtained, int allowedChanges)
 		{
 			fixed (byte* pdevice = &device)
 			{
 				fixed (SDLAudioSpec* pdesired = &desired)
 				{
-					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)obtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -1641,13 +4000,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(ReadOnlySpan<byte> device, int iscapture, ref SDLAudioSpec desired, SDLAudioSpec* obtained, int allowedChanges)
+		public static uint OpenAudioDevice(ReadOnlySpan<byte> device, int iscapture, in SDLAudioSpec desired, SDLAudioSpecPtr obtained, int allowedChanges)
 		{
 			fixed (byte* pdevice = device)
 			{
 				fixed (SDLAudioSpec* pdesired = &desired)
 				{
-					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)obtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -1730,7 +4089,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(string device, int iscapture, ref SDLAudioSpec desired, SDLAudioSpec* obtained, int allowedChanges)
+		public static uint OpenAudioDevice(string device, int iscapture, in SDLAudioSpec desired, SDLAudioSpecPtr obtained, int allowedChanges)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1751,7 +4110,7 @@ namespace Hexa.NET.SDL2
 			}
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
-				uint ret = OpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)obtained, allowedChanges);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -1837,11 +4196,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(byte* device, int iscapture, SDLAudioSpec* desired, ref SDLAudioSpec obtained, int allowedChanges)
+		public static uint OpenAudioDevice(byte* device, int iscapture, SDLAudioSpecPtr desired, ref SDLAudioSpec obtained, int allowedChanges)
 		{
 			fixed (SDLAudioSpec* pobtained = &obtained)
 			{
-				uint ret = OpenAudioDeviceNative(device, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)desired, (SDLAudioSpec*)pobtained, allowedChanges);
 				return ret;
 			}
 		}
@@ -1923,13 +4282,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(ref byte device, int iscapture, SDLAudioSpec* desired, ref SDLAudioSpec obtained, int allowedChanges)
+		public static uint OpenAudioDevice(in byte device, int iscapture, SDLAudioSpecPtr desired, ref SDLAudioSpec obtained, int allowedChanges)
 		{
 			fixed (byte* pdevice = &device)
 			{
 				fixed (SDLAudioSpec* pobtained = &obtained)
 				{
-					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)desired, (SDLAudioSpec*)pobtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -2012,13 +4371,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(ReadOnlySpan<byte> device, int iscapture, SDLAudioSpec* desired, ref SDLAudioSpec obtained, int allowedChanges)
+		public static uint OpenAudioDevice(ReadOnlySpan<byte> device, int iscapture, SDLAudioSpecPtr desired, ref SDLAudioSpec obtained, int allowedChanges)
 		{
 			fixed (byte* pdevice = device)
 			{
 				fixed (SDLAudioSpec* pobtained = &obtained)
 				{
-					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)desired, (SDLAudioSpec*)pobtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -2101,7 +4460,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(string device, int iscapture, SDLAudioSpec* desired, ref SDLAudioSpec obtained, int allowedChanges)
+		public static uint OpenAudioDevice(string device, int iscapture, SDLAudioSpecPtr desired, ref SDLAudioSpec obtained, int allowedChanges)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2122,7 +4481,7 @@ namespace Hexa.NET.SDL2
 			}
 			fixed (SDLAudioSpec* pobtained = &obtained)
 			{
-				uint ret = OpenAudioDeviceNative(pStr0, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)desired, (SDLAudioSpec*)pobtained, allowedChanges);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -2208,7 +4567,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(byte* device, int iscapture, ref SDLAudioSpec desired, ref SDLAudioSpec obtained, int allowedChanges)
+		public static uint OpenAudioDevice(byte* device, int iscapture, in SDLAudioSpec desired, ref SDLAudioSpec obtained, int allowedChanges)
 		{
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
@@ -2297,7 +4656,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(ref byte device, int iscapture, ref SDLAudioSpec desired, ref SDLAudioSpec obtained, int allowedChanges)
+		public static uint OpenAudioDevice(in byte device, int iscapture, in SDLAudioSpec desired, ref SDLAudioSpec obtained, int allowedChanges)
 		{
 			fixed (byte* pdevice = &device)
 			{
@@ -2389,7 +4748,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(ReadOnlySpan<byte> device, int iscapture, ref SDLAudioSpec desired, ref SDLAudioSpec obtained, int allowedChanges)
+		public static uint OpenAudioDevice(ReadOnlySpan<byte> device, int iscapture, in SDLAudioSpec desired, ref SDLAudioSpec obtained, int allowedChanges)
 		{
 			fixed (byte* pdevice = device)
 			{
@@ -2481,7 +4840,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint OpenAudioDevice(string device, int iscapture, ref SDLAudioSpec desired, ref SDLAudioSpec obtained, int allowedChanges)
+		public static uint OpenAudioDevice(string device, int iscapture, in SDLAudioSpec desired, ref SDLAudioSpec obtained, int allowedChanges)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2676,2379 +5035,6 @@ namespace Hexa.NET.SDL2
 		public static void PauseAudioDevice(uint dev, int pauseOn)
 		{
 			PauseAudioDeviceNative(dev, pauseOn);
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAudioSpec* LoadWAVRWNative(SDLRWops* src, int freesrc, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, SDLAudioSpec*, byte**, uint*, SDLAudioSpec*>)funcTable[227])(src, freesrc, spec, audioBuf, audioLen);
-			#else
-			return (SDLAudioSpec*)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, nint, nint>)funcTable[227])((nint)src, freesrc, (nint)spec, (nint)audioBuf, (nint)audioLen);
-			#endif
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(SDLRWops* src, int freesrc, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, audioBuf, audioLen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(ref SDLRWops src, int freesrc, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, audioBuf, audioLen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(SDLRWops* src, int freesrc, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(ref SDLRWops src, int freesrc, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(SDLRWops* src, int freesrc, SDLAudioSpec* spec, ref byte* audioBuf, uint* audioLen)
-		{
-			fixed (byte** paudioBuf = &audioBuf)
-			{
-				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, audioLen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(ref SDLRWops src, int freesrc, SDLAudioSpec* spec, ref byte* audioBuf, uint* audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, audioLen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(SDLRWops* src, int freesrc, ref SDLAudioSpec spec, ref byte* audioBuf, uint* audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(ref SDLRWops src, int freesrc, ref SDLAudioSpec spec, ref byte* audioBuf, uint* audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					fixed (byte** paudioBuf = &audioBuf)
-					{
-						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(SDLRWops* src, int freesrc, SDLAudioSpec* spec, byte** audioBuf, ref uint audioLen)
-		{
-			fixed (uint* paudioLen = &audioLen)
-			{
-				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, audioBuf, (uint*)paudioLen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(ref SDLRWops src, int freesrc, SDLAudioSpec* spec, byte** audioBuf, ref uint audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (uint* paudioLen = &audioLen)
-				{
-					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, audioBuf, (uint*)paudioLen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(SDLRWops* src, int freesrc, ref SDLAudioSpec spec, byte** audioBuf, ref uint audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				fixed (uint* paudioLen = &audioLen)
-				{
-					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(ref SDLRWops src, int freesrc, ref SDLAudioSpec spec, byte** audioBuf, ref uint audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					fixed (uint* paudioLen = &audioLen)
-					{
-						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(SDLRWops* src, int freesrc, SDLAudioSpec* spec, ref byte* audioBuf, ref uint audioLen)
-		{
-			fixed (byte** paudioBuf = &audioBuf)
-			{
-				fixed (uint* paudioLen = &audioLen)
-				{
-					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(ref SDLRWops src, int freesrc, SDLAudioSpec* spec, ref byte* audioBuf, ref uint audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					fixed (uint* paudioLen = &audioLen)
-					{
-						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(SDLRWops* src, int freesrc, ref SDLAudioSpec spec, ref byte* audioBuf, ref uint audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					fixed (uint* paudioLen = &audioLen)
-					{
-						SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioSpec* LoadWAVRW(ref SDLRWops src, int freesrc, ref SDLAudioSpec spec, ref byte* audioBuf, ref uint audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					fixed (byte** paudioBuf = &audioBuf)
-					{
-						fixed (uint* paudioLen = &audioLen)
-						{
-							SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
-		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
-		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
-		/// this function with a NULL pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreeWAVNative(byte* audioBuf)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[228])(audioBuf);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[228])((nint)audioBuf);
-			#endif
-		}
-
-		/// <summary>
-		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
-		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
-		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
-		/// this function with a NULL pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FreeWAV(byte* audioBuf)
-		{
-			FreeWAVNative(audioBuf);
-		}
-
-		/// <summary>
-		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
-		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
-		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
-		/// this function with a NULL pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FreeWAV(ref byte audioBuf)
-		{
-			fixed (byte* paudioBuf = &audioBuf)
-			{
-				FreeWAVNative((byte*)paudioBuf);
-			}
-		}
-
-		/// <summary>
-		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
-		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
-		/// be initialized with source and destination information.<br/>
-		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
-		/// called before the application fills in the final buffer information.<br/>
-		/// Once this function has returned successfully, and reported that a<br/>
-		/// conversion is necessary, the application fills in the rest of the fields in<br/>
-		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
-		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int BuildAudioCVTNative(SDLAudioCVT* cvt, ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, ushort, byte, int, ushort, byte, int, int>)funcTable[229])(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, byte, int, ushort, byte, int, int>)funcTable[229])((nint)cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
-		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
-		/// be initialized with source and destination information.<br/>
-		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
-		/// called before the application fills in the final buffer information.<br/>
-		/// Once this function has returned successfully, and reported that a<br/>
-		/// conversion is necessary, the application fills in the rest of the fields in<br/>
-		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
-		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int BuildAudioCVT(SDLAudioCVT* cvt, ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
-		{
-			int ret = BuildAudioCVTNative(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			return ret;
-		}
-
-		/// <summary>
-		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
-		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
-		/// be initialized with source and destination information.<br/>
-		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
-		/// called before the application fills in the final buffer information.<br/>
-		/// Once this function has returned successfully, and reported that a<br/>
-		/// conversion is necessary, the application fills in the rest of the fields in<br/>
-		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
-		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int BuildAudioCVT(ref SDLAudioCVT cvt, ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
-		{
-			fixed (SDLAudioCVT* pcvt = &cvt)
-			{
-				int ret = BuildAudioCVTNative((SDLAudioCVT*)pcvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert audio data to a desired audio format.<br/>
-		/// This function does the actual audio data conversion, after the application<br/>
-		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
-		/// then filled in the buffer details.<br/>
-		/// Once the application has initialized the `cvt` structure using<br/>
-		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
-		/// data in the source format, this function will convert the buffer, in-place,<br/>
-		/// to the desired format.<br/>
-		/// The data conversion may go through several passes; any given pass may<br/>
-		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
-		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
-		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
-		/// buffer will be both the source and destination, converting as necessary<br/>
-		/// in-place, the application must allocate a buffer that will fully contain<br/>
-		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
-		/// returns, the application should set the `cvt->len` field to the size, in<br/>
-		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
-		/// cvt->len_mult` bytes long for the `buf` field.<br/>
-		/// The source data should be copied into this buffer before the call to<br/>
-		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
-		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
-		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
-		/// this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int ConvertAudioNative(SDLAudioCVT* cvt)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, int>)funcTable[230])(cvt);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[230])((nint)cvt);
-			#endif
-		}
-
-		/// <summary>
-		/// Convert audio data to a desired audio format.<br/>
-		/// This function does the actual audio data conversion, after the application<br/>
-		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
-		/// then filled in the buffer details.<br/>
-		/// Once the application has initialized the `cvt` structure using<br/>
-		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
-		/// data in the source format, this function will convert the buffer, in-place,<br/>
-		/// to the desired format.<br/>
-		/// The data conversion may go through several passes; any given pass may<br/>
-		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
-		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
-		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
-		/// buffer will be both the source and destination, converting as necessary<br/>
-		/// in-place, the application must allocate a buffer that will fully contain<br/>
-		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
-		/// returns, the application should set the `cvt->len` field to the size, in<br/>
-		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
-		/// cvt->len_mult` bytes long for the `buf` field.<br/>
-		/// The source data should be copied into this buffer before the call to<br/>
-		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
-		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
-		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
-		/// this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int ConvertAudio(SDLAudioCVT* cvt)
-		{
-			int ret = ConvertAudioNative(cvt);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert audio data to a desired audio format.<br/>
-		/// This function does the actual audio data conversion, after the application<br/>
-		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
-		/// then filled in the buffer details.<br/>
-		/// Once the application has initialized the `cvt` structure using<br/>
-		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
-		/// data in the source format, this function will convert the buffer, in-place,<br/>
-		/// to the desired format.<br/>
-		/// The data conversion may go through several passes; any given pass may<br/>
-		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
-		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
-		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
-		/// buffer will be both the source and destination, converting as necessary<br/>
-		/// in-place, the application must allocate a buffer that will fully contain<br/>
-		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
-		/// returns, the application should set the `cvt->len` field to the size, in<br/>
-		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
-		/// cvt->len_mult` bytes long for the `buf` field.<br/>
-		/// The source data should be copied into this buffer before the call to<br/>
-		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
-		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
-		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
-		/// this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int ConvertAudio(ref SDLAudioCVT cvt)
-		{
-			fixed (SDLAudioCVT* pcvt = &cvt)
-			{
-				int ret = ConvertAudioNative((SDLAudioCVT*)pcvt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAudioStream* NewAudioStreamNative(ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, SDLAudioStream*>)funcTable[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			#else
-			return (SDLAudioStream*)((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, nint>)funcTable[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioStream* NewAudioStream(ushort srcFormat, byte srcChannels, int srcRate, ushort dstFormat, byte dstChannels, int dstRate)
-		{
-			SDLAudioStream* ret = NewAudioStreamNative(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add data to be converted/resampled to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioStreamPutNative(SDLAudioStream* stream, void* buf, int len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[232])(stream, buf, len);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[232])((nint)stream, (nint)buf, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Add data to be converted/resampled to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AudioStreamPut(SDLAudioStream* stream, void* buf, int len)
-		{
-			int ret = AudioStreamPutNative(stream, buf, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add data to be converted/resampled to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AudioStreamPut(ref SDLAudioStream stream, void* buf, int len)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = AudioStreamPutNative((SDLAudioStream*)pstream, buf, len);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioStreamGetNative(SDLAudioStream* stream, void* buf, int len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[233])(stream, buf, len);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[233])((nint)stream, (nint)buf, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AudioStreamGet(SDLAudioStream* stream, void* buf, int len)
-		{
-			int ret = AudioStreamGetNative(stream, buf, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AudioStreamGet(ref SDLAudioStream stream, void* buf, int len)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = AudioStreamGetNative((SDLAudioStream*)pstream, buf, len);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioStreamAvailableNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[234])(stream);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[234])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AudioStreamAvailable(SDLAudioStream* stream)
-		{
-			int ret = AudioStreamAvailableNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AudioStreamAvailable(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = AudioStreamAvailableNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there will be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioStreamFlushNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[235])(stream);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[235])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there will be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AudioStreamFlush(SDLAudioStream* stream)
-		{
-			int ret = AudioStreamFlushNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there will be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int AudioStreamFlush(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = AudioStreamFlushNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream without converting it<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AudioStreamClearNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[236])(stream);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[236])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream without converting it<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void AudioStreamClear(SDLAudioStream* stream)
-		{
-			AudioStreamClearNative(stream);
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream without converting it<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void AudioStreamClear(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				AudioStreamClearNative((SDLAudioStream*)pstream);
-			}
-		}
-
-		/// <summary>
-		/// Free an audio stream<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreeAudioStreamNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[237])(stream);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[237])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Free an audio stream<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FreeAudioStream(SDLAudioStream* stream)
-		{
-			FreeAudioStreamNative(stream);
-		}
-
-		/// <summary>
-		/// Free an audio stream<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FreeAudioStream(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				FreeAudioStreamNative((SDLAudioStream*)pstream);
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void MixAudioNative(byte* dst, byte* src, uint len, int volume)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, byte*, uint, int, void>)funcTable[238])(dst, src, len, volume);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, int, void>)funcTable[238])((nint)dst, (nint)src, len, volume);
-			#endif
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudio(byte* dst, byte* src, uint len, int volume)
-		{
-			MixAudioNative(dst, src, len, volume);
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudio(ref byte dst, byte* src, uint len, int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				MixAudioNative((byte*)pdst, src, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudio(byte* dst, ref byte src, uint len, int volume)
-		{
-			fixed (byte* psrc = &src)
-			{
-				MixAudioNative(dst, (byte*)psrc, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudio(ref byte dst, ref byte src, uint len, int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
-				{
-					MixAudioNative((byte*)pdst, (byte*)psrc, len, volume);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void MixAudioFormatNative(byte* dst, byte* src, ushort format, uint len, int volume)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)funcTable[239])(dst, src, format, len, volume);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, ushort, uint, int, void>)funcTable[239])((nint)dst, (nint)src, format, len, volume);
-			#endif
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudioFormat(byte* dst, byte* src, ushort format, uint len, int volume)
-		{
-			MixAudioFormatNative(dst, src, format, len, volume);
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudioFormat(ref byte dst, byte* src, ushort format, uint len, int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				MixAudioFormatNative((byte*)pdst, src, format, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudioFormat(byte* dst, ref byte src, ushort format, uint len, int volume)
-		{
-			fixed (byte* psrc = &src)
-			{
-				MixAudioFormatNative(dst, (byte*)psrc, format, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudioFormat(ref byte dst, ref byte src, ushort format, uint len, int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
-				{
-					MixAudioFormatNative((byte*)pdst, (byte*)psrc, format, len, volume);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Queue more audio on non-callback devices.<br/>
-		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
-		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
-		/// -1 to signify an error if you use it with capture devices.<br/>
-		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
-		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
-		/// method), or you can supply no callback, and then SDL will expect you to<br/>
-		/// supply data at regular intervals (push method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Queued data will drain to the device as<br/>
-		/// necessary without further intervention from you. If the device needs audio<br/>
-		/// but there is not enough queued, it will play silence to make up the<br/>
-		/// difference. This means you will have skips in your audio playback if you<br/>
-		/// aren't routinely queueing sufficient data.<br/>
-		/// This function copies the supplied data, so you are safe to free it when the<br/>
-		/// function returns. This function is thread-safe, but queueing to the same<br/>
-		/// device from two threads at once does not promise which buffer will be<br/>
-		/// queued first.<br/>
-		/// You may not queue audio on a device that is using an application-supplied<br/>
-		/// callback; doing so returns an error. You have to use the audio callback or<br/>
-		/// queue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
-		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
-		/// before queuing audio.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int QueueAudioNative(uint dev, void* data, uint len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)funcTable[240])(dev, data, len);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, uint, int>)funcTable[240])(dev, (nint)data, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Queue more audio on non-callback devices.<br/>
-		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
-		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
-		/// -1 to signify an error if you use it with capture devices.<br/>
-		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
-		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
-		/// method), or you can supply no callback, and then SDL will expect you to<br/>
-		/// supply data at regular intervals (push method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Queued data will drain to the device as<br/>
-		/// necessary without further intervention from you. If the device needs audio<br/>
-		/// but there is not enough queued, it will play silence to make up the<br/>
-		/// difference. This means you will have skips in your audio playback if you<br/>
-		/// aren't routinely queueing sufficient data.<br/>
-		/// This function copies the supplied data, so you are safe to free it when the<br/>
-		/// function returns. This function is thread-safe, but queueing to the same<br/>
-		/// device from two threads at once does not promise which buffer will be<br/>
-		/// queued first.<br/>
-		/// You may not queue audio on a device that is using an application-supplied<br/>
-		/// callback; doing so returns an error. You have to use the audio callback or<br/>
-		/// queue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
-		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
-		/// before queuing audio.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int QueueAudio(uint dev, void* data, uint len)
-		{
-			int ret = QueueAudioNative(dev, data, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Dequeue more audio on non-callback devices.<br/>
-		/// If you are looking to queue audio for output on a non-callback playback<br/>
-		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
-		/// return 0 if you use it with playback devices.<br/>
-		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
-		/// supply a callback that SDL triggers with some frequency as the device<br/>
-		/// records more audio data, (push method), or you can supply no callback, and<br/>
-		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
-		/// method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Data from the device will keep queuing as<br/>
-		/// necessary without further intervention from you. This means you will<br/>
-		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
-		/// Capture devices will not queue data when paused; if you are expecting to<br/>
-		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
-		/// to stop the capture device from queueing more data. This can be useful<br/>
-		/// during, say, level loading times. When unpaused, capture devices will start<br/>
-		/// queueing data from that point, having flushed any capturable data available<br/>
-		/// while paused.<br/>
-		/// This function is thread-safe, but dequeueing from the same device from two<br/>
-		/// threads at once does not promise which thread will dequeue data first.<br/>
-		/// You may not dequeue audio from a device that is using an<br/>
-		/// application-supplied callback; doing so returns an error. You have to use<br/>
-		/// the audio callback, or dequeue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint DequeueAudioNative(uint dev, void* data, uint len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)funcTable[241])(dev, data, len);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint, uint>)funcTable[241])(dev, (nint)data, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Dequeue more audio on non-callback devices.<br/>
-		/// If you are looking to queue audio for output on a non-callback playback<br/>
-		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
-		/// return 0 if you use it with playback devices.<br/>
-		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
-		/// supply a callback that SDL triggers with some frequency as the device<br/>
-		/// records more audio data, (push method), or you can supply no callback, and<br/>
-		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
-		/// method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Data from the device will keep queuing as<br/>
-		/// necessary without further intervention from you. This means you will<br/>
-		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
-		/// Capture devices will not queue data when paused; if you are expecting to<br/>
-		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
-		/// to stop the capture device from queueing more data. This can be useful<br/>
-		/// during, say, level loading times. When unpaused, capture devices will start<br/>
-		/// queueing data from that point, having flushed any capturable data available<br/>
-		/// while paused.<br/>
-		/// This function is thread-safe, but dequeueing from the same device from two<br/>
-		/// threads at once does not promise which thread will dequeue data first.<br/>
-		/// You may not dequeue audio from a device that is using an<br/>
-		/// application-supplied callback; doing so returns an error. You have to use<br/>
-		/// the audio callback, or dequeue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint DequeueAudio(uint dev, void* data, uint len)
-		{
-			uint ret = DequeueAudioNative(dev, data, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of bytes of still-queued audio.<br/>
-		/// For playback devices: this is the number of bytes that have been queued for<br/>
-		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
-		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
-		/// byte boundary of what has been played. It's possible that we just gave the<br/>
-		/// hardware several kilobytes right before you called this function, but it<br/>
-		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
-		/// For capture devices, this is the number of bytes that have been captured by<br/>
-		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
-		/// time, so this only informs of the lower-bound of available data.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetQueuedAudioSizeNative(uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of bytes of still-queued audio.<br/>
-		/// For playback devices: this is the number of bytes that have been queued for<br/>
-		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
-		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
-		/// byte boundary of what has been played. It's possible that we just gave the<br/>
-		/// hardware several kilobytes right before you called this function, but it<br/>
-		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
-		/// For capture devices, this is the number of bytes that have been captured by<br/>
-		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
-		/// time, so this only informs of the lower-bound of available data.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetQueuedAudioSize(uint dev)
-		{
-			uint ret = GetQueuedAudioSizeNative(dev);
-			return ret;
-		}
-
-		/// <summary>
-		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
-		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
-		/// output devices, the hardware will start playing silence if more audio isn't<br/>
-		/// queued. For capture devices, the hardware will start filling the empty<br/>
-		/// queue with new data if the capture device isn't paused.<br/>
-		/// This will not prevent playback of queued audio that's already been sent to<br/>
-		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
-		/// of a second of audio that might still be heard. This can be useful if you<br/>
-		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
-		/// during a level change in your game.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
-		/// queue; SDL handles locking internally for this function.<br/>
-		/// This function always succeeds and thus returns void.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ClearQueuedAudioNative(uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
-		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
-		/// output devices, the hardware will start playing silence if more audio isn't<br/>
-		/// queued. For capture devices, the hardware will start filling the empty<br/>
-		/// queue with new data if the capture device isn't paused.<br/>
-		/// This will not prevent playback of queued audio that's already been sent to<br/>
-		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
-		/// of a second of audio that might still be heard. This can be useful if you<br/>
-		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
-		/// during a level change in your game.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
-		/// queue; SDL handles locking internally for this function.<br/>
-		/// This function always succeeds and thus returns void.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ClearQueuedAudio(uint dev)
-		{
-			ClearQueuedAudioNative(dev);
-		}
-
-		/// <summary>
-		/// This function is a legacy means of locking the audio device.<br/>
-		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
-		/// is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_LockAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockAudioNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
-			#endif
-		}
-
-		/// <summary>
-		/// This function is a legacy means of locking the audio device.<br/>
-		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
-		/// is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_LockAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LockAudio()
-		{
-			LockAudioNative();
-		}
-
-		/// <summary>
-		/// Use this function to lock out the audio callback function for a specified<br/>
-		/// device.<br/>
-		/// The lock manipulated by these functions protects the audio callback<br/>
-		/// function specified in SDL_OpenAudioDevice(). During a<br/>
-		/// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed<br/>
-		/// that the callback function for that device is not running, even if the<br/>
-		/// device is not paused. While a device is locked, any other unpaused,<br/>
-		/// unlocked devices may still run their callbacks.<br/>
-		/// Calling this function from inside your audio callback is unnecessary. SDL<br/>
-		/// obtains this lock before calling your function, and releases it when the<br/>
-		/// function returns.<br/>
-		/// You should not hold the lock longer than absolutely necessary. If you hold<br/>
-		/// it too long, you'll experience dropouts in your audio playback. Ideally,<br/>
-		/// your application locks the device, sets a few variables and unlocks again.<br/>
-		/// Do not do heavy work while holding the lock for a device.<br/>
-		/// It is safe to lock the audio device multiple times, as long as you unlock<br/>
-		/// it an equivalent number of times. The callback will not run until the<br/>
-		/// device has been unlocked completely in this way. If your application fails<br/>
-		/// to unlock the device appropriately, your callback will never run, you might<br/>
-		/// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably<br/>
-		/// deadlock.<br/>
-		/// Internally, the audio device lock is a mutex; if you lock from two threads<br/>
-		/// at once, not only will you block the audio callback, you'll block the other<br/>
-		/// thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockAudioDeviceNative(uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
-			#endif
 		}
 	}
 }

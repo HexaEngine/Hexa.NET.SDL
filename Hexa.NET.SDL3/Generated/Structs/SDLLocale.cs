@@ -24,17 +24,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Locale")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLLocale
 	{
 		/// <summary>
 		/// A language name, like "en" for English. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "language")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Language;
 
 		/// <summary>
 		/// A country, like "US" for America. Can be NULL. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "country")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Country;
 
 
@@ -45,6 +50,56 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A struct to provide locale data.<br/>
+	/// Locale data is split into a spoken language, like English, and an optional<br/>
+	/// country, like Canada. The language will be in ISO-639 format (so English<br/>
+	/// would be "en"), and the country, if not NULL, will be an ISO-3166 country<br/>
+	/// code (so Canada would be "CA").<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Locale")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLLocalePtrPtr : IEquatable<SDLLocalePtrPtr>
+	{
+		public SDLLocalePtrPtr(SDLLocale** handle) { Handle = handle; }
+
+		public SDLLocale** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLLocalePtrPtr Null => new SDLLocalePtrPtr(null);
+
+		public SDLLocale* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLLocalePtrPtr(SDLLocale** handle) => new SDLLocalePtrPtr(handle);
+
+		public static implicit operator SDLLocale**(SDLLocalePtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLLocalePtrPtr left, SDLLocalePtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLLocalePtrPtr left, SDLLocalePtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLLocalePtrPtr left, SDLLocale** right) => left.Handle == right;
+
+		public static bool operator !=(SDLLocalePtrPtr left, SDLLocale** right) => left.Handle != right;
+
+		public bool Equals(SDLLocalePtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLLocalePtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLLocalePtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

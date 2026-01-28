@@ -14,3190 +14,6648 @@ namespace Hexa.NET.SDL3
 {
 	public unsafe partial class SDL
 	{
+		[NativeName(NativeNameType.Const, "SDL_PLATFORM_WINDOWS")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_PLATFORM_WINDOWS = 1;
 
+		[NativeName(NativeNameType.Const, "HAVE_WINAPIFAMILY_H")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int HAVE_WINAPIFAMILY_H = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_PLATFORM_WIN32")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_PLATFORM_WIN32 = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_FLT_EPSILON")]
+		[NativeName(NativeNameType.Value, "1.1920928955078125e-07F")]
 		public const float SDL_FLT_EPSILON = 1.1920928955078125e-07F;
 
+		[NativeName(NativeNameType.Const, "SDL_PRIs64")]
+		[NativeName(NativeNameType.Value, "\"I64d\"")]
 		public const string SDL_PRIs64 = "I64d";
 
+		[NativeName(NativeNameType.Const, "SDL_PRIu64")]
+		[NativeName(NativeNameType.Value, "\"I64u\"")]
 		public const string SDL_PRIu64 = "I64u";
 
+		[NativeName(NativeNameType.Const, "SDL_PRIx64")]
+		[NativeName(NativeNameType.Value, "\"I64x\"")]
 		public const string SDL_PRIx64 = "I64x";
 
+		[NativeName(NativeNameType.Const, "SDL_PRIX64")]
+		[NativeName(NativeNameType.Value, "\"I64X\"")]
 		public const string SDL_PRIX64 = "I64X";
 
+		[NativeName(NativeNameType.Const, "SDL_PRIs32")]
+		[NativeName(NativeNameType.Value, "\"d\"")]
 		public const string SDL_PRIs32 = "d";
 
+		[NativeName(NativeNameType.Const, "SDL_PRIu32")]
+		[NativeName(NativeNameType.Value, "\"u\"")]
 		public const string SDL_PRIu32 = "u";
 
+		[NativeName(NativeNameType.Const, "SDL_PRIx32")]
+		[NativeName(NativeNameType.Value, "\"x\"")]
 		public const string SDL_PRIx32 = "x";
 
+		[NativeName(NativeNameType.Const, "SDL_PRIX32")]
+		[NativeName(NativeNameType.Value, "\"X\"")]
 		public const string SDL_PRIX32 = "X";
 
+		[NativeName(NativeNameType.Const, "SDL_PRILL_PREFIX")]
+		[NativeName(NativeNameType.Value, "\"I64\"")]
 		public const string SDL_PRILL_PREFIX = "I64";
 
+		[NativeName(NativeNameType.Const, "SDL_INVALID_UNICODE_CODEPOINT")]
+		[NativeName(NativeNameType.Value, "0xFFFD")]
 		public const int SDL_INVALID_UNICODE_CODEPOINT = 0xFFFD;
 
+		[NativeName(NativeNameType.Const, "SDL_PI_D")]
+		[NativeName(NativeNameType.Value, "3.141592653589793238462643383279502884")]
 		public const double SDL_PI_D = 3.141592653589793238462643383279502884;
 
+		[NativeName(NativeNameType.Const, "SDL_PI_F")]
+		[NativeName(NativeNameType.Value, "3.141592653589793238462643383279502884F")]
 		public const float SDL_PI_F = 3.141592653589793238462643383279502884F;
 
+		[NativeName(NativeNameType.Const, "SDL_ASSERT_LEVEL")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_ASSERT_LEVEL = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_LIL_ENDIAN")]
+		[NativeName(NativeNameType.Value, "1234")]
 		public const int SDL_LIL_ENDIAN = 1234;
 
+		[NativeName(NativeNameType.Const, "SDL_BIG_ENDIAN")]
+		[NativeName(NativeNameType.Value, "4321")]
 		public const int SDL_BIG_ENDIAN = 4321;
 
+		[NativeName(NativeNameType.Const, "SDL_BYTEORDER")]
+		[NativeName(NativeNameType.Value, "SDL_LIL_ENDIAN")]
 		public const int SDL_BYTEORDER = SDL_LIL_ENDIAN;
 
+		[NativeName(NativeNameType.Const, "SDL_FLOATWORDORDER")]
+		[NativeName(NativeNameType.Value, "SDL_BYTEORDER")]
 		public const int SDL_FLOATWORDORDER = SDL_BYTEORDER;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.name\"")]
+		public const string SDL_PROP_NAME_STRING = "SDL.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.thread.create.entry_function\"")]
 		public const string SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER = "SDL.thread.create.entry_function";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_THREAD_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.thread.create.name\"")]
 		public const string SDL_PROP_THREAD_CREATE_NAME_STRING = "SDL.thread.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_THREAD_CREATE_USERDATA_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.thread.create.userdata\"")]
 		public const string SDL_PROP_THREAD_CREATE_USERDATA_POINTER = "SDL.thread.create.userdata";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_THREAD_CREATE_STACKSIZE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.thread.create.stacksize\"")]
 		public const string SDL_PROP_THREAD_CREATE_STACKSIZE_NUMBER = "SDL.thread.create.stacksize";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.windows.handle\"")]
 		public const string SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER = "SDL.iostream.windows.handle";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_STDIO_FILE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.stdio.file\"")]
 		public const string SDL_PROP_IOSTREAM_STDIO_FILE_POINTER = "SDL.iostream.stdio.file";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.file_descriptor\"")]
 		public const string SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER = "SDL.iostream.file_descriptor";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.android.aasset\"")]
 		public const string SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER = "SDL.iostream.android.aasset";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_MEMORY_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.memory.base\"")]
 		public const string SDL_PROP_IOSTREAM_MEMORY_POINTER = "SDL.iostream.memory.base";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.memory.size\"")]
 		public const string SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER = "SDL.iostream.memory.size";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.memory.free\"")]
+		public const string SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER = "SDL.iostream.memory.free";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.dynamic.memory\"")]
 		public const string SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER = "SDL.iostream.dynamic.memory";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.dynamic.chunksize\"")]
 		public const string SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER = "SDL.iostream.dynamic.chunksize";
 
+		[NativeName(NativeNameType.Const, "SDL_AUDIO_MASK_BITSIZE")]
+		[NativeName(NativeNameType.Value, "(0xFFu)")]
 		public const uint SDL_AUDIO_MASK_BITSIZE = (0xFFu);
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_AUDIOSTREAM_AUTO_CLEANUP_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.audiostream.auto_cleanup\"")]
+		public const string SDL_PROP_AUDIOSTREAM_AUTO_CLEANUP_BOOLEAN = "SDL.audiostream.auto_cleanup";
+
+		[NativeName(NativeNameType.Const, "SDL_ALPHA_OPAQUE")]
+		[NativeName(NativeNameType.Value, "255")]
 		public const int SDL_ALPHA_OPAQUE = 255;
 
+		[NativeName(NativeNameType.Const, "SDL_ALPHA_OPAQUE_FLOAT")]
+		[NativeName(NativeNameType.Value, "1.0f")]
 		public const float SDL_ALPHA_OPAQUE_FLOAT = 1.0f;
 
+		[NativeName(NativeNameType.Const, "SDL_ALPHA_TRANSPARENT")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int SDL_ALPHA_TRANSPARENT = 0;
 
+		[NativeName(NativeNameType.Const, "SDL_ALPHA_TRANSPARENT_FLOAT")]
+		[NativeName(NativeNameType.Value, "0.0f")]
 		public const float SDL_ALPHA_TRANSPARENT_FLOAT = 0.0f;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.surface.SDR_white_point\"")]
 		public const string SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT = "SDL.surface.SDR_white_point";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.surface.HDR_headroom\"")]
 		public const string SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT = "SDL.surface.HDR_headroom";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.surface.tonemap\"")]
 		public const string SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING = "SDL.surface.tonemap";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_HOTSPOT_X_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.surface.hotspot.x\"")]
 		public const string SDL_PROP_SURFACE_HOTSPOT_X_NUMBER = "SDL.surface.hotspot.x";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.surface.hotspot.y\"")]
 		public const string SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER = "SDL.surface.hotspot.y";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_ROTATION_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.surface.rotation\"")]
+		public const string SDL_PROP_SURFACE_ROTATION_FLOAT = "SDL.surface.rotation";
+
+		[NativeName(NativeNameType.Const, "SDL_CACHELINE_SIZE")]
+		[NativeName(NativeNameType.Value, "128")]
 		public const int SDL_CACHELINE_SIZE = 128;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.video.wayland.wl_display\"")]
 		public const string SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER = "SDL.video.wayland.wl_display";
 
+		[NativeName(NativeNameType.Const, "SDL_WINDOWPOS_UNDEFINED_MASK")]
+		[NativeName(NativeNameType.Value, "0x1FFF0000u")]
 		public const uint SDL_WINDOWPOS_UNDEFINED_MASK = 0x1FFF0000u;
 
+		[NativeName(NativeNameType.Const, "SDL_WINDOWPOS_CENTERED_MASK")]
+		[NativeName(NativeNameType.Value, "0x2FFF0000u")]
 		public const uint SDL_WINDOWPOS_CENTERED_MASK = 0x2FFF0000u;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_PROFILE_CORE")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int SDL_GL_CONTEXT_PROFILE_CORE = 0x0001;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_PROFILE_COMPATIBILITY")]
+		[NativeName(NativeNameType.Value, "0x0002")]
 		public const int SDL_GL_CONTEXT_PROFILE_COMPATIBILITY = 0x0002;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_PROFILE_ES")]
+		[NativeName(NativeNameType.Value, "0x0004")]
 		public const int SDL_GL_CONTEXT_PROFILE_ES = 0x0004;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_DEBUG_FLAG")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int SDL_GL_CONTEXT_DEBUG_FLAG = 0x0001;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG")]
+		[NativeName(NativeNameType.Value, "0x0002")]
 		public const int SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = 0x0002;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG")]
+		[NativeName(NativeNameType.Value, "0x0004")]
 		public const int SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG = 0x0004;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RESET_ISOLATION_FLAG")]
+		[NativeName(NativeNameType.Value, "0x0008")]
 		public const int SDL_GL_CONTEXT_RESET_ISOLATION_FLAG = 0x0008;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE")]
+		[NativeName(NativeNameType.Value, "0x0000")]
 		public const int SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE = 0x0000;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH = 0x0001;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RESET_NO_NOTIFICATION")]
+		[NativeName(NativeNameType.Value, "0x0000")]
 		public const int SDL_GL_CONTEXT_RESET_NO_NOTIFICATION = 0x0000;
 
+		[NativeName(NativeNameType.Const, "SDL_GL_CONTEXT_RESET_LOSE_CONTEXT")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int SDL_GL_CONTEXT_RESET_LOSE_CONTEXT = 0x0001;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.display.HDR_enabled\"")]
 		public const string SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN = "SDL.display.HDR_enabled";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_DISPLAY_KMSDRM_PANEL_ORIENTATION_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.display.KMSDRM.panel_orientation\"")]
 		public const string SDL_PROP_DISPLAY_KMSDRM_PANEL_ORIENTATION_NUMBER = "SDL.display.KMSDRM.panel_orientation";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_DISPLAY_WAYLAND_WL_OUTPUT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.display.wayland.wl_output\"")]
+		public const string SDL_PROP_DISPLAY_WAYLAND_WL_OUTPUT_POINTER = "SDL.display.wayland.wl_output";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_DISPLAY_WINDOWS_HMONITOR_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.display.windows.hmonitor\"")]
+		public const string SDL_PROP_DISPLAY_WINDOWS_HMONITOR_POINTER = "SDL.display.windows.hmonitor";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.always_on_top\"")]
 		public const string SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN = "SDL.window.create.always_on_top";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_BORDERLESS_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.borderless\"")]
 		public const string SDL_PROP_WINDOW_CREATE_BORDERLESS_BOOLEAN = "SDL.window.create.borderless";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_CONSTRAIN_POPUP_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.constrain_popup\"")]
+		public const string SDL_PROP_WINDOW_CREATE_CONSTRAIN_POPUP_BOOLEAN = "SDL.window.create.constrain_popup";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.focusable\"")]
 		public const string SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN = "SDL.window.create.focusable";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.external_graphics_context\"")]
 		public const string SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN = "SDL.window.create.external_graphics_context";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_FLAGS_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.flags\"")]
 		public const string SDL_PROP_WINDOW_CREATE_FLAGS_NUMBER = "SDL.window.create.flags";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_FULLSCREEN_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.fullscreen\"")]
 		public const string SDL_PROP_WINDOW_CREATE_FULLSCREEN_BOOLEAN = "SDL.window.create.fullscreen";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.height\"")]
 		public const string SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER = "SDL.window.create.height";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.hidden\"")]
 		public const string SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN = "SDL.window.create.hidden";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.high_pixel_density\"")]
 		public const string SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN = "SDL.window.create.high_pixel_density";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_MAXIMIZED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.maximized\"")]
 		public const string SDL_PROP_WINDOW_CREATE_MAXIMIZED_BOOLEAN = "SDL.window.create.maximized";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_MENU_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.menu\"")]
 		public const string SDL_PROP_WINDOW_CREATE_MENU_BOOLEAN = "SDL.window.create.menu";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_METAL_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.metal\"")]
 		public const string SDL_PROP_WINDOW_CREATE_METAL_BOOLEAN = "SDL.window.create.metal";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_MINIMIZED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.minimized\"")]
 		public const string SDL_PROP_WINDOW_CREATE_MINIMIZED_BOOLEAN = "SDL.window.create.minimized";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_MODAL_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.modal\"")]
 		public const string SDL_PROP_WINDOW_CREATE_MODAL_BOOLEAN = "SDL.window.create.modal";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_MOUSE_GRABBED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.mouse_grabbed\"")]
 		public const string SDL_PROP_WINDOW_CREATE_MOUSE_GRABBED_BOOLEAN = "SDL.window.create.mouse_grabbed";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.opengl\"")]
 		public const string SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN = "SDL.window.create.opengl";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_PARENT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.parent\"")]
 		public const string SDL_PROP_WINDOW_CREATE_PARENT_POINTER = "SDL.window.create.parent";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_RESIZABLE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.resizable\"")]
 		public const string SDL_PROP_WINDOW_CREATE_RESIZABLE_BOOLEAN = "SDL.window.create.resizable";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_TITLE_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.title\"")]
 		public const string SDL_PROP_WINDOW_CREATE_TITLE_STRING = "SDL.window.create.title";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.transparent\"")]
 		public const string SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN = "SDL.window.create.transparent";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_TOOLTIP_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.tooltip\"")]
 		public const string SDL_PROP_WINDOW_CREATE_TOOLTIP_BOOLEAN = "SDL.window.create.tooltip";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_UTILITY_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.utility\"")]
 		public const string SDL_PROP_WINDOW_CREATE_UTILITY_BOOLEAN = "SDL.window.create.utility";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_VULKAN_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.vulkan\"")]
 		public const string SDL_PROP_WINDOW_CREATE_VULKAN_BOOLEAN = "SDL.window.create.vulkan";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.width\"")]
 		public const string SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER = "SDL.window.create.width";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_X_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.x\"")]
 		public const string SDL_PROP_WINDOW_CREATE_X_NUMBER = "SDL.window.create.x";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_Y_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.y\"")]
 		public const string SDL_PROP_WINDOW_CREATE_Y_NUMBER = "SDL.window.create.y";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_COCOA_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.cocoa.window\"")]
 		public const string SDL_PROP_WINDOW_CREATE_COCOA_WINDOW_POINTER = "SDL.window.create.cocoa.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.cocoa.view\"")]
 		public const string SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER = "SDL.window.create.cocoa.view";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_WINDOWSCENE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.uikit.windowscene\"")]
+		public const string SDL_PROP_WINDOW_CREATE_WINDOWSCENE_POINTER = "SDL.window.create.uikit.windowscene";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.wayland.surface_role_custom\"")]
 		public const string SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN = "SDL.window.create.wayland.surface_role_custom";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.wayland.create_egl_window\"")]
 		public const string SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN = "SDL.window.create.wayland.create_egl_window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.wayland.wl_surface\"")]
 		public const string SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER = "SDL.window.create.wayland.wl_surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.win32.hwnd\"")]
 		public const string SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER = "SDL.window.create.win32.hwnd";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_WIN32_PIXEL_FORMAT_HWND_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.win32.pixel_format_hwnd\"")]
 		public const string SDL_PROP_WINDOW_CREATE_WIN32_PIXEL_FORMAT_HWND_POINTER = "SDL.window.create.win32.pixel_format_hwnd";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.x11.window\"")]
 		public const string SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER = "SDL.window.create.x11.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_CANVAS_ID_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.emscripten.canvas_id\"")]
+		public const string SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_CANVAS_ID_STRING = "SDL.window.create.emscripten.canvas_id";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.create.emscripten.keyboard_element\"")]
+		public const string SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING = "SDL.window.create.emscripten.keyboard_element";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_SHAPE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.shape\"")]
 		public const string SDL_PROP_WINDOW_SHAPE_POINTER = "SDL.window.shape";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.HDR_enabled\"")]
 		public const string SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN = "SDL.window.HDR_enabled";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.SDR_white_level\"")]
 		public const string SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT = "SDL.window.SDR_white_level";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.HDR_headroom\"")]
 		public const string SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT = "SDL.window.HDR_headroom";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.android.window\"")]
 		public const string SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER = "SDL.window.android.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.android.surface\"")]
 		public const string SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER = "SDL.window.android.surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.uikit.window\"")]
 		public const string SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER = "SDL.window.uikit.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.uikit.metal_view_tag\"")]
 		public const string SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER = "SDL.window.uikit.metal_view_tag";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.uikit.opengl.framebuffer\"")]
 		public const string SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER = "SDL.window.uikit.opengl.framebuffer";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.uikit.opengl.renderbuffer\"")]
 		public const string SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER = "SDL.window.uikit.opengl.renderbuffer";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.uikit.opengl.resolve_framebuffer\"")]
 		public const string SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER = "SDL.window.uikit.opengl.resolve_framebuffer";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.kmsdrm.dev_index\"")]
 		public const string SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER = "SDL.window.kmsdrm.dev_index";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.kmsdrm.drm_fd\"")]
 		public const string SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER = "SDL.window.kmsdrm.drm_fd";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.kmsdrm.gbm_dev\"")]
 		public const string SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER = "SDL.window.kmsdrm.gbm_dev";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_COCOA_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.cocoa.window\"")]
 		public const string SDL_PROP_WINDOW_COCOA_WINDOW_POINTER = "SDL.window.cocoa.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.cocoa.metal_view_tag\"")]
 		public const string SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER = "SDL.window.cocoa.metal_view_tag";
 
-		public const string SDL_PROP_WINDOW_OPENVR_OVERLAY_ID = "SDL.window.openvr.overlay_id";
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_OPENVR_OVERLAY_ID_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.openvr.overlay_id\"")]
+		public const string SDL_PROP_WINDOW_OPENVR_OVERLAY_ID_NUMBER = "SDL.window.openvr.overlay_id";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.vivante.display\"")]
 		public const string SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER = "SDL.window.vivante.display";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.vivante.window\"")]
 		public const string SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER = "SDL.window.vivante.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.vivante.surface\"")]
 		public const string SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER = "SDL.window.vivante.surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WIN32_HWND_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.win32.hwnd\"")]
 		public const string SDL_PROP_WINDOW_WIN32_HWND_POINTER = "SDL.window.win32.hwnd";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WIN32_HDC_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.win32.hdc\"")]
 		public const string SDL_PROP_WINDOW_WIN32_HDC_POINTER = "SDL.window.win32.hdc";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.win32.instance\"")]
 		public const string SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER = "SDL.window.win32.instance";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.display\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER = "SDL.window.wayland.display";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.surface\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER = "SDL.window.wayland.surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.viewport\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER = "SDL.window.wayland.viewport";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.egl_window\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER = "SDL.window.wayland.egl_window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.xdg_surface\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER = "SDL.window.wayland.xdg_surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.xdg_toplevel\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER = "SDL.window.wayland.xdg_toplevel";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.xdg_toplevel_export_handle\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING = "SDL.window.wayland.xdg_toplevel_export_handle";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.xdg_popup\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER = "SDL.window.wayland.xdg_popup";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.wayland.xdg_positioner\"")]
 		public const string SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER = "SDL.window.wayland.xdg_positioner";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_X11_DISPLAY_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.x11.display\"")]
 		public const string SDL_PROP_WINDOW_X11_DISPLAY_POINTER = "SDL.window.x11.display";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_X11_SCREEN_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.x11.screen\"")]
 		public const string SDL_PROP_WINDOW_X11_SCREEN_NUMBER = "SDL.window.x11.screen";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_X11_WINDOW_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.x11.window\"")]
 		public const string SDL_PROP_WINDOW_X11_WINDOW_NUMBER = "SDL.window.x11.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_EMSCRIPTEN_CANVAS_ID_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.emscripten.canvas_id\"")]
+		public const string SDL_PROP_WINDOW_EMSCRIPTEN_CANVAS_ID_STRING = "SDL.window.emscripten.canvas_id";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.window.emscripten.keyboard_element\"")]
+		public const string SDL_PROP_WINDOW_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING = "SDL.window.emscripten.keyboard_element";
+
+		[NativeName(NativeNameType.Const, "SDL_WINDOW_SURFACE_VSYNC_DISABLED")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int SDL_WINDOW_SURFACE_VSYNC_DISABLED = 0;
 
+		[NativeName(NativeNameType.Const, "SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE")]
+		[NativeName(NativeNameType.Value, "(-1)")]
 		public const int SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE = (-1);
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_FILTERS_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.filters\"")]
 		public const string SDL_PROP_FILE_DIALOG_FILTERS_POINTER = "SDL.filedialog.filters";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.nfilters\"")]
 		public const string SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER = "SDL.filedialog.nfilters";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.window\"")]
 		public const string SDL_PROP_FILE_DIALOG_WINDOW_POINTER = "SDL.filedialog.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_LOCATION_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.location\"")]
 		public const string SDL_PROP_FILE_DIALOG_LOCATION_STRING = "SDL.filedialog.location";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_MANY_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.many\"")]
 		public const string SDL_PROP_FILE_DIALOG_MANY_BOOLEAN = "SDL.filedialog.many";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_TITLE_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.title\"")]
 		public const string SDL_PROP_FILE_DIALOG_TITLE_STRING = "SDL.filedialog.title";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_ACCEPT_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.accept\"")]
 		public const string SDL_PROP_FILE_DIALOG_ACCEPT_STRING = "SDL.filedialog.accept";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_FILE_DIALOG_CANCEL_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.filedialog.cancel\"")]
 		public const string SDL_PROP_FILE_DIALOG_CANCEL_STRING = "SDL.filedialog.cancel";
 
+		[NativeName(NativeNameType.Const, "SDL_ELF_NOTE_DLOPEN_PRIORITY_SUGGESTED")]
+		[NativeName(NativeNameType.Value, "\"suggested\"")]
+		public const string SDL_ELF_NOTE_DLOPEN_PRIORITY_SUGGESTED = "suggested";
+
+		[NativeName(NativeNameType.Const, "SDL_ELF_NOTE_DLOPEN_PRIORITY_RECOMMENDED")]
+		[NativeName(NativeNameType.Value, "\"recommended\"")]
+		public const string SDL_ELF_NOTE_DLOPEN_PRIORITY_RECOMMENDED = "recommended";
+
+		[NativeName(NativeNameType.Const, "SDL_ELF_NOTE_DLOPEN_PRIORITY_REQUIRED")]
+		[NativeName(NativeNameType.Value, "\"required\"")]
+		public const string SDL_ELF_NOTE_DLOPEN_PRIORITY_REQUIRED = "required";
+
+		[NativeName(NativeNameType.Const, "SDL_STANDARD_GRAVITY")]
+		[NativeName(NativeNameType.Value, "9.80665f")]
 		public const float SDL_STANDARD_GRAVITY = 9.80665f;
 
+		[NativeName(NativeNameType.Const, "SDL_JOYSTICK_AXIS_MAX")]
+		[NativeName(NativeNameType.Value, "32767")]
 		public const int SDL_JOYSTICK_AXIS_MAX = 32767;
 
+		[NativeName(NativeNameType.Const, "SDL_JOYSTICK_AXIS_MIN")]
+		[NativeName(NativeNameType.Value, "-32768")]
 		public const int SDL_JOYSTICK_AXIS_MIN = -32768;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.joystick.cap.mono_led\"")]
 		public const string SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN = "SDL.joystick.cap.mono_led";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.joystick.cap.rgb_led\"")]
 		public const string SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN = "SDL.joystick.cap.rgb_led";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.joystick.cap.player_led\"")]
 		public const string SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN = "SDL.joystick.cap.player_led";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.joystick.cap.rumble\"")]
 		public const string SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN = "SDL.joystick.cap.rumble";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.joystick.cap.trigger_rumble\"")]
 		public const string SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN = "SDL.joystick.cap.trigger_rumble";
 
+		[NativeName(NativeNameType.Const, "SDL_HAT_CENTERED")]
+		[NativeName(NativeNameType.Value, "0x00u")]
 		public const uint SDL_HAT_CENTERED = 0x00u;
 
+		[NativeName(NativeNameType.Const, "SDL_HAT_UP")]
+		[NativeName(NativeNameType.Value, "0x01u")]
 		public const uint SDL_HAT_UP = 0x01u;
 
+		[NativeName(NativeNameType.Const, "SDL_HAT_RIGHT")]
+		[NativeName(NativeNameType.Value, "0x02u")]
 		public const uint SDL_HAT_RIGHT = 0x02u;
 
+		[NativeName(NativeNameType.Const, "SDL_HAT_DOWN")]
+		[NativeName(NativeNameType.Value, "0x04u")]
 		public const uint SDL_HAT_DOWN = 0x04u;
 
+		[NativeName(NativeNameType.Const, "SDL_HAT_LEFT")]
+		[NativeName(NativeNameType.Value, "0x08u")]
 		public const uint SDL_HAT_LEFT = 0x08u;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN")]
 		public const string SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN = SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN")]
 		public const string SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN = SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN")]
 		public const string SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN = SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN")]
 		public const string SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN = SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN")]
 		public const string SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN = SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN;
 
+		[NativeName(NativeNameType.Const, "SDLK_UNKNOWN")]
+		[NativeName(NativeNameType.Value, "0x00000000u")]
 		public const uint SDLK_UNKNOWN = 0x00000000u;
 
+		[NativeName(NativeNameType.Const, "SDLK_RETURN")]
+		[NativeName(NativeNameType.Value, "0x0000000du")]
 		public const uint SDLK_RETURN = 0x0000000du;
 
+		[NativeName(NativeNameType.Const, "SDLK_ESCAPE")]
+		[NativeName(NativeNameType.Value, "0x0000001bu")]
 		public const uint SDLK_ESCAPE = 0x0000001bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_BACKSPACE")]
+		[NativeName(NativeNameType.Value, "0x00000008u")]
 		public const uint SDLK_BACKSPACE = 0x00000008u;
 
+		[NativeName(NativeNameType.Const, "SDLK_TAB")]
+		[NativeName(NativeNameType.Value, "0x00000009u")]
 		public const uint SDLK_TAB = 0x00000009u;
 
+		[NativeName(NativeNameType.Const, "SDLK_SPACE")]
+		[NativeName(NativeNameType.Value, "0x00000020u")]
 		public const uint SDLK_SPACE = 0x00000020u;
 
+		[NativeName(NativeNameType.Const, "SDLK_EXCLAIM")]
+		[NativeName(NativeNameType.Value, "0x00000021u")]
 		public const uint SDLK_EXCLAIM = 0x00000021u;
 
+		[NativeName(NativeNameType.Const, "SDLK_DBLAPOSTROPHE")]
+		[NativeName(NativeNameType.Value, "0x00000022u")]
 		public const uint SDLK_DBLAPOSTROPHE = 0x00000022u;
 
+		[NativeName(NativeNameType.Const, "SDLK_HASH")]
+		[NativeName(NativeNameType.Value, "0x00000023u")]
 		public const uint SDLK_HASH = 0x00000023u;
 
+		[NativeName(NativeNameType.Const, "SDLK_DOLLAR")]
+		[NativeName(NativeNameType.Value, "0x00000024u")]
 		public const uint SDLK_DOLLAR = 0x00000024u;
 
+		[NativeName(NativeNameType.Const, "SDLK_PERCENT")]
+		[NativeName(NativeNameType.Value, "0x00000025u")]
 		public const uint SDLK_PERCENT = 0x00000025u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AMPERSAND")]
+		[NativeName(NativeNameType.Value, "0x00000026u")]
 		public const uint SDLK_AMPERSAND = 0x00000026u;
 
+		[NativeName(NativeNameType.Const, "SDLK_APOSTROPHE")]
+		[NativeName(NativeNameType.Value, "0x00000027u")]
 		public const uint SDLK_APOSTROPHE = 0x00000027u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LEFTPAREN")]
+		[NativeName(NativeNameType.Value, "0x00000028u")]
 		public const uint SDLK_LEFTPAREN = 0x00000028u;
 
+		[NativeName(NativeNameType.Const, "SDLK_RIGHTPAREN")]
+		[NativeName(NativeNameType.Value, "0x00000029u")]
 		public const uint SDLK_RIGHTPAREN = 0x00000029u;
 
+		[NativeName(NativeNameType.Const, "SDLK_ASTERISK")]
+		[NativeName(NativeNameType.Value, "0x0000002au")]
 		public const uint SDLK_ASTERISK = 0x0000002au;
 
+		[NativeName(NativeNameType.Const, "SDLK_PLUS")]
+		[NativeName(NativeNameType.Value, "0x0000002bu")]
 		public const uint SDLK_PLUS = 0x0000002bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_COMMA")]
+		[NativeName(NativeNameType.Value, "0x0000002cu")]
 		public const uint SDLK_COMMA = 0x0000002cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_MINUS")]
+		[NativeName(NativeNameType.Value, "0x0000002du")]
 		public const uint SDLK_MINUS = 0x0000002du;
 
+		[NativeName(NativeNameType.Const, "SDLK_PERIOD")]
+		[NativeName(NativeNameType.Value, "0x0000002eu")]
 		public const uint SDLK_PERIOD = 0x0000002eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_SLASH")]
+		[NativeName(NativeNameType.Value, "0x0000002fu")]
 		public const uint SDLK_SLASH = 0x0000002fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_0")]
+		[NativeName(NativeNameType.Value, "0x00000030u")]
 		public const uint SDLK_0 = 0x00000030u;
 
+		[NativeName(NativeNameType.Const, "SDLK_1")]
+		[NativeName(NativeNameType.Value, "0x00000031u")]
 		public const uint SDLK_1 = 0x00000031u;
 
+		[NativeName(NativeNameType.Const, "SDLK_2")]
+		[NativeName(NativeNameType.Value, "0x00000032u")]
 		public const uint SDLK_2 = 0x00000032u;
 
+		[NativeName(NativeNameType.Const, "SDLK_3")]
+		[NativeName(NativeNameType.Value, "0x00000033u")]
 		public const uint SDLK_3 = 0x00000033u;
 
+		[NativeName(NativeNameType.Const, "SDLK_4")]
+		[NativeName(NativeNameType.Value, "0x00000034u")]
 		public const uint SDLK_4 = 0x00000034u;
 
+		[NativeName(NativeNameType.Const, "SDLK_5")]
+		[NativeName(NativeNameType.Value, "0x00000035u")]
 		public const uint SDLK_5 = 0x00000035u;
 
+		[NativeName(NativeNameType.Const, "SDLK_6")]
+		[NativeName(NativeNameType.Value, "0x00000036u")]
 		public const uint SDLK_6 = 0x00000036u;
 
+		[NativeName(NativeNameType.Const, "SDLK_7")]
+		[NativeName(NativeNameType.Value, "0x00000037u")]
 		public const uint SDLK_7 = 0x00000037u;
 
+		[NativeName(NativeNameType.Const, "SDLK_8")]
+		[NativeName(NativeNameType.Value, "0x00000038u")]
 		public const uint SDLK_8 = 0x00000038u;
 
+		[NativeName(NativeNameType.Const, "SDLK_9")]
+		[NativeName(NativeNameType.Value, "0x00000039u")]
 		public const uint SDLK_9 = 0x00000039u;
 
+		[NativeName(NativeNameType.Const, "SDLK_COLON")]
+		[NativeName(NativeNameType.Value, "0x0000003au")]
 		public const uint SDLK_COLON = 0x0000003au;
 
+		[NativeName(NativeNameType.Const, "SDLK_SEMICOLON")]
+		[NativeName(NativeNameType.Value, "0x0000003bu")]
 		public const uint SDLK_SEMICOLON = 0x0000003bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_LESS")]
+		[NativeName(NativeNameType.Value, "0x0000003cu")]
 		public const uint SDLK_LESS = 0x0000003cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_EQUALS")]
+		[NativeName(NativeNameType.Value, "0x0000003du")]
 		public const uint SDLK_EQUALS = 0x0000003du;
 
+		[NativeName(NativeNameType.Const, "SDLK_GREATER")]
+		[NativeName(NativeNameType.Value, "0x0000003eu")]
 		public const uint SDLK_GREATER = 0x0000003eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_QUESTION")]
+		[NativeName(NativeNameType.Value, "0x0000003fu")]
 		public const uint SDLK_QUESTION = 0x0000003fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_AT")]
+		[NativeName(NativeNameType.Value, "0x00000040u")]
 		public const uint SDLK_AT = 0x00000040u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LEFTBRACKET")]
+		[NativeName(NativeNameType.Value, "0x0000005bu")]
 		public const uint SDLK_LEFTBRACKET = 0x0000005bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_BACKSLASH")]
+		[NativeName(NativeNameType.Value, "0x0000005cu")]
 		public const uint SDLK_BACKSLASH = 0x0000005cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_RIGHTBRACKET")]
+		[NativeName(NativeNameType.Value, "0x0000005du")]
 		public const uint SDLK_RIGHTBRACKET = 0x0000005du;
 
+		[NativeName(NativeNameType.Const, "SDLK_CARET")]
+		[NativeName(NativeNameType.Value, "0x0000005eu")]
 		public const uint SDLK_CARET = 0x0000005eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_UNDERSCORE")]
+		[NativeName(NativeNameType.Value, "0x0000005fu")]
 		public const uint SDLK_UNDERSCORE = 0x0000005fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_GRAVE")]
+		[NativeName(NativeNameType.Value, "0x00000060u")]
 		public const uint SDLK_GRAVE = 0x00000060u;
 
+		[NativeName(NativeNameType.Const, "SDLK_A")]
+		[NativeName(NativeNameType.Value, "0x00000061u")]
 		public const uint SDLK_A = 0x00000061u;
 
+		[NativeName(NativeNameType.Const, "SDLK_B")]
+		[NativeName(NativeNameType.Value, "0x00000062u")]
 		public const uint SDLK_B = 0x00000062u;
 
+		[NativeName(NativeNameType.Const, "SDLK_C")]
+		[NativeName(NativeNameType.Value, "0x00000063u")]
 		public const uint SDLK_C = 0x00000063u;
 
+		[NativeName(NativeNameType.Const, "SDLK_D")]
+		[NativeName(NativeNameType.Value, "0x00000064u")]
 		public const uint SDLK_D = 0x00000064u;
 
+		[NativeName(NativeNameType.Const, "SDLK_E")]
+		[NativeName(NativeNameType.Value, "0x00000065u")]
 		public const uint SDLK_E = 0x00000065u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F")]
+		[NativeName(NativeNameType.Value, "0x00000066u")]
 		public const uint SDLK_F = 0x00000066u;
 
+		[NativeName(NativeNameType.Const, "SDLK_G")]
+		[NativeName(NativeNameType.Value, "0x00000067u")]
 		public const uint SDLK_G = 0x00000067u;
 
+		[NativeName(NativeNameType.Const, "SDLK_H")]
+		[NativeName(NativeNameType.Value, "0x00000068u")]
 		public const uint SDLK_H = 0x00000068u;
 
+		[NativeName(NativeNameType.Const, "SDLK_I")]
+		[NativeName(NativeNameType.Value, "0x00000069u")]
 		public const uint SDLK_I = 0x00000069u;
 
+		[NativeName(NativeNameType.Const, "SDLK_J")]
+		[NativeName(NativeNameType.Value, "0x0000006au")]
 		public const uint SDLK_J = 0x0000006au;
 
+		[NativeName(NativeNameType.Const, "SDLK_K")]
+		[NativeName(NativeNameType.Value, "0x0000006bu")]
 		public const uint SDLK_K = 0x0000006bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_L")]
+		[NativeName(NativeNameType.Value, "0x0000006cu")]
 		public const uint SDLK_L = 0x0000006cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_M")]
+		[NativeName(NativeNameType.Value, "0x0000006du")]
 		public const uint SDLK_M = 0x0000006du;
 
+		[NativeName(NativeNameType.Const, "SDLK_N")]
+		[NativeName(NativeNameType.Value, "0x0000006eu")]
 		public const uint SDLK_N = 0x0000006eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_O")]
+		[NativeName(NativeNameType.Value, "0x0000006fu")]
 		public const uint SDLK_O = 0x0000006fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_P")]
+		[NativeName(NativeNameType.Value, "0x00000070u")]
 		public const uint SDLK_P = 0x00000070u;
 
+		[NativeName(NativeNameType.Const, "SDLK_Q")]
+		[NativeName(NativeNameType.Value, "0x00000071u")]
 		public const uint SDLK_Q = 0x00000071u;
 
+		[NativeName(NativeNameType.Const, "SDLK_R")]
+		[NativeName(NativeNameType.Value, "0x00000072u")]
 		public const uint SDLK_R = 0x00000072u;
 
+		[NativeName(NativeNameType.Const, "SDLK_S")]
+		[NativeName(NativeNameType.Value, "0x00000073u")]
 		public const uint SDLK_S = 0x00000073u;
 
+		[NativeName(NativeNameType.Const, "SDLK_T")]
+		[NativeName(NativeNameType.Value, "0x00000074u")]
 		public const uint SDLK_T = 0x00000074u;
 
+		[NativeName(NativeNameType.Const, "SDLK_U")]
+		[NativeName(NativeNameType.Value, "0x00000075u")]
 		public const uint SDLK_U = 0x00000075u;
 
+		[NativeName(NativeNameType.Const, "SDLK_V")]
+		[NativeName(NativeNameType.Value, "0x00000076u")]
 		public const uint SDLK_V = 0x00000076u;
 
+		[NativeName(NativeNameType.Const, "SDLK_W")]
+		[NativeName(NativeNameType.Value, "0x00000077u")]
 		public const uint SDLK_W = 0x00000077u;
 
+		[NativeName(NativeNameType.Const, "SDLK_X")]
+		[NativeName(NativeNameType.Value, "0x00000078u")]
 		public const uint SDLK_X = 0x00000078u;
 
+		[NativeName(NativeNameType.Const, "SDLK_Y")]
+		[NativeName(NativeNameType.Value, "0x00000079u")]
 		public const uint SDLK_Y = 0x00000079u;
 
+		[NativeName(NativeNameType.Const, "SDLK_Z")]
+		[NativeName(NativeNameType.Value, "0x0000007au")]
 		public const uint SDLK_Z = 0x0000007au;
 
+		[NativeName(NativeNameType.Const, "SDLK_LEFTBRACE")]
+		[NativeName(NativeNameType.Value, "0x0000007bu")]
 		public const uint SDLK_LEFTBRACE = 0x0000007bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_PIPE")]
+		[NativeName(NativeNameType.Value, "0x0000007cu")]
 		public const uint SDLK_PIPE = 0x0000007cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_RIGHTBRACE")]
+		[NativeName(NativeNameType.Value, "0x0000007du")]
 		public const uint SDLK_RIGHTBRACE = 0x0000007du;
 
+		[NativeName(NativeNameType.Const, "SDLK_TILDE")]
+		[NativeName(NativeNameType.Value, "0x0000007eu")]
 		public const uint SDLK_TILDE = 0x0000007eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_DELETE")]
+		[NativeName(NativeNameType.Value, "0x0000007fu")]
 		public const uint SDLK_DELETE = 0x0000007fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_PLUSMINUS")]
+		[NativeName(NativeNameType.Value, "0x000000b1u")]
 		public const uint SDLK_PLUSMINUS = 0x000000b1u;
 
+		[NativeName(NativeNameType.Const, "SDLK_CAPSLOCK")]
+		[NativeName(NativeNameType.Value, "0x40000039u")]
 		public const uint SDLK_CAPSLOCK = 0x40000039u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F1")]
+		[NativeName(NativeNameType.Value, "0x4000003au")]
 		public const uint SDLK_F1 = 0x4000003au;
 
+		[NativeName(NativeNameType.Const, "SDLK_F2")]
+		[NativeName(NativeNameType.Value, "0x4000003bu")]
 		public const uint SDLK_F2 = 0x4000003bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_F3")]
+		[NativeName(NativeNameType.Value, "0x4000003cu")]
 		public const uint SDLK_F3 = 0x4000003cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_F4")]
+		[NativeName(NativeNameType.Value, "0x4000003du")]
 		public const uint SDLK_F4 = 0x4000003du;
 
+		[NativeName(NativeNameType.Const, "SDLK_F5")]
+		[NativeName(NativeNameType.Value, "0x4000003eu")]
 		public const uint SDLK_F5 = 0x4000003eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_F6")]
+		[NativeName(NativeNameType.Value, "0x4000003fu")]
 		public const uint SDLK_F6 = 0x4000003fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_F7")]
+		[NativeName(NativeNameType.Value, "0x40000040u")]
 		public const uint SDLK_F7 = 0x40000040u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F8")]
+		[NativeName(NativeNameType.Value, "0x40000041u")]
 		public const uint SDLK_F8 = 0x40000041u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F9")]
+		[NativeName(NativeNameType.Value, "0x40000042u")]
 		public const uint SDLK_F9 = 0x40000042u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F10")]
+		[NativeName(NativeNameType.Value, "0x40000043u")]
 		public const uint SDLK_F10 = 0x40000043u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F11")]
+		[NativeName(NativeNameType.Value, "0x40000044u")]
 		public const uint SDLK_F11 = 0x40000044u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F12")]
+		[NativeName(NativeNameType.Value, "0x40000045u")]
 		public const uint SDLK_F12 = 0x40000045u;
 
+		[NativeName(NativeNameType.Const, "SDLK_PRINTSCREEN")]
+		[NativeName(NativeNameType.Value, "0x40000046u")]
 		public const uint SDLK_PRINTSCREEN = 0x40000046u;
 
+		[NativeName(NativeNameType.Const, "SDLK_SCROLLLOCK")]
+		[NativeName(NativeNameType.Value, "0x40000047u")]
 		public const uint SDLK_SCROLLLOCK = 0x40000047u;
 
+		[NativeName(NativeNameType.Const, "SDLK_PAUSE")]
+		[NativeName(NativeNameType.Value, "0x40000048u")]
 		public const uint SDLK_PAUSE = 0x40000048u;
 
+		[NativeName(NativeNameType.Const, "SDLK_INSERT")]
+		[NativeName(NativeNameType.Value, "0x40000049u")]
 		public const uint SDLK_INSERT = 0x40000049u;
 
+		[NativeName(NativeNameType.Const, "SDLK_HOME")]
+		[NativeName(NativeNameType.Value, "0x4000004au")]
 		public const uint SDLK_HOME = 0x4000004au;
 
+		[NativeName(NativeNameType.Const, "SDLK_PAGEUP")]
+		[NativeName(NativeNameType.Value, "0x4000004bu")]
 		public const uint SDLK_PAGEUP = 0x4000004bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_END")]
+		[NativeName(NativeNameType.Value, "0x4000004du")]
 		public const uint SDLK_END = 0x4000004du;
 
+		[NativeName(NativeNameType.Const, "SDLK_PAGEDOWN")]
+		[NativeName(NativeNameType.Value, "0x4000004eu")]
 		public const uint SDLK_PAGEDOWN = 0x4000004eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_RIGHT")]
+		[NativeName(NativeNameType.Value, "0x4000004fu")]
 		public const uint SDLK_RIGHT = 0x4000004fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_LEFT")]
+		[NativeName(NativeNameType.Value, "0x40000050u")]
 		public const uint SDLK_LEFT = 0x40000050u;
 
+		[NativeName(NativeNameType.Const, "SDLK_DOWN")]
+		[NativeName(NativeNameType.Value, "0x40000051u")]
 		public const uint SDLK_DOWN = 0x40000051u;
 
+		[NativeName(NativeNameType.Const, "SDLK_UP")]
+		[NativeName(NativeNameType.Value, "0x40000052u")]
 		public const uint SDLK_UP = 0x40000052u;
 
+		[NativeName(NativeNameType.Const, "SDLK_NUMLOCKCLEAR")]
+		[NativeName(NativeNameType.Value, "0x40000053u")]
 		public const uint SDLK_NUMLOCKCLEAR = 0x40000053u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_DIVIDE")]
+		[NativeName(NativeNameType.Value, "0x40000054u")]
 		public const uint SDLK_KP_DIVIDE = 0x40000054u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MULTIPLY")]
+		[NativeName(NativeNameType.Value, "0x40000055u")]
 		public const uint SDLK_KP_MULTIPLY = 0x40000055u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MINUS")]
+		[NativeName(NativeNameType.Value, "0x40000056u")]
 		public const uint SDLK_KP_MINUS = 0x40000056u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_PLUS")]
+		[NativeName(NativeNameType.Value, "0x40000057u")]
 		public const uint SDLK_KP_PLUS = 0x40000057u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_ENTER")]
+		[NativeName(NativeNameType.Value, "0x40000058u")]
 		public const uint SDLK_KP_ENTER = 0x40000058u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_1")]
+		[NativeName(NativeNameType.Value, "0x40000059u")]
 		public const uint SDLK_KP_1 = 0x40000059u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_2")]
+		[NativeName(NativeNameType.Value, "0x4000005au")]
 		public const uint SDLK_KP_2 = 0x4000005au;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_3")]
+		[NativeName(NativeNameType.Value, "0x4000005bu")]
 		public const uint SDLK_KP_3 = 0x4000005bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_4")]
+		[NativeName(NativeNameType.Value, "0x4000005cu")]
 		public const uint SDLK_KP_4 = 0x4000005cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_5")]
+		[NativeName(NativeNameType.Value, "0x4000005du")]
 		public const uint SDLK_KP_5 = 0x4000005du;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_6")]
+		[NativeName(NativeNameType.Value, "0x4000005eu")]
 		public const uint SDLK_KP_6 = 0x4000005eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_7")]
+		[NativeName(NativeNameType.Value, "0x4000005fu")]
 		public const uint SDLK_KP_7 = 0x4000005fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_8")]
+		[NativeName(NativeNameType.Value, "0x40000060u")]
 		public const uint SDLK_KP_8 = 0x40000060u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_9")]
+		[NativeName(NativeNameType.Value, "0x40000061u")]
 		public const uint SDLK_KP_9 = 0x40000061u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_0")]
+		[NativeName(NativeNameType.Value, "0x40000062u")]
 		public const uint SDLK_KP_0 = 0x40000062u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_PERIOD")]
+		[NativeName(NativeNameType.Value, "0x40000063u")]
 		public const uint SDLK_KP_PERIOD = 0x40000063u;
 
+		[NativeName(NativeNameType.Const, "SDLK_APPLICATION")]
+		[NativeName(NativeNameType.Value, "0x40000065u")]
 		public const uint SDLK_APPLICATION = 0x40000065u;
 
+		[NativeName(NativeNameType.Const, "SDLK_POWER")]
+		[NativeName(NativeNameType.Value, "0x40000066u")]
 		public const uint SDLK_POWER = 0x40000066u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_EQUALS")]
+		[NativeName(NativeNameType.Value, "0x40000067u")]
 		public const uint SDLK_KP_EQUALS = 0x40000067u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F13")]
+		[NativeName(NativeNameType.Value, "0x40000068u")]
 		public const uint SDLK_F13 = 0x40000068u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F14")]
+		[NativeName(NativeNameType.Value, "0x40000069u")]
 		public const uint SDLK_F14 = 0x40000069u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F15")]
+		[NativeName(NativeNameType.Value, "0x4000006au")]
 		public const uint SDLK_F15 = 0x4000006au;
 
+		[NativeName(NativeNameType.Const, "SDLK_F16")]
+		[NativeName(NativeNameType.Value, "0x4000006bu")]
 		public const uint SDLK_F16 = 0x4000006bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_F17")]
+		[NativeName(NativeNameType.Value, "0x4000006cu")]
 		public const uint SDLK_F17 = 0x4000006cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_F18")]
+		[NativeName(NativeNameType.Value, "0x4000006du")]
 		public const uint SDLK_F18 = 0x4000006du;
 
+		[NativeName(NativeNameType.Const, "SDLK_F19")]
+		[NativeName(NativeNameType.Value, "0x4000006eu")]
 		public const uint SDLK_F19 = 0x4000006eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_F20")]
+		[NativeName(NativeNameType.Value, "0x4000006fu")]
 		public const uint SDLK_F20 = 0x4000006fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_F21")]
+		[NativeName(NativeNameType.Value, "0x40000070u")]
 		public const uint SDLK_F21 = 0x40000070u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F22")]
+		[NativeName(NativeNameType.Value, "0x40000071u")]
 		public const uint SDLK_F22 = 0x40000071u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F23")]
+		[NativeName(NativeNameType.Value, "0x40000072u")]
 		public const uint SDLK_F23 = 0x40000072u;
 
+		[NativeName(NativeNameType.Const, "SDLK_F24")]
+		[NativeName(NativeNameType.Value, "0x40000073u")]
 		public const uint SDLK_F24 = 0x40000073u;
 
+		[NativeName(NativeNameType.Const, "SDLK_EXECUTE")]
+		[NativeName(NativeNameType.Value, "0x40000074u")]
 		public const uint SDLK_EXECUTE = 0x40000074u;
 
+		[NativeName(NativeNameType.Const, "SDLK_HELP")]
+		[NativeName(NativeNameType.Value, "0x40000075u")]
 		public const uint SDLK_HELP = 0x40000075u;
 
+		[NativeName(NativeNameType.Const, "SDLK_MENU")]
+		[NativeName(NativeNameType.Value, "0x40000076u")]
 		public const uint SDLK_MENU = 0x40000076u;
 
+		[NativeName(NativeNameType.Const, "SDLK_SELECT")]
+		[NativeName(NativeNameType.Value, "0x40000077u")]
 		public const uint SDLK_SELECT = 0x40000077u;
 
+		[NativeName(NativeNameType.Const, "SDLK_STOP")]
+		[NativeName(NativeNameType.Value, "0x40000078u")]
 		public const uint SDLK_STOP = 0x40000078u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AGAIN")]
+		[NativeName(NativeNameType.Value, "0x40000079u")]
 		public const uint SDLK_AGAIN = 0x40000079u;
 
+		[NativeName(NativeNameType.Const, "SDLK_UNDO")]
+		[NativeName(NativeNameType.Value, "0x4000007au")]
 		public const uint SDLK_UNDO = 0x4000007au;
 
+		[NativeName(NativeNameType.Const, "SDLK_CUT")]
+		[NativeName(NativeNameType.Value, "0x4000007bu")]
 		public const uint SDLK_CUT = 0x4000007bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_COPY")]
+		[NativeName(NativeNameType.Value, "0x4000007cu")]
 		public const uint SDLK_COPY = 0x4000007cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_PASTE")]
+		[NativeName(NativeNameType.Value, "0x4000007du")]
 		public const uint SDLK_PASTE = 0x4000007du;
 
+		[NativeName(NativeNameType.Const, "SDLK_FIND")]
+		[NativeName(NativeNameType.Value, "0x4000007eu")]
 		public const uint SDLK_FIND = 0x4000007eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_MUTE")]
+		[NativeName(NativeNameType.Value, "0x4000007fu")]
 		public const uint SDLK_MUTE = 0x4000007fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_VOLUMEUP")]
+		[NativeName(NativeNameType.Value, "0x40000080u")]
 		public const uint SDLK_VOLUMEUP = 0x40000080u;
 
+		[NativeName(NativeNameType.Const, "SDLK_VOLUMEDOWN")]
+		[NativeName(NativeNameType.Value, "0x40000081u")]
 		public const uint SDLK_VOLUMEDOWN = 0x40000081u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_COMMA")]
+		[NativeName(NativeNameType.Value, "0x40000085u")]
 		public const uint SDLK_KP_COMMA = 0x40000085u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_EQUALSAS400")]
+		[NativeName(NativeNameType.Value, "0x40000086u")]
 		public const uint SDLK_KP_EQUALSAS400 = 0x40000086u;
 
+		[NativeName(NativeNameType.Const, "SDLK_ALTERASE")]
+		[NativeName(NativeNameType.Value, "0x40000099u")]
 		public const uint SDLK_ALTERASE = 0x40000099u;
 
+		[NativeName(NativeNameType.Const, "SDLK_SYSREQ")]
+		[NativeName(NativeNameType.Value, "0x4000009au")]
 		public const uint SDLK_SYSREQ = 0x4000009au;
 
+		[NativeName(NativeNameType.Const, "SDLK_CANCEL")]
+		[NativeName(NativeNameType.Value, "0x4000009bu")]
 		public const uint SDLK_CANCEL = 0x4000009bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_CLEAR")]
+		[NativeName(NativeNameType.Value, "0x4000009cu")]
 		public const uint SDLK_CLEAR = 0x4000009cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_PRIOR")]
+		[NativeName(NativeNameType.Value, "0x4000009du")]
 		public const uint SDLK_PRIOR = 0x4000009du;
 
+		[NativeName(NativeNameType.Const, "SDLK_RETURN2")]
+		[NativeName(NativeNameType.Value, "0x4000009eu")]
 		public const uint SDLK_RETURN2 = 0x4000009eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_SEPARATOR")]
+		[NativeName(NativeNameType.Value, "0x4000009fu")]
 		public const uint SDLK_SEPARATOR = 0x4000009fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_OUT")]
+		[NativeName(NativeNameType.Value, "0x400000a0u")]
 		public const uint SDLK_OUT = 0x400000a0u;
 
+		[NativeName(NativeNameType.Const, "SDLK_OPER")]
+		[NativeName(NativeNameType.Value, "0x400000a1u")]
 		public const uint SDLK_OPER = 0x400000a1u;
 
+		[NativeName(NativeNameType.Const, "SDLK_CLEARAGAIN")]
+		[NativeName(NativeNameType.Value, "0x400000a2u")]
 		public const uint SDLK_CLEARAGAIN = 0x400000a2u;
 
+		[NativeName(NativeNameType.Const, "SDLK_CRSEL")]
+		[NativeName(NativeNameType.Value, "0x400000a3u")]
 		public const uint SDLK_CRSEL = 0x400000a3u;
 
+		[NativeName(NativeNameType.Const, "SDLK_EXSEL")]
+		[NativeName(NativeNameType.Value, "0x400000a4u")]
 		public const uint SDLK_EXSEL = 0x400000a4u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_00")]
+		[NativeName(NativeNameType.Value, "0x400000b0u")]
 		public const uint SDLK_KP_00 = 0x400000b0u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_000")]
+		[NativeName(NativeNameType.Value, "0x400000b1u")]
 		public const uint SDLK_KP_000 = 0x400000b1u;
 
+		[NativeName(NativeNameType.Const, "SDLK_THOUSANDSSEPARATOR")]
+		[NativeName(NativeNameType.Value, "0x400000b2u")]
 		public const uint SDLK_THOUSANDSSEPARATOR = 0x400000b2u;
 
+		[NativeName(NativeNameType.Const, "SDLK_DECIMALSEPARATOR")]
+		[NativeName(NativeNameType.Value, "0x400000b3u")]
 		public const uint SDLK_DECIMALSEPARATOR = 0x400000b3u;
 
+		[NativeName(NativeNameType.Const, "SDLK_CURRENCYUNIT")]
+		[NativeName(NativeNameType.Value, "0x400000b4u")]
 		public const uint SDLK_CURRENCYUNIT = 0x400000b4u;
 
+		[NativeName(NativeNameType.Const, "SDLK_CURRENCYSUBUNIT")]
+		[NativeName(NativeNameType.Value, "0x400000b5u")]
 		public const uint SDLK_CURRENCYSUBUNIT = 0x400000b5u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_LEFTPAREN")]
+		[NativeName(NativeNameType.Value, "0x400000b6u")]
 		public const uint SDLK_KP_LEFTPAREN = 0x400000b6u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_RIGHTPAREN")]
+		[NativeName(NativeNameType.Value, "0x400000b7u")]
 		public const uint SDLK_KP_RIGHTPAREN = 0x400000b7u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_LEFTBRACE")]
+		[NativeName(NativeNameType.Value, "0x400000b8u")]
 		public const uint SDLK_KP_LEFTBRACE = 0x400000b8u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_RIGHTBRACE")]
+		[NativeName(NativeNameType.Value, "0x400000b9u")]
 		public const uint SDLK_KP_RIGHTBRACE = 0x400000b9u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_TAB")]
+		[NativeName(NativeNameType.Value, "0x400000bau")]
 		public const uint SDLK_KP_TAB = 0x400000bau;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_BACKSPACE")]
+		[NativeName(NativeNameType.Value, "0x400000bbu")]
 		public const uint SDLK_KP_BACKSPACE = 0x400000bbu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_A")]
+		[NativeName(NativeNameType.Value, "0x400000bcu")]
 		public const uint SDLK_KP_A = 0x400000bcu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_B")]
+		[NativeName(NativeNameType.Value, "0x400000bdu")]
 		public const uint SDLK_KP_B = 0x400000bdu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_C")]
+		[NativeName(NativeNameType.Value, "0x400000beu")]
 		public const uint SDLK_KP_C = 0x400000beu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_D")]
+		[NativeName(NativeNameType.Value, "0x400000bfu")]
 		public const uint SDLK_KP_D = 0x400000bfu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_E")]
+		[NativeName(NativeNameType.Value, "0x400000c0u")]
 		public const uint SDLK_KP_E = 0x400000c0u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_F")]
+		[NativeName(NativeNameType.Value, "0x400000c1u")]
 		public const uint SDLK_KP_F = 0x400000c1u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_XOR")]
+		[NativeName(NativeNameType.Value, "0x400000c2u")]
 		public const uint SDLK_KP_XOR = 0x400000c2u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_POWER")]
+		[NativeName(NativeNameType.Value, "0x400000c3u")]
 		public const uint SDLK_KP_POWER = 0x400000c3u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_PERCENT")]
+		[NativeName(NativeNameType.Value, "0x400000c4u")]
 		public const uint SDLK_KP_PERCENT = 0x400000c4u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_LESS")]
+		[NativeName(NativeNameType.Value, "0x400000c5u")]
 		public const uint SDLK_KP_LESS = 0x400000c5u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_GREATER")]
+		[NativeName(NativeNameType.Value, "0x400000c6u")]
 		public const uint SDLK_KP_GREATER = 0x400000c6u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_AMPERSAND")]
+		[NativeName(NativeNameType.Value, "0x400000c7u")]
 		public const uint SDLK_KP_AMPERSAND = 0x400000c7u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_DBLAMPERSAND")]
+		[NativeName(NativeNameType.Value, "0x400000c8u")]
 		public const uint SDLK_KP_DBLAMPERSAND = 0x400000c8u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_VERTICALBAR")]
+		[NativeName(NativeNameType.Value, "0x400000c9u")]
 		public const uint SDLK_KP_VERTICALBAR = 0x400000c9u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_DBLVERTICALBAR")]
+		[NativeName(NativeNameType.Value, "0x400000cau")]
 		public const uint SDLK_KP_DBLVERTICALBAR = 0x400000cau;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_COLON")]
+		[NativeName(NativeNameType.Value, "0x400000cbu")]
 		public const uint SDLK_KP_COLON = 0x400000cbu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_HASH")]
+		[NativeName(NativeNameType.Value, "0x400000ccu")]
 		public const uint SDLK_KP_HASH = 0x400000ccu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_SPACE")]
+		[NativeName(NativeNameType.Value, "0x400000cdu")]
 		public const uint SDLK_KP_SPACE = 0x400000cdu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_AT")]
+		[NativeName(NativeNameType.Value, "0x400000ceu")]
 		public const uint SDLK_KP_AT = 0x400000ceu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_EXCLAM")]
+		[NativeName(NativeNameType.Value, "0x400000cfu")]
 		public const uint SDLK_KP_EXCLAM = 0x400000cfu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MEMSTORE")]
+		[NativeName(NativeNameType.Value, "0x400000d0u")]
 		public const uint SDLK_KP_MEMSTORE = 0x400000d0u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MEMRECALL")]
+		[NativeName(NativeNameType.Value, "0x400000d1u")]
 		public const uint SDLK_KP_MEMRECALL = 0x400000d1u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MEMCLEAR")]
+		[NativeName(NativeNameType.Value, "0x400000d2u")]
 		public const uint SDLK_KP_MEMCLEAR = 0x400000d2u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MEMADD")]
+		[NativeName(NativeNameType.Value, "0x400000d3u")]
 		public const uint SDLK_KP_MEMADD = 0x400000d3u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MEMSUBTRACT")]
+		[NativeName(NativeNameType.Value, "0x400000d4u")]
 		public const uint SDLK_KP_MEMSUBTRACT = 0x400000d4u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MEMMULTIPLY")]
+		[NativeName(NativeNameType.Value, "0x400000d5u")]
 		public const uint SDLK_KP_MEMMULTIPLY = 0x400000d5u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_MEMDIVIDE")]
+		[NativeName(NativeNameType.Value, "0x400000d6u")]
 		public const uint SDLK_KP_MEMDIVIDE = 0x400000d6u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_PLUSMINUS")]
+		[NativeName(NativeNameType.Value, "0x400000d7u")]
 		public const uint SDLK_KP_PLUSMINUS = 0x400000d7u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_CLEAR")]
+		[NativeName(NativeNameType.Value, "0x400000d8u")]
 		public const uint SDLK_KP_CLEAR = 0x400000d8u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_CLEARENTRY")]
+		[NativeName(NativeNameType.Value, "0x400000d9u")]
 		public const uint SDLK_KP_CLEARENTRY = 0x400000d9u;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_BINARY")]
+		[NativeName(NativeNameType.Value, "0x400000dau")]
 		public const uint SDLK_KP_BINARY = 0x400000dau;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_OCTAL")]
+		[NativeName(NativeNameType.Value, "0x400000dbu")]
 		public const uint SDLK_KP_OCTAL = 0x400000dbu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_DECIMAL")]
+		[NativeName(NativeNameType.Value, "0x400000dcu")]
 		public const uint SDLK_KP_DECIMAL = 0x400000dcu;
 
+		[NativeName(NativeNameType.Const, "SDLK_KP_HEXADECIMAL")]
+		[NativeName(NativeNameType.Value, "0x400000ddu")]
 		public const uint SDLK_KP_HEXADECIMAL = 0x400000ddu;
 
+		[NativeName(NativeNameType.Const, "SDLK_LCTRL")]
+		[NativeName(NativeNameType.Value, "0x400000e0u")]
 		public const uint SDLK_LCTRL = 0x400000e0u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LSHIFT")]
+		[NativeName(NativeNameType.Value, "0x400000e1u")]
 		public const uint SDLK_LSHIFT = 0x400000e1u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LALT")]
+		[NativeName(NativeNameType.Value, "0x400000e2u")]
 		public const uint SDLK_LALT = 0x400000e2u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LGUI")]
+		[NativeName(NativeNameType.Value, "0x400000e3u")]
 		public const uint SDLK_LGUI = 0x400000e3u;
 
+		[NativeName(NativeNameType.Const, "SDLK_RCTRL")]
+		[NativeName(NativeNameType.Value, "0x400000e4u")]
 		public const uint SDLK_RCTRL = 0x400000e4u;
 
+		[NativeName(NativeNameType.Const, "SDLK_RSHIFT")]
+		[NativeName(NativeNameType.Value, "0x400000e5u")]
 		public const uint SDLK_RSHIFT = 0x400000e5u;
 
+		[NativeName(NativeNameType.Const, "SDLK_RALT")]
+		[NativeName(NativeNameType.Value, "0x400000e6u")]
 		public const uint SDLK_RALT = 0x400000e6u;
 
+		[NativeName(NativeNameType.Const, "SDLK_RGUI")]
+		[NativeName(NativeNameType.Value, "0x400000e7u")]
 		public const uint SDLK_RGUI = 0x400000e7u;
 
+		[NativeName(NativeNameType.Const, "SDLK_MODE")]
+		[NativeName(NativeNameType.Value, "0x40000101u")]
 		public const uint SDLK_MODE = 0x40000101u;
 
+		[NativeName(NativeNameType.Const, "SDLK_SLEEP")]
+		[NativeName(NativeNameType.Value, "0x40000102u")]
 		public const uint SDLK_SLEEP = 0x40000102u;
 
+		[NativeName(NativeNameType.Const, "SDLK_WAKE")]
+		[NativeName(NativeNameType.Value, "0x40000103u")]
 		public const uint SDLK_WAKE = 0x40000103u;
 
+		[NativeName(NativeNameType.Const, "SDLK_CHANNEL_INCREMENT")]
+		[NativeName(NativeNameType.Value, "0x40000104u")]
 		public const uint SDLK_CHANNEL_INCREMENT = 0x40000104u;
 
+		[NativeName(NativeNameType.Const, "SDLK_CHANNEL_DECREMENT")]
+		[NativeName(NativeNameType.Value, "0x40000105u")]
 		public const uint SDLK_CHANNEL_DECREMENT = 0x40000105u;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_PLAY")]
+		[NativeName(NativeNameType.Value, "0x40000106u")]
 		public const uint SDLK_MEDIA_PLAY = 0x40000106u;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_PAUSE")]
+		[NativeName(NativeNameType.Value, "0x40000107u")]
 		public const uint SDLK_MEDIA_PAUSE = 0x40000107u;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_RECORD")]
+		[NativeName(NativeNameType.Value, "0x40000108u")]
 		public const uint SDLK_MEDIA_RECORD = 0x40000108u;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_FAST_FORWARD")]
+		[NativeName(NativeNameType.Value, "0x40000109u")]
 		public const uint SDLK_MEDIA_FAST_FORWARD = 0x40000109u;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_REWIND")]
+		[NativeName(NativeNameType.Value, "0x4000010au")]
 		public const uint SDLK_MEDIA_REWIND = 0x4000010au;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_NEXT_TRACK")]
+		[NativeName(NativeNameType.Value, "0x4000010bu")]
 		public const uint SDLK_MEDIA_NEXT_TRACK = 0x4000010bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_PREVIOUS_TRACK")]
+		[NativeName(NativeNameType.Value, "0x4000010cu")]
 		public const uint SDLK_MEDIA_PREVIOUS_TRACK = 0x4000010cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_STOP")]
+		[NativeName(NativeNameType.Value, "0x4000010du")]
 		public const uint SDLK_MEDIA_STOP = 0x4000010du;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_EJECT")]
+		[NativeName(NativeNameType.Value, "0x4000010eu")]
 		public const uint SDLK_MEDIA_EJECT = 0x4000010eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_PLAY_PAUSE")]
+		[NativeName(NativeNameType.Value, "0x4000010fu")]
 		public const uint SDLK_MEDIA_PLAY_PAUSE = 0x4000010fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_MEDIA_SELECT")]
+		[NativeName(NativeNameType.Value, "0x40000110u")]
 		public const uint SDLK_MEDIA_SELECT = 0x40000110u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_NEW")]
+		[NativeName(NativeNameType.Value, "0x40000111u")]
 		public const uint SDLK_AC_NEW = 0x40000111u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_OPEN")]
+		[NativeName(NativeNameType.Value, "0x40000112u")]
 		public const uint SDLK_AC_OPEN = 0x40000112u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_CLOSE")]
+		[NativeName(NativeNameType.Value, "0x40000113u")]
 		public const uint SDLK_AC_CLOSE = 0x40000113u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_EXIT")]
+		[NativeName(NativeNameType.Value, "0x40000114u")]
 		public const uint SDLK_AC_EXIT = 0x40000114u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_SAVE")]
+		[NativeName(NativeNameType.Value, "0x40000115u")]
 		public const uint SDLK_AC_SAVE = 0x40000115u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_PRINT")]
+		[NativeName(NativeNameType.Value, "0x40000116u")]
 		public const uint SDLK_AC_PRINT = 0x40000116u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_PROPERTIES")]
+		[NativeName(NativeNameType.Value, "0x40000117u")]
 		public const uint SDLK_AC_PROPERTIES = 0x40000117u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_SEARCH")]
+		[NativeName(NativeNameType.Value, "0x40000118u")]
 		public const uint SDLK_AC_SEARCH = 0x40000118u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_HOME")]
+		[NativeName(NativeNameType.Value, "0x40000119u")]
 		public const uint SDLK_AC_HOME = 0x40000119u;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_BACK")]
+		[NativeName(NativeNameType.Value, "0x4000011au")]
 		public const uint SDLK_AC_BACK = 0x4000011au;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_FORWARD")]
+		[NativeName(NativeNameType.Value, "0x4000011bu")]
 		public const uint SDLK_AC_FORWARD = 0x4000011bu;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_STOP")]
+		[NativeName(NativeNameType.Value, "0x4000011cu")]
 		public const uint SDLK_AC_STOP = 0x4000011cu;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_REFRESH")]
+		[NativeName(NativeNameType.Value, "0x4000011du")]
 		public const uint SDLK_AC_REFRESH = 0x4000011du;
 
+		[NativeName(NativeNameType.Const, "SDLK_AC_BOOKMARKS")]
+		[NativeName(NativeNameType.Value, "0x4000011eu")]
 		public const uint SDLK_AC_BOOKMARKS = 0x4000011eu;
 
+		[NativeName(NativeNameType.Const, "SDLK_SOFTLEFT")]
+		[NativeName(NativeNameType.Value, "0x4000011fu")]
 		public const uint SDLK_SOFTLEFT = 0x4000011fu;
 
+		[NativeName(NativeNameType.Const, "SDLK_SOFTRIGHT")]
+		[NativeName(NativeNameType.Value, "0x40000120u")]
 		public const uint SDLK_SOFTRIGHT = 0x40000120u;
 
+		[NativeName(NativeNameType.Const, "SDLK_CALL")]
+		[NativeName(NativeNameType.Value, "0x40000121u")]
 		public const uint SDLK_CALL = 0x40000121u;
 
+		[NativeName(NativeNameType.Const, "SDLK_ENDCALL")]
+		[NativeName(NativeNameType.Value, "0x40000122u")]
 		public const uint SDLK_ENDCALL = 0x40000122u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LEFT_TAB")]
+		[NativeName(NativeNameType.Value, "0x20000001u")]
 		public const uint SDLK_LEFT_TAB = 0x20000001u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LEVEL5_SHIFT")]
+		[NativeName(NativeNameType.Value, "0x20000002u")]
 		public const uint SDLK_LEVEL5_SHIFT = 0x20000002u;
 
+		[NativeName(NativeNameType.Const, "SDLK_MULTI_KEY_COMPOSE")]
+		[NativeName(NativeNameType.Value, "0x20000003u")]
 		public const uint SDLK_MULTI_KEY_COMPOSE = 0x20000003u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LMETA")]
+		[NativeName(NativeNameType.Value, "0x20000004u")]
 		public const uint SDLK_LMETA = 0x20000004u;
 
+		[NativeName(NativeNameType.Const, "SDLK_RMETA")]
+		[NativeName(NativeNameType.Value, "0x20000005u")]
 		public const uint SDLK_RMETA = 0x20000005u;
 
+		[NativeName(NativeNameType.Const, "SDLK_LHYPER")]
+		[NativeName(NativeNameType.Value, "0x20000006u")]
 		public const uint SDLK_LHYPER = 0x20000006u;
 
+		[NativeName(NativeNameType.Const, "SDLK_RHYPER")]
+		[NativeName(NativeNameType.Value, "0x20000007u")]
 		public const uint SDLK_RHYPER = 0x20000007u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_NONE")]
+		[NativeName(NativeNameType.Value, "0x0000u")]
 		public const uint SDL_KMOD_NONE = 0x0000u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_LSHIFT")]
+		[NativeName(NativeNameType.Value, "0x0001u")]
 		public const uint SDL_KMOD_LSHIFT = 0x0001u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_RSHIFT")]
+		[NativeName(NativeNameType.Value, "0x0002u")]
 		public const uint SDL_KMOD_RSHIFT = 0x0002u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_LEVEL5")]
+		[NativeName(NativeNameType.Value, "0x0004u")]
 		public const uint SDL_KMOD_LEVEL5 = 0x0004u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_LCTRL")]
+		[NativeName(NativeNameType.Value, "0x0040u")]
 		public const uint SDL_KMOD_LCTRL = 0x0040u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_RCTRL")]
+		[NativeName(NativeNameType.Value, "0x0080u")]
 		public const uint SDL_KMOD_RCTRL = 0x0080u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_LALT")]
+		[NativeName(NativeNameType.Value, "0x0100u")]
 		public const uint SDL_KMOD_LALT = 0x0100u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_RALT")]
+		[NativeName(NativeNameType.Value, "0x0200u")]
 		public const uint SDL_KMOD_RALT = 0x0200u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_LGUI")]
+		[NativeName(NativeNameType.Value, "0x0400u")]
 		public const uint SDL_KMOD_LGUI = 0x0400u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_RGUI")]
+		[NativeName(NativeNameType.Value, "0x0800u")]
 		public const uint SDL_KMOD_RGUI = 0x0800u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_NUM")]
+		[NativeName(NativeNameType.Value, "0x1000u")]
 		public const uint SDL_KMOD_NUM = 0x1000u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_CAPS")]
+		[NativeName(NativeNameType.Value, "0x2000u")]
 		public const uint SDL_KMOD_CAPS = 0x2000u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_MODE")]
+		[NativeName(NativeNameType.Value, "0x4000u")]
 		public const uint SDL_KMOD_MODE = 0x4000u;
 
+		[NativeName(NativeNameType.Const, "SDL_KMOD_SCROLL")]
+		[NativeName(NativeNameType.Value, "0x8000u")]
 		public const uint SDL_KMOD_SCROLL = 0x8000u;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTINPUT_TYPE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.textinput.type\"")]
 		public const string SDL_PROP_TEXTINPUT_TYPE_NUMBER = "SDL.textinput.type";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.textinput.capitalization\"")]
 		public const string SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER = "SDL.textinput.capitalization";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.textinput.autocorrect\"")]
 		public const string SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN = "SDL.textinput.autocorrect";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.textinput.multiline\"")]
 		public const string SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN = "SDL.textinput.multiline";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.textinput.android.inputtype\"")]
 		public const string SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER = "SDL.textinput.android.inputtype";
 
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_LEFT")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_BUTTON_LEFT = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_MIDDLE")]
+		[NativeName(NativeNameType.Value, "2")]
 		public const int SDL_BUTTON_MIDDLE = 2;
 
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_RIGHT")]
+		[NativeName(NativeNameType.Value, "3")]
 		public const int SDL_BUTTON_RIGHT = 3;
 
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_X1")]
+		[NativeName(NativeNameType.Value, "4")]
 		public const int SDL_BUTTON_X1 = 4;
 
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_X2")]
+		[NativeName(NativeNameType.Value, "5")]
 		public const int SDL_BUTTON_X2 = 5;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.debugmode\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN = "SDL.gpu.device.create.debugmode";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.preferlowpower\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN = "SDL.gpu.device.create.preferlowpower";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_VERBOSE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.verbose\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_VERBOSE_BOOLEAN = "SDL.gpu.device.create.verbose";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.name\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING = "SDL.gpu.device.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_FEATURE_CLIP_DISTANCE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.feature.clip_distance\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_FEATURE_CLIP_DISTANCE_BOOLEAN = "SDL.gpu.device.create.feature.clip_distance";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_FEATURE_DEPTH_CLAMPING_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.feature.depth_clamping\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_FEATURE_DEPTH_CLAMPING_BOOLEAN = "SDL.gpu.device.create.feature.depth_clamping";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_FEATURE_INDIRECT_DRAW_FIRST_INSTANCE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.feature.indirect_draw_first_instance\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_FEATURE_INDIRECT_DRAW_FIRST_INSTANCE_BOOLEAN = "SDL.gpu.device.create.feature.indirect_draw_first_instance";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_FEATURE_ANISOTROPY_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.feature.anisotropy\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_FEATURE_ANISOTROPY_BOOLEAN = "SDL.gpu.device.create.feature.anisotropy";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.private\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN = "SDL.gpu.device.create.shaders.private";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.spirv\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN = "SDL.gpu.device.create.shaders.spirv";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.dxbc\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN = "SDL.gpu.device.create.shaders.dxbc";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.dxil\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN = "SDL.gpu.device.create.shaders.dxil";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.msl\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN = "SDL.gpu.device.create.shaders.msl";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.metallib\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN = "SDL.gpu.device.create.shaders.metallib";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_D3D12_ALLOW_FEWER_RESOURCE_SLOTS_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.d3d12.allowtier1resourcebinding\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_D3D12_ALLOW_FEWER_RESOURCE_SLOTS_BOOLEAN = "SDL.gpu.device.create.d3d12.allowtier1resourcebinding";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.d3d12.semantic\"")]
 		public const string SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING = "SDL.gpu.device.create.d3d12.semantic";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_VULKAN_REQUIRE_HARDWARE_ACCELERATION_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.vulkan.requirehardwareacceleration\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_VULKAN_REQUIRE_HARDWARE_ACCELERATION_BOOLEAN = "SDL.gpu.device.create.vulkan.requirehardwareacceleration";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_VULKAN_OPTIONS_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.vulkan.options\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_VULKAN_OPTIONS_POINTER = "SDL.gpu.device.create.vulkan.options";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.name\"")]
+		public const string SDL_PROP_GPU_DEVICE_NAME_STRING = "SDL.gpu.device.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_DRIVER_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.driver_name\"")]
+		public const string SDL_PROP_GPU_DEVICE_DRIVER_NAME_STRING = "SDL.gpu.device.driver_name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.driver_version\"")]
+		public const string SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING = "SDL.gpu.device.driver_version";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.driver_info\"")]
+		public const string SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING = "SDL.gpu.device.driver_info";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.computepipeline.create.name\"")]
 		public const string SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING = "SDL.gpu.computepipeline.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.graphicspipeline.create.name\"")]
 		public const string SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING = "SDL.gpu.graphicspipeline.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.sampler.create.name\"")]
 		public const string SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING = "SDL.gpu.sampler.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_SHADER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.shader.create.name\"")]
 		public const string SDL_PROP_GPU_SHADER_CREATE_NAME_STRING = "SDL.gpu.shader.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.r\"")]
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT = "SDL.gpu.texture.create.d3d12.clear.r";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.g\"")]
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT = "SDL.gpu.texture.create.d3d12.clear.g";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.b\"")]
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT = "SDL.gpu.texture.create.d3d12.clear.b";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.a\"")]
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT = "SDL.gpu.texture.create.d3d12.clear.a";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.depth\"")]
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT = "SDL.gpu.texture.create.d3d12.clear.depth";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.d3d12.clear.stencil\"")]
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER = "SDL.gpu.texture.create.d3d12.clear.stencil";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.texture.create.name\"")]
 		public const string SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING = "SDL.gpu.texture.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.buffer.create.name\"")]
 		public const string SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING = "SDL.gpu.buffer.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.transferbuffer.create.name\"")]
 		public const string SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING = "SDL.gpu.transferbuffer.create.name";
 
-		public const int SDL_HAPTIC_POLAR = 0;
-
-		public const int SDL_HAPTIC_CARTESIAN = 1;
-
-		public const int SDL_HAPTIC_SPHERICAL = 2;
-
-		public const int SDL_HAPTIC_STEERING_AXIS = 3;
-
+		[NativeName(NativeNameType.Const, "SDL_HAPTIC_INFINITY")]
+		[NativeName(NativeNameType.Value, "4294967295U")]
 		public const uint SDL_HAPTIC_INFINITY = 4294967295U;
 
+		[NativeName(NativeNameType.Const, "SDL_HAPTIC_POLAR")]
+		[NativeName(NativeNameType.Value, "0")]
+		public const int SDL_HAPTIC_POLAR = 0;
+
+		[NativeName(NativeNameType.Const, "SDL_HAPTIC_CARTESIAN")]
+		[NativeName(NativeNameType.Value, "1")]
+		public const int SDL_HAPTIC_CARTESIAN = 1;
+
+		[NativeName(NativeNameType.Const, "SDL_HAPTIC_SPHERICAL")]
+		[NativeName(NativeNameType.Value, "2")]
+		public const int SDL_HAPTIC_SPHERICAL = 2;
+
+		[NativeName(NativeNameType.Const, "SDL_HAPTIC_STEERING_AXIS")]
+		[NativeName(NativeNameType.Value, "3")]
+		public const int SDL_HAPTIC_STEERING_AXIS = 3;
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_HIDAPI_LIBUSB_DEVICE_HANDLE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.hidapi.libusb.device.handle\"")]
+		public const string SDL_PROP_HIDAPI_LIBUSB_DEVICE_HANDLE_POINTER = "SDL.hidapi.libusb.device.handle";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED")]
+		[NativeName(NativeNameType.Value, "\"SDL_ALLOW_ALT_TAB_WHILE_GRABBED\"")]
 		public const string SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED = "SDL_ALLOW_ALT_TAB_WHILE_GRABBED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ANDROID_ALLOW_RECREATE_ACTIVITY")]
+		[NativeName(NativeNameType.Value, "\"SDL_ANDROID_ALLOW_RECREATE_ACTIVITY\"")]
 		public const string SDL_HINT_ANDROID_ALLOW_RECREATE_ACTIVITY = "SDL_ANDROID_ALLOW_RECREATE_ACTIVITY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ANDROID_BLOCK_ON_PAUSE")]
+		[NativeName(NativeNameType.Value, "\"SDL_ANDROID_BLOCK_ON_PAUSE\"")]
 		public const string SDL_HINT_ANDROID_BLOCK_ON_PAUSE = "SDL_ANDROID_BLOCK_ON_PAUSE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ANDROID_LOW_LATENCY_AUDIO")]
+		[NativeName(NativeNameType.Value, "\"SDL_ANDROID_LOW_LATENCY_AUDIO\"")]
 		public const string SDL_HINT_ANDROID_LOW_LATENCY_AUDIO = "SDL_ANDROID_LOW_LATENCY_AUDIO";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ANDROID_TRAP_BACK_BUTTON")]
+		[NativeName(NativeNameType.Value, "\"SDL_ANDROID_TRAP_BACK_BUTTON\"")]
 		public const string SDL_HINT_ANDROID_TRAP_BACK_BUTTON = "SDL_ANDROID_TRAP_BACK_BUTTON";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_APP_ID")]
+		[NativeName(NativeNameType.Value, "\"SDL_APP_ID\"")]
 		public const string SDL_HINT_APP_ID = "SDL_APP_ID";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_APP_NAME")]
+		[NativeName(NativeNameType.Value, "\"SDL_APP_NAME\"")]
 		public const string SDL_HINT_APP_NAME = "SDL_APP_NAME";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_APPLE_TV_CONTROLLER_UI_EVENTS\"")]
 		public const string SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS = "SDL_APPLE_TV_CONTROLLER_UI_EVENTS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION")]
+		[NativeName(NativeNameType.Value, "\"SDL_APPLE_TV_REMOTE_ALLOW_ROTATION\"")]
 		public const string SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION = "SDL_APPLE_TV_REMOTE_ALLOW_ROTATION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_ALSA_DEFAULT_DEVICE\"")]
 		public const string SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE = "SDL_AUDIO_ALSA_DEFAULT_DEVICE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE\"")]
 		public const string SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE = "SDL_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE\"")]
 		public const string SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE = "SDL_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_CATEGORY")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_CATEGORY\"")]
 		public const string SDL_HINT_AUDIO_CATEGORY = "SDL_AUDIO_CATEGORY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_CHANNELS")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_CHANNELS\"")]
 		public const string SDL_HINT_AUDIO_CHANNELS = "SDL_AUDIO_CHANNELS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DEVICE_APP_ICON_NAME")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DEVICE_APP_ICON_NAME\"")]
 		public const string SDL_HINT_AUDIO_DEVICE_APP_ICON_NAME = "SDL_AUDIO_DEVICE_APP_ICON_NAME";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DEVICE_SAMPLE_FRAMES")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DEVICE_SAMPLE_FRAMES\"")]
 		public const string SDL_HINT_AUDIO_DEVICE_SAMPLE_FRAMES = "SDL_AUDIO_DEVICE_SAMPLE_FRAMES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DEVICE_STREAM_NAME")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DEVICE_STREAM_NAME\"")]
 		public const string SDL_HINT_AUDIO_DEVICE_STREAM_NAME = "SDL_AUDIO_DEVICE_STREAM_NAME";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DEVICE_STREAM_ROLE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DEVICE_STREAM_ROLE\"")]
 		public const string SDL_HINT_AUDIO_DEVICE_STREAM_ROLE = "SDL_AUDIO_DEVICE_STREAM_ROLE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DEVICE_RAW_STREAM")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DEVICE_RAW_STREAM\"")]
+		public const string SDL_HINT_AUDIO_DEVICE_RAW_STREAM = "SDL_AUDIO_DEVICE_RAW_STREAM";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DISK_INPUT_FILE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DISK_INPUT_FILE\"")]
 		public const string SDL_HINT_AUDIO_DISK_INPUT_FILE = "SDL_AUDIO_DISK_INPUT_FILE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DISK_OUTPUT_FILE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DISK_OUTPUT_FILE\"")]
 		public const string SDL_HINT_AUDIO_DISK_OUTPUT_FILE = "SDL_AUDIO_DISK_OUTPUT_FILE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DISK_TIMESCALE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DISK_TIMESCALE\"")]
 		public const string SDL_HINT_AUDIO_DISK_TIMESCALE = "SDL_AUDIO_DISK_TIMESCALE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DRIVER\"")]
 		public const string SDL_HINT_AUDIO_DRIVER = "SDL_AUDIO_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_DUMMY_TIMESCALE")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_DUMMY_TIMESCALE\"")]
 		public const string SDL_HINT_AUDIO_DUMMY_TIMESCALE = "SDL_AUDIO_DUMMY_TIMESCALE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_FORMAT")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_FORMAT\"")]
 		public const string SDL_HINT_AUDIO_FORMAT = "SDL_AUDIO_FORMAT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_FREQUENCY")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_FREQUENCY\"")]
 		public const string SDL_HINT_AUDIO_FREQUENCY = "SDL_AUDIO_FREQUENCY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUDIO_INCLUDE_MONITORS")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUDIO_INCLUDE_MONITORS\"")]
 		public const string SDL_HINT_AUDIO_INCLUDE_MONITORS = "SDL_AUDIO_INCLUDE_MONITORS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUTO_UPDATE_JOYSTICKS")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUTO_UPDATE_JOYSTICKS\"")]
 		public const string SDL_HINT_AUTO_UPDATE_JOYSTICKS = "SDL_AUTO_UPDATE_JOYSTICKS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_AUTO_UPDATE_SENSORS")]
+		[NativeName(NativeNameType.Value, "\"SDL_AUTO_UPDATE_SENSORS\"")]
 		public const string SDL_HINT_AUTO_UPDATE_SENSORS = "SDL_AUTO_UPDATE_SENSORS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_BMP_SAVE_LEGACY_FORMAT")]
+		[NativeName(NativeNameType.Value, "\"SDL_BMP_SAVE_LEGACY_FORMAT\"")]
 		public const string SDL_HINT_BMP_SAVE_LEGACY_FORMAT = "SDL_BMP_SAVE_LEGACY_FORMAT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_CAMERA_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_CAMERA_DRIVER\"")]
 		public const string SDL_HINT_CAMERA_DRIVER = "SDL_CAMERA_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_CPU_FEATURE_MASK")]
+		[NativeName(NativeNameType.Value, "\"SDL_CPU_FEATURE_MASK\"")]
 		public const string SDL_HINT_CPU_FEATURE_MASK = "SDL_CPU_FEATURE_MASK";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_DIRECTINPUT")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_DIRECTINPUT\"")]
 		public const string SDL_HINT_JOYSTICK_DIRECTINPUT = "SDL_JOYSTICK_DIRECTINPUT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_FILE_DIALOG_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_FILE_DIALOG_DRIVER\"")]
 		public const string SDL_HINT_FILE_DIALOG_DRIVER = "SDL_FILE_DIALOG_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_DISPLAY_USABLE_BOUNDS")]
+		[NativeName(NativeNameType.Value, "\"SDL_DISPLAY_USABLE_BOUNDS\"")]
 		public const string SDL_HINT_DISPLAY_USABLE_BOUNDS = "SDL_DISPLAY_USABLE_BOUNDS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_INVALID_PARAM_CHECKS")]
+		[NativeName(NativeNameType.Value, "\"SDL_INVALID_PARAM_CHECKS\"")]
+		public const string SDL_HINT_INVALID_PARAM_CHECKS = "SDL_INVALID_PARAM_CHECKS";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_EMSCRIPTEN_ASYNCIFY")]
+		[NativeName(NativeNameType.Value, "\"SDL_EMSCRIPTEN_ASYNCIFY\"")]
 		public const string SDL_HINT_EMSCRIPTEN_ASYNCIFY = "SDL_EMSCRIPTEN_ASYNCIFY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_EMSCRIPTEN_CANVAS_SELECTOR\"")]
 		public const string SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR = "SDL_EMSCRIPTEN_CANVAS_SELECTOR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT")]
+		[NativeName(NativeNameType.Value, "\"SDL_EMSCRIPTEN_KEYBOARD_ELEMENT\"")]
 		public const string SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT = "SDL_EMSCRIPTEN_KEYBOARD_ELEMENT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ENABLE_SCREEN_KEYBOARD")]
+		[NativeName(NativeNameType.Value, "\"SDL_ENABLE_SCREEN_KEYBOARD\"")]
 		public const string SDL_HINT_ENABLE_SCREEN_KEYBOARD = "SDL_ENABLE_SCREEN_KEYBOARD";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_EVDEV_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_EVDEV_DEVICES\"")]
 		public const string SDL_HINT_EVDEV_DEVICES = "SDL_EVDEV_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_EVENT_LOGGING")]
+		[NativeName(NativeNameType.Value, "\"SDL_EVENT_LOGGING\"")]
 		public const string SDL_HINT_EVENT_LOGGING = "SDL_EVENT_LOGGING";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_FORCE_RAISEWINDOW")]
+		[NativeName(NativeNameType.Value, "\"SDL_FORCE_RAISEWINDOW\"")]
 		public const string SDL_HINT_FORCE_RAISEWINDOW = "SDL_FORCE_RAISEWINDOW";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_FRAMEBUFFER_ACCELERATION")]
+		[NativeName(NativeNameType.Value, "\"SDL_FRAMEBUFFER_ACCELERATION\"")]
 		public const string SDL_HINT_FRAMEBUFFER_ACCELERATION = "SDL_FRAMEBUFFER_ACCELERATION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GAMECONTROLLERCONFIG")]
+		[NativeName(NativeNameType.Value, "\"SDL_GAMECONTROLLERCONFIG\"")]
 		public const string SDL_HINT_GAMECONTROLLERCONFIG = "SDL_GAMECONTROLLERCONFIG";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GAMECONTROLLERCONFIG_FILE")]
+		[NativeName(NativeNameType.Value, "\"SDL_GAMECONTROLLERCONFIG_FILE\"")]
 		public const string SDL_HINT_GAMECONTROLLERCONFIG_FILE = "SDL_GAMECONTROLLERCONFIG_FILE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GAMECONTROLLERTYPE")]
+		[NativeName(NativeNameType.Value, "\"SDL_GAMECONTROLLERTYPE\"")]
 		public const string SDL_HINT_GAMECONTROLLERTYPE = "SDL_GAMECONTROLLERTYPE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_GAMECONTROLLER_IGNORE_DEVICES\"")]
 		public const string SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES = "SDL_GAMECONTROLLER_IGNORE_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT")]
+		[NativeName(NativeNameType.Value, "\"SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT\"")]
 		public const string SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT = "SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GAMECONTROLLER_SENSOR_FUSION")]
+		[NativeName(NativeNameType.Value, "\"SDL_GAMECONTROLLER_SENSOR_FUSION\"")]
 		public const string SDL_HINT_GAMECONTROLLER_SENSOR_FUSION = "SDL_GAMECONTROLLER_SENSOR_FUSION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GDK_TEXTINPUT_DEFAULT_TEXT")]
+		[NativeName(NativeNameType.Value, "\"SDL_GDK_TEXTINPUT_DEFAULT_TEXT\"")]
 		public const string SDL_HINT_GDK_TEXTINPUT_DEFAULT_TEXT = "SDL_GDK_TEXTINPUT_DEFAULT_TEXT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GDK_TEXTINPUT_DESCRIPTION")]
+		[NativeName(NativeNameType.Value, "\"SDL_GDK_TEXTINPUT_DESCRIPTION\"")]
 		public const string SDL_HINT_GDK_TEXTINPUT_DESCRIPTION = "SDL_GDK_TEXTINPUT_DESCRIPTION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GDK_TEXTINPUT_MAX_LENGTH")]
+		[NativeName(NativeNameType.Value, "\"SDL_GDK_TEXTINPUT_MAX_LENGTH\"")]
 		public const string SDL_HINT_GDK_TEXTINPUT_MAX_LENGTH = "SDL_GDK_TEXTINPUT_MAX_LENGTH";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GDK_TEXTINPUT_SCOPE")]
+		[NativeName(NativeNameType.Value, "\"SDL_GDK_TEXTINPUT_SCOPE\"")]
 		public const string SDL_HINT_GDK_TEXTINPUT_SCOPE = "SDL_GDK_TEXTINPUT_SCOPE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GDK_TEXTINPUT_TITLE")]
+		[NativeName(NativeNameType.Value, "\"SDL_GDK_TEXTINPUT_TITLE\"")]
 		public const string SDL_HINT_GDK_TEXTINPUT_TITLE = "SDL_GDK_TEXTINPUT_TITLE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_HIDAPI_LIBUSB")]
+		[NativeName(NativeNameType.Value, "\"SDL_HIDAPI_LIBUSB\"")]
 		public const string SDL_HINT_HIDAPI_LIBUSB = "SDL_HIDAPI_LIBUSB";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_HIDAPI_LIBUSB_GAMECUBE")]
+		[NativeName(NativeNameType.Value, "\"SDL_HIDAPI_LIBUSB_GAMECUBE\"")]
+		public const string SDL_HINT_HIDAPI_LIBUSB_GAMECUBE = "SDL_HIDAPI_LIBUSB_GAMECUBE";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_HIDAPI_LIBUSB_WHITELIST")]
+		[NativeName(NativeNameType.Value, "\"SDL_HIDAPI_LIBUSB_WHITELIST\"")]
 		public const string SDL_HINT_HIDAPI_LIBUSB_WHITELIST = "SDL_HIDAPI_LIBUSB_WHITELIST";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_HIDAPI_UDEV")]
+		[NativeName(NativeNameType.Value, "\"SDL_HIDAPI_UDEV\"")]
 		public const string SDL_HINT_HIDAPI_UDEV = "SDL_HIDAPI_UDEV";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GPU_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_GPU_DRIVER\"")]
 		public const string SDL_HINT_GPU_DRIVER = "SDL_GPU_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS")]
+		[NativeName(NativeNameType.Value, "\"SDL_HIDAPI_ENUMERATE_ONLY_CONTROLLERS\"")]
 		public const string SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS = "SDL_HIDAPI_ENUMERATE_ONLY_CONTROLLERS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_HIDAPI_IGNORE_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_HIDAPI_IGNORE_DEVICES\"")]
 		public const string SDL_HINT_HIDAPI_IGNORE_DEVICES = "SDL_HIDAPI_IGNORE_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_IME_IMPLEMENTED_UI")]
+		[NativeName(NativeNameType.Value, "\"SDL_IME_IMPLEMENTED_UI\"")]
 		public const string SDL_HINT_IME_IMPLEMENTED_UI = "SDL_IME_IMPLEMENTED_UI";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_IOS_HIDE_HOME_INDICATOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_IOS_HIDE_HOME_INDICATOR\"")]
 		public const string SDL_HINT_IOS_HIDE_HOME_INDICATOR = "SDL_IOS_HIDE_HOME_INDICATOR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS\"")]
 		public const string SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS = "SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_ARCADESTICK_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES = "SDL_JOYSTICK_ARCADESTICK_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED\"")]
 		public const string SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED = "SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_BLACKLIST_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_BLACKLIST_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_BLACKLIST_DEVICES = "SDL_JOYSTICK_BLACKLIST_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED\"")]
 		public const string SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED = "SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_DEVICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_DEVICE\"")]
 		public const string SDL_HINT_JOYSTICK_DEVICE = "SDL_JOYSTICK_DEVICE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_ENHANCED_REPORTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_ENHANCED_REPORTS\"")]
 		public const string SDL_HINT_JOYSTICK_ENHANCED_REPORTS = "SDL_JOYSTICK_ENHANCED_REPORTS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES = "SDL_JOYSTICK_FLIGHTSTICK_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED\"")]
 		public const string SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED = "SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_GAMEINPUT")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_GAMEINPUT\"")]
 		public const string SDL_HINT_JOYSTICK_GAMEINPUT = "SDL_JOYSTICK_GAMEINPUT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_GAMECUBE_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_GAMECUBE_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_GAMECUBE_DEVICES = "SDL_JOYSTICK_GAMECUBE_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED\"")]
 		public const string SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED = "SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI = "SDL_JOYSTICK_HIDAPI";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS = "SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_GAMECUBE\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE = "SDL_JOYSTICK_HIDAPI_GAMECUBE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE = "SDL_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_JOY_CONS\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS = "SDL_JOYSTICK_HIDAPI_JOY_CONS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED = "SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_LUNA")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_LUNA\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_LUNA = "SDL_JOYSTICK_HIDAPI_LUNA";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC = "SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS3")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS3\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS3 = "SDL_JOYSTICK_HIDAPI_PS3";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER = "SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS4")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS4\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS4 = "SDL_JOYSTICK_HIDAPI_PS4";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL = "SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS5")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS5\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS5 = "SDL_JOYSTICK_HIDAPI_PS5";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED = "SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_SHIELD")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_SHIELD\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_SHIELD = "SDL_JOYSTICK_HIDAPI_SHIELD";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STADIA")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STADIA\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_STADIA = "SDL_JOYSTICK_HIDAPI_STADIA";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAM")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAM\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_STEAM = "SDL_JOYSTICK_HIDAPI_STEAM";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAM_HOME_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED = "SDL_JOYSTICK_HIDAPI_STEAM_HOME_LED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAMDECK\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK = "SDL_JOYSTICK_HIDAPI_STEAMDECK";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAM_HORI\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI = "SDL_JOYSTICK_HIDAPI_STEAM_HORI";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_LG4FF")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_LG4FF\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_LG4FF = "SDL_JOYSTICK_HIDAPI_LG4FF";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_8BITDO")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_8BITDO\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_8BITDO = "SDL_JOYSTICK_HIDAPI_8BITDO";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_SINPUT")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_SINPUT\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_SINPUT = "SDL_JOYSTICK_HIDAPI_SINPUT";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_ZUIKI")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_ZUIKI\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_ZUIKI = "SDL_JOYSTICK_HIDAPI_ZUIKI";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_FLYDIGI")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_FLYDIGI\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_FLYDIGI = "SDL_JOYSTICK_HIDAPI_FLYDIGI";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_SWITCH")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_SWITCH\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_SWITCH = "SDL_JOYSTICK_HIDAPI_SWITCH";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED = "SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED = "SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_SWITCH2")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_SWITCH2\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_SWITCH2 = "SDL_JOYSTICK_HIDAPI_SWITCH2";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS = "SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_WII")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_WII\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_WII = "SDL_JOYSTICK_HIDAPI_WII";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED = "SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_XBOX")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_XBOX\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_XBOX = "SDL_JOYSTICK_HIDAPI_XBOX";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_XBOX_360")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_XBOX_360\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_XBOX_360 = "SDL_JOYSTICK_HIDAPI_XBOX_360";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED = "SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS = "SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE = "SDL_JOYSTICK_HIDAPI_XBOX_ONE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED = "SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_GIP")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_GIP\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_GIP = "SDL_JOYSTICK_HIDAPI_GIP";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA = "SDL_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_IOKIT")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_IOKIT\"")]
 		public const string SDL_HINT_JOYSTICK_IOKIT = "SDL_JOYSTICK_IOKIT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_LINUX_CLASSIC")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_LINUX_CLASSIC\"")]
 		public const string SDL_HINT_JOYSTICK_LINUX_CLASSIC = "SDL_JOYSTICK_LINUX_CLASSIC";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_LINUX_DEADZONES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_LINUX_DEADZONES\"")]
 		public const string SDL_HINT_JOYSTICK_LINUX_DEADZONES = "SDL_JOYSTICK_LINUX_DEADZONES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_LINUX_DIGITAL_HATS")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_LINUX_DIGITAL_HATS\"")]
 		public const string SDL_HINT_JOYSTICK_LINUX_DIGITAL_HATS = "SDL_JOYSTICK_LINUX_DIGITAL_HATS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_LINUX_HAT_DEADZONES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_LINUX_HAT_DEADZONES\"")]
 		public const string SDL_HINT_JOYSTICK_LINUX_HAT_DEADZONES = "SDL_JOYSTICK_LINUX_HAT_DEADZONES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_MFI")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_MFI\"")]
 		public const string SDL_HINT_JOYSTICK_MFI = "SDL_JOYSTICK_MFI";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_RAWINPUT")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_RAWINPUT\"")]
 		public const string SDL_HINT_JOYSTICK_RAWINPUT = "SDL_JOYSTICK_RAWINPUT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT\"")]
 		public const string SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT = "SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_ROG_CHAKRAM")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_ROG_CHAKRAM\"")]
 		public const string SDL_HINT_JOYSTICK_ROG_CHAKRAM = "SDL_JOYSTICK_ROG_CHAKRAM";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_THREAD")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_THREAD\"")]
 		public const string SDL_HINT_JOYSTICK_THREAD = "SDL_JOYSTICK_THREAD";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_THROTTLE_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_THROTTLE_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_THROTTLE_DEVICES = "SDL_JOYSTICK_THROTTLE_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED\"")]
 		public const string SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED = "SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_WGI")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_WGI\"")]
 		public const string SDL_HINT_JOYSTICK_WGI = "SDL_JOYSTICK_WGI";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_WHEEL_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_WHEEL_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_WHEEL_DEVICES = "SDL_JOYSTICK_WHEEL_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED\"")]
 		public const string SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED = "SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_ZERO_CENTERED_DEVICES\"")]
 		public const string SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES = "SDL_JOYSTICK_ZERO_CENTERED_DEVICES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HAPTIC_AXES")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HAPTIC_AXES\"")]
 		public const string SDL_HINT_JOYSTICK_HAPTIC_AXES = "SDL_JOYSTICK_HAPTIC_AXES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_KEYCODE_OPTIONS")]
+		[NativeName(NativeNameType.Value, "\"SDL_KEYCODE_OPTIONS\"")]
 		public const string SDL_HINT_KEYCODE_OPTIONS = "SDL_KEYCODE_OPTIONS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_KMSDRM_DEVICE_INDEX")]
+		[NativeName(NativeNameType.Value, "\"SDL_KMSDRM_DEVICE_INDEX\"")]
 		public const string SDL_HINT_KMSDRM_DEVICE_INDEX = "SDL_KMSDRM_DEVICE_INDEX";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER")]
+		[NativeName(NativeNameType.Value, "\"SDL_KMSDRM_REQUIRE_DRM_MASTER\"")]
 		public const string SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER = "SDL_KMSDRM_REQUIRE_DRM_MASTER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_KMSDRM_ATOMIC")]
+		[NativeName(NativeNameType.Value, "\"SDL_KMSDRM_ATOMIC\"")]
+		public const string SDL_HINT_KMSDRM_ATOMIC = "SDL_KMSDRM_ATOMIC";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_LOGGING")]
+		[NativeName(NativeNameType.Value, "\"SDL_LOGGING\"")]
 		public const string SDL_HINT_LOGGING = "SDL_LOGGING";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAC_BACKGROUND_APP")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAC_BACKGROUND_APP\"")]
 		public const string SDL_HINT_MAC_BACKGROUND_APP = "SDL_MAC_BACKGROUND_APP";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK\"")]
 		public const string SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK = "SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAC_OPENGL_ASYNC_DISPATCH\"")]
 		public const string SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH = "SDL_MAC_OPENGL_ASYNC_DISPATCH";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAC_OPTION_AS_ALT")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAC_OPTION_AS_ALT\"")]
 		public const string SDL_HINT_MAC_OPTION_AS_ALT = "SDL_MAC_OPTION_AS_ALT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAC_SCROLL_MOMENTUM")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAC_SCROLL_MOMENTUM\"")]
 		public const string SDL_HINT_MAC_SCROLL_MOMENTUM = "SDL_MAC_SCROLL_MOMENTUM";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAC_PRESS_AND_HOLD")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAC_PRESS_AND_HOLD\"")]
+		public const string SDL_HINT_MAC_PRESS_AND_HOLD = "SDL_MAC_PRESS_AND_HOLD";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_MAIN_CALLBACK_RATE")]
+		[NativeName(NativeNameType.Value, "\"SDL_MAIN_CALLBACK_RATE\"")]
 		public const string SDL_HINT_MAIN_CALLBACK_RATE = "SDL_MAIN_CALLBACK_RATE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_AUTO_CAPTURE")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_AUTO_CAPTURE\"")]
 		public const string SDL_HINT_MOUSE_AUTO_CAPTURE = "SDL_MOUSE_AUTO_CAPTURE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_DOUBLE_CLICK_RADIUS\"")]
 		public const string SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS = "SDL_MOUSE_DOUBLE_CLICK_RADIUS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_DOUBLE_CLICK_TIME")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_DOUBLE_CLICK_TIME\"")]
 		public const string SDL_HINT_MOUSE_DOUBLE_CLICK_TIME = "SDL_MOUSE_DOUBLE_CLICK_TIME";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_DEFAULT_SYSTEM_CURSOR\"")]
 		public const string SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR = "SDL_MOUSE_DEFAULT_SYSTEM_CURSOR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_DPI_SCALE_CURSORS")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_DPI_SCALE_CURSORS\"")]
+		public const string SDL_HINT_MOUSE_DPI_SCALE_CURSORS = "SDL_MOUSE_DPI_SCALE_CURSORS";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_EMULATE_WARP_WITH_RELATIVE")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE\"")]
 		public const string SDL_HINT_MOUSE_EMULATE_WARP_WITH_RELATIVE = "SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_FOCUS_CLICKTHROUGH\"")]
 		public const string SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH = "SDL_MOUSE_FOCUS_CLICKTHROUGH";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_NORMAL_SPEED_SCALE")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_NORMAL_SPEED_SCALE\"")]
 		public const string SDL_HINT_MOUSE_NORMAL_SPEED_SCALE = "SDL_MOUSE_NORMAL_SPEED_SCALE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_MODE_CENTER")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_MODE_CENTER\"")]
 		public const string SDL_HINT_MOUSE_RELATIVE_MODE_CENTER = "SDL_MOUSE_RELATIVE_MODE_CENTER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_SPEED_SCALE\"")]
 		public const string SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE = "SDL_MOUSE_RELATIVE_SPEED_SCALE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_SYSTEM_SCALE\"")]
 		public const string SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE = "SDL_MOUSE_RELATIVE_SYSTEM_SCALE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_WARP_MOTION")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_WARP_MOTION\"")]
 		public const string SDL_HINT_MOUSE_RELATIVE_WARP_MOTION = "SDL_MOUSE_RELATIVE_WARP_MOTION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_RELATIVE_CURSOR_VISIBLE\"")]
 		public const string SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE = "SDL_MOUSE_RELATIVE_CURSOR_VISIBLE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MOUSE_TOUCH_EVENTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_MOUSE_TOUCH_EVENTS\"")]
 		public const string SDL_HINT_MOUSE_TOUCH_EVENTS = "SDL_MOUSE_TOUCH_EVENTS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_MUTE_CONSOLE_KEYBOARD")]
+		[NativeName(NativeNameType.Value, "\"SDL_MUTE_CONSOLE_KEYBOARD\"")]
 		public const string SDL_HINT_MUTE_CONSOLE_KEYBOARD = "SDL_MUTE_CONSOLE_KEYBOARD";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_NO_SIGNAL_HANDLERS")]
+		[NativeName(NativeNameType.Value, "\"SDL_NO_SIGNAL_HANDLERS\"")]
 		public const string SDL_HINT_NO_SIGNAL_HANDLERS = "SDL_NO_SIGNAL_HANDLERS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_OPENGL_LIBRARY")]
+		[NativeName(NativeNameType.Value, "\"SDL_OPENGL_LIBRARY\"")]
 		public const string SDL_HINT_OPENGL_LIBRARY = "SDL_OPENGL_LIBRARY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_EGL_LIBRARY")]
+		[NativeName(NativeNameType.Value, "\"SDL_EGL_LIBRARY\"")]
 		public const string SDL_HINT_EGL_LIBRARY = "SDL_EGL_LIBRARY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_OPENGL_ES_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_OPENGL_ES_DRIVER\"")]
 		public const string SDL_HINT_OPENGL_ES_DRIVER = "SDL_OPENGL_ES_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_OPENVR_LIBRARY")]
+		[NativeName(NativeNameType.Value, "\"SDL_OPENVR_LIBRARY\"")]
 		public const string SDL_HINT_OPENVR_LIBRARY = "SDL_OPENVR_LIBRARY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ORIENTATIONS")]
+		[NativeName(NativeNameType.Value, "\"SDL_ORIENTATIONS\"")]
 		public const string SDL_HINT_ORIENTATIONS = "SDL_ORIENTATIONS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_POLL_SENTINEL")]
+		[NativeName(NativeNameType.Value, "\"SDL_POLL_SENTINEL\"")]
 		public const string SDL_HINT_POLL_SENTINEL = "SDL_POLL_SENTINEL";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_PREFERRED_LOCALES")]
+		[NativeName(NativeNameType.Value, "\"SDL_PREFERRED_LOCALES\"")]
 		public const string SDL_HINT_PREFERRED_LOCALES = "SDL_PREFERRED_LOCALES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE")]
+		[NativeName(NativeNameType.Value, "\"SDL_QUIT_ON_LAST_WINDOW_CLOSE\"")]
 		public const string SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE = "SDL_QUIT_ON_LAST_WINDOW_CLOSE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_DIRECT3D_THREADSAFE")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_DIRECT3D_THREADSAFE\"")]
 		public const string SDL_HINT_RENDER_DIRECT3D_THREADSAFE = "SDL_RENDER_DIRECT3D_THREADSAFE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_DIRECT3D11_DEBUG")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_DIRECT3D11_DEBUG\"")]
 		public const string SDL_HINT_RENDER_DIRECT3D11_DEBUG = "SDL_RENDER_DIRECT3D11_DEBUG";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_DIRECT3D11_WARP")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_DIRECT3D11_WARP\"")]
+		public const string SDL_HINT_RENDER_DIRECT3D11_WARP = "SDL_RENDER_DIRECT3D11_WARP";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_VULKAN_DEBUG")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_VULKAN_DEBUG\"")]
 		public const string SDL_HINT_RENDER_VULKAN_DEBUG = "SDL_RENDER_VULKAN_DEBUG";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_GPU_DEBUG")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_GPU_DEBUG\"")]
 		public const string SDL_HINT_RENDER_GPU_DEBUG = "SDL_RENDER_GPU_DEBUG";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_GPU_LOW_POWER")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_GPU_LOW_POWER\"")]
 		public const string SDL_HINT_RENDER_GPU_LOW_POWER = "SDL_RENDER_GPU_LOW_POWER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_DRIVER\"")]
 		public const string SDL_HINT_RENDER_DRIVER = "SDL_RENDER_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_LINE_METHOD")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_LINE_METHOD\"")]
 		public const string SDL_HINT_RENDER_LINE_METHOD = "SDL_RENDER_LINE_METHOD";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE\"")]
 		public const string SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE = "SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_VSYNC")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_VSYNC\"")]
 		public const string SDL_HINT_RENDER_VSYNC = "SDL_RENDER_VSYNC";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_RETURN_KEY_HIDES_IME")]
+		[NativeName(NativeNameType.Value, "\"SDL_RETURN_KEY_HIDES_IME\"")]
 		public const string SDL_HINT_RETURN_KEY_HIDES_IME = "SDL_RETURN_KEY_HIDES_IME";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ROG_GAMEPAD_MICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_ROG_GAMEPAD_MICE\"")]
 		public const string SDL_HINT_ROG_GAMEPAD_MICE = "SDL_ROG_GAMEPAD_MICE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED")]
+		[NativeName(NativeNameType.Value, "\"SDL_ROG_GAMEPAD_MICE_EXCLUDED\"")]
 		public const string SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED = "SDL_ROG_GAMEPAD_MICE_EXCLUDED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_PS2_GS_WIDTH")]
+		[NativeName(NativeNameType.Value, "\"SDL_PS2_GS_WIDTH\"")]
+		public const string SDL_HINT_PS2_GS_WIDTH = "SDL_PS2_GS_WIDTH";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_PS2_GS_HEIGHT")]
+		[NativeName(NativeNameType.Value, "\"SDL_PS2_GS_HEIGHT\"")]
+		public const string SDL_HINT_PS2_GS_HEIGHT = "SDL_PS2_GS_HEIGHT";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_PS2_GS_PROGRESSIVE")]
+		[NativeName(NativeNameType.Value, "\"SDL_PS2_GS_PROGRESSIVE\"")]
+		public const string SDL_HINT_PS2_GS_PROGRESSIVE = "SDL_PS2_GS_PROGRESSIVE";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_PS2_GS_MODE")]
+		[NativeName(NativeNameType.Value, "\"SDL_PS2_GS_MODE\"")]
+		public const string SDL_HINT_PS2_GS_MODE = "SDL_PS2_GS_MODE";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_RPI_VIDEO_LAYER")]
+		[NativeName(NativeNameType.Value, "\"SDL_RPI_VIDEO_LAYER\"")]
 		public const string SDL_HINT_RPI_VIDEO_LAYER = "SDL_RPI_VIDEO_LAYER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME")]
+		[NativeName(NativeNameType.Value, "\"SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME\"")]
 		public const string SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME = "SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_SHUTDOWN_DBUS_ON_QUIT")]
+		[NativeName(NativeNameType.Value, "\"SDL_SHUTDOWN_DBUS_ON_QUIT\"")]
 		public const string SDL_HINT_SHUTDOWN_DBUS_ON_QUIT = "SDL_SHUTDOWN_DBUS_ON_QUIT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_STORAGE_TITLE_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_STORAGE_TITLE_DRIVER\"")]
 		public const string SDL_HINT_STORAGE_TITLE_DRIVER = "SDL_STORAGE_TITLE_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_STORAGE_USER_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_STORAGE_USER_DRIVER\"")]
 		public const string SDL_HINT_STORAGE_USER_DRIVER = "SDL_STORAGE_USER_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL")]
+		[NativeName(NativeNameType.Value, "\"SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL\"")]
 		public const string SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL = "SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_THREAD_PRIORITY_POLICY")]
+		[NativeName(NativeNameType.Value, "\"SDL_THREAD_PRIORITY_POLICY\"")]
 		public const string SDL_HINT_THREAD_PRIORITY_POLICY = "SDL_THREAD_PRIORITY_POLICY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_TIMER_RESOLUTION")]
+		[NativeName(NativeNameType.Value, "\"SDL_TIMER_RESOLUTION\"")]
 		public const string SDL_HINT_TIMER_RESOLUTION = "SDL_TIMER_RESOLUTION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_TOUCH_MOUSE_EVENTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_TOUCH_MOUSE_EVENTS\"")]
 		public const string SDL_HINT_TOUCH_MOUSE_EVENTS = "SDL_TOUCH_MOUSE_EVENTS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_TRACKPAD_IS_TOUCH_ONLY")]
+		[NativeName(NativeNameType.Value, "\"SDL_TRACKPAD_IS_TOUCH_ONLY\"")]
 		public const string SDL_HINT_TRACKPAD_IS_TOUCH_ONLY = "SDL_TRACKPAD_IS_TOUCH_ONLY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_TV_REMOTE_AS_JOYSTICK")]
+		[NativeName(NativeNameType.Value, "\"SDL_TV_REMOTE_AS_JOYSTICK\"")]
 		public const string SDL_HINT_TV_REMOTE_AS_JOYSTICK = "SDL_TV_REMOTE_AS_JOYSTICK";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_ALLOW_SCREENSAVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_ALLOW_SCREENSAVER\"")]
 		public const string SDL_HINT_VIDEO_ALLOW_SCREENSAVER = "SDL_VIDEO_ALLOW_SCREENSAVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_DISPLAY_PRIORITY")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_DISPLAY_PRIORITY\"")]
 		public const string SDL_HINT_VIDEO_DISPLAY_PRIORITY = "SDL_VIDEO_DISPLAY_PRIORITY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_DOUBLE_BUFFER")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_DOUBLE_BUFFER\"")]
 		public const string SDL_HINT_VIDEO_DOUBLE_BUFFER = "SDL_VIDEO_DOUBLE_BUFFER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_DRIVER\"")]
 		public const string SDL_HINT_VIDEO_DRIVER = "SDL_VIDEO_DRIVER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_DUMMY_SAVE_FRAMES")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_DUMMY_SAVE_FRAMES\"")]
 		public const string SDL_HINT_VIDEO_DUMMY_SAVE_FRAMES = "SDL_VIDEO_DUMMY_SAVE_FRAMES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK\"")]
 		public const string SDL_HINT_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK = "SDL_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_FORCE_EGL")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_FORCE_EGL\"")]
 		public const string SDL_HINT_VIDEO_FORCE_EGL = "SDL_VIDEO_FORCE_EGL";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"")]
 		public const string SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES = "SDL_VIDEO_MAC_FULSCREEN_SPACES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY\"")]
 		public const string SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY = "SDL_VIDEO_MAC_FULSCREEN_MENU_VISIBILITY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_METAL_AUTO_RESIZE_DRAWABLE")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_METAL_AUTO_RESIZE_DRAWABLE\"")]
+		public const string SDL_HINT_VIDEO_METAL_AUTO_RESIZE_DRAWABLE = "SDL_VIDEO_METAL_AUTO_RESIZE_DRAWABLE";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_MATCH_EXCLUSIVE_MODE_ON_MOVE")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_MATCH_EXCLUSIVE_MODE_ON_MOVE\"")]
+		public const string SDL_HINT_VIDEO_MATCH_EXCLUSIVE_MODE_ON_MOVE = "SDL_VIDEO_MATCH_EXCLUSIVE_MODE_ON_MOVE";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS\"")]
 		public const string SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS = "SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_OFFSCREEN_SAVE_FRAMES")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_OFFSCREEN_SAVE_FRAMES\"")]
 		public const string SDL_HINT_VIDEO_OFFSCREEN_SAVE_FRAMES = "SDL_VIDEO_OFFSCREEN_SAVE_FRAMES";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_SYNC_WINDOW_OPERATIONS")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_SYNC_WINDOW_OPERATIONS\"")]
 		public const string SDL_HINT_VIDEO_SYNC_WINDOW_OPERATIONS = "SDL_VIDEO_SYNC_WINDOW_OPERATIONS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR\"")]
 		public const string SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR = "SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_WAYLAND_MODE_EMULATION\"")]
 		public const string SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION = "SDL_VIDEO_WAYLAND_MODE_EMULATION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_WAYLAND_MODE_SCALING")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_WAYLAND_MODE_SCALING\"")]
 		public const string SDL_HINT_VIDEO_WAYLAND_MODE_SCALING = "SDL_VIDEO_WAYLAND_MODE_SCALING";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_WAYLAND_PREFER_LIBDECOR\"")]
 		public const string SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR = "SDL_VIDEO_WAYLAND_PREFER_LIBDECOR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_WAYLAND_SCALE_TO_DISPLAY")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_WAYLAND_SCALE_TO_DISPLAY\"")]
 		public const string SDL_HINT_VIDEO_WAYLAND_SCALE_TO_DISPLAY = "SDL_VIDEO_WAYLAND_SCALE_TO_DISPLAY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_WIN_D3DCOMPILER")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_WIN_D3DCOMPILER\"")]
 		public const string SDL_HINT_VIDEO_WIN_D3DCOMPILER = "SDL_VIDEO_WIN_D3DCOMPILER";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_X11_EXTERNAL_WINDOW_INPUT")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_X11_EXTERNAL_WINDOW_INPUT\"")]
 		public const string SDL_HINT_VIDEO_X11_EXTERNAL_WINDOW_INPUT = "SDL_VIDEO_X11_EXTERNAL_WINDOW_INPUT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR\"")]
 		public const string SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR = "SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_X11_NET_WM_PING")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_X11_NET_WM_PING\"")]
 		public const string SDL_HINT_VIDEO_X11_NET_WM_PING = "SDL_VIDEO_X11_NET_WM_PING";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_X11_NODIRECTCOLOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_X11_NODIRECTCOLOR\"")]
 		public const string SDL_HINT_VIDEO_X11_NODIRECTCOLOR = "SDL_VIDEO_X11_NODIRECTCOLOR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_X11_SCALING_FACTOR")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_X11_SCALING_FACTOR\"")]
 		public const string SDL_HINT_VIDEO_X11_SCALING_FACTOR = "SDL_VIDEO_X11_SCALING_FACTOR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_X11_VISUALID")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_X11_VISUALID\"")]
 		public const string SDL_HINT_VIDEO_X11_VISUALID = "SDL_VIDEO_X11_VISUALID";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_X11_WINDOW_VISUALID")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_X11_WINDOW_VISUALID\"")]
 		public const string SDL_HINT_VIDEO_X11_WINDOW_VISUALID = "SDL_VIDEO_X11_WINDOW_VISUALID";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VIDEO_X11_XRANDR")]
+		[NativeName(NativeNameType.Value, "\"SDL_VIDEO_X11_XRANDR\"")]
 		public const string SDL_HINT_VIDEO_X11_XRANDR = "SDL_VIDEO_X11_XRANDR";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VITA_ENABLE_BACK_TOUCH")]
+		[NativeName(NativeNameType.Value, "\"SDL_VITA_ENABLE_BACK_TOUCH\"")]
 		public const string SDL_HINT_VITA_ENABLE_BACK_TOUCH = "SDL_VITA_ENABLE_BACK_TOUCH";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VITA_ENABLE_FRONT_TOUCH")]
+		[NativeName(NativeNameType.Value, "\"SDL_VITA_ENABLE_FRONT_TOUCH\"")]
 		public const string SDL_HINT_VITA_ENABLE_FRONT_TOUCH = "SDL_VITA_ENABLE_FRONT_TOUCH";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VITA_MODULE_PATH")]
+		[NativeName(NativeNameType.Value, "\"SDL_VITA_MODULE_PATH\"")]
 		public const string SDL_HINT_VITA_MODULE_PATH = "SDL_VITA_MODULE_PATH";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VITA_PVR_INIT")]
+		[NativeName(NativeNameType.Value, "\"SDL_VITA_PVR_INIT\"")]
 		public const string SDL_HINT_VITA_PVR_INIT = "SDL_VITA_PVR_INIT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VITA_RESOLUTION")]
+		[NativeName(NativeNameType.Value, "\"SDL_VITA_RESOLUTION\"")]
 		public const string SDL_HINT_VITA_RESOLUTION = "SDL_VITA_RESOLUTION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VITA_PVR_OPENGL")]
+		[NativeName(NativeNameType.Value, "\"SDL_VITA_PVR_OPENGL\"")]
 		public const string SDL_HINT_VITA_PVR_OPENGL = "SDL_VITA_PVR_OPENGL";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VITA_TOUCH_MOUSE_DEVICE")]
+		[NativeName(NativeNameType.Value, "\"SDL_VITA_TOUCH_MOUSE_DEVICE\"")]
 		public const string SDL_HINT_VITA_TOUCH_MOUSE_DEVICE = "SDL_VITA_TOUCH_MOUSE_DEVICE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VULKAN_DISPLAY")]
+		[NativeName(NativeNameType.Value, "\"SDL_VULKAN_DISPLAY\"")]
 		public const string SDL_HINT_VULKAN_DISPLAY = "SDL_VULKAN_DISPLAY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_VULKAN_LIBRARY")]
+		[NativeName(NativeNameType.Value, "\"SDL_VULKAN_LIBRARY\"")]
 		public const string SDL_HINT_VULKAN_LIBRARY = "SDL_VULKAN_LIBRARY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WAVE_FACT_CHUNK")]
+		[NativeName(NativeNameType.Value, "\"SDL_WAVE_FACT_CHUNK\"")]
 		public const string SDL_HINT_WAVE_FACT_CHUNK = "SDL_WAVE_FACT_CHUNK";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WAVE_CHUNK_LIMIT")]
+		[NativeName(NativeNameType.Value, "\"SDL_WAVE_CHUNK_LIMIT\"")]
 		public const string SDL_HINT_WAVE_CHUNK_LIMIT = "SDL_WAVE_CHUNK_LIMIT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WAVE_RIFF_CHUNK_SIZE")]
+		[NativeName(NativeNameType.Value, "\"SDL_WAVE_RIFF_CHUNK_SIZE\"")]
 		public const string SDL_HINT_WAVE_RIFF_CHUNK_SIZE = "SDL_WAVE_RIFF_CHUNK_SIZE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WAVE_TRUNCATION")]
+		[NativeName(NativeNameType.Value, "\"SDL_WAVE_TRUNCATION\"")]
 		public const string SDL_HINT_WAVE_TRUNCATION = "SDL_WAVE_TRUNCATION";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOW_ACTIVATE_WHEN_RAISED")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOW_ACTIVATE_WHEN_RAISED\"")]
 		public const string SDL_HINT_WINDOW_ACTIVATE_WHEN_RAISED = "SDL_WINDOW_ACTIVATE_WHEN_RAISED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOW_ACTIVATE_WHEN_SHOWN")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOW_ACTIVATE_WHEN_SHOWN\"")]
 		public const string SDL_HINT_WINDOW_ACTIVATE_WHEN_SHOWN = "SDL_WINDOW_ACTIVATE_WHEN_SHOWN";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOW_ALLOW_TOPMOST")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOW_ALLOW_TOPMOST\"")]
 		public const string SDL_HINT_WINDOW_ALLOW_TOPMOST = "SDL_WINDOW_ALLOW_TOPMOST";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN\"")]
 		public const string SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN = "SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_CLOSE_ON_ALT_F4")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_CLOSE_ON_ALT_F4\"")]
 		public const string SDL_HINT_WINDOWS_CLOSE_ON_ALT_F4 = "SDL_WINDOWS_CLOSE_ON_ALT_F4";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_ENABLE_MENU_MNEMONICS\"")]
 		public const string SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS = "SDL_WINDOWS_ENABLE_MENU_MNEMONICS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_ENABLE_MESSAGELOOP\"")]
 		public const string SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP = "SDL_WINDOWS_ENABLE_MESSAGELOOP";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_GAMEINPUT")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_GAMEINPUT\"")]
 		public const string SDL_HINT_WINDOWS_GAMEINPUT = "SDL_WINDOWS_GAMEINPUT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_RAW_KEYBOARD")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_RAW_KEYBOARD\"")]
 		public const string SDL_HINT_WINDOWS_RAW_KEYBOARD = "SDL_WINDOWS_RAW_KEYBOARD";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS\"")]
+		public const string SDL_HINT_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS = "SDL_WINDOWS_RAW_KEYBOARD_EXCLUDE_HOTKEYS";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL\"")]
 		public const string SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL = "SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_INTRESOURCE_ICON")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_INTRESOURCE_ICON\"")]
 		public const string SDL_HINT_WINDOWS_INTRESOURCE_ICON = "SDL_WINDOWS_INTRESOURCE_ICON";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_INTRESOURCE_ICON_SMALL\"")]
 		public const string SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL = "SDL_WINDOWS_INTRESOURCE_ICON_SMALL";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_USE_D3D9EX")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_USE_D3D9EX\"")]
 		public const string SDL_HINT_WINDOWS_USE_D3D9EX = "SDL_WINDOWS_USE_D3D9EX";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_WINDOWS_ERASE_BACKGROUND_MODE")]
+		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_ERASE_BACKGROUND_MODE\"")]
 		public const string SDL_HINT_WINDOWS_ERASE_BACKGROUND_MODE = "SDL_WINDOWS_ERASE_BACKGROUND_MODE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT")]
+		[NativeName(NativeNameType.Value, "\"SDL_X11_FORCE_OVERRIDE_REDIRECT\"")]
 		public const string SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT = "SDL_X11_FORCE_OVERRIDE_REDIRECT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_X11_WINDOW_TYPE")]
+		[NativeName(NativeNameType.Value, "\"SDL_X11_WINDOW_TYPE\"")]
 		public const string SDL_HINT_X11_WINDOW_TYPE = "SDL_X11_WINDOW_TYPE";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_X11_XCB_LIBRARY")]
+		[NativeName(NativeNameType.Value, "\"SDL_X11_XCB_LIBRARY\"")]
 		public const string SDL_HINT_X11_XCB_LIBRARY = "SDL_X11_XCB_LIBRARY";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_XINPUT_ENABLED")]
+		[NativeName(NativeNameType.Value, "\"SDL_XINPUT_ENABLED\"")]
 		public const string SDL_HINT_XINPUT_ENABLED = "SDL_XINPUT_ENABLED";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_ASSERT")]
+		[NativeName(NativeNameType.Value, "\"SDL_ASSERT\"")]
 		public const string SDL_HINT_ASSERT = "SDL_ASSERT";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_PEN_MOUSE_EVENTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_PEN_MOUSE_EVENTS\"")]
 		public const string SDL_HINT_PEN_MOUSE_EVENTS = "SDL_PEN_MOUSE_EVENTS";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_PEN_TOUCH_EVENTS")]
+		[NativeName(NativeNameType.Value, "\"SDL_PEN_TOUCH_EVENTS\"")]
 		public const string SDL_HINT_PEN_TOUCH_EVENTS = "SDL_PEN_TOUCH_EVENTS";
 
+		[NativeName(NativeNameType.Const, "SDL_INIT_AUDIO")]
+		[NativeName(NativeNameType.Value, "0x00000010u")]
 		public const uint SDL_INIT_AUDIO = 0x00000010u;
 
+		[NativeName(NativeNameType.Const, "SDL_INIT_VIDEO")]
+		[NativeName(NativeNameType.Value, "0x00000020u")]
 		public const uint SDL_INIT_VIDEO = 0x00000020u;
 
+		[NativeName(NativeNameType.Const, "SDL_INIT_JOYSTICK")]
+		[NativeName(NativeNameType.Value, "0x00000200u")]
 		public const uint SDL_INIT_JOYSTICK = 0x00000200u;
 
+		[NativeName(NativeNameType.Const, "SDL_INIT_HAPTIC")]
+		[NativeName(NativeNameType.Value, "0x00001000u")]
 		public const uint SDL_INIT_HAPTIC = 0x00001000u;
 
+		[NativeName(NativeNameType.Const, "SDL_INIT_GAMEPAD")]
+		[NativeName(NativeNameType.Value, "0x00002000u")]
 		public const uint SDL_INIT_GAMEPAD = 0x00002000u;
 
+		[NativeName(NativeNameType.Const, "SDL_INIT_EVENTS")]
+		[NativeName(NativeNameType.Value, "0x00004000u")]
 		public const uint SDL_INIT_EVENTS = 0x00004000u;
 
+		[NativeName(NativeNameType.Const, "SDL_INIT_SENSOR")]
+		[NativeName(NativeNameType.Value, "0x00008000u")]
 		public const uint SDL_INIT_SENSOR = 0x00008000u;
 
+		[NativeName(NativeNameType.Const, "SDL_INIT_CAMERA")]
+		[NativeName(NativeNameType.Value, "0x00010000u")]
 		public const uint SDL_INIT_CAMERA = 0x00010000u;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_APP_METADATA_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.app.metadata.name\"")]
 		public const string SDL_PROP_APP_METADATA_NAME_STRING = "SDL.app.metadata.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_APP_METADATA_VERSION_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.app.metadata.version\"")]
 		public const string SDL_PROP_APP_METADATA_VERSION_STRING = "SDL.app.metadata.version";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_APP_METADATA_IDENTIFIER_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.app.metadata.identifier\"")]
 		public const string SDL_PROP_APP_METADATA_IDENTIFIER_STRING = "SDL.app.metadata.identifier";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_APP_METADATA_CREATOR_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.app.metadata.creator\"")]
 		public const string SDL_PROP_APP_METADATA_CREATOR_STRING = "SDL.app.metadata.creator";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_APP_METADATA_COPYRIGHT_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.app.metadata.copyright\"")]
 		public const string SDL_PROP_APP_METADATA_COPYRIGHT_STRING = "SDL.app.metadata.copyright";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_APP_METADATA_URL_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.app.metadata.url\"")]
 		public const string SDL_PROP_APP_METADATA_URL_STRING = "SDL.app.metadata.url";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_APP_METADATA_TYPE_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.app.metadata.type\"")]
 		public const string SDL_PROP_APP_METADATA_TYPE_STRING = "SDL.app.metadata.type";
 
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_ERROR")]
+		[NativeName(NativeNameType.Value, "0x00000010u")]
 		public const uint SDL_MESSAGEBOX_ERROR = 0x00000010u;
 
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_WARNING")]
+		[NativeName(NativeNameType.Value, "0x00000020u")]
 		public const uint SDL_MESSAGEBOX_WARNING = 0x00000020u;
 
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_INFORMATION")]
+		[NativeName(NativeNameType.Value, "0x00000040u")]
 		public const uint SDL_MESSAGEBOX_INFORMATION = 0x00000040u;
 
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT")]
+		[NativeName(NativeNameType.Value, "0x00000080u")]
 		public const uint SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 0x00000080u;
 
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT")]
+		[NativeName(NativeNameType.Value, "0x00000100u")]
 		public const uint SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 0x00000100u;
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_ARGS_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.args\"")]
 		public const string SDL_PROP_PROCESS_CREATE_ARGS_POINTER = "SDL.process.create.args";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.environment\"")]
 		public const string SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER = "SDL.process.create.environment";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_WORKING_DIRECTORY_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.working_directory\"")]
+		public const string SDL_PROP_PROCESS_CREATE_WORKING_DIRECTORY_STRING = "SDL.process.create.working_directory";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDIN_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stdin_option\"")]
 		public const string SDL_PROP_PROCESS_CREATE_STDIN_NUMBER = "SDL.process.create.stdin_option";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDIN_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stdin_source\"")]
 		public const string SDL_PROP_PROCESS_CREATE_STDIN_POINTER = "SDL.process.create.stdin_source";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stdout_option\"")]
 		public const string SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER = "SDL.process.create.stdout_option";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDOUT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stdout_source\"")]
 		public const string SDL_PROP_PROCESS_CREATE_STDOUT_POINTER = "SDL.process.create.stdout_source";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDERR_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stderr_option\"")]
 		public const string SDL_PROP_PROCESS_CREATE_STDERR_NUMBER = "SDL.process.create.stderr_option";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDERR_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stderr_source\"")]
 		public const string SDL_PROP_PROCESS_CREATE_STDERR_POINTER = "SDL.process.create.stderr_source";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stderr_to_stdout\"")]
 		public const string SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN = "SDL.process.create.stderr_to_stdout";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.background\"")]
 		public const string SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN = "SDL.process.create.background";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_CMDLINE_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.cmdline\"")]
+		public const string SDL_PROP_PROCESS_CREATE_CMDLINE_STRING = "SDL.process.create.cmdline";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_PID_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.pid\"")]
 		public const string SDL_PROP_PROCESS_PID_NUMBER = "SDL.process.pid";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_STDIN_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.stdin\"")]
 		public const string SDL_PROP_PROCESS_STDIN_POINTER = "SDL.process.stdin";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_STDOUT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.stdout\"")]
 		public const string SDL_PROP_PROCESS_STDOUT_POINTER = "SDL.process.stdout";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_STDERR_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.stderr\"")]
 		public const string SDL_PROP_PROCESS_STDERR_POINTER = "SDL.process.stderr";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_BACKGROUND_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.background\"")]
 		public const string SDL_PROP_PROCESS_BACKGROUND_BOOLEAN = "SDL.process.background";
 
+		[NativeName(NativeNameType.Const, "SDL_SOFTWARE_RENDERER")]
+		[NativeName(NativeNameType.Value, "\"software\"")]
 		public const string SDL_SOFTWARE_RENDERER = "software";
 
+		[NativeName(NativeNameType.Const, "SDL_GPU_RENDERER")]
+		[NativeName(NativeNameType.Value, "\"gpu\"")]
+		public const string SDL_GPU_RENDERER = "gpu";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.name\"")]
 		public const string SDL_PROP_RENDERER_CREATE_NAME_STRING = "SDL.renderer.create.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.window\"")]
 		public const string SDL_PROP_RENDERER_CREATE_WINDOW_POINTER = "SDL.renderer.create.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_SURFACE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.surface\"")]
 		public const string SDL_PROP_RENDERER_CREATE_SURFACE_POINTER = "SDL.renderer.create.surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.output_colorspace\"")]
 		public const string SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER = "SDL.renderer.create.output_colorspace";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.present_vsync\"")]
 		public const string SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER = "SDL.renderer.create.present_vsync";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_GPU_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.gpu.device\"")]
+		public const string SDL_PROP_RENDERER_CREATE_GPU_DEVICE_POINTER = "SDL.renderer.create.gpu.device";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_GPU_SHADERS_SPIRV_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.gpu.shaders_spirv\"")]
+		public const string SDL_PROP_RENDERER_CREATE_GPU_SHADERS_SPIRV_BOOLEAN = "SDL.renderer.create.gpu.shaders_spirv";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_GPU_SHADERS_DXIL_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.gpu.shaders_dxil\"")]
+		public const string SDL_PROP_RENDERER_CREATE_GPU_SHADERS_DXIL_BOOLEAN = "SDL.renderer.create.gpu.shaders_dxil";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_GPU_SHADERS_MSL_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.gpu.shaders_msl\"")]
+		public const string SDL_PROP_RENDERER_CREATE_GPU_SHADERS_MSL_BOOLEAN = "SDL.renderer.create.gpu.shaders_msl";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.vulkan.instance\"")]
 		public const string SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER = "SDL.renderer.create.vulkan.instance";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.vulkan.surface\"")]
 		public const string SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER = "SDL.renderer.create.vulkan.surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.vulkan.physical_device\"")]
 		public const string SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER = "SDL.renderer.create.vulkan.physical_device";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.vulkan.device\"")]
 		public const string SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER = "SDL.renderer.create.vulkan.device";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.vulkan.graphics_queue_family_index\"")]
 		public const string SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER = "SDL.renderer.create.vulkan.graphics_queue_family_index";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.create.vulkan.present_queue_family_index\"")]
 		public const string SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER = "SDL.renderer.create.vulkan.present_queue_family_index";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.name\"")]
 		public const string SDL_PROP_RENDERER_NAME_STRING = "SDL.renderer.name";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_WINDOW_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.window\"")]
 		public const string SDL_PROP_RENDERER_WINDOW_POINTER = "SDL.renderer.window";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_SURFACE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.surface\"")]
 		public const string SDL_PROP_RENDERER_SURFACE_POINTER = "SDL.renderer.surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_VSYNC_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.vsync\"")]
 		public const string SDL_PROP_RENDERER_VSYNC_NUMBER = "SDL.renderer.vsync";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.max_texture_size\"")]
 		public const string SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER = "SDL.renderer.max_texture_size";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.texture_formats\"")]
 		public const string SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER = "SDL.renderer.texture_formats";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_TEXTURE_WRAPPING_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.texture_wrapping\"")]
+		public const string SDL_PROP_RENDERER_TEXTURE_WRAPPING_BOOLEAN = "SDL.renderer.texture_wrapping";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.output_colorspace\"")]
 		public const string SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER = "SDL.renderer.output_colorspace";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.HDR_enabled\"")]
 		public const string SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN = "SDL.renderer.HDR_enabled";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.SDR_white_point\"")]
 		public const string SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT = "SDL.renderer.SDR_white_point";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.HDR_headroom\"")]
 		public const string SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT = "SDL.renderer.HDR_headroom";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_D3D9_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.d3d9.device\"")]
 		public const string SDL_PROP_RENDERER_D3D9_DEVICE_POINTER = "SDL.renderer.d3d9.device";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_D3D11_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.d3d11.device\"")]
 		public const string SDL_PROP_RENDERER_D3D11_DEVICE_POINTER = "SDL.renderer.d3d11.device";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.d3d11.swap_chain\"")]
 		public const string SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER = "SDL.renderer.d3d11.swap_chain";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_D3D12_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.d3d12.device\"")]
 		public const string SDL_PROP_RENDERER_D3D12_DEVICE_POINTER = "SDL.renderer.d3d12.device";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.d3d12.swap_chain\"")]
 		public const string SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER = "SDL.renderer.d3d12.swap_chain";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.d3d12.command_queue\"")]
 		public const string SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER = "SDL.renderer.d3d12.command_queue";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.vulkan.instance\"")]
 		public const string SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER = "SDL.renderer.vulkan.instance";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.vulkan.surface\"")]
 		public const string SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER = "SDL.renderer.vulkan.surface";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.vulkan.physical_device\"")]
 		public const string SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER = "SDL.renderer.vulkan.physical_device";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.vulkan.device\"")]
 		public const string SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER = "SDL.renderer.vulkan.device";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.vulkan.graphics_queue_family_index\"")]
 		public const string SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER = "SDL.renderer.vulkan.graphics_queue_family_index";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.vulkan.present_queue_family_index\"")]
 		public const string SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER = "SDL.renderer.vulkan.present_queue_family_index";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.vulkan.swapchain_image_count\"")]
 		public const string SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER = "SDL.renderer.vulkan.swapchain_image_count";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_RENDERER_GPU_DEVICE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.renderer.gpu.device\"")]
 		public const string SDL_PROP_RENDERER_GPU_DEVICE_POINTER = "SDL.renderer.gpu.device";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.colorspace\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER = "SDL.texture.create.colorspace";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.format\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER = "SDL.texture.create.format";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.access\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER = "SDL.texture.create.access";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.width\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER = "SDL.texture.create.width";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.height\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER = "SDL.texture.create.height";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_PALETTE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.palette\"")]
+		public const string SDL_PROP_TEXTURE_CREATE_PALETTE_POINTER = "SDL.texture.create.palette";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.SDR_white_point\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT = "SDL.texture.create.SDR_white_point";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.HDR_headroom\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT = "SDL.texture.create.HDR_headroom";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.d3d11.texture\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER = "SDL.texture.create.d3d11.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.d3d11.texture_u\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER = "SDL.texture.create.d3d11.texture_u";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.d3d11.texture_v\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER = "SDL.texture.create.d3d11.texture_v";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.d3d12.texture\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER = "SDL.texture.create.d3d12.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.d3d12.texture_u\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER = "SDL.texture.create.d3d12.texture_u";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.d3d12.texture_v\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER = "SDL.texture.create.d3d12.texture_v";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.metal.pixelbuffer\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER = "SDL.texture.create.metal.pixelbuffer";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.opengl.texture\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER = "SDL.texture.create.opengl.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.opengl.texture_uv\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER = "SDL.texture.create.opengl.texture_uv";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.opengl.texture_u\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER = "SDL.texture.create.opengl.texture_u";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.opengl.texture_v\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER = "SDL.texture.create.opengl.texture_v";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.opengles2.texture\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER = "SDL.texture.create.opengles2.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.opengles2.texture_uv\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER = "SDL.texture.create.opengles2.texture_uv";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.opengles2.texture_u\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER = "SDL.texture.create.opengles2.texture_u";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.opengles2.texture_v\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER = "SDL.texture.create.opengles2.texture_v";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.vulkan.texture\"")]
 		public const string SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER = "SDL.texture.create.vulkan.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_VULKAN_LAYOUT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.vulkan.layout\"")]
+		public const string SDL_PROP_TEXTURE_CREATE_VULKAN_LAYOUT_NUMBER = "SDL.texture.create.vulkan.layout";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_GPU_TEXTURE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.gpu.texture\"")]
+		public const string SDL_PROP_TEXTURE_CREATE_GPU_TEXTURE_POINTER = "SDL.texture.create.gpu.texture";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_GPU_TEXTURE_UV_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.gpu.texture_uv\"")]
+		public const string SDL_PROP_TEXTURE_CREATE_GPU_TEXTURE_UV_POINTER = "SDL.texture.create.gpu.texture_uv";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_GPU_TEXTURE_U_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.gpu.texture_u\"")]
+		public const string SDL_PROP_TEXTURE_CREATE_GPU_TEXTURE_U_POINTER = "SDL.texture.create.gpu.texture_u";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_CREATE_GPU_TEXTURE_V_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.create.gpu.texture_v\"")]
+		public const string SDL_PROP_TEXTURE_CREATE_GPU_TEXTURE_V_POINTER = "SDL.texture.create.gpu.texture_v";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_COLORSPACE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.colorspace\"")]
 		public const string SDL_PROP_TEXTURE_COLORSPACE_NUMBER = "SDL.texture.colorspace";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_FORMAT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.format\"")]
 		public const string SDL_PROP_TEXTURE_FORMAT_NUMBER = "SDL.texture.format";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_ACCESS_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.access\"")]
 		public const string SDL_PROP_TEXTURE_ACCESS_NUMBER = "SDL.texture.access";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_WIDTH_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.width\"")]
 		public const string SDL_PROP_TEXTURE_WIDTH_NUMBER = "SDL.texture.width";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_HEIGHT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.height\"")]
 		public const string SDL_PROP_TEXTURE_HEIGHT_NUMBER = "SDL.texture.height";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.SDR_white_point\"")]
 		public const string SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT = "SDL.texture.SDR_white_point";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.HDR_headroom\"")]
 		public const string SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT = "SDL.texture.HDR_headroom";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.d3d11.texture\"")]
 		public const string SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER = "SDL.texture.d3d11.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.d3d11.texture_u\"")]
 		public const string SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER = "SDL.texture.d3d11.texture_u";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.d3d11.texture_v\"")]
 		public const string SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER = "SDL.texture.d3d11.texture_v";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.d3d12.texture\"")]
 		public const string SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER = "SDL.texture.d3d12.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.d3d12.texture_u\"")]
 		public const string SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER = "SDL.texture.d3d12.texture_u";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.d3d12.texture_v\"")]
 		public const string SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER = "SDL.texture.d3d12.texture_v";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengl.texture\"")]
 		public const string SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER = "SDL.texture.opengl.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengl.texture_uv\"")]
 		public const string SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER = "SDL.texture.opengl.texture_uv";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengl.texture_u\"")]
 		public const string SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER = "SDL.texture.opengl.texture_u";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengl.texture_v\"")]
 		public const string SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER = "SDL.texture.opengl.texture_v";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengl.target\"")]
 		public const string SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER = "SDL.texture.opengl.target";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengl.tex_w\"")]
 		public const string SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT = "SDL.texture.opengl.tex_w";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengl.tex_h\"")]
 		public const string SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT = "SDL.texture.opengl.tex_h";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengles2.texture\"")]
 		public const string SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER = "SDL.texture.opengles2.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengles2.texture_uv\"")]
 		public const string SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER = "SDL.texture.opengles2.texture_uv";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengles2.texture_u\"")]
 		public const string SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER = "SDL.texture.opengles2.texture_u";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengles2.texture_v\"")]
 		public const string SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER = "SDL.texture.opengles2.texture_v";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.opengles2.target\"")]
 		public const string SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER = "SDL.texture.opengles2.target";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.vulkan.texture\"")]
 		public const string SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER = "SDL.texture.vulkan.texture";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_GPU_TEXTURE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.gpu.texture\"")]
+		public const string SDL_PROP_TEXTURE_GPU_TEXTURE_POINTER = "SDL.texture.gpu.texture";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_GPU_TEXTURE_UV_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.gpu.texture_uv\"")]
+		public const string SDL_PROP_TEXTURE_GPU_TEXTURE_UV_POINTER = "SDL.texture.gpu.texture_uv";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_GPU_TEXTURE_U_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.gpu.texture_u\"")]
+		public const string SDL_PROP_TEXTURE_GPU_TEXTURE_U_POINTER = "SDL.texture.gpu.texture_u";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_TEXTURE_GPU_TEXTURE_V_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.texture.gpu.texture_v\"")]
+		public const string SDL_PROP_TEXTURE_GPU_TEXTURE_V_POINTER = "SDL.texture.gpu.texture_v";
+
+		[NativeName(NativeNameType.Const, "SDL_RENDERER_VSYNC_DISABLED")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int SDL_RENDERER_VSYNC_DISABLED = 0;
 
+		[NativeName(NativeNameType.Const, "SDL_RENDERER_VSYNC_ADAPTIVE")]
+		[NativeName(NativeNameType.Value, "(-1)")]
 		public const int SDL_RENDERER_VSYNC_ADAPTIVE = (-1);
 
+		[NativeName(NativeNameType.Const, "SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE")]
+		[NativeName(NativeNameType.Value, "8")]
 		public const int SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE = 8;
 
+		[NativeName(NativeNameType.Const, "SDL_MS_PER_SECOND")]
+		[NativeName(NativeNameType.Value, "1000")]
 		public const int SDL_MS_PER_SECOND = 1000;
 
+		[NativeName(NativeNameType.Const, "SDL_US_PER_SECOND")]
+		[NativeName(NativeNameType.Value, "1000000")]
 		public const int SDL_US_PER_SECOND = 1000000;
 
+		[NativeName(NativeNameType.Const, "SDL_NS_PER_MS")]
+		[NativeName(NativeNameType.Value, "1000000")]
 		public const int SDL_NS_PER_MS = 1000000;
 
+		[NativeName(NativeNameType.Const, "SDL_NS_PER_US")]
+		[NativeName(NativeNameType.Value, "1000")]
 		public const int SDL_NS_PER_US = 1000;
 
+		[NativeName(NativeNameType.Const, "SDL_MAJOR_VERSION")]
+		[NativeName(NativeNameType.Value, "3")]
 		public const int SDL_MAJOR_VERSION = 3;
 
-		public const int SDL_MINOR_VERSION = 2;
+		[NativeName(NativeNameType.Const, "SDL_MINOR_VERSION")]
+		[NativeName(NativeNameType.Value, "4")]
+		public const int SDL_MINOR_VERSION = 4;
 
-		public const int SDL_MICRO_VERSION = 12;
+		[NativeName(NativeNameType.Const, "SDL_MICRO_VERSION")]
+		[NativeName(NativeNameType.Value, "0")]
+		public const int SDL_MICRO_VERSION = 0;
 
+		[NativeName(NativeNameType.Const, "KHRONOS_SUPPORT_INT64")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int KHRONOS_SUPPORT_INT64 = 1;
 
+		[NativeName(NativeNameType.Const, "KHRONOS_SUPPORT_FLOAT")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int KHRONOS_SUPPORT_FLOAT = 1;
 
+		[NativeName(NativeNameType.Const, "KHRONOS_MAX_ENUM")]
+		[NativeName(NativeNameType.Value, "0x7FFFFFFF")]
 		public const int KHRONOS_MAX_ENUM = 0x7FFFFFFF;
 
+		[NativeName(NativeNameType.Const, "WIN32_LEAN_AND_MEAN")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int WIN32_LEAN_AND_MEAN = 1;
 
+		[NativeName(NativeNameType.Const, "__egl_h_")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int __egl_h_ = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EGL_PROTOTYPES")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EGL_PROTOTYPES = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_VERSION_1_0")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_VERSION_1_0 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ALPHA_SIZE")]
+		[NativeName(NativeNameType.Value, "0x3021")]
 		public const int EGL_ALPHA_SIZE = 0x3021;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_ACCESS")]
+		[NativeName(NativeNameType.Value, "0x3002")]
 		public const int EGL_BAD_ACCESS = 0x3002;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_ALLOC")]
+		[NativeName(NativeNameType.Value, "0x3003")]
 		public const int EGL_BAD_ALLOC = 0x3003;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_ATTRIBUTE")]
+		[NativeName(NativeNameType.Value, "0x3004")]
 		public const int EGL_BAD_ATTRIBUTE = 0x3004;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_CONFIG")]
+		[NativeName(NativeNameType.Value, "0x3005")]
 		public const int EGL_BAD_CONFIG = 0x3005;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_CONTEXT")]
+		[NativeName(NativeNameType.Value, "0x3006")]
 		public const int EGL_BAD_CONTEXT = 0x3006;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_CURRENT_SURFACE")]
+		[NativeName(NativeNameType.Value, "0x3007")]
 		public const int EGL_BAD_CURRENT_SURFACE = 0x3007;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_DISPLAY")]
+		[NativeName(NativeNameType.Value, "0x3008")]
 		public const int EGL_BAD_DISPLAY = 0x3008;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_MATCH")]
+		[NativeName(NativeNameType.Value, "0x3009")]
 		public const int EGL_BAD_MATCH = 0x3009;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_NATIVE_PIXMAP")]
+		[NativeName(NativeNameType.Value, "0x300A")]
 		public const int EGL_BAD_NATIVE_PIXMAP = 0x300A;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_NATIVE_WINDOW")]
+		[NativeName(NativeNameType.Value, "0x300B")]
 		public const int EGL_BAD_NATIVE_WINDOW = 0x300B;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_PARAMETER")]
+		[NativeName(NativeNameType.Value, "0x300C")]
 		public const int EGL_BAD_PARAMETER = 0x300C;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_SURFACE")]
+		[NativeName(NativeNameType.Value, "0x300D")]
 		public const int EGL_BAD_SURFACE = 0x300D;
 
+		[NativeName(NativeNameType.Const, "EGL_BLUE_SIZE")]
+		[NativeName(NativeNameType.Value, "0x3022")]
 		public const int EGL_BLUE_SIZE = 0x3022;
 
+		[NativeName(NativeNameType.Const, "EGL_BUFFER_SIZE")]
+		[NativeName(NativeNameType.Value, "0x3020")]
 		public const int EGL_BUFFER_SIZE = 0x3020;
 
+		[NativeName(NativeNameType.Const, "EGL_CONFIG_CAVEAT")]
+		[NativeName(NativeNameType.Value, "0x3027")]
 		public const int EGL_CONFIG_CAVEAT = 0x3027;
 
+		[NativeName(NativeNameType.Const, "EGL_CONFIG_ID")]
+		[NativeName(NativeNameType.Value, "0x3028")]
 		public const int EGL_CONFIG_ID = 0x3028;
 
+		[NativeName(NativeNameType.Const, "EGL_CORE_NATIVE_ENGINE")]
+		[NativeName(NativeNameType.Value, "0x305B")]
 		public const int EGL_CORE_NATIVE_ENGINE = 0x305B;
 
+		[NativeName(NativeNameType.Const, "EGL_DEPTH_SIZE")]
+		[NativeName(NativeNameType.Value, "0x3025")]
 		public const int EGL_DEPTH_SIZE = 0x3025;
 
+		[NativeName(NativeNameType.Const, "EGL_DRAW")]
+		[NativeName(NativeNameType.Value, "0x3059")]
 		public const int EGL_DRAW = 0x3059;
 
+		[NativeName(NativeNameType.Const, "EGL_EXTENSIONS")]
+		[NativeName(NativeNameType.Value, "0x3055")]
 		public const int EGL_EXTENSIONS = 0x3055;
 
+		[NativeName(NativeNameType.Const, "EGL_FALSE")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int EGL_FALSE = 0;
 
+		[NativeName(NativeNameType.Const, "EGL_GREEN_SIZE")]
+		[NativeName(NativeNameType.Value, "0x3023")]
 		public const int EGL_GREEN_SIZE = 0x3023;
 
+		[NativeName(NativeNameType.Const, "EGL_HEIGHT")]
+		[NativeName(NativeNameType.Value, "0x3056")]
 		public const int EGL_HEIGHT = 0x3056;
 
+		[NativeName(NativeNameType.Const, "EGL_LARGEST_PBUFFER")]
+		[NativeName(NativeNameType.Value, "0x3058")]
 		public const int EGL_LARGEST_PBUFFER = 0x3058;
 
+		[NativeName(NativeNameType.Const, "EGL_LEVEL")]
+		[NativeName(NativeNameType.Value, "0x3029")]
 		public const int EGL_LEVEL = 0x3029;
 
+		[NativeName(NativeNameType.Const, "EGL_MAX_PBUFFER_HEIGHT")]
+		[NativeName(NativeNameType.Value, "0x302A")]
 		public const int EGL_MAX_PBUFFER_HEIGHT = 0x302A;
 
+		[NativeName(NativeNameType.Const, "EGL_MAX_PBUFFER_PIXELS")]
+		[NativeName(NativeNameType.Value, "0x302B")]
 		public const int EGL_MAX_PBUFFER_PIXELS = 0x302B;
 
+		[NativeName(NativeNameType.Const, "EGL_MAX_PBUFFER_WIDTH")]
+		[NativeName(NativeNameType.Value, "0x302C")]
 		public const int EGL_MAX_PBUFFER_WIDTH = 0x302C;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_RENDERABLE")]
+		[NativeName(NativeNameType.Value, "0x302D")]
 		public const int EGL_NATIVE_RENDERABLE = 0x302D;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_VISUAL_ID")]
+		[NativeName(NativeNameType.Value, "0x302E")]
 		public const int EGL_NATIVE_VISUAL_ID = 0x302E;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_VISUAL_TYPE")]
+		[NativeName(NativeNameType.Value, "0x302F")]
 		public const int EGL_NATIVE_VISUAL_TYPE = 0x302F;
 
+		[NativeName(NativeNameType.Const, "EGL_NONE")]
+		[NativeName(NativeNameType.Value, "0x3038")]
 		public const int EGL_NONE = 0x3038;
 
+		[NativeName(NativeNameType.Const, "EGL_NON_CONFORMANT_CONFIG")]
+		[NativeName(NativeNameType.Value, "0x3051")]
 		public const int EGL_NON_CONFORMANT_CONFIG = 0x3051;
 
+		[NativeName(NativeNameType.Const, "EGL_NOT_INITIALIZED")]
+		[NativeName(NativeNameType.Value, "0x3001")]
 		public const int EGL_NOT_INITIALIZED = 0x3001;
 
+		[NativeName(NativeNameType.Const, "EGL_PBUFFER_BIT")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int EGL_PBUFFER_BIT = 0x0001;
 
+		[NativeName(NativeNameType.Const, "EGL_PIXMAP_BIT")]
+		[NativeName(NativeNameType.Value, "0x0002")]
 		public const int EGL_PIXMAP_BIT = 0x0002;
 
+		[NativeName(NativeNameType.Const, "EGL_READ")]
+		[NativeName(NativeNameType.Value, "0x305A")]
 		public const int EGL_READ = 0x305A;
 
+		[NativeName(NativeNameType.Const, "EGL_RED_SIZE")]
+		[NativeName(NativeNameType.Value, "0x3024")]
 		public const int EGL_RED_SIZE = 0x3024;
 
+		[NativeName(NativeNameType.Const, "EGL_SAMPLES")]
+		[NativeName(NativeNameType.Value, "0x3031")]
 		public const int EGL_SAMPLES = 0x3031;
 
+		[NativeName(NativeNameType.Const, "EGL_SAMPLE_BUFFERS")]
+		[NativeName(NativeNameType.Value, "0x3032")]
 		public const int EGL_SAMPLE_BUFFERS = 0x3032;
 
+		[NativeName(NativeNameType.Const, "EGL_SLOW_CONFIG")]
+		[NativeName(NativeNameType.Value, "0x3050")]
 		public const int EGL_SLOW_CONFIG = 0x3050;
 
+		[NativeName(NativeNameType.Const, "EGL_STENCIL_SIZE")]
+		[NativeName(NativeNameType.Value, "0x3026")]
 		public const int EGL_STENCIL_SIZE = 0x3026;
 
+		[NativeName(NativeNameType.Const, "EGL_SUCCESS")]
+		[NativeName(NativeNameType.Value, "0x3000")]
 		public const int EGL_SUCCESS = 0x3000;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_TYPE")]
+		[NativeName(NativeNameType.Value, "0x3033")]
 		public const int EGL_SURFACE_TYPE = 0x3033;
 
+		[NativeName(NativeNameType.Const, "EGL_TRANSPARENT_BLUE_VALUE")]
+		[NativeName(NativeNameType.Value, "0x3035")]
 		public const int EGL_TRANSPARENT_BLUE_VALUE = 0x3035;
 
+		[NativeName(NativeNameType.Const, "EGL_TRANSPARENT_GREEN_VALUE")]
+		[NativeName(NativeNameType.Value, "0x3036")]
 		public const int EGL_TRANSPARENT_GREEN_VALUE = 0x3036;
 
+		[NativeName(NativeNameType.Const, "EGL_TRANSPARENT_RED_VALUE")]
+		[NativeName(NativeNameType.Value, "0x3037")]
 		public const int EGL_TRANSPARENT_RED_VALUE = 0x3037;
 
+		[NativeName(NativeNameType.Const, "EGL_TRANSPARENT_RGB")]
+		[NativeName(NativeNameType.Value, "0x3052")]
 		public const int EGL_TRANSPARENT_RGB = 0x3052;
 
+		[NativeName(NativeNameType.Const, "EGL_TRANSPARENT_TYPE")]
+		[NativeName(NativeNameType.Value, "0x3034")]
 		public const int EGL_TRANSPARENT_TYPE = 0x3034;
 
+		[NativeName(NativeNameType.Const, "EGL_TRUE")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_TRUE = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_VENDOR")]
+		[NativeName(NativeNameType.Value, "0x3053")]
 		public const int EGL_VENDOR = 0x3053;
 
+		[NativeName(NativeNameType.Const, "EGL_VERSION")]
+		[NativeName(NativeNameType.Value, "0x3054")]
 		public const int EGL_VERSION = 0x3054;
 
+		[NativeName(NativeNameType.Const, "EGL_WIDTH")]
+		[NativeName(NativeNameType.Value, "0x3057")]
 		public const int EGL_WIDTH = 0x3057;
 
+		[NativeName(NativeNameType.Const, "EGL_WINDOW_BIT")]
+		[NativeName(NativeNameType.Value, "0x0004")]
 		public const int EGL_WINDOW_BIT = 0x0004;
 
+		[NativeName(NativeNameType.Const, "EGL_VERSION_1_1")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_VERSION_1_1 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_BACK_BUFFER")]
+		[NativeName(NativeNameType.Value, "0x3084")]
 		public const int EGL_BACK_BUFFER = 0x3084;
 
+		[NativeName(NativeNameType.Const, "EGL_BIND_TO_TEXTURE_RGB")]
+		[NativeName(NativeNameType.Value, "0x3039")]
 		public const int EGL_BIND_TO_TEXTURE_RGB = 0x3039;
 
+		[NativeName(NativeNameType.Const, "EGL_BIND_TO_TEXTURE_RGBA")]
+		[NativeName(NativeNameType.Value, "0x303A")]
 		public const int EGL_BIND_TO_TEXTURE_RGBA = 0x303A;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_LOST")]
+		[NativeName(NativeNameType.Value, "0x300E")]
 		public const int EGL_CONTEXT_LOST = 0x300E;
 
+		[NativeName(NativeNameType.Const, "EGL_MIN_SWAP_INTERVAL")]
+		[NativeName(NativeNameType.Value, "0x303B")]
 		public const int EGL_MIN_SWAP_INTERVAL = 0x303B;
 
+		[NativeName(NativeNameType.Const, "EGL_MAX_SWAP_INTERVAL")]
+		[NativeName(NativeNameType.Value, "0x303C")]
 		public const int EGL_MAX_SWAP_INTERVAL = 0x303C;
 
+		[NativeName(NativeNameType.Const, "EGL_MIPMAP_TEXTURE")]
+		[NativeName(NativeNameType.Value, "0x3082")]
 		public const int EGL_MIPMAP_TEXTURE = 0x3082;
 
+		[NativeName(NativeNameType.Const, "EGL_MIPMAP_LEVEL")]
+		[NativeName(NativeNameType.Value, "0x3083")]
 		public const int EGL_MIPMAP_LEVEL = 0x3083;
 
+		[NativeName(NativeNameType.Const, "EGL_NO_TEXTURE")]
+		[NativeName(NativeNameType.Value, "0x305C")]
 		public const int EGL_NO_TEXTURE = 0x305C;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_2D")]
+		[NativeName(NativeNameType.Value, "0x305F")]
 		public const int EGL_TEXTURE_2D = 0x305F;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_FORMAT")]
+		[NativeName(NativeNameType.Value, "0x3080")]
 		public const int EGL_TEXTURE_FORMAT = 0x3080;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_RGB")]
+		[NativeName(NativeNameType.Value, "0x305D")]
 		public const int EGL_TEXTURE_RGB = 0x305D;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_RGBA")]
+		[NativeName(NativeNameType.Value, "0x305E")]
 		public const int EGL_TEXTURE_RGBA = 0x305E;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_TARGET")]
+		[NativeName(NativeNameType.Value, "0x3081")]
 		public const int EGL_TEXTURE_TARGET = 0x3081;
 
+		[NativeName(NativeNameType.Const, "EGL_VERSION_1_2")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_VERSION_1_2 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ALPHA_FORMAT")]
+		[NativeName(NativeNameType.Value, "0x3088")]
 		public const int EGL_ALPHA_FORMAT = 0x3088;
 
+		[NativeName(NativeNameType.Const, "EGL_ALPHA_FORMAT_NONPRE")]
+		[NativeName(NativeNameType.Value, "0x308B")]
 		public const int EGL_ALPHA_FORMAT_NONPRE = 0x308B;
 
+		[NativeName(NativeNameType.Const, "EGL_ALPHA_FORMAT_PRE")]
+		[NativeName(NativeNameType.Value, "0x308C")]
 		public const int EGL_ALPHA_FORMAT_PRE = 0x308C;
 
+		[NativeName(NativeNameType.Const, "EGL_ALPHA_MASK_SIZE")]
+		[NativeName(NativeNameType.Value, "0x303E")]
 		public const int EGL_ALPHA_MASK_SIZE = 0x303E;
 
+		[NativeName(NativeNameType.Const, "EGL_BUFFER_PRESERVED")]
+		[NativeName(NativeNameType.Value, "0x3094")]
 		public const int EGL_BUFFER_PRESERVED = 0x3094;
 
+		[NativeName(NativeNameType.Const, "EGL_BUFFER_DESTROYED")]
+		[NativeName(NativeNameType.Value, "0x3095")]
 		public const int EGL_BUFFER_DESTROYED = 0x3095;
 
+		[NativeName(NativeNameType.Const, "EGL_CLIENT_APIS")]
+		[NativeName(NativeNameType.Value, "0x308D")]
 		public const int EGL_CLIENT_APIS = 0x308D;
 
+		[NativeName(NativeNameType.Const, "EGL_COLORSPACE")]
+		[NativeName(NativeNameType.Value, "0x3087")]
 		public const int EGL_COLORSPACE = 0x3087;
 
+		[NativeName(NativeNameType.Const, "EGL_COLORSPACE_sRGB")]
+		[NativeName(NativeNameType.Value, "0x3089")]
 		public const int EGL_COLORSPACE_sRGB = 0x3089;
 
+		[NativeName(NativeNameType.Const, "EGL_COLORSPACE_LINEAR")]
+		[NativeName(NativeNameType.Value, "0x308A")]
 		public const int EGL_COLORSPACE_LINEAR = 0x308A;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_BUFFER_TYPE")]
+		[NativeName(NativeNameType.Value, "0x303F")]
 		public const int EGL_COLOR_BUFFER_TYPE = 0x303F;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_CLIENT_TYPE")]
+		[NativeName(NativeNameType.Value, "0x3097")]
 		public const int EGL_CONTEXT_CLIENT_TYPE = 0x3097;
 
+		[NativeName(NativeNameType.Const, "EGL_DISPLAY_SCALING")]
+		[NativeName(NativeNameType.Value, "10000")]
 		public const int EGL_DISPLAY_SCALING = 10000;
 
+		[NativeName(NativeNameType.Const, "EGL_HORIZONTAL_RESOLUTION")]
+		[NativeName(NativeNameType.Value, "0x3090")]
 		public const int EGL_HORIZONTAL_RESOLUTION = 0x3090;
 
+		[NativeName(NativeNameType.Const, "EGL_LUMINANCE_BUFFER")]
+		[NativeName(NativeNameType.Value, "0x308F")]
 		public const int EGL_LUMINANCE_BUFFER = 0x308F;
 
+		[NativeName(NativeNameType.Const, "EGL_LUMINANCE_SIZE")]
+		[NativeName(NativeNameType.Value, "0x303D")]
 		public const int EGL_LUMINANCE_SIZE = 0x303D;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENGL_ES_BIT")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int EGL_OPENGL_ES_BIT = 0x0001;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENVG_BIT")]
+		[NativeName(NativeNameType.Value, "0x0002")]
 		public const int EGL_OPENVG_BIT = 0x0002;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENGL_ES_API")]
+		[NativeName(NativeNameType.Value, "0x30A0")]
 		public const int EGL_OPENGL_ES_API = 0x30A0;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENVG_API")]
+		[NativeName(NativeNameType.Value, "0x30A1")]
 		public const int EGL_OPENVG_API = 0x30A1;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENVG_IMAGE")]
+		[NativeName(NativeNameType.Value, "0x3096")]
 		public const int EGL_OPENVG_IMAGE = 0x3096;
 
+		[NativeName(NativeNameType.Const, "EGL_PIXEL_ASPECT_RATIO")]
+		[NativeName(NativeNameType.Value, "0x3092")]
 		public const int EGL_PIXEL_ASPECT_RATIO = 0x3092;
 
+		[NativeName(NativeNameType.Const, "EGL_RENDERABLE_TYPE")]
+		[NativeName(NativeNameType.Value, "0x3040")]
 		public const int EGL_RENDERABLE_TYPE = 0x3040;
 
+		[NativeName(NativeNameType.Const, "EGL_RENDER_BUFFER")]
+		[NativeName(NativeNameType.Value, "0x3086")]
 		public const int EGL_RENDER_BUFFER = 0x3086;
 
+		[NativeName(NativeNameType.Const, "EGL_RGB_BUFFER")]
+		[NativeName(NativeNameType.Value, "0x308E")]
 		public const int EGL_RGB_BUFFER = 0x308E;
 
+		[NativeName(NativeNameType.Const, "EGL_SINGLE_BUFFER")]
+		[NativeName(NativeNameType.Value, "0x3085")]
 		public const int EGL_SINGLE_BUFFER = 0x3085;
 
+		[NativeName(NativeNameType.Const, "EGL_SWAP_BEHAVIOR")]
+		[NativeName(NativeNameType.Value, "0x3093")]
 		public const int EGL_SWAP_BEHAVIOR = 0x3093;
 
+		[NativeName(NativeNameType.Const, "EGL_VERTICAL_RESOLUTION")]
+		[NativeName(NativeNameType.Value, "0x3091")]
 		public const int EGL_VERTICAL_RESOLUTION = 0x3091;
 
+		[NativeName(NativeNameType.Const, "EGL_VERSION_1_3")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_VERSION_1_3 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONFORMANT")]
+		[NativeName(NativeNameType.Value, "0x3042")]
 		public const int EGL_CONFORMANT = 0x3042;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_CLIENT_VERSION")]
+		[NativeName(NativeNameType.Value, "0x3098")]
 		public const int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
 
+		[NativeName(NativeNameType.Const, "EGL_MATCH_NATIVE_PIXMAP")]
+		[NativeName(NativeNameType.Value, "0x3041")]
 		public const int EGL_MATCH_NATIVE_PIXMAP = 0x3041;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENGL_ES2_BIT")]
+		[NativeName(NativeNameType.Value, "0x0004")]
 		public const int EGL_OPENGL_ES2_BIT = 0x0004;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_ALPHA_FORMAT")]
+		[NativeName(NativeNameType.Value, "0x3088")]
 		public const int EGL_VG_ALPHA_FORMAT = 0x3088;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_ALPHA_FORMAT_NONPRE")]
+		[NativeName(NativeNameType.Value, "0x308B")]
 		public const int EGL_VG_ALPHA_FORMAT_NONPRE = 0x308B;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_ALPHA_FORMAT_PRE")]
+		[NativeName(NativeNameType.Value, "0x308C")]
 		public const int EGL_VG_ALPHA_FORMAT_PRE = 0x308C;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_ALPHA_FORMAT_PRE_BIT")]
+		[NativeName(NativeNameType.Value, "0x0040")]
 		public const int EGL_VG_ALPHA_FORMAT_PRE_BIT = 0x0040;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_COLORSPACE")]
+		[NativeName(NativeNameType.Value, "0x3087")]
 		public const int EGL_VG_COLORSPACE = 0x3087;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_COLORSPACE_sRGB")]
+		[NativeName(NativeNameType.Value, "0x3089")]
 		public const int EGL_VG_COLORSPACE_sRGB = 0x3089;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_COLORSPACE_LINEAR")]
+		[NativeName(NativeNameType.Value, "0x308A")]
 		public const int EGL_VG_COLORSPACE_LINEAR = 0x308A;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_COLORSPACE_LINEAR_BIT")]
+		[NativeName(NativeNameType.Value, "0x0020")]
 		public const int EGL_VG_COLORSPACE_LINEAR_BIT = 0x0020;
 
+		[NativeName(NativeNameType.Const, "EGL_VERSION_1_4")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_VERSION_1_4 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_MULTISAMPLE_RESOLVE_BOX_BIT")]
+		[NativeName(NativeNameType.Value, "0x0200")]
 		public const int EGL_MULTISAMPLE_RESOLVE_BOX_BIT = 0x0200;
 
+		[NativeName(NativeNameType.Const, "EGL_MULTISAMPLE_RESOLVE")]
+		[NativeName(NativeNameType.Value, "0x3099")]
 		public const int EGL_MULTISAMPLE_RESOLVE = 0x3099;
 
+		[NativeName(NativeNameType.Const, "EGL_MULTISAMPLE_RESOLVE_DEFAULT")]
+		[NativeName(NativeNameType.Value, "0x309A")]
 		public const int EGL_MULTISAMPLE_RESOLVE_DEFAULT = 0x309A;
 
+		[NativeName(NativeNameType.Const, "EGL_MULTISAMPLE_RESOLVE_BOX")]
+		[NativeName(NativeNameType.Value, "0x309B")]
 		public const int EGL_MULTISAMPLE_RESOLVE_BOX = 0x309B;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENGL_API")]
+		[NativeName(NativeNameType.Value, "0x30A2")]
 		public const int EGL_OPENGL_API = 0x30A2;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENGL_BIT")]
+		[NativeName(NativeNameType.Value, "0x0008")]
 		public const int EGL_OPENGL_BIT = 0x0008;
 
+		[NativeName(NativeNameType.Const, "EGL_SWAP_BEHAVIOR_PRESERVED_BIT")]
+		[NativeName(NativeNameType.Value, "0x0400")]
 		public const int EGL_SWAP_BEHAVIOR_PRESERVED_BIT = 0x0400;
 
+		[NativeName(NativeNameType.Const, "EGL_VERSION_1_5")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_VERSION_1_5 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_MAJOR_VERSION")]
+		[NativeName(NativeNameType.Value, "0x3098")]
 		public const int EGL_CONTEXT_MAJOR_VERSION = 0x3098;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_MINOR_VERSION")]
+		[NativeName(NativeNameType.Value, "0x30FB")]
 		public const int EGL_CONTEXT_MINOR_VERSION = 0x30FB;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_PROFILE_MASK")]
+		[NativeName(NativeNameType.Value, "0x30FD")]
 		public const int EGL_CONTEXT_OPENGL_PROFILE_MASK = 0x30FD;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY")]
+		[NativeName(NativeNameType.Value, "0x31BD")]
 		public const int EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY = 0x31BD;
 
+		[NativeName(NativeNameType.Const, "EGL_NO_RESET_NOTIFICATION")]
+		[NativeName(NativeNameType.Value, "0x31BE")]
 		public const int EGL_NO_RESET_NOTIFICATION = 0x31BE;
 
+		[NativeName(NativeNameType.Const, "EGL_LOSE_CONTEXT_ON_RESET")]
+		[NativeName(NativeNameType.Value, "0x31BF")]
 		public const int EGL_LOSE_CONTEXT_ON_RESET = 0x31BF;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT")]
+		[NativeName(NativeNameType.Value, "0x00000001")]
 		public const int EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT = 0x00000001;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT")]
+		[NativeName(NativeNameType.Value, "0x00000002")]
 		public const int EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT = 0x00000002;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_DEBUG")]
+		[NativeName(NativeNameType.Value, "0x31B0")]
 		public const int EGL_CONTEXT_OPENGL_DEBUG = 0x31B0;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE")]
+		[NativeName(NativeNameType.Value, "0x31B1")]
 		public const int EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE = 0x31B1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_ROBUST_ACCESS")]
+		[NativeName(NativeNameType.Value, "0x31B2")]
 		public const int EGL_CONTEXT_OPENGL_ROBUST_ACCESS = 0x31B2;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENGL_ES3_BIT")]
+		[NativeName(NativeNameType.Value, "0x00000040")]
 		public const int EGL_OPENGL_ES3_BIT = 0x00000040;
 
+		[NativeName(NativeNameType.Const, "EGL_CL_EVENT_HANDLE")]
+		[NativeName(NativeNameType.Value, "0x309C")]
 		public const int EGL_CL_EVENT_HANDLE = 0x309C;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CL_EVENT")]
+		[NativeName(NativeNameType.Value, "0x30FE")]
 		public const int EGL_SYNC_CL_EVENT = 0x30FE;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CL_EVENT_COMPLETE")]
+		[NativeName(NativeNameType.Value, "0x30FF")]
 		public const int EGL_SYNC_CL_EVENT_COMPLETE = 0x30FF;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_PRIOR_COMMANDS_COMPLETE")]
+		[NativeName(NativeNameType.Value, "0x30F0")]
 		public const int EGL_SYNC_PRIOR_COMMANDS_COMPLETE = 0x30F0;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_TYPE")]
+		[NativeName(NativeNameType.Value, "0x30F7")]
 		public const int EGL_SYNC_TYPE = 0x30F7;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_STATUS")]
+		[NativeName(NativeNameType.Value, "0x30F1")]
 		public const int EGL_SYNC_STATUS = 0x30F1;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CONDITION")]
+		[NativeName(NativeNameType.Value, "0x30F8")]
 		public const int EGL_SYNC_CONDITION = 0x30F8;
 
+		[NativeName(NativeNameType.Const, "EGL_SIGNALED")]
+		[NativeName(NativeNameType.Value, "0x30F2")]
 		public const int EGL_SIGNALED = 0x30F2;
 
+		[NativeName(NativeNameType.Const, "EGL_UNSIGNALED")]
+		[NativeName(NativeNameType.Value, "0x30F3")]
 		public const int EGL_UNSIGNALED = 0x30F3;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_FLUSH_COMMANDS_BIT")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int EGL_SYNC_FLUSH_COMMANDS_BIT = 0x0001;
 
+		[NativeName(NativeNameType.Const, "EGL_TIMEOUT_EXPIRED")]
+		[NativeName(NativeNameType.Value, "0x30F5")]
 		public const int EGL_TIMEOUT_EXPIRED = 0x30F5;
 
+		[NativeName(NativeNameType.Const, "EGL_CONDITION_SATISFIED")]
+		[NativeName(NativeNameType.Value, "0x30F6")]
 		public const int EGL_CONDITION_SATISFIED = 0x30F6;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_FENCE")]
+		[NativeName(NativeNameType.Value, "0x30F9")]
 		public const int EGL_SYNC_FENCE = 0x30F9;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE")]
+		[NativeName(NativeNameType.Value, "0x309D")]
 		public const int EGL_GL_COLORSPACE = 0x309D;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_SRGB")]
+		[NativeName(NativeNameType.Value, "0x3089")]
 		public const int EGL_GL_COLORSPACE_SRGB = 0x3089;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_LINEAR")]
+		[NativeName(NativeNameType.Value, "0x308A")]
 		public const int EGL_GL_COLORSPACE_LINEAR = 0x308A;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_RENDERBUFFER")]
+		[NativeName(NativeNameType.Value, "0x30B9")]
 		public const int EGL_GL_RENDERBUFFER = 0x30B9;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_2D")]
+		[NativeName(NativeNameType.Value, "0x30B1")]
 		public const int EGL_GL_TEXTURE_2D = 0x30B1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_LEVEL")]
+		[NativeName(NativeNameType.Value, "0x30BC")]
 		public const int EGL_GL_TEXTURE_LEVEL = 0x30BC;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_3D")]
+		[NativeName(NativeNameType.Value, "0x30B2")]
 		public const int EGL_GL_TEXTURE_3D = 0x30B2;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_ZOFFSET")]
+		[NativeName(NativeNameType.Value, "0x30BD")]
 		public const int EGL_GL_TEXTURE_ZOFFSET = 0x30BD;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_X")]
+		[NativeName(NativeNameType.Value, "0x30B3")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_X = 0x30B3;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_X")]
+		[NativeName(NativeNameType.Value, "0x30B4")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_X = 0x30B4;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Y")]
+		[NativeName(NativeNameType.Value, "0x30B5")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Y = 0x30B5;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Y")]
+		[NativeName(NativeNameType.Value, "0x30B6")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Y = 0x30B6;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Z")]
+		[NativeName(NativeNameType.Value, "0x30B7")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Z = 0x30B7;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Z")]
+		[NativeName(NativeNameType.Value, "0x30B8")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Z = 0x30B8;
 
+		[NativeName(NativeNameType.Const, "EGL_IMAGE_PRESERVED")]
+		[NativeName(NativeNameType.Value, "0x30D2")]
 		public const int EGL_IMAGE_PRESERVED = 0x30D2;
 
+		[NativeName(NativeNameType.Const, "__eglext_h_")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int __eglext_h_ = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EGLEXT_VERSION")]
+		[NativeName(NativeNameType.Value, "20220525")]
 		public const int EGL_EGLEXT_VERSION = 20220525;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_cl_event")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_cl_event = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CL_EVENT_HANDLE_KHR")]
+		[NativeName(NativeNameType.Value, "0x309C")]
 		public const int EGL_CL_EVENT_HANDLE_KHR = 0x309C;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CL_EVENT_KHR")]
+		[NativeName(NativeNameType.Value, "0x30FE")]
 		public const int EGL_SYNC_CL_EVENT_KHR = 0x30FE;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CL_EVENT_COMPLETE_KHR")]
+		[NativeName(NativeNameType.Value, "0x30FF")]
 		public const int EGL_SYNC_CL_EVENT_COMPLETE_KHR = 0x30FF;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_cl_event2")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_cl_event2 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_client_get_all_proc_addresses")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_client_get_all_proc_addresses = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_config_attribs")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_config_attribs = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONFORMANT_KHR")]
+		[NativeName(NativeNameType.Value, "0x3042")]
 		public const int EGL_CONFORMANT_KHR = 0x3042;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_COLORSPACE_LINEAR_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x0020")]
 		public const int EGL_VG_COLORSPACE_LINEAR_BIT_KHR = 0x0020;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_ALPHA_FORMAT_PRE_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x0040")]
 		public const int EGL_VG_ALPHA_FORMAT_PRE_BIT_KHR = 0x0040;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_context_flush_control")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_context_flush_control = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_RELEASE_BEHAVIOR_NONE_KHR")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int EGL_CONTEXT_RELEASE_BEHAVIOR_NONE_KHR = 0;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_RELEASE_BEHAVIOR_KHR")]
+		[NativeName(NativeNameType.Value, "0x2097")]
 		public const int EGL_CONTEXT_RELEASE_BEHAVIOR_KHR = 0x2097;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_RELEASE_BEHAVIOR_FLUSH_KHR")]
+		[NativeName(NativeNameType.Value, "0x2098")]
 		public const int EGL_CONTEXT_RELEASE_BEHAVIOR_FLUSH_KHR = 0x2098;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_create_context")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_create_context = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_MAJOR_VERSION_KHR")]
+		[NativeName(NativeNameType.Value, "0x3098")]
 		public const int EGL_CONTEXT_MAJOR_VERSION_KHR = 0x3098;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_MINOR_VERSION_KHR")]
+		[NativeName(NativeNameType.Value, "0x30FB")]
 		public const int EGL_CONTEXT_MINOR_VERSION_KHR = 0x30FB;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_FLAGS_KHR")]
+		[NativeName(NativeNameType.Value, "0x30FC")]
 		public const int EGL_CONTEXT_FLAGS_KHR = 0x30FC;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR")]
+		[NativeName(NativeNameType.Value, "0x30FD")]
 		public const int EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR = 0x30FD;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR")]
+		[NativeName(NativeNameType.Value, "0x31BD")]
 		public const int EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_KHR = 0x31BD;
 
+		[NativeName(NativeNameType.Const, "EGL_NO_RESET_NOTIFICATION_KHR")]
+		[NativeName(NativeNameType.Value, "0x31BE")]
 		public const int EGL_NO_RESET_NOTIFICATION_KHR = 0x31BE;
 
+		[NativeName(NativeNameType.Const, "EGL_LOSE_CONTEXT_ON_RESET_KHR")]
+		[NativeName(NativeNameType.Value, "0x31BF")]
 		public const int EGL_LOSE_CONTEXT_ON_RESET_KHR = 0x31BF;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_DEBUG_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x00000001")]
 		public const int EGL_CONTEXT_OPENGL_DEBUG_BIT_KHR = 0x00000001;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x00000002")]
 		public const int EGL_CONTEXT_OPENGL_FORWARD_COMPATIBLE_BIT_KHR = 0x00000002;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_ROBUST_ACCESS_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x00000004")]
 		public const int EGL_CONTEXT_OPENGL_ROBUST_ACCESS_BIT_KHR = 0x00000004;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x00000001")]
 		public const int EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT_KHR = 0x00000001;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x00000002")]
 		public const int EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT_KHR = 0x00000002;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENGL_ES3_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x00000040")]
 		public const int EGL_OPENGL_ES3_BIT_KHR = 0x00000040;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_create_context_no_error")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_create_context_no_error = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_NO_ERROR_KHR")]
+		[NativeName(NativeNameType.Value, "0x31B3")]
 		public const int EGL_CONTEXT_OPENGL_NO_ERROR_KHR = 0x31B3;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_debug")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_debug = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_OBJECT_THREAD_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B0")]
 		public const int EGL_OBJECT_THREAD_KHR = 0x33B0;
 
+		[NativeName(NativeNameType.Const, "EGL_OBJECT_DISPLAY_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B1")]
 		public const int EGL_OBJECT_DISPLAY_KHR = 0x33B1;
 
+		[NativeName(NativeNameType.Const, "EGL_OBJECT_CONTEXT_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B2")]
 		public const int EGL_OBJECT_CONTEXT_KHR = 0x33B2;
 
+		[NativeName(NativeNameType.Const, "EGL_OBJECT_SURFACE_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B3")]
 		public const int EGL_OBJECT_SURFACE_KHR = 0x33B3;
 
+		[NativeName(NativeNameType.Const, "EGL_OBJECT_IMAGE_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B4")]
 		public const int EGL_OBJECT_IMAGE_KHR = 0x33B4;
 
+		[NativeName(NativeNameType.Const, "EGL_OBJECT_SYNC_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B5")]
 		public const int EGL_OBJECT_SYNC_KHR = 0x33B5;
 
+		[NativeName(NativeNameType.Const, "EGL_OBJECT_STREAM_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B6")]
 		public const int EGL_OBJECT_STREAM_KHR = 0x33B6;
 
+		[NativeName(NativeNameType.Const, "EGL_DEBUG_MSG_CRITICAL_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B9")]
 		public const int EGL_DEBUG_MSG_CRITICAL_KHR = 0x33B9;
 
+		[NativeName(NativeNameType.Const, "EGL_DEBUG_MSG_ERROR_KHR")]
+		[NativeName(NativeNameType.Value, "0x33BA")]
 		public const int EGL_DEBUG_MSG_ERROR_KHR = 0x33BA;
 
+		[NativeName(NativeNameType.Const, "EGL_DEBUG_MSG_WARN_KHR")]
+		[NativeName(NativeNameType.Value, "0x33BB")]
 		public const int EGL_DEBUG_MSG_WARN_KHR = 0x33BB;
 
+		[NativeName(NativeNameType.Const, "EGL_DEBUG_MSG_INFO_KHR")]
+		[NativeName(NativeNameType.Value, "0x33BC")]
 		public const int EGL_DEBUG_MSG_INFO_KHR = 0x33BC;
 
+		[NativeName(NativeNameType.Const, "EGL_DEBUG_CALLBACK_KHR")]
+		[NativeName(NativeNameType.Value, "0x33B8")]
 		public const int EGL_DEBUG_CALLBACK_KHR = 0x33B8;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_display_reference")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_display_reference = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_TRACK_REFERENCES_KHR")]
+		[NativeName(NativeNameType.Value, "0x3352")]
 		public const int EGL_TRACK_REFERENCES_KHR = 0x3352;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_fence_sync")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_fence_sync = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_PRIOR_COMMANDS_COMPLETE_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F0")]
 		public const int EGL_SYNC_PRIOR_COMMANDS_COMPLETE_KHR = 0x30F0;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CONDITION_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F8")]
 		public const int EGL_SYNC_CONDITION_KHR = 0x30F8;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_FENCE_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F9")]
 		public const int EGL_SYNC_FENCE_KHR = 0x30F9;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_get_all_proc_addresses")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_get_all_proc_addresses = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_gl_colorspace")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_gl_colorspace = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_KHR")]
+		[NativeName(NativeNameType.Value, "0x309D")]
 		public const int EGL_GL_COLORSPACE_KHR = 0x309D;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_SRGB_KHR")]
+		[NativeName(NativeNameType.Value, "0x3089")]
 		public const int EGL_GL_COLORSPACE_SRGB_KHR = 0x3089;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_LINEAR_KHR")]
+		[NativeName(NativeNameType.Value, "0x308A")]
 		public const int EGL_GL_COLORSPACE_LINEAR_KHR = 0x308A;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_gl_renderbuffer_image")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_gl_renderbuffer_image = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_RENDERBUFFER_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B9")]
 		public const int EGL_GL_RENDERBUFFER_KHR = 0x30B9;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_gl_texture_2D_image")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_gl_texture_2D_image = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_2D_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B1")]
 		public const int EGL_GL_TEXTURE_2D_KHR = 0x30B1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_LEVEL_KHR")]
+		[NativeName(NativeNameType.Value, "0x30BC")]
 		public const int EGL_GL_TEXTURE_LEVEL_KHR = 0x30BC;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_gl_texture_3D_image")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_gl_texture_3D_image = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_3D_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B2")]
 		public const int EGL_GL_TEXTURE_3D_KHR = 0x30B2;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_ZOFFSET_KHR")]
+		[NativeName(NativeNameType.Value, "0x30BD")]
 		public const int EGL_GL_TEXTURE_ZOFFSET_KHR = 0x30BD;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_gl_texture_cubemap_image")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_gl_texture_cubemap_image = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_X_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B3")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_X_KHR = 0x30B3;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_X_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B4")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_X_KHR = 0x30B4;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Y_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B5")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Y_KHR = 0x30B5;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B6")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_KHR = 0x30B6;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Z_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B7")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_POSITIVE_Z_KHR = 0x30B7;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B8")]
 		public const int EGL_GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_KHR = 0x30B8;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_image")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_image = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_PIXMAP_KHR")]
+		[NativeName(NativeNameType.Value, "0x30B0")]
 		public const int EGL_NATIVE_PIXMAP_KHR = 0x30B0;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_image_base")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_image_base = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_IMAGE_PRESERVED_KHR")]
+		[NativeName(NativeNameType.Value, "0x30D2")]
 		public const int EGL_IMAGE_PRESERVED_KHR = 0x30D2;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_image_pixmap")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_image_pixmap = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_lock_surface")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_lock_surface = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_READ_SURFACE_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int EGL_READ_SURFACE_BIT_KHR = 0x0001;
 
+		[NativeName(NativeNameType.Const, "EGL_WRITE_SURFACE_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x0002")]
 		public const int EGL_WRITE_SURFACE_BIT_KHR = 0x0002;
 
+		[NativeName(NativeNameType.Const, "EGL_LOCK_SURFACE_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x0080")]
 		public const int EGL_LOCK_SURFACE_BIT_KHR = 0x0080;
 
+		[NativeName(NativeNameType.Const, "EGL_OPTIMAL_FORMAT_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x0100")]
 		public const int EGL_OPTIMAL_FORMAT_BIT_KHR = 0x0100;
 
+		[NativeName(NativeNameType.Const, "EGL_MATCH_FORMAT_KHR")]
+		[NativeName(NativeNameType.Value, "0x3043")]
 		public const int EGL_MATCH_FORMAT_KHR = 0x3043;
 
+		[NativeName(NativeNameType.Const, "EGL_FORMAT_RGB_565_EXACT_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C0")]
 		public const int EGL_FORMAT_RGB_565_EXACT_KHR = 0x30C0;
 
+		[NativeName(NativeNameType.Const, "EGL_FORMAT_RGB_565_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C1")]
 		public const int EGL_FORMAT_RGB_565_KHR = 0x30C1;
 
+		[NativeName(NativeNameType.Const, "EGL_FORMAT_RGBA_8888_EXACT_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C2")]
 		public const int EGL_FORMAT_RGBA_8888_EXACT_KHR = 0x30C2;
 
+		[NativeName(NativeNameType.Const, "EGL_FORMAT_RGBA_8888_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C3")]
 		public const int EGL_FORMAT_RGBA_8888_KHR = 0x30C3;
 
+		[NativeName(NativeNameType.Const, "EGL_MAP_PRESERVE_PIXELS_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C4")]
 		public const int EGL_MAP_PRESERVE_PIXELS_KHR = 0x30C4;
 
+		[NativeName(NativeNameType.Const, "EGL_LOCK_USAGE_HINT_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C5")]
 		public const int EGL_LOCK_USAGE_HINT_KHR = 0x30C5;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_POINTER_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C6")]
 		public const int EGL_BITMAP_POINTER_KHR = 0x30C6;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_PITCH_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C7")]
 		public const int EGL_BITMAP_PITCH_KHR = 0x30C7;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_ORIGIN_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C8")]
 		public const int EGL_BITMAP_ORIGIN_KHR = 0x30C8;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_PIXEL_RED_OFFSET_KHR")]
+		[NativeName(NativeNameType.Value, "0x30C9")]
 		public const int EGL_BITMAP_PIXEL_RED_OFFSET_KHR = 0x30C9;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_PIXEL_GREEN_OFFSET_KHR")]
+		[NativeName(NativeNameType.Value, "0x30CA")]
 		public const int EGL_BITMAP_PIXEL_GREEN_OFFSET_KHR = 0x30CA;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_PIXEL_BLUE_OFFSET_KHR")]
+		[NativeName(NativeNameType.Value, "0x30CB")]
 		public const int EGL_BITMAP_PIXEL_BLUE_OFFSET_KHR = 0x30CB;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_PIXEL_ALPHA_OFFSET_KHR")]
+		[NativeName(NativeNameType.Value, "0x30CC")]
 		public const int EGL_BITMAP_PIXEL_ALPHA_OFFSET_KHR = 0x30CC;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_PIXEL_LUMINANCE_OFFSET_KHR")]
+		[NativeName(NativeNameType.Value, "0x30CD")]
 		public const int EGL_BITMAP_PIXEL_LUMINANCE_OFFSET_KHR = 0x30CD;
 
+		[NativeName(NativeNameType.Const, "EGL_LOWER_LEFT_KHR")]
+		[NativeName(NativeNameType.Value, "0x30CE")]
 		public const int EGL_LOWER_LEFT_KHR = 0x30CE;
 
+		[NativeName(NativeNameType.Const, "EGL_UPPER_LEFT_KHR")]
+		[NativeName(NativeNameType.Value, "0x30CF")]
 		public const int EGL_UPPER_LEFT_KHR = 0x30CF;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_lock_surface2")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_lock_surface2 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_BITMAP_PIXEL_SIZE_KHR")]
+		[NativeName(NativeNameType.Value, "0x3110")]
 		public const int EGL_BITMAP_PIXEL_SIZE_KHR = 0x3110;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_lock_surface3")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_lock_surface3 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_mutable_render_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_mutable_render_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_MUTABLE_RENDER_BUFFER_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x1000")]
 		public const int EGL_MUTABLE_RENDER_BUFFER_BIT_KHR = 0x1000;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_no_config_context")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_no_config_context = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_partial_update")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_partial_update = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_BUFFER_AGE_KHR")]
+		[NativeName(NativeNameType.Value, "0x313D")]
 		public const int EGL_BUFFER_AGE_KHR = 0x313D;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_platform_android")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_platform_android = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_ANDROID_KHR")]
+		[NativeName(NativeNameType.Value, "0x3141")]
 		public const int EGL_PLATFORM_ANDROID_KHR = 0x3141;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_platform_gbm")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_platform_gbm = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_GBM_KHR")]
+		[NativeName(NativeNameType.Value, "0x31D7")]
 		public const int EGL_PLATFORM_GBM_KHR = 0x31D7;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_platform_wayland")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_platform_wayland = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_WAYLAND_KHR")]
+		[NativeName(NativeNameType.Value, "0x31D8")]
 		public const int EGL_PLATFORM_WAYLAND_KHR = 0x31D8;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_platform_x11")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_platform_x11 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_X11_KHR")]
+		[NativeName(NativeNameType.Value, "0x31D5")]
 		public const int EGL_PLATFORM_X11_KHR = 0x31D5;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_X11_SCREEN_KHR")]
+		[NativeName(NativeNameType.Value, "0x31D6")]
 		public const int EGL_PLATFORM_X11_SCREEN_KHR = 0x31D6;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_reusable_sync")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_reusable_sync = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_STATUS_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F1")]
 		public const int EGL_SYNC_STATUS_KHR = 0x30F1;
 
+		[NativeName(NativeNameType.Const, "EGL_SIGNALED_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F2")]
 		public const int EGL_SIGNALED_KHR = 0x30F2;
 
+		[NativeName(NativeNameType.Const, "EGL_UNSIGNALED_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F3")]
 		public const int EGL_UNSIGNALED_KHR = 0x30F3;
 
+		[NativeName(NativeNameType.Const, "EGL_TIMEOUT_EXPIRED_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F5")]
 		public const int EGL_TIMEOUT_EXPIRED_KHR = 0x30F5;
 
+		[NativeName(NativeNameType.Const, "EGL_CONDITION_SATISFIED_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F6")]
 		public const int EGL_CONDITION_SATISFIED_KHR = 0x30F6;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_TYPE_KHR")]
+		[NativeName(NativeNameType.Value, "0x30F7")]
 		public const int EGL_SYNC_TYPE_KHR = 0x30F7;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_REUSABLE_KHR")]
+		[NativeName(NativeNameType.Value, "0x30FA")]
 		public const int EGL_SYNC_REUSABLE_KHR = 0x30FA;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_FLUSH_COMMANDS_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int EGL_SYNC_FLUSH_COMMANDS_BIT_KHR = 0x0001;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_stream")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_stream = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONSUMER_LATENCY_USEC_KHR")]
+		[NativeName(NativeNameType.Value, "0x3210")]
 		public const int EGL_CONSUMER_LATENCY_USEC_KHR = 0x3210;
 
+		[NativeName(NativeNameType.Const, "EGL_PRODUCER_FRAME_KHR")]
+		[NativeName(NativeNameType.Value, "0x3212")]
 		public const int EGL_PRODUCER_FRAME_KHR = 0x3212;
 
+		[NativeName(NativeNameType.Const, "EGL_CONSUMER_FRAME_KHR")]
+		[NativeName(NativeNameType.Value, "0x3213")]
 		public const int EGL_CONSUMER_FRAME_KHR = 0x3213;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_STATE_KHR")]
+		[NativeName(NativeNameType.Value, "0x3214")]
 		public const int EGL_STREAM_STATE_KHR = 0x3214;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_STATE_CREATED_KHR")]
+		[NativeName(NativeNameType.Value, "0x3215")]
 		public const int EGL_STREAM_STATE_CREATED_KHR = 0x3215;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_STATE_CONNECTING_KHR")]
+		[NativeName(NativeNameType.Value, "0x3216")]
 		public const int EGL_STREAM_STATE_CONNECTING_KHR = 0x3216;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_STATE_EMPTY_KHR")]
+		[NativeName(NativeNameType.Value, "0x3217")]
 		public const int EGL_STREAM_STATE_EMPTY_KHR = 0x3217;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_STATE_NEW_FRAME_AVAILABLE_KHR")]
+		[NativeName(NativeNameType.Value, "0x3218")]
 		public const int EGL_STREAM_STATE_NEW_FRAME_AVAILABLE_KHR = 0x3218;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_STATE_OLD_FRAME_AVAILABLE_KHR")]
+		[NativeName(NativeNameType.Value, "0x3219")]
 		public const int EGL_STREAM_STATE_OLD_FRAME_AVAILABLE_KHR = 0x3219;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_STATE_DISCONNECTED_KHR")]
+		[NativeName(NativeNameType.Value, "0x321A")]
 		public const int EGL_STREAM_STATE_DISCONNECTED_KHR = 0x321A;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_STREAM_KHR")]
+		[NativeName(NativeNameType.Value, "0x321B")]
 		public const int EGL_BAD_STREAM_KHR = 0x321B;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_STATE_KHR")]
+		[NativeName(NativeNameType.Value, "0x321C")]
 		public const int EGL_BAD_STATE_KHR = 0x321C;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_stream_attrib")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_stream_attrib = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_stream_consumer_gltexture")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_stream_consumer_gltexture = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONSUMER_ACQUIRE_TIMEOUT_USEC_KHR")]
+		[NativeName(NativeNameType.Value, "0x321E")]
 		public const int EGL_CONSUMER_ACQUIRE_TIMEOUT_USEC_KHR = 0x321E;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_stream_cross_process_fd")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_stream_cross_process_fd = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_stream_fifo")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_stream_fifo = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_FIFO_LENGTH_KHR")]
+		[NativeName(NativeNameType.Value, "0x31FC")]
 		public const int EGL_STREAM_FIFO_LENGTH_KHR = 0x31FC;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_TIME_NOW_KHR")]
+		[NativeName(NativeNameType.Value, "0x31FD")]
 		public const int EGL_STREAM_TIME_NOW_KHR = 0x31FD;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_TIME_CONSUMER_KHR")]
+		[NativeName(NativeNameType.Value, "0x31FE")]
 		public const int EGL_STREAM_TIME_CONSUMER_KHR = 0x31FE;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_TIME_PRODUCER_KHR")]
+		[NativeName(NativeNameType.Value, "0x31FF")]
 		public const int EGL_STREAM_TIME_PRODUCER_KHR = 0x31FF;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_stream_producer_aldatalocator")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_stream_producer_aldatalocator = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_stream_producer_eglsurface")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_stream_producer_eglsurface = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_BIT_KHR")]
+		[NativeName(NativeNameType.Value, "0x0800")]
 		public const int EGL_STREAM_BIT_KHR = 0x0800;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_surfaceless_context")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_surfaceless_context = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_swap_buffers_with_damage")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_swap_buffers_with_damage = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_vg_parent_image")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_vg_parent_image = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_VG_PARENT_IMAGE_KHR")]
+		[NativeName(NativeNameType.Value, "0x30BA")]
 		public const int EGL_VG_PARENT_IMAGE_KHR = 0x30BA;
 
+		[NativeName(NativeNameType.Const, "EGL_KHR_wait_sync")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_KHR_wait_sync = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_GLES_layers")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_GLES_layers = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_blob_cache")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_blob_cache = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_create_native_client_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_create_native_client_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_BUFFER_USAGE_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3143")]
 		public const int EGL_NATIVE_BUFFER_USAGE_ANDROID = 0x3143;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_BUFFER_USAGE_PROTECTED_BIT_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x00000001")]
 		public const int EGL_NATIVE_BUFFER_USAGE_PROTECTED_BIT_ANDROID = 0x00000001;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_BUFFER_USAGE_RENDERBUFFER_BIT_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x00000002")]
 		public const int EGL_NATIVE_BUFFER_USAGE_RENDERBUFFER_BIT_ANDROID = 0x00000002;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_BUFFER_USAGE_TEXTURE_BIT_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x00000004")]
 		public const int EGL_NATIVE_BUFFER_USAGE_TEXTURE_BIT_ANDROID = 0x00000004;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_framebuffer_target")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_framebuffer_target = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_FRAMEBUFFER_TARGET_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3147")]
 		public const int EGL_FRAMEBUFFER_TARGET_ANDROID = 0x3147;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_front_buffer_auto_refresh")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_front_buffer_auto_refresh = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_FRONT_BUFFER_AUTO_REFRESH_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x314C")]
 		public const int EGL_FRONT_BUFFER_AUTO_REFRESH_ANDROID = 0x314C;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_get_frame_timestamps")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_get_frame_timestamps = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_TIMESTAMPS_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3430")]
 		public const int EGL_TIMESTAMPS_ANDROID = 0x3430;
 
+		[NativeName(NativeNameType.Const, "EGL_COMPOSITE_DEADLINE_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3431")]
 		public const int EGL_COMPOSITE_DEADLINE_ANDROID = 0x3431;
 
+		[NativeName(NativeNameType.Const, "EGL_COMPOSITE_INTERVAL_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3432")]
 		public const int EGL_COMPOSITE_INTERVAL_ANDROID = 0x3432;
 
+		[NativeName(NativeNameType.Const, "EGL_COMPOSITE_TO_PRESENT_LATENCY_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3433")]
 		public const int EGL_COMPOSITE_TO_PRESENT_LATENCY_ANDROID = 0x3433;
 
+		[NativeName(NativeNameType.Const, "EGL_REQUESTED_PRESENT_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3434")]
 		public const int EGL_REQUESTED_PRESENT_TIME_ANDROID = 0x3434;
 
+		[NativeName(NativeNameType.Const, "EGL_RENDERING_COMPLETE_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3435")]
 		public const int EGL_RENDERING_COMPLETE_TIME_ANDROID = 0x3435;
 
+		[NativeName(NativeNameType.Const, "EGL_COMPOSITION_LATCH_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3436")]
 		public const int EGL_COMPOSITION_LATCH_TIME_ANDROID = 0x3436;
 
+		[NativeName(NativeNameType.Const, "EGL_FIRST_COMPOSITION_START_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3437")]
 		public const int EGL_FIRST_COMPOSITION_START_TIME_ANDROID = 0x3437;
 
+		[NativeName(NativeNameType.Const, "EGL_LAST_COMPOSITION_START_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3438")]
 		public const int EGL_LAST_COMPOSITION_START_TIME_ANDROID = 0x3438;
 
+		[NativeName(NativeNameType.Const, "EGL_FIRST_COMPOSITION_GPU_FINISHED_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3439")]
 		public const int EGL_FIRST_COMPOSITION_GPU_FINISHED_TIME_ANDROID = 0x3439;
 
+		[NativeName(NativeNameType.Const, "EGL_DISPLAY_PRESENT_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x343A")]
 		public const int EGL_DISPLAY_PRESENT_TIME_ANDROID = 0x343A;
 
+		[NativeName(NativeNameType.Const, "EGL_DEQUEUE_READY_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x343B")]
 		public const int EGL_DEQUEUE_READY_TIME_ANDROID = 0x343B;
 
+		[NativeName(NativeNameType.Const, "EGL_READS_DONE_TIME_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x343C")]
 		public const int EGL_READS_DONE_TIME_ANDROID = 0x343C;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_get_native_client_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_get_native_client_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_image_native_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_image_native_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_BUFFER_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3140")]
 		public const int EGL_NATIVE_BUFFER_ANDROID = 0x3140;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_native_fence_sync")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_native_fence_sync = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_NATIVE_FENCE_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3144")]
 		public const int EGL_SYNC_NATIVE_FENCE_ANDROID = 0x3144;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_NATIVE_FENCE_FD_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3145")]
 		public const int EGL_SYNC_NATIVE_FENCE_FD_ANDROID = 0x3145;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_NATIVE_FENCE_SIGNALED_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3146")]
 		public const int EGL_SYNC_NATIVE_FENCE_SIGNALED_ANDROID = 0x3146;
 
+		[NativeName(NativeNameType.Const, "EGL_NO_NATIVE_FENCE_FD_ANDROID")]
+		[NativeName(NativeNameType.Value, "-1")]
 		public const int EGL_NO_NATIVE_FENCE_FD_ANDROID = -1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_presentation_time")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_presentation_time = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANDROID_recordable")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANDROID_recordable = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_RECORDABLE_ANDROID")]
+		[NativeName(NativeNameType.Value, "0x3142")]
 		public const int EGL_RECORDABLE_ANDROID = 0x3142;
 
+		[NativeName(NativeNameType.Const, "EGL_ANGLE_d3d_share_handle_client_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANGLE_d3d_share_handle_client_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE")]
+		[NativeName(NativeNameType.Value, "0x3200")]
 		public const int EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE = 0x3200;
 
+		[NativeName(NativeNameType.Const, "EGL_ANGLE_device_d3d")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANGLE_device_d3d = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_D3D9_DEVICE_ANGLE")]
+		[NativeName(NativeNameType.Value, "0x33A0")]
 		public const int EGL_D3D9_DEVICE_ANGLE = 0x33A0;
 
+		[NativeName(NativeNameType.Const, "EGL_D3D11_DEVICE_ANGLE")]
+		[NativeName(NativeNameType.Value, "0x33A1")]
 		public const int EGL_D3D11_DEVICE_ANGLE = 0x33A1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANGLE_query_surface_pointer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANGLE_query_surface_pointer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANGLE_surface_d3d_texture_2d_share_handle")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANGLE_surface_d3d_texture_2d_share_handle = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANGLE_sync_control_rate")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANGLE_sync_control_rate = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_ANGLE_window_fixed_size")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ANGLE_window_fixed_size = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_FIXED_SIZE_ANGLE")]
+		[NativeName(NativeNameType.Value, "0x3201")]
 		public const int EGL_FIXED_SIZE_ANGLE = 0x3201;
 
+		[NativeName(NativeNameType.Const, "EGL_ARM_image_format")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ARM_image_format = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_COMPONENT_TYPE_UNSIGNED_INTEGER_ARM")]
+		[NativeName(NativeNameType.Value, "0x3287")]
 		public const int EGL_COLOR_COMPONENT_TYPE_UNSIGNED_INTEGER_ARM = 0x3287;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_COMPONENT_TYPE_INTEGER_ARM")]
+		[NativeName(NativeNameType.Value, "0x3288")]
 		public const int EGL_COLOR_COMPONENT_TYPE_INTEGER_ARM = 0x3288;
 
+		[NativeName(NativeNameType.Const, "EGL_ARM_implicit_external_sync")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ARM_implicit_external_sync = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_PRIOR_COMMANDS_IMPLICIT_EXTERNAL_ARM")]
+		[NativeName(NativeNameType.Value, "0x328A")]
 		public const int EGL_SYNC_PRIOR_COMMANDS_IMPLICIT_EXTERNAL_ARM = 0x328A;
 
+		[NativeName(NativeNameType.Const, "EGL_ARM_pixmap_multisample_discard")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_ARM_pixmap_multisample_discard = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_DISCARD_SAMPLES_ARM")]
+		[NativeName(NativeNameType.Value, "0x3286")]
 		public const int EGL_DISCARD_SAMPLES_ARM = 0x3286;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_bind_to_front")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_bind_to_front = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_FRONT_BUFFER_EXT")]
+		[NativeName(NativeNameType.Value, "0x3464")]
 		public const int EGL_FRONT_BUFFER_EXT = 0x3464;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_buffer_age")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_buffer_age = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_BUFFER_AGE_EXT")]
+		[NativeName(NativeNameType.Value, "0x313D")]
 		public const int EGL_BUFFER_AGE_EXT = 0x313D;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_client_extensions")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_client_extensions = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_client_sync")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_client_sync = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CLIENT_EXT")]
+		[NativeName(NativeNameType.Value, "0x3364")]
 		public const int EGL_SYNC_CLIENT_EXT = 0x3364;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CLIENT_SIGNAL_EXT")]
+		[NativeName(NativeNameType.Value, "0x3365")]
 		public const int EGL_SYNC_CLIENT_SIGNAL_EXT = 0x3365;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_compositor")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_compositor = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PRIMARY_COMPOSITOR_CONTEXT_EXT")]
+		[NativeName(NativeNameType.Value, "0x3460")]
 		public const int EGL_PRIMARY_COMPOSITOR_CONTEXT_EXT = 0x3460;
 
+		[NativeName(NativeNameType.Const, "EGL_EXTERNAL_REF_ID_EXT")]
+		[NativeName(NativeNameType.Value, "0x3461")]
 		public const int EGL_EXTERNAL_REF_ID_EXT = 0x3461;
 
+		[NativeName(NativeNameType.Const, "EGL_COMPOSITOR_DROP_NEWEST_FRAME_EXT")]
+		[NativeName(NativeNameType.Value, "0x3462")]
 		public const int EGL_COMPOSITOR_DROP_NEWEST_FRAME_EXT = 0x3462;
 
+		[NativeName(NativeNameType.Const, "EGL_COMPOSITOR_KEEP_NEWEST_FRAME_EXT")]
+		[NativeName(NativeNameType.Value, "0x3463")]
 		public const int EGL_COMPOSITOR_KEEP_NEWEST_FRAME_EXT = 0x3463;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_config_select_group")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_config_select_group = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONFIG_SELECT_GROUP_EXT")]
+		[NativeName(NativeNameType.Value, "0x34C0")]
 		public const int EGL_CONFIG_SELECT_GROUP_EXT = 0x34C0;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_create_context_robustness")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_create_context_robustness = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_ROBUST_ACCESS_EXT")]
+		[NativeName(NativeNameType.Value, "0x30BF")]
 		public const int EGL_CONTEXT_OPENGL_ROBUST_ACCESS_EXT = 0x30BF;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_EXT")]
+		[NativeName(NativeNameType.Value, "0x3138")]
 		public const int EGL_CONTEXT_OPENGL_RESET_NOTIFICATION_STRATEGY_EXT = 0x3138;
 
+		[NativeName(NativeNameType.Const, "EGL_NO_RESET_NOTIFICATION_EXT")]
+		[NativeName(NativeNameType.Value, "0x31BE")]
 		public const int EGL_NO_RESET_NOTIFICATION_EXT = 0x31BE;
 
+		[NativeName(NativeNameType.Const, "EGL_LOSE_CONTEXT_ON_RESET_EXT")]
+		[NativeName(NativeNameType.Value, "0x31BF")]
 		public const int EGL_LOSE_CONTEXT_ON_RESET_EXT = 0x31BF;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_device_base")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_device_base = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_DEVICE_EXT")]
+		[NativeName(NativeNameType.Value, "0x322B")]
 		public const int EGL_BAD_DEVICE_EXT = 0x322B;
 
+		[NativeName(NativeNameType.Const, "EGL_DEVICE_EXT")]
+		[NativeName(NativeNameType.Value, "0x322C")]
 		public const int EGL_DEVICE_EXT = 0x322C;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_device_drm")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_device_drm = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_DEVICE_FILE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3233")]
 		public const int EGL_DRM_DEVICE_FILE_EXT = 0x3233;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_MASTER_FD_EXT")]
+		[NativeName(NativeNameType.Value, "0x333C")]
 		public const int EGL_DRM_MASTER_FD_EXT = 0x333C;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_device_drm_render_node")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_device_drm_render_node = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_RENDER_NODE_FILE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3377")]
 		public const int EGL_DRM_RENDER_NODE_FILE_EXT = 0x3377;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_device_enumeration")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_device_enumeration = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_device_openwf")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_device_openwf = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENWF_DEVICE_ID_EXT")]
+		[NativeName(NativeNameType.Value, "0x3237")]
 		public const int EGL_OPENWF_DEVICE_ID_EXT = 0x3237;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENWF_DEVICE_EXT")]
+		[NativeName(NativeNameType.Value, "0x333D")]
 		public const int EGL_OPENWF_DEVICE_EXT = 0x333D;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_device_persistent_id")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_device_persistent_id = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_DEVICE_UUID_EXT")]
+		[NativeName(NativeNameType.Value, "0x335C")]
 		public const int EGL_DEVICE_UUID_EXT = 0x335C;
 
+		[NativeName(NativeNameType.Const, "EGL_DRIVER_UUID_EXT")]
+		[NativeName(NativeNameType.Value, "0x335D")]
 		public const int EGL_DRIVER_UUID_EXT = 0x335D;
 
+		[NativeName(NativeNameType.Const, "EGL_DRIVER_NAME_EXT")]
+		[NativeName(NativeNameType.Value, "0x335E")]
 		public const int EGL_DRIVER_NAME_EXT = 0x335E;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_device_query")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_device_query = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_device_query_name")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_device_query_name = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_RENDERER_EXT")]
+		[NativeName(NativeNameType.Value, "0x335F")]
 		public const int EGL_RENDERER_EXT = 0x335F;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_explicit_device")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_explicit_device = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_gl_colorspace_bt2020_linear")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_gl_colorspace_bt2020_linear = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_BT2020_LINEAR_EXT")]
+		[NativeName(NativeNameType.Value, "0x333F")]
 		public const int EGL_GL_COLORSPACE_BT2020_LINEAR_EXT = 0x333F;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_gl_colorspace_bt2020_pq")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_gl_colorspace_bt2020_pq = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_BT2020_PQ_EXT")]
+		[NativeName(NativeNameType.Value, "0x3340")]
 		public const int EGL_GL_COLORSPACE_BT2020_PQ_EXT = 0x3340;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_gl_colorspace_display_p3")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_gl_colorspace_display_p3 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_DISPLAY_P3_EXT")]
+		[NativeName(NativeNameType.Value, "0x3363")]
 		public const int EGL_GL_COLORSPACE_DISPLAY_P3_EXT = 0x3363;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_gl_colorspace_display_p3_linear")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_gl_colorspace_display_p3_linear = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_DISPLAY_P3_LINEAR_EXT")]
+		[NativeName(NativeNameType.Value, "0x3362")]
 		public const int EGL_GL_COLORSPACE_DISPLAY_P3_LINEAR_EXT = 0x3362;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_gl_colorspace_display_p3_passthrough")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_gl_colorspace_display_p3_passthrough = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_DISPLAY_P3_PASSTHROUGH_EXT")]
+		[NativeName(NativeNameType.Value, "0x3490")]
 		public const int EGL_GL_COLORSPACE_DISPLAY_P3_PASSTHROUGH_EXT = 0x3490;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_gl_colorspace_scrgb")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_gl_colorspace_scrgb = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_SCRGB_EXT")]
+		[NativeName(NativeNameType.Value, "0x3351")]
 		public const int EGL_GL_COLORSPACE_SCRGB_EXT = 0x3351;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_gl_colorspace_scrgb_linear")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_gl_colorspace_scrgb_linear = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_SCRGB_LINEAR_EXT")]
+		[NativeName(NativeNameType.Value, "0x3350")]
 		public const int EGL_GL_COLORSPACE_SCRGB_LINEAR_EXT = 0x3350;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_image_dma_buf_import")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_image_dma_buf_import = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_LINUX_DMA_BUF_EXT")]
+		[NativeName(NativeNameType.Value, "0x3270")]
 		public const int EGL_LINUX_DMA_BUF_EXT = 0x3270;
 
+		[NativeName(NativeNameType.Const, "EGL_LINUX_DRM_FOURCC_EXT")]
+		[NativeName(NativeNameType.Value, "0x3271")]
 		public const int EGL_LINUX_DRM_FOURCC_EXT = 0x3271;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE0_FD_EXT")]
+		[NativeName(NativeNameType.Value, "0x3272")]
 		public const int EGL_DMA_BUF_PLANE0_FD_EXT = 0x3272;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE0_OFFSET_EXT")]
+		[NativeName(NativeNameType.Value, "0x3273")]
 		public const int EGL_DMA_BUF_PLANE0_OFFSET_EXT = 0x3273;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE0_PITCH_EXT")]
+		[NativeName(NativeNameType.Value, "0x3274")]
 		public const int EGL_DMA_BUF_PLANE0_PITCH_EXT = 0x3274;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE1_FD_EXT")]
+		[NativeName(NativeNameType.Value, "0x3275")]
 		public const int EGL_DMA_BUF_PLANE1_FD_EXT = 0x3275;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE1_OFFSET_EXT")]
+		[NativeName(NativeNameType.Value, "0x3276")]
 		public const int EGL_DMA_BUF_PLANE1_OFFSET_EXT = 0x3276;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE1_PITCH_EXT")]
+		[NativeName(NativeNameType.Value, "0x3277")]
 		public const int EGL_DMA_BUF_PLANE1_PITCH_EXT = 0x3277;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE2_FD_EXT")]
+		[NativeName(NativeNameType.Value, "0x3278")]
 		public const int EGL_DMA_BUF_PLANE2_FD_EXT = 0x3278;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE2_OFFSET_EXT")]
+		[NativeName(NativeNameType.Value, "0x3279")]
 		public const int EGL_DMA_BUF_PLANE2_OFFSET_EXT = 0x3279;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE2_PITCH_EXT")]
+		[NativeName(NativeNameType.Value, "0x327A")]
 		public const int EGL_DMA_BUF_PLANE2_PITCH_EXT = 0x327A;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_COLOR_SPACE_HINT_EXT")]
+		[NativeName(NativeNameType.Value, "0x327B")]
 		public const int EGL_YUV_COLOR_SPACE_HINT_EXT = 0x327B;
 
+		[NativeName(NativeNameType.Const, "EGL_SAMPLE_RANGE_HINT_EXT")]
+		[NativeName(NativeNameType.Value, "0x327C")]
 		public const int EGL_SAMPLE_RANGE_HINT_EXT = 0x327C;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_CHROMA_HORIZONTAL_SITING_HINT_EXT")]
+		[NativeName(NativeNameType.Value, "0x327D")]
 		public const int EGL_YUV_CHROMA_HORIZONTAL_SITING_HINT_EXT = 0x327D;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_CHROMA_VERTICAL_SITING_HINT_EXT")]
+		[NativeName(NativeNameType.Value, "0x327E")]
 		public const int EGL_YUV_CHROMA_VERTICAL_SITING_HINT_EXT = 0x327E;
 
+		[NativeName(NativeNameType.Const, "EGL_ITU_REC601_EXT")]
+		[NativeName(NativeNameType.Value, "0x327F")]
 		public const int EGL_ITU_REC601_EXT = 0x327F;
 
+		[NativeName(NativeNameType.Const, "EGL_ITU_REC709_EXT")]
+		[NativeName(NativeNameType.Value, "0x3280")]
 		public const int EGL_ITU_REC709_EXT = 0x3280;
 
+		[NativeName(NativeNameType.Const, "EGL_ITU_REC2020_EXT")]
+		[NativeName(NativeNameType.Value, "0x3281")]
 		public const int EGL_ITU_REC2020_EXT = 0x3281;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_FULL_RANGE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3282")]
 		public const int EGL_YUV_FULL_RANGE_EXT = 0x3282;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_NARROW_RANGE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3283")]
 		public const int EGL_YUV_NARROW_RANGE_EXT = 0x3283;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_CHROMA_SITING_0_EXT")]
+		[NativeName(NativeNameType.Value, "0x3284")]
 		public const int EGL_YUV_CHROMA_SITING_0_EXT = 0x3284;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_CHROMA_SITING_0_5_EXT")]
+		[NativeName(NativeNameType.Value, "0x3285")]
 		public const int EGL_YUV_CHROMA_SITING_0_5_EXT = 0x3285;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_image_dma_buf_import_modifiers")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_image_dma_buf_import_modifiers = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE3_FD_EXT")]
+		[NativeName(NativeNameType.Value, "0x3440")]
 		public const int EGL_DMA_BUF_PLANE3_FD_EXT = 0x3440;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE3_OFFSET_EXT")]
+		[NativeName(NativeNameType.Value, "0x3441")]
 		public const int EGL_DMA_BUF_PLANE3_OFFSET_EXT = 0x3441;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE3_PITCH_EXT")]
+		[NativeName(NativeNameType.Value, "0x3442")]
 		public const int EGL_DMA_BUF_PLANE3_PITCH_EXT = 0x3442;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE0_MODIFIER_LO_EXT")]
+		[NativeName(NativeNameType.Value, "0x3443")]
 		public const int EGL_DMA_BUF_PLANE0_MODIFIER_LO_EXT = 0x3443;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE0_MODIFIER_HI_EXT")]
+		[NativeName(NativeNameType.Value, "0x3444")]
 		public const int EGL_DMA_BUF_PLANE0_MODIFIER_HI_EXT = 0x3444;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE1_MODIFIER_LO_EXT")]
+		[NativeName(NativeNameType.Value, "0x3445")]
 		public const int EGL_DMA_BUF_PLANE1_MODIFIER_LO_EXT = 0x3445;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE1_MODIFIER_HI_EXT")]
+		[NativeName(NativeNameType.Value, "0x3446")]
 		public const int EGL_DMA_BUF_PLANE1_MODIFIER_HI_EXT = 0x3446;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE2_MODIFIER_LO_EXT")]
+		[NativeName(NativeNameType.Value, "0x3447")]
 		public const int EGL_DMA_BUF_PLANE2_MODIFIER_LO_EXT = 0x3447;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE2_MODIFIER_HI_EXT")]
+		[NativeName(NativeNameType.Value, "0x3448")]
 		public const int EGL_DMA_BUF_PLANE2_MODIFIER_HI_EXT = 0x3448;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE3_MODIFIER_LO_EXT")]
+		[NativeName(NativeNameType.Value, "0x3449")]
 		public const int EGL_DMA_BUF_PLANE3_MODIFIER_LO_EXT = 0x3449;
 
+		[NativeName(NativeNameType.Const, "EGL_DMA_BUF_PLANE3_MODIFIER_HI_EXT")]
+		[NativeName(NativeNameType.Value, "0x344A")]
 		public const int EGL_DMA_BUF_PLANE3_MODIFIER_HI_EXT = 0x344A;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_image_gl_colorspace")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_image_gl_colorspace = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GL_COLORSPACE_DEFAULT_EXT")]
+		[NativeName(NativeNameType.Value, "0x314D")]
 		public const int EGL_GL_COLORSPACE_DEFAULT_EXT = 0x314D;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_image_implicit_sync_control")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_image_implicit_sync_control = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_IMPORT_SYNC_TYPE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3470")]
 		public const int EGL_IMPORT_SYNC_TYPE_EXT = 0x3470;
 
+		[NativeName(NativeNameType.Const, "EGL_IMPORT_IMPLICIT_SYNC_EXT")]
+		[NativeName(NativeNameType.Value, "0x3471")]
 		public const int EGL_IMPORT_IMPLICIT_SYNC_EXT = 0x3471;
 
+		[NativeName(NativeNameType.Const, "EGL_IMPORT_EXPLICIT_SYNC_EXT")]
+		[NativeName(NativeNameType.Value, "0x3472")]
 		public const int EGL_IMPORT_EXPLICIT_SYNC_EXT = 0x3472;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_multiview_window")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_multiview_window = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_MULTIVIEW_VIEW_COUNT_EXT")]
+		[NativeName(NativeNameType.Value, "0x3134")]
 		public const int EGL_MULTIVIEW_VIEW_COUNT_EXT = 0x3134;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_output_base")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_output_base = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_OUTPUT_LAYER_EXT")]
+		[NativeName(NativeNameType.Value, "0x322D")]
 		public const int EGL_BAD_OUTPUT_LAYER_EXT = 0x322D;
 
+		[NativeName(NativeNameType.Const, "EGL_BAD_OUTPUT_PORT_EXT")]
+		[NativeName(NativeNameType.Value, "0x322E")]
 		public const int EGL_BAD_OUTPUT_PORT_EXT = 0x322E;
 
+		[NativeName(NativeNameType.Const, "EGL_SWAP_INTERVAL_EXT")]
+		[NativeName(NativeNameType.Value, "0x322F")]
 		public const int EGL_SWAP_INTERVAL_EXT = 0x322F;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_output_drm")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_output_drm = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_CRTC_EXT")]
+		[NativeName(NativeNameType.Value, "0x3234")]
 		public const int EGL_DRM_CRTC_EXT = 0x3234;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_PLANE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3235")]
 		public const int EGL_DRM_PLANE_EXT = 0x3235;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_CONNECTOR_EXT")]
+		[NativeName(NativeNameType.Value, "0x3236")]
 		public const int EGL_DRM_CONNECTOR_EXT = 0x3236;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_output_openwf")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_output_openwf = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENWF_PIPELINE_ID_EXT")]
+		[NativeName(NativeNameType.Value, "0x3238")]
 		public const int EGL_OPENWF_PIPELINE_ID_EXT = 0x3238;
 
+		[NativeName(NativeNameType.Const, "EGL_OPENWF_PORT_ID_EXT")]
+		[NativeName(NativeNameType.Value, "0x3239")]
 		public const int EGL_OPENWF_PORT_ID_EXT = 0x3239;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_pixel_format_float")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_pixel_format_float = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_COMPONENT_TYPE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3339")]
 		public const int EGL_COLOR_COMPONENT_TYPE_EXT = 0x3339;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_COMPONENT_TYPE_FIXED_EXT")]
+		[NativeName(NativeNameType.Value, "0x333A")]
 		public const int EGL_COLOR_COMPONENT_TYPE_FIXED_EXT = 0x333A;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_COMPONENT_TYPE_FLOAT_EXT")]
+		[NativeName(NativeNameType.Value, "0x333B")]
 		public const int EGL_COLOR_COMPONENT_TYPE_FLOAT_EXT = 0x333B;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_platform_base")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_platform_base = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_platform_device")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_platform_device = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_DEVICE_EXT")]
+		[NativeName(NativeNameType.Value, "0x313F")]
 		public const int EGL_PLATFORM_DEVICE_EXT = 0x313F;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_platform_wayland")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_platform_wayland = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_WAYLAND_EXT")]
+		[NativeName(NativeNameType.Value, "0x31D8")]
 		public const int EGL_PLATFORM_WAYLAND_EXT = 0x31D8;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_platform_x11")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_platform_x11 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_X11_EXT")]
+		[NativeName(NativeNameType.Value, "0x31D5")]
 		public const int EGL_PLATFORM_X11_EXT = 0x31D5;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_X11_SCREEN_EXT")]
+		[NativeName(NativeNameType.Value, "0x31D6")]
 		public const int EGL_PLATFORM_X11_SCREEN_EXT = 0x31D6;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_platform_xcb")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_platform_xcb = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_XCB_EXT")]
+		[NativeName(NativeNameType.Value, "0x31DC")]
 		public const int EGL_PLATFORM_XCB_EXT = 0x31DC;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_XCB_SCREEN_EXT")]
+		[NativeName(NativeNameType.Value, "0x31DE")]
 		public const int EGL_PLATFORM_XCB_SCREEN_EXT = 0x31DE;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_present_opaque")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_present_opaque = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PRESENT_OPAQUE_EXT")]
+		[NativeName(NativeNameType.Value, "0x31DF")]
 		public const int EGL_PRESENT_OPAQUE_EXT = 0x31DF;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_protected_content")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_protected_content = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PROTECTED_CONTENT_EXT")]
+		[NativeName(NativeNameType.Value, "0x32C0")]
 		public const int EGL_PROTECTED_CONTENT_EXT = 0x32C0;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_protected_surface")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_protected_surface = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_stream_consumer_egloutput")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_stream_consumer_egloutput = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_surface_CTA861_3_metadata")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_surface_CTA861_3_metadata = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CTA861_3_MAX_CONTENT_LIGHT_LEVEL_EXT")]
+		[NativeName(NativeNameType.Value, "0x3360")]
 		public const int EGL_CTA861_3_MAX_CONTENT_LIGHT_LEVEL_EXT = 0x3360;
 
+		[NativeName(NativeNameType.Const, "EGL_CTA861_3_MAX_FRAME_AVERAGE_LEVEL_EXT")]
+		[NativeName(NativeNameType.Value, "0x3361")]
 		public const int EGL_CTA861_3_MAX_FRAME_AVERAGE_LEVEL_EXT = 0x3361;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_surface_SMPTE2086_metadata")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_surface_SMPTE2086_metadata = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_DISPLAY_PRIMARY_RX_EXT")]
+		[NativeName(NativeNameType.Value, "0x3341")]
 		public const int EGL_SMPTE2086_DISPLAY_PRIMARY_RX_EXT = 0x3341;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_DISPLAY_PRIMARY_RY_EXT")]
+		[NativeName(NativeNameType.Value, "0x3342")]
 		public const int EGL_SMPTE2086_DISPLAY_PRIMARY_RY_EXT = 0x3342;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_DISPLAY_PRIMARY_GX_EXT")]
+		[NativeName(NativeNameType.Value, "0x3343")]
 		public const int EGL_SMPTE2086_DISPLAY_PRIMARY_GX_EXT = 0x3343;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_DISPLAY_PRIMARY_GY_EXT")]
+		[NativeName(NativeNameType.Value, "0x3344")]
 		public const int EGL_SMPTE2086_DISPLAY_PRIMARY_GY_EXT = 0x3344;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_DISPLAY_PRIMARY_BX_EXT")]
+		[NativeName(NativeNameType.Value, "0x3345")]
 		public const int EGL_SMPTE2086_DISPLAY_PRIMARY_BX_EXT = 0x3345;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_DISPLAY_PRIMARY_BY_EXT")]
+		[NativeName(NativeNameType.Value, "0x3346")]
 		public const int EGL_SMPTE2086_DISPLAY_PRIMARY_BY_EXT = 0x3346;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_WHITE_POINT_X_EXT")]
+		[NativeName(NativeNameType.Value, "0x3347")]
 		public const int EGL_SMPTE2086_WHITE_POINT_X_EXT = 0x3347;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_WHITE_POINT_Y_EXT")]
+		[NativeName(NativeNameType.Value, "0x3348")]
 		public const int EGL_SMPTE2086_WHITE_POINT_Y_EXT = 0x3348;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_MAX_LUMINANCE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3349")]
 		public const int EGL_SMPTE2086_MAX_LUMINANCE_EXT = 0x3349;
 
+		[NativeName(NativeNameType.Const, "EGL_SMPTE2086_MIN_LUMINANCE_EXT")]
+		[NativeName(NativeNameType.Value, "0x334A")]
 		public const int EGL_SMPTE2086_MIN_LUMINANCE_EXT = 0x334A;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA_SCALING_EXT")]
+		[NativeName(NativeNameType.Value, "50000")]
 		public const int EGL_METADATA_SCALING_EXT = 50000;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_surface_compression")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_surface_compression = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B0")]
 		public const int EGL_SURFACE_COMPRESSION_EXT = 0x34B0;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_PLANE1_EXT")]
+		[NativeName(NativeNameType.Value, "0x328E")]
 		public const int EGL_SURFACE_COMPRESSION_PLANE1_EXT = 0x328E;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_PLANE2_EXT")]
+		[NativeName(NativeNameType.Value, "0x328F")]
 		public const int EGL_SURFACE_COMPRESSION_PLANE2_EXT = 0x328F;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_NONE_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B1")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_NONE_EXT = 0x34B1;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_DEFAULT_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B2")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_DEFAULT_EXT = 0x34B2;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_1BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B4")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_1BPC_EXT = 0x34B4;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_2BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B5")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_2BPC_EXT = 0x34B5;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_3BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B6")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_3BPC_EXT = 0x34B6;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_4BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B7")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_4BPC_EXT = 0x34B7;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_5BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B8")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_5BPC_EXT = 0x34B8;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_6BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34B9")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_6BPC_EXT = 0x34B9;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_7BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34BA")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_7BPC_EXT = 0x34BA;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_8BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34BB")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_8BPC_EXT = 0x34BB;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_9BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34BC")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_9BPC_EXT = 0x34BC;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_10BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34BD")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_10BPC_EXT = 0x34BD;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_11BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34BE")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_11BPC_EXT = 0x34BE;
 
+		[NativeName(NativeNameType.Const, "EGL_SURFACE_COMPRESSION_FIXED_RATE_12BPC_EXT")]
+		[NativeName(NativeNameType.Value, "0x34BF")]
 		public const int EGL_SURFACE_COMPRESSION_FIXED_RATE_12BPC_EXT = 0x34BF;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_swap_buffers_with_damage")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_swap_buffers_with_damage = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_sync_reuse")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_sync_reuse = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_EXT_yuv_surface")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_EXT_yuv_surface = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_ORDER_EXT")]
+		[NativeName(NativeNameType.Value, "0x3301")]
 		public const int EGL_YUV_ORDER_EXT = 0x3301;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_NUMBER_OF_PLANES_EXT")]
+		[NativeName(NativeNameType.Value, "0x3311")]
 		public const int EGL_YUV_NUMBER_OF_PLANES_EXT = 0x3311;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_SUBSAMPLE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3312")]
 		public const int EGL_YUV_SUBSAMPLE_EXT = 0x3312;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_DEPTH_RANGE_EXT")]
+		[NativeName(NativeNameType.Value, "0x3317")]
 		public const int EGL_YUV_DEPTH_RANGE_EXT = 0x3317;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_CSC_STANDARD_EXT")]
+		[NativeName(NativeNameType.Value, "0x330A")]
 		public const int EGL_YUV_CSC_STANDARD_EXT = 0x330A;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_PLANE_BPP_EXT")]
+		[NativeName(NativeNameType.Value, "0x331A")]
 		public const int EGL_YUV_PLANE_BPP_EXT = 0x331A;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_BUFFER_EXT")]
+		[NativeName(NativeNameType.Value, "0x3300")]
 		public const int EGL_YUV_BUFFER_EXT = 0x3300;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_ORDER_YUV_EXT")]
+		[NativeName(NativeNameType.Value, "0x3302")]
 		public const int EGL_YUV_ORDER_YUV_EXT = 0x3302;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_ORDER_YVU_EXT")]
+		[NativeName(NativeNameType.Value, "0x3303")]
 		public const int EGL_YUV_ORDER_YVU_EXT = 0x3303;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_ORDER_YUYV_EXT")]
+		[NativeName(NativeNameType.Value, "0x3304")]
 		public const int EGL_YUV_ORDER_YUYV_EXT = 0x3304;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_ORDER_UYVY_EXT")]
+		[NativeName(NativeNameType.Value, "0x3305")]
 		public const int EGL_YUV_ORDER_UYVY_EXT = 0x3305;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_ORDER_YVYU_EXT")]
+		[NativeName(NativeNameType.Value, "0x3306")]
 		public const int EGL_YUV_ORDER_YVYU_EXT = 0x3306;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_ORDER_VYUY_EXT")]
+		[NativeName(NativeNameType.Value, "0x3307")]
 		public const int EGL_YUV_ORDER_VYUY_EXT = 0x3307;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_ORDER_AYUV_EXT")]
+		[NativeName(NativeNameType.Value, "0x3308")]
 		public const int EGL_YUV_ORDER_AYUV_EXT = 0x3308;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_SUBSAMPLE_4_2_0_EXT")]
+		[NativeName(NativeNameType.Value, "0x3313")]
 		public const int EGL_YUV_SUBSAMPLE_4_2_0_EXT = 0x3313;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_SUBSAMPLE_4_2_2_EXT")]
+		[NativeName(NativeNameType.Value, "0x3314")]
 		public const int EGL_YUV_SUBSAMPLE_4_2_2_EXT = 0x3314;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_SUBSAMPLE_4_4_4_EXT")]
+		[NativeName(NativeNameType.Value, "0x3315")]
 		public const int EGL_YUV_SUBSAMPLE_4_4_4_EXT = 0x3315;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_DEPTH_RANGE_LIMITED_EXT")]
+		[NativeName(NativeNameType.Value, "0x3318")]
 		public const int EGL_YUV_DEPTH_RANGE_LIMITED_EXT = 0x3318;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_DEPTH_RANGE_FULL_EXT")]
+		[NativeName(NativeNameType.Value, "0x3319")]
 		public const int EGL_YUV_DEPTH_RANGE_FULL_EXT = 0x3319;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_CSC_STANDARD_601_EXT")]
+		[NativeName(NativeNameType.Value, "0x330B")]
 		public const int EGL_YUV_CSC_STANDARD_601_EXT = 0x330B;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_CSC_STANDARD_709_EXT")]
+		[NativeName(NativeNameType.Value, "0x330C")]
 		public const int EGL_YUV_CSC_STANDARD_709_EXT = 0x330C;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_CSC_STANDARD_2020_EXT")]
+		[NativeName(NativeNameType.Value, "0x330D")]
 		public const int EGL_YUV_CSC_STANDARD_2020_EXT = 0x330D;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_PLANE_BPP_0_EXT")]
+		[NativeName(NativeNameType.Value, "0x331B")]
 		public const int EGL_YUV_PLANE_BPP_0_EXT = 0x331B;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_PLANE_BPP_8_EXT")]
+		[NativeName(NativeNameType.Value, "0x331C")]
 		public const int EGL_YUV_PLANE_BPP_8_EXT = 0x331C;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_PLANE_BPP_10_EXT")]
+		[NativeName(NativeNameType.Value, "0x331D")]
 		public const int EGL_YUV_PLANE_BPP_10_EXT = 0x331D;
 
+		[NativeName(NativeNameType.Const, "EGL_HI_clientpixmap")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_HI_clientpixmap = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CLIENT_PIXMAP_POINTER_HI")]
+		[NativeName(NativeNameType.Value, "0x8F74")]
 		public const int EGL_CLIENT_PIXMAP_POINTER_HI = 0x8F74;
 
+		[NativeName(NativeNameType.Const, "EGL_HI_colorformats")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_HI_colorformats = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_FORMAT_HI")]
+		[NativeName(NativeNameType.Value, "0x8F70")]
 		public const int EGL_COLOR_FORMAT_HI = 0x8F70;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_RGB_HI")]
+		[NativeName(NativeNameType.Value, "0x8F71")]
 		public const int EGL_COLOR_RGB_HI = 0x8F71;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_RGBA_HI")]
+		[NativeName(NativeNameType.Value, "0x8F72")]
 		public const int EGL_COLOR_RGBA_HI = 0x8F72;
 
+		[NativeName(NativeNameType.Const, "EGL_COLOR_ARGB_HI")]
+		[NativeName(NativeNameType.Value, "0x8F73")]
 		public const int EGL_COLOR_ARGB_HI = 0x8F73;
 
+		[NativeName(NativeNameType.Const, "EGL_IMG_context_priority")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_IMG_context_priority = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_PRIORITY_LEVEL_IMG")]
+		[NativeName(NativeNameType.Value, "0x3100")]
 		public const int EGL_CONTEXT_PRIORITY_LEVEL_IMG = 0x3100;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_PRIORITY_HIGH_IMG")]
+		[NativeName(NativeNameType.Value, "0x3101")]
 		public const int EGL_CONTEXT_PRIORITY_HIGH_IMG = 0x3101;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_PRIORITY_MEDIUM_IMG")]
+		[NativeName(NativeNameType.Value, "0x3102")]
 		public const int EGL_CONTEXT_PRIORITY_MEDIUM_IMG = 0x3102;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_PRIORITY_LOW_IMG")]
+		[NativeName(NativeNameType.Value, "0x3103")]
 		public const int EGL_CONTEXT_PRIORITY_LOW_IMG = 0x3103;
 
+		[NativeName(NativeNameType.Const, "EGL_IMG_image_plane_attribs")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_IMG_image_plane_attribs = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_BUFFER_MULTIPLANE_SEPARATE_IMG")]
+		[NativeName(NativeNameType.Value, "0x3105")]
 		public const int EGL_NATIVE_BUFFER_MULTIPLANE_SEPARATE_IMG = 0x3105;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_BUFFER_PLANE_OFFSET_IMG")]
+		[NativeName(NativeNameType.Value, "0x3106")]
 		public const int EGL_NATIVE_BUFFER_PLANE_OFFSET_IMG = 0x3106;
 
+		[NativeName(NativeNameType.Const, "EGL_MESA_drm_image")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_MESA_drm_image = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_BUFFER_FORMAT_MESA")]
+		[NativeName(NativeNameType.Value, "0x31D0")]
 		public const int EGL_DRM_BUFFER_FORMAT_MESA = 0x31D0;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_BUFFER_USE_MESA")]
+		[NativeName(NativeNameType.Value, "0x31D1")]
 		public const int EGL_DRM_BUFFER_USE_MESA = 0x31D1;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_BUFFER_FORMAT_ARGB32_MESA")]
+		[NativeName(NativeNameType.Value, "0x31D2")]
 		public const int EGL_DRM_BUFFER_FORMAT_ARGB32_MESA = 0x31D2;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_BUFFER_MESA")]
+		[NativeName(NativeNameType.Value, "0x31D3")]
 		public const int EGL_DRM_BUFFER_MESA = 0x31D3;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_BUFFER_STRIDE_MESA")]
+		[NativeName(NativeNameType.Value, "0x31D4")]
 		public const int EGL_DRM_BUFFER_STRIDE_MESA = 0x31D4;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_BUFFER_USE_SCANOUT_MESA")]
+		[NativeName(NativeNameType.Value, "0x00000001")]
 		public const int EGL_DRM_BUFFER_USE_SCANOUT_MESA = 0x00000001;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_BUFFER_USE_SHARE_MESA")]
+		[NativeName(NativeNameType.Value, "0x00000002")]
 		public const int EGL_DRM_BUFFER_USE_SHARE_MESA = 0x00000002;
 
+		[NativeName(NativeNameType.Const, "EGL_DRM_BUFFER_USE_CURSOR_MESA")]
+		[NativeName(NativeNameType.Value, "0x00000004")]
 		public const int EGL_DRM_BUFFER_USE_CURSOR_MESA = 0x00000004;
 
+		[NativeName(NativeNameType.Const, "EGL_MESA_image_dma_buf_export")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_MESA_image_dma_buf_export = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_MESA_platform_gbm")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_MESA_platform_gbm = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_GBM_MESA")]
+		[NativeName(NativeNameType.Value, "0x31D7")]
 		public const int EGL_PLATFORM_GBM_MESA = 0x31D7;
 
+		[NativeName(NativeNameType.Const, "EGL_MESA_platform_surfaceless")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_MESA_platform_surfaceless = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PLATFORM_SURFACELESS_MESA")]
+		[NativeName(NativeNameType.Value, "0x31DD")]
 		public const int EGL_PLATFORM_SURFACELESS_MESA = 0x31DD;
 
+		[NativeName(NativeNameType.Const, "EGL_MESA_query_driver")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_MESA_query_driver = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NOK_swap_region")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NOK_swap_region = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NOK_swap_region2")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NOK_swap_region2 = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NOK_texture_from_pixmap")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NOK_texture_from_pixmap = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_Y_INVERTED_NOK")]
+		[NativeName(NativeNameType.Value, "0x307F")]
 		public const int EGL_Y_INVERTED_NOK = 0x307F;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_3dvision_surface")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_3dvision_surface = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_AUTO_STEREO_NV")]
+		[NativeName(NativeNameType.Value, "0x3136")]
 		public const int EGL_AUTO_STEREO_NV = 0x3136;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_context_priority_realtime")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_context_priority_realtime = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CONTEXT_PRIORITY_REALTIME_NV")]
+		[NativeName(NativeNameType.Value, "0x3357")]
 		public const int EGL_CONTEXT_PRIORITY_REALTIME_NV = 0x3357;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_coverage_sample")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_coverage_sample = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_COVERAGE_BUFFERS_NV")]
+		[NativeName(NativeNameType.Value, "0x30E0")]
 		public const int EGL_COVERAGE_BUFFERS_NV = 0x30E0;
 
+		[NativeName(NativeNameType.Const, "EGL_COVERAGE_SAMPLES_NV")]
+		[NativeName(NativeNameType.Value, "0x30E1")]
 		public const int EGL_COVERAGE_SAMPLES_NV = 0x30E1;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_coverage_sample_resolve")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_coverage_sample_resolve = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_COVERAGE_SAMPLE_RESOLVE_NV")]
+		[NativeName(NativeNameType.Value, "0x3131")]
 		public const int EGL_COVERAGE_SAMPLE_RESOLVE_NV = 0x3131;
 
+		[NativeName(NativeNameType.Const, "EGL_COVERAGE_SAMPLE_RESOLVE_DEFAULT_NV")]
+		[NativeName(NativeNameType.Value, "0x3132")]
 		public const int EGL_COVERAGE_SAMPLE_RESOLVE_DEFAULT_NV = 0x3132;
 
+		[NativeName(NativeNameType.Const, "EGL_COVERAGE_SAMPLE_RESOLVE_NONE_NV")]
+		[NativeName(NativeNameType.Value, "0x3133")]
 		public const int EGL_COVERAGE_SAMPLE_RESOLVE_NONE_NV = 0x3133;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_cuda_event")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_cuda_event = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CUDA_EVENT_HANDLE_NV")]
+		[NativeName(NativeNameType.Value, "0x323B")]
 		public const int EGL_CUDA_EVENT_HANDLE_NV = 0x323B;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CUDA_EVENT_NV")]
+		[NativeName(NativeNameType.Value, "0x323C")]
 		public const int EGL_SYNC_CUDA_EVENT_NV = 0x323C;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CUDA_EVENT_COMPLETE_NV")]
+		[NativeName(NativeNameType.Value, "0x323D")]
 		public const int EGL_SYNC_CUDA_EVENT_COMPLETE_NV = 0x323D;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_depth_nonlinear")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_depth_nonlinear = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_DEPTH_ENCODING_NV")]
+		[NativeName(NativeNameType.Value, "0x30E2")]
 		public const int EGL_DEPTH_ENCODING_NV = 0x30E2;
 
+		[NativeName(NativeNameType.Const, "EGL_DEPTH_ENCODING_NONE_NV")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int EGL_DEPTH_ENCODING_NONE_NV = 0;
 
+		[NativeName(NativeNameType.Const, "EGL_DEPTH_ENCODING_NONLINEAR_NV")]
+		[NativeName(NativeNameType.Value, "0x30E3")]
 		public const int EGL_DEPTH_ENCODING_NONLINEAR_NV = 0x30E3;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_device_cuda")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_device_cuda = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_CUDA_DEVICE_NV")]
+		[NativeName(NativeNameType.Value, "0x323A")]
 		public const int EGL_CUDA_DEVICE_NV = 0x323A;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_native_query")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_native_query = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_post_convert_rounding")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_post_convert_rounding = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_post_sub_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_post_sub_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_POST_SUB_BUFFER_SUPPORTED_NV")]
+		[NativeName(NativeNameType.Value, "0x30BE")]
 		public const int EGL_POST_SUB_BUFFER_SUPPORTED_NV = 0x30BE;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_quadruple_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_quadruple_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_QUADRUPLE_BUFFER_NV")]
+		[NativeName(NativeNameType.Value, "0x3231")]
 		public const int EGL_QUADRUPLE_BUFFER_NV = 0x3231;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_robustness_video_memory_purge")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_robustness_video_memory_purge = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_GENERATE_RESET_ON_VIDEO_MEMORY_PURGE_NV")]
+		[NativeName(NativeNameType.Value, "0x334C")]
 		public const int EGL_GENERATE_RESET_ON_VIDEO_MEMORY_PURGE_NV = 0x334C;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_consumer_eglimage")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_consumer_eglimage = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_CONSUMER_IMAGE_NV")]
+		[NativeName(NativeNameType.Value, "0x3373")]
 		public const int EGL_STREAM_CONSUMER_IMAGE_NV = 0x3373;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_IMAGE_ADD_NV")]
+		[NativeName(NativeNameType.Value, "0x3374")]
 		public const int EGL_STREAM_IMAGE_ADD_NV = 0x3374;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_IMAGE_REMOVE_NV")]
+		[NativeName(NativeNameType.Value, "0x3375")]
 		public const int EGL_STREAM_IMAGE_REMOVE_NV = 0x3375;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_IMAGE_AVAILABLE_NV")]
+		[NativeName(NativeNameType.Value, "0x3376")]
 		public const int EGL_STREAM_IMAGE_AVAILABLE_NV = 0x3376;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_consumer_gltexture_yuv")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_consumer_gltexture_yuv = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_PLANE0_TEXTURE_UNIT_NV")]
+		[NativeName(NativeNameType.Value, "0x332C")]
 		public const int EGL_YUV_PLANE0_TEXTURE_UNIT_NV = 0x332C;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_PLANE1_TEXTURE_UNIT_NV")]
+		[NativeName(NativeNameType.Value, "0x332D")]
 		public const int EGL_YUV_PLANE1_TEXTURE_UNIT_NV = 0x332D;
 
+		[NativeName(NativeNameType.Const, "EGL_YUV_PLANE2_TEXTURE_UNIT_NV")]
+		[NativeName(NativeNameType.Value, "0x332E")]
 		public const int EGL_YUV_PLANE2_TEXTURE_UNIT_NV = 0x332E;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_cross_display")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_cross_display = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_CROSS_DISPLAY_NV")]
+		[NativeName(NativeNameType.Value, "0x334E")]
 		public const int EGL_STREAM_CROSS_DISPLAY_NV = 0x334E;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_cross_object")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_cross_object = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_CROSS_OBJECT_NV")]
+		[NativeName(NativeNameType.Value, "0x334D")]
 		public const int EGL_STREAM_CROSS_OBJECT_NV = 0x334D;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_cross_partition")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_cross_partition = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_CROSS_PARTITION_NV")]
+		[NativeName(NativeNameType.Value, "0x323F")]
 		public const int EGL_STREAM_CROSS_PARTITION_NV = 0x323F;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_cross_process")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_cross_process = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_CROSS_PROCESS_NV")]
+		[NativeName(NativeNameType.Value, "0x3245")]
 		public const int EGL_STREAM_CROSS_PROCESS_NV = 0x3245;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_cross_system")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_cross_system = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_CROSS_SYSTEM_NV")]
+		[NativeName(NativeNameType.Value, "0x334F")]
 		public const int EGL_STREAM_CROSS_SYSTEM_NV = 0x334F;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_dma")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_dma = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_DMA_NV")]
+		[NativeName(NativeNameType.Value, "0x3371")]
 		public const int EGL_STREAM_DMA_NV = 0x3371;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_DMA_SERVER_NV")]
+		[NativeName(NativeNameType.Value, "0x3372")]
 		public const int EGL_STREAM_DMA_SERVER_NV = 0x3372;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_fifo_next")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_fifo_next = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PENDING_FRAME_NV")]
+		[NativeName(NativeNameType.Value, "0x3329")]
 		public const int EGL_PENDING_FRAME_NV = 0x3329;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_TIME_PENDING_NV")]
+		[NativeName(NativeNameType.Value, "0x332A")]
 		public const int EGL_STREAM_TIME_PENDING_NV = 0x332A;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_fifo_synchronous")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_fifo_synchronous = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_FIFO_SYNCHRONOUS_NV")]
+		[NativeName(NativeNameType.Value, "0x3336")]
 		public const int EGL_STREAM_FIFO_SYNCHRONOUS_NV = 0x3336;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_flush")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_flush = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_frame_limits")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_frame_limits = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_PRODUCER_MAX_FRAME_HINT_NV")]
+		[NativeName(NativeNameType.Value, "0x3337")]
 		public const int EGL_PRODUCER_MAX_FRAME_HINT_NV = 0x3337;
 
+		[NativeName(NativeNameType.Const, "EGL_CONSUMER_MAX_FRAME_HINT_NV")]
+		[NativeName(NativeNameType.Value, "0x3338")]
 		public const int EGL_CONSUMER_MAX_FRAME_HINT_NV = 0x3338;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_metadata")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_metadata = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_MAX_STREAM_METADATA_BLOCKS_NV")]
+		[NativeName(NativeNameType.Value, "0x3250")]
 		public const int EGL_MAX_STREAM_METADATA_BLOCKS_NV = 0x3250;
 
+		[NativeName(NativeNameType.Const, "EGL_MAX_STREAM_METADATA_BLOCK_SIZE_NV")]
+		[NativeName(NativeNameType.Value, "0x3251")]
 		public const int EGL_MAX_STREAM_METADATA_BLOCK_SIZE_NV = 0x3251;
 
+		[NativeName(NativeNameType.Const, "EGL_MAX_STREAM_METADATA_TOTAL_SIZE_NV")]
+		[NativeName(NativeNameType.Value, "0x3252")]
 		public const int EGL_MAX_STREAM_METADATA_TOTAL_SIZE_NV = 0x3252;
 
+		[NativeName(NativeNameType.Const, "EGL_PRODUCER_METADATA_NV")]
+		[NativeName(NativeNameType.Value, "0x3253")]
 		public const int EGL_PRODUCER_METADATA_NV = 0x3253;
 
+		[NativeName(NativeNameType.Const, "EGL_CONSUMER_METADATA_NV")]
+		[NativeName(NativeNameType.Value, "0x3254")]
 		public const int EGL_CONSUMER_METADATA_NV = 0x3254;
 
+		[NativeName(NativeNameType.Const, "EGL_PENDING_METADATA_NV")]
+		[NativeName(NativeNameType.Value, "0x3328")]
 		public const int EGL_PENDING_METADATA_NV = 0x3328;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA0_SIZE_NV")]
+		[NativeName(NativeNameType.Value, "0x3255")]
 		public const int EGL_METADATA0_SIZE_NV = 0x3255;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA1_SIZE_NV")]
+		[NativeName(NativeNameType.Value, "0x3256")]
 		public const int EGL_METADATA1_SIZE_NV = 0x3256;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA2_SIZE_NV")]
+		[NativeName(NativeNameType.Value, "0x3257")]
 		public const int EGL_METADATA2_SIZE_NV = 0x3257;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA3_SIZE_NV")]
+		[NativeName(NativeNameType.Value, "0x3258")]
 		public const int EGL_METADATA3_SIZE_NV = 0x3258;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA0_TYPE_NV")]
+		[NativeName(NativeNameType.Value, "0x3259")]
 		public const int EGL_METADATA0_TYPE_NV = 0x3259;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA1_TYPE_NV")]
+		[NativeName(NativeNameType.Value, "0x325A")]
 		public const int EGL_METADATA1_TYPE_NV = 0x325A;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA2_TYPE_NV")]
+		[NativeName(NativeNameType.Value, "0x325B")]
 		public const int EGL_METADATA2_TYPE_NV = 0x325B;
 
+		[NativeName(NativeNameType.Const, "EGL_METADATA3_TYPE_NV")]
+		[NativeName(NativeNameType.Value, "0x325C")]
 		public const int EGL_METADATA3_TYPE_NV = 0x325C;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_origin")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_origin = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_FRAME_ORIGIN_X_NV")]
+		[NativeName(NativeNameType.Value, "0x3366")]
 		public const int EGL_STREAM_FRAME_ORIGIN_X_NV = 0x3366;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_FRAME_ORIGIN_Y_NV")]
+		[NativeName(NativeNameType.Value, "0x3367")]
 		public const int EGL_STREAM_FRAME_ORIGIN_Y_NV = 0x3367;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_FRAME_MAJOR_AXIS_NV")]
+		[NativeName(NativeNameType.Value, "0x3368")]
 		public const int EGL_STREAM_FRAME_MAJOR_AXIS_NV = 0x3368;
 
+		[NativeName(NativeNameType.Const, "EGL_CONSUMER_AUTO_ORIENTATION_NV")]
+		[NativeName(NativeNameType.Value, "0x3369")]
 		public const int EGL_CONSUMER_AUTO_ORIENTATION_NV = 0x3369;
 
+		[NativeName(NativeNameType.Const, "EGL_PRODUCER_AUTO_ORIENTATION_NV")]
+		[NativeName(NativeNameType.Value, "0x336A")]
 		public const int EGL_PRODUCER_AUTO_ORIENTATION_NV = 0x336A;
 
+		[NativeName(NativeNameType.Const, "EGL_LEFT_NV")]
+		[NativeName(NativeNameType.Value, "0x336B")]
 		public const int EGL_LEFT_NV = 0x336B;
 
+		[NativeName(NativeNameType.Const, "EGL_RIGHT_NV")]
+		[NativeName(NativeNameType.Value, "0x336C")]
 		public const int EGL_RIGHT_NV = 0x336C;
 
+		[NativeName(NativeNameType.Const, "EGL_TOP_NV")]
+		[NativeName(NativeNameType.Value, "0x336D")]
 		public const int EGL_TOP_NV = 0x336D;
 
+		[NativeName(NativeNameType.Const, "EGL_BOTTOM_NV")]
+		[NativeName(NativeNameType.Value, "0x336E")]
 		public const int EGL_BOTTOM_NV = 0x336E;
 
+		[NativeName(NativeNameType.Const, "EGL_X_AXIS_NV")]
+		[NativeName(NativeNameType.Value, "0x336F")]
 		public const int EGL_X_AXIS_NV = 0x336F;
 
+		[NativeName(NativeNameType.Const, "EGL_Y_AXIS_NV")]
+		[NativeName(NativeNameType.Value, "0x3370")]
 		public const int EGL_Y_AXIS_NV = 0x3370;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_remote")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_remote = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_STATE_INITIALIZING_NV")]
+		[NativeName(NativeNameType.Value, "0x3240")]
 		public const int EGL_STREAM_STATE_INITIALIZING_NV = 0x3240;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_TYPE_NV")]
+		[NativeName(NativeNameType.Value, "0x3241")]
 		public const int EGL_STREAM_TYPE_NV = 0x3241;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_PROTOCOL_NV")]
+		[NativeName(NativeNameType.Value, "0x3242")]
 		public const int EGL_STREAM_PROTOCOL_NV = 0x3242;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_ENDPOINT_NV")]
+		[NativeName(NativeNameType.Value, "0x3243")]
 		public const int EGL_STREAM_ENDPOINT_NV = 0x3243;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_LOCAL_NV")]
+		[NativeName(NativeNameType.Value, "0x3244")]
 		public const int EGL_STREAM_LOCAL_NV = 0x3244;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_PRODUCER_NV")]
+		[NativeName(NativeNameType.Value, "0x3247")]
 		public const int EGL_STREAM_PRODUCER_NV = 0x3247;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_CONSUMER_NV")]
+		[NativeName(NativeNameType.Value, "0x3248")]
 		public const int EGL_STREAM_CONSUMER_NV = 0x3248;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_PROTOCOL_FD_NV")]
+		[NativeName(NativeNameType.Value, "0x3246")]
 		public const int EGL_STREAM_PROTOCOL_FD_NV = 0x3246;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_reset")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_reset = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SUPPORT_RESET_NV")]
+		[NativeName(NativeNameType.Value, "0x3334")]
 		public const int EGL_SUPPORT_RESET_NV = 0x3334;
 
+		[NativeName(NativeNameType.Const, "EGL_SUPPORT_REUSE_NV")]
+		[NativeName(NativeNameType.Value, "0x3335")]
 		public const int EGL_SUPPORT_REUSE_NV = 0x3335;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_socket")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_socket = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_STREAM_PROTOCOL_SOCKET_NV")]
+		[NativeName(NativeNameType.Value, "0x324B")]
 		public const int EGL_STREAM_PROTOCOL_SOCKET_NV = 0x324B;
 
+		[NativeName(NativeNameType.Const, "EGL_SOCKET_HANDLE_NV")]
+		[NativeName(NativeNameType.Value, "0x324C")]
 		public const int EGL_SOCKET_HANDLE_NV = 0x324C;
 
+		[NativeName(NativeNameType.Const, "EGL_SOCKET_TYPE_NV")]
+		[NativeName(NativeNameType.Value, "0x324D")]
 		public const int EGL_SOCKET_TYPE_NV = 0x324D;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_socket_inet")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_socket_inet = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SOCKET_TYPE_INET_NV")]
+		[NativeName(NativeNameType.Value, "0x324F")]
 		public const int EGL_SOCKET_TYPE_INET_NV = 0x324F;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_socket_unix")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_socket_unix = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SOCKET_TYPE_UNIX_NV")]
+		[NativeName(NativeNameType.Value, "0x324E")]
 		public const int EGL_SOCKET_TYPE_UNIX_NV = 0x324E;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_stream_sync")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_stream_sync = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_NEW_FRAME_NV")]
+		[NativeName(NativeNameType.Value, "0x321F")]
 		public const int EGL_SYNC_NEW_FRAME_NV = 0x321F;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_sync")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_sync = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_PRIOR_COMMANDS_COMPLETE_NV")]
+		[NativeName(NativeNameType.Value, "0x30E6")]
 		public const int EGL_SYNC_PRIOR_COMMANDS_COMPLETE_NV = 0x30E6;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_STATUS_NV")]
+		[NativeName(NativeNameType.Value, "0x30E7")]
 		public const int EGL_SYNC_STATUS_NV = 0x30E7;
 
+		[NativeName(NativeNameType.Const, "EGL_SIGNALED_NV")]
+		[NativeName(NativeNameType.Value, "0x30E8")]
 		public const int EGL_SIGNALED_NV = 0x30E8;
 
+		[NativeName(NativeNameType.Const, "EGL_UNSIGNALED_NV")]
+		[NativeName(NativeNameType.Value, "0x30E9")]
 		public const int EGL_UNSIGNALED_NV = 0x30E9;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_FLUSH_COMMANDS_BIT_NV")]
+		[NativeName(NativeNameType.Value, "0x0001")]
 		public const int EGL_SYNC_FLUSH_COMMANDS_BIT_NV = 0x0001;
 
+		[NativeName(NativeNameType.Const, "EGL_ALREADY_SIGNALED_NV")]
+		[NativeName(NativeNameType.Value, "0x30EA")]
 		public const int EGL_ALREADY_SIGNALED_NV = 0x30EA;
 
+		[NativeName(NativeNameType.Const, "EGL_TIMEOUT_EXPIRED_NV")]
+		[NativeName(NativeNameType.Value, "0x30EB")]
 		public const int EGL_TIMEOUT_EXPIRED_NV = 0x30EB;
 
+		[NativeName(NativeNameType.Const, "EGL_CONDITION_SATISFIED_NV")]
+		[NativeName(NativeNameType.Value, "0x30EC")]
 		public const int EGL_CONDITION_SATISFIED_NV = 0x30EC;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_TYPE_NV")]
+		[NativeName(NativeNameType.Value, "0x30ED")]
 		public const int EGL_SYNC_TYPE_NV = 0x30ED;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_CONDITION_NV")]
+		[NativeName(NativeNameType.Value, "0x30EE")]
 		public const int EGL_SYNC_CONDITION_NV = 0x30EE;
 
+		[NativeName(NativeNameType.Const, "EGL_SYNC_FENCE_NV")]
+		[NativeName(NativeNameType.Value, "0x30EF")]
 		public const int EGL_SYNC_FENCE_NV = 0x30EF;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_system_time")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_system_time = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NV_triple_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_NV_triple_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_TRIPLE_BUFFER_NV")]
+		[NativeName(NativeNameType.Value, "0x3230")]
 		public const int EGL_TRIPLE_BUFFER_NV = 0x3230;
 
+		[NativeName(NativeNameType.Const, "EGL_TIZEN_image_native_buffer")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_TIZEN_image_native_buffer = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_BUFFER_TIZEN")]
+		[NativeName(NativeNameType.Value, "0x32A0")]
 		public const int EGL_NATIVE_BUFFER_TIZEN = 0x32A0;
 
+		[NativeName(NativeNameType.Const, "EGL_TIZEN_image_native_surface")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_TIZEN_image_native_surface = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_NATIVE_SURFACE_TIZEN")]
+		[NativeName(NativeNameType.Value, "0x32A1")]
 		public const int EGL_NATIVE_SURFACE_TIZEN = 0x32A1;
 
+		[NativeName(NativeNameType.Const, "EGL_WL_bind_wayland_display")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_WL_bind_wayland_display = 1;
 
+		[NativeName(NativeNameType.Const, "EGL_WAYLAND_BUFFER_WL")]
+		[NativeName(NativeNameType.Value, "0x31D5")]
 		public const int EGL_WAYLAND_BUFFER_WL = 0x31D5;
 
+		[NativeName(NativeNameType.Const, "EGL_WAYLAND_PLANE_WL")]
+		[NativeName(NativeNameType.Value, "0x31D6")]
 		public const int EGL_WAYLAND_PLANE_WL = 0x31D6;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_Y_U_V_WL")]
+		[NativeName(NativeNameType.Value, "0x31D7")]
 		public const int EGL_TEXTURE_Y_U_V_WL = 0x31D7;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_Y_UV_WL")]
+		[NativeName(NativeNameType.Value, "0x31D8")]
 		public const int EGL_TEXTURE_Y_UV_WL = 0x31D8;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_Y_XUXV_WL")]
+		[NativeName(NativeNameType.Value, "0x31D9")]
 		public const int EGL_TEXTURE_Y_XUXV_WL = 0x31D9;
 
+		[NativeName(NativeNameType.Const, "EGL_TEXTURE_EXTERNAL_WL")]
+		[NativeName(NativeNameType.Value, "0x31DA")]
 		public const int EGL_TEXTURE_EXTERNAL_WL = 0x31DA;
 
+		[NativeName(NativeNameType.Const, "EGL_WAYLAND_Y_INVERTED_WL")]
+		[NativeName(NativeNameType.Value, "0x31DB")]
 		public const int EGL_WAYLAND_Y_INVERTED_WL = 0x31DB;
 
+		[NativeName(NativeNameType.Const, "EGL_WL_create_wayland_buffer_from_image")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int EGL_WL_create_wayland_buffer_from_image = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_MMX_INTRINSICS")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_MMX_INTRINSICS = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_SSE_INTRINSICS")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_SSE_INTRINSICS = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_SSE2_INTRINSICS")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_SSE2_INTRINSICS = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_SSE3_INTRINSICS")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_SSE3_INTRINSICS = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_SSE4_1_INTRINSICS")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_SSE4_1_INTRINSICS = 1;
 
+		[NativeName(NativeNameType.Const, "SDL_SSE4_2_INTRINSICS")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_SSE4_2_INTRINSICS = 1;
 
-		public const string SDL_REVISION = "release-3.2.12-0-g5ac37a8ff";
+		[NativeName(NativeNameType.Const, "SDL_REVISION")]
+		[NativeName(NativeNameType.Value, "\"\"")]
+		public const string SDL_REVISION = "";
 
+		[NativeName(NativeNameType.Const, "ASSERT_FAIL")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int ASSERT_FAIL = 0;
 
+		[NativeName(NativeNameType.Const, "ASSERT_PASS")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int ASSERT_PASS = 1;
 
+		[NativeName(NativeNameType.Const, "DEFAULT_WINDOW_WIDTH")]
+		[NativeName(NativeNameType.Value, "640")]
 		public const int DEFAULT_WINDOW_WIDTH = 640;
 
+		[NativeName(NativeNameType.Const, "DEFAULT_WINDOW_HEIGHT")]
+		[NativeName(NativeNameType.Value, "480")]
 		public const int DEFAULT_WINDOW_HEIGHT = 480;
 
+		[NativeName(NativeNameType.Const, "CRC32_POLY")]
+		[NativeName(NativeNameType.Value, "0xEDB88320")]
 		public const uint CRC32_POLY = 0xEDB88320;
 
+		[NativeName(NativeNameType.Const, "TEST_ENABLED")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int TEST_ENABLED = 1;
 
+		[NativeName(NativeNameType.Const, "TEST_DISABLED")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int TEST_DISABLED = 0;
 
+		[NativeName(NativeNameType.Const, "TEST_ABORTED")]
+		[NativeName(NativeNameType.Value, "-1")]
 		public const int TEST_ABORTED = -1;
 
+		[NativeName(NativeNameType.Const, "TEST_STARTED")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int TEST_STARTED = 0;
 
+		[NativeName(NativeNameType.Const, "TEST_COMPLETED")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int TEST_COMPLETED = 1;
 
+		[NativeName(NativeNameType.Const, "TEST_SKIPPED")]
+		[NativeName(NativeNameType.Value, "2")]
 		public const int TEST_SKIPPED = 2;
 
+		[NativeName(NativeNameType.Const, "TEST_RESULT_PASSED")]
+		[NativeName(NativeNameType.Value, "0")]
 		public const int TEST_RESULT_PASSED = 0;
 
+		[NativeName(NativeNameType.Const, "TEST_RESULT_FAILED")]
+		[NativeName(NativeNameType.Value, "1")]
 		public const int TEST_RESULT_FAILED = 1;
 
+		[NativeName(NativeNameType.Const, "TEST_RESULT_NO_ASSERT")]
+		[NativeName(NativeNameType.Value, "2")]
 		public const int TEST_RESULT_NO_ASSERT = 2;
 
+		[NativeName(NativeNameType.Const, "TEST_RESULT_SKIPPED")]
+		[NativeName(NativeNameType.Value, "3")]
 		public const int TEST_RESULT_SKIPPED = 3;
 
+		[NativeName(NativeNameType.Const, "TEST_RESULT_SETUP_FAILURE")]
+		[NativeName(NativeNameType.Value, "4")]
 		public const int TEST_RESULT_SETUP_FAILURE = 4;
 
+		[NativeName(NativeNameType.Const, "SDLTEST_MAX_LOGMESSAGE_LENGTH")]
+		[NativeName(NativeNameType.Value, "3584")]
 		public const int SDLTEST_MAX_LOGMESSAGE_LENGTH = 3584;
 
 	}

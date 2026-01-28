@@ -15,18 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The asynchronous I/O operation structure.<br/>
-	/// This operates as an opaque handle. One can then request read or write<br/>
-	/// operations on it.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AsyncIO")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAsyncIO
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_AsyncIO")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAsyncIOPtr : IEquatable<SDLAsyncIOPtr>
+	{
+		public SDLAsyncIOPtr(SDLAsyncIO* handle) { Handle = handle; }
+
+		public SDLAsyncIO* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAsyncIOPtr Null => new SDLAsyncIOPtr(null);
+
+		public SDLAsyncIO this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAsyncIOPtr(SDLAsyncIO* handle) => new SDLAsyncIOPtr(handle);
+
+		public static implicit operator SDLAsyncIO*(SDLAsyncIOPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAsyncIOPtr left, SDLAsyncIOPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAsyncIOPtr left, SDLAsyncIOPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAsyncIOPtr left, SDLAsyncIO* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAsyncIOPtr left, SDLAsyncIO* right) => left.Handle != right;
+
+		public bool Equals(SDLAsyncIOPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAsyncIOPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAsyncIOPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

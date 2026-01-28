@@ -22,6 +22,7 @@ namespace Hexa.NET.SDL3
 	/// <EGL<br/>
 	/// /eglplatform.h><br/>
 	/// </summary>
+	[NativeName(NativeNameType.Typedef, "EGLConfig")]
 	#if NET5_0_OR_GREATER
 	[DebuggerDisplay("{DebuggerDisplay,nq}")]
 	#endif

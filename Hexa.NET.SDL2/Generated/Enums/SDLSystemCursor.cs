@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Cursor types for SDL_CreateSystemCursor().<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLSystemCursor : int
 	{
 		/// <summary>

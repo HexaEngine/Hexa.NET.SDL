@@ -22,7 +22,6 @@ namespace Hexa.NET.SDL2
 	/// On many systems you require special privileges to set high or time critical<br/>
 	/// priority.<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLThreadPriority : int
 	{
 		Low = unchecked(0),

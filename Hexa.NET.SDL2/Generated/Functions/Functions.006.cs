@@ -17,37 +17,1378 @@ namespace Hexa.NET.SDL2
 	public unsafe partial class SDL
 	{
 
-		public static int BlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlitScaled(ref src, srcrect, dst, ref dstrect);
-
 		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		public static int GetSurfaceColorMod(SDLSurfacePtr surface, byte* r, byte* g, ref byte b)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (byte* pb = &b)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				int ret = GetSurfaceColorModNative((SDLSurface*)surface, r, g, (byte*)pb);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(ref SDLSurface surface, byte* r, byte* g, ref byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pb = &b)
 				{
-					int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+					int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, (byte*)pb);
 					return ret;
 				}
 			}
 		}
 
-		public static int BlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlitScaled(src, ref srcrect, dst, ref dstrect);
-
 		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		public static int GetSurfaceColorMod(SDLSurfacePtr surface, ref byte r, byte* g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetSurfaceColorModNative((SDLSurface*)surface, (byte*)pr, g, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(ref SDLSurface surface, ref byte r, byte* g, ref byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(SDLSurfacePtr surface, byte* r, ref byte g, ref byte b)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetSurfaceColorModNative((SDLSurface*)surface, r, (byte*)pg, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(ref SDLSurface surface, byte* r, ref byte g, ref byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(SDLSurfacePtr surface, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetSurfaceColorModNative((SDLSurface*)surface, (byte*)pr, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(ref SDLSurface surface, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, (byte*)pb);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetSurfaceAlphaModNative(SDLSurface* surface, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, int>)funcTable[321])(surface, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[321])((nint)surface, alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceAlphaMod(SDLSurfacePtr surface, byte alpha)
+		{
+			int ret = SetSurfaceAlphaModNative((SDLSurface*)surface, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceAlphaMod(ref SDLSurface surface, byte alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSurfaceAlphaModNative(SDLSurface* surface, byte* alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int>)funcTable[322])(surface, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[322])((nint)surface, (nint)alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceAlphaMod(SDLSurfacePtr surface, byte* alpha)
+		{
+			int ret = GetSurfaceAlphaModNative((SDLSurface*)surface, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceAlphaMod(ref SDLSurface surface, byte* alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceAlphaMod(SDLSurfacePtr surface, ref byte alpha)
+		{
+			fixed (byte* palpha = &alpha)
+			{
+				int ret = GetSurfaceAlphaModNative((SDLSurface*)surface, (byte*)palpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceAlphaMod(ref SDLSurface surface, ref byte alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* palpha = &alpha)
+				{
+					int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetSurfaceBlendModeNative(SDLSurface* surface, SDLBlendMode blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode, int>)funcTable[323])(surface, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[323])((nint)surface, blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceBlendMode(SDLSurfacePtr surface, SDLBlendMode blendMode)
+		{
+			int ret = SetSurfaceBlendModeNative((SDLSurface*)surface, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceBlendMode(ref SDLSurface surface, SDLBlendMode blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSurfaceBlendModeNative(SDLSurface* surface, SDLBlendMode* blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode*, int>)funcTable[324])(surface, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[324])((nint)surface, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceBlendMode(SDLSurfacePtr surface, SDLBlendMode* blendMode)
+		{
+			int ret = GetSurfaceBlendModeNative((SDLSurface*)surface, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceBlendMode(ref SDLSurface surface, SDLBlendMode* blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceBlendMode(SDLSurfacePtr surface, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLBlendMode* pblendMode = &blendMode)
+			{
+				int ret = GetSurfaceBlendModeNative((SDLSurface*)surface, (SDLBlendMode*)pblendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceBlendMode(ref SDLSurface surface, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLBlendMode* pblendMode = &blendMode)
+				{
+					int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, (SDLBlendMode*)pblendMode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool SetClipRectNative(SDLSurface* surface, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLBool>)funcTable[325])(surface, rect);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[325])((nint)surface, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool SetClipRect(SDLSurfacePtr surface, SDLRectPtr rect)
+		{
+			SDLBool ret = SetClipRectNative((SDLSurface*)surface, (SDLRect*)rect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool SetClipRect(ref SDLSurface surface, SDLRectPtr rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLBool ret = SetClipRectNative((SDLSurface*)psurface, (SDLRect*)rect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool SetClipRect(SDLSurfacePtr surface, in SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				SDLBool ret = SetClipRectNative((SDLSurface*)surface, (SDLRect*)prect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool SetClipRect(ref SDLSurface surface, in SDLRect rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					SDLBool ret = SetClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetClipRectNative(SDLSurface* surface, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, void>)funcTable[326])(surface, rect);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[326])((nint)surface, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetClipRect(SDLSurfacePtr surface, SDLRectPtr rect)
+		{
+			GetClipRectNative((SDLSurface*)surface, (SDLRect*)rect);
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetClipRect(ref SDLSurface surface, SDLRectPtr rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				GetClipRectNative((SDLSurface*)psurface, (SDLRect*)rect);
+			}
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetClipRect(SDLSurfacePtr surface, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				GetClipRectNative((SDLSurface*)surface, (SDLRect*)prect);
+			}
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetClipRect(ref SDLSurface surface, ref SDLRect rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					GetClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Creates a new surface identical to the existing surface.<br/>
+		/// The returned surface should be freed with SDL_FreeSurface().<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* DuplicateSurfaceNative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*>)funcTable[327])(surface);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[327])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a new surface identical to the existing surface.<br/>
+		/// The returned surface should be freed with SDL_FreeSurface().<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr DuplicateSurface(SDLSurfacePtr surface)
+		{
+			SDLSurfacePtr ret = DuplicateSurfaceNative((SDLSurface*)surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a new surface identical to the existing surface.<br/>
+		/// The returned surface should be freed with SDL_FreeSurface().<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr DuplicateSurface(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLSurfacePtr ret = DuplicateSurfaceNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* ConvertSurfaceNative(SDLSurface* src, SDLPixelFormat* fmt, uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat*, uint, SDLSurface*>)funcTable[328])(src, fmt, flags);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint>)funcTable[328])((nint)src, (nint)fmt, flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr ConvertSurface(SDLSurfacePtr src, SDLPixelFormatPtr fmt, uint flags)
+		{
+			SDLSurfacePtr ret = ConvertSurfaceNative((SDLSurface*)src, (SDLPixelFormat*)fmt, flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr ConvertSurface(ref SDLSurface src, SDLPixelFormatPtr fmt, uint flags)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				SDLSurfacePtr ret = ConvertSurfaceNative((SDLSurface*)psrc, (SDLPixelFormat*)fmt, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr ConvertSurface(SDLSurfacePtr src, in SDLPixelFormat fmt, uint flags)
+		{
+			fixed (SDLPixelFormat* pfmt = &fmt)
+			{
+				SDLSurfacePtr ret = ConvertSurfaceNative((SDLSurface*)src, (SDLPixelFormat*)pfmt, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr ConvertSurface(ref SDLSurface src, in SDLPixelFormat fmt, uint flags)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLPixelFormat* pfmt = &fmt)
+				{
+					SDLSurfacePtr ret = ConvertSurfaceNative((SDLSurface*)psrc, (SDLPixelFormat*)pfmt, flags);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format enum.<br/>
+		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
+		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
+		/// it might be easier to call but it doesn't have access to palette<br/>
+		/// information for the destination surface, in case that would be important.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* ConvertSurfaceFormatNative(SDLSurface* src, uint pixelFormat, uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint, uint, SDLSurface*>)funcTable[329])(src, pixelFormat, flags);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, uint, uint, nint>)funcTable[329])((nint)src, pixelFormat, flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format enum.<br/>
+		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
+		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
+		/// it might be easier to call but it doesn't have access to palette<br/>
+		/// information for the destination surface, in case that would be important.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr ConvertSurfaceFormat(SDLSurfacePtr src, uint pixelFormat, uint flags)
+		{
+			SDLSurfacePtr ret = ConvertSurfaceFormatNative((SDLSurface*)src, pixelFormat, flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format enum.<br/>
+		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
+		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
+		/// it might be easier to call but it doesn't have access to palette<br/>
+		/// information for the destination surface, in case that would be important.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr ConvertSurfaceFormat(ref SDLSurface src, uint pixelFormat, uint flags)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				SDLSurfacePtr ret = ConvertSurfaceFormatNative((SDLSurface*)psrc, pixelFormat, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a block of pixels of one format to another format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int ConvertPixelsNative(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)funcTable[330])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)funcTable[330])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a block of pixels of one format to another format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ConvertPixels(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			int ret = ConvertPixelsNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a block of pixels of one format to another format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ConvertPixels(int width, int height, uint srcFormat, nint src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			int ret = ConvertPixelsNative(width, height, srcFormat, (void*)src, srcPitch, dstFormat, dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a block of pixels of one format to another format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ConvertPixels(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, nint dst, int dstPitch)
+		{
+			int ret = ConvertPixelsNative(width, height, srcFormat, src, srcPitch, dstFormat, (void*)dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a block of pixels of one format to another format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ConvertPixels(int width, int height, uint srcFormat, nint src, int srcPitch, uint dstFormat, nint dst, int dstPitch)
+		{
+			int ret = ConvertPixelsNative(width, height, srcFormat, (void*)src, srcPitch, dstFormat, (void*)dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Premultiply the alpha on a block of pixels.<br/>
+		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
+		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int PremultiplyAlphaNative(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)funcTable[331])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)funcTable[331])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Premultiply the alpha on a block of pixels.<br/>
+		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
+		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PremultiplyAlpha(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			int ret = PremultiplyAlphaNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Premultiply the alpha on a block of pixels.<br/>
+		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
+		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PremultiplyAlpha(int width, int height, uint srcFormat, nint src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			int ret = PremultiplyAlphaNative(width, height, srcFormat, (void*)src, srcPitch, dstFormat, dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Premultiply the alpha on a block of pixels.<br/>
+		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
+		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PremultiplyAlpha(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, nint dst, int dstPitch)
+		{
+			int ret = PremultiplyAlphaNative(width, height, srcFormat, src, srcPitch, dstFormat, (void*)dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Premultiply the alpha on a block of pixels.<br/>
+		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
+		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PremultiplyAlpha(int width, int height, uint srcFormat, nint src, int srcPitch, uint dstFormat, nint dst, int dstPitch)
+		{
+			int ret = PremultiplyAlphaNative(width, height, srcFormat, (void*)src, srcPitch, dstFormat, (void*)dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int FillRectNative(SDLSurface* dst, SDLRect* rect, uint color)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, uint, int>)funcTable[332])(dst, rect, color);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, int>)funcTable[332])((nint)dst, (nint)rect, color);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRect(SDLSurfacePtr dst, SDLRectPtr rect, uint color)
+		{
+			int ret = FillRectNative((SDLSurface*)dst, (SDLRect*)rect, color);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRect(ref SDLSurface dst, SDLRectPtr rect, uint color)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = FillRectNative((SDLSurface*)pdst, (SDLRect*)rect, color);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRect(SDLSurfacePtr dst, in SDLRect rect, uint color)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = FillRectNative((SDLSurface*)dst, (SDLRect*)prect, color);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRect(ref SDLSurface dst, in SDLRect rect, uint color)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = FillRectNative((SDLSurface*)pdst, (SDLRect*)prect, color);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int FillRectsNative(SDLSurface* dst, SDLRect* rects, int count, uint color)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, int, uint, int>)funcTable[333])(dst, rects, count, color);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, uint, int>)funcTable[333])((nint)dst, (nint)rects, count, color);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRects(SDLSurfacePtr dst, SDLRectPtr rects, int count, uint color)
+		{
+			int ret = FillRectsNative((SDLSurface*)dst, (SDLRect*)rects, count, color);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRects(ref SDLSurface dst, SDLRectPtr rects, int count, uint color)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = FillRectsNative((SDLSurface*)pdst, (SDLRect*)rects, count, color);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRects(SDLSurfacePtr dst, in SDLRect rects, int count, uint color)
+		{
+			fixed (SDLRect* prects = &rects)
+			{
+				int ret = FillRectsNative((SDLSurface*)dst, (SDLRect*)prects, count, color);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRects(ref SDLSurface dst, in SDLRect rects, int count, uint color)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* prects = &rects)
+				{
+					int ret = FillRectsNative((SDLSurface*)pdst, (SDLRect*)prects, count, color);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int UpperBlitNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[334])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[334])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			int ret = UpperBlitNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+			return ret;
+		}
+
+		public static int BlitSurface(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect) => UpperBlit(src, srcrect, dst, dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		public static int BlitSurface(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect) => UpperBlit(ref src, srcrect, dst, dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = UpperBlitNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		public static int BlitSurface(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect) => UpperBlit(src, srcrect, dst, dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitSurface(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect) => UpperBlit(ref src, srcrect, dst, dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = UpperBlitNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		public static int BlitSurface(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect) => UpperBlit(src, srcrect, ref dst, dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitSurface(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect) => UpperBlit(ref src, srcrect, ref dst, dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = UpperBlitNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitSurface(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect) => UpperBlit(src, srcrect, ref dst, dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static int BlitSurface(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect) => UpperBlit(ref src, srcrect, ref dst, dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = UpperBlitNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		public static int BlitSurface(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect) => UpperBlit(src, srcrect, dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitSurface(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect) => UpperBlit(ref src, srcrect, dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitSurface(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect) => UpperBlit(src, srcrect, dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
@@ -55,44 +1396,44 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
 			}
 		}
 
-		public static int BlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlitScaled(ref src, ref srcrect, dst, ref dstrect);
+		public static int BlitSurface(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect) => UpperBlit(ref src, srcrect, dst, ref dstrect);
 
 		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		public static int UpperBlit(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* pdst = &dst)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = UpperBlitScaledNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					int ret = UpperBlitNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
 					return ret;
 				}
 			}
 		}
 
-		public static int BlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlitScaled(src, srcrect, ref dst, ref dstrect);
+		public static int BlitSurface(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(src, srcrect, ref dst, ref dstrect);
 
 		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		public static int UpperBlit(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
@@ -100,23 +1441,23 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
 			}
 		}
 
-		public static int BlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlitScaled(ref src, srcrect, ref dst, ref dstrect);
+		public static int BlitSurface(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(ref src, srcrect, ref dst, ref dstrect);
 
 		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		public static int UpperBlit(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
@@ -124,14 +1465,987 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						int ret = UpperBlitNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
 			}
 		}
 
-		public static int BlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlitScaled(src, ref srcrect, ref dst, ref dstrect);
+		public static int BlitSurface(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(src, srcrect, ref dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		public static int BlitSurface(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(ref src, srcrect, ref dst, ref dstrect);
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int LowerBlitNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[335])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[335])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			int ret = LowerBlitNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurfacePtr src, ref SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = LowerBlitNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = LowerBlitNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurfacePtr src, ref SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = LowerBlitNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = LowerBlitNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurfacePtr src, ref SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = LowerBlitNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = LowerBlitNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurfacePtr src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = LowerBlitNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SoftStretchNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[336])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[336])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			int ret = SoftStretchNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = SoftStretchNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = SoftStretchNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = SoftStretchNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, in SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = SoftStretchNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, in SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, in SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SoftStretchLinearNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[337])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[337])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			int ret = SoftStretchLinearNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = SoftStretchLinearNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = SoftStretchLinearNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, in SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = SoftStretchLinearNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, in SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, in SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchLinearNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, in SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
 
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
@@ -140,7 +2454,333 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int UpperBlitScaledNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[338])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[338])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			int ret = UpperBlitScaledNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+			return ret;
+		}
+
+		public static int BlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect) => UpperBlitScaled(src, srcrect, dst, dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		public static int BlitScaled(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect) => UpperBlitScaled(ref src, srcrect, dst, dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = UpperBlitScaledNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		public static int BlitScaled(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect) => UpperBlitScaled(src, srcrect, dst, dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitScaled(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect) => UpperBlitScaled(ref src, srcrect, dst, dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = UpperBlitScaledNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+				return ret;
+			}
+		}
+
+		public static int BlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect) => UpperBlitScaled(src, srcrect, ref dst, dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitScaled(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect) => UpperBlitScaled(ref src, srcrect, ref dst, dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitScaled(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect) => UpperBlitScaled(src, srcrect, ref dst, dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static int BlitScaled(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect) => UpperBlitScaled(ref src, srcrect, ref dst, dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = UpperBlitScaledNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		public static int BlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect) => UpperBlitScaled(src, srcrect, dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitScaled(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect) => UpperBlitScaled(ref src, srcrect, dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitScaled(SDLSurfacePtr src, in SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect) => UpperBlitScaled(src, srcrect, dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static int BlitScaled(ref SDLSurface src, in SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect) => UpperBlitScaled(ref src, srcrect, dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		public static int BlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlitScaled(src, srcrect, ref dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static int BlitScaled(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlitScaled(ref src, srcrect, ref dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = UpperBlitScaledNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static int BlitScaled(SDLSurfacePtr src, in SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlitScaled(src, srcrect, ref dst, ref dstrect);
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
@@ -158,7 +2798,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		public static int BlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlitScaled(ref src, ref srcrect, ref dst, ref dstrect);
+		public static int BlitScaled(ref SDLSurface src, in SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlitScaled(ref src, srcrect, ref dst, ref dstrect);
 
 		/// <summary>
 		/// Perform low-level surface scaled blitting only.<br/>
@@ -186,9 +2826,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		public static int LowerBlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
 		{
-			int ret = LowerBlitScaledNative(src, srcrect, dst, dstrect);
+			int ret = LowerBlitScaledNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
 			return ret;
 		}
 
@@ -200,11 +2840,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		public static int LowerBlitScaled(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
-				int ret = LowerBlitScaledNative((SDLSurface*)psrc, srcrect, dst, dstrect);
+				int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
 				return ret;
 			}
 		}
@@ -217,11 +2857,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		public static int LowerBlitScaled(SDLSurfacePtr src, ref SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
-				int ret = LowerBlitScaledNative(src, (SDLRect*)psrcrect, dst, dstrect);
+				int ret = LowerBlitScaledNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
 				return ret;
 			}
 		}
@@ -234,13 +2874,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		public static int LowerBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurfacePtr dst, SDLRectPtr dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
+					int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)dstrect);
 					return ret;
 				}
 			}
@@ -254,11 +2894,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		public static int LowerBlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
 		{
 			fixed (SDLSurface* pdst = &dst)
 			{
-				int ret = LowerBlitScaledNative(src, srcrect, (SDLSurface*)pdst, dstrect);
+				int ret = LowerBlitScaledNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
 				return ret;
 			}
 		}
@@ -271,13 +2911,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		public static int LowerBlitScaled(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
 				fixed (SDLSurface* pdst = &dst)
 				{
-					int ret = LowerBlitScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
+					int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
 					return ret;
 				}
 			}
@@ -291,13 +2931,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		public static int LowerBlitScaled(SDLSurfacePtr src, ref SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
 				fixed (SDLSurface* pdst = &dst)
 				{
-					int ret = LowerBlitScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+					int ret = LowerBlitScaledNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
 					return ret;
 				}
 			}
@@ -311,7 +2951,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		public static int LowerBlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRectPtr dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
@@ -319,7 +2959,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLSurface* pdst = &dst)
 					{
-						int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+						int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)dstrect);
 						return ret;
 					}
 				}
@@ -334,11 +2974,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		public static int LowerBlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
 		{
 			fixed (SDLRect* pdstrect = &dstrect)
 			{
-				int ret = LowerBlitScaledNative(src, srcrect, dst, (SDLRect*)pdstrect);
+				int ret = LowerBlitScaledNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
 				return ret;
 			}
 		}
@@ -351,13 +2991,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		public static int LowerBlitScaled(ref SDLSurface src, SDLRectPtr srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = LowerBlitScaledNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
+					int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -371,13 +3011,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		public static int LowerBlitScaled(SDLSurfacePtr src, ref SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = LowerBlitScaledNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+					int ret = LowerBlitScaledNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -391,7 +3031,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		public static int LowerBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurfacePtr dst, ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
@@ -399,7 +3039,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)dst, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -414,13 +3054,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		public static int LowerBlitScaled(SDLSurfacePtr src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* pdst = &dst)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = LowerBlitScaledNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					int ret = LowerBlitScaledNative((SDLSurface*)src, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -434,7 +3074,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		public static int LowerBlitScaled(ref SDLSurface src, SDLRectPtr srcrect, ref SDLSurface dst, ref SDLRect dstrect)
 		{
 			fixed (SDLSurface* psrc = &src)
 			{
@@ -442,7 +3082,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = LowerBlitScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						int ret = LowerBlitScaledNative((SDLSurface*)psrc, (SDLRect*)srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -457,7 +3097,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LowerBlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		public static int LowerBlitScaled(SDLSurfacePtr src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
@@ -465,7 +3105,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = LowerBlitScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						int ret = LowerBlitScaledNative((SDLSurface*)src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -709,7 +3349,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int VideoInit(ref byte driverName)
+		public static int VideoInit(in byte driverName)
 		{
 			fixed (byte* pdriverName = &driverName)
 			{
@@ -945,9 +3585,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetDisplayBounds(int displayIndex, SDLRect* rect)
+		public static int GetDisplayBounds(int displayIndex, SDLRectPtr rect)
 		{
-			int ret = GetDisplayBoundsNative(displayIndex, rect);
+			int ret = GetDisplayBoundsNative(displayIndex, (SDLRect*)rect);
 			return ret;
 		}
 
@@ -1009,9 +3649,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetDisplayUsableBounds(int displayIndex, SDLRect* rect)
+		public static int GetDisplayUsableBounds(int displayIndex, SDLRectPtr rect)
 		{
-			int ret = GetDisplayUsableBoundsNative(displayIndex, rect);
+			int ret = GetDisplayUsableBoundsNative(displayIndex, (SDLRect*)rect);
 			return ret;
 		}
 
@@ -1390,9 +4030,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetDisplayMode(int displayIndex, int modeIndex, SDLDisplayMode* mode)
+		public static int GetDisplayMode(int displayIndex, int modeIndex, SDLDisplayModePtr mode)
 		{
-			int ret = GetDisplayModeNative(displayIndex, modeIndex, mode);
+			int ret = GetDisplayModeNative(displayIndex, modeIndex, (SDLDisplayMode*)mode);
 			return ret;
 		}
 
@@ -1447,9 +4087,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetDesktopDisplayMode(int displayIndex, SDLDisplayMode* mode)
+		public static int GetDesktopDisplayMode(int displayIndex, SDLDisplayModePtr mode)
 		{
-			int ret = GetDesktopDisplayModeNative(displayIndex, mode);
+			int ret = GetDesktopDisplayModeNative(displayIndex, (SDLDisplayMode*)mode);
 			return ret;
 		}
 
@@ -1502,9 +4142,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetCurrentDisplayMode(int displayIndex, SDLDisplayMode* mode)
+		public static int GetCurrentDisplayMode(int displayIndex, SDLDisplayModePtr mode)
 		{
-			int ret = GetCurrentDisplayModeNative(displayIndex, mode);
+			int ret = GetCurrentDisplayModeNative(displayIndex, (SDLDisplayMode*)mode);
 			return ret;
 		}
 
@@ -1561,9 +4201,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLDisplayMode* GetClosestDisplayMode(int displayIndex, SDLDisplayMode* mode, SDLDisplayMode* closest)
+		public static SDLDisplayModePtr GetClosestDisplayMode(int displayIndex, SDLDisplayModePtr mode, SDLDisplayModePtr closest)
 		{
-			SDLDisplayMode* ret = GetClosestDisplayModeNative(displayIndex, mode, closest);
+			SDLDisplayModePtr ret = GetClosestDisplayModeNative(displayIndex, (SDLDisplayMode*)mode, (SDLDisplayMode*)closest);
 			return ret;
 		}
 
@@ -1579,11 +4219,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLDisplayMode* GetClosestDisplayMode(int displayIndex, ref SDLDisplayMode mode, SDLDisplayMode* closest)
+		public static SDLDisplayModePtr GetClosestDisplayMode(int displayIndex, in SDLDisplayMode mode, SDLDisplayModePtr closest)
 		{
 			fixed (SDLDisplayMode* pmode = &mode)
 			{
-				SDLDisplayMode* ret = GetClosestDisplayModeNative(displayIndex, (SDLDisplayMode*)pmode, closest);
+				SDLDisplayModePtr ret = GetClosestDisplayModeNative(displayIndex, (SDLDisplayMode*)pmode, (SDLDisplayMode*)closest);
 				return ret;
 			}
 		}
@@ -1600,11 +4240,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLDisplayMode* GetClosestDisplayMode(int displayIndex, SDLDisplayMode* mode, ref SDLDisplayMode closest)
+		public static SDLDisplayModePtr GetClosestDisplayMode(int displayIndex, SDLDisplayModePtr mode, ref SDLDisplayMode closest)
 		{
 			fixed (SDLDisplayMode* pclosest = &closest)
 			{
-				SDLDisplayMode* ret = GetClosestDisplayModeNative(displayIndex, mode, (SDLDisplayMode*)pclosest);
+				SDLDisplayModePtr ret = GetClosestDisplayModeNative(displayIndex, (SDLDisplayMode*)mode, (SDLDisplayMode*)pclosest);
 				return ret;
 			}
 		}
@@ -1621,13 +4261,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLDisplayMode* GetClosestDisplayMode(int displayIndex, ref SDLDisplayMode mode, ref SDLDisplayMode closest)
+		public static SDLDisplayModePtr GetClosestDisplayMode(int displayIndex, in SDLDisplayMode mode, ref SDLDisplayMode closest)
 		{
 			fixed (SDLDisplayMode* pmode = &mode)
 			{
 				fixed (SDLDisplayMode* pclosest = &closest)
 				{
-					SDLDisplayMode* ret = GetClosestDisplayModeNative(displayIndex, (SDLDisplayMode*)pmode, (SDLDisplayMode*)pclosest);
+					SDLDisplayModePtr ret = GetClosestDisplayModeNative(displayIndex, (SDLDisplayMode*)pmode, (SDLDisplayMode*)pclosest);
 					return ret;
 				}
 			}
@@ -1655,9 +4295,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetPointDisplayIndex(SDLPoint* point)
+		public static int GetPointDisplayIndex(SDLPointPtr point)
 		{
-			int ret = GetPointDisplayIndexNative(point);
+			int ret = GetPointDisplayIndexNative((SDLPoint*)point);
 			return ret;
 		}
 
@@ -1667,7 +4307,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetPointDisplayIndex(ref SDLPoint point)
+		public static int GetPointDisplayIndex(in SDLPoint point)
 		{
 			fixed (SDLPoint* ppoint = &point)
 			{
@@ -1698,9 +4338,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetRectDisplayIndex(SDLRect* rect)
+		public static int GetRectDisplayIndex(SDLRectPtr rect)
 		{
-			int ret = GetRectDisplayIndexNative(rect);
+			int ret = GetRectDisplayIndexNative((SDLRect*)rect);
 			return ret;
 		}
 
@@ -1710,7 +4350,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetRectDisplayIndex(ref SDLRect rect)
+		public static int GetRectDisplayIndex(in SDLRect rect)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1741,9 +4381,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetWindowDisplayIndex(SDLWindow* window)
+		public static int GetWindowDisplayIndex(SDLWindowPtr window)
 		{
-			int ret = GetWindowDisplayIndexNative(window);
+			int ret = GetWindowDisplayIndexNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -1790,9 +4430,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowDisplayMode(SDLWindow* window, SDLDisplayMode* mode)
+		public static int SetWindowDisplayMode(SDLWindowPtr window, SDLDisplayModePtr mode)
 		{
-			int ret = SetWindowDisplayModeNative(window, mode);
+			int ret = SetWindowDisplayModeNative((SDLWindow*)window, (SDLDisplayMode*)mode);
 			return ret;
 		}
 
@@ -1805,11 +4445,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowDisplayMode(ref SDLWindow window, SDLDisplayMode* mode)
+		public static int SetWindowDisplayMode(ref SDLWindow window, SDLDisplayModePtr mode)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SetWindowDisplayModeNative((SDLWindow*)pwindow, mode);
+				int ret = SetWindowDisplayModeNative((SDLWindow*)pwindow, (SDLDisplayMode*)mode);
 				return ret;
 			}
 		}
@@ -1823,11 +4463,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowDisplayMode(SDLWindow* window, ref SDLDisplayMode mode)
+		public static int SetWindowDisplayMode(SDLWindowPtr window, in SDLDisplayMode mode)
 		{
 			fixed (SDLDisplayMode* pmode = &mode)
 			{
-				int ret = SetWindowDisplayModeNative(window, (SDLDisplayMode*)pmode);
+				int ret = SetWindowDisplayModeNative((SDLWindow*)window, (SDLDisplayMode*)pmode);
 				return ret;
 			}
 		}
@@ -1841,7 +4481,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetWindowDisplayMode(ref SDLWindow window, ref SDLDisplayMode mode)
+		public static int SetWindowDisplayMode(ref SDLWindow window, in SDLDisplayMode mode)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1875,9 +4515,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetWindowDisplayMode(SDLWindow* window, SDLDisplayMode* mode)
+		public static int GetWindowDisplayMode(SDLWindowPtr window, SDLDisplayModePtr mode)
 		{
-			int ret = GetWindowDisplayModeNative(window, mode);
+			int ret = GetWindowDisplayModeNative((SDLWindow*)window, (SDLDisplayMode*)mode);
 			return ret;
 		}
 
@@ -1887,11 +4527,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetWindowDisplayMode(ref SDLWindow window, SDLDisplayMode* mode)
+		public static int GetWindowDisplayMode(ref SDLWindow window, SDLDisplayModePtr mode)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = GetWindowDisplayModeNative((SDLWindow*)pwindow, mode);
+				int ret = GetWindowDisplayModeNative((SDLWindow*)pwindow, (SDLDisplayMode*)mode);
 				return ret;
 			}
 		}
@@ -1902,11 +4542,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetWindowDisplayMode(SDLWindow* window, ref SDLDisplayMode mode)
+		public static int GetWindowDisplayMode(SDLWindowPtr window, ref SDLDisplayMode mode)
 		{
 			fixed (SDLDisplayMode* pmode = &mode)
 			{
-				int ret = GetWindowDisplayModeNative(window, (SDLDisplayMode*)pmode);
+				int ret = GetWindowDisplayModeNative((SDLWindow*)window, (SDLDisplayMode*)pmode);
 				return ret;
 			}
 		}
@@ -1951,9 +4591,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* GetWindowICCProfile(SDLWindow* window, nuint* size)
+		public static void* GetWindowICCProfile(SDLWindowPtr window, nuint* size)
 		{
-			void* ret = GetWindowICCProfileNative(window, size);
+			void* ret = GetWindowICCProfileNative((SDLWindow*)window, size);
 			return ret;
 		}
 
@@ -1978,11 +4618,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* GetWindowICCProfile(SDLWindow* window, ref nuint size)
+		public static void* GetWindowICCProfile(SDLWindowPtr window, ref nuint size)
 		{
 			fixed (nuint* psize = &size)
 			{
-				void* ret = GetWindowICCProfileNative(window, (nuint*)psize);
+				void* ret = GetWindowICCProfileNative((SDLWindow*)window, (nuint*)psize);
 				return ret;
 			}
 		}
@@ -2025,9 +4665,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint GetWindowPixelFormat(SDLWindow* window)
+		public static uint GetWindowPixelFormat(SDLWindowPtr window)
 		{
-			uint ret = GetWindowPixelFormatNative(window);
+			uint ret = GetWindowPixelFormatNative((SDLWindow*)window);
 			return ret;
 		}
 
@@ -2151,9 +4791,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindow(byte* title, int x, int y, int w, int h, uint flags)
+		public static SDLWindowPtr CreateWindow(byte* title, int x, int y, int w, int h, uint flags)
 		{
-			SDLWindow* ret = CreateWindowNative(title, x, y, w, h, flags);
+			SDLWindowPtr ret = CreateWindowNative(title, x, y, w, h, flags);
 			return ret;
 		}
 
@@ -2205,11 +4845,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindow(ref byte title, int x, int y, int w, int h, uint flags)
+		public static SDLWindowPtr CreateWindow(in byte title, int x, int y, int w, int h, uint flags)
 		{
 			fixed (byte* ptitle = &title)
 			{
-				SDLWindow* ret = CreateWindowNative((byte*)ptitle, x, y, w, h, flags);
+				SDLWindowPtr ret = CreateWindowNative((byte*)ptitle, x, y, w, h, flags);
 				return ret;
 			}
 		}
@@ -2262,11 +4902,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindow(ReadOnlySpan<byte> title, int x, int y, int w, int h, uint flags)
+		public static SDLWindowPtr CreateWindow(ReadOnlySpan<byte> title, int x, int y, int w, int h, uint flags)
 		{
 			fixed (byte* ptitle = title)
 			{
-				SDLWindow* ret = CreateWindowNative((byte*)ptitle, x, y, w, h, flags);
+				SDLWindowPtr ret = CreateWindowNative((byte*)ptitle, x, y, w, h, flags);
 				return ret;
 			}
 		}
@@ -2319,7 +4959,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindow(string title, int x, int y, int w, int h, uint flags)
+		public static SDLWindowPtr CreateWindow(string title, int x, int y, int w, int h, uint flags)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2338,7 +4978,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLWindow* ret = CreateWindowNative(pStr0, x, y, w, h, flags);
+			SDLWindowPtr ret = CreateWindowNative(pStr0, x, y, w, h, flags);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2374,2655 +5014,10 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* CreateWindowFrom(void* data)
+		public static SDLWindowPtr CreateWindowFrom(void* data)
 		{
-			SDLWindow* ret = CreateWindowFromNative(data);
+			SDLWindowPtr ret = CreateWindowFromNative(data);
 			return ret;
-		}
-
-		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetWindowIDNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[368])(window);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[368])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetWindowID(SDLWindow* window)
-		{
-			uint ret = GetWindowIDNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetWindowID(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				uint ret = GetWindowIDNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a window from a stored ID.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetWindowFromIDNative(uint id)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLWindow*>)funcTable[369])(id);
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[369])(id);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a window from a stored ID.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* GetWindowFromID(uint id)
-		{
-			SDLWindow* ret = GetWindowFromIDNative(id);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetWindowFlagsNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[370])(window);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[370])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetWindowFlags(SDLWindow* window)
-		{
-			uint ret = GetWindowFlagsNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetWindowFlags(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				uint ret = GetWindowFlagsNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowTitleNative(SDLWindow* window, byte* title)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void>)funcTable[371])(window, title);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[371])((nint)window, (nint)title);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowTitle(SDLWindow* window, byte* title)
-		{
-			SetWindowTitleNative(window, title);
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowTitle(ref SDLWindow window, byte* title)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowTitleNative((SDLWindow*)pwindow, title);
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowTitle(SDLWindow* window, ref byte title)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				SetWindowTitleNative(window, (byte*)ptitle);
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowTitle(SDLWindow* window, ReadOnlySpan<byte> title)
-		{
-			fixed (byte* ptitle = title)
-			{
-				SetWindowTitleNative(window, (byte*)ptitle);
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowTitle(SDLWindow* window, string title)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SetWindowTitleNative(window, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowTitle(ref SDLWindow window, ref byte title)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* ptitle = &title)
-				{
-					SetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowTitle(ref SDLWindow window, ReadOnlySpan<byte> title)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* ptitle = title)
-				{
-					SetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowTitle(ref SDLWindow window, string title)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (title != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(title);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SetWindowTitleNative((SDLWindow*)pwindow, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the title of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetWindowTitleNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*>)funcTable[372])(window);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[372])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the title of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetWindowTitle(SDLWindow* window)
-		{
-			byte* ret = GetWindowTitleNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the title of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetWindowTitleS(SDLWindow* window)
-		{
-			string ret = Utils.DecodeStringUTF8(GetWindowTitleNative(window));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the title of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetWindowTitle(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte* ret = GetWindowTitleNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the title of a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetWindowTitleS(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				string ret = Utils.DecodeStringUTF8(GetWindowTitleNative((SDLWindow*)pwindow));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowIconNative(SDLWindow* window, SDLSurface* icon)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, void>)funcTable[373])(window, icon);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[373])((nint)window, (nint)icon);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowIcon(SDLWindow* window, SDLSurface* icon)
-		{
-			SetWindowIconNative(window, icon);
-		}
-
-		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowIcon(ref SDLWindow window, SDLSurface* icon)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowIconNative((SDLWindow*)pwindow, icon);
-			}
-		}
-
-		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowIcon(SDLWindow* window, ref SDLSurface icon)
-		{
-			fixed (SDLSurface* picon = &icon)
-			{
-				SetWindowIconNative(window, (SDLSurface*)picon);
-			}
-		}
-
-		/// <summary>
-		/// Set the icon for a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowIcon(ref SDLWindow window, ref SDLSurface icon)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLSurface* picon = &icon)
-				{
-					SetWindowIconNative((SDLWindow*)pwindow, (SDLSurface*)picon);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* SetWindowDataNative(SDLWindow* window, byte* name, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*, void*>)funcTable[374])(window, name, userdata);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint>)funcTable[374])((nint)window, (nint)name, (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* SetWindowData(SDLWindow* window, byte* name, void* userdata)
-		{
-			void* ret = SetWindowDataNative(window, name, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* SetWindowData(ref SDLWindow window, byte* name, void* userdata)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				void* ret = SetWindowDataNative((SDLWindow*)pwindow, name, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* SetWindowData(SDLWindow* window, ref byte name, void* userdata)
-		{
-			fixed (byte* pname = &name)
-			{
-				void* ret = SetWindowDataNative(window, (byte*)pname, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* SetWindowData(SDLWindow* window, ReadOnlySpan<byte> name, void* userdata)
-		{
-			fixed (byte* pname = name)
-			{
-				void* ret = SetWindowDataNative(window, (byte*)pname, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* SetWindowData(SDLWindow* window, string name, void* userdata)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			void* ret = SetWindowDataNative(window, pStr0, userdata);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* SetWindowData(ref SDLWindow window, ref byte name, void* userdata)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pname = &name)
-				{
-					void* ret = SetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, userdata);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* SetWindowData(ref SDLWindow window, ReadOnlySpan<byte> name, void* userdata)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pname = name)
-				{
-					void* ret = SetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, userdata);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Associate an arbitrary named pointer with a window.<br/>
-		/// `name` is case-sensitive.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* SetWindowData(ref SDLWindow window, string name, void* userdata)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (name != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				void* ret = SetWindowDataNative((SDLWindow*)pwindow, pStr0, userdata);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* GetWindowDataNative(SDLWindow* window, byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*>)funcTable[375])(window, name);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[375])((nint)window, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowData(SDLWindow* window, byte* name)
-		{
-			void* ret = GetWindowDataNative(window, name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowData(ref SDLWindow window, byte* name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				void* ret = GetWindowDataNative((SDLWindow*)pwindow, name);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowData(SDLWindow* window, ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				void* ret = GetWindowDataNative(window, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowData(SDLWindow* window, ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				void* ret = GetWindowDataNative(window, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowData(SDLWindow* window, string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			void* ret = GetWindowDataNative(window, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowData(ref SDLWindow window, ref byte name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pname = &name)
-				{
-					void* ret = GetWindowDataNative((SDLWindow*)pwindow, (byte*)pname);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowData(ref SDLWindow window, ReadOnlySpan<byte> name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pname = name)
-				{
-					void* ret = GetWindowDataNative((SDLWindow*)pwindow, (byte*)pname);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the data pointer associated with a window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* GetWindowData(ref SDLWindow window, string name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (name != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				void* ret = GetWindowDataNative((SDLWindow*)pwindow, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the position of a window.<br/>
-		/// The window coordinate origin is the upper left of the display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowPositionNative(SDLWindow* window, int x, int y)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[376])(window, x, y);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[376])((nint)window, x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the position of a window.<br/>
-		/// The window coordinate origin is the upper left of the display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowPosition(SDLWindow* window, int x, int y)
-		{
-			SetWindowPositionNative(window, x, y);
-		}
-
-		/// <summary>
-		/// Set the position of a window.<br/>
-		/// The window coordinate origin is the upper left of the display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowPosition(ref SDLWindow window, int x, int y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowPositionNative((SDLWindow*)pwindow, x, y);
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetWindowPositionNative(SDLWindow* window, int* x, int* y)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[377])(window, x, y);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[377])((nint)window, (nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowPosition(SDLWindow* window, int* x, int* y)
-		{
-			GetWindowPositionNative(window, x, y);
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowPosition(ref SDLWindow window, int* x, int* y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GetWindowPositionNative((SDLWindow*)pwindow, x, y);
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowPosition(SDLWindow* window, ref int x, int* y)
-		{
-			fixed (int* px = &x)
-			{
-				GetWindowPositionNative(window, (int*)px, y);
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowPosition(ref SDLWindow window, ref int x, int* y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* px = &x)
-				{
-					GetWindowPositionNative((SDLWindow*)pwindow, (int*)px, y);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowPosition(SDLWindow* window, int* x, ref int y)
-		{
-			fixed (int* py = &y)
-			{
-				GetWindowPositionNative(window, x, (int*)py);
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowPosition(ref SDLWindow window, int* x, ref int y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* py = &y)
-				{
-					GetWindowPositionNative((SDLWindow*)pwindow, x, (int*)py);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowPosition(SDLWindow* window, ref int x, ref int y)
-		{
-			fixed (int* px = &x)
-			{
-				fixed (int* py = &y)
-				{
-					GetWindowPositionNative(window, (int*)px, (int*)py);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the position of a window.<br/>
-		/// If you do not need the value for one of the positions a NULL may be passed<br/>
-		/// in the `x` or `y` parameter.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowPosition(ref SDLWindow window, ref int x, ref int y)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* px = &x)
-				{
-					fixed (int* py = &y)
-					{
-						GetWindowPositionNative((SDLWindow*)pwindow, (int*)px, (int*)py);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the size of a window's client area.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize() or<br/>
-		/// SDL_GetRendererOutputSize() to get the real client area size in pixels.<br/>
-		/// Fullscreen windows automatically match the size of the display mode, and<br/>
-		/// you should use SDL_SetWindowDisplayMode() to change their size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowSizeNative(SDLWindow* window, int w, int h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[378])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[378])((nint)window, w, h);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the size of a window's client area.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize() or<br/>
-		/// SDL_GetRendererOutputSize() to get the real client area size in pixels.<br/>
-		/// Fullscreen windows automatically match the size of the display mode, and<br/>
-		/// you should use SDL_SetWindowDisplayMode() to change their size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowSize(SDLWindow* window, int w, int h)
-		{
-			SetWindowSizeNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Set the size of a window's client area.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize() or<br/>
-		/// SDL_GetRendererOutputSize() to get the real client area size in pixels.<br/>
-		/// Fullscreen windows automatically match the size of the display mode, and<br/>
-		/// you should use SDL_SetWindowDisplayMode() to change their size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowSize(ref SDLWindow window, int w, int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowSizeNative((SDLWindow*)pwindow, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetWindowSizeNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[379])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[379])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSize(SDLWindow* window, int* w, int* h)
-		{
-			GetWindowSizeNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSize(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GetWindowSizeNative((SDLWindow*)pwindow, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSize(SDLWindow* window, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				GetWindowSizeNative(window, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSize(ref SDLWindow window, ref int w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					GetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSize(SDLWindow* window, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				GetWindowSizeNative(window, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSize(ref SDLWindow window, int* w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowSizeNative((SDLWindow*)pwindow, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSize(SDLWindow* window, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowSizeNative(window, (int*)pw, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's client area.<br/>
-		/// NULL can safely be passed as the `w` or `h` parameter if the width or<br/>
-		/// height value is not desired.<br/>
-		/// The window size in screen coordinates may differ from the size in pixels,<br/>
-		/// if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform<br/>
-		/// with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),<br/>
-		/// SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the<br/>
-		/// real client area size in pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSize(ref SDLWindow window, ref int w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						GetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetWindowBordersSizeNative(SDLWindow* window, int* top, int* left, int* bottom, int* right)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, int*, int*, int>)funcTable[380])(window, top, left, bottom, right);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[380])((nint)window, (nint)top, (nint)left, (nint)bottom, (nint)right);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, int* top, int* left, int* bottom, int* right)
-		{
-			int ret = GetWindowBordersSizeNative(window, top, left, bottom, right);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, int* top, int* left, int* bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, right);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, int* left, int* bottom, int* right)
-		{
-			fixed (int* ptop = &top)
-			{
-				int ret = GetWindowBordersSizeNative(window, (int*)ptop, left, bottom, right);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, int* bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, right);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, int* top, ref int left, int* bottom, int* right)
-		{
-			fixed (int* pleft = &left)
-			{
-				int ret = GetWindowBordersSizeNative(window, top, (int*)pleft, bottom, right);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, int* bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pleft = &left)
-				{
-					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, right);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, ref int left, int* bottom, int* right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pleft = &left)
-				{
-					int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, bottom, right);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, int* bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pleft = &left)
-					{
-						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, right);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, int* top, int* left, ref int bottom, int* right)
-		{
-			fixed (int* pbottom = &bottom)
-			{
-				int ret = GetWindowBordersSizeNative(window, top, left, (int*)pbottom, right);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, int* top, int* left, ref int bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pbottom = &bottom)
-				{
-					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, right);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, int* left, ref int bottom, int* right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pbottom = &bottom)
-				{
-					int ret = GetWindowBordersSizeNative(window, (int*)ptop, left, (int*)pbottom, right);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, ref int bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pbottom = &bottom)
-					{
-						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, (int*)pbottom, right);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, int* top, ref int left, ref int bottom, int* right)
-		{
-			fixed (int* pleft = &left)
-			{
-				fixed (int* pbottom = &bottom)
-				{
-					int ret = GetWindowBordersSizeNative(window, top, (int*)pleft, (int*)pbottom, right);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, ref int bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pleft = &left)
-				{
-					fixed (int* pbottom = &bottom)
-					{
-						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, (int*)pbottom, right);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, ref int left, ref int bottom, int* right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pleft = &left)
-				{
-					fixed (int* pbottom = &bottom)
-					{
-						int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, (int*)pbottom, right);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, ref int bottom, int* right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pleft = &left)
-					{
-						fixed (int* pbottom = &bottom)
-						{
-							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, right);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, int* top, int* left, int* bottom, ref int right)
-		{
-			fixed (int* pright = &right)
-			{
-				int ret = GetWindowBordersSizeNative(window, top, left, bottom, (int*)pright);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, int* top, int* left, int* bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pright = &right)
-				{
-					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, (int*)pright);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, int* left, int* bottom, ref int right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pright = &right)
-				{
-					int ret = GetWindowBordersSizeNative(window, (int*)ptop, left, bottom, (int*)pright);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, int* bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pright = &right)
-					{
-						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, (int*)pright);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, int* top, ref int left, int* bottom, ref int right)
-		{
-			fixed (int* pleft = &left)
-			{
-				fixed (int* pright = &right)
-				{
-					int ret = GetWindowBordersSizeNative(window, top, (int*)pleft, bottom, (int*)pright);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, int* bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pleft = &left)
-				{
-					fixed (int* pright = &right)
-					{
-						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, (int*)pright);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, ref int left, int* bottom, ref int right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pleft = &left)
-				{
-					fixed (int* pright = &right)
-					{
-						int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, bottom, (int*)pright);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, int* bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pleft = &left)
-					{
-						fixed (int* pright = &right)
-						{
-							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, (int*)pright);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, int* top, int* left, ref int bottom, ref int right)
-		{
-			fixed (int* pbottom = &bottom)
-			{
-				fixed (int* pright = &right)
-				{
-					int ret = GetWindowBordersSizeNative(window, top, left, (int*)pbottom, (int*)pright);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, int* top, int* left, ref int bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pbottom = &bottom)
-				{
-					fixed (int* pright = &right)
-					{
-						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, (int*)pright);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, int* left, ref int bottom, ref int right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pbottom = &bottom)
-				{
-					fixed (int* pright = &right)
-					{
-						int ret = GetWindowBordersSizeNative(window, (int*)ptop, left, (int*)pbottom, (int*)pright);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, int* left, ref int bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pbottom = &bottom)
-					{
-						fixed (int* pright = &right)
-						{
-							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, (int*)pbottom, (int*)pright);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, int* top, ref int left, ref int bottom, ref int right)
-		{
-			fixed (int* pleft = &left)
-			{
-				fixed (int* pbottom = &bottom)
-				{
-					fixed (int* pright = &right)
-					{
-						int ret = GetWindowBordersSizeNative(window, top, (int*)pleft, (int*)pbottom, (int*)pright);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, int* top, ref int left, ref int bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pleft = &left)
-				{
-					fixed (int* pbottom = &bottom)
-					{
-						fixed (int* pright = &right)
-						{
-							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, (int*)pbottom, (int*)pright);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, ref int left, ref int bottom, ref int right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pleft = &left)
-				{
-					fixed (int* pbottom = &bottom)
-					{
-						fixed (int* pright = &right)
-						{
-							int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, ref int bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pleft = &left)
-					{
-						fixed (int* pbottom = &bottom)
-						{
-							fixed (int* pright = &right)
-							{
-								int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetWindowSizeInPixelsNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[381])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[381])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(SDLWindow* window, int* w, int* h)
-		{
-			GetWindowSizeInPixelsNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(SDLWindow* window, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				GetWindowSizeInPixelsNative(window, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(ref SDLWindow window, ref int w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(SDLWindow* window, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				GetWindowSizeInPixelsNative(window, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(ref SDLWindow window, int* w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(SDLWindow* window, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowSizeInPixelsNative(window, (int*)pw, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(ref SDLWindow window, ref int w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowMinimumSizeNative(SDLWindow* window, int minW, int minH)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[382])(window, minW, minH);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[382])((nint)window, minW, minH);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowMinimumSize(SDLWindow* window, int minW, int minH)
-		{
-			SetWindowMinimumSizeNative(window, minW, minH);
-		}
-
-		/// <summary>
-		/// Set the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowMinimumSize(ref SDLWindow window, int minW, int minH)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowMinimumSizeNative((SDLWindow*)pwindow, minW, minH);
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetWindowMinimumSizeNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[383])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[383])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(SDLWindow* window, int* w, int* h)
-		{
-			GetWindowMinimumSizeNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(SDLWindow* window, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				GetWindowMinimumSizeNative(window, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(ref SDLWindow window, ref int w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(SDLWindow* window, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				GetWindowMinimumSizeNative(window, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(ref SDLWindow window, int* w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(SDLWindow* window, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowMinimumSizeNative(window, (int*)pw, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(ref SDLWindow window, ref int w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowMaximumSizeNative(SDLWindow* window, int maxW, int maxH)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[384])(window, maxW, maxH);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[384])((nint)window, maxW, maxH);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowMaximumSize(SDLWindow* window, int maxW, int maxH)
-		{
-			SetWindowMaximumSizeNative(window, maxW, maxH);
-		}
-
-		/// <summary>
-		/// Set the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowMaximumSize(ref SDLWindow window, int maxW, int maxH)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowMaximumSizeNative((SDLWindow*)pwindow, maxW, maxH);
-			}
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetWindowMaximumSizeNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[385])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[385])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMaximumSize(SDLWindow* window, int* w, int* h)
-		{
-			GetWindowMaximumSizeNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMaximumSize(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, h);
-			}
 		}
 	}
 }

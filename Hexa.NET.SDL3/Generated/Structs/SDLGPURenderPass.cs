@@ -15,18 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a render pass.<br/>
-	/// This handle is transient and should not be held or referenced after<br/>
-	/// SDL_EndGPURenderPass is called.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPURenderPass")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPURenderPass
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPURenderPass")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPURenderPassPtr : IEquatable<SDLGPURenderPassPtr>
+	{
+		public SDLGPURenderPassPtr(SDLGPURenderPass* handle) { Handle = handle; }
+
+		public SDLGPURenderPass* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPURenderPassPtr Null => new SDLGPURenderPassPtr(null);
+
+		public SDLGPURenderPass this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPURenderPassPtr(SDLGPURenderPass* handle) => new SDLGPURenderPassPtr(handle);
+
+		public static implicit operator SDLGPURenderPass*(SDLGPURenderPassPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPURenderPassPtr left, SDLGPURenderPassPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPURenderPassPtr left, SDLGPURenderPassPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPURenderPassPtr left, SDLGPURenderPass* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPURenderPassPtr left, SDLGPURenderPass* right) => left.Handle != right;
+
+		public bool Equals(SDLGPURenderPassPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPURenderPassPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPURenderPassPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

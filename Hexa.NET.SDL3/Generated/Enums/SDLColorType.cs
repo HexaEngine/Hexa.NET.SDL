@@ -16,11 +16,18 @@ namespace Hexa.NET.SDL3
 	/// Colorspace color type.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_ColorType")]
 	[Flags]
 	public enum SDLColorType : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_TYPE_UNKNOWN")]
+		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_TYPE_RGB")]
+		[NativeName(NativeNameType.Value, "1")]
 		Rgb = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_COLOR_TYPE_YCBCR")]
+		[NativeName(NativeNameType.Value, "2")]
 		Ycbcr = unchecked(2),
 	}
 }

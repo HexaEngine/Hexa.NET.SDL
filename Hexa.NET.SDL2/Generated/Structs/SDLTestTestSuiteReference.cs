@@ -48,12 +48,12 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		public unsafe void* TestTearDown;
 
-		public unsafe SDLTestTestSuiteReference(byte* name = default, SDLTestTestCaseSetUpFp testSetUp = default, SDLTestTestCaseReference** testCases = default, SDLTestTestCaseTearDownFp testTearDown = default)
+		public unsafe SDLTestTestSuiteReference(byte* name = default, delegate*<void*, void> testSetUp = default, SDLTestTestCaseReferencePtrPtr testCases = default, delegate*<void*, void> testTearDown = default)
 		{
 			Name = name;
-			TestSetUp = (delegate*<void*, void>)Marshal.GetFunctionPointerForDelegate(testSetUp);
+			TestSetUp = (delegate*<void*, void>)testSetUp;
 			TestCases = testCases;
-			TestTearDown = (delegate*<void*, void>)Marshal.GetFunctionPointerForDelegate(testTearDown);
+			TestTearDown = (delegate*<void*, void>)testTearDown;
 		}
 
 

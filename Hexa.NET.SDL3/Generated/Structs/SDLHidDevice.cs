@@ -15,15 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing an open HID device.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_hid_device")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHidDevice
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_hid_device")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLHidDevicePtr : IEquatable<SDLHidDevicePtr>
+	{
+		public SDLHidDevicePtr(SDLHidDevice* handle) { Handle = handle; }
+
+		public SDLHidDevice* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLHidDevicePtr Null => new SDLHidDevicePtr(null);
+
+		public SDLHidDevice this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLHidDevicePtr(SDLHidDevice* handle) => new SDLHidDevicePtr(handle);
+
+		public static implicit operator SDLHidDevice*(SDLHidDevicePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLHidDevicePtr left, SDLHidDevicePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLHidDevicePtr left, SDLHidDevicePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLHidDevicePtr left, SDLHidDevice* right) => left.Handle == right;
+
+		public static bool operator !=(SDLHidDevicePtr left, SDLHidDevice* right) => left.Handle != right;
+
+		public bool Equals(SDLHidDevicePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLHidDevicePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLHidDevicePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

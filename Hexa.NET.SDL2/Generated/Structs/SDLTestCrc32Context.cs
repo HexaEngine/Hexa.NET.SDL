@@ -811,4 +811,58 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// Data structure for CRC32 (checksum) computation<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestCrc32ContextPtr : IEquatable<SDLTestCrc32ContextPtr>
+	{
+		public SDLTestCrc32ContextPtr(SDLTestCrc32Context* handle) { Handle = handle; }
+
+		public SDLTestCrc32Context* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestCrc32ContextPtr Null => new SDLTestCrc32ContextPtr(null);
+
+		public SDLTestCrc32Context this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestCrc32ContextPtr(SDLTestCrc32Context* handle) => new SDLTestCrc32ContextPtr(handle);
+
+		public static implicit operator SDLTestCrc32Context*(SDLTestCrc32ContextPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestCrc32ContextPtr left, SDLTestCrc32ContextPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestCrc32ContextPtr left, SDLTestCrc32ContextPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestCrc32ContextPtr left, SDLTestCrc32Context* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestCrc32ContextPtr left, SDLTestCrc32Context* right) => left.Handle != right;
+
+		public bool Equals(SDLTestCrc32ContextPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestCrc32ContextPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestCrc32ContextPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// CRC table <br/>
+		/// </summary>
+		public unsafe Span<uint> Crc32Table
+		
+		{
+			get
+			{
+				return new Span<uint>(&Handle->Crc32Table_0, 256);
+			}
+		}
+	}
+
 }

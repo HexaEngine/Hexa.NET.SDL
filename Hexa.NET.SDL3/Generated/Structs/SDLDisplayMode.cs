@@ -20,56 +20,75 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_DisplayMode")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDisplayMode
 	{
 		/// <summary>
 		/// the display this mode is associated with <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "displayID")]
+		[NativeName(NativeNameType.Type, "SDL_DisplayID")]
 		public uint DisplayID;
 
 		/// <summary>
 		/// pixel format <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
 
 		/// <summary>
 		/// width <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "w")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int W;
 
 		/// <summary>
 		/// height <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "h")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		/// <summary>
 		/// scale converting size to pixels (e.g. a 1920x1080 mode with 2.0 scale would have 3840x2160 pixels) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pixel_density")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float PixelDensity;
 
 		/// <summary>
 		/// refresh rate (or 0.0f for unspecified) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "refresh_rate")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float RefreshRate;
 
 		/// <summary>
 		/// precise refresh rate numerator (or 0 for unspecified) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "refresh_rate_numerator")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int RefreshRateNumerator;
 
 		/// <summary>
 		/// precise refresh rate denominator <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "refresh_rate_denominator")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int RefreshRateDenominator;
 
 		/// <summary>
 		/// Private <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "internal")]
+		[NativeName(NativeNameType.Type, "SDL_DisplayModeData *")]
 		public unsafe SDLDisplayModeData* Internal;
 
 
-		public unsafe SDLDisplayMode(uint displayID = default, SDLPixelFormat format = default, int w = default, int h = default, float pixelDensity = default, float refreshRate = default, int refreshRateNumerator = default, int refreshRateDenominator = default, SDLDisplayModeData* @internal = default)
+		public unsafe SDLDisplayMode(uint displayID = default, SDLPixelFormat format = default, int w = default, int h = default, float pixelDensity = default, float refreshRate = default, int refreshRateNumerator = default, int refreshRateDenominator = default, SDLDisplayModeDataPtr @internal = default)
 		{
 			DisplayID = displayID;
 			Format = format;
@@ -83,6 +102,134 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The structure that defines a display mode.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_DisplayMode")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLDisplayModePtrPtr : IEquatable<SDLDisplayModePtrPtr>
+	{
+		public SDLDisplayModePtrPtr(SDLDisplayMode** handle) { Handle = handle; }
+
+		public SDLDisplayMode** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLDisplayModePtrPtr Null => new SDLDisplayModePtrPtr(null);
+
+		public SDLDisplayMode* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLDisplayModePtrPtr(SDLDisplayMode** handle) => new SDLDisplayModePtrPtr(handle);
+
+		public static implicit operator SDLDisplayMode**(SDLDisplayModePtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLDisplayModePtrPtr left, SDLDisplayModePtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLDisplayModePtrPtr left, SDLDisplayModePtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLDisplayModePtrPtr left, SDLDisplayMode** right) => left.Handle == right;
+
+		public static bool operator !=(SDLDisplayModePtrPtr left, SDLDisplayMode** right) => left.Handle != right;
+
+		public bool Equals(SDLDisplayModePtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLDisplayModePtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLDisplayModePtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
+	/// <summary>
+	/// The structure that defines a display mode.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_DisplayMode")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLDisplayModePtr : IEquatable<SDLDisplayModePtr>
+	{
+		public SDLDisplayModePtr(SDLDisplayMode* handle) { Handle = handle; }
+
+		public SDLDisplayMode* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLDisplayModePtr Null => new SDLDisplayModePtr(null);
+
+		public SDLDisplayMode this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLDisplayModePtr(SDLDisplayMode* handle) => new SDLDisplayModePtr(handle);
+
+		public static implicit operator SDLDisplayMode*(SDLDisplayModePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLDisplayModePtr left, SDLDisplayModePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLDisplayModePtr left, SDLDisplayModePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLDisplayModePtr left, SDLDisplayMode* right) => left.Handle == right;
+
+		public static bool operator !=(SDLDisplayModePtr left, SDLDisplayMode* right) => left.Handle != right;
+
+		public bool Equals(SDLDisplayModePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLDisplayModePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLDisplayModePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// the display this mode is associated with <br/>
+		/// </summary>
+		public ref uint DisplayID => ref Unsafe.AsRef<uint>(&Handle->DisplayID);
+		/// <summary>
+		/// pixel format <br/>
+		/// </summary>
+		public ref SDLPixelFormat Format => ref Unsafe.AsRef<SDLPixelFormat>(&Handle->Format);
+		/// <summary>
+		/// width <br/>
+		/// </summary>
+		public ref int W => ref Unsafe.AsRef<int>(&Handle->W);
+		/// <summary>
+		/// height <br/>
+		/// </summary>
+		public ref int H => ref Unsafe.AsRef<int>(&Handle->H);
+		/// <summary>
+		/// scale converting size to pixels (e.g. a 1920x1080 mode with 2.0 scale would have 3840x2160 pixels) <br/>
+		/// </summary>
+		public ref float PixelDensity => ref Unsafe.AsRef<float>(&Handle->PixelDensity);
+		/// <summary>
+		/// refresh rate (or 0.0f for unspecified) <br/>
+		/// </summary>
+		public ref float RefreshRate => ref Unsafe.AsRef<float>(&Handle->RefreshRate);
+		/// <summary>
+		/// precise refresh rate numerator (or 0 for unspecified) <br/>
+		/// </summary>
+		public ref int RefreshRateNumerator => ref Unsafe.AsRef<int>(&Handle->RefreshRateNumerator);
+		/// <summary>
+		/// precise refresh rate denominator <br/>
+		/// </summary>
+		public ref int RefreshRateDenominator => ref Unsafe.AsRef<int>(&Handle->RefreshRateDenominator);
+		/// <summary>
+		/// Private <br/>
+		/// </summary>
+		public ref SDLDisplayModeDataPtr Internal => ref Unsafe.AsRef<SDLDisplayModeDataPtr>(&Handle->Internal);
 	}
 
 }

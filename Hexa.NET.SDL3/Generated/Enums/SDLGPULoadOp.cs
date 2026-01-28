@@ -18,22 +18,29 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_GPULoadOp")]
 	[Flags]
 	public enum SDLGPULoadOp : int
 	{
 		/// <summary>
 		/// The previous contents of the texture will be preserved. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_LOADOP_LOAD")]
+		[NativeName(NativeNameType.Value, "0")]
 		Load = unchecked(0),
 
 		/// <summary>
 		/// The contents of the texture will be cleared to a color. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_LOADOP_CLEAR")]
+		[NativeName(NativeNameType.Value, "1")]
 		Clear = unchecked(1),
 
 		/// <summary>
 		/// The previous contents of the texture need not be preserved. The contents will be undefined. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_LOADOP_DONT_CARE")]
+		[NativeName(NativeNameType.Value, "2")]
 		DontCare = unchecked(2),
 	}
 }

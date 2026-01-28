@@ -25,18 +25,23 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_IOStreamInterface")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLIOStreamInterface
 	{
 		/// <summary>
 		/// The version of this interface <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "version")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Version;
 
 		/// <summary>
 		/// Return the number of bytes in this SDL_IOStream<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "size")]
+		[NativeName(NativeNameType.Type, "Sint64 (*)(void * userdata) *")]
 		public unsafe void* Size;
 
 		/// <summary>
@@ -44,26 +49,32 @@ namespace Hexa.NET.SDL3
 		/// SDL_IO_SEEK_SET, SDL_IO_SEEK_CUR, SDL_IO_SEEK_END<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "seek")]
+		[NativeName(NativeNameType.Type, "Sint64 (*)(void * userdata, Sint64 offset, SDL_IOWhence whence) *")]
 		public unsafe void* Seek;
 
 		/// <summary>
 		/// Read up to `size` bytes from the data stream to the area pointed<br/>
-		/// at by `ptr`.<br/>
+		/// at by `ptr`. `size` will always be > 0.<br/>
 		/// On an incomplete read, you should set `*status` to a value from the<br/>
 		/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
 		/// a complete, successful read.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "read")]
+		[NativeName(NativeNameType.Type, "size_t (*)(void * userdata, void * ptr, size_t size, SDL_IOStatus * status) *")]
 		public unsafe void* Read;
 
 		/// <summary>
 		/// Write exactly `size` bytes from the area pointed at by `ptr`<br/>
-		/// to data stream.<br/>
+		/// to data stream. `size` will always be > 0.<br/>
 		/// On an incomplete write, you should set `*status` to a value from the<br/>
 		/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
 		/// a complete, successful write.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "write")]
+		[NativeName(NativeNameType.Type, "size_t (*)(void * userdata, void const * ptr, size_t size, SDL_IOStatus * status) *")]
 		public unsafe void* Write;
 
 		/// <summary>
@@ -73,6 +84,8 @@ namespace Hexa.NET.SDL3
 		/// a successful flush.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "flush")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, SDL_IOStatus * status) *")]
 		public unsafe void* Flush;
 
 		/// <summary>
@@ -83,6 +96,8 @@ namespace Hexa.NET.SDL3
 		/// even if flushing buffers, etc, returns an error.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "close")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata) *")]
 		public unsafe void* Close;
 
 
@@ -98,6 +113,107 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The function pointers that drive an SDL_IOStream.<br/>
+	/// Applications can provide this struct to SDL_OpenIO() to create their own<br/>
+	/// implementation of SDL_IOStream. This is not necessarily required, as SDL<br/>
+	/// already offers several common types of I/O streams, via functions like<br/>
+	/// SDL_IOFromFile() and SDL_IOFromMem().<br/>
+	/// This structure should be initialized using SDL_INIT_INTERFACE()<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_IOStreamInterface")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLIOStreamInterfacePtr : IEquatable<SDLIOStreamInterfacePtr>
+	{
+		public SDLIOStreamInterfacePtr(SDLIOStreamInterface* handle) { Handle = handle; }
+
+		public SDLIOStreamInterface* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLIOStreamInterfacePtr Null => new SDLIOStreamInterfacePtr(null);
+
+		public SDLIOStreamInterface this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLIOStreamInterfacePtr(SDLIOStreamInterface* handle) => new SDLIOStreamInterfacePtr(handle);
+
+		public static implicit operator SDLIOStreamInterface*(SDLIOStreamInterfacePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLIOStreamInterfacePtr left, SDLIOStreamInterfacePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLIOStreamInterfacePtr left, SDLIOStreamInterfacePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLIOStreamInterfacePtr left, SDLIOStreamInterface* right) => left.Handle == right;
+
+		public static bool operator !=(SDLIOStreamInterfacePtr left, SDLIOStreamInterface* right) => left.Handle != right;
+
+		public bool Equals(SDLIOStreamInterfacePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLIOStreamInterfacePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLIOStreamInterfacePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The version of this interface <br/>
+		/// </summary>
+		public ref uint Version => ref Unsafe.AsRef<uint>(&Handle->Version);
+		/// <summary>
+		/// Return the number of bytes in this SDL_IOStream<br/>
+		/// <br/>
+		/// </summary>
+		public void* Size { get => Handle->Size; set => Handle->Size = value; }
+		/// <summary>
+		/// Seek to `offset` relative to `whence`, one of stdio's whence values:<br/>
+		/// SDL_IO_SEEK_SET, SDL_IO_SEEK_CUR, SDL_IO_SEEK_END<br/>
+		/// <br/>
+		/// </summary>
+		public void* Seek { get => Handle->Seek; set => Handle->Seek = value; }
+		/// <summary>
+		/// Read up to `size` bytes from the data stream to the area pointed<br/>
+		/// at by `ptr`. `size` will always be > 0.<br/>
+		/// On an incomplete read, you should set `*status` to a value from the<br/>
+		/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
+		/// a complete, successful read.<br/>
+		/// <br/>
+		/// </summary>
+		public void* Read { get => Handle->Read; set => Handle->Read = value; }
+		/// <summary>
+		/// Write exactly `size` bytes from the area pointed at by `ptr`<br/>
+		/// to data stream. `size` will always be > 0.<br/>
+		/// On an incomplete write, you should set `*status` to a value from the<br/>
+		/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
+		/// a complete, successful write.<br/>
+		/// <br/>
+		/// </summary>
+		public void* Write { get => Handle->Write; set => Handle->Write = value; }
+		/// <summary>
+		/// If the stream is buffering, make sure the data is written out.<br/>
+		/// On failure, you should set `*status` to a value from the<br/>
+		/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
+		/// a successful flush.<br/>
+		/// <br/>
+		/// </summary>
+		public void* Flush { get => Handle->Flush; set => Handle->Flush = value; }
+		/// <summary>
+		/// Close and free any allocated resources.<br/>
+		/// This does not guarantee file writes will sync to physical media; they<br/>
+		/// can be in the system's file cache, waiting to go to disk.<br/>
+		/// The SDL_IOStream is still destroyed even if this fails, so clean up anything<br/>
+		/// even if flushing buffers, etc, returns an error.<br/>
+		/// <br/>
+		/// </summary>
+		public void* Close { get => Handle->Close; set => Handle->Close = value; }
 	}
 
 }

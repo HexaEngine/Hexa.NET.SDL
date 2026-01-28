@@ -15,15 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a toplevel system tray object.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Tray")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTray
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Tray")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTrayPtr : IEquatable<SDLTrayPtr>
+	{
+		public SDLTrayPtr(SDLTray* handle) { Handle = handle; }
+
+		public SDLTray* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTrayPtr Null => new SDLTrayPtr(null);
+
+		public SDLTray this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTrayPtr(SDLTray* handle) => new SDLTrayPtr(handle);
+
+		public static implicit operator SDLTray*(SDLTrayPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTrayPtr left, SDLTrayPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTrayPtr left, SDLTrayPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTrayPtr left, SDLTray* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTrayPtr left, SDLTray* right) => left.Handle != right;
+
+		public bool Equals(SDLTrayPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTrayPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTrayPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

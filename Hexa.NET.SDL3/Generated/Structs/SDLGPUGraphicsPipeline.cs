@@ -15,17 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a graphics pipeline.<br/>
-	/// Used during render passes.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUGraphicsPipeline")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUGraphicsPipeline
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUGraphicsPipeline")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUGraphicsPipelinePtr : IEquatable<SDLGPUGraphicsPipelinePtr>
+	{
+		public SDLGPUGraphicsPipelinePtr(SDLGPUGraphicsPipeline* handle) { Handle = handle; }
+
+		public SDLGPUGraphicsPipeline* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUGraphicsPipelinePtr Null => new SDLGPUGraphicsPipelinePtr(null);
+
+		public SDLGPUGraphicsPipeline this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUGraphicsPipelinePtr(SDLGPUGraphicsPipeline* handle) => new SDLGPUGraphicsPipelinePtr(handle);
+
+		public static implicit operator SDLGPUGraphicsPipeline*(SDLGPUGraphicsPipelinePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUGraphicsPipelinePtr left, SDLGPUGraphicsPipelinePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUGraphicsPipelinePtr left, SDLGPUGraphicsPipelinePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUGraphicsPipelinePtr left, SDLGPUGraphicsPipeline* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUGraphicsPipelinePtr left, SDLGPUGraphicsPipeline* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUGraphicsPipelinePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUGraphicsPipelinePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUGraphicsPipelinePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

@@ -19,47 +19,70 @@ namespace Hexa.NET.SDL3
 	/// Keyboard IME candidates event structure (event.edit_candidates.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_TextEditingCandidatesEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTextEditingCandidatesEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_TEXT_EDITING_CANDIDATES <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The window with keyboard focus, if any <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "windowID")]
+		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The list of candidates, or NULL if there are no candidates available <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "candidates")]
+		[NativeName(NativeNameType.Type, "char const * const *")]
 		public unsafe byte** Candidates;
 
 		/// <summary>
 		/// The number of strings in `candidates` <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "num_candidates")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int NumCandidates;
 
 		/// <summary>
 		/// The index of the selected candidate, or -1 if no candidate is selected <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "selected_candidate")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int SelectedCandidate;
 
 		/// <summary>
 		/// true if the list is horizontal, false if it's vertical <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "horizontal")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Horizontal;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
+		[NativeName(NativeNameType.Field, "padding3")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
 		public unsafe SDLTextEditingCandidatesEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, byte** candidates = default, int numCandidates = default, int selectedCandidate = default, bool horizontal = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)

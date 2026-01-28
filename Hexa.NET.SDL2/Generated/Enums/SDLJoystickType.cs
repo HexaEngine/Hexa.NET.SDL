@@ -12,7 +12,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[Flags]
 	public enum SDLJoystickType : int
 	{
 		Unknown = unchecked(0),

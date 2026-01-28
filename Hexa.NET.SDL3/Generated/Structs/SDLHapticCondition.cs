@@ -32,6 +32,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_HapticCondition")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticCondition
 	{
@@ -39,36 +40,50 @@ namespace Hexa.NET.SDL3
 		/// SDL_HAPTIC_SPRING, SDL_HAPTIC_DAMPER,<br/>
 		/// SDL_HAPTIC_INERTIA or SDL_HAPTIC_FRICTION <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_HapticEffectType")]
 		public ushort Type;
 
 		/// <summary>
 		/// Direction of the effect. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "direction")]
+		[NativeName(NativeNameType.Type, "SDL_HapticDirection")]
 		public SDLHapticDirection Direction;
 
 		/// <summary>
 		/// Duration of the effect. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "length")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Length;
 
 		/// <summary>
 		/// Delay before starting the effect. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "delay")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Delay;
 
 		/// <summary>
 		/// Button that triggers the effect. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "button")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Button;
 
 		/// <summary>
 		/// How soon it can be triggered again after button. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "interval")]
+		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Interval;
 
 		/// <summary>
 		/// Level when joystick is to the positive side; max 0xFFFF. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "right_sat")]
+		[NativeName(NativeNameType.Type, "Uint16[3]")]
 		public ushort RightSat_0;
 		public ushort RightSat_1;
 		public ushort RightSat_2;
@@ -76,6 +91,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Level when joystick is to the negative side; max 0xFFFF. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "left_sat")]
+		[NativeName(NativeNameType.Type, "Uint16[3]")]
 		public ushort LeftSat_0;
 		public ushort LeftSat_1;
 		public ushort LeftSat_2;
@@ -83,6 +100,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// How fast to increase the force towards the positive side. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "right_coeff")]
+		[NativeName(NativeNameType.Type, "Sint16[3]")]
 		public short RightCoeff_0;
 		public short RightCoeff_1;
 		public short RightCoeff_2;
@@ -90,6 +109,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// How fast to increase the force towards the negative side. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "left_coeff")]
+		[NativeName(NativeNameType.Type, "Sint16[3]")]
 		public short LeftCoeff_0;
 		public short LeftCoeff_1;
 		public short LeftCoeff_2;
@@ -97,6 +118,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Size of the dead zone; max 0xFFFF: whole axis-range when 0-centered. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "deadband")]
+		[NativeName(NativeNameType.Type, "Uint16[3]")]
 		public ushort Deadband_0;
 		public ushort Deadband_1;
 		public ushort Deadband_2;
@@ -104,6 +127,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Position of the dead zone. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "center")]
+		[NativeName(NativeNameType.Type, "Sint16[3]")]
 		public short Center_0;
 		public short Center_1;
 		public short Center_2;

@@ -22,27 +22,36 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUVertexAttribute")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUVertexAttribute
 	{
 		/// <summary>
 		/// The shader input location index. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "location")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Location;
 
 		/// <summary>
 		/// The binding slot of the associated vertex buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "buffer_slot")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint BufferSlot;
 
 		/// <summary>
 		/// The size and type of the attribute data. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_GPUVertexElementFormat")]
 		public SDLGPUVertexElementFormat Format;
 
 		/// <summary>
 		/// The byte offset of this attribute relative to the start of the vertex element. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "offset")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 
@@ -55,6 +64,70 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying a vertex attribute.<br/>
+	/// All vertex attribute locations provided to an SDL_GPUVertexInputState must<br/>
+	/// be unique.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUVertexAttribute")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUVertexAttributePtr : IEquatable<SDLGPUVertexAttributePtr>
+	{
+		public SDLGPUVertexAttributePtr(SDLGPUVertexAttribute* handle) { Handle = handle; }
+
+		public SDLGPUVertexAttribute* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUVertexAttributePtr Null => new SDLGPUVertexAttributePtr(null);
+
+		public SDLGPUVertexAttribute this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUVertexAttributePtr(SDLGPUVertexAttribute* handle) => new SDLGPUVertexAttributePtr(handle);
+
+		public static implicit operator SDLGPUVertexAttribute*(SDLGPUVertexAttributePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUVertexAttributePtr left, SDLGPUVertexAttributePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUVertexAttributePtr left, SDLGPUVertexAttributePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUVertexAttributePtr left, SDLGPUVertexAttribute* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUVertexAttributePtr left, SDLGPUVertexAttribute* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUVertexAttributePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUVertexAttributePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUVertexAttributePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The shader input location index. <br/>
+		/// </summary>
+		public ref uint Location => ref Unsafe.AsRef<uint>(&Handle->Location);
+		/// <summary>
+		/// The binding slot of the associated vertex buffer. <br/>
+		/// </summary>
+		public ref uint BufferSlot => ref Unsafe.AsRef<uint>(&Handle->BufferSlot);
+		/// <summary>
+		/// The size and type of the attribute data. <br/>
+		/// </summary>
+		public ref SDLGPUVertexElementFormat Format => ref Unsafe.AsRef<SDLGPUVertexElementFormat>(&Handle->Format);
+		/// <summary>
+		/// The byte offset of this attribute relative to the start of the vertex element. <br/>
+		/// </summary>
+		public ref uint Offset => ref Unsafe.AsRef<uint>(&Handle->Offset);
 	}
 
 }

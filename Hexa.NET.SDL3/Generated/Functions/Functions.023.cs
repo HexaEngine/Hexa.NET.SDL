@@ -18,301 +18,70 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitProcess(SDLProcess* process, bool block, ref int exitcode)
-		{
-			fixed (int* pexitcode = &exitcode)
-			{
-				byte ret = WaitProcessNative(process, block ? (byte)1 : (byte)0, (int*)pexitcode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitProcess(ref SDLProcess process, bool block, ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (int* pexitcode = &exitcode)
-				{
-					byte ret = WaitProcessNative((SDLProcess*)pprocess, block ? (byte)1 : (byte)0, (int*)pexitcode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyProcessNative(SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLProcess*, void>)funcTable[1031])(process);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1031])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyProcess(SDLProcess* process)
-		{
-			DestroyProcessNative(process);
-		}
-
-		/// <summary>
-		/// Destroy a previously created process object.<br/>
-		/// Note that this does not stop the process, just destroys the SDL object used<br/>
-		/// to track it. If you want to stop the process you should use<br/>
-		/// SDL_KillProcess().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyProcess(ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				DestroyProcessNative((SDLProcess*)pprocess);
-			}
-		}
-
-		/// <summary>
-		/// Get the number of 2D rendering drivers available for the current display.<br/>
-		/// A render driver is a set of code that handles rendering and texture<br/>
-		/// management on a particular display. Normally there is only one, but some<br/>
-		/// drivers may have several available with different capabilities.<br/>
-		/// There may be none if SDL was compiled without render support.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumRenderDriversNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1032])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1032])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of 2D rendering drivers available for the current display.<br/>
-		/// A render driver is a set of code that handles rendering and texture<br/>
-		/// management on a particular display. Normally there is only one, but some<br/>
-		/// drivers may have several available with different capabilities.<br/>
-		/// There may be none if SDL was compiled without render support.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumRenderDrivers()
-		{
-			int ret = GetNumRenderDriversNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetRenderDriverNative(int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[1033])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[1033])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetRenderDriver(int index)
-		{
-			byte* ret = GetRenderDriverNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in 2D rendering driver.<br/>
-		/// The list of rendering drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "opengl",<br/>
-		/// "direct3d12" or "metal". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetRenderDriverS(int index)
-		{
-			string ret = Utils.DecodeStringUTF8(GetRenderDriverNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CreateWindowAndRendererNative(byte* title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, int, SDLWindowFlags, SDLWindow**, SDLRenderer**, byte>)funcTable[1034])(title, width, height, windowFlags, window, renderer);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, SDLWindowFlags, nint, nint, byte>)funcTable[1034])((nint)title, width, height, windowFlags, (nint)window, (nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(byte* title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
-		{
-			byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, window, renderer);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(ref byte title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(ReadOnlySpan<byte> title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(string title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, SDLRenderer** renderer)
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (title != null)
+			if (org != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
+				pStrSize0 = Utils.GetByteCountUTF8(org);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -322,10 +91,1231 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, window, renderer);
+			byte* ret = GetPrefPathNative(pStr0, app);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, app));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] in byte app)
+		{
+			fixed (byte* papp = &app)
+			{
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] in byte app)
+		{
+			fixed (byte* papp = &app)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* papp = app)
+			{
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* papp = app)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (app != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(app);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = GetPrefPathNative(org, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (app != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(app);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] in byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] in byte app)
+		{
+			fixed (byte* porg = &org)
+			{
+				fixed (byte* papp = &app)
+				{
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] in byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] in byte app)
+		{
+			fixed (byte* porg = &org)
+			{
+				fixed (byte* papp = &app)
+				{
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* porg = org)
+			{
+				fixed (byte* papp = app)
+				{
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* porg = org)
+			{
+				fixed (byte* papp = app)
+				{
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (app != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(app);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = GetPrefPathNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (app != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(app);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, pStr1));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetUserFolderNative([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFolder, byte*>)funcTable[842])(folder);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLFolder, nint>)funcTable[842])(folder);
+			#endif
+		}
+
+		/// <summary>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetUserFolder([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
+		{
+			byte* ret = GetUserFolderNative(folder);
+			return ret;
+		}
+
+		/// <summary>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetUserFolderS([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
+		{
+			string ret = Utils.DecodeStringUTF8(GetUserFolderNative(folder));
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CreateDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[843])(path);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[843])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			byte ret = CreateDirectoryNative(path);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = CreateDirectoryNative((byte*)ppath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = CreateDirectoryNative((byte*)ppath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = CreateDirectoryNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -334,454 +1324,2693 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Create a window and default renderer.<br/>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(byte* title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, SDLRenderer** renderer)
-		{
-			fixed (SDLWindow** pwindow = &window)
-			{
-				byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static bool CreateWindowAndRenderer(ref byte title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(ReadOnlySpan<byte> title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, SDLRenderer** renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(string title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, SDLRenderer** renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow** pwindow = &window)
-			{
-				byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, (SDLWindow**)pwindow, renderer);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(byte* title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, ref SDLRenderer* renderer)
-		{
-			fixed (SDLRenderer** prenderer = &renderer)
-			{
-				byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(ref byte title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(ReadOnlySpan<byte> title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(string title, int width, int height, SDLWindowFlags windowFlags, SDLWindow** window, ref SDLRenderer* renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLRenderer** prenderer = &renderer)
-			{
-				byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, window, (SDLRenderer**)prenderer);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(byte* title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
-		{
-			fixed (SDLWindow** pwindow = &window)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative(title, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(ref byte title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					fixed (SDLRenderer** prenderer = &renderer)
-					{
-						byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(ReadOnlySpan<byte> title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLWindow** pwindow = &window)
-				{
-					fixed (SDLRenderer** prenderer = &renderer)
-					{
-						byte ret = CreateWindowAndRendererNative((byte*)ptitle, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a window and default renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateWindowAndRenderer(string title, int width, int height, SDLWindowFlags windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow** pwindow = &window)
-			{
-				fixed (SDLRenderer** prenderer = &renderer)
-				{
-					byte ret = CreateWindowAndRendererNative(pStr0, width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* CreateRendererNative(SDLWindow* window, byte* name)
+		internal static byte EnumerateDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, SDLRenderer*>)funcTable[1035])(window, name);
+			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, SDLEnumerationResult>, void*, byte>)funcTable[844])(path, callback, userdata);
 			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1035])((nint)window, (nint)name);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[844])((nint)path, (nint)callback, (nint)userdata);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* CreateRenderer(SDLWindow* window, byte* name)
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
-			SDLRenderer* ret = CreateRendererNative(window, name);
+			byte ret = EnumerateDirectoryNative(path, callback, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = EnumerateDirectoryNative(pStr0, callback, userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = EnumerateDirectoryNative(path, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = EnumerateDirectoryNative(pStr0, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = EnumerateDirectoryNative(path, callback, (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = EnumerateDirectoryNative(pStr0, callback, (void*)userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = EnumerateDirectoryNative(path, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = EnumerateDirectoryNative((byte*)ppath, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
+		/// SDL_ENUM_FAILURE.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
+		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
+		/// were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = EnumerateDirectoryNative(pStr0, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RemovePathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[845])(path);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[845])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			byte ret = RemovePathNative(path);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = RemovePathNative((byte*)ppath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = RemovePathNative((byte*)ppath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = RemovePathNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenamePathNative([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[846])(oldpath, newpath);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[846])((nint)oldpath, (nint)newpath);
+			#endif
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte ret = RenamePathNative(oldpath, newpath);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] in byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				byte ret = RenamePathNative((byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				byte ret = RenamePathNative((byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = RenamePathNative(pStr0, newpath);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] in byte newpath)
+		{
+			fixed (byte* pnewpath = &newpath)
+			{
+				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* pnewpath = newpath)
+			{
+				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (newpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = RenamePathNative(oldpath, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] in byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] in byte newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				fixed (byte* pnewpath = &newpath)
+				{
+					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				fixed (byte* pnewpath = newpath)
+				{
+					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will be replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (newpath != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte ret = RenamePathNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CopyFileNative([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[847])(oldpath, newpath);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[847])((nint)oldpath, (nint)newpath);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte ret = CopyFileNative(oldpath, newpath);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] in byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				byte ret = CopyFileNative((byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				byte ret = CopyFileNative((byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = CopyFileNative(pStr0, newpath);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] in byte newpath)
+		{
+			fixed (byte* pnewpath = &newpath)
+			{
+				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* pnewpath = newpath)
+			{
+				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (newpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = CopyFileNative(oldpath, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] in byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] in byte newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				fixed (byte* pnewpath = &newpath)
+				{
+					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				fixed (byte* pnewpath = newpath)
+				{
+					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread, but this<br/>
+		/// operation is not atomic, so the app might need to protect<br/>
+		/// access to specific paths from other threads if appropriate.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (newpath != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte ret = CopyFileNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetPathInfoNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLPathInfo*, byte>)funcTable[848])(path, info);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[848])((nint)path, (nint)info);
+			#endif
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfoPtr info)
+		{
+			byte ret = GetPathInfoNative(path, (SDLPathInfo*)info);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfoPtr info)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)info);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfoPtr info)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)info);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfoPtr info)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = GetPathInfoNative(pStr0, (SDLPathInfo*)info);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		{
+			fixed (SDLPathInfo* pinfo = &info)
+			{
+				byte ret = GetPathInfoNative(path, (SDLPathInfo*)pinfo);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLPathInfo* pinfo = &info)
+			{
+				byte ret = GetPathInfoNative(pStr0, (SDLPathInfo*)pinfo);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte** GlobDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, uint, int*, byte**>)funcTable[849])(path, pattern, flags, count);
+			#else
+			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, nint>)funcTable[849])((nint)path, (nint)pattern, flags, (nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte** ret = GlobDirectoryNative(path, pattern, flags, count);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* CreateRenderer(ref SDLWindow window, byte* name)
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (byte* ppath = &path)
 			{
-				SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, name);
+				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called on the main thread.<br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte** ret = GlobDirectoryNative(pStr0, pattern, flags, count);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] in byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppattern = &pattern)
+			{
+				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppattern = pattern)
+			{
+				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pattern != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte** ret = GlobDirectoryNative(path, pStr0, flags, count);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] in byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (pattern != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, count);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobDirectoryNative(path, pattern, flags, (int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobDirectoryNative(pStr0, pattern, flags, (int*)pcount);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] in byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppattern = &pattern)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppattern = pattern)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pattern != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobDirectoryNative(path, pStr0, flags, (int*)pcount);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] in byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters `*` (match everything) and `?` (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of `/`. Wildcard characters `*` and `?` never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] uint flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (pattern != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, (int*)pcount);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr1);
+				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get what the system believes is the "current working directory."<br/>
+		/// For systems without a concept of a current working directory, this will<br/>
+		/// still attempt to provide something reasonable.<br/>
+		/// SDL does not provide a means to _change_ the current working directory; for<br/>
+		/// platforms without this concept, this would cause surprises with file access<br/>
+		/// outside of SDL.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCurrentDirectory")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetCurrentDirectoryNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[850])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[850])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get what the system believes is the "current working directory."<br/>
+		/// For systems without a concept of a current working directory, this will<br/>
+		/// still attempt to provide something reasonable.<br/>
+		/// SDL does not provide a means to _change_ the current working directory; for<br/>
+		/// platforms without this concept, this would cause surprises with file access<br/>
+		/// outside of SDL.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCurrentDirectory")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetCurrentDirectory()
+		{
+			byte* ret = GetCurrentDirectoryNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get what the system believes is the "current working directory."<br/>
+		/// For systems without a concept of a current working directory, this will<br/>
+		/// still attempt to provide something reasonable.<br/>
+		/// SDL does not provide a means to _change_ the current working directory; for<br/>
+		/// platforms without this concept, this would cause surprises with file access<br/>
+		/// outside of SDL.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCurrentDirectory")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetCurrentDirectoryS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetCurrentDirectoryNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* CreateRenderer(SDLWindow* window, ref byte name)
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUSupportsShaderFormatsNative([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte>)funcTable[851])(formatFlags, name);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, byte>)funcTable[851])(formatFlags, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			byte ret = GPUSupportsShaderFormatsNative(formatFlags, name);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLRenderer* ret = CreateRendererNative(window, (byte*)pname);
-				return ret;
+				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* CreateRenderer(SDLWindow* window, ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLRenderer* ret = CreateRendererNative(window, (byte*)pname);
-				return ret;
+				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
+		/// Checks for GPU runtime support.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* CreateRenderer(SDLWindow* window, string name)
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -800,7 +4029,165 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLRenderer* ret = CreateRendererNative(window, pStr0);
+			byte ret = GPUSupportsShaderFormatsNative(formatFlags, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUSupportsPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[852])(props);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[852])(props);
+			#endif
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			byte ret = GPUSupportsPropertiesNative(props);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// The GPU driver name can be one of the following:<br/>
+		/// - "vulkan": [Vulkan](CategoryGPU#vulkan)<br/>
+		/// - "direct3d12": [D3D12](CategoryGPU#d3d12)<br/>
+		/// - "metal": [Metal](CategoryGPU#metal)<br/>
+		/// - NULL: let SDL pick the optimal driver<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUDevice* CreateGPUDeviceNative([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] byte debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte, byte*, SDLGPUDevice*>)funcTable[853])(formatFlags, debugMode, name);
+			#else
+			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<uint, byte, nint, nint>)funcTable[853])(formatFlags, debugMode, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// The GPU driver name can be one of the following:<br/>
+		/// - "vulkan": [Vulkan](CategoryGPU#vulkan)<br/>
+		/// - "direct3d12": [D3D12](CategoryGPU#d3d12)<br/>
+		/// - "metal": [Metal](CategoryGPU#metal)<br/>
+		/// - NULL: let SDL pick the optimal driver<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevicePtr CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			SDLGPUDevicePtr ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// The GPU driver name can be one of the following:<br/>
+		/// - "vulkan": [Vulkan](CategoryGPU#vulkan)<br/>
+		/// - "direct3d12": [D3D12](CategoryGPU#d3d12)<br/>
+		/// - "metal": [Metal](CategoryGPU#metal)<br/>
+		/// - NULL: let SDL pick the optimal driver<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevicePtr CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLGPUDevicePtr ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// The GPU driver name can be one of the following:<br/>
+		/// - "vulkan": [Vulkan](CategoryGPU#vulkan)<br/>
+		/// - "direct3d12": [D3D12](CategoryGPU#d3d12)<br/>
+		/// - "metal": [Metal](CategoryGPU#metal)<br/>
+		/// - NULL: let SDL pick the optimal driver<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevicePtr CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLGPUDevicePtr ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// The GPU driver name can be one of the following:<br/>
+		/// - "vulkan": [Vulkan](CategoryGPU#vulkan)<br/>
+		/// - "direct3d12": [D3D12](CategoryGPU#d3d12)<br/>
+		/// - "metal": [Metal](CategoryGPU#metal)<br/>
+		/// - NULL: let SDL pick the optimal driver<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevicePtr CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] uint formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLGPUDevicePtr ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -809,4217 +4196,855 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRenderer* CreateRenderer(ref SDLWindow window, ref byte name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pname = &name)
-				{
-					SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, (byte*)pname);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRenderer* CreateRenderer(ref SDLWindow window, ReadOnlySpan<byte> name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (byte* pname = name)
-				{
-					SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, (byte*)pname);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window.<br/>
-		/// If you want a specific renderer, you can specify its name here. A list of<br/>
-		/// available renderers can be obtained by calling SDL_GetRenderDriver()<br/>
-		/// multiple times, with indices from 0 to SDL_GetNumRenderDrivers()-1. If you<br/>
-		/// don't need a specific renderer, specify NULL and SDL will attempt to choose<br/>
-		/// the best option for you, based on what is available on the user's system.<br/>
-		/// If `name` is a comma-separated list, SDL will try each name, in the order<br/>
-		/// listed, until one succeeds or all of them fail.<br/>
-		/// By default the rendering size matches the window size in pixels, but you<br/>
-		/// can call SDL_SetRenderLogicalPresentation() to change the content size and<br/>
-		/// scaling options.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRenderer* CreateRenderer(ref SDLWindow window, string name)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (name != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
-				}
-				SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a 2D rendering context for a window, with the specified properties.<br/>
+		/// Creates a GPU context.<br/>
 		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_NAME_STRING`: the name of the rendering driver<br/>
-		/// to use, if a specific one is desired<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, required if this isn't a software renderer using a surface<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_SURFACE_POINTER`: the surface where rendering<br/>
-		/// is displayed, if you want a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace<br/>
-		/// value describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB. The direct3d11, direct3d12, and metal renderers<br/>
-		/// support SDL_COLORSPACE_SRGB_LINEAR, which is a linear color space and<br/>
-		/// supports HDR output. If you select SDL_COLORSPACE_SRGB_LINEAR, drawing<br/>
-		/// still uses the sRGB colorspace, but values can go beyond 1.0 and float<br/>
-		/// (linear) format textures can be used for HDR content.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER`: non-zero if you want<br/>
-		/// present synchronized with the refresh rate. This property can take any<br/>
-		/// value that is supported by SDL_SetRenderVSync() for the renderer.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER`: the VkInstance to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER`: the<br/>
-		/// VkPhysicalDevice to use with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER`: the VkDevice to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
-		/// queue family index used for rendering.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
-		/// queue family index used for presentation.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN`: enable debug mode<br/>
+		/// properties and validations, defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer<br/>
+		/// energy efficiency over maximum GPU performance, defaults to false.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_VERBOSE_BOOLEAN`: enable to automatically log<br/>
+		/// useful debug information on device creation, defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
+		/// use, if a specific one is desired.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_CLIP_DISTANCE_BOOLEAN`: Enable Vulkan<br/>
+		/// device feature shaderClipDistance. If disabled, clip distances are not<br/>
+		/// supported in shader code: gl_ClipDistance[] built-ins of GLSL,<br/>
+		/// SV_ClipDistance0/1 semantics of HLSL and [[clip_distance]] attribute of<br/>
+		/// Metal. Disabling optional features allows the application to run on some<br/>
+		/// older Android devices. Defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_DEPTH_CLAMPING_BOOLEAN`: Enable<br/>
+		/// Vulkan device feature depthClamp. If disabled, there is no depth clamp<br/>
+		/// support and enable_depth_clip in SDL_GPURasterizerState must always be<br/>
+		/// set to true. Disabling optional features allows the application to run on<br/>
+		/// some older Android devices. Defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_INDIRECT_DRAW_FIRST_INSTANCE_BOOLEAN`:<br/>
+		/// Enable Vulkan device feature drawIndirectFirstInstance. If disabled, the<br/>
+		/// argument first_instance of SDL_GPUIndirectDrawCommand must be set to<br/>
+		/// zero. Disabling optional features allows the application to run on some<br/>
+		/// older Android devices. Defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_ANISOTROPY_BOOLEAN`: Enable Vulkan<br/>
+		/// device feature samplerAnisotropy. If disabled, enable_anisotropy of<br/>
+		/// SDL_GPUSamplerCreateInfo must be set to false. Disabling optional<br/>
+		/// features allows the application to run on some older Android devices.<br/>
+		/// Defaults to true.<br/>
+		/// These are the current shader format properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN`: The app is able to<br/>
+		/// provide shaders for an NDA platform.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN`: The app is able to<br/>
+		/// provide SPIR-V shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN`: The app is able to<br/>
+		/// provide DXBC shaders if applicable<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN`: The app is able to<br/>
+		/// provide DXIL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN`: The app is able to<br/>
+		/// provide MSL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to<br/>
+		/// provide Metal shader libraries if applicable.<br/>
+		/// With the D3D12 backend:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
+		/// use for all vertex semantics, default is "TEXCOORD".<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_ALLOW_FEWER_RESOURCE_SLOTS_BOOLEAN`: By<br/>
+		/// default, Resourcing Binding Tier 2 is required for D3D12 support.<br/>
+		/// However, an application can set this property to true to enable Tier 1<br/>
+		/// support, if (and only if) the application uses 8 or fewer storage<br/>
+		/// resources across all shader stages. As of writing, this property is<br/>
+		/// useful for targeting Intel Haswell and Broadwell GPUs; other hardware<br/>
+		/// either supports Tier 2 Resource Binding or does not support D3D12 in any<br/>
+		/// capacity. Defaults to false.<br/>
+		/// With the Vulkan backend:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_VULKAN_REQUIRE_HARDWARE_ACCELERATION_BOOLEAN`:<br/>
+		/// By default, Vulkan device enumeration includes drivers of all types,<br/>
+		/// including software renderers (for example, the Lavapipe Mesa driver).<br/>
+		/// This can be useful if your application _requires_ SDL_GPU, but if you can<br/>
+		/// provide your own fallback renderer (for example, an OpenGL renderer) this<br/>
+		/// property can be set to true. Defaults to false.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_VULKAN_OPTIONS_POINTER`: a pointer to an<br/>
+		/// SDL_GPUVulkanOptions structure to be processed during device creation.<br/>
+		/// This allows configuring a variety of Vulkan-specific options such as<br/>
+		/// increasing the API version and opting into extensions aside from the<br/>
+		/// minimal set SDL requires.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDeviceWithProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* CreateRendererWithPropertiesNative(uint props)
+		internal static SDLGPUDevice* CreateGPUDeviceWithPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLRenderer*>)funcTable[1036])(props);
+			return ((delegate* unmanaged[Cdecl]<uint, SDLGPUDevice*>)funcTable[854])(props);
 			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[1036])(props);
+			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[854])(props);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a 2D rendering context for a window, with the specified properties.<br/>
+		/// Creates a GPU context.<br/>
 		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_NAME_STRING`: the name of the rendering driver<br/>
-		/// to use, if a specific one is desired<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, required if this isn't a software renderer using a surface<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_SURFACE_POINTER`: the surface where rendering<br/>
-		/// is displayed, if you want a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace<br/>
-		/// value describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB. The direct3d11, direct3d12, and metal renderers<br/>
-		/// support SDL_COLORSPACE_SRGB_LINEAR, which is a linear color space and<br/>
-		/// supports HDR output. If you select SDL_COLORSPACE_SRGB_LINEAR, drawing<br/>
-		/// still uses the sRGB colorspace, but values can go beyond 1.0 and float<br/>
-		/// (linear) format textures can be used for HDR content.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER`: non-zero if you want<br/>
-		/// present synchronized with the refresh rate. This property can take any<br/>
-		/// value that is supported by SDL_SetRenderVSync() for the renderer.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER`: the VkInstance to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER`: the<br/>
-		/// VkPhysicalDevice to use with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER`: the VkDevice to use<br/>
-		/// with the renderer, optional.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
-		/// queue family index used for rendering.<br/>
-		/// - `SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the<br/>
-		/// queue family index used for presentation.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN`: enable debug mode<br/>
+		/// properties and validations, defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer<br/>
+		/// energy efficiency over maximum GPU performance, defaults to false.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_VERBOSE_BOOLEAN`: enable to automatically log<br/>
+		/// useful debug information on device creation, defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
+		/// use, if a specific one is desired.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_CLIP_DISTANCE_BOOLEAN`: Enable Vulkan<br/>
+		/// device feature shaderClipDistance. If disabled, clip distances are not<br/>
+		/// supported in shader code: gl_ClipDistance[] built-ins of GLSL,<br/>
+		/// SV_ClipDistance0/1 semantics of HLSL and [[clip_distance]] attribute of<br/>
+		/// Metal. Disabling optional features allows the application to run on some<br/>
+		/// older Android devices. Defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_DEPTH_CLAMPING_BOOLEAN`: Enable<br/>
+		/// Vulkan device feature depthClamp. If disabled, there is no depth clamp<br/>
+		/// support and enable_depth_clip in SDL_GPURasterizerState must always be<br/>
+		/// set to true. Disabling optional features allows the application to run on<br/>
+		/// some older Android devices. Defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_INDIRECT_DRAW_FIRST_INSTANCE_BOOLEAN`:<br/>
+		/// Enable Vulkan device feature drawIndirectFirstInstance. If disabled, the<br/>
+		/// argument first_instance of SDL_GPUIndirectDrawCommand must be set to<br/>
+		/// zero. Disabling optional features allows the application to run on some<br/>
+		/// older Android devices. Defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_ANISOTROPY_BOOLEAN`: Enable Vulkan<br/>
+		/// device feature samplerAnisotropy. If disabled, enable_anisotropy of<br/>
+		/// SDL_GPUSamplerCreateInfo must be set to false. Disabling optional<br/>
+		/// features allows the application to run on some older Android devices.<br/>
+		/// Defaults to true.<br/>
+		/// These are the current shader format properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN`: The app is able to<br/>
+		/// provide shaders for an NDA platform.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN`: The app is able to<br/>
+		/// provide SPIR-V shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN`: The app is able to<br/>
+		/// provide DXBC shaders if applicable<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN`: The app is able to<br/>
+		/// provide DXIL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN`: The app is able to<br/>
+		/// provide MSL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to<br/>
+		/// provide Metal shader libraries if applicable.<br/>
+		/// With the D3D12 backend:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
+		/// use for all vertex semantics, default is "TEXCOORD".<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_ALLOW_FEWER_RESOURCE_SLOTS_BOOLEAN`: By<br/>
+		/// default, Resourcing Binding Tier 2 is required for D3D12 support.<br/>
+		/// However, an application can set this property to true to enable Tier 1<br/>
+		/// support, if (and only if) the application uses 8 or fewer storage<br/>
+		/// resources across all shader stages. As of writing, this property is<br/>
+		/// useful for targeting Intel Haswell and Broadwell GPUs; other hardware<br/>
+		/// either supports Tier 2 Resource Binding or does not support D3D12 in any<br/>
+		/// capacity. Defaults to false.<br/>
+		/// With the Vulkan backend:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_VULKAN_REQUIRE_HARDWARE_ACCELERATION_BOOLEAN`:<br/>
+		/// By default, Vulkan device enumeration includes drivers of all types,<br/>
+		/// including software renderers (for example, the Lavapipe Mesa driver).<br/>
+		/// This can be useful if your application _requires_ SDL_GPU, but if you can<br/>
+		/// provide your own fallback renderer (for example, an OpenGL renderer) this<br/>
+		/// property can be set to true. Defaults to false.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_VULKAN_OPTIONS_POINTER`: a pointer to an<br/>
+		/// SDL_GPUVulkanOptions structure to be processed during device creation.<br/>
+		/// This allows configuring a variety of Vulkan-specific options such as<br/>
+		/// increasing the API version and opting into extensions aside from the<br/>
+		/// minimal set SDL requires.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* CreateRendererWithProperties(uint props)
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDeviceWithProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevicePtr CreateGPUDeviceWithProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
-			SDLRenderer* ret = CreateRendererWithPropertiesNative(props);
+			SDLGPUDevicePtr ret = CreateGPUDeviceWithPropertiesNative(props);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a 2D software rendering context for a surface.<br/>
-		/// Two other API which can be used to create SDL_Renderer:<br/>
-		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
-		/// create a software renderer, but they are intended to be used with an<br/>
-		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* CreateSoftwareRendererNative(SDLSurface* surface)
+		internal static void DestroyGPUDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRenderer*>)funcTable[1037])(surface);
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, void>)funcTable[855])(device);
 			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1037])((nint)surface);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[855])((nint)device);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a 2D software rendering context for a surface.<br/>
-		/// Two other API which can be used to create SDL_Renderer:<br/>
-		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
-		/// create a software renderer, but they are intended to be used with an<br/>
-		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* CreateSoftwareRenderer(SDLSurface* surface)
+		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device)
 		{
-			SDLRenderer* ret = CreateSoftwareRendererNative(surface);
+			DestroyGPUDeviceNative((SDLGPUDevice*)device);
+		}
+
+		/// <summary>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				DestroyGPUDeviceNative((SDLGPUDevice*)pdevice);
+			}
+		}
+
+		/// <summary>
+		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumGPUDrivers")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumGPUDriversNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[856])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[856])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumGPUDrivers")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumGPUDrivers()
+		{
+			int ret = GetNumGPUDriversNative();
 			return ret;
 		}
 
 		/// <summary>
-		/// Create a 2D software rendering context for a surface.<br/>
-		/// Two other API which can be used to create SDL_Renderer:<br/>
-		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
-		/// create a software renderer, but they are intended to be used with an<br/>
-		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
 		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* CreateSoftwareRenderer(ref SDLSurface surface)
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGPUDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[857])(index);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[857])(index);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGPUDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		{
+			byte* ret = GetGPUDriverNative(index);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGPUDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGPUDriverNative(index));
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGPUDeviceDriverNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte*>)funcTable[858])(device);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[858])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGPUDeviceDriver([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device)
+		{
+			byte* ret = GetGPUDeviceDriverNative((SDLGPUDevice*)device);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGPUDeviceDriverS([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative((SDLGPUDevice*)device));
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGPUDeviceDriver([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				SDLRenderer* ret = CreateSoftwareRendererNative((SDLSurface*)psurface);
+				byte* ret = GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the renderer associated with a window.<br/>
+		/// Returns the name of the backend used to create this GPU context.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGPUDeviceDriverS([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns the supported shader formats for this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* GetRendererNative(SDLWindow* window)
+		internal static uint GetGPUShaderFormatsNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRenderer*>)funcTable[1038])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, uint>)funcTable[859])(device);
 			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1038])((nint)window);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[859])((nint)device);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the renderer associated with a window.<br/>
+		/// Returns the supported shader formats for this GPU context.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* GetRenderer(SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
+		public static uint GetGPUShaderFormats([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device)
 		{
-			SDLRenderer* ret = GetRendererNative(window);
+			uint ret = GetGPUShaderFormatsNative((SDLGPUDevice*)device);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the renderer associated with a window.<br/>
+		/// Returns the supported shader formats for this GPU context.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLRenderer* GetRenderer(ref SDLWindow window)
+		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
+		public static uint GetGPUShaderFormats([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				SDLRenderer* ret = GetRendererNative((SDLWindow*)pwindow);
+				uint ret = GetGPUShaderFormatsNative((SDLGPUDevice*)pdevice);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the window associated with a renderer.<br/>
+		/// Get the properties associated with a GPU device.<br/>
+		/// All properties are optional and may differ between GPU backends and SDL<br/>
+		/// versions.<br/>
+		/// The following properties are provided by SDL:<br/>
+		/// `SDL_PROP_GPU_DEVICE_NAME_STRING`: Contains the name of the underlying<br/>
+		/// device as reported by the system driver. This string has no standardized<br/>
+		/// format, is highly inconsistent between hardware devices and drivers, and is<br/>
+		/// able to change at any time. Do not attempt to parse this string as it is<br/>
+		/// bound to fail at some point in the future when system drivers are updated,<br/>
+		/// new hardware devices are introduced, or when SDL adds new GPU backends or<br/>
+		/// modifies existing ones.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - GTX 970<br/>
+		/// - GeForce GTX 970<br/>
+		/// - NVIDIA GeForce GTX 970<br/>
+		/// - Microsoft Direct3D12 (NVIDIA GeForce GTX 970)<br/>
+		/// - NVIDIA Graphics Device<br/>
+		/// - GeForce GPU<br/>
+		/// - P106-100<br/>
+		/// - AMD 15D8:C9<br/>
+		/// - AMD Custom GPU 0405<br/>
+		/// - AMD Radeon (TM) Graphics<br/>
+		/// - ASUS Radeon RX 470 Series<br/>
+		/// - Intel(R) Arc(tm) A380 Graphics (DG2)<br/>
+		/// - Virtio-GPU Venus (NVIDIA TITAN V)<br/>
+		/// - SwiftShader Device (LLVM 16.0.0)<br/>
+		/// - llvmpipe (LLVM 15.0.4, 256 bits)<br/>
+		/// - Microsoft Basic Render Driver<br/>
+		/// - unknown device<br/>
+		/// The above list shows that the same device can have different formats, the<br/>
+		/// vendor name may or may not appear in the string, the included vendor name<br/>
+		/// may not be the vendor of the chipset on the device, some manufacturers<br/>
+		/// include pseudo-legal marks while others don't, some devices may not use a<br/>
+		/// marketing name in the string, the device string may be wrapped by the name<br/>
+		/// of a translation interface, the device may be emulated in software, or the<br/>
+		/// string may contain generic text that does not identify the device at all.<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_NAME_STRING`: Contains the self-reported name<br/>
+		/// of the underlying system driver.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - Intel Corporation<br/>
+		/// - Intel open-source Mesa driver<br/>
+		/// - Qualcomm Technologies Inc. Adreno Vulkan Driver<br/>
+		/// - MoltenVK<br/>
+		/// - Mali-G715<br/>
+		/// - venus<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING`: Contains the self-reported<br/>
+		/// version of the underlying system driver. This is a relatively short version<br/>
+		/// string in an unspecified format. If SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING<br/>
+		/// is available then that property should be preferred over this one as it may<br/>
+		/// contain additional information that is useful for identifying the exact<br/>
+		/// driver version used.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - 53.0.0<br/>
+		/// - 0.405.2463<br/>
+		/// - 32.0.15.6614<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING`: Contains the detailed version<br/>
+		/// information of the underlying system driver as reported by the driver. This<br/>
+		/// is an arbitrary string with no standardized format and it may contain<br/>
+		/// newlines. This property should be preferred over<br/>
+		/// SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING if it is available as it usually<br/>
+		/// contains the same information but in a format that is easier to read.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - 101.6559<br/>
+		/// - 1.2.11<br/>
+		/// - Mesa 21.2.2 (LLVM 12.0.1)<br/>
+		/// - Mesa 22.2.0-devel (git-f226222 2022-04-14 impish-oibaf-ppa)<br/>
+		/// - v1.r53p0-00eac0.824c4f31403fb1fbf8ee1042422c2129<br/>
+		/// This string has also been observed to be a multiline string (which has a<br/>
+		/// trailing newline):<br/>
+		/// ```<br/>
+		/// Driver Build: 85da404, I46ff5fc46f, 1606794520<br/>
+		/// Date: 11/30/20<br/>
+		/// Compiler Version: EV031.31.04.01<br/>
+		/// Driver Branch: promo490_3_Google<br/>
+		/// ```<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetRenderWindowNative(SDLRenderer* renderer)
+		internal static uint GetGPUDevicePropertiesNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*>)funcTable[1039])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, uint>)funcTable[860])(device);
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1039])((nint)renderer);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[860])((nint)device);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the window associated with a renderer.<br/>
+		/// Get the properties associated with a GPU device.<br/>
+		/// All properties are optional and may differ between GPU backends and SDL<br/>
+		/// versions.<br/>
+		/// The following properties are provided by SDL:<br/>
+		/// `SDL_PROP_GPU_DEVICE_NAME_STRING`: Contains the name of the underlying<br/>
+		/// device as reported by the system driver. This string has no standardized<br/>
+		/// format, is highly inconsistent between hardware devices and drivers, and is<br/>
+		/// able to change at any time. Do not attempt to parse this string as it is<br/>
+		/// bound to fail at some point in the future when system drivers are updated,<br/>
+		/// new hardware devices are introduced, or when SDL adds new GPU backends or<br/>
+		/// modifies existing ones.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - GTX 970<br/>
+		/// - GeForce GTX 970<br/>
+		/// - NVIDIA GeForce GTX 970<br/>
+		/// - Microsoft Direct3D12 (NVIDIA GeForce GTX 970)<br/>
+		/// - NVIDIA Graphics Device<br/>
+		/// - GeForce GPU<br/>
+		/// - P106-100<br/>
+		/// - AMD 15D8:C9<br/>
+		/// - AMD Custom GPU 0405<br/>
+		/// - AMD Radeon (TM) Graphics<br/>
+		/// - ASUS Radeon RX 470 Series<br/>
+		/// - Intel(R) Arc(tm) A380 Graphics (DG2)<br/>
+		/// - Virtio-GPU Venus (NVIDIA TITAN V)<br/>
+		/// - SwiftShader Device (LLVM 16.0.0)<br/>
+		/// - llvmpipe (LLVM 15.0.4, 256 bits)<br/>
+		/// - Microsoft Basic Render Driver<br/>
+		/// - unknown device<br/>
+		/// The above list shows that the same device can have different formats, the<br/>
+		/// vendor name may or may not appear in the string, the included vendor name<br/>
+		/// may not be the vendor of the chipset on the device, some manufacturers<br/>
+		/// include pseudo-legal marks while others don't, some devices may not use a<br/>
+		/// marketing name in the string, the device string may be wrapped by the name<br/>
+		/// of a translation interface, the device may be emulated in software, or the<br/>
+		/// string may contain generic text that does not identify the device at all.<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_NAME_STRING`: Contains the self-reported name<br/>
+		/// of the underlying system driver.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - Intel Corporation<br/>
+		/// - Intel open-source Mesa driver<br/>
+		/// - Qualcomm Technologies Inc. Adreno Vulkan Driver<br/>
+		/// - MoltenVK<br/>
+		/// - Mali-G715<br/>
+		/// - venus<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING`: Contains the self-reported<br/>
+		/// version of the underlying system driver. This is a relatively short version<br/>
+		/// string in an unspecified format. If SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING<br/>
+		/// is available then that property should be preferred over this one as it may<br/>
+		/// contain additional information that is useful for identifying the exact<br/>
+		/// driver version used.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - 53.0.0<br/>
+		/// - 0.405.2463<br/>
+		/// - 32.0.15.6614<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING`: Contains the detailed version<br/>
+		/// information of the underlying system driver as reported by the driver. This<br/>
+		/// is an arbitrary string with no standardized format and it may contain<br/>
+		/// newlines. This property should be preferred over<br/>
+		/// SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING if it is available as it usually<br/>
+		/// contains the same information but in a format that is easier to read.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - 101.6559<br/>
+		/// - 1.2.11<br/>
+		/// - Mesa 21.2.2 (LLVM 12.0.1)<br/>
+		/// - Mesa 22.2.0-devel (git-f226222 2022-04-14 impish-oibaf-ppa)<br/>
+		/// - v1.r53p0-00eac0.824c4f31403fb1fbf8ee1042422c2129<br/>
+		/// This string has also been observed to be a multiline string (which has a<br/>
+		/// trailing newline):<br/>
+		/// ```<br/>
+		/// Driver Build: 85da404, I46ff5fc46f, 1606794520<br/>
+		/// Date: 11/30/20<br/>
+		/// Compiler Version: EV031.31.04.01<br/>
+		/// Driver Branch: promo490_3_Google<br/>
+		/// ```<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* GetRenderWindow(SDLRenderer* renderer)
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetGPUDeviceProperties([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device)
 		{
-			SDLWindow* ret = GetRenderWindowNative(renderer);
+			uint ret = GetGPUDevicePropertiesNative((SDLGPUDevice*)device);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the window associated with a renderer.<br/>
+		/// Get the properties associated with a GPU device.<br/>
+		/// All properties are optional and may differ between GPU backends and SDL<br/>
+		/// versions.<br/>
+		/// The following properties are provided by SDL:<br/>
+		/// `SDL_PROP_GPU_DEVICE_NAME_STRING`: Contains the name of the underlying<br/>
+		/// device as reported by the system driver. This string has no standardized<br/>
+		/// format, is highly inconsistent between hardware devices and drivers, and is<br/>
+		/// able to change at any time. Do not attempt to parse this string as it is<br/>
+		/// bound to fail at some point in the future when system drivers are updated,<br/>
+		/// new hardware devices are introduced, or when SDL adds new GPU backends or<br/>
+		/// modifies existing ones.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - GTX 970<br/>
+		/// - GeForce GTX 970<br/>
+		/// - NVIDIA GeForce GTX 970<br/>
+		/// - Microsoft Direct3D12 (NVIDIA GeForce GTX 970)<br/>
+		/// - NVIDIA Graphics Device<br/>
+		/// - GeForce GPU<br/>
+		/// - P106-100<br/>
+		/// - AMD 15D8:C9<br/>
+		/// - AMD Custom GPU 0405<br/>
+		/// - AMD Radeon (TM) Graphics<br/>
+		/// - ASUS Radeon RX 470 Series<br/>
+		/// - Intel(R) Arc(tm) A380 Graphics (DG2)<br/>
+		/// - Virtio-GPU Venus (NVIDIA TITAN V)<br/>
+		/// - SwiftShader Device (LLVM 16.0.0)<br/>
+		/// - llvmpipe (LLVM 15.0.4, 256 bits)<br/>
+		/// - Microsoft Basic Render Driver<br/>
+		/// - unknown device<br/>
+		/// The above list shows that the same device can have different formats, the<br/>
+		/// vendor name may or may not appear in the string, the included vendor name<br/>
+		/// may not be the vendor of the chipset on the device, some manufacturers<br/>
+		/// include pseudo-legal marks while others don't, some devices may not use a<br/>
+		/// marketing name in the string, the device string may be wrapped by the name<br/>
+		/// of a translation interface, the device may be emulated in software, or the<br/>
+		/// string may contain generic text that does not identify the device at all.<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_NAME_STRING`: Contains the self-reported name<br/>
+		/// of the underlying system driver.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - Intel Corporation<br/>
+		/// - Intel open-source Mesa driver<br/>
+		/// - Qualcomm Technologies Inc. Adreno Vulkan Driver<br/>
+		/// - MoltenVK<br/>
+		/// - Mali-G715<br/>
+		/// - venus<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING`: Contains the self-reported<br/>
+		/// version of the underlying system driver. This is a relatively short version<br/>
+		/// string in an unspecified format. If SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING<br/>
+		/// is available then that property should be preferred over this one as it may<br/>
+		/// contain additional information that is useful for identifying the exact<br/>
+		/// driver version used.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - 53.0.0<br/>
+		/// - 0.405.2463<br/>
+		/// - 32.0.15.6614<br/>
+		/// `SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING`: Contains the detailed version<br/>
+		/// information of the underlying system driver as reported by the driver. This<br/>
+		/// is an arbitrary string with no standardized format and it may contain<br/>
+		/// newlines. This property should be preferred over<br/>
+		/// SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING if it is available as it usually<br/>
+		/// contains the same information but in a format that is easier to read.<br/>
+		/// Strings that have been found in the wild include:<br/>
+		/// - 101.6559<br/>
+		/// - 1.2.11<br/>
+		/// - Mesa 21.2.2 (LLVM 12.0.1)<br/>
+		/// - Mesa 22.2.0-devel (git-f226222 2022-04-14 impish-oibaf-ppa)<br/>
+		/// - v1.r53p0-00eac0.824c4f31403fb1fbf8ee1042422c2129<br/>
+		/// This string has also been observed to be a multiline string (which has a<br/>
+		/// trailing newline):<br/>
+		/// ```<br/>
+		/// Driver Build: 85da404, I46ff5fc46f, 1606794520<br/>
+		/// Date: 11/30/20<br/>
+		/// Compiler Version: EV031.31.04.01<br/>
+		/// Driver Branch: promo490_3_Google<br/>
+		/// ```<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLWindow* GetRenderWindow(ref SDLRenderer renderer)
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetGPUDeviceProperties([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				SDLWindow* ret = GetRenderWindowNative((SDLRenderer*)prenderer);
+				uint ret = GetGPUDevicePropertiesNative((SDLGPUDevice*)pdevice);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the name of a renderer.<br/>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetRendererNameNative(SDLRenderer* renderer)
+		internal static SDLGPUComputePipeline* CreateGPUComputePipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfo* createinfo)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte*>)funcTable[1040])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipelineCreateInfo*, SDLGPUComputePipeline*>)funcTable[861])(device, createinfo);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1040])((nint)renderer);
+			return (SDLGPUComputePipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[861])((nint)device, (nint)createinfo);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the name of a renderer.<br/>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetRendererName(SDLRenderer* renderer)
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
+		public static SDLGPUComputePipelinePtr CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfoPtr createinfo)
 		{
-			byte* ret = GetRendererNameNative(renderer);
+			SDLGPUComputePipelinePtr ret = CreateGPUComputePipelineNative((SDLGPUDevice*)device, (SDLGPUComputePipelineCreateInfo*)createinfo);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the name of a renderer.<br/>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetRendererNameS(SDLRenderer* renderer)
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
+		public static SDLGPUComputePipelinePtr CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfoPtr createinfo)
 		{
-			string ret = Utils.DecodeStringUTF8(GetRendererNameNative(renderer));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetRendererName(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUDevice* pdevice = &device)
 			{
-				byte* ret = GetRendererNameNative((SDLRenderer*)prenderer);
+				SDLGPUComputePipelinePtr ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipelineCreateInfo*)createinfo);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the name of a renderer.<br/>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC and DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
+		/// followed by read-write storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-write storage textures<br/>
+		/// There are optional properties that can be provided through `props`. These<br/>
+		/// are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
+		/// displayed in debugging tools.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetRendererNameS(ref SDLRenderer renderer)
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
+		public static SDLGPUComputePipelinePtr CreateGPUComputePipeline([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevicePtr device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] in SDLGPUComputePipelineCreateInfo createinfo)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
 			{
-				string ret = Utils.DecodeStringUTF8(GetRendererNameNative((SDLRenderer*)prenderer));
+				SDLGPUComputePipelinePtr ret = CreateGPUComputePipelineNative((SDLGPUDevice*)device, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the properties associated with a renderer.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
-		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, if any<br/>
-		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
-		/// displayed, if this is a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
-		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
-		/// and height<br/>
-		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
-		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
-		/// representing the available texture formats for this renderer.<br/>
-		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
-		/// describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
-		/// HDR enabled. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
-		/// automatically multiplied into the color scale. This property can change<br/>
-		/// dynamically when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// With the direct3d renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
-		/// with the renderer<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
-		/// associated with the renderer. This may change when the window is resized.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
-		/// associated with the renderer.<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
-		/// associated with the renderer<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
-		/// associated with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
-		/// the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for rendering<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for presentation<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
-		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
-		/// renderer<br/>
-		/// With the gpu renderer:<br/>
-		/// - `SDL_PROP_RENDERER_GPU_DEVICE_POINTER`: the SDL_GPUDevice associated with<br/>
-		/// the renderer<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetRendererPropertiesNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint>)funcTable[1041])(renderer);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[1041])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a renderer.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
-		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, if any<br/>
-		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
-		/// displayed, if this is a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
-		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
-		/// and height<br/>
-		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
-		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
-		/// representing the available texture formats for this renderer.<br/>
-		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
-		/// describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
-		/// HDR enabled. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
-		/// automatically multiplied into the color scale. This property can change<br/>
-		/// dynamically when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// With the direct3d renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
-		/// with the renderer<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
-		/// associated with the renderer. This may change when the window is resized.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
-		/// associated with the renderer.<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
-		/// associated with the renderer<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
-		/// associated with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
-		/// the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for rendering<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for presentation<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
-		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
-		/// renderer<br/>
-		/// With the gpu renderer:<br/>
-		/// - `SDL_PROP_RENDERER_GPU_DEVICE_POINTER`: the SDL_GPUDevice associated with<br/>
-		/// the renderer<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetRendererProperties(SDLRenderer* renderer)
-		{
-			uint ret = GetRendererPropertiesNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a renderer.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_RENDERER_NAME_STRING`: the name of the rendering driver<br/>
-		/// - `SDL_PROP_RENDERER_WINDOW_POINTER`: the window where rendering is<br/>
-		/// displayed, if any<br/>
-		/// - `SDL_PROP_RENDERER_SURFACE_POINTER`: the surface where rendering is<br/>
-		/// displayed, if this is a software renderer without a window<br/>
-		/// - `SDL_PROP_RENDERER_VSYNC_NUMBER`: the current vsync setting<br/>
-		/// - `SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER`: the maximum texture width<br/>
-		/// and height<br/>
-		/// - `SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER`: a (const SDL_PixelFormat *)<br/>
-		/// array of pixel formats, terminated with SDL_PIXELFORMAT_UNKNOWN,<br/>
-		/// representing the available texture formats for this renderer.<br/>
-		/// - `SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
-		/// describing the colorspace for output to the display, defaults to<br/>
-		/// SDL_COLORSPACE_SRGB.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN`: true if the output colorspace is<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR and the renderer is showing on a display with<br/>
-		/// HDR enabled. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT`: the value of SDR white in the<br/>
-		/// SDL_COLORSPACE_SRGB_LINEAR colorspace. When HDR is enabled, this value is<br/>
-		/// automatically multiplied into the color scale. This property can change<br/>
-		/// dynamically when SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// - `SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT`: the additional high dynamic range<br/>
-		/// that can be displayed, in terms of the SDR white point. When HDR is not<br/>
-		/// enabled, this will be 1.0. This property can change dynamically when<br/>
-		/// SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.<br/>
-		/// With the direct3d renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D9_DEVICE_POINTER`: the IDirect3DDevice9 associated<br/>
-		/// with the renderer<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_DEVICE_POINTER`: the ID3D11Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER`: the IDXGISwapChain1<br/>
-		/// associated with the renderer. This may change when the window is resized.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_DEVICE_POINTER`: the ID3D12Device associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER`: the IDXGISwapChain4<br/>
-		/// associated with the renderer.<br/>
-		/// - `SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER`: the ID3D12CommandQueue<br/>
-		/// associated with the renderer<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER`: the VkInstance associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER`: the VkSurfaceKHR associated<br/>
-		/// with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER`: the VkPhysicalDevice<br/>
-		/// associated with the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER`: the VkDevice associated with<br/>
-		/// the renderer<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for rendering<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER`: the queue<br/>
-		/// family index used for presentation<br/>
-		/// - `SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER`: the number of<br/>
-		/// swapchain images, or potential frames in flight, used by the Vulkan<br/>
-		/// renderer<br/>
-		/// With the gpu renderer:<br/>
-		/// - `SDL_PROP_RENDERER_GPU_DEVICE_POINTER`: the SDL_GPUDevice associated with<br/>
-		/// the renderer<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetRendererProperties(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				uint ret = GetRendererPropertiesNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetRenderOutputSizeNative(SDLRenderer* renderer, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, byte>)funcTable[1042])(renderer, w, h);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1042])((nint)renderer, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderOutputSize(SDLRenderer* renderer, int* w, int* h)
-		{
-			byte ret = GetRenderOutputSizeNative(renderer, w, h);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderOutputSize(ref SDLRenderer renderer, int* w, int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, w, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderOutputSize(SDLRenderer* renderer, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				byte ret = GetRenderOutputSizeNative(renderer, (int*)pw, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderOutputSize(ref SDLRenderer renderer, ref int w, int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderOutputSize(SDLRenderer* renderer, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				byte ret = GetRenderOutputSizeNative(renderer, w, (int*)ph);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderOutputSize(ref SDLRenderer renderer, int* w, ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderOutputSize(SDLRenderer* renderer, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetRenderOutputSizeNative(renderer, (int*)pw, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the output size in pixels of a rendering context.<br/>
-		/// This returns the true output size in pixels, ignoring any render targets or<br/>
-		/// logical size and presentation.<br/>
-		/// For the output size of the current rendering target, with logical size<br/>
-		/// adjustments, use SDL_GetCurrentRenderOutputSize() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetRenderOutputSize(ref SDLRenderer renderer, ref int w, ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						byte ret = GetRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetCurrentRenderOutputSizeNative(SDLRenderer* renderer, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, byte>)funcTable[1043])(renderer, w, h);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1043])((nint)renderer, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetCurrentRenderOutputSize(SDLRenderer* renderer, int* w, int* h)
-		{
-			byte ret = GetCurrentRenderOutputSizeNative(renderer, w, h);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetCurrentRenderOutputSize(ref SDLRenderer renderer, int* w, int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, w, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetCurrentRenderOutputSize(SDLRenderer* renderer, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				byte ret = GetCurrentRenderOutputSizeNative(renderer, (int*)pw, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetCurrentRenderOutputSize(ref SDLRenderer renderer, ref int w, int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetCurrentRenderOutputSize(SDLRenderer* renderer, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				byte ret = GetCurrentRenderOutputSizeNative(renderer, w, (int*)ph);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetCurrentRenderOutputSize(ref SDLRenderer renderer, int* w, ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetCurrentRenderOutputSize(SDLRenderer* renderer, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					byte ret = GetCurrentRenderOutputSizeNative(renderer, (int*)pw, (int*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output size in pixels of a rendering context.<br/>
-		/// If a rendering target is active, this will return the size of the rendering<br/>
-		/// target in pixels, otherwise return the value of SDL_GetRenderOutputSize().<br/>
-		/// Rendering target or not, the output will be adjusted by the current logical<br/>
-		/// presentation state, dictated by SDL_SetRenderLogicalPresentation().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetCurrentRenderOutputSize(ref SDLRenderer renderer, ref int w, ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						byte ret = GetCurrentRenderOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context.<br/>
-		/// The contents of a texture when first created are not defined.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTexture* CreateTextureNative(SDLRenderer* renderer, SDLPixelFormat format, SDLTextureAccess access, int w, int h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPixelFormat, SDLTextureAccess, int, int, SDLTexture*>)funcTable[1044])(renderer, format, access, w, h);
-			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, SDLPixelFormat, SDLTextureAccess, int, int, nint>)funcTable[1044])((nint)renderer, format, access, w, h);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context.<br/>
-		/// The contents of a texture when first created are not defined.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* CreateTexture(SDLRenderer* renderer, SDLPixelFormat format, SDLTextureAccess access, int w, int h)
-		{
-			SDLTexture* ret = CreateTextureNative(renderer, format, access, w, h);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context.<br/>
-		/// The contents of a texture when first created are not defined.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* CreateTexture(ref SDLRenderer renderer, SDLPixelFormat format, SDLTextureAccess access, int w, int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = CreateTextureNative((SDLRenderer*)prenderer, format, access, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTexture* CreateTextureFromSurfaceNative(SDLRenderer* renderer, SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLSurface*, SDLTexture*>)funcTable[1045])(renderer, surface);
-			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[1045])((nint)renderer, (nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* CreateTextureFromSurface(SDLRenderer* renderer, SDLSurface* surface)
-		{
-			SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, surface);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* CreateTextureFromSurface(ref SDLRenderer renderer, SDLSurface* surface)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, surface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* CreateTextureFromSurface(SDLRenderer* renderer, ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, (SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface, and can be queried using the<br/>
-		/// SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* CreateTextureFromSurface(ref SDLRenderer renderer, ref SDLSurface surface)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLSurface* psurface = &surface)
-				{
-					SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
-		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
-		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
-		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
-		/// YUV textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the maximum dynamic range used by the<br/>
-		/// content, in terms of the SDR white point. This would be equivalent to<br/>
-		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
-		/// If this is defined, any values outside the range supported by the display<br/>
-		/// will be scaled into the available HDR headroom, otherwise they are<br/>
-		/// clipped.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the metal renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
-		/// associated with the texture, if you want to create a texture from an<br/>
-		/// existing pixel buffer.<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
-		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
-		/// you want to wrap an existing texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTexture* CreateTextureWithPropertiesNative(SDLRenderer* renderer, uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint, SDLTexture*>)funcTable[1046])(renderer, props);
-			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, uint, nint>)funcTable[1046])((nint)renderer, props);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
-		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
-		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
-		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
-		/// YUV textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the maximum dynamic range used by the<br/>
-		/// content, in terms of the SDR white point. This would be equivalent to<br/>
-		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
-		/// If this is defined, any values outside the range supported by the display<br/>
-		/// will be scaled into the available HDR headroom, otherwise they are<br/>
-		/// clipped.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the metal renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
-		/// associated with the texture, if you want to create a texture from an<br/>
-		/// existing pixel buffer.<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
-		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
-		/// you want to wrap an existing texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* CreateTextureWithProperties(SDLRenderer* renderer, uint props)
-		{
-			SDLTexture* ret = CreateTextureWithPropertiesNative(renderer, props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a texture for a rendering context with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER`: an SDL_Colorspace value<br/>
-		/// describing the texture colorspace, defaults to SDL_COLORSPACE_SRGB_LINEAR<br/>
-		/// for floating point textures, SDL_COLORSPACE_HDR10 for 10-bit textures,<br/>
-		/// SDL_COLORSPACE_SRGB for other RGB textures and SDL_COLORSPACE_JPEG for<br/>
-		/// YUV textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat, defaults to the best RGBA format for the renderer<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess, defaults to SDL_TEXTUREACCESS_STATIC<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER`: the width of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER`: the height of the texture in<br/>
-		/// pixels, required<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for floating point textures.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT`: for HDR10 and floating<br/>
-		/// point textures, this defines the maximum dynamic range used by the<br/>
-		/// content, in terms of the SDR white point. This would be equivalent to<br/>
-		/// maxCLL / SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT for HDR10 content.<br/>
-		/// If this is defined, any values outside the range supported by the display<br/>
-		/// will be scaled into the available HDR headroom, otherwise they are<br/>
-		/// clipped.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER`: the ID3D12Resource<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the metal renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER`: the CVPixelBufferRef<br/>
-		/// associated with the texture, if you want to create a texture from an<br/>
-		/// existing pixel buffer.<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture, if you want to wrap an existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture, if you want to wrap an<br/>
-		/// existing texture.<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER`: the VkImage with layout<br/>
-		/// VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL associated with the texture, if<br/>
-		/// you want to wrap an existing texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* CreateTextureWithProperties(ref SDLRenderer renderer, uint props)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = CreateTextureWithPropertiesNative((SDLRenderer*)prenderer, props);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the properties associated with a texture.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_Colorspace value describing<br/>
-		/// the texture colorspace.<br/>
-		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat.<br/>
-		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess.<br/>
-		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
-		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. If this is defined, any values outside the<br/>
-		/// range supported by the display will be scaled into the available HDR<br/>
-		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
-		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
-		/// textures.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
-		/// texture<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetTexturePropertiesNative(SDLTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, uint>)funcTable[1047])(texture);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[1047])((nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a texture.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_Colorspace value describing<br/>
-		/// the texture colorspace.<br/>
-		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat.<br/>
-		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess.<br/>
-		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
-		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. If this is defined, any values outside the<br/>
-		/// range supported by the display will be scaled into the available HDR<br/>
-		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
-		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
-		/// textures.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
-		/// texture<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetTextureProperties(SDLTexture* texture)
-		{
-			uint ret = GetTexturePropertiesNative(texture);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a texture.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_TEXTURE_COLORSPACE_NUMBER`: an SDL_Colorspace value describing<br/>
-		/// the texture colorspace.<br/>
-		/// - `SDL_PROP_TEXTURE_FORMAT_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_PixelFormat.<br/>
-		/// - `SDL_PROP_TEXTURE_ACCESS_NUMBER`: one of the enumerated values in<br/>
-		/// SDL_TextureAccess.<br/>
-		/// - `SDL_PROP_TEXTURE_WIDTH_NUMBER`: the width of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_HEIGHT_NUMBER`: the height of the texture in pixels.<br/>
-		/// - `SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the value of 100% diffuse white, with higher<br/>
-		/// values being displayed in the High Dynamic Range headroom. This defaults<br/>
-		/// to 100 for HDR10 textures and 1.0 for other textures.<br/>
-		/// - `SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT`: for HDR10 and floating point<br/>
-		/// textures, this defines the maximum dynamic range used by the content, in<br/>
-		/// terms of the SDR white point. If this is defined, any values outside the<br/>
-		/// range supported by the display will be scaled into the available HDR<br/>
-		/// headroom, otherwise they are clipped. This defaults to 1.0 for SDR<br/>
-		/// textures, 4.0 for HDR10 textures, and no default for floating point<br/>
-		/// textures.<br/>
-		/// With the direct3d11 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER`: the ID3D11Texture2D associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER`: the ID3D11Texture2D<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// With the direct3d12 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER`: the ID3D12Resource associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER`: the ID3D12Resource associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER`: the ID3D12Resource associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// With the vulkan renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER`: the VkImage associated with the<br/>
-		/// texture<br/>
-		/// With the opengl renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER`: the GLuint texture associated<br/>
-		/// with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER`: the GLuint texture associated<br/>
-		/// with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER`: the GLuint texture associated<br/>
-		/// with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_RECTANGLE_ARB`, etc)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT`: the texture coordinate width of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT`: the texture coordinate height of<br/>
-		/// the texture (0.0 - 1.0)<br/>
-		/// With the opengles2 renderer:<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER`: the GLuint texture<br/>
-		/// associated with the texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER`: the GLuint texture<br/>
-		/// associated with the UV plane of an NV12 texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER`: the GLuint texture<br/>
-		/// associated with the U plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER`: the GLuint texture<br/>
-		/// associated with the V plane of a YUV texture<br/>
-		/// - `SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER`: the GLenum for the<br/>
-		/// texture target (`GL_TEXTURE_2D`, `GL_TEXTURE_EXTERNAL_OES`, etc)<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetTextureProperties(ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				uint ret = GetTexturePropertiesNative((SDLTexture*)ptexture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the renderer that created an SDL_Texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRenderer* GetRendererFromTextureNative(SDLTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRenderer*>)funcTable[1048])(texture);
-			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1048])((nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the renderer that created an SDL_Texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRenderer* GetRendererFromTexture(SDLTexture* texture)
-		{
-			SDLRenderer* ret = GetRendererFromTextureNative(texture);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the renderer that created an SDL_Texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRenderer* GetRendererFromTexture(ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				SDLRenderer* ret = GetRendererFromTextureNative((SDLTexture*)ptexture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureSizeNative(SDLTexture* texture, float* w, float* h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, byte>)funcTable[1049])(texture, w, h);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[1049])((nint)texture, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureSize(SDLTexture* texture, float* w, float* h)
-		{
-			byte ret = GetTextureSizeNative(texture, w, h);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureSize(ref SDLTexture texture, float* w, float* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureSizeNative((SDLTexture*)ptexture, w, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureSize(SDLTexture* texture, ref float w, float* h)
-		{
-			fixed (float* pw = &w)
-			{
-				byte ret = GetTextureSizeNative(texture, (float*)pw, h);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureSize(ref SDLTexture texture, ref float w, float* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pw = &w)
-				{
-					byte ret = GetTextureSizeNative((SDLTexture*)ptexture, (float*)pw, h);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureSize(SDLTexture* texture, float* w, ref float h)
-		{
-			fixed (float* ph = &h)
-			{
-				byte ret = GetTextureSizeNative(texture, w, (float*)ph);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureSize(ref SDLTexture texture, float* w, ref float h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* ph = &h)
-				{
-					byte ret = GetTextureSizeNative((SDLTexture*)ptexture, w, (float*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureSize(SDLTexture* texture, ref float w, ref float h)
-		{
-			fixed (float* pw = &w)
-			{
-				fixed (float* ph = &h)
-				{
-					byte ret = GetTextureSizeNative(texture, (float*)pw, (float*)ph);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a texture, as floating point values.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureSize(ref SDLTexture texture, ref float w, ref float h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pw = &w)
-				{
-					fixed (float* ph = &h)
-					{
-						byte ret = GetTextureSizeNative((SDLTexture*)ptexture, (float*)pw, (float*)ph);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureColorModNative(SDLTexture* texture, byte r, byte g, byte b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte, byte, byte>)funcTable[1050])(texture, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[1050])((nint)texture, r, g, b);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureColorMod(SDLTexture* texture, byte r, byte g, byte b)
-		{
-			byte ret = SetTextureColorModNative(texture, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureColorMod(ref SDLTexture texture, byte r, byte g, byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * color`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureColorModFloatNative(SDLTexture* texture, float r, float g, float b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float, float, float, byte>)funcTable[1051])(texture, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, byte>)funcTable[1051])((nint)texture, r, g, b);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * color`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureColorModFloat(SDLTexture* texture, float r, float g, float b)
-		{
-			byte ret = SetTextureColorModFloatNative(texture, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * color`<br/>
-		/// Color modulation is not always supported by the renderer; it will return<br/>
-		/// false if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureColorModFloat(ref SDLTexture texture, float r, float g, float b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureColorModNative(SDLTexture* texture, byte* r, byte* g, byte* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte*, byte*, byte>)funcTable[1052])(texture, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1052])((nint)texture, (nint)r, (nint)g, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(SDLTexture* texture, byte* r, byte* g, byte* b)
-		{
-			byte ret = GetTextureColorModNative(texture, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(SDLTexture* texture, ref byte r, byte* g, byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				byte ret = GetTextureColorModNative(texture, (byte*)pr, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(SDLTexture* texture, byte* r, ref byte g, byte* b)
-		{
-			fixed (byte* pg = &g)
-			{
-				byte ret = GetTextureColorModNative(texture, r, (byte*)pg, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pg = &g)
-				{
-					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					byte ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, b);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(SDLTexture* texture, byte* r, byte* g, ref byte b)
-		{
-			fixed (byte* pb = &b)
-			{
-				byte ret = GetTextureColorModNative(texture, r, g, (byte*)pb);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pb = &b)
-				{
-					byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, (byte*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(SDLTexture* texture, ref byte r, byte* g, ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					byte ret = GetTextureColorModNative(texture, (byte*)pr, g, (byte*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, (byte*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(SDLTexture* texture, byte* r, ref byte g, ref byte b)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					byte ret = GetTextureColorModNative(texture, r, (byte*)pg, (byte*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						byte ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, (byte*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						byte ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, (byte*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							byte ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, (byte*)pb);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureColorModFloatNative(SDLTexture* texture, float* r, float* g, float* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, float*, byte>)funcTable[1053])(texture, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[1053])((nint)texture, (nint)r, (nint)g, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(SDLTexture* texture, float* r, float* g, float* b)
-		{
-			byte ret = GetTextureColorModFloatNative(texture, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(ref SDLTexture texture, float* r, float* g, float* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(SDLTexture* texture, ref float r, float* g, float* b)
-		{
-			fixed (float* pr = &r)
-			{
-				byte ret = GetTextureColorModFloatNative(texture, (float*)pr, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(ref SDLTexture texture, ref float r, float* g, float* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pr = &r)
-				{
-					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, g, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(SDLTexture* texture, float* r, ref float g, float* b)
-		{
-			fixed (float* pg = &g)
-			{
-				byte ret = GetTextureColorModFloatNative(texture, r, (float*)pg, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(ref SDLTexture texture, float* r, ref float g, float* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pg = &g)
-				{
-					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, (float*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(SDLTexture* texture, ref float r, ref float g, float* b)
-		{
-			fixed (float* pr = &r)
-			{
-				fixed (float* pg = &g)
-				{
-					byte ret = GetTextureColorModFloatNative(texture, (float*)pr, (float*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(ref SDLTexture texture, ref float r, ref float g, float* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pr = &r)
-				{
-					fixed (float* pg = &g)
-					{
-						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, (float*)pg, b);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(SDLTexture* texture, float* r, float* g, ref float b)
-		{
-			fixed (float* pb = &b)
-			{
-				byte ret = GetTextureColorModFloatNative(texture, r, g, (float*)pb);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(ref SDLTexture texture, float* r, float* g, ref float b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pb = &b)
-				{
-					byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, g, (float*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(SDLTexture* texture, ref float r, float* g, ref float b)
-		{
-			fixed (float* pr = &r)
-			{
-				fixed (float* pb = &b)
-				{
-					byte ret = GetTextureColorModFloatNative(texture, (float*)pr, g, (float*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(ref SDLTexture texture, ref float r, float* g, ref float b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pr = &r)
-				{
-					fixed (float* pb = &b)
-					{
-						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, g, (float*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(SDLTexture* texture, float* r, ref float g, ref float b)
-		{
-			fixed (float* pg = &g)
-			{
-				fixed (float* pb = &b)
-				{
-					byte ret = GetTextureColorModFloatNative(texture, r, (float*)pg, (float*)pb);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(ref SDLTexture texture, float* r, ref float g, ref float b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pg = &g)
-				{
-					fixed (float* pb = &b)
-					{
-						byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, r, (float*)pg, (float*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(SDLTexture* texture, ref float r, ref float g, ref float b)
-		{
-			fixed (float* pr = &r)
-			{
-				fixed (float* pg = &g)
-				{
-					fixed (float* pb = &b)
-					{
-						byte ret = GetTextureColorModFloatNative(texture, (float*)pr, (float*)pg, (float*)pb);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureColorModFloat(ref SDLTexture texture, ref float r, ref float g, ref float b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* pr = &r)
-				{
-					fixed (float* pg = &g)
-					{
-						fixed (float* pb = &b)
-						{
-							byte ret = GetTextureColorModFloatNative((SDLTexture*)ptexture, (float*)pr, (float*)pg, (float*)pb);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureAlphaModNative(SDLTexture* texture, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte>)funcTable[1054])(texture, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[1054])((nint)texture, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureAlphaMod(SDLTexture* texture, byte alpha)
-		{
-			byte ret = SetTextureAlphaModNative(texture, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureAlphaMod(ref SDLTexture texture, byte alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * alpha`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureAlphaModFloatNative(SDLTexture* texture, float alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float, byte>)funcTable[1055])(texture, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, byte>)funcTable[1055])((nint)texture, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * alpha`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureAlphaModFloat(SDLTexture* texture, float alpha)
-		{
-			byte ret = SetTextureAlphaModFloatNative(texture, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * alpha`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return<br/>
-		/// false if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureAlphaModFloat(ref SDLTexture texture, float alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureAlphaModFloatNative((SDLTexture*)ptexture, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureAlphaModNative(SDLTexture* texture, byte* alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte>)funcTable[1056])(texture, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1056])((nint)texture, (nint)alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureAlphaMod(SDLTexture* texture, byte* alpha)
-		{
-			byte ret = GetTextureAlphaModNative(texture, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureAlphaMod(ref SDLTexture texture, byte* alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureAlphaMod(SDLTexture* texture, ref byte alpha)
-		{
-			fixed (byte* palpha = &alpha)
-			{
-				byte ret = GetTextureAlphaModNative(texture, (byte*)palpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureAlphaMod(ref SDLTexture texture, ref byte alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* palpha = &alpha)
-				{
-					byte ret = GetTextureAlphaModNative((SDLTexture*)ptexture, (byte*)palpha);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureAlphaModFloatNative(SDLTexture* texture, float* alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, byte>)funcTable[1057])(texture, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1057])((nint)texture, (nint)alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureAlphaModFloat(SDLTexture* texture, float* alpha)
-		{
-			byte ret = GetTextureAlphaModFloatNative(texture, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureAlphaModFloat(ref SDLTexture texture, float* alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureAlphaModFloatNative((SDLTexture*)ptexture, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureAlphaModFloat(SDLTexture* texture, ref float alpha)
-		{
-			fixed (float* palpha = &alpha)
-			{
-				byte ret = GetTextureAlphaModFloatNative(texture, (float*)palpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureAlphaModFloat(ref SDLTexture texture, ref float alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (float* palpha = &alpha)
-				{
-					byte ret = GetTextureAlphaModFloatNative((SDLTexture*)ptexture, (float*)palpha);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, byte>)funcTable[1058])(texture, blendMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, byte>)funcTable[1058])((nint)texture, blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureBlendMode(SDLTexture* texture, SDLBlendMode blendMode)
-		{
-			byte ret = SetTextureBlendModeNative(texture, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureBlendMode(ref SDLTexture texture, SDLBlendMode blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode* blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, byte>)funcTable[1059])(texture, blendMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1059])((nint)texture, (nint)blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureBlendMode(SDLTexture* texture, SDLBlendMode* blendMode)
-		{
-			byte ret = GetTextureBlendModeNative(texture, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureBlendMode(ref SDLTexture texture, SDLBlendMode* blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureBlendMode(SDLTexture* texture, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				byte ret = GetTextureBlendModeNative(texture, (SDLBlendMode*)pblendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureBlendMode(ref SDLTexture texture, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					byte ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, byte>)funcTable[1060])(texture, scaleMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, byte>)funcTable[1060])((nint)texture, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureScaleMode(SDLTexture* texture, SDLScaleMode scaleMode)
-		{
-			byte ret = SetTextureScaleModeNative(texture, scaleMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// The default texture scale mode is SDL_SCALEMODE_LINEAR.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetTextureScaleMode(ref SDLTexture texture, SDLScaleMode scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode* scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, byte>)funcTable[1061])(texture, scaleMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1061])((nint)texture, (nint)scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureScaleMode(SDLTexture* texture, SDLScaleMode* scaleMode)
-		{
-			byte ret = GetTextureScaleModeNative(texture, scaleMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureScaleMode(ref SDLTexture texture, SDLScaleMode* scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureScaleMode(SDLTexture* texture, ref SDLScaleMode scaleMode)
-		{
-			fixed (SDLScaleMode* pscaleMode = &scaleMode)
-			{
-				byte ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetTextureScaleMode(ref SDLTexture texture, ref SDLScaleMode scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLScaleMode* pscaleMode = &scaleMode)
-				{
-					byte ret = GetTextureScaleModeNative((SDLTexture*)ptexture, (SDLScaleMode*)pscaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture, which can be<br/>
-		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte UpdateTextureNative(SDLTexture* texture, SDLRect* rect, void* pixels, int pitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void*, int, byte>)funcTable[1062])(texture, rect, pixels, pitch);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, byte>)funcTable[1062])((nint)texture, (nint)rect, (nint)pixels, pitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture, which can be<br/>
-		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateTexture(SDLTexture* texture, SDLRect* rect, void* pixels, int pitch)
-		{
-			byte ret = UpdateTextureNative(texture, rect, pixels, pitch);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture, which can be<br/>
-		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateTexture(ref SDLTexture texture, SDLRect* rect, void* pixels, int pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = UpdateTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture, which can be<br/>
-		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateTexture(SDLTexture* texture, ref SDLRect rect, void* pixels, int pitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = UpdateTextureNative(texture, (SDLRect*)prect, pixels, pitch);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture, which can be<br/>
-		/// queried using the SDL_PROP_TEXTURE_FORMAT_NUMBER property.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateTexture(ref SDLTexture texture, ref SDLRect rect, void* pixels, int pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = UpdateTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte UpdateYUVTextureNative(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, byte*, int, byte>)funcTable[1063])(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, byte>)funcTable[1063])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uplane, upitch, (nint)vplane, vpitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			byte ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				byte ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (byte* puplane = &uplane)
-			{
-				byte ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					byte ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* puplane = &uplane)
-						{
-							byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (byte* pvplane = &vplane)
-			{
-				byte ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					byte ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (byte* puplane = &uplane)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					byte ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						byte ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							byte ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called on the main thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						byte ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret != 0;
-					}
-				}
 			}
 		}
 	}

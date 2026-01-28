@@ -40,4 +40,51 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAssertDataPtr : IEquatable<SDLAssertDataPtr>
+	{
+		public SDLAssertDataPtr(SDLAssertData* handle) { Handle = handle; }
+
+		public SDLAssertData* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAssertDataPtr Null => new SDLAssertDataPtr(null);
+
+		public SDLAssertData this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAssertDataPtr(SDLAssertData* handle) => new SDLAssertDataPtr(handle);
+
+		public static implicit operator SDLAssertData*(SDLAssertDataPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAssertDataPtr left, SDLAssertDataPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAssertDataPtr left, SDLAssertDataPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAssertDataPtr left, SDLAssertData* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAssertDataPtr left, SDLAssertData* right) => left.Handle != right;
+
+		public bool Equals(SDLAssertDataPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAssertDataPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAssertDataPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref int AlwaysIgnore => ref Unsafe.AsRef<int>(&Handle->AlwaysIgnore);
+		public ref uint TriggerCount => ref Unsafe.AsRef<uint>(&Handle->TriggerCount);
+		public byte* Condition { get => Handle->Condition; set => Handle->Condition = value; }
+		public byte* Filename { get => Handle->Filename; set => Handle->Filename = value; }
+		public ref int Linenum => ref Unsafe.AsRef<int>(&Handle->Linenum);
+		public byte* Function { get => Handle->Function; set => Handle->Function = value; }
+		public ref SDLAssertDataPtr Next => ref Unsafe.AsRef<SDLAssertDataPtr>(&Handle->Next);
+	}
+
 }

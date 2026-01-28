@@ -15,16 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// A thread-safe set of environment variables<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Environment")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLEnvironment
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Environment")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLEnvironmentPtr : IEquatable<SDLEnvironmentPtr>
+	{
+		public SDLEnvironmentPtr(SDLEnvironment* handle) { Handle = handle; }
+
+		public SDLEnvironment* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLEnvironmentPtr Null => new SDLEnvironmentPtr(null);
+
+		public SDLEnvironment this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLEnvironmentPtr(SDLEnvironment* handle) => new SDLEnvironmentPtr(handle);
+
+		public static implicit operator SDLEnvironment*(SDLEnvironmentPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLEnvironmentPtr left, SDLEnvironmentPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLEnvironmentPtr left, SDLEnvironmentPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLEnvironmentPtr left, SDLEnvironment* right) => left.Handle == right;
+
+		public static bool operator !=(SDLEnvironmentPtr left, SDLEnvironment* right) => left.Handle != right;
+
+		public bool Equals(SDLEnvironmentPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLEnvironmentPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLEnvironmentPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

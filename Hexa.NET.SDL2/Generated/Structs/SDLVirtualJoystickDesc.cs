@@ -150,4 +150,132 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// The structure that defines an extended virtual joystick description<br/>
+	/// The caller must zero the structure and then initialize the version with<br/>
+	/// `SDL_VIRTUAL_JOYSTICK_DESC_VERSION` before passing it to<br/>
+	/// SDL_JoystickAttachVirtualEx() All other elements of this structure are<br/>
+	/// optional and can be left 0.<br/>
+	/// <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLVirtualJoystickDescPtr : IEquatable<SDLVirtualJoystickDescPtr>
+	{
+		public SDLVirtualJoystickDescPtr(SDLVirtualJoystickDesc* handle) { Handle = handle; }
+
+		public SDLVirtualJoystickDesc* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLVirtualJoystickDescPtr Null => new SDLVirtualJoystickDescPtr(null);
+
+		public SDLVirtualJoystickDesc this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLVirtualJoystickDescPtr(SDLVirtualJoystickDesc* handle) => new SDLVirtualJoystickDescPtr(handle);
+
+		public static implicit operator SDLVirtualJoystickDesc*(SDLVirtualJoystickDescPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLVirtualJoystickDescPtr left, SDLVirtualJoystickDescPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLVirtualJoystickDescPtr left, SDLVirtualJoystickDescPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLVirtualJoystickDescPtr left, SDLVirtualJoystickDesc* right) => left.Handle == right;
+
+		public static bool operator !=(SDLVirtualJoystickDescPtr left, SDLVirtualJoystickDesc* right) => left.Handle != right;
+
+		public bool Equals(SDLVirtualJoystickDescPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLVirtualJoystickDescPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLVirtualJoystickDescPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// `SDL_VIRTUAL_JOYSTICK_DESC_VERSION` <br/>
+		/// </summary>
+		public ref ushort Version => ref Unsafe.AsRef<ushort>(&Handle->Version);
+		/// <summary>
+		/// `SDL_JoystickType` <br/>
+		/// </summary>
+		public ref ushort Type => ref Unsafe.AsRef<ushort>(&Handle->Type);
+		/// <summary>
+		/// the number of axes on this joystick <br/>
+		/// </summary>
+		public ref ushort Naxes => ref Unsafe.AsRef<ushort>(&Handle->Naxes);
+		/// <summary>
+		/// the number of buttons on this joystick <br/>
+		/// </summary>
+		public ref ushort Nbuttons => ref Unsafe.AsRef<ushort>(&Handle->Nbuttons);
+		/// <summary>
+		/// the number of hats on this joystick <br/>
+		/// </summary>
+		public ref ushort Nhats => ref Unsafe.AsRef<ushort>(&Handle->Nhats);
+		/// <summary>
+		/// the USB vendor ID of this joystick <br/>
+		/// </summary>
+		public ref ushort VendorId => ref Unsafe.AsRef<ushort>(&Handle->VendorId);
+		/// <summary>
+		/// the USB product ID of this joystick <br/>
+		/// </summary>
+		public ref ushort ProductId => ref Unsafe.AsRef<ushort>(&Handle->ProductId);
+		/// <summary>
+		/// unused <br/>
+		/// </summary>
+		public ref ushort Padding => ref Unsafe.AsRef<ushort>(&Handle->Padding);
+		/// <summary>
+		/// A mask of which buttons are valid for this controller<br/>
+		/// e.g. (1 <br/>
+		/// <<br/>
+		/// <<br/>
+		/// SDL_CONTROLLER_BUTTON_A) <br/>
+		/// </summary>
+		public ref uint ButtonMask => ref Unsafe.AsRef<uint>(&Handle->ButtonMask);
+		/// <summary>
+		/// A mask of which axes are valid for this controller<br/>
+		/// e.g. (1 <br/>
+		/// <<br/>
+		/// <<br/>
+		/// SDL_CONTROLLER_AXIS_LEFTX) <br/>
+		/// </summary>
+		public ref uint AxisMask => ref Unsafe.AsRef<uint>(&Handle->AxisMask);
+		/// <summary>
+		/// the name of the joystick <br/>
+		/// </summary>
+		public byte* Name { get => Handle->Name; set => Handle->Name = value; }
+		/// <summary>
+		/// User data pointer passed to callbacks <br/>
+		/// </summary>
+		public void* Userdata { get => Handle->Userdata; set => Handle->Userdata = value; }
+		/// <summary>
+		/// Called when the joystick state should be updated <br/>
+		/// </summary>
+		public void* Update { get => Handle->Update; set => Handle->Update = value; }
+		/// <summary>
+		/// Called when the player index is set <br/>
+		/// </summary>
+		public void* SetPlayerIndex { get => Handle->SetPlayerIndex; set => Handle->SetPlayerIndex = value; }
+		/// <summary>
+		/// Implements SDL_JoystickRumble() <br/>
+		/// </summary>
+		public void* Rumble { get => Handle->Rumble; set => Handle->Rumble = value; }
+		/// <summary>
+		/// Implements SDL_JoystickRumbleTriggers() <br/>
+		/// </summary>
+		public void* RumbleTriggers { get => Handle->RumbleTriggers; set => Handle->RumbleTriggers = value; }
+		/// <summary>
+		/// Implements SDL_JoystickSetLED() <br/>
+		/// </summary>
+		public void* SetLED { get => Handle->SetLED; set => Handle->SetLED = value; }
+		/// <summary>
+		/// Implements SDL_JoystickSendEffect() <br/>
+		/// </summary>
+		public void* SendEffect { get => Handle->SendEffect; set => Handle->SendEffect = value; }
+	}
+
 }

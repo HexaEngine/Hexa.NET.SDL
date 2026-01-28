@@ -20,10 +20,15 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Point")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPoint
 	{
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int X;
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Y;
 
 		public unsafe SDLPoint(int x = default, int y = default)
@@ -33,6 +38,54 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The structure that defines a point (using integers).<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Point")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLPointPtr : IEquatable<SDLPointPtr>
+	{
+		public SDLPointPtr(SDLPoint* handle) { Handle = handle; }
+
+		public SDLPoint* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLPointPtr Null => new SDLPointPtr(null);
+
+		public SDLPoint this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLPointPtr(SDLPoint* handle) => new SDLPointPtr(handle);
+
+		public static implicit operator SDLPoint*(SDLPointPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLPointPtr left, SDLPointPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLPointPtr left, SDLPointPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLPointPtr left, SDLPoint* right) => left.Handle == right;
+
+		public static bool operator !=(SDLPointPtr left, SDLPoint* right) => left.Handle != right;
+
+		public bool Equals(SDLPointPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLPointPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLPointPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref int X => ref Unsafe.AsRef<int>(&Handle->X);
+		public ref int Y => ref Unsafe.AsRef<int>(&Handle->Y);
 	}
 
 }

@@ -17,22 +17,29 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_GPUCullMode")]
 	[Flags]
 	public enum SDLGPUCullMode : int
 	{
 		/// <summary>
 		/// No triangles are culled. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_CULLMODE_NONE")]
+		[NativeName(NativeNameType.Value, "0")]
 		None = unchecked(0),
 
 		/// <summary>
 		/// Front-facing triangles are culled. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_CULLMODE_FRONT")]
+		[NativeName(NativeNameType.Value, "1")]
 		Front = unchecked(1),
 
 		/// <summary>
 		/// Back-facing triangles are culled. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_CULLMODE_BACK")]
+		[NativeName(NativeNameType.Value, "2")]
 		Back = unchecked(2),
 	}
 }

@@ -31,12 +31,20 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_GPUSwapchainComposition")]
 	public enum SDLGPUSwapchainComposition : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SWAPCHAINCOMPOSITION_SDR")]
+		[NativeName(NativeNameType.Value, "0")]
 		Sdr = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SWAPCHAINCOMPOSITION_SDR_LINEAR")]
+		[NativeName(NativeNameType.Value, "1")]
 		SdrLinear = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SWAPCHAINCOMPOSITION_HDR_EXTENDED_LINEAR")]
+		[NativeName(NativeNameType.Value, "2")]
 		HdrExtendedLinear = unchecked(2),
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SWAPCHAINCOMPOSITION_HDR10_ST2084")]
+		[NativeName(NativeNameType.Value, "3")]
 		Hdr10St2084 = unchecked(3),
 	}
 }

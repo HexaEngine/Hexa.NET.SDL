@@ -19,18 +19,25 @@ namespace Hexa.NET.SDL3
 	/// Fields shared by every event<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_CommonEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCommonEvent
 	{
 		/// <summary>
 		/// Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 

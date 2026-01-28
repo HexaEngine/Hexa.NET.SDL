@@ -133,4 +133,130 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// The generic template for any haptic effect.<br/>
+	/// All values max at 32767 (0x7FFF). Signed values also can be negative. Time<br/>
+	/// values unless specified otherwise are in milliseconds.<br/>
+	/// You can also pass SDL_HAPTIC_INFINITY to length instead of a 0-32767 value.<br/>
+	/// Neither delay, interval, attack_length nor fade_length support<br/>
+	/// SDL_HAPTIC_INFINITY. Fade will also not be used since effect never ends.<br/>
+	/// Additionally, the SDL_HAPTIC_RAMP effect does not support a duration of<br/>
+	/// SDL_HAPTIC_INFINITY.<br/>
+	/// Button triggers may not be supported on all devices, it is advised to not<br/>
+	/// use them if possible. Buttons start at index 1 instead of index 0 like the<br/>
+	/// joystick.<br/>
+	/// If both attack_length and fade_level are 0, the envelope is not used,<br/>
+	/// otherwise both values are used.<br/>
+	/// Common parts:<br/>
+	/// ```c<br/>
+	/// // Replay - All effects have this<br/>
+	/// Uint32 length;        // Duration of effect (ms).<br/>
+	/// Uint16 delay;         // Delay before starting effect.<br/>
+	/// // Trigger - All effects have this<br/>
+	/// Uint16 button;        // Button that triggers effect.<br/>
+	/// Uint16 interval;      // How soon before effect can be triggered again.<br/>
+	/// // Envelope - All effects except condition effects have this<br/>
+	/// Uint16 attack_length; // Duration of the attack (ms).<br/>
+	/// Uint16 attack_level;  // Level at the start of the attack.<br/>
+	/// Uint16 fade_length;   // Duration of the fade out (ms).<br/>
+	/// Uint16 fade_level;    // Level at the end of the fade.<br/>
+	/// ```<br/>
+	/// Here we have an example of a constant effect evolution in time:<br/>
+	/// ```<br/>
+	/// Strength<br/>
+	/// ^<br/>
+	/// |<br/>
+	/// |    effect level -->  _________________<br/>
+	/// |                     /                 <br/>
+	/// \<br/>
+	/// |                    /                   <br/>
+	/// \<br/>
+	/// |                   /                     <br/>
+	/// \<br/>
+	/// |                  /                       <br/>
+	/// \<br/>
+	/// | attack_level --> |                        <br/>
+	/// \<br/>
+	/// |                  |                        |  <br/>
+	/// <<br/>
+	/// ---  fade_level<br/>
+	/// |<br/>
+	/// +--------------------------------------------------> Time<br/>
+	/// [--]                 [---]<br/>
+	/// attack_length        fade_length<br/>
+	/// [------------------][-----------------------]<br/>
+	/// delay               length<br/>
+	/// ```<br/>
+	/// Note either the attack_level or the fade_level may be above the actual<br/>
+	/// effect level.<br/>
+	/// <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLHapticEffectPtr : IEquatable<SDLHapticEffectPtr>
+	{
+		public SDLHapticEffectPtr(SDLHapticEffect* handle) { Handle = handle; }
+
+		public SDLHapticEffect* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLHapticEffectPtr Null => new SDLHapticEffectPtr(null);
+
+		public SDLHapticEffect this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLHapticEffectPtr(SDLHapticEffect* handle) => new SDLHapticEffectPtr(handle);
+
+		public static implicit operator SDLHapticEffect*(SDLHapticEffectPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLHapticEffectPtr left, SDLHapticEffectPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLHapticEffectPtr left, SDLHapticEffectPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLHapticEffectPtr left, SDLHapticEffect* right) => left.Handle == right;
+
+		public static bool operator !=(SDLHapticEffectPtr left, SDLHapticEffect* right) => left.Handle != right;
+
+		public bool Equals(SDLHapticEffectPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLHapticEffectPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLHapticEffectPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Effect type. <br/>
+		/// </summary>
+		public ref ushort Type => ref Unsafe.AsRef<ushort>(&Handle->Type);
+		/// <summary>
+		/// Constant effect. <br/>
+		/// </summary>
+		public ref SDLHapticConstant Constant => ref Unsafe.AsRef<SDLHapticConstant>(&Handle->Constant);
+		/// <summary>
+		/// Periodic effect. <br/>
+		/// </summary>
+		public ref SDLHapticPeriodic Periodic => ref Unsafe.AsRef<SDLHapticPeriodic>(&Handle->Periodic);
+		/// <summary>
+		/// Condition effect. <br/>
+		/// </summary>
+		public ref SDLHapticCondition Condition => ref Unsafe.AsRef<SDLHapticCondition>(&Handle->Condition);
+		/// <summary>
+		/// Ramp effect. <br/>
+		/// </summary>
+		public ref SDLHapticRamp Ramp => ref Unsafe.AsRef<SDLHapticRamp>(&Handle->Ramp);
+		/// <summary>
+		/// Left/Right effect. <br/>
+		/// </summary>
+		public ref SDLHapticLeftRight Leftright => ref Unsafe.AsRef<SDLHapticLeftRight>(&Handle->Leftright);
+		/// <summary>
+		/// Custom effect. <br/>
+		/// </summary>
+		public ref SDLHapticCustom Custom => ref Unsafe.AsRef<SDLHapticCustom>(&Handle->Custom);
+	}
+
 }

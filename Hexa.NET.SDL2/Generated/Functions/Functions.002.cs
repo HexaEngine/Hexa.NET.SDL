@@ -18,6 +18,392 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static string IconvStringS(string tocode, string fromcode, string inbuf, nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* pStr2 = null;
+			int pStrSize2 = 0;
+			if (inbuf != null)
+			{
+				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize2 >= Utils.MaxStackallocSize)
+				{
+					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
+				}
+				else
+				{
+					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
+					pStr2 = pStrStack2;
+				}
+				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
+				pStr2[pStrOffset2] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, pStr1, pStr2, inbytesleft));
+			if (pStrSize2 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr2);
+			}
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int MainNative(int argc, byte** argv)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte**, int>)funcTable[127])(argc, argv);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[127])(argc, (nint)argv);
+			#endif
+		}
+
+		public static int Main(int argc, byte** argv)
+		{
+			int ret = MainNative(argc, argv);
+			return ret;
+		}
+
+		public static int Main(int argc, ref byte* argv)
+		{
+			fixed (byte** pargv = &argv)
+			{
+				int ret = MainNative(argc, (byte**)pargv);
+				return ret;
+			}
+		}
+
+		public static int Main(int argc, string[] argv)
+		{
+			byte** pStrArray0 = null;
+			int pStrArray0Size = Utils.GetByteCountArray(argv);
+			if (argv != null)
+			{
+				if (pStrArray0Size > Utils.MaxStackallocSize)
+				{
+					pStrArray0 = (byte**)Utils.Alloc<byte>(pStrArray0Size);
+				}
+				else
+				{
+					byte* pStrArray0Stack = stackalloc byte[pStrArray0Size];
+					pStrArray0 = (byte**)pStrArray0Stack;
+				}
+			}
+			for (int i = 0; i < argv.Length; i++)
+			{
+				pStrArray0[i] = (byte*)Utils.StringToUTF8Ptr(argv[i]);
+			}
+			int ret = MainNative(argc, pStrArray0);
+			for (int i = 0; i < argv.Length; i++)
+			{
+				Utils.Free(pStrArray0[i]);
+			}
+			if (pStrArray0Size >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStrArray0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Circumvent failure of SDL_Init() when not using SDL_main() as an entry<br/>
+		/// point.<br/>
+		/// This function is defined in SDL_main.h, along with the preprocessor rule to<br/>
+		/// redefine main() as SDL_main(). Thus to ensure that your main() function<br/>
+		/// will not be changed it is necessary to define SDL_MAIN_HANDLED before<br/>
+		/// including SDL.h.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetMainReadyNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
+			#endif
+		}
+
+		/// <summary>
+		/// Circumvent failure of SDL_Init() when not using SDL_main() as an entry<br/>
+		/// point.<br/>
+		/// This function is defined in SDL_main.h, along with the preprocessor rule to<br/>
+		/// redefine main() as SDL_main(). Thus to ensure that your main() function<br/>
+		/// will not be changed it is necessary to define SDL_MAIN_HANDLED before<br/>
+		/// including SDL.h.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetMainReady()
+		{
+			SetMainReadyNative();
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RegisterAppNative(byte* name, uint style, void* hInst)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, uint, void*, int>)funcTable[129])(name, style, hInst);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, uint, nint, int>)funcTable[129])((nint)name, style, (nint)hInst);
+			#endif
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(byte* name, uint style, void* hInst)
+		{
+			int ret = RegisterAppNative(name, style, hInst);
+			return ret;
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(in byte name, uint style, void* hInst)
+		{
+			fixed (byte* pname = &name)
+			{
+				int ret = RegisterAppNative((byte*)pname, style, hInst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(ReadOnlySpan<byte> name, uint style, void* hInst)
+		{
+			fixed (byte* pname = name)
+			{
+				int ret = RegisterAppNative((byte*)pname, style, hInst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(string name, uint style, void* hInst)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = RegisterAppNative(pStr0, style, hInst);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(byte* name, uint style, nint hInst)
+		{
+			int ret = RegisterAppNative(name, style, (void*)hInst);
+			return ret;
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(in byte name, uint style, nint hInst)
+		{
+			fixed (byte* pname = &name)
+			{
+				int ret = RegisterAppNative((byte*)pname, style, (void*)hInst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(ReadOnlySpan<byte> name, uint style, nint hInst)
+		{
+			fixed (byte* pname = name)
+			{
+				int ret = RegisterAppNative((byte*)pname, style, (void*)hInst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(string name, uint style, nint hInst)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = RegisterAppNative(pStr0, style, (void*)hInst);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
 		/// Deregister the win32 window class from an SDL_RegisterApp call.<br/>
 		/// This can be called to undo the effects of SDL_RegisterApp.<br/>
 		/// Most applications do not need to, and should not, call this directly; SDL<br/>
@@ -89,13 +475,31 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetAssertionHandlerNative(SDLAssertionHandler handler, void* userdata)
+		internal static void SetAssertionHandlerNative(delegate*<SDLAssertData*, void*, SDLAssertState> handler, void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<SDLAssertData*, void*, SDLAssertState>, void*, void>)funcTable[132])((delegate*<SDLAssertData*, void*, SDLAssertState>)Utils.GetFunctionPointerForDelegate(handler), userdata);
+			((delegate* unmanaged[Cdecl]<delegate*<SDLAssertData*, void*, SDLAssertState>, void*, void>)funcTable[132])(handler, userdata);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[132])((nint)Utils.GetFunctionPointerForDelegate(handler), (nint)userdata);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[132])((nint)handler, (nint)userdata);
 			#endif
+		}
+
+		/// <summary>
+		/// Set an application-defined assertion handler.<br/>
+		/// This function allows an application to show its own assertion UI and/or<br/>
+		/// force the response to an assertion failure. If the application doesn't<br/>
+		/// provide this, SDL will try to do the right thing, popping up a<br/>
+		/// system-specific GUI dialog, and probably minimizing any fullscreen windows.<br/>
+		/// This callback may fire from any thread, but it runs wrapped in a mutex, so<br/>
+		/// it will only fire from one thread at a time.<br/>
+		/// This callback is NOT reset to SDL's internal handler upon SDL_Quit()!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetAssertionHandler(delegate*<SDLAssertData*, void*, SDLAssertState> handler, void* userdata)
+		{
+			SetAssertionHandlerNative(handler, userdata);
 		}
 
 		/// <summary>
@@ -113,7 +517,43 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		public static void SetAssertionHandler(SDLAssertionHandler handler, void* userdata)
 		{
-			SetAssertionHandlerNative(handler, userdata);
+			SetAssertionHandlerNative((delegate*<SDLAssertData*, void*, SDLAssertState>)Utils.GetFunctionPointerForDelegate(handler), userdata);
+		}
+
+		/// <summary>
+		/// Set an application-defined assertion handler.<br/>
+		/// This function allows an application to show its own assertion UI and/or<br/>
+		/// force the response to an assertion failure. If the application doesn't<br/>
+		/// provide this, SDL will try to do the right thing, popping up a<br/>
+		/// system-specific GUI dialog, and probably minimizing any fullscreen windows.<br/>
+		/// This callback may fire from any thread, but it runs wrapped in a mutex, so<br/>
+		/// it will only fire from one thread at a time.<br/>
+		/// This callback is NOT reset to SDL's internal handler upon SDL_Quit()!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetAssertionHandler(delegate*<SDLAssertData*, void*, SDLAssertState> handler, nint userdata)
+		{
+			SetAssertionHandlerNative(handler, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Set an application-defined assertion handler.<br/>
+		/// This function allows an application to show its own assertion UI and/or<br/>
+		/// force the response to an assertion failure. If the application doesn't<br/>
+		/// provide this, SDL will try to do the right thing, popping up a<br/>
+		/// system-specific GUI dialog, and probably minimizing any fullscreen windows.<br/>
+		/// This callback may fire from any thread, but it runs wrapped in a mutex, so<br/>
+		/// it will only fire from one thread at a time.<br/>
+		/// This callback is NOT reset to SDL's internal handler upon SDL_Quit()!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetAssertionHandler(SDLAssertionHandler handler, nint userdata)
+		{
+			SetAssertionHandlerNative((delegate*<SDLAssertData*, void*, SDLAssertState>)Utils.GetFunctionPointerForDelegate(handler), (void*)userdata);
 		}
 
 		/// <summary>
@@ -197,6 +637,29 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
+		/// Get the current assertion handler.<br/>
+		/// This returns the function pointer that is called when an assertion is<br/>
+		/// triggered. This is either the value last passed to<br/>
+		/// SDL_SetAssertionHandler(), or if no application-specified function is set,<br/>
+		/// is equivalent to calling SDL_GetDefaultAssertionHandler().<br/>
+		/// The parameter `puserdata` is a pointer to a void*, which will store the<br/>
+		/// "userdata" pointer that was passed to SDL_SetAssertionHandler(). This value<br/>
+		/// will always be NULL for the default handler. If you don't care about this<br/>
+		/// data, it is safe to pass a NULL pointer to this function to ignore it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static delegate*<SDLAssertData*, void*, SDLAssertState> GetAssertionHandler(ref nint puserdata)
+		{
+			fixed (nint* ppuserdata = &puserdata)
+			{
+				delegate*<SDLAssertData*, void*, SDLAssertState> ret = GetAssertionHandlerNative((void**)ppuserdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Get a list of all assertion failures.<br/>
 		/// This function gets all assertions triggered since the last call to<br/>
 		/// SDL_ResetAssertionReport(), or the start of the program.<br/>
@@ -244,9 +707,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLAssertData* GetAssertionReport()
+		public static SDLAssertDataPtr GetAssertionReport()
 		{
-			SDLAssertData* ret = GetAssertionReportNative();
+			SDLAssertDataPtr ret = GetAssertionReportNative();
 			return ret;
 		}
 
@@ -519,9 +982,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool AtomicCAS(SDLAtomic* a, int oldval, int newval)
+		public static SDLBool AtomicCAS(SDLAtomicPtr a, int oldval, int newval)
 		{
-			SDLBool ret = AtomicCASNative(a, oldval, newval);
+			SDLBool ret = AtomicCASNative((SDLAtomic*)a, oldval, newval);
 			return ret;
 		}
 
@@ -570,9 +1033,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int AtomicSet(SDLAtomic* a, int v)
+		public static int AtomicSet(SDLAtomicPtr a, int v)
 		{
-			int ret = AtomicSetNative(a, v);
+			int ret = AtomicSetNative((SDLAtomic*)a, v);
 			return ret;
 		}
 
@@ -620,9 +1083,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int AtomicGet(SDLAtomic* a)
+		public static int AtomicGet(SDLAtomicPtr a)
 		{
-			int ret = AtomicGetNative(a);
+			int ret = AtomicGetNative((SDLAtomic*)a);
 			return ret;
 		}
 
@@ -671,9 +1134,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int AtomicAdd(SDLAtomic* a, int v)
+		public static int AtomicAdd(SDLAtomicPtr a, int v)
 		{
-			int ret = AtomicAddNative(a, v);
+			int ret = AtomicAddNative((SDLAtomic*)a, v);
 			return ret;
 		}
 
@@ -728,6 +1191,116 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool AtomicCASPtr(ref nint a, void* oldval, void* newval)
+		{
+			fixed (nint* pa = &a)
+			{
+				SDLBool ret = AtomicCASPtrNative((void**)pa, oldval, newval);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool AtomicCASPtr(void** a, nint oldval, void* newval)
+		{
+			SDLBool ret = AtomicCASPtrNative(a, (void*)oldval, newval);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool AtomicCASPtr(ref nint a, nint oldval, void* newval)
+		{
+			fixed (nint* pa = &a)
+			{
+				SDLBool ret = AtomicCASPtrNative((void**)pa, (void*)oldval, newval);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool AtomicCASPtr(void** a, void* oldval, nint newval)
+		{
+			SDLBool ret = AtomicCASPtrNative(a, oldval, (void*)newval);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool AtomicCASPtr(ref nint a, void* oldval, nint newval)
+		{
+			fixed (nint* pa = &a)
+			{
+				SDLBool ret = AtomicCASPtrNative((void**)pa, oldval, (void*)newval);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool AtomicCASPtr(void** a, nint oldval, nint newval)
+		{
+			SDLBool ret = AtomicCASPtrNative(a, (void*)oldval, (void*)newval);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool AtomicCASPtr(ref nint a, nint oldval, nint newval)
+		{
+			fixed (nint* pa = &a)
+			{
+				SDLBool ret = AtomicCASPtrNative((void**)pa, (void*)oldval, (void*)newval);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Set a pointer to a value atomically.<br/>
 		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
 		/// it!***<br/>
@@ -760,6 +1333,54 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
+		/// Set a pointer to a value atomically.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* AtomicSetPtr(ref nint a, void* v)
+		{
+			fixed (nint* pa = &a)
+			{
+				void* ret = AtomicSetPtrNative((void**)pa, v);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer to a value atomically.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* AtomicSetPtr(void** a, nint v)
+		{
+			void* ret = AtomicSetPtrNative(a, (void*)v);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a pointer to a value atomically.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* AtomicSetPtr(ref nint a, nint v)
+		{
+			fixed (nint* pa = &a)
+			{
+				void* ret = AtomicSetPtrNative((void**)pa, (void*)v);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Get the value of a pointer atomically.<br/>
 		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
 		/// it!***<br/>
@@ -789,6 +1410,23 @@ namespace Hexa.NET.SDL2
 		{
 			void* ret = AtomicGetPtrNative(a);
 			return ret;
+		}
+
+		/// <summary>
+		/// Get the value of a pointer atomically.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* AtomicGetPtr(ref nint a)
+		{
+			fixed (nint* pa = &a)
+			{
+				void* ret = AtomicGetPtrNative((void**)pa);
+				return ret;
+			}
 		}
 
 		/// <summary>
@@ -849,7 +1487,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetError(ref byte fmt)
+		public static int SetError(in byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -1236,9 +1874,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLMutex* CreateMutex()
+		public static SDLMutexPtr CreateMutex()
 		{
-			SDLMutex* ret = CreateMutexNative();
+			SDLMutexPtr ret = CreateMutexNative();
 			return ret;
 		}
 
@@ -1274,9 +1912,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LockMutex(SDLMutex* mutex)
+		public static int LockMutex(SDLMutexPtr mutex)
 		{
-			int ret = LockMutexNative(mutex);
+			int ret = LockMutexNative((SDLMutex*)mutex);
 			return ret;
 		}
 
@@ -1330,9 +1968,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int TryLockMutex(SDLMutex* mutex)
+		public static int TryLockMutex(SDLMutexPtr mutex)
 		{
-			int ret = TryLockMutexNative(mutex);
+			int ret = TryLockMutexNative((SDLMutex*)mutex);
 			return ret;
 		}
 
@@ -1387,9 +2025,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UnlockMutex(SDLMutex* mutex)
+		public static int UnlockMutex(SDLMutexPtr mutex)
 		{
-			int ret = UnlockMutexNative(mutex);
+			int ret = UnlockMutexNative((SDLMutex*)mutex);
 			return ret;
 		}
 
@@ -1445,9 +2083,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void DestroyMutex(SDLMutex* mutex)
+		public static void DestroyMutex(SDLMutexPtr mutex)
 		{
-			DestroyMutexNative(mutex);
+			DestroyMutexNative((SDLMutex*)mutex);
 		}
 
 		/// <summary>
@@ -1833,9 +2471,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLCond* CreateCond()
+		public static SDLCondPtr CreateCond()
 		{
-			SDLCond* ret = CreateCondNative();
+			SDLCondPtr ret = CreateCondNative();
 			return ret;
 		}
 
@@ -1861,9 +2499,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void DestroyCond(SDLCond* cond)
+		public static void DestroyCond(SDLCondPtr cond)
 		{
-			DestroyCondNative(cond);
+			DestroyCondNative((SDLCond*)cond);
 		}
 
 		/// <summary>
@@ -1902,9 +2540,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CondSignal(SDLCond* cond)
+		public static int CondSignal(SDLCondPtr cond)
 		{
-			int ret = CondSignalNative(cond);
+			int ret = CondSignalNative((SDLCond*)cond);
 			return ret;
 		}
 
@@ -1945,9 +2583,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CondBroadcast(SDLCond* cond)
+		public static int CondBroadcast(SDLCondPtr cond)
 		{
-			int ret = CondBroadcastNative(cond);
+			int ret = CondBroadcastNative((SDLCond*)cond);
 			return ret;
 		}
 
@@ -2002,9 +2640,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CondWait(SDLCond* cond, SDLMutex* mutex)
+		public static int CondWait(SDLCondPtr cond, SDLMutexPtr mutex)
 		{
-			int ret = CondWaitNative(cond, mutex);
+			int ret = CondWaitNative((SDLCond*)cond, (SDLMutex*)mutex);
 			return ret;
 		}
 
@@ -2021,11 +2659,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CondWait(ref SDLCond cond, SDLMutex* mutex)
+		public static int CondWait(ref SDLCond cond, SDLMutexPtr mutex)
 		{
 			fixed (SDLCond* pcond = &cond)
 			{
-				int ret = CondWaitNative((SDLCond*)pcond, mutex);
+				int ret = CondWaitNative((SDLCond*)pcond, (SDLMutex*)mutex);
 				return ret;
 			}
 		}
@@ -2043,11 +2681,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CondWait(SDLCond* cond, ref SDLMutex mutex)
+		public static int CondWait(SDLCondPtr cond, ref SDLMutex mutex)
 		{
 			fixed (SDLMutex* pmutex = &mutex)
 			{
-				int ret = CondWaitNative(cond, (SDLMutex*)pmutex);
+				int ret = CondWaitNative((SDLCond*)cond, (SDLMutex*)pmutex);
 				return ret;
 			}
 		}
@@ -2111,9 +2749,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CondWaitTimeout(SDLCond* cond, SDLMutex* mutex, uint ms)
+		public static int CondWaitTimeout(SDLCondPtr cond, SDLMutexPtr mutex, uint ms)
 		{
-			int ret = CondWaitTimeoutNative(cond, mutex, ms);
+			int ret = CondWaitTimeoutNative((SDLCond*)cond, (SDLMutex*)mutex, ms);
 			return ret;
 		}
 
@@ -2129,11 +2767,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CondWaitTimeout(ref SDLCond cond, SDLMutex* mutex, uint ms)
+		public static int CondWaitTimeout(ref SDLCond cond, SDLMutexPtr mutex, uint ms)
 		{
 			fixed (SDLCond* pcond = &cond)
 			{
-				int ret = CondWaitTimeoutNative((SDLCond*)pcond, mutex, ms);
+				int ret = CondWaitTimeoutNative((SDLCond*)pcond, (SDLMutex*)mutex, ms);
 				return ret;
 			}
 		}
@@ -2150,11 +2788,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CondWaitTimeout(SDLCond* cond, ref SDLMutex mutex, uint ms)
+		public static int CondWaitTimeout(SDLCondPtr cond, ref SDLMutex mutex, uint ms)
 		{
 			fixed (SDLMutex* pmutex = &mutex)
 			{
-				int ret = CondWaitTimeoutNative(cond, (SDLMutex*)pmutex, ms);
+				int ret = CondWaitTimeoutNative((SDLCond*)cond, (SDLMutex*)pmutex, ms);
 				return ret;
 			}
 		}
@@ -2184,40 +2822,46 @@ namespace Hexa.NET.SDL2
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLThread* CreateThreadNative(SDLThreadFunction fn, byte* name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		internal static SDLThread* CreateThreadNative(delegate*<void*, int> fn, byte* name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, void*, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>, delegate*<uint, void>, SDLThread*>)funcTable[172])((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, void*, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>, delegate*<uint, void>, SDLThread*>)funcTable[172])(fn, name, data, pfnBeginThread, pfnEndThread);
 			#else
-			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, nint>)funcTable[172])((nint)Utils.GetFunctionPointerForDelegate(fn), (nint)name, (nint)data, (nint)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (nint)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, nint>)funcTable[172])((nint)fn, (nint)name, (nint)data, (nint)pfnBeginThread, (nint)pfnEndThread);
 			#endif
 		}
 
-		public static SDLThread* CreateThread(SDLThreadFunction fn, byte* name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, byte* name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
-			SDLThread* ret = CreateThreadNative(fn, name, data, pfnBeginThread, pfnEndThread);
+			SDLThreadPtr ret = CreateThreadNative(fn, name, data, pfnBeginThread, pfnEndThread);
 			return ret;
 		}
 
-		public static SDLThread* CreateThread(SDLThreadFunction fn, ref byte name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, byte* name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, pfnBeginThread, pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, in byte name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLThread* ret = CreateThreadNative(fn, (byte*)pname, data, pfnBeginThread, pfnEndThread);
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, data, pfnBeginThread, pfnEndThread);
 				return ret;
 			}
 		}
 
-		public static SDLThread* CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, ReadOnlySpan<byte> name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLThread* ret = CreateThreadNative(fn, (byte*)pname, data, pfnBeginThread, pfnEndThread);
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, data, pfnBeginThread, pfnEndThread);
 				return ret;
 			}
 		}
 
-		public static SDLThread* CreateThread(SDLThreadFunction fn, string name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, string name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2236,7 +2880,766 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLThread* ret = CreateThreadNative(fn, pStr0, data, pfnBeginThread, pfnEndThread);
+			SDLThreadPtr ret = CreateThreadNative(fn, pStr0, data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, in byte name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, string name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, byte* name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative(fn, name, (void*)data, pfnBeginThread, pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, byte* name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, (void*)data, pfnBeginThread, pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, in byte name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, string name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative(fn, pStr0, (void*)data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, in byte name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, string name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, (void*)data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, byte* name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative(fn, name, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, byte* name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, in byte name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, ReadOnlySpan<byte> name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, string name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative(fn, pStr0, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, in byte name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, string name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, byte* name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative(fn, name, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, byte* name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, in byte name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, string name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative(fn, pStr0, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, in byte name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, string name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, byte* name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative(fn, name, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, byte* name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, in byte name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, ReadOnlySpan<byte> name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, string name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative(fn, pStr0, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, in byte name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, string name, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, byte* name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative(fn, name, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, byte* name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, in byte name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, string name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative(fn, pStr0, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, in byte name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, string name, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, byte* name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative(fn, name, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, byte* name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, in byte name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, ReadOnlySpan<byte> name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, string name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative(fn, pStr0, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, in byte name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, string name, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, byte* name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative(fn, name, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, byte* name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, in byte name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative(fn, (byte*)pname, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(delegate*<void*, int> fn, string name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative(fn, pStr0, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, in byte name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, ReadOnlySpan<byte> name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThread(SDLThreadFunction fn, string name, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2245,40 +3648,46 @@ namespace Hexa.NET.SDL2
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLThread* CreateThreadWithStackSizeNative(SDLThreadFunction fn, byte* name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		internal static SDLThread* CreateThreadWithStackSizeNative(delegate*<void*, int> fn, byte* name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, nuint, void*, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>, delegate*<uint, void>, SDLThread*>)funcTable[173])((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, nuint, void*, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>, delegate*<uint, void>, SDLThread*>)funcTable[173])(fn, name, stacksize, data, pfnBeginThread, pfnEndThread);
 			#else
-			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nint, nint, nint, nint>)funcTable[173])((nint)Utils.GetFunctionPointerForDelegate(fn), (nint)name, stacksize, (nint)data, (nint)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (nint)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nint, nint, nint, nint>)funcTable[173])((nint)fn, (nint)name, stacksize, (nint)data, (nint)pfnBeginThread, (nint)pfnEndThread);
 			#endif
 		}
 
-		public static SDLThread* CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, byte* name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
-			SDLThread* ret = CreateThreadWithStackSizeNative(fn, name, stacksize, data, pfnBeginThread, pfnEndThread);
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, name, stacksize, data, pfnBeginThread, pfnEndThread);
 			return ret;
 		}
 
-		public static SDLThread* CreateThreadWithStackSize(SDLThreadFunction fn, ref byte name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, data, pfnBeginThread, pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, in byte name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLThread* ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, pfnBeginThread, pfnEndThread);
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, pfnBeginThread, pfnEndThread);
 				return ret;
 			}
 		}
 
-		public static SDLThread* CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLThread* ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, pfnBeginThread, pfnEndThread);
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, pfnBeginThread, pfnEndThread);
 				return ret;
 			}
 		}
 
-		public static SDLThread* CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, string name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2297,7 +3706,766 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLThread* ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, data, pfnBeginThread, pfnEndThread);
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, in byte name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, stacksize, data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, byte* name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, name, stacksize, (void*)data, pfnBeginThread, pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, (void*)data, pfnBeginThread, pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, in byte name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, string name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, (void*)data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, in byte name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, (void*)data, pfnBeginThread, pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, stacksize, (void*)data, pfnBeginThread, pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, byte* name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, name, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, in byte name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, string name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, in byte name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, byte* name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, name, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, in byte name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, string name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, in byte name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, delegate*<uint, void> pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, byte* name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, name, stacksize, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, in byte name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, string name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, in byte name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, void* data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, stacksize, data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, byte* name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, name, stacksize, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, in byte name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, string name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, in byte name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, nint data, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint> pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, stacksize, (void*)data, pfnBeginThread, (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, byte* name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, name, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, in byte name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, string name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, in byte name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, void* data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, byte* name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, name, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, byte* name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, in byte name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, ReadOnlySpan<byte> name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, (byte*)pname, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(delegate*<void*, int> fn, string name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative(fn, pStr0, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, in byte name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, ReadOnlySpan<byte> name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		public static SDLThreadPtr CreateThreadWithStackSize(SDLThreadFunction fn, string name, nuint stacksize, nint data, PfnSDLCurrentBeginThread pfnBeginThread, PfnSDLCurrentEndThread pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadWithStackSizeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, stacksize, (void*)data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, nuint>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2331,9 +4499,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetThreadName(SDLThread* thread)
+		public static byte* GetThreadName(SDLThreadPtr thread)
 		{
-			byte* ret = GetThreadNameNative(thread);
+			byte* ret = GetThreadNameNative((SDLThread*)thread);
 			return ret;
 		}
 
@@ -2345,9 +4513,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetThreadNameS(SDLThread* thread)
+		public static string GetThreadNameS(SDLThreadPtr thread)
 		{
-			string ret = Utils.DecodeStringUTF8(GetThreadNameNative(thread));
+			string ret = Utils.DecodeStringUTF8(GetThreadNameNative((SDLThread*)thread));
 			return ret;
 		}
 
@@ -2451,9 +4619,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint GetThreadID(SDLThread* thread)
+		public static uint GetThreadID(SDLThreadPtr thread)
 		{
-			uint ret = GetThreadIDNative(thread);
+			uint ret = GetThreadIDNative((SDLThread*)thread);
 			return ret;
 		}
 
@@ -2555,9 +4723,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void WaitThread(SDLThread* thread, int* status)
+		public static void WaitThread(SDLThreadPtr thread, int* status)
 		{
-			WaitThreadNative(thread, status);
+			WaitThreadNative((SDLThread*)thread, status);
 		}
 
 		/// <summary>
@@ -2606,11 +4774,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void WaitThread(SDLThread* thread, ref int status)
+		public static void WaitThread(SDLThreadPtr thread, ref int status)
 		{
 			fixed (int* pstatus = &status)
 			{
-				WaitThreadNative(thread, (int*)pstatus);
+				WaitThreadNative((SDLThread*)thread, (int*)pstatus);
 			}
 		}
 
@@ -2700,9 +4868,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void DetachThread(SDLThread* thread)
+		public static void DetachThread(SDLThreadPtr thread)
 		{
-			DetachThreadNative(thread);
+			DetachThreadNative((SDLThread*)thread);
 		}
 
 		/// <summary>
@@ -2808,12 +4976,12 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TLSSetNative(uint id, void* value, SDLTLSDestructorCallback destructor)
+		internal static int TLSSetNative(uint id, void* value, delegate*<void*, void> destructor)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, delegate*<void*, void>, int>)funcTable[182])(id, value, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(destructor));
+			return ((delegate* unmanaged[Cdecl]<uint, void*, delegate*<void*, void>, int>)funcTable[182])(id, value, destructor);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[182])(id, (nint)value, (nint)Utils.GetFunctionPointerForDelegate(destructor));
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[182])(id, (nint)value, (nint)destructor);
 			#endif
 		}
 
@@ -2828,2193 +4996,27 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int TLSSet(uint id, void* value, SDLTLSDestructorCallback destructor)
+		public static int TLSSet(uint id, void* value, delegate*<void*, void> destructor)
 		{
 			int ret = TLSSetNative(id, value, destructor);
 			return ret;
 		}
 
 		/// <summary>
-		/// Cleanup all TLS data for this thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void TLSCleanupNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[183])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[183])();
-			#endif
-		}
-
-		/// <summary>
-		/// Cleanup all TLS data for this thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static void TLSCleanup()
-		{
-			TLSCleanupNative();
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// The function prototype for `destructor` is:<br/>
+		/// ```c<br/>
+		/// void destructor(void *value)<br/>
+		/// ```<br/>
+		/// where its parameter `value` is what was passed as `value` to SDL_TLSSet().<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRWops* RWFromFileNative(byte* file, byte* mode)
+		public static int TLSSet(uint id, nint value, delegate*<void*, void> destructor)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLRWops*>)funcTable[184])(file, mode);
-			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[184])((nint)file, (nint)mode);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(byte* file, byte* mode)
-		{
-			SDLRWops* ret = RWFromFileNative(file, mode);
+			int ret = TLSSetNative(id, (void*)value, destructor);
 			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(ref byte file, byte* mode)
-		{
-			fixed (byte* pfile = &file)
-			{
-				SDLRWops* ret = RWFromFileNative((byte*)pfile, mode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(ReadOnlySpan<byte> file, byte* mode)
-		{
-			fixed (byte* pfile = file)
-			{
-				SDLRWops* ret = RWFromFileNative((byte*)pfile, mode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(string file, byte* mode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLRWops* ret = RWFromFileNative(pStr0, mode);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(byte* file, ref byte mode)
-		{
-			fixed (byte* pmode = &mode)
-			{
-				SDLRWops* ret = RWFromFileNative(file, (byte*)pmode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(byte* file, ReadOnlySpan<byte> mode)
-		{
-			fixed (byte* pmode = mode)
-			{
-				SDLRWops* ret = RWFromFileNative(file, (byte*)pmode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(byte* file, string mode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (mode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(mode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(mode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLRWops* ret = RWFromFileNative(file, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(ref byte file, ref byte mode)
-		{
-			fixed (byte* pfile = &file)
-			{
-				fixed (byte* pmode = &mode)
-				{
-					SDLRWops* ret = RWFromFileNative((byte*)pfile, (byte*)pmode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(ReadOnlySpan<byte> file, ReadOnlySpan<byte> mode)
-		{
-			fixed (byte* pfile = file)
-			{
-				fixed (byte* pmode = mode)
-				{
-					SDLRWops* ret = RWFromFileNative((byte*)pfile, (byte*)pmode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_RWops structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// As a fallback, SDL_RWFromFile() will transparently open a matching filename<br/>
-		/// in an Android app's `assets`.<br/>
-		/// Closing the SDL_RWops will close the file handle SDL is holding internally.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFile(string file, string mode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (mode != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(mode);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(mode, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			SDLRWops* ret = RWFromFileNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to create an SDL_RWops structure from a standard I/O file<br/>
-		/// pointer (stdio.h's `FILE*`).<br/>
-		/// This function is not available on Windows, since files opened in an<br/>
-		/// application on that platform cannot be used by a dynamically linked<br/>
-		/// library.<br/>
-		/// On some platforms, the first parameter is a `void*`, on others, it's a<br/>
-		/// `FILE*`, depending on what system headers are available to SDL. It is<br/>
-		/// always intended to be the `FILE*` type from the C runtime's stdio.h.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRWops* RWFromFPNative(void* fp, SDLBool autoclose)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, SDLBool, SDLRWops*>)funcTable[185])(fp, autoclose);
-			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, SDLBool, nint>)funcTable[185])((nint)fp, autoclose);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to create an SDL_RWops structure from a standard I/O file<br/>
-		/// pointer (stdio.h's `FILE*`).<br/>
-		/// This function is not available on Windows, since files opened in an<br/>
-		/// application on that platform cannot be used by a dynamically linked<br/>
-		/// library.<br/>
-		/// On some platforms, the first parameter is a `void*`, on others, it's a<br/>
-		/// `FILE*`, depending on what system headers are available to SDL. It is<br/>
-		/// always intended to be the `FILE*` type from the C runtime's stdio.h.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromFP(void* fp, SDLBool autoclose)
-		{
-			SDLRWops* ret = RWFromFPNative(fp, autoclose);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-write memory buffer for use with<br/>
-		/// SDL_RWops.<br/>
-		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
-		/// certain size, for both read and write access.<br/>
-		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
-		/// remain valid until you close the stream. Closing the stream will not free<br/>
-		/// the original buffer.<br/>
-		/// If you need to make sure the RWops never writes to the memory buffer, you<br/>
-		/// should use SDL_RWFromConstMem() with a read-only buffer of memory instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRWops* RWFromMemNative(void* mem, int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, int, SDLRWops*>)funcTable[186])(mem, size);
-			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[186])((nint)mem, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-write memory buffer for use with<br/>
-		/// SDL_RWops.<br/>
-		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
-		/// certain size, for both read and write access.<br/>
-		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
-		/// remain valid until you close the stream. Closing the stream will not free<br/>
-		/// the original buffer.<br/>
-		/// If you need to make sure the RWops never writes to the memory buffer, you<br/>
-		/// should use SDL_RWFromConstMem() with a read-only buffer of memory instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromMem(void* mem, int size)
-		{
-			SDLRWops* ret = RWFromMemNative(mem, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-only memory buffer for use with RWops.<br/>
-		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
-		/// certain size. It assumes the memory area is not writable.<br/>
-		/// Attempting to write to this RWops stream will report an error without<br/>
-		/// writing to the memory buffer.<br/>
-		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
-		/// remain valid until you close the stream. Closing the stream will not free<br/>
-		/// the original buffer.<br/>
-		/// If you need to write to a memory buffer, you should use SDL_RWFromMem()<br/>
-		/// with a writable buffer of memory instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRWops* RWFromConstMemNative(void* mem, int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, int, SDLRWops*>)funcTable[187])(mem, size);
-			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[187])((nint)mem, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-only memory buffer for use with RWops.<br/>
-		/// This function sets up an SDL_RWops struct based on a memory area of a<br/>
-		/// certain size. It assumes the memory area is not writable.<br/>
-		/// Attempting to write to this RWops stream will report an error without<br/>
-		/// writing to the memory buffer.<br/>
-		/// This memory buffer is not copied by the RWops; the pointer you provide must<br/>
-		/// remain valid until you close the stream. Closing the stream will not free<br/>
-		/// the original buffer.<br/>
-		/// If you need to write to a memory buffer, you should use SDL_RWFromMem()<br/>
-		/// with a writable buffer of memory instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* RWFromConstMem(void* mem, int size)
-		{
-			SDLRWops* ret = RWFromConstMemNative(mem, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to allocate an empty, unpopulated SDL_RWops structure.<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
-		/// read/write a common data source, you should use the built-in<br/>
-		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc.<br/>
-		/// You must free the returned pointer with SDL_FreeRW(). Depending on your<br/>
-		/// operating system and compiler, there may be a difference between the<br/>
-		/// malloc() and free() your program uses and the versions SDL calls<br/>
-		/// internally. Trying to mix the two can cause crashing such as segmentation<br/>
-		/// faults. Since all SDL_RWops must free themselves when their **close**<br/>
-		/// method is called, all SDL_RWops must be allocated through this function, so<br/>
-		/// they can all be freed correctly with SDL_FreeRW().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRWops* AllocRWNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*>)funcTable[188])();
-			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint>)funcTable[188])();
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to allocate an empty, unpopulated SDL_RWops structure.<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
-		/// read/write a common data source, you should use the built-in<br/>
-		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc.<br/>
-		/// You must free the returned pointer with SDL_FreeRW(). Depending on your<br/>
-		/// operating system and compiler, there may be a difference between the<br/>
-		/// malloc() and free() your program uses and the versions SDL calls<br/>
-		/// internally. Trying to mix the two can cause crashing such as segmentation<br/>
-		/// faults. Since all SDL_RWops must free themselves when their **close**<br/>
-		/// method is called, all SDL_RWops must be allocated through this function, so<br/>
-		/// they can all be freed correctly with SDL_FreeRW().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLRWops* AllocRW()
-		{
-			SDLRWops* ret = AllocRWNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to free an SDL_RWops structure allocated by<br/>
-		/// SDL_AllocRW().<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
-		/// read/write a common data source, you should use the built-in<br/>
-		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc, and<br/>
-		/// call the **close** method on those SDL_RWops pointers when you are done<br/>
-		/// with them.<br/>
-		/// Only use SDL_FreeRW() on pointers returned by SDL_AllocRW(). The pointer is<br/>
-		/// invalid as soon as this function returns. Any extra memory allocated during<br/>
-		/// creation of the SDL_RWops is not freed by SDL_FreeRW(); the programmer must<br/>
-		/// be responsible for managing that memory in their **close** method.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreeRWNative(SDLRWops* area)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRWops*, void>)funcTable[189])(area);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[189])((nint)area);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to free an SDL_RWops structure allocated by<br/>
-		/// SDL_AllocRW().<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
-		/// read/write a common data source, you should use the built-in<br/>
-		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc, and<br/>
-		/// call the **close** method on those SDL_RWops pointers when you are done<br/>
-		/// with them.<br/>
-		/// Only use SDL_FreeRW() on pointers returned by SDL_AllocRW(). The pointer is<br/>
-		/// invalid as soon as this function returns. Any extra memory allocated during<br/>
-		/// creation of the SDL_RWops is not freed by SDL_FreeRW(); the programmer must<br/>
-		/// be responsible for managing that memory in their **close** method.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FreeRW(SDLRWops* area)
-		{
-			FreeRWNative(area);
-		}
-
-		/// <summary>
-		/// Use this function to free an SDL_RWops structure allocated by<br/>
-		/// SDL_AllocRW().<br/>
-		/// Applications do not need to use this function unless they are providing<br/>
-		/// their own SDL_RWops implementation. If you just need a SDL_RWops to<br/>
-		/// read/write a common data source, you should use the built-in<br/>
-		/// implementations in SDL, like SDL_RWFromFile() or SDL_RWFromMem(), etc, and<br/>
-		/// call the **close** method on those SDL_RWops pointers when you are done<br/>
-		/// with them.<br/>
-		/// Only use SDL_FreeRW() on pointers returned by SDL_AllocRW(). The pointer is<br/>
-		/// invalid as soon as this function returns. Any extra memory allocated during<br/>
-		/// creation of the SDL_RWops is not freed by SDL_FreeRW(); the programmer must<br/>
-		/// be responsible for managing that memory in their **close** method.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void FreeRW(ref SDLRWops area)
-		{
-			fixed (SDLRWops* parea = &area)
-			{
-				FreeRWNative((SDLRWops*)parea);
-			}
-		}
-
-		/// <summary>
-		/// Use this function to get the size of the data stream in an SDL_RWops.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long RWsizeNative(SDLRWops* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long>)funcTable[190])(context);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[190])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the size of the data stream in an SDL_RWops.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long RWsize(SDLRWops* context)
-		{
-			long ret = RWsizeNative(context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the size of the data stream in an SDL_RWops.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long RWsize(ref SDLRWops context)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				long ret = RWsizeNative((SDLRWops*)pcontext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Seek within an SDL_RWops data stream.<br/>
-		/// This function seeks to byte `offset`, relative to `whence`.<br/>
-		/// `whence` may be any of the following values:<br/>
-		/// - `RW_SEEK_SET`: seek from the beginning of data<br/>
-		/// - `RW_SEEK_CUR`: seek relative to current read point<br/>
-		/// - `RW_SEEK_END`: seek relative to the end of data<br/>
-		/// If this stream can not seek, it will return -1.<br/>
-		/// SDL_RWseek() is actually a wrapper function that calls the SDL_RWops's<br/>
-		/// `seek` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long RWseekNative(SDLRWops* context, long offset, int whence)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long, int, long>)funcTable[191])(context, offset, whence);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long, int, long>)funcTable[191])((nint)context, offset, whence);
-			#endif
-		}
-
-		/// <summary>
-		/// Seek within an SDL_RWops data stream.<br/>
-		/// This function seeks to byte `offset`, relative to `whence`.<br/>
-		/// `whence` may be any of the following values:<br/>
-		/// - `RW_SEEK_SET`: seek from the beginning of data<br/>
-		/// - `RW_SEEK_CUR`: seek relative to current read point<br/>
-		/// - `RW_SEEK_END`: seek relative to the end of data<br/>
-		/// If this stream can not seek, it will return -1.<br/>
-		/// SDL_RWseek() is actually a wrapper function that calls the SDL_RWops's<br/>
-		/// `seek` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long RWseek(SDLRWops* context, long offset, int whence)
-		{
-			long ret = RWseekNative(context, offset, whence);
-			return ret;
-		}
-
-		/// <summary>
-		/// Seek within an SDL_RWops data stream.<br/>
-		/// This function seeks to byte `offset`, relative to `whence`.<br/>
-		/// `whence` may be any of the following values:<br/>
-		/// - `RW_SEEK_SET`: seek from the beginning of data<br/>
-		/// - `RW_SEEK_CUR`: seek relative to current read point<br/>
-		/// - `RW_SEEK_END`: seek relative to the end of data<br/>
-		/// If this stream can not seek, it will return -1.<br/>
-		/// SDL_RWseek() is actually a wrapper function that calls the SDL_RWops's<br/>
-		/// `seek` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long RWseek(ref SDLRWops context, long offset, int whence)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				long ret = RWseekNative((SDLRWops*)pcontext, offset, whence);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Determine the current read/write offset in an SDL_RWops data stream.<br/>
-		/// SDL_RWtell is actually a wrapper function that calls the SDL_RWops's `seek`<br/>
-		/// method, with an offset of 0 bytes from `RW_SEEK_CUR`, to simplify<br/>
-		/// application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long RWtellNative(SDLRWops* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long>)funcTable[192])(context);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[192])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Determine the current read/write offset in an SDL_RWops data stream.<br/>
-		/// SDL_RWtell is actually a wrapper function that calls the SDL_RWops's `seek`<br/>
-		/// method, with an offset of 0 bytes from `RW_SEEK_CUR`, to simplify<br/>
-		/// application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long RWtell(SDLRWops* context)
-		{
-			long ret = RWtellNative(context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine the current read/write offset in an SDL_RWops data stream.<br/>
-		/// SDL_RWtell is actually a wrapper function that calls the SDL_RWops's `seek`<br/>
-		/// method, with an offset of 0 bytes from `RW_SEEK_CUR`, to simplify<br/>
-		/// application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static long RWtell(ref SDLRWops context)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				long ret = RWtellNative((SDLRWops*)pcontext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read from a data source.<br/>
-		/// This function reads up to `maxnum` objects each of size `size` from the<br/>
-		/// data source to the area pointed at by `ptr`. This function may read less<br/>
-		/// objects than requested. It will return zero when there has been an error or<br/>
-		/// the data stream is completely read.<br/>
-		/// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `read` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint RWreadNative(SDLRWops* context, void* ptr, nuint size, nuint maxnum)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, void*, nuint, nuint, nuint>)funcTable[193])(context, ptr, size, maxnum);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nuint>)funcTable[193])((nint)context, (nint)ptr, size, maxnum);
-			#endif
-		}
-
-		/// <summary>
-		/// Read from a data source.<br/>
-		/// This function reads up to `maxnum` objects each of size `size` from the<br/>
-		/// data source to the area pointed at by `ptr`. This function may read less<br/>
-		/// objects than requested. It will return zero when there has been an error or<br/>
-		/// the data stream is completely read.<br/>
-		/// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `read` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint RWread(SDLRWops* context, void* ptr, nuint size, nuint maxnum)
-		{
-			nuint ret = RWreadNative(context, ptr, size, maxnum);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read from a data source.<br/>
-		/// This function reads up to `maxnum` objects each of size `size` from the<br/>
-		/// data source to the area pointed at by `ptr`. This function may read less<br/>
-		/// objects than requested. It will return zero when there has been an error or<br/>
-		/// the data stream is completely read.<br/>
-		/// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `read` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint RWread(ref SDLRWops context, void* ptr, nuint size, nuint maxnum)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				nuint ret = RWreadNative((SDLRWops*)pcontext, ptr, size, maxnum);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint RWwriteNative(SDLRWops* context, void* ptr, nuint size, nuint num)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, void*, nuint, nuint, nuint>)funcTable[194])(context, ptr, size, num);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nuint>)funcTable[194])((nint)context, (nint)ptr, size, num);
-			#endif
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint RWwrite(SDLRWops* context, void* ptr, nuint size, nuint num)
-		{
-			nuint ret = RWwriteNative(context, ptr, size, num);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint RWwrite(ref SDLRWops context, void* ptr, nuint size, nuint num)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				nuint ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_RWops structure.<br/>
-		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_RWops itself with<br/>
-		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
-		/// flush to its output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream to disk, this function reports<br/>
-		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RWcloseNative(SDLRWops* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int>)funcTable[195])(context);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[195])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_RWops structure.<br/>
-		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_RWops itself with<br/>
-		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
-		/// flush to its output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream to disk, this function reports<br/>
-		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RWclose(SDLRWops* context)
-		{
-			int ret = RWcloseNative(context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_RWops structure.<br/>
-		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_RWops itself with<br/>
-		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
-		/// flush to its output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream to disk, this function reports<br/>
-		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RWclose(ref SDLRWops context)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				int ret = RWcloseNative((SDLRWops*)pcontext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* LoadFileRWNative(SDLRWops* src, nuint* datasize, int freesrc)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, nuint*, int, void*>)funcTable[196])(src, datasize, freesrc);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, int, nint>)funcTable[196])((nint)src, (nint)datasize, freesrc);
-			#endif
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFileRW(SDLRWops* src, nuint* datasize, int freesrc)
-		{
-			void* ret = LoadFileRWNative(src, datasize, freesrc);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFileRW(ref SDLRWops src, nuint* datasize, int freesrc)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				void* ret = LoadFileRWNative((SDLRWops*)psrc, datasize, freesrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFileRW(SDLRWops* src, ref nuint datasize, int freesrc)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = LoadFileRWNative(src, (nuint*)pdatasize, freesrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFileRW(ref SDLRWops src, ref nuint datasize, int freesrc)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileRWNative((SDLRWops*)psrc, (nuint*)pdatasize, freesrc);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* LoadFileNative(byte* file, nuint* datasize)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, nuint*, void*>)funcTable[197])(file, datasize);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[197])((nint)file, (nint)datasize);
-			#endif
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(byte* file, nuint* datasize)
-		{
-			void* ret = LoadFileNative(file, datasize);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(ref byte file, nuint* datasize)
-		{
-			fixed (byte* pfile = &file)
-			{
-				void* ret = LoadFileNative((byte*)pfile, datasize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(ReadOnlySpan<byte> file, nuint* datasize)
-		{
-			fixed (byte* pfile = file)
-			{
-				void* ret = LoadFileNative((byte*)pfile, datasize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(string file, nuint* datasize)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			void* ret = LoadFileNative(pStr0, datasize);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(byte* file, ref nuint datasize)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = LoadFileNative(file, (nuint*)pdatasize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(ref byte file, ref nuint datasize)
-		{
-			fixed (byte* pfile = &file)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileNative((byte*)pfile, (nuint*)pdatasize);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(ReadOnlySpan<byte> file, ref nuint datasize)
-		{
-			fixed (byte* pfile = file)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileNative((byte*)pfile, (nuint*)pdatasize);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* LoadFile(string file, ref nuint datasize)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = LoadFileNative(pStr0, (nuint*)pdatasize);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU8Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte>)funcTable[198])(src);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[198])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte ReadU8(SDLRWops* src)
-		{
-			byte ret = ReadU8Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte ReadU8(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				byte ret = ReadU8Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort ReadLE16Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[199])(src);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[199])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort ReadLE16(SDLRWops* src)
-		{
-			ushort ret = ReadLE16Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort ReadLE16(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ushort ret = ReadLE16Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort ReadBE16Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[200])(src);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[200])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort ReadBE16(SDLRWops* src)
-		{
-			ushort ret = ReadBE16Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort ReadBE16(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ushort ret = ReadBE16Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint ReadLE32Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[201])(src);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[201])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint ReadLE32(SDLRWops* src)
-		{
-			uint ret = ReadLE32Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint ReadLE32(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				uint ret = ReadLE32Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint ReadBE32Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[202])(src);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[202])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint ReadBE32(SDLRWops* src)
-		{
-			uint ret = ReadBE32Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint ReadBE32(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				uint ret = ReadBE32Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong ReadLE64Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[203])(src);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[203])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong ReadLE64(SDLRWops* src)
-		{
-			ulong ret = ReadLE64Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong ReadLE64(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ulong ret = ReadLE64Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong ReadBE64Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[204])(src);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[204])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong ReadBE64(SDLRWops* src)
-		{
-			ulong ret = ReadBE64Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong ReadBE64(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ulong ret = ReadBE64Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteU8Native(SDLRWops* dst, byte value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte, nuint>)funcTable[205])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, byte, nuint>)funcTable[205])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteU8(SDLRWops* dst, byte value)
-		{
-			nuint ret = WriteU8Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteU8(ref SDLRWops dst, byte value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteU8Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteLE16Native(SDLRWops* dst, ushort value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, nuint>)funcTable[206])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, ushort, nuint>)funcTable[206])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteLE16(SDLRWops* dst, ushort value)
-		{
-			nuint ret = WriteLE16Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteLE16(ref SDLRWops dst, ushort value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteLE16Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteBE16Native(SDLRWops* dst, ushort value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, nuint>)funcTable[207])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, ushort, nuint>)funcTable[207])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteBE16(SDLRWops* dst, ushort value)
-		{
-			nuint ret = WriteBE16Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteBE16(ref SDLRWops dst, ushort value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteBE16Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteLE32Native(SDLRWops* dst, uint value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, nuint>)funcTable[208])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, uint, nuint>)funcTable[208])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteLE32(SDLRWops* dst, uint value)
-		{
-			nuint ret = WriteLE32Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteLE32(ref SDLRWops dst, uint value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteLE32Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteBE32Native(SDLRWops* dst, uint value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, nuint>)funcTable[209])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, uint, nuint>)funcTable[209])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteBE32(SDLRWops* dst, uint value)
-		{
-			nuint ret = WriteBE32Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteBE32(ref SDLRWops dst, uint value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteBE32Native((SDLRWops*)pdst, value);
-				return ret;
-			}
 		}
 	}
 }

@@ -17,17 +17,22 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_GPUFilter")]
 	[Flags]
 	public enum SDLGPUFilter : int
 	{
 		/// <summary>
 		/// Point filtering. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_FILTER_NEAREST")]
+		[NativeName(NativeNameType.Value, "0")]
 		Nearest = unchecked(0),
 
 		/// <summary>
 		/// Linear filtering. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_FILTER_LINEAR")]
+		[NativeName(NativeNameType.Value, "1")]
 		Linear = unchecked(1),
 	}
 }

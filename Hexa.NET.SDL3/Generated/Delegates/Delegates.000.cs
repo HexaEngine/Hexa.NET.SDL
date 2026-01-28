@@ -20,6 +20,7 @@ namespace Hexa.NET.SDL3
 	/// Return the number of bytes in this SDL_IOStream<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "size")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate long Size([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -28,6 +29,7 @@ namespace Hexa.NET.SDL3
 	/// Return the number of bytes in this SDL_IOStream<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "size")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate long Size([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -39,6 +41,7 @@ namespace Hexa.NET.SDL3
 	/// SDL_IO_SEEK_SET, SDL_IO_SEEK_CUR, SDL_IO_SEEK_END<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "seek")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate long Seek([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Sint64")] long offset, [NativeName(NativeNameType.Param, "whence")] [NativeName(NativeNameType.Type, "SDL_IOWhence")] SDLIOWhence whence);
 
@@ -48,6 +51,7 @@ namespace Hexa.NET.SDL3
 	/// SDL_IO_SEEK_SET, SDL_IO_SEEK_CUR, SDL_IO_SEEK_END<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "seek")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate long Seek([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Sint64")] long offset, [NativeName(NativeNameType.Param, "whence")] [NativeName(NativeNameType.Type, "SDL_IOWhence")] SDLIOWhence whence);
 
@@ -56,24 +60,26 @@ namespace Hexa.NET.SDL3
 	#if NET5_0_OR_GREATER
 	/// <summary>
 	/// Read up to `size` bytes from the data stream to the area pointed<br/>
-	/// at by `ptr`.<br/>
+	/// at by `ptr`. `size` will always be > 0.<br/>
 	/// On an incomplete read, you should set `*status` to a value from the<br/>
 	/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
 	/// a complete, successful read.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "read")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nuint Read([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void *")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "SDL_IOStatus *")] SDLIOStatus* status);
 
 	#else
 	/// <summary>
 	/// Read up to `size` bytes from the data stream to the area pointed<br/>
-	/// at by `ptr`.<br/>
+	/// at by `ptr`. `size` will always be > 0.<br/>
 	/// On an incomplete read, you should set `*status` to a value from the<br/>
 	/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
 	/// a complete, successful read.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "read")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nuint Read([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void *")] nint ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "SDL_IOStatus *")] nint status);
 
@@ -82,24 +88,26 @@ namespace Hexa.NET.SDL3
 	#if NET5_0_OR_GREATER
 	/// <summary>
 	/// Write exactly `size` bytes from the area pointed at by `ptr`<br/>
-	/// to data stream.<br/>
+	/// to data stream. `size` will always be > 0.<br/>
 	/// On an incomplete write, you should set `*status` to a value from the<br/>
 	/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
 	/// a complete, successful write.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "write")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nuint Write([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void const *")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "SDL_IOStatus *")] SDLIOStatus* status);
 
 	#else
 	/// <summary>
 	/// Write exactly `size` bytes from the area pointed at by `ptr`<br/>
-	/// to data stream.<br/>
+	/// to data stream. `size` will always be > 0.<br/>
 	/// On an incomplete write, you should set `*status` to a value from the<br/>
 	/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
 	/// a complete, successful write.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "write")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nuint Write([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void const *")] nint ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "SDL_IOStatus *")] nint status);
 
@@ -113,6 +121,7 @@ namespace Hexa.NET.SDL3
 	/// a successful flush.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "flush")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Flush([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "SDL_IOStatus *")] SDLIOStatus* status);
 
@@ -124,6 +133,7 @@ namespace Hexa.NET.SDL3
 	/// a successful flush.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "flush")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Flush([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "SDL_IOStatus *")] nint status);
 
@@ -138,6 +148,7 @@ namespace Hexa.NET.SDL3
 	/// even if flushing buffers, etc, returns an error.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "close")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Close([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -150,6 +161,7 @@ namespace Hexa.NET.SDL3
 	/// even if flushing buffers, etc, returns an error.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "close")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Close([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -159,6 +171,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Called when the joystick state should be updated <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "Update")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void Update([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -166,6 +179,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Called when the joystick state should be updated <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "Update")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void Update([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -175,6 +189,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Called when the player index is set <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SetPlayerIndex")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SetPlayerIndex([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex);
 
@@ -182,6 +197,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Called when the player index is set <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SetPlayerIndex")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SetPlayerIndex([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex);
 
@@ -191,6 +207,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_RumbleJoystick() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "Rumble")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Rumble([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble);
 
@@ -198,6 +215,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_RumbleJoystick() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "Rumble")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Rumble([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble);
 
@@ -207,6 +225,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_RumbleJoystickTriggers() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "RumbleTriggers")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte RumbleTriggers([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble);
 
@@ -214,6 +233,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_RumbleJoystickTriggers() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "RumbleTriggers")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte RumbleTriggers([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble);
 
@@ -223,6 +243,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_SetJoystickLED() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SetLED")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SetLED([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue);
 
@@ -230,6 +251,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_SetJoystickLED() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SetLED")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SetLED([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue);
 
@@ -239,6 +261,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_SendJoystickEffect() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SendEffect")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SendEffect([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size);
 
@@ -246,6 +269,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_SendJoystickEffect() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SendEffect")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SendEffect([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size);
 
@@ -255,6 +279,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_SetGamepadSensorEnabled() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SetSensorsEnabled")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SetSensorsEnabled([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled);
 
@@ -262,6 +287,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Implements SDL_SetGamepadSensorEnabled() <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SetSensorsEnabled")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SetSensorsEnabled([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled);
 
@@ -271,6 +297,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Cleans up the userdata when the joystick is detached <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "Cleanup")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void Cleanup([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -278,6 +305,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Cleans up the userdata when the joystick is detached <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "Cleanup")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void Cleanup([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -287,6 +315,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Optional, returns whether the storage is currently ready for access <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "ready")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Ready([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -294,6 +323,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Optional, returns whether the storage is currently ready for access <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "ready")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Ready([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -303,6 +333,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Enumerate a directory, optional for write-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "enumerate")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Enumerate([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "callback_userdata")] [NativeName(NativeNameType.Type, "void *")] void* callbackUserdata);
 
@@ -310,6 +341,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Enumerate a directory, optional for write-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "enumerate")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Enumerate([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] nint callback, [NativeName(NativeNameType.Param, "callback_userdata")] [NativeName(NativeNameType.Type, "void *")] nint callbackUserdata);
 
@@ -319,6 +351,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Get path information, optional for write-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "info")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Info([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info);
 
@@ -326,6 +359,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Get path information, optional for write-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "info")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Info([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] nint info);
 
@@ -335,6 +369,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Read a file from storage, optional for write-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "read_file")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte ReadFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "void *")] void* destination, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
 
@@ -342,6 +377,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Read a file from storage, optional for write-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "read_file")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte ReadFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "void *")] nint destination, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
 
@@ -351,6 +387,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Write a file to storage, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "write_file")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte WriteFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "void const *")] void* source, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
 
@@ -358,6 +395,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Write a file to storage, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "write_file")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte WriteFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "void const *")] nint source, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
 
@@ -367,6 +405,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Create a directory, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "mkdir")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Mkdir([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path);
 
@@ -374,6 +413,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Create a directory, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "mkdir")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Mkdir([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path);
 
@@ -383,6 +423,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Remove a file or empty directory, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "remove")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Remove([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path);
 
@@ -390,6 +431,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Remove a file or empty directory, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "remove")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Remove([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path);
 
@@ -399,6 +441,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Rename a path, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "rename")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Rename([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath);
 
@@ -406,6 +449,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Rename a path, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "rename")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Rename([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] nint oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] nint newpath);
 
@@ -415,6 +459,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Copy a file, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "copy")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Copy([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath);
 
@@ -422,6 +467,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Copy a file, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "copy")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte Copy([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] nint oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] nint newpath);
 
@@ -431,6 +477,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Get the space remaining, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "space_remaining")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong SpaceRemaining([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -438,6 +485,7 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// Get the space remaining, optional for read-only storage <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "space_remaining")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong SpaceRemaining([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -449,6 +497,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Parse an argument. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "parse_arguments")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int ParseArguments([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index);
 
@@ -458,6 +507,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Parse an argument. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "parse_arguments")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int ParseArguments([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] nint argv, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index);
 
@@ -469,6 +519,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Finalize this argument parser. Called once before parsing the first argument. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "finalize")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void Finalize([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
 
@@ -478,6 +529,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Finalize this argument parser. Called once before parsing the first argument. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "finalize")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void Finalize([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
 
@@ -489,6 +541,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Func2Stress <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "testCase")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int TestCase([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
 
@@ -498,6 +551,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Func2Stress <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "testCase")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int TestCase([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
 
@@ -509,6 +563,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// The function that is run before each test. NULL skips. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "testSetUp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void TestSetUp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void * *")] void** arg);
 
@@ -518,6 +573,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// The function that is run before each test. NULL skips. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "testSetUp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void TestSetUp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void * *")] nint arg);
 
@@ -529,6 +585,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// The function that is run after each test. NULL skips. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "testTearDown")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void TestTearDown([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
 
@@ -538,6 +595,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// The function that is run after each test. NULL skips. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "testTearDown")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void TestTearDown([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
 
@@ -553,6 +611,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_malloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void* SDLMallocFunc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
@@ -566,6 +625,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_malloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint SDLMallocFunc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
@@ -582,6 +642,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_calloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void* SDLCallocFunc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
@@ -596,6 +657,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_calloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint SDLCallocFunc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
@@ -611,6 +673,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_realloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void* SDLReallocFunc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
@@ -624,6 +687,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_realloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint SDLReallocFunc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] nint mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
@@ -639,6 +703,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_free_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLFreeFunc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem);
 
@@ -652,6 +717,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_free_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLFreeFunc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] nint mem);
 
@@ -664,6 +730,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_CompareCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLCompareCallback([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void const *")] void* a, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "void const *")] void* b);
 
@@ -674,6 +741,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_CompareCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLCompareCallback([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void const *")] nint a, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "void const *")] nint b);
 
@@ -686,6 +754,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_CompareCallback_r")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLCompareCallbackR([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void const *")] void* a, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "void const *")] void* b);
 
@@ -696,16 +765,19 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_CompareCallback_r")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLCompareCallbackR([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void const *")] nint a, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "void const *")] nint b);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "SDL_FunctionPointer")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLFunctionPointer();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "SDL_FunctionPointer")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLFunctionPointer();
 
@@ -720,6 +792,7 @@ namespace Hexa.NET.SDL3
 	/// assert at any time.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AssertionHandler")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAssertState SDLAssertionHandler([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_AssertData const *")] SDLAssertData* data, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -732,6 +805,7 @@ namespace Hexa.NET.SDL3
 	/// assert at any time.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AssertionHandler")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAssertState SDLAssertionHandler([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_AssertData const *")] nint data, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -753,6 +827,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_CleanupPropertyCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLCleanupPropertyCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value);
 
@@ -772,6 +847,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_CleanupPropertyCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLCleanupPropertyCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value);
 
@@ -789,6 +865,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EnumeratePropertiesCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLEnumeratePropertiesCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name);
 
@@ -804,6 +881,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EnumeratePropertiesCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLEnumeratePropertiesCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] nint name);
 
@@ -815,6 +893,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_ThreadFunction")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLThreadFunction([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data);
 
@@ -824,6 +903,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_ThreadFunction")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLThreadFunction([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data);
 
@@ -837,6 +917,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_TLSDestructorCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTLSDestructorCallback([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value);
 
@@ -848,8 +929,57 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_TLSDestructorCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTLSDestructorCallback([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback that fires for completed SDL_PutAudioStreamDataNoCopy() data.<br/>
+	/// When using SDL_PutAudioStreamDataNoCopy() to provide data to an<br/>
+	/// SDL_AudioStream, it's not safe to dispose of the data until the stream has<br/>
+	/// completely consumed it. Often times it's difficult to know exactly when<br/>
+	/// this has happened.<br/>
+	/// This callback fires once when the stream no longer needs the buffer,<br/>
+	/// allowing the app to easily free or reuse it.<br/>
+	/// <br/>
+	/// <br/>
+	/// This callbacks may run from any thread, so if you need to<br/>
+	/// protect shared data, you should use SDL_LockAudioStream to<br/>
+	/// serialize access; this lock will be held before your callback<br/>
+	/// is called, so your callback does not need to manage the lock<br/>
+	/// explicitly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AudioStreamDataCompleteCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLAudioStreamDataCompleteCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void const *")] void* buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen);
+
+	#else
+	/// <summary>
+	/// A callback that fires for completed SDL_PutAudioStreamDataNoCopy() data.<br/>
+	/// When using SDL_PutAudioStreamDataNoCopy() to provide data to an<br/>
+	/// SDL_AudioStream, it's not safe to dispose of the data until the stream has<br/>
+	/// completely consumed it. Often times it's difficult to know exactly when<br/>
+	/// this has happened.<br/>
+	/// This callback fires once when the stream no longer needs the buffer,<br/>
+	/// allowing the app to easily free or reuse it.<br/>
+	/// <br/>
+	/// <br/>
+	/// This callbacks may run from any thread, so if you need to<br/>
+	/// protect shared data, you should use SDL_LockAudioStream to<br/>
+	/// serialize access; this lock will be held before your callback<br/>
+	/// is called, so your callback does not need to manage the lock<br/>
+	/// explicitly.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AudioStreamDataCompleteCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLAudioStreamDataCompleteCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void const *")] nint buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen);
 
 	#endif
 
@@ -880,6 +1010,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AudioStreamCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAudioStreamCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "additional_amount")] [NativeName(NativeNameType.Type, "int")] int additionalAmount, [NativeName(NativeNameType.Param, "total_amount")] [NativeName(NativeNameType.Type, "int")] int totalAmount);
 
@@ -910,6 +1041,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AudioStreamCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAudioStreamCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream *")] nint stream, [NativeName(NativeNameType.Param, "additional_amount")] [NativeName(NativeNameType.Type, "int")] int additionalAmount, [NativeName(NativeNameType.Param, "total_amount")] [NativeName(NativeNameType.Type, "int")] int totalAmount);
 
@@ -938,6 +1070,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AudioPostmixCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAudioPostmixCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "float *")] float* buffer, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen);
 
@@ -964,6 +1097,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AudioPostmixCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAudioPostmixCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] nint spec, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "float *")] nint buffer, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen);
 
@@ -980,6 +1114,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_ClipboardDataCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void* SDLClipboardDataCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] byte* mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] nuint* size);
 
@@ -994,6 +1129,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_ClipboardDataCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint SDLClipboardDataCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "mime_type")] [NativeName(NativeNameType.Type, "char const *")] nint mimeType, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t *")] nint size);
 
@@ -1001,23 +1137,25 @@ namespace Hexa.NET.SDL3
 
 	#if NET5_0_OR_GREATER
 	/// <summary>
-	/// Callback function that will be called when the clipboard is cleared, or new<br/>
-	/// data is set.<br/>
+	/// Callback function that will be called when the clipboard is cleared, or<br/>
+	/// when new data is set.<br/>
 	/// <br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_ClipboardCleanupCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLClipboardCleanupCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
 	#else
 	/// <summary>
-	/// Callback function that will be called when the clipboard is cleared, or new<br/>
-	/// data is set.<br/>
+	/// Callback function that will be called when the clipboard is cleared, or<br/>
+	/// when new data is set.<br/>
 	/// <br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_ClipboardCleanupCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLClipboardCleanupCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -1039,6 +1177,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EGLAttribArrayCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint* SDLEGLAttribArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -1058,6 +1197,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EGLAttribArrayCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint SDLEGLAttribArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -1082,8 +1222,9 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EGLIntArrayCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int* SDLEGLIntArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "SDL_EGLDisplay")] SDLEGLDisplay display, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "SDL_EGLConfig")] SDLEGLConfig config);
+	public unsafe delegate int* SDLEGLIntArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "SDL_EGLDisplay")] void* display, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "SDL_EGLConfig")] void* config);
 
 	#else
 	/// <summary>
@@ -1104,8 +1245,9 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EGLIntArrayCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint SDLEGLIntArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "SDL_EGLDisplay")] SDLEGLDisplay display, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "SDL_EGLConfig")] SDLEGLConfig config);
+	public unsafe delegate nint SDLEGLIntArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "SDL_EGLDisplay")] nint display, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "SDL_EGLConfig")] nint config);
 
 	#endif
 
@@ -1115,6 +1257,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_HitTest")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLHitTestResult SDLHitTest([NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* win, [NativeName(NativeNameType.Param, "area")] [NativeName(NativeNameType.Type, "SDL_Point const *")] SDLPoint* area, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data);
 
@@ -1124,6 +1267,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_HitTest")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLHitTestResult SDLHitTest([NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "SDL_Window *")] nint win, [NativeName(NativeNameType.Param, "area")] [NativeName(NativeNameType.Type, "SDL_Point const *")] nint area, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data);
 
@@ -1152,6 +1296,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_DialogFileCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLDialogFileCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "filelist")] [NativeName(NativeNameType.Type, "char const * const *")] byte** filelist, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "int")] int filter);
 
@@ -1178,8 +1323,53 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_DialogFileCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLDialogFileCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "filelist")] [NativeName(NativeNameType.Type, "char const * const *")] nint filelist, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "int")] int filter);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback used to transform mouse motion delta from raw values.<br/>
+	/// This is called during SDL's handling of platform mouse events to scale the<br/>
+	/// values of the resulting motion delta.<br/>
+	/// <br/>
+	/// <br/>
+	/// This callback is called by SDL's internal mouse input<br/>
+	/// processing procedure, which may be a thread separate from the<br/>
+	/// main event loop that is run at realtime priority. Stalling<br/>
+	/// this thread with too much work in the callback can therefore<br/>
+	/// potentially freeze the entire system. Care should be taken<br/>
+	/// with proper synchronization practices when adding other side<br/>
+	/// effects beyond mutation of the x and y values.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_MouseMotionTransformCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLMouseMotionTransformCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong timestamp, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "mouseID")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint mouseID, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y);
+
+	#else
+	/// <summary>
+	/// A callback used to transform mouse motion delta from raw values.<br/>
+	/// This is called during SDL's handling of platform mouse events to scale the<br/>
+	/// values of the resulting motion delta.<br/>
+	/// <br/>
+	/// <br/>
+	/// This callback is called by SDL's internal mouse input<br/>
+	/// processing procedure, which may be a thread separate from the<br/>
+	/// main event loop that is run at realtime priority. Stalling<br/>
+	/// this thread with too much work in the callback can therefore<br/>
+	/// potentially freeze the entire system. Care should be taken<br/>
+	/// with proper synchronization practices when adding other side<br/>
+	/// effects beyond mutation of the x and y values.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_MouseMotionTransformCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLMouseMotionTransformCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong timestamp, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] nint window, [NativeName(NativeNameType.Param, "mouseID")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint mouseID, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] nint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] nint y);
 
 	#endif
 
@@ -1194,6 +1384,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EventFilter")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SDLEventFilter([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt);
 
@@ -1208,6 +1399,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EventFilter")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SDLEventFilter([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] nint evnt);
 
@@ -1231,6 +1423,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EnumerateDirectoryCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLEnumerationResult SDLEnumerateDirectoryCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "dirname")] [NativeName(NativeNameType.Type, "char const *")] byte* dirname, [NativeName(NativeNameType.Param, "fname")] [NativeName(NativeNameType.Type, "char const *")] byte* fname);
 
@@ -1252,6 +1445,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EnumerateDirectoryCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLEnumerationResult SDLEnumerateDirectoryCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "dirname")] [NativeName(NativeNameType.Type, "char const *")] nint dirname, [NativeName(NativeNameType.Param, "fname")] [NativeName(NativeNameType.Type, "char const *")] nint fname);
 
@@ -1270,6 +1464,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_HintCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLHintCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "oldValue")] [NativeName(NativeNameType.Type, "char const *")] byte* oldValue, [NativeName(NativeNameType.Param, "newValue")] [NativeName(NativeNameType.Type, "char const *")] byte* newValue);
 
@@ -1286,6 +1481,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_HintCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLHintCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] nint name, [NativeName(NativeNameType.Param, "oldValue")] [NativeName(NativeNameType.Type, "char const *")] nint oldValue, [NativeName(NativeNameType.Param, "newValue")] [NativeName(NativeNameType.Type, "char const *")] nint newValue);
 
@@ -1300,6 +1496,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AppInit_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppInitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void * *")] void** appstate, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] byte** argv);
 
@@ -1312,6 +1509,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AppInit_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppInitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void * *")] nint appstate, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] nint argv);
 
@@ -1326,6 +1524,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AppIterate_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppIterateFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate);
 
@@ -1338,6 +1537,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AppIterate_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppIterateFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate);
 
@@ -1352,6 +1552,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AppEvent_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppEventFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt);
 
@@ -1364,6 +1565,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AppEvent_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate SDLAppResult SDLAppEventFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] nint evnt);
 
@@ -1378,6 +1580,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AppQuit_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAppQuitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_AppResult")] SDLAppResult result);
 
@@ -1390,6 +1593,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_AppQuit_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLAppQuitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_AppResult")] SDLAppResult result);
 
@@ -1402,6 +1606,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_MainThreadCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLMainThreadCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
@@ -1412,6 +1617,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_MainThreadCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLMainThreadCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
@@ -1426,6 +1632,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_LogOutputFunction")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLLogOutputFunction([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message);
 
@@ -1438,6 +1645,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_LogOutputFunction")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLLogOutputFunction([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] nint message);
 
@@ -1457,8 +1665,9 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_WindowsMessageHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte SDLWindowsMessageHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "msg")] [NativeName(NativeNameType.Type, "MSG *")] Msg* msg);
+	public unsafe delegate byte SDLWindowsMessageHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "msg")] [NativeName(NativeNameType.Type, "MSG *")] TagMSG* msg);
 
 	#else
 	/// <summary>
@@ -1474,6 +1683,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_WindowsMessageHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SDLWindowsMessageHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "msg")] [NativeName(NativeNameType.Type, "MSG *")] nint msg);
 
@@ -1493,6 +1703,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_X11EventHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SDLX11EventHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "xevent")] [NativeName(NativeNameType.Type, "XEvent *")] XEvent* xevent);
 
@@ -1510,6 +1721,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_X11EventHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate byte SDLX11EventHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "xevent")] [NativeName(NativeNameType.Type, "XEvent *")] nint xevent);
 
@@ -1531,6 +1743,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_TimerCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint SDLTimerCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "timerID")] [NativeName(NativeNameType.Type, "SDL_TimerID")] int timerID, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint32")] uint interval);
 
@@ -1550,6 +1763,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_TimerCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint SDLTimerCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "timerID")] [NativeName(NativeNameType.Type, "SDL_TimerID")] int timerID, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint32")] uint interval);
 
@@ -1571,6 +1785,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_NSTimerCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong SDLNSTimerCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "timerID")] [NativeName(NativeNameType.Type, "SDL_TimerID")] int timerID, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint64")] ulong interval);
 
@@ -1590,6 +1805,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_NSTimerCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong SDLNSTimerCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "timerID")] [NativeName(NativeNameType.Type, "SDL_TimerID")] int timerID, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint64")] ulong interval);
 
@@ -1602,6 +1818,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_TrayCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] SDLTrayEntry* entry);
 
@@ -1612,1618 +1829,1941 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_TrayCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "SDL_TrayEntry *")] nint entry);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "__eglMustCastToProperFunctionPointerType")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void EglMustCastToProperFunctionPointerType();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "__eglMustCastToProperFunctionPointerType")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void EglMustCastToProperFunctionPointerType();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCHOOSECONFIGPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglchooseconfigproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig *")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint *")] int* numConfig);
+	public unsafe delegate uint Pfneglchooseconfigproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig *")] void** configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint *")] int* numConfig);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCHOOSECONFIGPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglchooseconfigproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig *")] nint configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint *")] nint numConfig);
+	public unsafe delegate uint Pfneglchooseconfigproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig *")] nint configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint *")] nint numConfig);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOPYBUFFERSPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglcopybuffersproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint target);
+	public unsafe delegate uint Pfneglcopybuffersproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint target);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOPYBUFFERSPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglcopybuffersproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint target);
+	public unsafe delegate uint Pfneglcopybuffersproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint target);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATECONTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLContext Pfneglcreatecontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "share_context")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext shareContext, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatecontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "share_context")] [NativeName(NativeNameType.Type, "EGLContext")] void* shareContext, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATECONTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLContext Pfneglcreatecontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "share_context")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext shareContext, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatecontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "share_context")] [NativeName(NativeNameType.Type, "EGLContext")] nint shareContext, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPBUFFERSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatepbuffersurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatepbuffersurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPBUFFERSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatepbuffersurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatepbuffersurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPIXMAPSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatepixmapsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint pixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatepixmapsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint pixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPIXMAPSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatepixmapsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint pixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatepixmapsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint pixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEWINDOWSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatewindowsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "EGLNativeWindowType")] nint win, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatewindowsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "EGLNativeWindowType")] nint win, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEWINDOWSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatewindowsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "EGLNativeWindowType")] nint win, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatewindowsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "EGLNativeWindowType")] nint win, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYCONTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroycontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx);
+	public unsafe delegate uint Pfnegldestroycontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] void* ctx);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYCONTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroycontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx);
+	public unsafe delegate uint Pfnegldestroycontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] nint ctx);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroysurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface);
+	public unsafe delegate uint Pfnegldestroysurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroysurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface);
+	public unsafe delegate uint Pfnegldestroysurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCONFIGATTRIBPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetconfigattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
+	public unsafe delegate uint Pfneglgetconfigattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCONFIGATTRIBPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetconfigattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
+	public unsafe delegate uint Pfneglgetconfigattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCONFIGSPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetconfigsproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig *")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint *")] int* numConfig);
+	public unsafe delegate uint Pfneglgetconfigsproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig *")] void** configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint *")] int* numConfig);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCONFIGSPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetconfigsproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig *")] nint configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint *")] nint numConfig);
+	public unsafe delegate uint Pfneglgetconfigsproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig *")] nint configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint *")] nint numConfig);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCURRENTDISPLAYPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLDisplay Pfneglgetcurrentdisplayproc();
+	public unsafe delegate void* Pfneglgetcurrentdisplayproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCURRENTDISPLAYPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLDisplay Pfneglgetcurrentdisplayproc();
+	public unsafe delegate nint Pfneglgetcurrentdisplayproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCURRENTSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglgetcurrentsurfaceproc([NativeName(NativeNameType.Param, "readdraw")] [NativeName(NativeNameType.Type, "EGLint")] int readdraw);
+	public unsafe delegate void* Pfneglgetcurrentsurfaceproc([NativeName(NativeNameType.Param, "readdraw")] [NativeName(NativeNameType.Type, "EGLint")] int readdraw);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCURRENTSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglgetcurrentsurfaceproc([NativeName(NativeNameType.Param, "readdraw")] [NativeName(NativeNameType.Type, "EGLint")] int readdraw);
+	public unsafe delegate nint Pfneglgetcurrentsurfaceproc([NativeName(NativeNameType.Param, "readdraw")] [NativeName(NativeNameType.Type, "EGLint")] int readdraw);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETDISPLAYPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLDisplay Pfneglgetdisplayproc([NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType")] nint displayId);
+	public unsafe delegate void* Pfneglgetdisplayproc([NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType")] nint displayId);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETDISPLAYPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLDisplay Pfneglgetdisplayproc([NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType")] nint displayId);
+	public unsafe delegate nint Pfneglgetdisplayproc([NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType")] nint displayId);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETERRORPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int Pfneglgeterrorproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETERRORPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int Pfneglgeterrorproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETPROCADDRESSPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate delegate*<void> Pfneglgetprocaddressproc([NativeName(NativeNameType.Param, "procname")] [NativeName(NativeNameType.Type, "char const *")] byte* procname);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETPROCADDRESSPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint Pfneglgetprocaddressproc([NativeName(NativeNameType.Param, "procname")] [NativeName(NativeNameType.Type, "char const *")] nint procname);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLINITIALIZEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglinitializeproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint *")] int* major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint *")] int* minor);
+	public unsafe delegate uint Pfneglinitializeproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint *")] int* major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint *")] int* minor);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLINITIALIZEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglinitializeproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint *")] nint major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint *")] nint minor);
+	public unsafe delegate uint Pfneglinitializeproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint *")] nint major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint *")] nint minor);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLMAKECURRENTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglmakecurrentproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "draw")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface draw, [NativeName(NativeNameType.Param, "read")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface read, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx);
+	public unsafe delegate uint Pfneglmakecurrentproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "draw")] [NativeName(NativeNameType.Type, "EGLSurface")] void* draw, [NativeName(NativeNameType.Param, "read")] [NativeName(NativeNameType.Type, "EGLSurface")] void* read, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] void* ctx);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLMAKECURRENTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglmakecurrentproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "draw")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface draw, [NativeName(NativeNameType.Param, "read")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface read, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx);
+	public unsafe delegate uint Pfneglmakecurrentproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "draw")] [NativeName(NativeNameType.Type, "EGLSurface")] nint draw, [NativeName(NativeNameType.Param, "read")] [NativeName(NativeNameType.Type, "EGLSurface")] nint read, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] nint ctx);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYCONTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerycontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
+	public unsafe delegate uint Pfneglquerycontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] void* ctx, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYCONTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerycontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
+	public unsafe delegate uint Pfneglquerycontextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] nint ctx, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTRINGPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte* Pfneglquerystringproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate byte* Pfneglquerystringproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTRINGPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint Pfneglquerystringproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate nint Pfneglquerystringproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerysurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
+	public unsafe delegate uint Pfneglquerysurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerysurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
+	public unsafe delegate uint Pfneglquerysurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbuffersproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface);
+	public unsafe delegate uint Pfneglswapbuffersproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbuffersproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface);
+	public unsafe delegate uint Pfneglswapbuffersproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLTERMINATEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglterminateproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy);
+	public unsafe delegate uint Pfneglterminateproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLTERMINATEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglterminateproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy);
+	public unsafe delegate uint Pfneglterminateproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITGLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglwaitglproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITGLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglwaitglproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITNATIVEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglwaitnativeproc([NativeName(NativeNameType.Param, "engine")] [NativeName(NativeNameType.Type, "EGLint")] int engine);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITNATIVEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglwaitnativeproc([NativeName(NativeNameType.Param, "engine")] [NativeName(NativeNameType.Type, "EGLint")] int engine);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLBINDTEXIMAGEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglbindteximageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer);
+	public unsafe delegate uint Pfneglbindteximageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLBINDTEXIMAGEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglbindteximageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer);
+	public unsafe delegate uint Pfneglbindteximageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLRELEASETEXIMAGEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglreleaseteximageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer);
+	public unsafe delegate uint Pfneglreleaseteximageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLRELEASETEXIMAGEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglreleaseteximageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer);
+	public unsafe delegate uint Pfneglreleaseteximageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSURFACEATTRIBPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsurfaceattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value);
+	public unsafe delegate uint Pfneglsurfaceattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSURFACEATTRIBPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsurfaceattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value);
+	public unsafe delegate uint Pfneglsurfaceattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPINTERVALPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapintervalproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "EGLint")] int interval);
+	public unsafe delegate uint Pfneglswapintervalproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "EGLint")] int interval);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPINTERVALPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapintervalproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "EGLint")] int interval);
+	public unsafe delegate uint Pfneglswapintervalproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "EGLint")] int interval);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLBINDAPIPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglbindapiproc([NativeName(NativeNameType.Param, "api")] [NativeName(NativeNameType.Type, "EGLenum")] uint api);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLBINDAPIPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglbindapiproc([NativeName(NativeNameType.Param, "api")] [NativeName(NativeNameType.Type, "EGLenum")] uint api);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYAPIPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglqueryapiproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYAPIPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglqueryapiproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPBUFFERFROMCLIENTBUFFERPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatepbufferfromclientbufferproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "buftype")] [NativeName(NativeNameType.Type, "EGLenum")] uint buftype, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatepbufferfromclientbufferproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "buftype")] [NativeName(NativeNameType.Type, "EGLenum")] uint buftype, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] void* buffer, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPBUFFERFROMCLIENTBUFFERPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatepbufferfromclientbufferproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "buftype")] [NativeName(NativeNameType.Type, "EGLenum")] uint buftype, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatepbufferfromclientbufferproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "buftype")] [NativeName(NativeNameType.Type, "EGLenum")] uint buftype, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] nint buffer, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLRELEASETHREADPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglreleasethreadproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLRELEASETHREADPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglreleasethreadproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITCLIENTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglwaitclientproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITCLIENTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglwaitclientproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCURRENTCONTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLContext Pfneglgetcurrentcontextproc();
+	public unsafe delegate void* Pfneglgetcurrentcontextproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCURRENTCONTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLContext Pfneglgetcurrentcontextproc();
+	public unsafe delegate nint Pfneglgetcurrentcontextproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESYNCPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSync Pfneglcreatesyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate void* Pfneglcreatesyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESYNCPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSync Pfneglcreatesyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatesyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSYNCPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroysyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync);
+	public unsafe delegate uint Pfnegldestroysyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] void* sync);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSYNCPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroysyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync);
+	public unsafe delegate uint Pfnegldestroysyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] nint sync);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCLIENTWAITSYNCPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglclientwaitsyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout);
+	public unsafe delegate int Pfneglclientwaitsyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] void* sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCLIENTWAITSYNCPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglclientwaitsyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout);
+	public unsafe delegate int Pfneglclientwaitsyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] nint sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYNCATTRIBPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetsyncattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
+	public unsafe delegate uint Pfneglgetsyncattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] void* sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYNCATTRIBPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetsyncattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
+	public unsafe delegate uint Pfneglgetsyncattribproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] nint sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEIMAGEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLImage Pfneglcreateimageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate void* Pfneglcreateimageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] void* ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] void* buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEIMAGEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLImage Pfneglcreateimageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreateimageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] nint ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] nint buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYIMAGEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroyimageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] EGLImage image);
+	public unsafe delegate uint Pfnegldestroyimageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] void* image);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYIMAGEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroyimageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] EGLImage image);
+	public unsafe delegate uint Pfnegldestroyimageproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] nint image);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETPLATFORMDISPLAYPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLDisplay Pfneglgetplatformdisplayproc([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void *")] void* nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate void* Pfneglgetplatformdisplayproc([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void *")] void* nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETPLATFORMDISPLAYPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLDisplay Pfneglgetplatformdisplayproc([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void *")] nint nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate nint Pfneglgetplatformdisplayproc([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void *")] nint nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPLATFORMWINDOWSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreateplatformwindowsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void *")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate void* Pfneglcreateplatformwindowsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void *")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPLATFORMWINDOWSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreateplatformwindowsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void *")] nint nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreateplatformwindowsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void *")] nint nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPLATFORMPIXMAPSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreateplatformpixmapsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void *")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate void* Pfneglcreateplatformpixmapsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void *")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPLATFORMPIXMAPSURFACEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreateplatformpixmapsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void *")] nint nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreateplatformpixmapsurfaceproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void *")] nint nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITSYNCPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglwaitsyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags);
+	public unsafe delegate uint Pfneglwaitsyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] void* sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITSYNCPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglwaitsyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags);
+	public unsafe delegate uint Pfneglwaitsyncproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] nint sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESYNC64KHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSyncKHR Pfneglcreatesync64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttribKHR const *")] nint* attribList);
+	public unsafe delegate void* Pfneglcreatesync64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttribKHR const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESYNC64KHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSyncKHR Pfneglcreatesync64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttribKHR const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatesync64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttribKHR const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "EGLDEBUGPROCKHR")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Egldebugprockhr([NativeName(NativeNameType.Param, "error")] [NativeName(NativeNameType.Type, "EGLenum")] uint error, [NativeName(NativeNameType.Param, "command")] [NativeName(NativeNameType.Type, "char const *")] byte* command, [NativeName(NativeNameType.Param, "messageType")] [NativeName(NativeNameType.Type, "EGLint")] int messageType, [NativeName(NativeNameType.Param, "threadLabel")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] EGLLabelKHR threadLabel, [NativeName(NativeNameType.Param, "objectLabel")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] EGLLabelKHR objectLabel, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message);
+	public unsafe delegate void Egldebugprockhr([NativeName(NativeNameType.Param, "error")] [NativeName(NativeNameType.Type, "EGLenum")] uint error, [NativeName(NativeNameType.Param, "command")] [NativeName(NativeNameType.Type, "char const *")] byte* command, [NativeName(NativeNameType.Param, "messageType")] [NativeName(NativeNameType.Type, "EGLint")] int messageType, [NativeName(NativeNameType.Param, "threadLabel")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] void* threadLabel, [NativeName(NativeNameType.Param, "objectLabel")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] void* objectLabel, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] byte* message);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "EGLDEBUGPROCKHR")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Egldebugprockhr([NativeName(NativeNameType.Param, "error")] [NativeName(NativeNameType.Type, "EGLenum")] uint error, [NativeName(NativeNameType.Param, "command")] [NativeName(NativeNameType.Type, "char const *")] nint command, [NativeName(NativeNameType.Param, "messageType")] [NativeName(NativeNameType.Type, "EGLint")] int messageType, [NativeName(NativeNameType.Param, "threadLabel")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] EGLLabelKHR threadLabel, [NativeName(NativeNameType.Param, "objectLabel")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] EGLLabelKHR objectLabel, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] nint message);
+	public unsafe delegate void Egldebugprockhr([NativeName(NativeNameType.Param, "error")] [NativeName(NativeNameType.Type, "EGLenum")] uint error, [NativeName(NativeNameType.Param, "command")] [NativeName(NativeNameType.Type, "char const *")] nint command, [NativeName(NativeNameType.Param, "messageType")] [NativeName(NativeNameType.Type, "EGLint")] int messageType, [NativeName(NativeNameType.Param, "threadLabel")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] nint threadLabel, [NativeName(NativeNameType.Param, "objectLabel")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] nint objectLabel, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "char const *")] nint message);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDEBUGMESSAGECONTROLKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfnegldebugmessagecontrolkhrproc([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "EGLDEBUGPROCKHR")] delegate*<uint, byte*, int, EGLLabelKHR, EGLLabelKHR, byte*, void> callback, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate int Pfnegldebugmessagecontrolkhrproc([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "EGLDEBUGPROCKHR")] delegate*<uint, byte*, int, void*, void*, byte*, void> callback, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDEBUGMESSAGECONTROLKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int Pfnegldebugmessagecontrolkhrproc([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "EGLDEBUGPROCKHR")] nint callback, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEBUGKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglquerydebugkhrproc([NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEBUGKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglquerydebugkhrproc([NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLLABELOBJECTKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfnegllabelobjectkhrproc([NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay display, [NativeName(NativeNameType.Param, "objectType")] [NativeName(NativeNameType.Type, "EGLenum")] uint objectType, [NativeName(NativeNameType.Param, "object")] [NativeName(NativeNameType.Type, "EGLObjectKHR")] EGLObjectKHR @object, [NativeName(NativeNameType.Param, "label")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] EGLLabelKHR label);
+	public unsafe delegate int Pfnegllabelobjectkhrproc([NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* display, [NativeName(NativeNameType.Param, "objectType")] [NativeName(NativeNameType.Type, "EGLenum")] uint objectType, [NativeName(NativeNameType.Param, "object")] [NativeName(NativeNameType.Type, "EGLObjectKHR")] void* @object, [NativeName(NativeNameType.Param, "label")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] void* label);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLLABELOBJECTKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfnegllabelobjectkhrproc([NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay display, [NativeName(NativeNameType.Param, "objectType")] [NativeName(NativeNameType.Type, "EGLenum")] uint objectType, [NativeName(NativeNameType.Param, "object")] [NativeName(NativeNameType.Type, "EGLObjectKHR")] EGLObjectKHR @object, [NativeName(NativeNameType.Param, "label")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] EGLLabelKHR label);
+	public unsafe delegate int Pfnegllabelobjectkhrproc([NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint display, [NativeName(NativeNameType.Param, "objectType")] [NativeName(NativeNameType.Type, "EGLenum")] uint objectType, [NativeName(NativeNameType.Param, "object")] [NativeName(NativeNameType.Type, "EGLObjectKHR")] nint @object, [NativeName(NativeNameType.Param, "label")] [NativeName(NativeNameType.Type, "EGLLabelKHR")] nint label);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDISPLAYATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydisplayattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
+	public unsafe delegate uint Pfneglquerydisplayattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDISPLAYATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydisplayattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
+	public unsafe delegate uint Pfneglquerydisplayattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSyncKHR Pfneglcreatesynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatesynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSyncKHR Pfneglcreatesynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatesynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroysynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync);
+	public unsafe delegate uint Pfnegldestroysynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] void* sync);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroysynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync);
+	public unsafe delegate uint Pfnegldestroysynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] nint sync);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCLIENTWAITSYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglclientwaitsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTimeKHR")] ulong timeout);
+	public unsafe delegate int Pfneglclientwaitsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] void* sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTimeKHR")] ulong timeout);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCLIENTWAITSYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglclientwaitsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTimeKHR")] ulong timeout);
+	public unsafe delegate int Pfneglclientwaitsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] nint sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTimeKHR")] ulong timeout);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYNCATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetsyncattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
+	public unsafe delegate uint Pfneglgetsyncattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] void* sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYNCATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetsyncattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
+	public unsafe delegate uint Pfneglgetsyncattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] nint sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEIMAGEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLImageKHR Pfneglcreateimagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreateimagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] void* ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] void* buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEIMAGEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLImageKHR Pfneglcreateimagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreateimagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] nint ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] nint buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYIMAGEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroyimagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image);
+	public unsafe delegate uint Pfnegldestroyimagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] void* image);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYIMAGEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroyimagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image);
+	public unsafe delegate uint Pfnegldestroyimagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] nint image);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLLOCKSURFACEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegllocksurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate uint Pfnegllocksurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLLOCKSURFACEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegllocksurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate uint Pfnegllocksurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLUNLOCKSURFACEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglunlocksurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface);
+	public unsafe delegate uint Pfneglunlocksurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLUNLOCKSURFACEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglunlocksurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface);
+	public unsafe delegate uint Pfneglunlocksurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSURFACE64KHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerysurface64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttribKHR *")] nint* value);
+	public unsafe delegate uint Pfneglquerysurface64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttribKHR *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSURFACE64KHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerysurface64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttribKHR *")] nint value);
+	public unsafe delegate uint Pfneglquerysurface64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttribKHR *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSETDAMAGEREGIONKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsetdamageregionkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint *")] int* rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
+	public unsafe delegate uint Pfneglsetdamageregionkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint *")] int* rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSETDAMAGEREGIONKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsetdamageregionkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint *")] nint rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
+	public unsafe delegate uint Pfneglsetdamageregionkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint *")] nint rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSIGNALSYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsignalsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "EGLenum")] uint mode);
+	public unsafe delegate uint Pfneglsignalsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] void* sync, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "EGLenum")] uint mode);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSIGNALSYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsignalsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "EGLenum")] uint mode);
+	public unsafe delegate uint Pfneglsignalsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] nint sync, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "EGLenum")] uint mode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLStreamKHR Pfneglcreatestreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatestreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLStreamKHR Pfneglcreatestreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatestreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSTREAMKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroystreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfnegldestroystreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSTREAMKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroystreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfnegldestroystreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value);
+	public unsafe delegate uint Pfneglstreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value);
+	public unsafe delegate uint Pfneglstreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
+	public unsafe delegate uint Pfneglquerystreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
+	public unsafe delegate uint Pfneglquerystreamkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMU64KHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreamu64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] ulong* value);
+	public unsafe delegate uint Pfneglquerystreamu64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] ulong* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMU64KHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreamu64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] nint value);
+	public unsafe delegate uint Pfneglquerystreamu64Khrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLStreamKHR Pfneglcreatestreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate void* Pfneglcreatestreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLStreamKHR Pfneglcreatestreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatestreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSETSTREAMATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsetstreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
+	public unsafe delegate uint Pfneglsetstreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSETSTREAMATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsetstreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
+	public unsafe delegate uint Pfneglsetstreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
+	public unsafe delegate uint Pfneglquerystreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
+	public unsafe delegate uint Pfneglquerystreamattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERACQUIREATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumeracquireattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate uint Pfneglstreamconsumeracquireattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERACQUIREATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumeracquireattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate uint Pfneglstreamconsumeracquireattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERRELEASEATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumerreleaseattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate uint Pfneglstreamconsumerreleaseattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERRELEASEATTRIBKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumerreleaseattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate uint Pfneglstreamconsumerreleaseattribkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumergltextureexternalkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglstreamconsumergltextureexternalkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumergltextureexternalkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglstreamconsumergltextureexternalkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERACQUIREKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumeracquirekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglstreamconsumeracquirekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERACQUIREKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumeracquirekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglstreamconsumeracquirekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERRELEASEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumerreleasekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglstreamconsumerreleasekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERRELEASEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumerreleasekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglstreamconsumerreleasekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSTREAMFILEDESCRIPTORKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglgetstreamfiledescriptorkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate int Pfneglgetstreamfiledescriptorkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSTREAMFILEDESCRIPTORKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglgetstreamfiledescriptorkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate int Pfneglgetstreamfiledescriptorkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMFROMFILEDESCRIPTORKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLStreamKHR Pfneglcreatestreamfromfiledescriptorkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "file_descriptor")] [NativeName(NativeNameType.Type, "EGLNativeFileDescriptorKHR")] int fileDescriptor);
+	public unsafe delegate void* Pfneglcreatestreamfromfiledescriptorkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "file_descriptor")] [NativeName(NativeNameType.Type, "EGLNativeFileDescriptorKHR")] int fileDescriptor);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMFROMFILEDESCRIPTORKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLStreamKHR Pfneglcreatestreamfromfiledescriptorkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "file_descriptor")] [NativeName(NativeNameType.Type, "EGLNativeFileDescriptorKHR")] int fileDescriptor);
+	public unsafe delegate nint Pfneglcreatestreamfromfiledescriptorkhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "file_descriptor")] [NativeName(NativeNameType.Type, "EGLNativeFileDescriptorKHR")] int fileDescriptor);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMTIMEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreamtimekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLTimeKHR *")] ulong* value);
+	public unsafe delegate uint Pfneglquerystreamtimekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLTimeKHR *")] ulong* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMTIMEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreamtimekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLTimeKHR *")] nint value);
+	public unsafe delegate uint Pfneglquerystreamtimekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLenum")] uint attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLTimeKHR *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMPRODUCERSURFACEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatestreamproducersurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatestreamproducersurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMPRODUCERSURFACEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatestreamproducersurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatestreamproducersurfacekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSWITHDAMAGEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbufferswithdamagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] int* rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
+	public unsafe delegate uint Pfneglswapbufferswithdamagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] int* rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSWITHDAMAGEKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbufferswithdamagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] nint rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
+	public unsafe delegate uint Pfneglswapbufferswithdamagekhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] nint rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITSYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglwaitsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags);
+	public unsafe delegate int Pfneglwaitsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] void* sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLWAITSYNCKHRPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglwaitsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags);
+	public unsafe delegate int Pfneglwaitsynckhrproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] nint sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "EGLSetBlobFuncANDROID")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void EGLSetBlobFuncANDROID([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "void const *")] void* key, [NativeName(NativeNameType.Param, "keySize")] [NativeName(NativeNameType.Type, "EGLsizeiANDROID")] int keySize, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] void* value, [NativeName(NativeNameType.Param, "valueSize")] [NativeName(NativeNameType.Type, "EGLsizeiANDROID")] int valueSize);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "EGLSetBlobFuncANDROID")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void EGLSetBlobFuncANDROID([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "void const *")] nint key, [NativeName(NativeNameType.Param, "keySize")] [NativeName(NativeNameType.Type, "EGLsizeiANDROID")] int keySize, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] nint value, [NativeName(NativeNameType.Param, "valueSize")] [NativeName(NativeNameType.Type, "EGLsizeiANDROID")] int valueSize);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "EGLGetBlobFuncANDROID")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int EGLGetBlobFuncANDROID([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "void const *")] void* key, [NativeName(NativeNameType.Param, "keySize")] [NativeName(NativeNameType.Type, "EGLsizeiANDROID")] int keySize, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "valueSize")] [NativeName(NativeNameType.Type, "EGLsizeiANDROID")] int valueSize);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "EGLGetBlobFuncANDROID")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int EGLGetBlobFuncANDROID([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "void const *")] nint key, [NativeName(NativeNameType.Param, "keySize")] [NativeName(NativeNameType.Type, "EGLsizeiANDROID")] int keySize, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "valueSize")] [NativeName(NativeNameType.Type, "EGLsizeiANDROID")] int valueSize);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSETBLOBCACHEFUNCSANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfneglsetblobcachefuncsandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "set")] [NativeName(NativeNameType.Type, "EGLSetBlobFuncANDROID")] delegate*<void*, int, void*, int, void> set, [NativeName(NativeNameType.Param, "get")] [NativeName(NativeNameType.Type, "EGLGetBlobFuncANDROID")] delegate*<void*, int, void*, int, int> get);
+	public unsafe delegate void Pfneglsetblobcachefuncsandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "set")] [NativeName(NativeNameType.Type, "EGLSetBlobFuncANDROID")] delegate*<void*, int, void*, int, void> set, [NativeName(NativeNameType.Param, "get")] [NativeName(NativeNameType.Type, "EGLGetBlobFuncANDROID")] delegate*<void*, int, void*, int, int> get);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSETBLOBCACHEFUNCSANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void Pfneglsetblobcachefuncsandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "set")] [NativeName(NativeNameType.Type, "EGLSetBlobFuncANDROID")] nint set, [NativeName(NativeNameType.Param, "get")] [NativeName(NativeNameType.Type, "EGLGetBlobFuncANDROID")] nint get);
+	public unsafe delegate void Pfneglsetblobcachefuncsandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "set")] [NativeName(NativeNameType.Type, "EGLSetBlobFuncANDROID")] nint set, [NativeName(NativeNameType.Param, "get")] [NativeName(NativeNameType.Type, "EGLGetBlobFuncANDROID")] nint get);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATENATIVECLIENTBUFFERANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLClientBuffer Pfneglcreatenativeclientbufferandroidproc([NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatenativeclientbufferandroidproc([NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATENATIVECLIENTBUFFERANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLClientBuffer Pfneglcreatenativeclientbufferandroidproc([NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatenativeclientbufferandroidproc([NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCOMPOSITORTIMINGSUPPORTEDANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetcompositortimingsupportedandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate uint Pfneglgetcompositortimingsupportedandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCOMPOSITORTIMINGSUPPORTEDANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetcompositortimingsupportedandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate uint Pfneglgetcompositortimingsupportedandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCOMPOSITORTIMINGANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetcompositortimingandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "numTimestamps")] [NativeName(NativeNameType.Type, "EGLint")] int numTimestamps, [NativeName(NativeNameType.Param, "names")] [NativeName(NativeNameType.Type, "EGLint const *")] int* names, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID *")] long* values);
+	public unsafe delegate uint Pfneglgetcompositortimingandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "numTimestamps")] [NativeName(NativeNameType.Type, "EGLint")] int numTimestamps, [NativeName(NativeNameType.Param, "names")] [NativeName(NativeNameType.Type, "EGLint const *")] int* names, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID *")] long* values);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETCOMPOSITORTIMINGANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetcompositortimingandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "numTimestamps")] [NativeName(NativeNameType.Type, "EGLint")] int numTimestamps, [NativeName(NativeNameType.Param, "names")] [NativeName(NativeNameType.Type, "EGLint const *")] nint names, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID *")] nint values);
+	public unsafe delegate uint Pfneglgetcompositortimingandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "numTimestamps")] [NativeName(NativeNameType.Type, "EGLint")] int numTimestamps, [NativeName(NativeNameType.Param, "names")] [NativeName(NativeNameType.Type, "EGLint const *")] nint names, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID *")] nint values);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETNEXTFRAMEIDANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetnextframeidandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "frameId")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] ulong* frameId);
+	public unsafe delegate uint Pfneglgetnextframeidandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "frameId")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] ulong* frameId);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETNEXTFRAMEIDANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetnextframeidandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "frameId")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] nint frameId);
+	public unsafe delegate uint Pfneglgetnextframeidandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "frameId")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] nint frameId);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETFRAMETIMESTAMPSUPPORTEDANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetframetimestampsupportedandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "EGLint")] int timestamp);
+	public unsafe delegate uint Pfneglgetframetimestampsupportedandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "EGLint")] int timestamp);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETFRAMETIMESTAMPSUPPORTEDANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetframetimestampsupportedandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "EGLint")] int timestamp);
+	public unsafe delegate uint Pfneglgetframetimestampsupportedandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "EGLint")] int timestamp);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETFRAMETIMESTAMPSANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetframetimestampsandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "frameId")] [NativeName(NativeNameType.Type, "EGLuint64KHR")] ulong frameId, [NativeName(NativeNameType.Param, "numTimestamps")] [NativeName(NativeNameType.Type, "EGLint")] int numTimestamps, [NativeName(NativeNameType.Param, "timestamps")] [NativeName(NativeNameType.Type, "EGLint const *")] int* timestamps, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID *")] long* values);
+	public unsafe delegate uint Pfneglgetframetimestampsandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "frameId")] [NativeName(NativeNameType.Type, "EGLuint64KHR")] ulong frameId, [NativeName(NativeNameType.Param, "numTimestamps")] [NativeName(NativeNameType.Type, "EGLint")] int numTimestamps, [NativeName(NativeNameType.Param, "timestamps")] [NativeName(NativeNameType.Type, "EGLint const *")] int* timestamps, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID *")] long* values);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETFRAMETIMESTAMPSANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetframetimestampsandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "frameId")] [NativeName(NativeNameType.Type, "EGLuint64KHR")] ulong frameId, [NativeName(NativeNameType.Param, "numTimestamps")] [NativeName(NativeNameType.Type, "EGLint")] int numTimestamps, [NativeName(NativeNameType.Param, "timestamps")] [NativeName(NativeNameType.Type, "EGLint const *")] nint timestamps, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID *")] nint values);
+	public unsafe delegate uint Pfneglgetframetimestampsandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "frameId")] [NativeName(NativeNameType.Type, "EGLuint64KHR")] ulong frameId, [NativeName(NativeNameType.Param, "numTimestamps")] [NativeName(NativeNameType.Type, "EGLint")] int numTimestamps, [NativeName(NativeNameType.Param, "timestamps")] [NativeName(NativeNameType.Type, "EGLint const *")] nint timestamps, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID *")] nint values);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETNATIVECLIENTBUFFERANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLClientBuffer Pfneglgetnativeclientbufferandroidproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "AHardwareBuffer const *")] AHardwareBuffer* buffer);
+	public unsafe delegate void* Pfneglgetnativeclientbufferandroidproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "AHardwareBuffer const *")] AHardwareBuffer* buffer);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETNATIVECLIENTBUFFERANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLClientBuffer Pfneglgetnativeclientbufferandroidproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "AHardwareBuffer const *")] nint buffer);
+	public unsafe delegate nint Pfneglgetnativeclientbufferandroidproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "AHardwareBuffer const *")] nint buffer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDUPNATIVEFENCEFDANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfnegldupnativefencefdandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync);
+	public unsafe delegate int Pfnegldupnativefencefdandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] void* sync);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDUPNATIVEFENCEFDANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfnegldupnativefencefdandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] EGLSyncKHR sync);
+	public unsafe delegate int Pfnegldupnativefencefdandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncKHR")] nint sync);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLPRESENTATIONTIMEANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglpresentationtimeandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "time")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID")] long time);
+	public unsafe delegate uint Pfneglpresentationtimeandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "time")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID")] long time);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLPRESENTATIONTIMEANDROIDPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglpresentationtimeandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "time")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID")] long time);
+	public unsafe delegate uint Pfneglpresentationtimeandroidproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "time")] [NativeName(NativeNameType.Type, "EGLnsecsANDROID")] long time);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSURFACEPOINTERANGLEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerysurfacepointerangleproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void * *")] void** value);
+	public unsafe delegate uint Pfneglquerysurfacepointerangleproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void * *")] void** value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSURFACEPOINTERANGLEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerysurfacepointerangleproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void * *")] nint value);
+	public unsafe delegate uint Pfneglquerysurfacepointerangleproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void * *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETMSCRATEANGLEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetmscrateangleproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "numerator")] [NativeName(NativeNameType.Type, "EGLint *")] int* numerator, [NativeName(NativeNameType.Param, "denominator")] [NativeName(NativeNameType.Type, "EGLint *")] int* denominator);
+	public unsafe delegate uint Pfneglgetmscrateangleproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "numerator")] [NativeName(NativeNameType.Type, "EGLint *")] int* numerator, [NativeName(NativeNameType.Param, "denominator")] [NativeName(NativeNameType.Type, "EGLint *")] int* denominator);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETMSCRATEANGLEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetmscrateangleproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "numerator")] [NativeName(NativeNameType.Type, "EGLint *")] nint numerator, [NativeName(NativeNameType.Param, "denominator")] [NativeName(NativeNameType.Type, "EGLint *")] nint denominator);
+	public unsafe delegate uint Pfneglgetmscrateangleproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "numerator")] [NativeName(NativeNameType.Type, "EGLint *")] nint numerator, [NativeName(NativeNameType.Param, "denominator")] [NativeName(NativeNameType.Type, "EGLint *")] nint denominator);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCLIENTSIGNALSYNCEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglclientsignalsyncextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate uint Pfneglclientsignalsyncextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] void* sync, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCLIENTSIGNALSYNCEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglclientsignalsyncextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate uint Pfneglclientsignalsyncextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] nint sync, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETCONTEXTLISTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetcontextlistextproc([NativeName(NativeNameType.Param, "external_ref_ids")] [NativeName(NativeNameType.Type, "EGLint const *")] int* externalRefIds, [NativeName(NativeNameType.Param, "num_entries")] [NativeName(NativeNameType.Type, "EGLint")] int numEntries);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETCONTEXTLISTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetcontextlistextproc([NativeName(NativeNameType.Param, "external_ref_ids")] [NativeName(NativeNameType.Type, "EGLint const *")] nint externalRefIds, [NativeName(NativeNameType.Param, "num_entries")] [NativeName(NativeNameType.Type, "EGLint")] int numEntries);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETCONTEXTATTRIBUTESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetcontextattributesextproc([NativeName(NativeNameType.Param, "external_ref_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalRefId, [NativeName(NativeNameType.Param, "context_attributes")] [NativeName(NativeNameType.Type, "EGLint const *")] int* contextAttributes, [NativeName(NativeNameType.Param, "num_entries")] [NativeName(NativeNameType.Type, "EGLint")] int numEntries);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETCONTEXTATTRIBUTESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetcontextattributesextproc([NativeName(NativeNameType.Param, "external_ref_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalRefId, [NativeName(NativeNameType.Param, "context_attributes")] [NativeName(NativeNameType.Type, "EGLint const *")] nint contextAttributes, [NativeName(NativeNameType.Param, "num_entries")] [NativeName(NativeNameType.Type, "EGLint")] int numEntries);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETWINDOWLISTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetwindowlistextproc([NativeName(NativeNameType.Param, "external_ref_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalRefId, [NativeName(NativeNameType.Param, "external_win_ids")] [NativeName(NativeNameType.Type, "EGLint const *")] int* externalWinIds, [NativeName(NativeNameType.Param, "num_entries")] [NativeName(NativeNameType.Type, "EGLint")] int numEntries);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETWINDOWLISTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetwindowlistextproc([NativeName(NativeNameType.Param, "external_ref_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalRefId, [NativeName(NativeNameType.Param, "external_win_ids")] [NativeName(NativeNameType.Type, "EGLint const *")] nint externalWinIds, [NativeName(NativeNameType.Param, "num_entries")] [NativeName(NativeNameType.Type, "EGLint")] int numEntries);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETWINDOWATTRIBUTESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetwindowattributesextproc([NativeName(NativeNameType.Param, "external_win_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalWinId, [NativeName(NativeNameType.Param, "window_attributes")] [NativeName(NativeNameType.Type, "EGLint const *")] int* windowAttributes, [NativeName(NativeNameType.Param, "num_entries")] [NativeName(NativeNameType.Type, "EGLint")] int numEntries);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETWINDOWATTRIBUTESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetwindowattributesextproc([NativeName(NativeNameType.Param, "external_win_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalWinId, [NativeName(NativeNameType.Param, "window_attributes")] [NativeName(NativeNameType.Type, "EGLint const *")] nint windowAttributes, [NativeName(NativeNameType.Param, "num_entries")] [NativeName(NativeNameType.Type, "EGLint")] int numEntries);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORBINDTEXWINDOWEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorbindtexwindowextproc([NativeName(NativeNameType.Param, "external_win_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalWinId);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORBINDTEXWINDOWEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorbindtexwindowextproc([NativeName(NativeNameType.Param, "external_win_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalWinId);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETSIZEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetsizeextproc([NativeName(NativeNameType.Param, "external_win_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalWinId, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "EGLint")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "EGLint")] int height);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSETSIZEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorsetsizeextproc([NativeName(NativeNameType.Param, "external_win_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalWinId, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "EGLint")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "EGLint")] int height);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSWAPPOLICYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorswappolicyextproc([NativeName(NativeNameType.Param, "external_win_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalWinId, [NativeName(NativeNameType.Param, "policy")] [NativeName(NativeNameType.Type, "EGLint")] int policy);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCOMPOSITORSWAPPOLICYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglcompositorswappolicyextproc([NativeName(NativeNameType.Param, "external_win_id")] [NativeName(NativeNameType.Type, "EGLint")] int externalWinId, [NativeName(NativeNameType.Param, "policy")] [NativeName(NativeNameType.Type, "EGLint")] int policy);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEVICEATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydeviceattribextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] EGLDeviceEXT device, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
+	public unsafe delegate uint Pfneglquerydeviceattribextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] void* device, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEVICEATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydeviceattribextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] EGLDeviceEXT device, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
+	public unsafe delegate uint Pfneglquerydeviceattribextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] nint device, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEVICESTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte* Pfneglquerydevicestringextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] EGLDeviceEXT device, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate byte* Pfneglquerydevicestringextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] void* device, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEVICESTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint Pfneglquerydevicestringextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] EGLDeviceEXT device, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate nint Pfneglquerydevicestringextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] nint device, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEVICESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydevicesextproc([NativeName(NativeNameType.Param, "max_devices")] [NativeName(NativeNameType.Type, "EGLint")] int maxDevices, [NativeName(NativeNameType.Param, "devices")] [NativeName(NativeNameType.Type, "EGLDeviceEXT *")] EGLDeviceEXT* devices, [NativeName(NativeNameType.Param, "num_devices")] [NativeName(NativeNameType.Type, "EGLint *")] int* numDevices);
+	public unsafe delegate uint Pfneglquerydevicesextproc([NativeName(NativeNameType.Param, "max_devices")] [NativeName(NativeNameType.Type, "EGLint")] int maxDevices, [NativeName(NativeNameType.Param, "devices")] [NativeName(NativeNameType.Type, "EGLDeviceEXT *")] void** devices, [NativeName(NativeNameType.Param, "num_devices")] [NativeName(NativeNameType.Type, "EGLint *")] int* numDevices);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEVICESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate uint Pfneglquerydevicesextproc([NativeName(NativeNameType.Param, "max_devices")] [NativeName(NativeNameType.Type, "EGLint")] int maxDevices, [NativeName(NativeNameType.Param, "devices")] [NativeName(NativeNameType.Type, "EGLDeviceEXT *")] nint devices, [NativeName(NativeNameType.Param, "num_devices")] [NativeName(NativeNameType.Type, "EGLint *")] nint numDevices);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDISPLAYATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydisplayattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
+	public unsafe delegate uint Pfneglquerydisplayattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDISPLAYATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydisplayattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
+	public unsafe delegate uint Pfneglquerydisplayattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEVICEBINARYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydevicebinaryextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] EGLDeviceEXT device, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name, [NativeName(NativeNameType.Param, "max_size")] [NativeName(NativeNameType.Type, "EGLint")] int maxSize, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint *")] int* size);
+	public unsafe delegate uint Pfneglquerydevicebinaryextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] void* device, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name, [NativeName(NativeNameType.Param, "max_size")] [NativeName(NativeNameType.Type, "EGLint")] int maxSize, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint *")] int* size);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDEVICEBINARYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydevicebinaryextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] EGLDeviceEXT device, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name, [NativeName(NativeNameType.Param, "max_size")] [NativeName(NativeNameType.Type, "EGLint")] int maxSize, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint *")] nint size);
+	public unsafe delegate uint Pfneglquerydevicebinaryextproc([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "EGLDeviceEXT")] nint device, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name, [NativeName(NativeNameType.Param, "max_size")] [NativeName(NativeNameType.Type, "EGLint")] int maxSize, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] nint value, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint *")] nint size);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDMABUFFORMATSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydmabufformatsextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "max_formats")] [NativeName(NativeNameType.Type, "EGLint")] int maxFormats, [NativeName(NativeNameType.Param, "formats")] [NativeName(NativeNameType.Type, "EGLint *")] int* formats, [NativeName(NativeNameType.Param, "num_formats")] [NativeName(NativeNameType.Type, "EGLint *")] int* numFormats);
+	public unsafe delegate uint Pfneglquerydmabufformatsextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "max_formats")] [NativeName(NativeNameType.Type, "EGLint")] int maxFormats, [NativeName(NativeNameType.Param, "formats")] [NativeName(NativeNameType.Type, "EGLint *")] int* formats, [NativeName(NativeNameType.Param, "num_formats")] [NativeName(NativeNameType.Type, "EGLint *")] int* numFormats);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDMABUFFORMATSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydmabufformatsextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "max_formats")] [NativeName(NativeNameType.Type, "EGLint")] int maxFormats, [NativeName(NativeNameType.Param, "formats")] [NativeName(NativeNameType.Type, "EGLint *")] nint formats, [NativeName(NativeNameType.Param, "num_formats")] [NativeName(NativeNameType.Type, "EGLint *")] nint numFormats);
+	public unsafe delegate uint Pfneglquerydmabufformatsextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "max_formats")] [NativeName(NativeNameType.Type, "EGLint")] int maxFormats, [NativeName(NativeNameType.Param, "formats")] [NativeName(NativeNameType.Type, "EGLint *")] nint formats, [NativeName(NativeNameType.Param, "num_formats")] [NativeName(NativeNameType.Type, "EGLint *")] nint numFormats);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDMABUFMODIFIERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydmabufmodifiersextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "EGLint")] int format, [NativeName(NativeNameType.Param, "max_modifiers")] [NativeName(NativeNameType.Type, "EGLint")] int maxModifiers, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] ulong* modifiers, [NativeName(NativeNameType.Param, "external_only")] [NativeName(NativeNameType.Type, "EGLBoolean *")] uint* externalOnly, [NativeName(NativeNameType.Param, "num_modifiers")] [NativeName(NativeNameType.Type, "EGLint *")] int* numModifiers);
+	public unsafe delegate uint Pfneglquerydmabufmodifiersextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "EGLint")] int format, [NativeName(NativeNameType.Param, "max_modifiers")] [NativeName(NativeNameType.Type, "EGLint")] int maxModifiers, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] ulong* modifiers, [NativeName(NativeNameType.Param, "external_only")] [NativeName(NativeNameType.Type, "EGLBoolean *")] uint* externalOnly, [NativeName(NativeNameType.Param, "num_modifiers")] [NativeName(NativeNameType.Type, "EGLint *")] int* numModifiers);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDMABUFMODIFIERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydmabufmodifiersextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "EGLint")] int format, [NativeName(NativeNameType.Param, "max_modifiers")] [NativeName(NativeNameType.Type, "EGLint")] int maxModifiers, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] nint modifiers, [NativeName(NativeNameType.Param, "external_only")] [NativeName(NativeNameType.Type, "EGLBoolean *")] nint externalOnly, [NativeName(NativeNameType.Param, "num_modifiers")] [NativeName(NativeNameType.Type, "EGLint *")] nint numModifiers);
+	public unsafe delegate uint Pfneglquerydmabufmodifiersextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "EGLint")] int format, [NativeName(NativeNameType.Param, "max_modifiers")] [NativeName(NativeNameType.Type, "EGLint")] int maxModifiers, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] nint modifiers, [NativeName(NativeNameType.Param, "external_only")] [NativeName(NativeNameType.Type, "EGLBoolean *")] nint externalOnly, [NativeName(NativeNameType.Param, "num_modifiers")] [NativeName(NativeNameType.Type, "EGLint *")] nint numModifiers);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETOUTPUTLAYERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetoutputlayersextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList, [NativeName(NativeNameType.Param, "layers")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT *")] EGLOutputLayerEXT* layers, [NativeName(NativeNameType.Param, "max_layers")] [NativeName(NativeNameType.Type, "EGLint")] int maxLayers, [NativeName(NativeNameType.Param, "num_layers")] [NativeName(NativeNameType.Type, "EGLint *")] int* numLayers);
+	public unsafe delegate uint Pfneglgetoutputlayersextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList, [NativeName(NativeNameType.Param, "layers")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT *")] void** layers, [NativeName(NativeNameType.Param, "max_layers")] [NativeName(NativeNameType.Type, "EGLint")] int maxLayers, [NativeName(NativeNameType.Param, "num_layers")] [NativeName(NativeNameType.Type, "EGLint *")] int* numLayers);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETOUTPUTLAYERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetoutputlayersextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList, [NativeName(NativeNameType.Param, "layers")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT *")] nint layers, [NativeName(NativeNameType.Param, "max_layers")] [NativeName(NativeNameType.Type, "EGLint")] int maxLayers, [NativeName(NativeNameType.Param, "num_layers")] [NativeName(NativeNameType.Type, "EGLint *")] nint numLayers);
+	public unsafe delegate uint Pfneglgetoutputlayersextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList, [NativeName(NativeNameType.Param, "layers")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT *")] nint layers, [NativeName(NativeNameType.Param, "max_layers")] [NativeName(NativeNameType.Type, "EGLint")] int maxLayers, [NativeName(NativeNameType.Param, "num_layers")] [NativeName(NativeNameType.Type, "EGLint *")] nint numLayers);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETOUTPUTPORTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetoutputportsextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList, [NativeName(NativeNameType.Param, "ports")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT *")] EGLOutputPortEXT* ports, [NativeName(NativeNameType.Param, "max_ports")] [NativeName(NativeNameType.Type, "EGLint")] int maxPorts, [NativeName(NativeNameType.Param, "num_ports")] [NativeName(NativeNameType.Type, "EGLint *")] int* numPorts);
+	public unsafe delegate uint Pfneglgetoutputportsextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList, [NativeName(NativeNameType.Param, "ports")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT *")] void** ports, [NativeName(NativeNameType.Param, "max_ports")] [NativeName(NativeNameType.Type, "EGLint")] int maxPorts, [NativeName(NativeNameType.Param, "num_ports")] [NativeName(NativeNameType.Type, "EGLint *")] int* numPorts);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETOUTPUTPORTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetoutputportsextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList, [NativeName(NativeNameType.Param, "ports")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT *")] nint ports, [NativeName(NativeNameType.Param, "max_ports")] [NativeName(NativeNameType.Type, "EGLint")] int maxPorts, [NativeName(NativeNameType.Param, "num_ports")] [NativeName(NativeNameType.Type, "EGLint *")] nint numPorts);
+	public unsafe delegate uint Pfneglgetoutputportsextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList, [NativeName(NativeNameType.Param, "ports")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT *")] nint ports, [NativeName(NativeNameType.Param, "max_ports")] [NativeName(NativeNameType.Type, "EGLint")] int maxPorts, [NativeName(NativeNameType.Param, "num_ports")] [NativeName(NativeNameType.Type, "EGLint *")] nint numPorts);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLOUTPUTLAYERATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegloutputlayerattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] EGLOutputLayerEXT layer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
+	public unsafe delegate uint Pfnegloutputlayerattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] void* layer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLOUTPUTLAYERATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegloutputlayerattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] EGLOutputLayerEXT layer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
+	public unsafe delegate uint Pfnegloutputlayerattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] nint layer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYOUTPUTLAYERATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglqueryoutputlayerattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] EGLOutputLayerEXT layer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
+	public unsafe delegate uint Pfneglqueryoutputlayerattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] void* layer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYOUTPUTLAYERATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglqueryoutputlayerattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] EGLOutputLayerEXT layer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
+	public unsafe delegate uint Pfneglqueryoutputlayerattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] nint layer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYOUTPUTLAYERSTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte* Pfneglqueryoutputlayerstringextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] EGLOutputLayerEXT layer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate byte* Pfneglqueryoutputlayerstringextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] void* layer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYOUTPUTLAYERSTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint Pfneglqueryoutputlayerstringextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] EGLOutputLayerEXT layer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate nint Pfneglqueryoutputlayerstringextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] nint layer, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLOUTPUTPORTATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegloutputportattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] EGLOutputPortEXT port, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
+	public unsafe delegate uint Pfnegloutputportattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] void* port, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLOUTPUTPORTATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegloutputportattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] EGLOutputPortEXT port, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
+	public unsafe delegate uint Pfnegloutputportattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] nint port, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYOUTPUTPORTATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglqueryoutputportattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] EGLOutputPortEXT port, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
+	public unsafe delegate uint Pfneglqueryoutputportattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] void* port, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYOUTPUTPORTATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglqueryoutputportattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] EGLOutputPortEXT port, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
+	public unsafe delegate uint Pfneglqueryoutputportattribextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] nint port, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYOUTPUTPORTSTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte* Pfneglqueryoutputportstringextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] EGLOutputPortEXT port, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate byte* Pfneglqueryoutputportstringextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] void* port, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYOUTPUTPORTSTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint Pfneglqueryoutputportstringextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] EGLOutputPortEXT port, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
+	public unsafe delegate nint Pfneglqueryoutputportstringextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "port")] [NativeName(NativeNameType.Type, "EGLOutputPortEXT")] nint port, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETPLATFORMDISPLAYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLDisplay Pfneglgetplatformdisplayextproc([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void *")] void* nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglgetplatformdisplayextproc([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void *")] void* nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETPLATFORMDISPLAYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLDisplay Pfneglgetplatformdisplayextproc([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void *")] nint nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglgetplatformdisplayextproc([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void *")] nint nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPLATFORMWINDOWSURFACEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreateplatformwindowsurfaceextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void *")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreateplatformwindowsurfaceextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void *")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPLATFORMWINDOWSURFACEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreateplatformwindowsurfaceextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void *")] nint nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreateplatformwindowsurfaceextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void *")] nint nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPLATFORMPIXMAPSURFACEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreateplatformpixmapsurfaceextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void *")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreateplatformpixmapsurfaceextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void *")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPLATFORMPIXMAPSURFACEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreateplatformpixmapsurfaceextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void *")] nint nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreateplatformpixmapsurfaceextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void *")] nint nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMEROUTPUTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumeroutputextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] EGLOutputLayerEXT layer);
+	public unsafe delegate uint Pfneglstreamconsumeroutputextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] void* layer);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMEROUTPUTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumeroutputextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] EGLOutputLayerEXT layer);
+	public unsafe delegate uint Pfneglstreamconsumeroutputextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "EGLOutputLayerEXT")] nint layer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSUPPORTEDCOMPRESSIONRATESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerysupportedcompressionratesextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList, [NativeName(NativeNameType.Param, "rates")] [NativeName(NativeNameType.Type, "EGLint *")] int* rates, [NativeName(NativeNameType.Param, "rate_size")] [NativeName(NativeNameType.Type, "EGLint")] int rateSize, [NativeName(NativeNameType.Param, "num_rates")] [NativeName(NativeNameType.Type, "EGLint *")] int* numRates);
+	public unsafe delegate uint Pfneglquerysupportedcompressionratesextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList, [NativeName(NativeNameType.Param, "rates")] [NativeName(NativeNameType.Type, "EGLint *")] int* rates, [NativeName(NativeNameType.Param, "rate_size")] [NativeName(NativeNameType.Type, "EGLint")] int rateSize, [NativeName(NativeNameType.Param, "num_rates")] [NativeName(NativeNameType.Type, "EGLint *")] int* numRates);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSUPPORTEDCOMPRESSIONRATESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerysupportedcompressionratesextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList, [NativeName(NativeNameType.Param, "rates")] [NativeName(NativeNameType.Type, "EGLint *")] nint rates, [NativeName(NativeNameType.Param, "rate_size")] [NativeName(NativeNameType.Type, "EGLint")] int rateSize, [NativeName(NativeNameType.Param, "num_rates")] [NativeName(NativeNameType.Type, "EGLint *")] nint numRates);
+	public unsafe delegate uint Pfneglquerysupportedcompressionratesextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList, [NativeName(NativeNameType.Param, "rates")] [NativeName(NativeNameType.Type, "EGLint *")] nint rates, [NativeName(NativeNameType.Param, "rate_size")] [NativeName(NativeNameType.Type, "EGLint")] int rateSize, [NativeName(NativeNameType.Param, "num_rates")] [NativeName(NativeNameType.Type, "EGLint *")] nint numRates);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSWITHDAMAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbufferswithdamageextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] int* rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
+	public unsafe delegate uint Pfneglswapbufferswithdamageextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] int* rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSWITHDAMAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbufferswithdamageextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] nint rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
+	public unsafe delegate uint Pfneglswapbufferswithdamageextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] nint rects, [NativeName(NativeNameType.Param, "n_rects")] [NativeName(NativeNameType.Type, "EGLint")] int nRects);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLUNSIGNALSYNCEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglunsignalsyncextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate uint Pfneglunsignalsyncextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] void* sync, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLUNSIGNALSYNCEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglunsignalsyncextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate uint Pfneglunsignalsyncextproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] nint sync, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPIXMAPSURFACEHIPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatepixmapsurfacehiproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLClientPixmapHI *")] EGLClientPixmapHI* pixmap);
+	public unsafe delegate void* Pfneglcreatepixmapsurfacehiproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] void* config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLClientPixmapHI *")] EGLClientPixmapHI* pixmap);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEPIXMAPSURFACEHIPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSurface Pfneglcreatepixmapsurfacehiproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLClientPixmapHI *")] nint pixmap);
+	public unsafe delegate nint Pfneglcreatepixmapsurfacehiproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] nint config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLClientPixmapHI *")] nint pixmap);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEDRMIMAGEMESAPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLImageKHR Pfneglcreatedrmimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatedrmimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEDRMIMAGEMESAPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLImageKHR Pfneglcreatedrmimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatedrmimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLEXPORTDRMIMAGEMESAPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglexportdrmimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint *")] int* name, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "EGLint *")] int* handle, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "EGLint *")] int* stride);
+	public unsafe delegate uint Pfneglexportdrmimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] void* image, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint *")] int* name, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "EGLint *")] int* handle, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "EGLint *")] int* stride);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLEXPORTDRMIMAGEMESAPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglexportdrmimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint *")] nint name, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "EGLint *")] nint handle, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "EGLint *")] nint stride);
+	public unsafe delegate uint Pfneglexportdrmimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] nint image, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint *")] nint name, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "EGLint *")] nint handle, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "EGLint *")] nint stride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLEXPORTDMABUFIMAGEQUERYMESAPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglexportdmabufimagequerymesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image, [NativeName(NativeNameType.Param, "fourcc")] [NativeName(NativeNameType.Type, "int *")] int* fourcc, [NativeName(NativeNameType.Param, "num_planes")] [NativeName(NativeNameType.Type, "int *")] int* numPlanes, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] ulong* modifiers);
+	public unsafe delegate uint Pfneglexportdmabufimagequerymesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] void* image, [NativeName(NativeNameType.Param, "fourcc")] [NativeName(NativeNameType.Type, "int *")] int* fourcc, [NativeName(NativeNameType.Param, "num_planes")] [NativeName(NativeNameType.Type, "int *")] int* numPlanes, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] ulong* modifiers);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLEXPORTDMABUFIMAGEQUERYMESAPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglexportdmabufimagequerymesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image, [NativeName(NativeNameType.Param, "fourcc")] [NativeName(NativeNameType.Type, "int *")] nint fourcc, [NativeName(NativeNameType.Param, "num_planes")] [NativeName(NativeNameType.Type, "int *")] nint numPlanes, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] nint modifiers);
+	public unsafe delegate uint Pfneglexportdmabufimagequerymesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] nint image, [NativeName(NativeNameType.Param, "fourcc")] [NativeName(NativeNameType.Type, "int *")] nint fourcc, [NativeName(NativeNameType.Param, "num_planes")] [NativeName(NativeNameType.Type, "int *")] nint numPlanes, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR *")] nint modifiers);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLEXPORTDMABUFIMAGEMESAPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglexportdmabufimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image, [NativeName(NativeNameType.Param, "fds")] [NativeName(NativeNameType.Type, "int *")] int* fds, [NativeName(NativeNameType.Param, "strides")] [NativeName(NativeNameType.Type, "EGLint *")] int* strides, [NativeName(NativeNameType.Param, "offsets")] [NativeName(NativeNameType.Type, "EGLint *")] int* offsets);
+	public unsafe delegate uint Pfneglexportdmabufimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] void* image, [NativeName(NativeNameType.Param, "fds")] [NativeName(NativeNameType.Type, "int *")] int* fds, [NativeName(NativeNameType.Param, "strides")] [NativeName(NativeNameType.Type, "EGLint *")] int* strides, [NativeName(NativeNameType.Param, "offsets")] [NativeName(NativeNameType.Type, "EGLint *")] int* offsets);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLEXPORTDMABUFIMAGEMESAPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglexportdmabufimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image, [NativeName(NativeNameType.Param, "fds")] [NativeName(NativeNameType.Type, "int *")] nint fds, [NativeName(NativeNameType.Param, "strides")] [NativeName(NativeNameType.Type, "EGLint *")] nint strides, [NativeName(NativeNameType.Param, "offsets")] [NativeName(NativeNameType.Type, "EGLint *")] nint offsets);
+	public unsafe delegate uint Pfneglexportdmabufimagemesaproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] nint image, [NativeName(NativeNameType.Param, "fds")] [NativeName(NativeNameType.Type, "int *")] nint fds, [NativeName(NativeNameType.Param, "strides")] [NativeName(NativeNameType.Type, "EGLint *")] nint strides, [NativeName(NativeNameType.Param, "offsets")] [NativeName(NativeNameType.Type, "EGLint *")] nint offsets);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETDISPLAYDRIVERCONFIGPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte* Pfneglgetdisplaydriverconfigproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy);
+	public unsafe delegate byte* Pfneglgetdisplaydriverconfigproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETDISPLAYDRIVERCONFIGPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint Pfneglgetdisplaydriverconfigproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy);
+	public unsafe delegate nint Pfneglgetdisplaydriverconfigproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETDISPLAYDRIVERNAMEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte* Pfneglgetdisplaydrivernameproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy);
+	public unsafe delegate byte* Pfneglgetdisplaydrivernameproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETDISPLAYDRIVERNAMEPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint Pfneglgetdisplaydrivernameproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy);
+	public unsafe delegate nint Pfneglgetdisplaydrivernameproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSREGIONNOKPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbuffersregionnokproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "numRects")] [NativeName(NativeNameType.Type, "EGLint")] int numRects, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] int* rects);
+	public unsafe delegate uint Pfneglswapbuffersregionnokproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "numRects")] [NativeName(NativeNameType.Type, "EGLint")] int numRects, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] int* rects);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSREGIONNOKPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbuffersregionnokproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "numRects")] [NativeName(NativeNameType.Type, "EGLint")] int numRects, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] nint rects);
+	public unsafe delegate uint Pfneglswapbuffersregionnokproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "numRects")] [NativeName(NativeNameType.Type, "EGLint")] int numRects, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] nint rects);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSREGION2NOKPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbuffersregion2Nokproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "numRects")] [NativeName(NativeNameType.Type, "EGLint")] int numRects, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] int* rects);
+	public unsafe delegate uint Pfneglswapbuffersregion2Nokproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "numRects")] [NativeName(NativeNameType.Type, "EGLint")] int numRects, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] int* rects);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSWAPBUFFERSREGION2NOKPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglswapbuffersregion2Nokproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "numRects")] [NativeName(NativeNameType.Type, "EGLint")] int numRects, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] nint rects);
+	public unsafe delegate uint Pfneglswapbuffersregion2Nokproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "numRects")] [NativeName(NativeNameType.Type, "EGLint")] int numRects, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "EGLint const *")] nint rects);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYNATIVEDISPLAYNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerynativedisplaynvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType *")] nint* displayId);
+	public unsafe delegate uint Pfneglquerynativedisplaynvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType *")] nint* displayId);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYNATIVEDISPLAYNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerynativedisplaynvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType *")] nint displayId);
+	public unsafe delegate uint Pfneglquerynativedisplaynvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType *")] nint displayId);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYNATIVEWINDOWNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerynativewindownvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surf")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surf, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "EGLNativeWindowType *")] nint* window);
+	public unsafe delegate uint Pfneglquerynativewindownvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surf")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surf, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "EGLNativeWindowType *")] nint* window);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYNATIVEWINDOWNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerynativewindownvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surf")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surf, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "EGLNativeWindowType *")] nint window);
+	public unsafe delegate uint Pfneglquerynativewindownvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surf")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surf, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "EGLNativeWindowType *")] nint window);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYNATIVEPIXMAPNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerynativepixmapnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surf")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surf, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType *")] nint* pixmap);
+	public unsafe delegate uint Pfneglquerynativepixmapnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surf")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surf, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType *")] nint* pixmap);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYNATIVEPIXMAPNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerynativepixmapnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surf")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surf, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType *")] nint pixmap);
+	public unsafe delegate uint Pfneglquerynativepixmapnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surf")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surf, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType *")] nint pixmap);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLPOSTSUBBUFFERNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglpostsubbuffernvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "EGLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "EGLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "EGLint")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "EGLint")] int height);
+	public unsafe delegate uint Pfneglpostsubbuffernvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] void* surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "EGLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "EGLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "EGLint")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "EGLint")] int height);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLPOSTSUBBUFFERNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglpostsubbuffernvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "EGLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "EGLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "EGLint")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "EGLint")] int height);
+	public unsafe delegate uint Pfneglpostsubbuffernvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] nint surface, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "EGLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "EGLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "EGLint")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "EGLint")] int height);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMIMAGECONSUMERCONNECTNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamimageconsumerconnectnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "num_modifiers")] [NativeName(NativeNameType.Type, "EGLint")] int numModifiers, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR const *")] ulong* modifiers, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate uint Pfneglstreamimageconsumerconnectnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "num_modifiers")] [NativeName(NativeNameType.Type, "EGLint")] int numModifiers, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR const *")] ulong* modifiers, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMIMAGECONSUMERCONNECTNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamimageconsumerconnectnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "num_modifiers")] [NativeName(NativeNameType.Type, "EGLint")] int numModifiers, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR const *")] nint modifiers, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate uint Pfneglstreamimageconsumerconnectnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "num_modifiers")] [NativeName(NativeNameType.Type, "EGLint")] int numModifiers, [NativeName(NativeNameType.Param, "modifiers")] [NativeName(NativeNameType.Type, "EGLuint64KHR const *")] nint modifiers, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMCONSUMEREVENTNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglquerystreamconsumereventnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "EGLenum *")] uint* evnt, [NativeName(NativeNameType.Param, "aux")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* aux);
+	public unsafe delegate int Pfneglquerystreamconsumereventnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "EGLenum *")] uint* evnt, [NativeName(NativeNameType.Param, "aux")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* aux);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMCONSUMEREVENTNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglquerystreamconsumereventnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "EGLenum *")] nint evnt, [NativeName(NativeNameType.Param, "aux")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint aux);
+	public unsafe delegate int Pfneglquerystreamconsumereventnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "EGLenum *")] nint evnt, [NativeName(NativeNameType.Param, "aux")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint aux);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMACQUIREIMAGENVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamacquireimagenvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "pImage")] [NativeName(NativeNameType.Type, "EGLImage *")] EGLImage* pImage, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync);
+	public unsafe delegate uint Pfneglstreamacquireimagenvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "pImage")] [NativeName(NativeNameType.Type, "EGLImage *")] void** pImage, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] void* sync);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMACQUIREIMAGENVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamacquireimagenvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "pImage")] [NativeName(NativeNameType.Type, "EGLImage *")] nint pImage, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync);
+	public unsafe delegate uint Pfneglstreamacquireimagenvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "pImage")] [NativeName(NativeNameType.Type, "EGLImage *")] nint pImage, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] nint sync);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMRELEASEIMAGENVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamreleaseimagenvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] EGLImage image, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync);
+	public unsafe delegate uint Pfneglstreamreleaseimagenvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] void* image, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] void* sync);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMRELEASEIMAGENVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamreleaseimagenvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] EGLImage image, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync);
+	public unsafe delegate uint Pfneglstreamreleaseimagenvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] nint image, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] nint sync);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALATTRIBSNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumergltextureexternalattribsnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
+	public unsafe delegate uint Pfneglstreamconsumergltextureexternalattribsnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALATTRIBSNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamconsumergltextureexternalattribsnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
+	public unsafe delegate uint Pfneglstreamconsumergltextureexternalattribsnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLAttrib const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMFLUSHNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamflushnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglstreamflushnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSTREAMFLUSHNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglstreamflushnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglstreamflushnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDISPLAYATTRIBNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydisplayattribnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
+	public unsafe delegate uint Pfneglquerydisplayattribnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYDISPLAYATTRIBNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerydisplayattribnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
+	public unsafe delegate uint Pfneglquerydisplayattribnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSETSTREAMMETADATANVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsetstreammetadatanvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "EGLint")] int n, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "EGLint")] int offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint")] int size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data);
+	public unsafe delegate uint Pfneglsetstreammetadatanvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "EGLint")] int n, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "EGLint")] int offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint")] int size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSETSTREAMMETADATANVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsetstreammetadatanvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "EGLint")] int n, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "EGLint")] int offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint")] int size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data);
+	public unsafe delegate uint Pfneglsetstreammetadatanvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "EGLint")] int n, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "EGLint")] int offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint")] int size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMMETADATANVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreammetadatanvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLenum")] uint name, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "EGLint")] int n, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "EGLint")] int offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint")] int size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data);
+	public unsafe delegate uint Pfneglquerystreammetadatanvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLenum")] uint name, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "EGLint")] int n, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "EGLint")] int offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint")] int size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYSTREAMMETADATANVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerystreammetadatanvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLenum")] uint name, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "EGLint")] int n, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "EGLint")] int offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint")] int size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data);
+	public unsafe delegate uint Pfneglquerystreammetadatanvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLenum")] uint name, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "EGLint")] int n, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "EGLint")] int offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "EGLint")] int size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLRESETSTREAMNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglresetstreamnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglresetstreamnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLRESETSTREAMNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglresetstreamnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream);
+	public unsafe delegate uint Pfneglresetstreamnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMSYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSyncKHR Pfneglcreatestreamsyncnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatestreamsyncnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] void* stream, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATESTREAMSYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSyncKHR Pfneglcreatestreamsyncnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] EGLStreamKHR stream, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatestreamsyncnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "EGLStreamKHR")] nint stream, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEFENCESYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSyncNV Pfneglcreatefencesyncnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "condition")] [NativeName(NativeNameType.Type, "EGLenum")] uint condition, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
+	public unsafe delegate void* Pfneglcreatefencesyncnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "condition")] [NativeName(NativeNameType.Type, "EGLenum")] uint condition, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] int* attribList);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEFENCESYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate EGLSyncNV Pfneglcreatefencesyncnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "condition")] [NativeName(NativeNameType.Type, "EGLenum")] uint condition, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
+	public unsafe delegate nint Pfneglcreatefencesyncnvproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "condition")] [NativeName(NativeNameType.Type, "EGLenum")] uint condition, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "EGLint const *")] nint attribList);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroysyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync);
+	public unsafe delegate uint Pfnegldestroysyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] void* sync);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLDESTROYSYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfnegldestroysyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync);
+	public unsafe delegate uint Pfnegldestroysyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] nint sync);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLFENCENVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglfencenvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync);
+	public unsafe delegate uint Pfneglfencenvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] void* sync);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLFENCENVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglfencenvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync);
+	public unsafe delegate uint Pfneglfencenvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] nint sync);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCLIENTWAITSYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglclientwaitsyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTimeNV")] ulong timeout);
+	public unsafe delegate int Pfneglclientwaitsyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] void* sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTimeNV")] ulong timeout);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCLIENTWAITSYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Pfneglclientwaitsyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTimeNV")] ulong timeout);
+	public unsafe delegate int Pfneglclientwaitsyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] nint sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTimeNV")] ulong timeout);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLSIGNALSYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsignalsyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "EGLenum")] uint mode);
+	public unsafe delegate uint Pfneglsignalsyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] void* sync, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "EGLenum")] uint mode);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLSIGNALSYNCNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglsignalsyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "EGLenum")] uint mode);
+	public unsafe delegate uint Pfneglsignalsyncnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] nint sync, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "EGLenum")] uint mode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYNCATTRIBNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetsyncattribnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
+	public unsafe delegate uint Pfneglgetsyncattribnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] void* sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYNCATTRIBNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglgetsyncattribnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] EGLSyncNV sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
+	public unsafe delegate uint Pfneglgetsyncattribnvproc([NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSyncNV")] nint sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYSTEMTIMEFREQUENCYNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong Pfneglgetsystemtimefrequencynvproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYSTEMTIMEFREQUENCYNVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong Pfneglgetsystemtimefrequencynvproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYSTEMTIMENVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong Pfneglgetsystemtimenvproc();
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLGETSYSTEMTIMENVPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong Pfneglgetsystemtimenvproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLBINDWAYLANDDISPLAYWLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglbindwaylanddisplaywlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "wl_display *")] WlDisplay* display);
+	public unsafe delegate uint Pfneglbindwaylanddisplaywlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "wl_display *")] WlDisplay* display);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLBINDWAYLANDDISPLAYWLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglbindwaylanddisplaywlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "wl_display *")] nint display);
+	public unsafe delegate uint Pfneglbindwaylanddisplaywlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "wl_display *")] nint display);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLUNBINDWAYLANDDISPLAYWLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglunbindwaylanddisplaywlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "wl_display *")] WlDisplay* display);
+	public unsafe delegate uint Pfneglunbindwaylanddisplaywlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "wl_display *")] WlDisplay* display);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLUNBINDWAYLANDDISPLAYWLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglunbindwaylanddisplaywlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "wl_display *")] nint display);
+	public unsafe delegate uint Pfneglunbindwaylanddisplaywlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "wl_display *")] nint display);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYWAYLANDBUFFERWLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerywaylandbufferwlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "wl_resource *")] WlResource* buffer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
+	public unsafe delegate uint Pfneglquerywaylandbufferwlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "wl_resource *")] WlResource* buffer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] int* value);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLQUERYWAYLANDBUFFERWLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint Pfneglquerywaylandbufferwlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "wl_resource *")] nint buffer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
+	public unsafe delegate uint Pfneglquerywaylandbufferwlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "wl_resource *")] nint buffer, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEWAYLANDBUFFERFROMIMAGEWLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate WlBuffer* Pfneglcreatewaylandbufferfromimagewlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image);
+	public unsafe delegate WlBuffer* Pfneglcreatewaylandbufferfromimagewlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] void* dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] void* image);
 
 	#else
+	[NativeName(NativeNameType.Delegate, "PFNEGLCREATEWAYLANDBUFFERFROMIMAGEWLPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint Pfneglcreatewaylandbufferfromimagewlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] EGLImageKHR image);
+	public unsafe delegate nint Pfneglcreatewaylandbufferfromimagewlproc([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] nint dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImageKHR")] nint image);
 
 	#endif
 
@@ -3233,6 +3773,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_main_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLMainFunc([NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] byte** argv);
 
@@ -3242,6 +3783,7 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_main_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLMainFunc([NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] nint argv);
 
@@ -3254,6 +3796,7 @@ namespace Hexa.NET.SDL3
 	/// Function pointer parsing one argument at argv[index], returning the number of parsed arguments,<br/>
 	/// or a negative value when the argument is invalid <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_ParseArgumentsFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLTestParseArgumentsFp([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index);
 
@@ -3264,6 +3807,7 @@ namespace Hexa.NET.SDL3
 	/// Function pointer parsing one argument at argv[index], returning the number of parsed arguments,<br/>
 	/// or a negative value when the argument is invalid <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_ParseArgumentsFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLTestParseArgumentsFp([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] nint argv, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index);
 
@@ -3275,6 +3819,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Finalize the argument parser. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_FinalizeArgumentParserFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTestFinalizeArgumentParserFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
 
@@ -3284,6 +3829,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Finalize the argument parser. <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_FinalizeArgumentParserFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTestFinalizeArgumentParserFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
 
@@ -3295,6 +3841,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Function pointer to a test case setup function (run before every test) <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_TestCaseSetUpFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTestTestCaseSetUpFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void * *")] void** arg);
 
@@ -3304,6 +3851,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Function pointer to a test case setup function (run before every test) <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_TestCaseSetUpFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTestTestCaseSetUpFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void * *")] nint arg);
 
@@ -3315,6 +3863,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Function pointer to a test case function <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_TestCaseFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLTestTestCaseFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
 
@@ -3324,6 +3873,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Function pointer to a test case function <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_TestCaseFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLTestTestCaseFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
 
@@ -3335,6 +3885,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Function pointer to a test case teardown function (run after every test) <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_TestCaseTearDownFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTestTestCaseTearDownFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
 
@@ -3344,6 +3895,7 @@ namespace Hexa.NET.SDL3
 	/// <<br/>
 	/// Function pointer to a test case teardown function (run after every test) <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_TestCaseTearDownFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLTestTestCaseTearDownFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
 

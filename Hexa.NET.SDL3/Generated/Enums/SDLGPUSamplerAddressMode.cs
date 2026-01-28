@@ -18,22 +18,29 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_GPUSamplerAddressMode")]
 	[Flags]
 	public enum SDLGPUSamplerAddressMode : int
 	{
 		/// <summary>
 		/// Specifies that the coordinates will wrap around. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SAMPLERADDRESSMODE_REPEAT")]
+		[NativeName(NativeNameType.Value, "0")]
 		Repeat = unchecked(0),
 
 		/// <summary>
 		/// Specifies that the coordinates will wrap around mirrored. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SAMPLERADDRESSMODE_MIRRORED_REPEAT")]
+		[NativeName(NativeNameType.Value, "1")]
 		MirroredRepeat = unchecked(1),
 
 		/// <summary>
 		/// Specifies that the coordinates will clamp to the 0-1 range. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE")]
+		[NativeName(NativeNameType.Value, "2")]
 		ClampToEdge = unchecked(2),
 	}
 }

@@ -20,33 +20,45 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_GPUBlendOp")]
 	public enum SDLGPUBlendOp : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDOP_INVALID")]
+		[NativeName(NativeNameType.Value, "0")]
 		Invalid = unchecked(0),
 		/// <summary>
 		/// (source * source_factor) + (destination * destination_factor) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDOP_ADD")]
+		[NativeName(NativeNameType.Value, "1")]
 		Add = unchecked(1),
 
 		/// <summary>
 		/// (source * source_factor) - (destination * destination_factor) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDOP_SUBTRACT")]
+		[NativeName(NativeNameType.Value, "2")]
 		Subtract = unchecked(2),
 
 		/// <summary>
 		/// (destination * destination_factor) - (source * source_factor) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDOP_REVERSE_SUBTRACT")]
+		[NativeName(NativeNameType.Value, "3")]
 		ReverseSubtract = unchecked(3),
 
 		/// <summary>
 		/// min(source, destination) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDOP_MIN")]
+		[NativeName(NativeNameType.Value, "4")]
 		Min = unchecked(4),
 
 		/// <summary>
 		/// max(source, destination) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDOP_MAX")]
+		[NativeName(NativeNameType.Value, "5")]
 		Max = unchecked(5),
 	}
 }

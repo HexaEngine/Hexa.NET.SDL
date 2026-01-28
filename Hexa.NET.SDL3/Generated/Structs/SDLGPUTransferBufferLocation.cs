@@ -21,27 +21,87 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTransferBufferLocation")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTransferBufferLocation
 	{
 		/// <summary>
 		/// The transfer buffer used in the transfer operation. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "transfer_buffer")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTransferBuffer *")]
 		public unsafe SDLGPUTransferBuffer* TransferBuffer;
 
 		/// <summary>
 		/// The starting byte of the buffer data in the transfer buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "offset")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Offset;
 
 
-		public unsafe SDLGPUTransferBufferLocation(SDLGPUTransferBuffer* transferBuffer = default, uint offset = default)
+		public unsafe SDLGPUTransferBufferLocation(SDLGPUTransferBufferPtr transferBuffer = default, uint offset = default)
 		{
 			TransferBuffer = transferBuffer;
 			Offset = offset;
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying a location in a transfer buffer.<br/>
+	/// Used when transferring buffer data to or from a transfer buffer.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTransferBufferLocation")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTransferBufferLocationPtr : IEquatable<SDLGPUTransferBufferLocationPtr>
+	{
+		public SDLGPUTransferBufferLocationPtr(SDLGPUTransferBufferLocation* handle) { Handle = handle; }
+
+		public SDLGPUTransferBufferLocation* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTransferBufferLocationPtr Null => new SDLGPUTransferBufferLocationPtr(null);
+
+		public SDLGPUTransferBufferLocation this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTransferBufferLocationPtr(SDLGPUTransferBufferLocation* handle) => new SDLGPUTransferBufferLocationPtr(handle);
+
+		public static implicit operator SDLGPUTransferBufferLocation*(SDLGPUTransferBufferLocationPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTransferBufferLocationPtr left, SDLGPUTransferBufferLocationPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTransferBufferLocationPtr left, SDLGPUTransferBufferLocationPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTransferBufferLocationPtr left, SDLGPUTransferBufferLocation* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTransferBufferLocationPtr left, SDLGPUTransferBufferLocation* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTransferBufferLocationPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTransferBufferLocationPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTransferBufferLocationPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The transfer buffer used in the transfer operation. <br/>
+		/// </summary>
+		public ref SDLGPUTransferBufferPtr TransferBuffer => ref Unsafe.AsRef<SDLGPUTransferBufferPtr>(&Handle->TransferBuffer);
+		/// <summary>
+		/// The starting byte of the buffer data in the transfer buffer. <br/>
+		/// </summary>
+		public ref uint Offset => ref Unsafe.AsRef<uint>(&Handle->Offset);
 	}
 
 }

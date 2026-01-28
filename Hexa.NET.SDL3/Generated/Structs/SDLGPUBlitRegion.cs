@@ -20,46 +20,61 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBlitRegion")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBlitRegion
 	{
 		/// <summary>
 		/// The texture. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "texture")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The mip level index of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mip_level")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint MipLevel;
 
 		/// <summary>
 		/// The layer index or depth plane of the region. This value is treated as a layer index on 2D array and cube textures, and as a depth plane on 3D textures. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "layer_or_depth_plane")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint LayerOrDepthPlane;
 
 		/// <summary>
 		/// The left offset of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint X;
 
 		/// <summary>
 		/// The top offset of the region.  <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Y;
 
 		/// <summary>
 		/// The width of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "w")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint W;
 
 		/// <summary>
 		/// The height of the region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "h")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint H;
 
 
-		public unsafe SDLGPUBlitRegion(SDLGPUTexture* texture = default, uint mipLevel = default, uint layerOrDepthPlane = default, uint x = default, uint y = default, uint w = default, uint h = default)
+		public unsafe SDLGPUBlitRegion(SDLGPUTexturePtr texture = default, uint mipLevel = default, uint layerOrDepthPlane = default, uint x = default, uint y = default, uint w = default, uint h = default)
 		{
 			Texture = texture;
 			MipLevel = mipLevel;

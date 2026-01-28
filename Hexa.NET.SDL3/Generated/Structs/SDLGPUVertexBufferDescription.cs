@@ -28,27 +28,36 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUVertexBufferDescription")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUVertexBufferDescription
 	{
 		/// <summary>
 		/// The binding slot of the vertex buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "slot")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Slot;
 
 		/// <summary>
-		/// The byte pitch between consecutive elements of the vertex buffer. <br/>
+		/// The size of a single element + the offset between elements. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pitch")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Pitch;
 
 		/// <summary>
 		/// Whether attribute addressing is a function of the vertex index or instance index. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "input_rate")]
+		[NativeName(NativeNameType.Type, "SDL_GPUVertexInputRate")]
 		public SDLGPUVertexInputRate InputRate;
 
 		/// <summary>
 		/// Reserved for future use. Must be set to 0. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "instance_step_rate")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint InstanceStepRate;
 
 
@@ -61,6 +70,76 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of vertex buffers used in a graphics<br/>
+	/// pipeline.<br/>
+	/// When you call SDL_BindGPUVertexBuffers, you specify the binding slots of<br/>
+	/// the vertex buffers. For example if you called SDL_BindGPUVertexBuffers with<br/>
+	/// a first_slot of 2 and num_bindings of 3, the binding slots 2, 3, 4 would be<br/>
+	/// used by the vertex buffers you pass in.<br/>
+	/// Vertex attributes are linked to buffers via the buffer_slot field of<br/>
+	/// SDL_GPUVertexAttribute. For example, if an attribute has a buffer_slot of<br/>
+	/// 0, then that attribute belongs to the vertex buffer bound at slot 0.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUVertexBufferDescription")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUVertexBufferDescriptionPtr : IEquatable<SDLGPUVertexBufferDescriptionPtr>
+	{
+		public SDLGPUVertexBufferDescriptionPtr(SDLGPUVertexBufferDescription* handle) { Handle = handle; }
+
+		public SDLGPUVertexBufferDescription* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUVertexBufferDescriptionPtr Null => new SDLGPUVertexBufferDescriptionPtr(null);
+
+		public SDLGPUVertexBufferDescription this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUVertexBufferDescriptionPtr(SDLGPUVertexBufferDescription* handle) => new SDLGPUVertexBufferDescriptionPtr(handle);
+
+		public static implicit operator SDLGPUVertexBufferDescription*(SDLGPUVertexBufferDescriptionPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUVertexBufferDescriptionPtr left, SDLGPUVertexBufferDescriptionPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUVertexBufferDescriptionPtr left, SDLGPUVertexBufferDescriptionPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUVertexBufferDescriptionPtr left, SDLGPUVertexBufferDescription* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUVertexBufferDescriptionPtr left, SDLGPUVertexBufferDescription* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUVertexBufferDescriptionPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUVertexBufferDescriptionPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUVertexBufferDescriptionPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The binding slot of the vertex buffer. <br/>
+		/// </summary>
+		public ref uint Slot => ref Unsafe.AsRef<uint>(&Handle->Slot);
+		/// <summary>
+		/// The size of a single element + the offset between elements. <br/>
+		/// </summary>
+		public ref uint Pitch => ref Unsafe.AsRef<uint>(&Handle->Pitch);
+		/// <summary>
+		/// Whether attribute addressing is a function of the vertex index or instance index. <br/>
+		/// </summary>
+		public ref SDLGPUVertexInputRate InputRate => ref Unsafe.AsRef<SDLGPUVertexInputRate>(&Handle->InputRate);
+		/// <summary>
+		/// Reserved for future use. Must be set to 0. <br/>
+		/// </summary>
+		public ref uint InstanceStepRate => ref Unsafe.AsRef<uint>(&Handle->InstanceStepRate);
 	}
 
 }

@@ -26,10 +26,15 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_DialogFileFilter")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDialogFileFilter
 	{
+		[NativeName(NativeNameType.Field, "name")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Name;
+		[NativeName(NativeNameType.Field, "pattern")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Pattern;
 
 		public unsafe SDLDialogFileFilter(byte* name = default, byte* pattern = default)
@@ -39,6 +44,60 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// An entry for filters for file dialogs.<br/>
+	/// `name` is a user-readable label for the filter (for example, "Office<br/>
+	/// document").<br/>
+	/// `pattern` is a semicolon-separated list of file extensions (for example,<br/>
+	/// "doc;docx"). File extensions may only contain alphanumeric characters,<br/>
+	/// hyphens, underscores and periods. Alternatively, the whole string can be a<br/>
+	/// single asterisk ("*"), which serves as an "All files" filter.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_DialogFileFilter")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLDialogFileFilterPtr : IEquatable<SDLDialogFileFilterPtr>
+	{
+		public SDLDialogFileFilterPtr(SDLDialogFileFilter* handle) { Handle = handle; }
+
+		public SDLDialogFileFilter* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLDialogFileFilterPtr Null => new SDLDialogFileFilterPtr(null);
+
+		public SDLDialogFileFilter this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLDialogFileFilterPtr(SDLDialogFileFilter* handle) => new SDLDialogFileFilterPtr(handle);
+
+		public static implicit operator SDLDialogFileFilter*(SDLDialogFileFilterPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLDialogFileFilterPtr left, SDLDialogFileFilterPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLDialogFileFilterPtr left, SDLDialogFileFilterPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLDialogFileFilterPtr left, SDLDialogFileFilter* right) => left.Handle == right;
+
+		public static bool operator !=(SDLDialogFileFilterPtr left, SDLDialogFileFilter* right) => left.Handle != right;
+
+		public bool Equals(SDLDialogFileFilterPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLDialogFileFilterPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLDialogFileFilterPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public byte* Name { get => Handle->Name; set => Handle->Name = value; }
+		public byte* Pattern { get => Handle->Pattern; set => Handle->Pattern = value; }
 	}
 
 }

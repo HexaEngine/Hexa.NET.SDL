@@ -49,15 +49,58 @@ namespace Hexa.NET.SDL2
 		public int Enabled;
 
 
-		public unsafe SDLTestTestCaseReference(SDLTestTestCaseFp testCase = default, byte* name = default, byte* description = default, int enabled = default)
+		public unsafe SDLTestTestCaseReference(delegate*<void*, int> testCase = default, byte* name = default, byte* description = default, int enabled = default)
 		{
-			TestCase = (delegate*<void*, int>)Marshal.GetFunctionPointerForDelegate(testCase);
+			TestCase = (delegate*<void*, int>)testCase;
 			Name = name;
 			Description = description;
 			Enabled = enabled;
 		}
 
 
+	}
+
+	/// <summary>
+	/// Holds information about a single test case.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestTestCaseReferencePtrPtr : IEquatable<SDLTestTestCaseReferencePtrPtr>
+	{
+		public SDLTestTestCaseReferencePtrPtr(SDLTestTestCaseReference** handle) { Handle = handle; }
+
+		public SDLTestTestCaseReference** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestTestCaseReferencePtrPtr Null => new SDLTestTestCaseReferencePtrPtr(null);
+
+		public SDLTestTestCaseReference* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestTestCaseReferencePtrPtr(SDLTestTestCaseReference** handle) => new SDLTestTestCaseReferencePtrPtr(handle);
+
+		public static implicit operator SDLTestTestCaseReference**(SDLTestTestCaseReferencePtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestTestCaseReferencePtrPtr left, SDLTestTestCaseReferencePtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestTestCaseReferencePtrPtr left, SDLTestTestCaseReferencePtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestTestCaseReferencePtrPtr left, SDLTestTestCaseReference** right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestTestCaseReferencePtrPtr left, SDLTestTestCaseReference** right) => left.Handle != right;
+
+		public bool Equals(SDLTestTestCaseReferencePtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestTestCaseReferencePtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestTestCaseReferencePtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

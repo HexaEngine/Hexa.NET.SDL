@@ -20,12 +20,21 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Rect")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLRect
 	{
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int X;
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Y;
+		[NativeName(NativeNameType.Field, "w")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int W;
+		[NativeName(NativeNameType.Field, "h")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		public unsafe SDLRect(int x = default, int y = default, int w = default, int h = default)
@@ -37,6 +46,56 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A rectangle, with the origin at the upper left (using integers).<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Rect")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLRectPtr : IEquatable<SDLRectPtr>
+	{
+		public SDLRectPtr(SDLRect* handle) { Handle = handle; }
+
+		public SDLRect* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLRectPtr Null => new SDLRectPtr(null);
+
+		public SDLRect this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLRectPtr(SDLRect* handle) => new SDLRectPtr(handle);
+
+		public static implicit operator SDLRect*(SDLRectPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLRectPtr left, SDLRectPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLRectPtr left, SDLRectPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLRectPtr left, SDLRect* right) => left.Handle == right;
+
+		public static bool operator !=(SDLRectPtr left, SDLRect* right) => left.Handle != right;
+
+		public bool Equals(SDLRectPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLRectPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLRectPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref int X => ref Unsafe.AsRef<int>(&Handle->X);
+		public ref int Y => ref Unsafe.AsRef<int>(&Handle->Y);
+		public ref int W => ref Unsafe.AsRef<int>(&Handle->W);
+		public ref int H => ref Unsafe.AsRef<int>(&Handle->H);
 	}
 
 }

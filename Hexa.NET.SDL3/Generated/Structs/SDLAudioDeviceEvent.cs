@@ -17,34 +17,54 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// Audio device event structure (event.adevice.*)<br/>
+	/// Note that SDL will send a SDL_EVENT_AUDIO_DEVICE_ADDED event for every<br/>
+	/// device it discovers during initialization. After that, this event will only<br/>
+	/// arrive when a device is hotplugged during the program's run.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AudioDeviceEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAudioDeviceEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_AUDIO_DEVICE_ADDED, or SDL_EVENT_AUDIO_DEVICE_REMOVED, or SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// SDL_AudioDeviceID for the device being added or removed or changing <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
 		public uint Which;
 
 		/// <summary>
 		/// false if a playback device, true if a recording device. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "recording")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Recording;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
+		[NativeName(NativeNameType.Field, "padding3")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
 		public unsafe SDLAudioDeviceEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint which = default, bool recording = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)

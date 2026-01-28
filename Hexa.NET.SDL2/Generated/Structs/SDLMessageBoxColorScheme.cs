@@ -65,4 +65,55 @@ namespace Hexa.NET.SDL2
 		}
 	}
 
+	/// <summary>
+	/// A set of colors to use for message box dialogs<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLMessageBoxColorSchemePtr : IEquatable<SDLMessageBoxColorSchemePtr>
+	{
+		public SDLMessageBoxColorSchemePtr(SDLMessageBoxColorScheme* handle) { Handle = handle; }
+
+		public SDLMessageBoxColorScheme* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLMessageBoxColorSchemePtr Null => new SDLMessageBoxColorSchemePtr(null);
+
+		public SDLMessageBoxColorScheme this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLMessageBoxColorSchemePtr(SDLMessageBoxColorScheme* handle) => new SDLMessageBoxColorSchemePtr(handle);
+
+		public static implicit operator SDLMessageBoxColorScheme*(SDLMessageBoxColorSchemePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLMessageBoxColorSchemePtr left, SDLMessageBoxColorSchemePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLMessageBoxColorSchemePtr left, SDLMessageBoxColorSchemePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLMessageBoxColorSchemePtr left, SDLMessageBoxColorScheme* right) => left.Handle == right;
+
+		public static bool operator !=(SDLMessageBoxColorSchemePtr left, SDLMessageBoxColorScheme* right) => left.Handle != right;
+
+		public bool Equals(SDLMessageBoxColorSchemePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLMessageBoxColorSchemePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLMessageBoxColorSchemePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public unsafe Span<SDLMessageBoxColor> Colors
+		
+		{
+			get
+			{
+				return new Span<SDLMessageBoxColor>(&Handle->Colors_0, 5);
+			}
+		}
+	}
+
 }

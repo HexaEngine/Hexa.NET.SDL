@@ -12,7 +12,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[Flags]
 	public enum SDLJoystickPowerLevel : int
 	{
 		Unknown = unchecked(-1),

@@ -21,5 +21,6 @@ namespace Hexa.NET.SDL3
 		Button4 = (1u<<4),
 		Button5 = (1u<<5),
 		EraserTip = (1u<<30),
+		InProximity = (1u<<31),
 	}
 }

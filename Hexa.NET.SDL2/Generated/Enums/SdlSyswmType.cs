@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// These are the various supported windowing subsystems<br/>
 	/// </summary>
-	[Flags]
 	public enum SdlSyswmType : int
 	{
 		Unknown = unchecked(0),

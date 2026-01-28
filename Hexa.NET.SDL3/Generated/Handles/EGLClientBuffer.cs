@@ -14,6 +14,7 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	[NativeName(NativeNameType.Typedef, "EGLClientBuffer")]
 	#if NET5_0_OR_GREATER
 	[DebuggerDisplay("{DebuggerDisplay,nq}")]
 	#endif

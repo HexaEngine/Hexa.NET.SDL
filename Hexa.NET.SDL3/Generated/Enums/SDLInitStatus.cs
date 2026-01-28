@@ -16,12 +16,20 @@ namespace Hexa.NET.SDL3
 	/// The current status of an SDL_InitState structure.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_InitStatus")]
 	public enum SDLInitStatus : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_INIT_STATUS_UNINITIALIZED")]
+		[NativeName(NativeNameType.Value, "0")]
 		Uninitialized = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_INIT_STATUS_INITIALIZING")]
+		[NativeName(NativeNameType.Value, "1")]
 		Initializing = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_INIT_STATUS_INITIALIZED")]
+		[NativeName(NativeNameType.Value, "2")]
 		Initialized = unchecked(2),
+		[NativeName(NativeNameType.EnumItem, "SDL_INIT_STATUS_UNINITIALIZING")]
+		[NativeName(NativeNameType.Value, "3")]
 		Uninitializing = unchecked(3),
 	}
 }

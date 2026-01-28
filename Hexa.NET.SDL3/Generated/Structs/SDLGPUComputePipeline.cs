@@ -15,17 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a compute pipeline.<br/>
-	/// Used during compute passes.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUComputePipeline")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUComputePipeline
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUComputePipeline")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUComputePipelinePtr : IEquatable<SDLGPUComputePipelinePtr>
+	{
+		public SDLGPUComputePipelinePtr(SDLGPUComputePipeline* handle) { Handle = handle; }
+
+		public SDLGPUComputePipeline* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUComputePipelinePtr Null => new SDLGPUComputePipelinePtr(null);
+
+		public SDLGPUComputePipeline this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUComputePipelinePtr(SDLGPUComputePipeline* handle) => new SDLGPUComputePipelinePtr(handle);
+
+		public static implicit operator SDLGPUComputePipeline*(SDLGPUComputePipelinePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUComputePipelinePtr left, SDLGPUComputePipelinePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUComputePipelinePtr left, SDLGPUComputePipelinePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUComputePipelinePtr left, SDLGPUComputePipeline* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUComputePipelinePtr left, SDLGPUComputePipeline* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUComputePipelinePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUComputePipelinePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUComputePipelinePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

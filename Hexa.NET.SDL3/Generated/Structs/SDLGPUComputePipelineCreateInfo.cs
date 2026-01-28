@@ -20,81 +20,110 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUComputePipelineCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUComputePipelineCreateInfo
 	{
 		/// <summary>
 		/// The size in bytes of the compute shader code pointed to. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "code_size")]
+		[NativeName(NativeNameType.Type, "size_t")]
 		public nuint CodeSize;
 
 		/// <summary>
 		/// A pointer to compute shader code. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "code")]
+		[NativeName(NativeNameType.Type, "Uint8 const *")]
 		public unsafe byte* Code;
 
 		/// <summary>
 		/// A pointer to a null-terminated UTF-8 string specifying the entry point function name for the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "entrypoint")]
+		[NativeName(NativeNameType.Type, "char const *")]
 		public unsafe byte* Entrypoint;
 
 		/// <summary>
 		/// The format of the compute shader code. <br/>
 		/// </summary>
-		public SDLGPUShaderFormat Format;
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
+		public uint Format;
 
 		/// <summary>
 		/// The number of samplers defined in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "num_samplers")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumSamplers;
 
 		/// <summary>
 		/// The number of readonly storage textures defined in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "num_readonly_storage_textures")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumReadonlyStorageTextures;
 
 		/// <summary>
 		/// The number of readonly storage buffers defined in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "num_readonly_storage_buffers")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumReadonlyStorageBuffers;
 
 		/// <summary>
 		/// The number of read-write storage textures defined in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "num_readwrite_storage_textures")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumReadwriteStorageTextures;
 
 		/// <summary>
 		/// The number of read-write storage buffers defined in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "num_readwrite_storage_buffers")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumReadwriteStorageBuffers;
 
 		/// <summary>
 		/// The number of uniform buffers defined in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "num_uniform_buffers")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumUniformBuffers;
 
 		/// <summary>
 		/// The number of threads in the X dimension. This should match the value in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "threadcount_x")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ThreadcountX;
 
 		/// <summary>
 		/// The number of threads in the Y dimension. This should match the value in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "threadcount_y")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ThreadcountY;
 
 		/// <summary>
 		/// The number of threads in the Z dimension. This should match the value in the shader. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "threadcount_z")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint ThreadcountZ;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "props")]
+		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 
-		public unsafe SDLGPUComputePipelineCreateInfo(nuint codeSize = default, byte* code = default, byte* entrypoint = default, SDLGPUShaderFormat format = default, uint numSamplers = default, uint numReadonlyStorageTextures = default, uint numReadonlyStorageBuffers = default, uint numReadwriteStorageTextures = default, uint numReadwriteStorageBuffers = default, uint numUniformBuffers = default, uint threadcountX = default, uint threadcountY = default, uint threadcountZ = default, uint props = default)
+		public unsafe SDLGPUComputePipelineCreateInfo(nuint codeSize = default, byte* code = default, byte* entrypoint = default, uint format = default, uint numSamplers = default, uint numReadonlyStorageTextures = default, uint numReadonlyStorageBuffers = default, uint numReadwriteStorageTextures = default, uint numReadwriteStorageBuffers = default, uint numUniformBuffers = default, uint threadcountX = default, uint threadcountY = default, uint threadcountZ = default, uint props = default)
 		{
 			CodeSize = codeSize;
 			Code = code;
@@ -113,6 +142,108 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of a compute pipeline state.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUComputePipelineCreateInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUComputePipelineCreateInfoPtr : IEquatable<SDLGPUComputePipelineCreateInfoPtr>
+	{
+		public SDLGPUComputePipelineCreateInfoPtr(SDLGPUComputePipelineCreateInfo* handle) { Handle = handle; }
+
+		public SDLGPUComputePipelineCreateInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUComputePipelineCreateInfoPtr Null => new SDLGPUComputePipelineCreateInfoPtr(null);
+
+		public SDLGPUComputePipelineCreateInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUComputePipelineCreateInfoPtr(SDLGPUComputePipelineCreateInfo* handle) => new SDLGPUComputePipelineCreateInfoPtr(handle);
+
+		public static implicit operator SDLGPUComputePipelineCreateInfo*(SDLGPUComputePipelineCreateInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUComputePipelineCreateInfoPtr left, SDLGPUComputePipelineCreateInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUComputePipelineCreateInfoPtr left, SDLGPUComputePipelineCreateInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUComputePipelineCreateInfoPtr left, SDLGPUComputePipelineCreateInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUComputePipelineCreateInfoPtr left, SDLGPUComputePipelineCreateInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUComputePipelineCreateInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUComputePipelineCreateInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUComputePipelineCreateInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The size in bytes of the compute shader code pointed to. <br/>
+		/// </summary>
+		public ref nuint CodeSize => ref Unsafe.AsRef<nuint>(&Handle->CodeSize);
+		/// <summary>
+		/// A pointer to compute shader code. <br/>
+		/// </summary>
+		public byte* Code { get => Handle->Code; set => Handle->Code = value; }
+		/// <summary>
+		/// A pointer to a null-terminated UTF-8 string specifying the entry point function name for the shader. <br/>
+		/// </summary>
+		public byte* Entrypoint { get => Handle->Entrypoint; set => Handle->Entrypoint = value; }
+		/// <summary>
+		/// The format of the compute shader code. <br/>
+		/// </summary>
+		public ref uint Format => ref Unsafe.AsRef<uint>(&Handle->Format);
+		/// <summary>
+		/// The number of samplers defined in the shader. <br/>
+		/// </summary>
+		public ref uint NumSamplers => ref Unsafe.AsRef<uint>(&Handle->NumSamplers);
+		/// <summary>
+		/// The number of readonly storage textures defined in the shader. <br/>
+		/// </summary>
+		public ref uint NumReadonlyStorageTextures => ref Unsafe.AsRef<uint>(&Handle->NumReadonlyStorageTextures);
+		/// <summary>
+		/// The number of readonly storage buffers defined in the shader. <br/>
+		/// </summary>
+		public ref uint NumReadonlyStorageBuffers => ref Unsafe.AsRef<uint>(&Handle->NumReadonlyStorageBuffers);
+		/// <summary>
+		/// The number of read-write storage textures defined in the shader. <br/>
+		/// </summary>
+		public ref uint NumReadwriteStorageTextures => ref Unsafe.AsRef<uint>(&Handle->NumReadwriteStorageTextures);
+		/// <summary>
+		/// The number of read-write storage buffers defined in the shader. <br/>
+		/// </summary>
+		public ref uint NumReadwriteStorageBuffers => ref Unsafe.AsRef<uint>(&Handle->NumReadwriteStorageBuffers);
+		/// <summary>
+		/// The number of uniform buffers defined in the shader. <br/>
+		/// </summary>
+		public ref uint NumUniformBuffers => ref Unsafe.AsRef<uint>(&Handle->NumUniformBuffers);
+		/// <summary>
+		/// The number of threads in the X dimension. This should match the value in the shader. <br/>
+		/// </summary>
+		public ref uint ThreadcountX => ref Unsafe.AsRef<uint>(&Handle->ThreadcountX);
+		/// <summary>
+		/// The number of threads in the Y dimension. This should match the value in the shader. <br/>
+		/// </summary>
+		public ref uint ThreadcountY => ref Unsafe.AsRef<uint>(&Handle->ThreadcountY);
+		/// <summary>
+		/// The number of threads in the Z dimension. This should match the value in the shader. <br/>
+		/// </summary>
+		public ref uint ThreadcountZ => ref Unsafe.AsRef<uint>(&Handle->ThreadcountZ);
+		/// <summary>
+		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
+		/// </summary>
+		public ref uint Props => ref Unsafe.AsRef<uint>(&Handle->Props);
 	}
 
 }

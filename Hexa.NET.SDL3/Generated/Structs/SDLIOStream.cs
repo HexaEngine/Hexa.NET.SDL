@@ -15,19 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The read/write operation structure.<br/>
-	/// This operates as an opaque handle. There are several APIs to create various<br/>
-	/// types of I/O streams, or an app can supply an SDL_IOStreamInterface to<br/>
-	/// SDL_OpenIO() to provide their own stream implementation behind this<br/>
-	/// struct's abstract interface.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_IOStream")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLIOStream
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_IOStream")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLIOStreamPtr : IEquatable<SDLIOStreamPtr>
+	{
+		public SDLIOStreamPtr(SDLIOStream* handle) { Handle = handle; }
+
+		public SDLIOStream* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLIOStreamPtr Null => new SDLIOStreamPtr(null);
+
+		public SDLIOStream this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLIOStreamPtr(SDLIOStream* handle) => new SDLIOStreamPtr(handle);
+
+		public static implicit operator SDLIOStream*(SDLIOStreamPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLIOStreamPtr left, SDLIOStreamPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLIOStreamPtr left, SDLIOStreamPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLIOStreamPtr left, SDLIOStream* right) => left.Handle == right;
+
+		public static bool operator !=(SDLIOStreamPtr left, SDLIOStream* right) => left.Handle != right;
+
+		public bool Equals(SDLIOStreamPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLIOStreamPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLIOStreamPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

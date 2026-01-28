@@ -15,25 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// A mutex that allows read-only threads to run in parallel.<br/>
-	/// A rwlock is roughly the same concept as SDL_Mutex, but allows threads that<br/>
-	/// request read-only access to all hold the lock at the same time. If a thread<br/>
-	/// requests write access, it will block until all read-only threads have<br/>
-	/// released the lock, and no one else can hold the thread (for reading or<br/>
-	/// writing) at the same time as the writing thread.<br/>
-	/// This can be more efficient in cases where several threads need to access<br/>
-	/// data frequently, but changes to that data are rare.<br/>
-	/// There are other rules that apply to rwlocks that don't apply to mutexes,<br/>
-	/// about how threads are scheduled and when they can be recursively locked.<br/>
-	/// These are documented in the other rwlock functions.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_RWLock")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLRWLock
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_RWLock")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLRWLockPtr : IEquatable<SDLRWLockPtr>
+	{
+		public SDLRWLockPtr(SDLRWLock* handle) { Handle = handle; }
+
+		public SDLRWLock* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLRWLockPtr Null => new SDLRWLockPtr(null);
+
+		public SDLRWLock this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLRWLockPtr(SDLRWLock* handle) => new SDLRWLockPtr(handle);
+
+		public static implicit operator SDLRWLock*(SDLRWLockPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLRWLockPtr left, SDLRWLockPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLRWLockPtr left, SDLRWLockPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLRWLockPtr left, SDLRWLock* right) => left.Handle == right;
+
+		public static bool operator !=(SDLRWLockPtr left, SDLRWLock* right) => left.Handle != right;
+
+		public bool Equals(SDLRWLockPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLRWLockPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLRWLockPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

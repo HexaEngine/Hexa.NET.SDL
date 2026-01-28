@@ -18,1051 +18,529 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Request a window to demand attention from the user.<br/>
 		/// <br/>
 		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string GetPrefPathS(string org, byte* app)
+		[NativeName(NativeNameType.Func, "SDL_FlashWindow")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool FlashWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "operation")] [NativeName(NativeNameType.Type, "SDL_FlashOperation")] SDLFlashOperation operation)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, app));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPrefPath(byte* org, ref byte app)
-		{
-			fixed (byte* papp = &app)
-			{
-				byte* ret = GetPrefPathNative(org, (byte*)papp);
-				return ret;
+				byte ret = FlashWindowNative((SDLWindow*)pwindow, operation);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Sets the state of the progress bar for the given window’s taskbar icon.<br/>
 		/// <br/>
 		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static string GetPrefPathS(byte* org, ref byte app)
-		{
-			fixed (byte* papp = &app)
-			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPrefPath(byte* org, ReadOnlySpan<byte> app)
-		{
-			fixed (byte* papp = app)
-			{
-				byte* ret = GetPrefPathNative(org, (byte*)papp);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetPrefPathS(byte* org, ReadOnlySpan<byte> app)
-		{
-			fixed (byte* papp = app)
-			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPrefPath(byte* org, string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (app != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(app);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetPrefPathNative(org, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetPrefPathS(byte* org, string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (app != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(app);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPrefPath(ref byte org, ref byte app)
-		{
-			fixed (byte* porg = &org)
-			{
-				fixed (byte* papp = &app)
-				{
-					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetPrefPathS(ref byte org, ref byte app)
-		{
-			fixed (byte* porg = &org)
-			{
-				fixed (byte* papp = &app)
-				{
-					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPrefPath(ReadOnlySpan<byte> org, ReadOnlySpan<byte> app)
-		{
-			fixed (byte* porg = org)
-			{
-				fixed (byte* papp = app)
-				{
-					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetPrefPathS(ReadOnlySpan<byte> org, ReadOnlySpan<byte> app)
-		{
-			fixed (byte* porg = org)
-			{
-				fixed (byte* papp = app)
-				{
-					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPrefPath(string org, string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (app != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(app);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* ret = GetPrefPathNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On macOS, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetPrefPathS(string org, string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (app != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(app);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, pStr1));
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Finds the most suitable user folder for a specific purpose.<br/>
-		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
-		/// storing pictures, music or videos for a certain user. This function gives<br/>
-		/// the path for many of those special locations.<br/>
-		/// This function is specifically for _user_ folders, which are meant for the<br/>
-		/// user to access and manage. For application-specific folders, meant to hold<br/>
-		/// data for the application to manage, see SDL_GetBasePath() and<br/>
-		/// SDL_GetPrefPath().<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowProgressState")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetUserFolderNative(SDLFolder folder)
+		internal static byte SetWindowProgressStateNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_ProgressState")] SDLProgressState state)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFolder, byte*>)funcTable[822])(folder);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLProgressState, byte>)funcTable[587])(window, state);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<SDLFolder, nint>)funcTable[822])(folder);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLProgressState, byte>)funcTable[587])((nint)window, state);
 			#endif
 		}
 
 		/// <summary>
-		/// Finds the most suitable user folder for a specific purpose.<br/>
-		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
-		/// storing pictures, music or videos for a certain user. This function gives<br/>
-		/// the path for many of those special locations.<br/>
-		/// This function is specifically for _user_ folders, which are meant for the<br/>
-		/// user to access and manage. For application-specific folders, meant to hold<br/>
-		/// data for the application to manage, see SDL_GetBasePath() and<br/>
-		/// SDL_GetPrefPath().<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// Sets the state of the progress bar for the given window’s taskbar icon.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetUserFolder(SDLFolder folder)
+		[NativeName(NativeNameType.Func, "SDL_SetWindowProgressState")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetWindowProgressState([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_ProgressState")] SDLProgressState state)
 		{
-			byte* ret = GetUserFolderNative(folder);
-			return ret;
-		}
-
-		/// <summary>
-		/// Finds the most suitable user folder for a specific purpose.<br/>
-		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
-		/// storing pictures, music or videos for a certain user. This function gives<br/>
-		/// the path for many of those special locations.<br/>
-		/// This function is specifically for _user_ folders, which are meant for the<br/>
-		/// user to access and manage. For application-specific folders, meant to hold<br/>
-		/// data for the application to manage, see SDL_GetBasePath() and<br/>
-		/// SDL_GetPrefPath().<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetUserFolderS(SDLFolder folder)
-		{
-			string ret = Utils.DecodeStringUTF8(GetUserFolderNative(folder));
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CreateDirectoryNative(byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[823])(path);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[823])((nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CreateDirectory(byte* path)
-		{
-			byte ret = CreateDirectoryNative(path);
+			byte ret = SetWindowProgressStateNative((SDLWindow*)window, state);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// Sets the state of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowProgressState")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetWindowProgressState([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_ProgressState")] SDLProgressState state)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetWindowProgressStateNative((SDLWindow*)pwindow, state);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the state of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowProgressState")]
+		[return: NativeName(NativeNameType.Type, "SDL_ProgressState")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLProgressState GetWindowProgressStateNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLProgressState>)funcTable[588])(window);
+			#else
+			return (SDLProgressState)((delegate* unmanaged[Cdecl]<nint, SDLProgressState>)funcTable[588])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the state of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowProgressState")]
+		[return: NativeName(NativeNameType.Type, "SDL_ProgressState")]
+		public static SDLProgressState GetWindowProgressState([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			SDLProgressState ret = GetWindowProgressStateNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the state of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowProgressState")]
+		[return: NativeName(NativeNameType.Type, "SDL_ProgressState")]
+		public static SDLProgressState GetWindowProgressState([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLProgressState ret = GetWindowProgressStateNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Sets the value of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowProgressValue")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetWindowProgressValueNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float, byte>)funcTable[589])(window, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, float, byte>)funcTable[589])((nint)window, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets the value of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowProgressValue")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetWindowProgressValue([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		{
+			byte ret = SetWindowProgressValueNative((SDLWindow*)window, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Sets the value of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowProgressValue")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetWindowProgressValue([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetWindowProgressValueNative((SDLWindow*)pwindow, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the value of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowProgressValue")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static float GetWindowProgressValueNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float>)funcTable[590])(window);
+			#else
+			return (float)((delegate* unmanaged[Cdecl]<nint, float>)funcTable[590])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the value of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowProgressValue")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float GetWindowProgressValue([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			float ret = GetWindowProgressValueNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the value of the progress bar for the given window’s taskbar icon.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowProgressValue")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float GetWindowProgressValue([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				float ret = GetWindowProgressValueNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Destroy a window.<br/>
+		/// Any child windows owned by the window will be recursively destroyed as<br/>
+		/// well.<br/>
+		/// Note that on some platforms, the visible window may not actually be removed<br/>
+		/// from the screen until the SDL event loop is pumped again, even though the<br/>
+		/// SDL_Window is no longer valid after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool CreateDirectory(ref byte path)
+		[NativeName(NativeNameType.Func, "SDL_DestroyWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[591])(window);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[591])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a window.<br/>
+		/// Any child windows owned by the window will be recursively destroyed as<br/>
+		/// well.<br/>
+		/// Note that on some platforms, the visible window may not actually be removed<br/>
+		/// from the screen until the SDL event loop is pumped again, even though the<br/>
+		/// SDL_Window is no longer valid after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			DestroyWindowNative((SDLWindow*)window);
+		}
+
+		/// <summary>
+		/// Destroy a window.<br/>
+		/// Any child windows owned by the window will be recursively destroyed as<br/>
+		/// well.<br/>
+		/// Note that on some platforms, the visible window may not actually be removed<br/>
+		/// from the screen until the SDL event loop is pumped again, even though the<br/>
+		/// SDL_Window is no longer valid after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				DestroyWindowNative((SDLWindow*)pwindow);
+			}
+		}
+
+		/// <summary>
+		/// Check whether the screensaver is currently enabled.<br/>
+		/// The screensaver is disabled by default.<br/>
+		/// The default can also be changed using `SDL_HINT_VIDEO_ALLOW_SCREENSAVER`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ScreenSaverEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ScreenSaverEnabledNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[592])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[592])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether the screensaver is currently enabled.<br/>
+		/// The screensaver is disabled by default.<br/>
+		/// The default can also be changed using `SDL_HINT_VIDEO_ALLOW_SCREENSAVER`.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ScreenSaverEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ScreenSaverEnabled()
+		{
+			byte ret = ScreenSaverEnabledNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Allow the screen to be blanked by a screen saver.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnableScreenSaver")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte EnableScreenSaverNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[593])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[593])();
+			#endif
+		}
+
+		/// <summary>
+		/// Allow the screen to be blanked by a screen saver.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnableScreenSaver")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnableScreenSaver()
+		{
+			byte ret = EnableScreenSaverNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Prevent the screen from being blanked by a screen saver.<br/>
+		/// If you disable the screensaver, it is automatically re-enabled when SDL<br/>
+		/// quits.<br/>
+		/// The screensaver is disabled by default, but this may by changed by<br/>
+		/// SDL_HINT_VIDEO_ALLOW_SCREENSAVER.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DisableScreenSaver")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte DisableScreenSaverNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[594])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[594])();
+			#endif
+		}
+
+		/// <summary>
+		/// Prevent the screen from being blanked by a screen saver.<br/>
+		/// If you disable the screensaver, it is automatically re-enabled when SDL<br/>
+		/// quits.<br/>
+		/// The screensaver is disabled by default, but this may by changed by<br/>
+		/// SDL_HINT_VIDEO_ALLOW_SCREENSAVER.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DisableScreenSaver")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool DisableScreenSaver()
+		{
+			byte ret = DisableScreenSaverNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_LoadLibrary")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLLoadLibraryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[595])(path);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[595])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_LoadLibrary")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			byte ret = GLLoadLibraryNative(path);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_LoadLibrary")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path)
 		{
 			fixed (byte* ppath = &path)
 			{
-				byte ret = CreateDirectoryNative((byte*)ppath);
+				byte ret = GLLoadLibraryNative((byte*)ppath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool CreateDirectory(ReadOnlySpan<byte> path)
+		[NativeName(NativeNameType.Func, "SDL_GL_LoadLibrary")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
 		{
 			fixed (byte* ppath = path)
 			{
-				byte ret = CreateDirectoryNative((byte*)ppath);
+				byte ret = GLLoadLibraryNative((byte*)ppath);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a directory, and any missing parent directories.<br/>
-		/// This reports success if `path` already exists as a directory.<br/>
-		/// If parent directories are missing, it will also create them. Note that if<br/>
-		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// Dynamically load an OpenGL library.<br/>
+		/// This should be done after initializing the video driver, but before<br/>
+		/// creating any OpenGL windows. If no OpenGL library is loaded, the default<br/>
+		/// library will be loaded upon creation of the first OpenGL window.<br/>
+		/// If you do this, you need to retrieve all of the GL functions used in your<br/>
+		/// program from the dynamic library using SDL_GL_GetProcAddress().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool CreateDirectory(string path)
+		[NativeName(NativeNameType.Func, "SDL_GL_LoadLibrary")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1081,7 +559,7 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = CreateDirectoryNative(pStr0);
+			byte ret = GLLoadLibraryNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1090,1354 +568,271 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte EnumerateDirectoryNative(byte* path, SDLEnumerateDirectoryCallback callback, void* userdata)
+		internal static delegate*<void> GLGetProcAddressNative([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] byte* proc)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, SDLEnumerationResult>, void*, byte>)funcTable[824])(path, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void>>)funcTable[596])(proc);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[824])((nint)path, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[596])((nint)proc);
 			#endif
 		}
 
 		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool EnumerateDirectory(byte* path, SDLEnumerateDirectoryCallback callback, void* userdata)
+		[NativeName(NativeNameType.Func, "SDL_GL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		public static delegate*<void> GLGetProcAddress([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] byte* proc)
 		{
-			byte ret = EnumerateDirectoryNative(path, callback, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateDirectory(ref byte path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateDirectory(ReadOnlySpan<byte> path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory through a callback function.<br/>
-		/// This function provides every directory entry through an app-provided<br/>
-		/// callback, called once for each directory entry, until all results have been<br/>
-		/// provided or the callback returns either SDL_ENUM_SUCCESS or<br/>
-		/// SDL_ENUM_FAILURE.<br/>
-		/// This will return false if there was a system problem in general, or if a<br/>
-		/// callback returns SDL_ENUM_FAILURE. A successful return means a callback<br/>
-		/// returned SDL_ENUM_SUCCESS to halt enumeration, or all directory entries<br/>
-		/// were enumerated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool EnumerateDirectory(string path, SDLEnumerateDirectoryCallback callback, void* userdata)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = EnumerateDirectoryNative(pStr0, callback, userdata);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RemovePathNative(byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[825])(path);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[825])((nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemovePath(byte* path)
-		{
-			byte ret = RemovePathNative(path);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemovePath(ref byte path)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = RemovePathNative((byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemovePath(ReadOnlySpan<byte> path)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = RemovePathNative((byte*)ppath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Remove a file or an empty directory.<br/>
-		/// Directories that are not empty will fail; this function will not recursely<br/>
-		/// delete directory trees.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RemovePath(string path)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RemovePathNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte RenamePathNative(byte* oldpath, byte* newpath)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[826])(oldpath, newpath);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[826])((nint)oldpath, (nint)newpath);
-			#endif
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(byte* oldpath, byte* newpath)
-		{
-			byte ret = RenamePathNative(oldpath, newpath);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(ref byte oldpath, byte* newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				byte ret = RenamePathNative((byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(ReadOnlySpan<byte> oldpath, byte* newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				byte ret = RenamePathNative((byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(string oldpath, byte* newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RenamePathNative(pStr0, newpath);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(byte* oldpath, ref byte newpath)
-		{
-			fixed (byte* pnewpath = &newpath)
-			{
-				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(byte* oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* pnewpath = newpath)
-			{
-				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(byte* oldpath, string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (newpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = RenamePathNative(oldpath, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(ref byte oldpath, ref byte newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(ReadOnlySpan<byte> oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Rename a file or directory.<br/>
-		/// If the file at `newpath` already exists, it will replaced.<br/>
-		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
-		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
-		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
-		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
-		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
-		/// for files. Renaming a non-empty directory across filesystems is<br/>
-		/// dramatically more complex, however.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool RenamePath(string oldpath, string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (newpath != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = RenamePathNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CopyFileNative(byte* oldpath, byte* newpath)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[827])(oldpath, newpath);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[827])((nint)oldpath, (nint)newpath);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(byte* oldpath, byte* newpath)
-		{
-			byte ret = CopyFileNative(oldpath, newpath);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(ref byte oldpath, byte* newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				byte ret = CopyFileNative((byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(ReadOnlySpan<byte> oldpath, byte* newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				byte ret = CopyFileNative((byte*)poldpath, newpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(string oldpath, byte* newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CopyFileNative(pStr0, newpath);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(byte* oldpath, ref byte newpath)
-		{
-			fixed (byte* pnewpath = &newpath)
-			{
-				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(byte* oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* pnewpath = newpath)
-			{
-				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(byte* oldpath, string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (newpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = CopyFileNative(oldpath, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(ref byte oldpath, ref byte newpath)
-		{
-			fixed (byte* poldpath = &oldpath)
-			{
-				fixed (byte* pnewpath = &newpath)
-				{
-					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(ReadOnlySpan<byte> oldpath, ReadOnlySpan<byte> newpath)
-		{
-			fixed (byte* poldpath = oldpath)
-			{
-				fixed (byte* pnewpath = newpath)
-				{
-					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a file.<br/>
-		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
-		/// contents of the file at `oldpath`.<br/>
-		/// This function will block until the copy is complete, which might be a<br/>
-		/// significant time for large files on slow disks. On some platforms, the copy<br/>
-		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
-		/// paths, and read from one and write to the other.<br/>
-		/// Note that this is not an atomic operation! If something tries to read from<br/>
-		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
-		/// the data, and if the calling thread terminates (or the power goes out)<br/>
-		/// during the copy, `newpath`'s previous contents will be gone, replaced with<br/>
-		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
-		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
-		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
-		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
-		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
-		/// This function attempts to synchronize the newly-copied data to disk before<br/>
-		/// returning, if the platform allows it, so that the renaming trick will not<br/>
-		/// have a problem in a system crash or power failure, where the file could be<br/>
-		/// renamed but the contents never made it from the system file cache to the<br/>
-		/// physical disk.<br/>
-		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
-		/// might be half a copy, it might be the untouched data of what was already<br/>
-		/// there, or it might be a zero-byte file, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CopyFile(string oldpath, string newpath)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (oldpath != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (newpath != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(newpath);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = CopyFileNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetPathInfoNative(byte* path, SDLPathInfo* info)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLPathInfo*, byte>)funcTable[828])(path, info);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[828])((nint)path, (nint)info);
-			#endif
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetPathInfo(byte* path, SDLPathInfo* info)
-		{
-			byte ret = GetPathInfoNative(path, info);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetPathInfo(ref byte path, SDLPathInfo* info)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = GetPathInfoNative((byte*)ppath, info);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetPathInfo(ReadOnlySpan<byte> path, SDLPathInfo* info)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = GetPathInfoNative((byte*)ppath, info);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetPathInfo(string path, SDLPathInfo* info)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = GetPathInfoNative(pStr0, info);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetPathInfo(byte* path, ref SDLPathInfo info)
-		{
-			fixed (SDLPathInfo* pinfo = &info)
-			{
-				byte ret = GetPathInfoNative(path, (SDLPathInfo*)pinfo);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetPathInfo(ref byte path, ref SDLPathInfo info)
-		{
-			fixed (byte* ppath = &path)
-			{
-				fixed (SDLPathInfo* pinfo = &info)
-				{
-					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetPathInfo(ReadOnlySpan<byte> path, ref SDLPathInfo info)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (SDLPathInfo* pinfo = &info)
-				{
-					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get information about a filesystem path.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetPathInfo(string path, ref SDLPathInfo info)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLPathInfo* pinfo = &info)
-			{
-				byte ret = GetPathInfoNative(pStr0, (SDLPathInfo*)pinfo);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte** GlobDirectoryNative(byte* path, byte* pattern, SDLGlobFlags flags, int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLGlobFlags, int*, byte**>)funcTable[829])(path, pattern, flags, count);
-			#else
-			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint, SDLGlobFlags, nint, nint>)funcTable[829])((nint)path, (nint)pattern, flags, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte** GlobDirectory(byte* path, byte* pattern, SDLGlobFlags flags, int* count)
-		{
-			byte** ret = GlobDirectoryNative(path, pattern, flags, count);
+			delegate*<void> ret = GLGetProcAddressNative(proc);
 			return ret;
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(ref byte path, byte* pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_GL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		public static delegate*<void> GLGetProcAddress([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] in byte proc)
 		{
-			fixed (byte* ppath = &path)
+			fixed (byte* pproc = &proc)
 			{
-				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
+				delegate*<void> ret = GLGetProcAddressNative((byte*)pproc);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(ReadOnlySpan<byte> path, byte* pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_GL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		public static delegate*<void> GLGetProcAddress([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> proc)
 		{
-			fixed (byte* ppath = path)
+			fixed (byte* pproc = proc)
 			{
-				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
+				delegate*<void> ret = GLGetProcAddressNative((byte*)pproc);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Get an OpenGL function by name.<br/>
+		/// If the GL library is loaded at runtime with SDL_GL_LoadLibrary(), then all<br/>
+		/// GL functions must be retrieved this way. Usually this is used to retrieve<br/>
+		/// function pointers to OpenGL extensions.<br/>
+		/// There are some quirks to looking up OpenGL functions that require some<br/>
+		/// extra care from the application. If you code carefully, you can handle<br/>
+		/// these quirks without any platform-specific code, though:<br/>
+		/// - On Windows, function pointers are specific to the current GL context;<br/>
+		/// this means you need to have created a GL context and made it current<br/>
+		/// before calling SDL_GL_GetProcAddress(). If you recreate your context or<br/>
+		/// create a second context, you should assume that any existing function<br/>
+		/// pointers aren't valid to use with it. This is (currently) a<br/>
+		/// Windows-specific limitation, and in practice lots of drivers don't suffer<br/>
+		/// this limitation, but it is still the way the wgl API is documented to<br/>
+		/// work and you should expect crashes if you don't respect it. Store a copy<br/>
+		/// of the function pointers that comes and goes with context lifespan.<br/>
+		/// - On X11, function pointers returned by this function are valid for any<br/>
+		/// context, and can even be looked up before a context is created at all.<br/>
+		/// This means that, for at least some common OpenGL implementations, if you<br/>
+		/// look up a function that doesn't exist, you'll get a non-NULL result that<br/>
+		/// is _NOT_ safe to call. You must always make sure the function is actually<br/>
+		/// available for a given GL context before calling it, by checking for the<br/>
+		/// existence of the appropriate extension with SDL_GL_ExtensionSupported(),<br/>
+		/// or verifying that the version of OpenGL you're using offers the function<br/>
+		/// as core functionality.<br/>
+		/// - Some OpenGL drivers, on all platforms, *will* return NULL if a function<br/>
+		/// isn't supported, but you can't count on this behavior. Check for<br/>
+		/// extensions you use, and if you get a NULL anyway, act as if that<br/>
+		/// extension wasn't available. This is probably a bug in the driver, but you<br/>
+		/// can code defensively for this scenario anyhow.<br/>
+		/// - Just because you're on Linux/Unix, don't assume you'll be using X11.<br/>
+		/// Next-gen display servers are waiting to replace it, and may or may not<br/>
+		/// make the same promises about function pointers.<br/>
+		/// - OpenGL function pointers must be declared `APIENTRY` as in the example<br/>
+		/// code. This will ensure the proper calling convention is followed on<br/>
+		/// platforms where this matters (Win32) thereby avoiding stack corruption.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(string path, byte* pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_GL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		public static delegate*<void> GLGetProcAddress([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] string proc)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (path != null)
+			if (proc != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
+				pStrSize0 = Utils.GetByteCountUTF8(proc);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -2447,10 +842,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(proc, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte** ret = GlobDirectoryNative(pStr0, pattern, flags, count);
+			delegate*<void> ret = GLGetProcAddressNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2459,96 +854,111 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Get an EGL library function by name.<br/>
+		/// If an EGL library is loaded, this function allows applications to get entry<br/>
+		/// points for EGL functions. This is useful to provide to an EGL API and<br/>
+		/// extension loader.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(byte* path, ref byte pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static delegate*<void> EGLGetProcAddressNative([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] byte* proc)
 		{
-			fixed (byte* ppattern = &pattern)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void>>)funcTable[597])(proc);
+			#else
+			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[597])((nint)proc);
+			#endif
+		}
+
+		/// <summary>
+		/// Get an EGL library function by name.<br/>
+		/// If an EGL library is loaded, this function allows applications to get entry<br/>
+		/// points for EGL functions. This is useful to provide to an EGL API and<br/>
+		/// extension loader.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		public static delegate*<void> EGLGetProcAddress([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] byte* proc)
+		{
+			delegate*<void> ret = EGLGetProcAddressNative(proc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get an EGL library function by name.<br/>
+		/// If an EGL library is loaded, this function allows applications to get entry<br/>
+		/// points for EGL functions. This is useful to provide to an EGL API and<br/>
+		/// extension loader.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		public static delegate*<void> EGLGetProcAddress([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] in byte proc)
+		{
+			fixed (byte* pproc = &proc)
 			{
-				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
+				delegate*<void> ret = EGLGetProcAddressNative((byte*)pproc);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Get an EGL library function by name.<br/>
+		/// If an EGL library is loaded, this function allows applications to get entry<br/>
+		/// points for EGL functions. This is useful to provide to an EGL API and<br/>
+		/// extension loader.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(byte* path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		public static delegate*<void> EGLGetProcAddress([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> proc)
 		{
-			fixed (byte* ppattern = pattern)
+			fixed (byte* pproc = proc)
 			{
-				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
+				delegate*<void> ret = EGLGetProcAddressNative((byte*)pproc);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Get an EGL library function by name.<br/>
+		/// If an EGL library is loaded, this function allows applications to get entry<br/>
+		/// points for EGL functions. This is useful to provide to an EGL API and<br/>
+		/// extension loader.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(byte* path, string pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetProcAddress")]
+		[return: NativeName(NativeNameType.Type, "SDL_FunctionPointer")]
+		public static delegate*<void> EGLGetProcAddress([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "char const *")] string proc)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (pattern != null)
+			if (proc != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				pStrSize0 = Utils.GetByteCountUTF8(proc);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -2558,10 +968,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(proc, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte** ret = GlobDirectoryNative(path, pStr0, flags, count);
+			delegate*<void> ret = EGLGetProcAddressNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2570,102 +980,169 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().<br/>
 		/// <br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(ref byte path, ref byte pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_GL_UnloadLibrary")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GLUnloadLibraryNative()
 		{
-			fixed (byte* ppath = &path)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[598])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[598])();
+			#endif
+		}
+
+		/// <summary>
+		/// Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().<br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_UnloadLibrary")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GLUnloadLibrary()
+		{
+			GLUnloadLibraryNative();
+		}
+
+		/// <summary>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_ExtensionSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLExtensionSupportedNative([NativeName(NativeNameType.Param, "extension")] [NativeName(NativeNameType.Type, "char const *")] byte* extension)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[599])(extension);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[599])((nint)extension);
+			#endif
+		}
+
+		/// <summary>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_ExtensionSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLExtensionSupported([NativeName(NativeNameType.Param, "extension")] [NativeName(NativeNameType.Type, "char const *")] byte* extension)
+		{
+			byte ret = GLExtensionSupportedNative(extension);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_ExtensionSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLExtensionSupported([NativeName(NativeNameType.Param, "extension")] [NativeName(NativeNameType.Type, "char const *")] in byte extension)
+		{
+			fixed (byte* pextension = &extension)
 			{
-				fixed (byte* ppattern = &pattern)
-				{
-					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
-					return ret;
-				}
+				byte ret = GLExtensionSupportedNative((byte*)pextension);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(ReadOnlySpan<byte> path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_GL_ExtensionSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLExtensionSupported([NativeName(NativeNameType.Param, "extension")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> extension)
 		{
-			fixed (byte* ppath = path)
+			fixed (byte* pextension = extension)
 			{
-				fixed (byte* ppattern = pattern)
-				{
-					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
-					return ret;
-				}
+				byte ret = GLExtensionSupportedNative((byte*)pextension);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Check if an OpenGL extension is supported for the current context.<br/>
+		/// This function operates on the current GL context; you must have created a<br/>
+		/// context and it must be current before calling this function. Do not assume<br/>
+		/// that all contexts you create will have the same set of extensions<br/>
+		/// available, or that recreating an existing context will offer the same<br/>
+		/// extensions again.<br/>
+		/// While it's probably not a massive overhead, this function is not an O(1)<br/>
+		/// operation. Check the extensions you care about after creating the GL<br/>
+		/// context and save that information somewhere instead of calling the function<br/>
+		/// every time you need to know.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(string path, string pattern, SDLGlobFlags flags, int* count)
+		[NativeName(NativeNameType.Func, "SDL_GL_ExtensionSupported")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLExtensionSupported([NativeName(NativeNameType.Param, "extension")] [NativeName(NativeNameType.Type, "char const *")] string extension)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (path != null)
+			if (extension != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
+				pStrSize0 = Utils.GetByteCountUTF8(extension);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -2675,166 +1152,1641 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(extension, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (pattern != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, count);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
+			byte ret = GLExtensionSupportedNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Reset all previously set OpenGL context attributes to their default values.<br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_ResetAttributes")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GLResetAttributesNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[600])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[600])();
+			#endif
+		}
+
+		/// <summary>
+		/// Reset all previously set OpenGL context attributes to their default values.<br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_ResetAttributes")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GLResetAttributes()
+		{
+			GLResetAttributesNative();
+		}
+
+		/// <summary>
+		/// Set an OpenGL window attribute before window creation.<br/>
+		/// This function sets the OpenGL attribute `attr` to `value`. The requested<br/>
+		/// attributes should be set before creating an OpenGL window. You should use<br/>
+		/// SDL_GL_GetAttribute() to check the values after creating the OpenGL<br/>
+		/// context, since the values obtained can differ from the requested ones.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SetAttribute")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLSetAttributeNative([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLAttr")] SDLGLAttr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int")] int value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGLAttr, int, byte>)funcTable[601])(attr, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLGLAttr, int, byte>)funcTable[601])(attr, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an OpenGL window attribute before window creation.<br/>
+		/// This function sets the OpenGL attribute `attr` to `value`. The requested<br/>
+		/// attributes should be set before creating an OpenGL window. You should use<br/>
+		/// SDL_GL_GetAttribute() to check the values after creating the OpenGL<br/>
+		/// context, since the values obtained can differ from the requested ones.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SetAttribute")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLSetAttribute([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLAttr")] SDLGLAttr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int")] int value)
+		{
+			byte ret = GLSetAttributeNative(attr, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the actual value for an attribute from the current context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetAttribute")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLGetAttributeNative([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLAttr")] SDLGLAttr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int *")] int* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGLAttr, int*, byte>)funcTable[602])(attr, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLGLAttr, nint, byte>)funcTable[602])(attr, (nint)value);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the actual value for an attribute from the current context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetAttribute")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLGetAttribute([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLAttr")] SDLGLAttr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int *")] int* value)
+		{
+			byte ret = GLGetAttributeNative(attr, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the actual value for an attribute from the current context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetAttribute")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLGetAttribute([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLAttr")] SDLGLAttr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int *")] ref int value)
+		{
+			fixed (int* pvalue = &value)
+			{
+				byte ret = GLGetAttributeNative(attr, (int*)pvalue);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// The OpenGL context will be created with the current states set through<br/>
+		/// SDL_GL_SetAttribute().<br/>
+		/// The SDL_Window specified must have been created with the SDL_WINDOW_OPENGL<br/>
+		/// flag, or context creation will fail.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is opaque to the application.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_CreateContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGLContext GLCreateContextNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext>)funcTable[603])(window);
+			#else
+			return (SDLGLContext)((delegate* unmanaged[Cdecl]<nint, SDLGLContext>)funcTable[603])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// The OpenGL context will be created with the current states set through<br/>
+		/// SDL_GL_SetAttribute().<br/>
+		/// The SDL_Window specified must have been created with the SDL_WINDOW_OPENGL<br/>
+		/// flag, or context creation will fail.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is opaque to the application.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_CreateContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		public static SDLGLContext GLCreateContext([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			SDLGLContext ret = GLCreateContextNative((SDLWindow*)window);
 			return ret;
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Create an OpenGL context for an OpenGL window, and make it current.<br/>
+		/// The OpenGL context will be created with the current states set through<br/>
+		/// SDL_GL_SetAttribute().<br/>
+		/// The SDL_Window specified must have been created with the SDL_WINDOW_OPENGL<br/>
+		/// flag, or context creation will fail.<br/>
+		/// Windows users new to OpenGL should note that, for historical reasons, GL<br/>
+		/// functions added after OpenGL version 1.1 are not available by default.<br/>
+		/// Those functions must be loaded at run-time, either with an OpenGL<br/>
+		/// extension-handling library or with SDL_GL_GetProcAddress() and its related<br/>
+		/// functions.<br/>
+		/// SDL_GLContext is opaque to the application.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(byte* path, byte* pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_GL_CreateContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		public static SDLGLContext GLCreateContext([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
 		{
-			fixed (int* pcount = &count)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte** ret = GlobDirectoryNative(path, pattern, flags, (int*)pcount);
+				SDLGLContext ret = GLCreateContextNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(ref byte path, byte* pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_GL_MakeCurrent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLMakeCurrentNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
 		{
-			fixed (byte* ppath = &path)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext, byte>)funcTable[604])(window, context);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGLContext, byte>)funcTable[604])((nint)window, context);
+			#endif
+		}
+
+		/// <summary>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_MakeCurrent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLMakeCurrent([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
+		{
+			byte ret = GLMakeCurrentNative((SDLWindow*)window, context);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set up an OpenGL context for rendering into an OpenGL window.<br/>
+		/// The context must have been created with a compatible window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_MakeCurrent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLMakeCurrent([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (int* pcount = &count)
+				byte ret = GLMakeCurrentNative((SDLWindow*)pwindow, context);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentWindow")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GLGetCurrentWindowNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[605])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[605])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentWindow")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindowPtr GLGetCurrentWindow()
+		{
+			SDLWindowPtr ret = GLGetCurrentWindowNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGLContext GLGetCurrentContextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGLContext>)funcTable[606])();
+			#else
+			return (SDLGLContext)((delegate* unmanaged[Cdecl]<SDLGLContext>)funcTable[606])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentContext")]
+		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		public static SDLGLContext GLGetCurrentContext()
+		{
+			SDLGLContext ret = GLGetCurrentContextNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the currently active EGL display.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetCurrentDisplay")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLDisplay")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* EGLGetCurrentDisplayNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*>)funcTable[607])();
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint>)funcTable[607])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active EGL display.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetCurrentDisplay")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLDisplay")]
+		public static void* EGLGetCurrentDisplay()
+		{
+			void* ret = EGLGetCurrentDisplayNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the currently active EGL config.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetCurrentConfig")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLConfig")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* EGLGetCurrentConfigNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*>)funcTable[608])();
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint>)funcTable[608])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the currently active EGL config.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetCurrentConfig")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLConfig")]
+		public static void* EGLGetCurrentConfig()
+		{
+			void* ret = EGLGetCurrentConfigNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the EGL surface associated with the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetWindowSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLSurface")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* EGLGetWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, void*>)funcTable[609])(window);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[609])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the EGL surface associated with the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetWindowSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLSurface")]
+		public static void* EGLGetWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			void* ret = EGLGetWindowSurfaceNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the EGL surface associated with the window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_GetWindowSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_EGLSurface")]
+		public static void* EGLGetWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				void* ret = EGLGetWindowSurfaceNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void EGLSetAttributeCallbacksNative([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, nint*>, delegate*<void*, void*, void*, int*>, delegate*<void*, void*, void*, int*>, void*, void>)funcTable[610])(platformAttribCallback, surfaceAttribCallback, contextAttribCallback, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, void>)funcTable[610])((nint)platformAttribCallback, (nint)surfaceAttribCallback, (nint)contextAttribCallback, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, surfaceAttribCallback, contextAttribCallback, userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), surfaceAttribCallback, contextAttribCallback, userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), contextAttribCallback, userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), contextAttribCallback, userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, surfaceAttribCallback, (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), surfaceAttribCallback, (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			EGLSetAttributeCallbacksNative((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, surfaceAttribCallback, contextAttribCallback, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			EGLSetAttributeCallbacksNative((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), surfaceAttribCallback, contextAttribCallback, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), contextAttribCallback, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			EGLSetAttributeCallbacksNative((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), contextAttribCallback, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, surfaceAttribCallback, (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] delegate*<void*, void*, void*, int*> surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			EGLSetAttributeCallbacksNative((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), surfaceAttribCallback, (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] delegate*<void*, nint*> platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			EGLSetAttributeCallbacksNative(platformAttribCallback, (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Sets the callbacks for defining custom EGLAttrib arrays for EGL<br/>
+		/// initialization.<br/>
+		/// Callbacks that aren't needed can be set to NULL.<br/>
+		/// NOTE: These callback pointers will be reset after SDL_GL_ResetAttributes.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EGL_SetAttributeCallbacks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void EGLSetAttributeCallbacks([NativeName(NativeNameType.Param, "platformAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLAttribArrayCallback")] SDLEGLAttribArrayCallback platformAttribCallback, [NativeName(NativeNameType.Param, "surfaceAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback surfaceAttribCallback, [NativeName(NativeNameType.Param, "contextAttribCallback")] [NativeName(NativeNameType.Type, "SDL_EGLIntArrayCallback")] SDLEGLIntArrayCallback contextAttribCallback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			EGLSetAttributeCallbacksNative((delegate*<void*, nint*>)Utils.GetFunctionPointerForDelegate(platformAttribCallback), (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(surfaceAttribCallback), (delegate*<void*, void*, void*, int*>)Utils.GetFunctionPointerForDelegate(contextAttribCallback), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Set the swap interval for the current OpenGL context.<br/>
+		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
+		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
+		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
+		/// might be less jarring for the user during occasional framerate drops. If an<br/>
+		/// application requests adaptive vsync and the system does not support it,<br/>
+		/// this function will fail and return false. In such a case, you should<br/>
+		/// probably retry the call with 1 for the interval.<br/>
+		/// Adaptive vsync is implemented for some glX drivers with<br/>
+		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
+		/// WGL_EXT_swap_control_tear.<br/>
+		/// Read more on the Khronos wiki:<br/>
+		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLSetSwapIntervalNative([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int")] int interval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[611])(interval);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[611])(interval);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the swap interval for the current OpenGL context.<br/>
+		/// Some systems allow specifying -1 for the interval, to enable adaptive<br/>
+		/// vsync. Adaptive vsync works the same as vsync, but if you've already missed<br/>
+		/// the vertical retrace for a given frame, it swaps buffers immediately, which<br/>
+		/// might be less jarring for the user during occasional framerate drops. If an<br/>
+		/// application requests adaptive vsync and the system does not support it,<br/>
+		/// this function will fail and return false. In such a case, you should<br/>
+		/// probably retry the call with 1 for the interval.<br/>
+		/// Adaptive vsync is implemented for some glX drivers with<br/>
+		/// GLX_EXT_swap_control_tear, and for some Windows drivers with<br/>
+		/// WGL_EXT_swap_control_tear.<br/>
+		/// Read more on the Khronos wiki:<br/>
+		/// https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLSetSwapInterval([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int")] int interval)
+		{
+			byte ret = GLSetSwapIntervalNative(interval);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the swap interval for the current OpenGL context.<br/>
+		/// If the system can't determine the swap interval, or there isn't a valid<br/>
+		/// current context, this function will set *interval to 0 as a safe default.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLGetSwapIntervalNative([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int *")] int* interval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, byte>)funcTable[612])(interval);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[612])((nint)interval);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the swap interval for the current OpenGL context.<br/>
+		/// If the system can't determine the swap interval, or there isn't a valid<br/>
+		/// current context, this function will set *interval to 0 as a safe default.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLGetSwapInterval([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int *")] int* interval)
+		{
+			byte ret = GLGetSwapIntervalNative(interval);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the swap interval for the current OpenGL context.<br/>
+		/// If the system can't determine the swap interval, or there isn't a valid<br/>
+		/// current context, this function will set *interval to 0 as a safe default.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_GetSwapInterval")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLGetSwapInterval([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int *")] ref int interval)
+		{
+			fixed (int* pinterval = &interval)
+			{
+				byte ret = GLGetSwapIntervalNative((int*)pinterval);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SwapWindow")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLSwapWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[613])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[613])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SwapWindow")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLSwapWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			byte ret = GLSwapWindowNative((SDLWindow*)window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update a window with OpenGL rendering.<br/>
+		/// This is used with double-buffered OpenGL contexts, which are the default.<br/>
+		/// On macOS, make sure you bind 0 to the draw framebuffer before swapping the<br/>
+		/// window, otherwise nothing will happen. If you aren't using<br/>
+		/// glBindFramebuffer(), this is the default and you won't have to do anything<br/>
+		/// extra.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_SwapWindow")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLSwapWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = GLSwapWindowNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Delete an OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_DestroyContext")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GLDestroyContextNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGLContext, byte>)funcTable[614])(context);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLGLContext, byte>)funcTable[614])(context);
+			#endif
+		}
+
+		/// <summary>
+		/// Delete an OpenGL context.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GL_DestroyContext")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GLDestroyContext([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
+		{
+			byte ret = GLDestroyContextNative(context);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ShowOpenFileDialogNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] byte allowMany)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, SDLDialogFileFilter*, int, byte*, byte, void>)funcTable[615])(callback, userdata, window, filters, nfilters, defaultLocation, allowMany);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int, nint, byte, void>)funcTable[615])((nint)callback, (nint)userdata, (nint)window, (nint)filters, nfilters, (nint)defaultLocation, allowMany);
+			#endif
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
-					return ret;
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(ReadOnlySpan<byte> path, byte* pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (byte* ppath = path)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (int* pcount = &count)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
-					return ret;
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(string path, byte* pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (path != null)
+			if (defaultLocation != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -2844,117 +2796,111 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			fixed (int* pcount = &count)
+			ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				byte** ret = GlobDirectoryNative(pStr0, pattern, flags, (int*)pcount);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
+				Utils.Free(pStr0);
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(byte* path, ref byte pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (byte* ppattern = &pattern)
+			fixed (byte* pdefaultLocation = &defaultLocation)
 			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
-					return ret;
-				}
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(byte* path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (byte* ppattern = pattern)
+			fixed (byte* pdefaultLocation = defaultLocation)
 			{
-				fixed (int* pcount = &count)
-				{
-					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
-					return ret;
-				}
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(byte* path, string pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (pattern != null)
+			if (defaultLocation != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -2964,2075 +2910,2127 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			fixed (int* pcount = &count)
+			ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				byte** ret = GlobDirectoryNative(path, pStr0, flags, (int*)pcount);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
+				Utils.Free(pStr0);
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(ref byte path, ref byte pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (byte* ppath = &path)
+			fixed (byte* pdefaultLocation = &defaultLocation)
 			{
-				fixed (byte* ppattern = &pattern)
+				ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					fixed (int* pcount = &count)
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = &defaultLocation)
+			{
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (byte* pdefaultLocation = defaultLocation)
+			{
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (defaultLocation != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
-						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
-						return ret;
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = &defaultLocation)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				fixed (byte* pdefaultLocation = defaultLocation)
+				{
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLDialogFileFilter* pfilters = &filters)
+			{
+				byte* pStr0 = null;
+				int pStrSize0 = 0;
+				if (defaultLocation != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = 0;
+				}
+				ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(ReadOnlySpan<byte> path, ReadOnlySpan<byte> pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			fixed (byte* ppath = path)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* ppattern = pattern)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					fixed (int* pcount = &count)
+					fixed (byte* pdefaultLocation = defaultLocation)
 					{
-						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
-						return ret;
+						ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
-		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
-		/// may contain wildcard characters '<br/>
-		/// \<br/>
-		/// *' (match everything) and '?' (match one<br/>
-		/// character). If pattern is NULL, no filtering is done and all results are<br/>
-		/// returned. Subdirectories are permitted, and are specified with a path<br/>
-		/// separator of '/'. Wildcard characters '<br/>
-		/// \<br/>
-		/// *' and '?' never match a path<br/>
-		/// separator.<br/>
-		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
-		/// case-insensitive.<br/>
-		/// The returned array is always NULL-terminated, for your iterating<br/>
-		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
-		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte** GlobDirectory(string path, string pattern, SDLGlobFlags flags, ref int count)
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (SDLDialogFileFilter* pfilters = &filters)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (defaultLocation != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					ShowOpenFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (pattern != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(pattern);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			fixed (int* pcount = &count)
-			{
-				byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, (int*)pcount);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get what the system believes is the "current working directory."<br/>
-		/// For systems without a concept of a current working directory, this will<br/>
-		/// still attempt to provide something reasonable.<br/>
-		/// SDL does not provide a means to _change_ the current working directory; for<br/>
-		/// platforms without this concept, this would cause surprises with file access<br/>
-		/// outside of SDL.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = defaultLocation)
+					{
+						ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (defaultLocation != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = defaultLocation)
+					{
+						ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (defaultLocation != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					ShowOpenFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] in byte defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = &defaultLocation)
+					{
+						ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					fixed (byte* pdefaultLocation = defaultLocation)
+					{
+						ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, (byte*)pdefaultLocation, allowMany ? (byte)1 : (byte)0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user select a file on their filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// Depending on the platform, the user may be allowed to input paths that<br/>
+		/// don't yet exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowOpenFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowOpenFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] string defaultLocation, [NativeName(NativeNameType.Param, "allow_many")] [NativeName(NativeNameType.Type, "bool")] bool allowMany)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLDialogFileFilter* pfilters = &filters)
+				{
+					byte* pStr0 = null;
+					int pStrSize0 = 0;
+					if (defaultLocation != null)
+					{
+						pStrSize0 = Utils.GetByteCountUTF8(defaultLocation);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+						}
+						else
+						{
+							byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+							pStr0 = pStrStack0;
+						}
+						int pStrOffset0 = Utils.EncodeStringUTF8(defaultLocation, pStr0, pStrSize0);
+						pStr0[pStrOffset0] = 0;
+					}
+					ShowOpenFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)pfilters, nfilters, pStr0, allowMany ? (byte)1 : (byte)0);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetCurrentDirectoryNative()
+		internal static void ShowSaveFileDialogNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilter* filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[830])();
+			((delegate* unmanaged[Cdecl]<delegate*<void*, byte**, int, void>, void*, SDLWindow*, SDLDialogFileFilter*, int, byte*, void>)funcTable[616])(callback, userdata, window, filters, nfilters, defaultLocation);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[830])();
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int, nint, void>)funcTable[616])((nint)callback, (nint)userdata, (nint)window, (nint)filters, nfilters, (nint)defaultLocation);
 			#endif
 		}
 
 		/// <summary>
-		/// Get what the system believes is the "current working directory."<br/>
-		/// For systems without a concept of a current working directory, this will<br/>
-		/// still attempt to provide something reasonable.<br/>
-		/// SDL does not provide a means to _change_ the current working directory; for<br/>
-		/// platforms without this concept, this would cause surprises with file access<br/>
-		/// outside of SDL.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetCurrentDirectory()
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			byte* ret = GetCurrentDirectoryNative();
-			return ret;
+			ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, defaultLocation);
 		}
 
 		/// <summary>
-		/// Get what the system believes is the "current working directory."<br/>
-		/// For systems without a concept of a current working directory, this will<br/>
-		/// still attempt to provide something reasonable.<br/>
-		/// SDL does not provide a means to _change_ the current working directory; for<br/>
-		/// platforms without this concept, this would cause surprises with file access<br/>
-		/// outside of SDL.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetCurrentDirectoryS()
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			string ret = Utils.DecodeStringUTF8(GetCurrentDirectoryNative());
-			return ret;
+			ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, defaultLocation);
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GPUSupportsShaderFormatsNative(SDLGPUShaderFormat formatFlags, byte* name)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte*, byte>)funcTable[831])(formatFlags, name);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, nint, byte>)funcTable[831])(formatFlags, (nint)name);
-			#endif
+			ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, defaultLocation);
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GPUSupportsShaderFormats(SDLGPUShaderFormat formatFlags, byte* name)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			byte ret = GPUSupportsShaderFormatsNative(formatFlags, name);
-			return ret != 0;
+			ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)filters, nfilters, defaultLocation);
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GPUSupportsShaderFormats(SDLGPUShaderFormat formatFlags, ref byte name)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			fixed (byte* pname = &name)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
-				return ret != 0;
+				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, defaultLocation);
 			}
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GPUSupportsShaderFormats(SDLGPUShaderFormat formatFlags, ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			fixed (byte* pname = name)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
-				return ret != 0;
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, defaultLocation);
 			}
 		}
 
 		/// <summary>
-		/// Checks for GPU runtime support.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GPUSupportsShaderFormats(SDLGPUShaderFormat formatFlags, string name)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = GPUSupportsShaderFormatsNative(formatFlags, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Checks for GPU runtime support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GPUSupportsPropertiesNative(uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[832])(props);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[832])(props);
-			#endif
-		}
-
-		/// <summary>
-		/// Checks for GPU runtime support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GPUSupportsProperties(uint props)
-		{
-			byte ret = GPUSupportsPropertiesNative(props);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUDevice* CreateGPUDeviceNative(SDLGPUShaderFormat formatFlags, byte debugMode, byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte, byte*, SDLGPUDevice*>)funcTable[833])(formatFlags, debugMode, name);
-			#else
-			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte, nint, nint>)funcTable[833])(formatFlags, debugMode, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUDevice* CreateGPUDevice(SDLGPUShaderFormat formatFlags, bool debugMode, byte* name)
-		{
-			SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUDevice* CreateGPUDevice(SDLGPUShaderFormat formatFlags, bool debugMode, ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
-				return ret;
+				ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, defaultLocation);
 			}
 		}
 
 		/// <summary>
-		/// Creates a GPU context.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUDevice* CreateGPUDevice(SDLGPUShaderFormat formatFlags, bool debugMode, ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] SDLDialogFileFilterPtr filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			fixed (byte* pname = name)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
-				return ret;
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata, (SDLWindow*)pwindow, (SDLDialogFileFilter*)filters, nfilters, defaultLocation);
 			}
 		}
 
 		/// <summary>
-		/// Creates a GPU context.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUDevice* CreateGPUDevice(SDLGPUShaderFormat formatFlags, bool debugMode, string name)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (SDLDialogFileFilter* pfilters = &filters)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN`: enable debug mode<br/>
-		/// properties and validations, defaults to true.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer<br/>
-		/// energy efficiency over maximum GPU performance, defaults to false.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
-		/// use, if a specific one is desired.<br/>
-		/// These are the current shader format properties:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN`: The app is able to<br/>
-		/// provide shaders for an NDA platform.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN`: The app is able to<br/>
-		/// provide SPIR-V shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN`: The app is able to<br/>
-		/// provide DXBC shaders if applicable<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN`: The app is able to<br/>
-		/// provide DXIL shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN`: The app is able to<br/>
-		/// provide MSL shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to<br/>
-		/// provide Metal shader libraries if applicable.<br/>
-		/// With the D3D12 renderer:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
-		/// use for all vertex semantics, default is "TEXCOORD".<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUDevice* CreateGPUDeviceWithPropertiesNative(uint props)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLGPUDevice*>)funcTable[834])(props);
-			#else
-			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[834])(props);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a GPU context.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN`: enable debug mode<br/>
-		/// properties and validations, defaults to true.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer<br/>
-		/// energy efficiency over maximum GPU performance, defaults to false.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
-		/// use, if a specific one is desired.<br/>
-		/// These are the current shader format properties:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN`: The app is able to<br/>
-		/// provide shaders for an NDA platform.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN`: The app is able to<br/>
-		/// provide SPIR-V shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN`: The app is able to<br/>
-		/// provide DXBC shaders if applicable<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN`: The app is able to<br/>
-		/// provide DXIL shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN`: The app is able to<br/>
-		/// provide MSL shaders if applicable.<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to<br/>
-		/// provide Metal shader libraries if applicable.<br/>
-		/// With the D3D12 renderer:<br/>
-		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
-		/// use for all vertex semantics, default is "TEXCOORD".<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUDevice* CreateGPUDeviceWithProperties(uint props)
-		{
-			SDLGPUDevice* ret = CreateGPUDeviceWithPropertiesNative(props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyGPUDeviceNative(SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, void>)funcTable[835])(device);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[835])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyGPUDevice(SDLGPUDevice* device)
-		{
-			DestroyGPUDeviceNative(device);
-		}
-
-		/// <summary>
-		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyGPUDevice(ref SDLGPUDevice device)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				DestroyGPUDeviceNative((SDLGPUDevice*)pdevice);
+				ShowSaveFileDialogNative(callback, userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
 			}
 		}
 
 		/// <summary>
-		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumGPUDriversNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[836])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[836])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of GPU drivers compiled into SDL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumGPUDrivers()
-		{
-			int ret = GetNumGPUDriversNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a built in GPU driver.<br/>
-		/// The GPU drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
-		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetGPUDriverNative(int index)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] SDLDialogFileCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[837])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[837])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of a built in GPU driver.<br/>
-		/// The GPU drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
-		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetGPUDriver(int index)
-		{
-			byte* ret = GetGPUDriverNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of a built in GPU driver.<br/>
-		/// The GPU drivers are presented in the order in which they are normally<br/>
-		/// checked during initialization.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
-		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetGPUDriverS(int index)
-		{
-			string ret = Utils.DecodeStringUTF8(GetGPUDriverNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetGPUDeviceDriverNative(SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte*>)funcTable[838])(device);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[838])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetGPUDeviceDriver(SDLGPUDevice* device)
-		{
-			byte* ret = GetGPUDeviceDriverNative(device);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetGPUDeviceDriverS(SDLGPUDevice* device)
-		{
-			string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative(device));
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetGPUDeviceDriver(ref SDLGPUDevice device)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLDialogFileFilter* pfilters = &filters)
 			{
-				byte* ret = GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice);
-				return ret;
+				ShowSaveFileDialogNative((delegate*<void*, byte**, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
 			}
 		}
 
 		/// <summary>
-		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// Displays a dialog that lets the user choose a new or existing file on their<br/>
+		/// filesystem.<br/>
+		/// This is an asynchronous function; it will return immediately, and the<br/>
+		/// result will be passed to the callback.<br/>
+		/// The callback will be invoked with a null-terminated list of files the user<br/>
+		/// chose. The list will be empty if the user canceled the dialog, and it will<br/>
+		/// be NULL if an error occurred.<br/>
+		/// Note that the callback may be called from a different thread than the one<br/>
+		/// the function was invoked on.<br/>
+		/// The chosen file may or may not already exist.<br/>
+		/// On Linux, dialogs may require XDG Portals, which requires DBus, which<br/>
+		/// requires an event-handling loop. Apps that do not use SDL to handle events<br/>
+		/// should add a call to SDL_PumpEvents in their main loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should be called only from the main thread. The<br/>
+		/// callback may be invoked from the same thread or from a<br/>
+		/// different one, depending on the OS's constraints.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetGPUDeviceDriverS(ref SDLGPUDevice device)
+		[NativeName(NativeNameType.Func, "SDL_ShowSaveFileDialog")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ShowSaveFileDialog([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_DialogFileCallback")] delegate*<void*, byte**, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "filters")] [NativeName(NativeNameType.Type, "SDL_DialogFileFilter const *")] in SDLDialogFileFilter filters, [NativeName(NativeNameType.Param, "nfilters")] [NativeName(NativeNameType.Type, "int")] int nfilters, [NativeName(NativeNameType.Param, "default_location")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultLocation)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			fixed (SDLDialogFileFilter* pfilters = &filters)
 			{
-				string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Returns the supported shader formats for this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUShaderFormat GetGPUShaderFormatsNative(SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShaderFormat>)funcTable[839])(device);
-			#else
-			return (SDLGPUShaderFormat)((delegate* unmanaged[Cdecl]<nint, SDLGPUShaderFormat>)funcTable[839])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns the supported shader formats for this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUShaderFormat GetGPUShaderFormats(SDLGPUDevice* device)
-		{
-			SDLGPUShaderFormat ret = GetGPUShaderFormatsNative(device);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns the supported shader formats for this GPU context.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUShaderFormat GetGPUShaderFormats(ref SDLGPUDevice device)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUShaderFormat ret = GetGPUShaderFormatsNative((SDLGPUDevice*)pdevice);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUComputePipeline* CreateGPUComputePipelineNative(SDLGPUDevice* device, SDLGPUComputePipelineCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipelineCreateInfo*, SDLGPUComputePipeline*>)funcTable[840])(device, createinfo);
-			#else
-			return (SDLGPUComputePipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[840])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline(SDLGPUDevice* device, SDLGPUComputePipelineCreateInfo* createinfo)
-		{
-			SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline(ref SDLGPUDevice device, SDLGPUComputePipelineCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline(SDLGPUDevice* device, ref SDLGPUComputePipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative(device, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a compute workflow.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
-		/// read-only storage buffers<br/>
-		/// - 1: Read-write storage textures, followed by read-write storage buffers<br/>
-		/// - 2: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-only storage buffers<br/>
-		/// - (u[n], space1): Read-write storage textures, followed by read-write<br/>
-		/// storage buffers<br/>
-		/// - (b[n], space2): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[buffer]]: Uniform buffers, followed by read-only storage buffers,<br/>
-		/// followed by read-write storage buffers<br/>
-		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
-		/// followed by read-write storage textures<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUComputePipeline* CreateGPUComputePipeline(ref SDLGPUDevice device, ref SDLGPUComputePipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUComputePipelineCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUComputePipeline* ret = CreateGPUComputePipelineNative((SDLGPUDevice*)pdevice, (SDLGPUComputePipelineCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipelineNative(SDLGPUDevice* device, SDLGPUGraphicsPipelineCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUGraphicsPipelineCreateInfo*, SDLGPUGraphicsPipeline*>)funcTable[841])(device, createinfo);
-			#else
-			return (SDLGPUGraphicsPipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[841])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline(SDLGPUDevice* device, SDLGPUGraphicsPipelineCreateInfo* createinfo)
-		{
-			SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline(ref SDLGPUDevice device, SDLGPUGraphicsPipelineCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline(SDLGPUDevice* device, ref SDLGPUGraphicsPipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUGraphicsPipelineCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative(device, (SDLGPUGraphicsPipelineCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a pipeline object to be used in a graphics workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUGraphicsPipeline* CreateGPUGraphicsPipeline(ref SDLGPUDevice device, ref SDLGPUGraphicsPipelineCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUGraphicsPipelineCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUGraphicsPipeline* ret = CreateGPUGraphicsPipelineNative((SDLGPUDevice*)pdevice, (SDLGPUGraphicsPipelineCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUSampler* CreateGPUSamplerNative(SDLGPUDevice* device, SDLGPUSamplerCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUSamplerCreateInfo*, SDLGPUSampler*>)funcTable[842])(device, createinfo);
-			#else
-			return (SDLGPUSampler*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[842])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUSampler* CreateGPUSampler(SDLGPUDevice* device, SDLGPUSamplerCreateInfo* createinfo)
-		{
-			SDLGPUSampler* ret = CreateGPUSamplerNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUSampler* CreateGPUSampler(ref SDLGPUDevice device, SDLGPUSamplerCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUSampler* ret = CreateGPUSamplerNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUSampler* CreateGPUSampler(SDLGPUDevice* device, ref SDLGPUSamplerCreateInfo createinfo)
-		{
-			fixed (SDLGPUSamplerCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUSampler* ret = CreateGPUSamplerNative(device, (SDLGPUSamplerCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a sampler object to be used when binding textures in a graphics<br/>
-		/// workflow.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUSampler* CreateGPUSampler(ref SDLGPUDevice device, ref SDLGPUSamplerCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUSamplerCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUSampler* ret = CreateGPUSamplerNative((SDLGPUDevice*)pdevice, (SDLGPUSamplerCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUShader* CreateGPUShaderNative(SDLGPUDevice* device, SDLGPUShaderCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShaderCreateInfo*, SDLGPUShader*>)funcTable[843])(device, createinfo);
-			#else
-			return (SDLGPUShader*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[843])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUShader* CreateGPUShader(SDLGPUDevice* device, SDLGPUShaderCreateInfo* createinfo)
-		{
-			SDLGPUShader* ret = CreateGPUShaderNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUShader* CreateGPUShader(ref SDLGPUDevice device, SDLGPUShaderCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUShader* ret = CreateGPUShaderNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUShader* CreateGPUShader(SDLGPUDevice* device, ref SDLGPUShaderCreateInfo createinfo)
-		{
-			fixed (SDLGPUShaderCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUShader* ret = CreateGPUShaderNative(device, (SDLGPUShaderCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a shader to be used when creating a graphics pipeline.<br/>
-		/// Shader resource bindings must be authored to follow a particular order<br/>
-		/// depending on the shader format.<br/>
-		/// For SPIR-V shaders, use the following resource sets:<br/>
-		/// For vertex shaders:<br/>
-		/// - 0: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 1: Uniform buffers<br/>
-		/// For fragment shaders:<br/>
-		/// - 2: Sampled textures, followed by storage textures, followed by storage<br/>
-		/// buffers<br/>
-		/// - 3: Uniform buffers<br/>
-		/// For DXBC and DXIL shaders, use the following register order:<br/>
-		/// For vertex shaders:<br/>
-		/// - (t[n], space0): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space0): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space1): Uniform buffers<br/>
-		/// For pixel shaders:<br/>
-		/// - (t[n], space2): Sampled textures, followed by storage textures, followed<br/>
-		/// by storage buffers<br/>
-		/// - (s[n], space2): Samplers with indices corresponding to the sampled<br/>
-		/// textures<br/>
-		/// - (b[n], space3): Uniform buffers<br/>
-		/// For MSL/metallib, use the following order:<br/>
-		/// - [[texture]]: Sampled textures, followed by storage textures<br/>
-		/// - [[sampler]]: Samplers with indices corresponding to the sampled textures<br/>
-		/// - [[buffer]]: Uniform buffers, followed by storage buffers. Vertex buffer 0<br/>
-		/// is bound at [[buffer(14)]], vertex buffer 1 at [[buffer(15)]], and so on.<br/>
-		/// Rather than manually authoring vertex buffer indices, use the<br/>
-		/// [[stage_in]] attribute which will automatically use the vertex input<br/>
-		/// information from the SDL_GPUGraphicsPipeline.<br/>
-		/// Shader semantics other than system-value semantics do not matter in D3D12<br/>
-		/// and for ease of use the SDL implementation assumes that non system-value<br/>
-		/// semantics will all be TEXCOORD. If you are using HLSL as the shader source<br/>
-		/// language, your vertex semantics should start at TEXCOORD0 and increment<br/>
-		/// like so: TEXCOORD1, TEXCOORD2, etc. If you wish to change the semantic<br/>
-		/// prefix to something other than TEXCOORD you can use<br/>
-		/// SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING with<br/>
-		/// SDL_CreateGPUDeviceWithProperties().<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_SHADER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUShader* CreateGPUShader(ref SDLGPUDevice device, ref SDLGPUShaderCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUShaderCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUShader* ret = CreateGPUShaderNative((SDLGPUDevice*)pdevice, (SDLGPUShaderCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUTexture* CreateGPUTextureNative(SDLGPUDevice* device, SDLGPUTextureCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureCreateInfo*, SDLGPUTexture*>)funcTable[844])(device, createinfo);
-			#else
-			return (SDLGPUTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[844])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUTexture* CreateGPUTexture(SDLGPUDevice* device, SDLGPUTextureCreateInfo* createinfo)
-		{
-			SDLGPUTexture* ret = CreateGPUTextureNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUTexture* CreateGPUTexture(ref SDLGPUDevice device, SDLGPUTextureCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUTexture* ret = CreateGPUTextureNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUTexture* CreateGPUTexture(SDLGPUDevice* device, ref SDLGPUTextureCreateInfo createinfo)
-		{
-			fixed (SDLGPUTextureCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUTexture* ret = CreateGPUTextureNative(device, (SDLGPUTextureCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a texture object to be used in graphics or compute workflows.<br/>
-		/// The contents of this texture are undefined until data is written to the<br/>
-		/// texture.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.<br/>
-		/// If you request a sample count higher than the hardware supports, the<br/>
-		/// implementation will automatically fall back to the highest available sample<br/>
-		/// count.<br/>
-		/// There are optional properties that can be provided through<br/>
-		/// SDL_GPUTextureCreateInfo's `props`. These are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this red intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this green intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this blue intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT`: (Direct3D 12 only) if<br/>
-		/// the texture usage is SDL_GPU_TEXTUREUSAGE_COLOR_TARGET, clear the texture<br/>
-		/// to a color with this alpha intensity. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)<br/>
-		/// if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear<br/>
-		/// the texture to a depth of this value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12<br/>
-		/// only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,<br/>
-		/// clear the texture to a stencil of this Uint8 value. Defaults to zero.<br/>
-		/// - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed<br/>
-		/// in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUTexture* CreateGPUTexture(ref SDLGPUDevice device, ref SDLGPUTextureCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTextureCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUTexture* ret = CreateGPUTextureNative((SDLGPUDevice*)pdevice, (SDLGPUTextureCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUBuffer* CreateGPUBufferNative(SDLGPUDevice* device, SDLGPUBufferCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBufferCreateInfo*, SDLGPUBuffer*>)funcTable[845])(device, createinfo);
-			#else
-			return (SDLGPUBuffer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[845])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUBuffer* CreateGPUBuffer(SDLGPUDevice* device, SDLGPUBufferCreateInfo* createinfo)
-		{
-			SDLGPUBuffer* ret = CreateGPUBufferNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUBuffer* CreateGPUBuffer(ref SDLGPUDevice device, SDLGPUBufferCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUBuffer* ret = CreateGPUBufferNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUBuffer* CreateGPUBuffer(SDLGPUDevice* device, ref SDLGPUBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUBufferCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUBuffer* ret = CreateGPUBufferNative(device, (SDLGPUBufferCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a buffer object to be used in graphics or compute workflows.<br/>
-		/// The contents of this buffer are undefined until data is written to the<br/>
-		/// buffer.<br/>
-		/// Note that certain combinations of usage flags are invalid. For example, a<br/>
-		/// buffer cannot have both the VERTEX and INDEX flags.<br/>
-		/// If you use a STORAGE flag, the data in the buffer must respect std140<br/>
-		/// layout conventions. In practical terms this means you must ensure that vec3<br/>
-		/// and vec4 fields are 16-byte aligned.<br/>
-		/// For better understanding of underlying concepts and memory management with<br/>
-		/// SDL GPU API, you may refer<br/>
-		/// [this blog post](https://moonside.games/posts/sdl-gpu-concepts-cycling/)<br/>
-		/// .<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING`: a name that can be displayed in<br/>
-		/// debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUBuffer* CreateGPUBuffer(ref SDLGPUDevice device, ref SDLGPUBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBufferCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUBuffer* ret = CreateGPUBufferNative((SDLGPUDevice*)pdevice, (SDLGPUBufferCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUTransferBuffer* CreateGPUTransferBufferNative(SDLGPUDevice* device, SDLGPUTransferBufferCreateInfo* createinfo)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTransferBufferCreateInfo*, SDLGPUTransferBuffer*>)funcTable[846])(device, createinfo);
-			#else
-			return (SDLGPUTransferBuffer*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[846])((nint)device, (nint)createinfo);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer(SDLGPUDevice* device, SDLGPUTransferBufferCreateInfo* createinfo)
-		{
-			SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative(device, createinfo);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer(ref SDLGPUDevice device, SDLGPUTransferBufferCreateInfo* createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative((SDLGPUDevice*)pdevice, createinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer(SDLGPUDevice* device, ref SDLGPUTransferBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUTransferBufferCreateInfo* pcreateinfo = &createinfo)
-			{
-				SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative(device, (SDLGPUTransferBufferCreateInfo*)pcreateinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a transfer buffer to be used when uploading to or downloading from<br/>
-		/// graphics resources.<br/>
-		/// Download buffers can be particularly expensive to create, so it is good<br/>
-		/// practice to reuse them if data will be downloaded regularly.<br/>
-		/// There are optional properties that can be provided through `props`. These<br/>
-		/// are the supported properties:<br/>
-		/// - `SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING`: a name that can be<br/>
-		/// displayed in debugging tools.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUTransferBuffer* CreateGPUTransferBuffer(ref SDLGPUDevice device, ref SDLGPUTransferBufferCreateInfo createinfo)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUTransferBufferCreateInfo* pcreateinfo = &createinfo)
-				{
-					SDLGPUTransferBuffer* ret = CreateGPUTransferBufferNative((SDLGPUDevice*)pdevice, (SDLGPUTransferBufferCreateInfo*)pcreateinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetGPUBufferNameNative(SDLGPUDevice* device, SDLGPUBuffer* buffer, byte* text)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUBuffer*, byte*, void>)funcTable[847])(device, buffer, text);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[847])((nint)device, (nint)buffer, (nint)text);
-			#endif
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUBufferName(SDLGPUDevice* device, SDLGPUBuffer* buffer, byte* text)
-		{
-			SetGPUBufferNameNative(device, buffer, text);
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUBufferName(ref SDLGPUDevice device, SDLGPUBuffer* buffer, byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				SetGPUBufferNameNative((SDLGPUDevice*)pdevice, buffer, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUBufferName(SDLGPUDevice* device, ref SDLGPUBuffer buffer, byte* text)
-		{
-			fixed (SDLGPUBuffer* pbuffer = &buffer)
-			{
-				SetGPUBufferNameNative(device, (SDLGPUBuffer*)pbuffer, text);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUBufferName(ref SDLGPUDevice device, ref SDLGPUBuffer buffer, byte* text)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUBuffer* pbuffer = &buffer)
-				{
-					SetGPUBufferNameNative((SDLGPUDevice*)pdevice, (SDLGPUBuffer*)pbuffer, text);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUBufferName(SDLGPUDevice* device, SDLGPUBuffer* buffer, ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				SetGPUBufferNameNative(device, buffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUBufferName(SDLGPUDevice* device, SDLGPUBuffer* buffer, ReadOnlySpan<byte> text)
-		{
-			fixed (byte* ptext = text)
-			{
-				SetGPUBufferNameNative(device, buffer, (byte*)ptext);
-			}
-		}
-
-		/// <summary>
-		/// Sets an arbitrary string constant to label a buffer.<br/>
-		/// You should use SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING with<br/>
-		/// SDL_CreateGPUBuffer instead of this function to avoid thread safety issues.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe, you must make sure the<br/>
-		/// buffer is not simultaneously used by any other thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetGPUBufferName(SDLGPUDevice* device, SDLGPUBuffer* buffer, string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SetGPUBufferNameNative(device, buffer, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
+				ShowSaveFileDialogNative(callback, (void*)userdata, (SDLWindow*)window, (SDLDialogFileFilter*)pfilters, nfilters, defaultLocation);
 			}
 		}
 	}

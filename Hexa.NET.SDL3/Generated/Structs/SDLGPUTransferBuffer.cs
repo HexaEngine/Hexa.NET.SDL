@@ -15,17 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a transfer buffer.<br/>
-	/// Used for transferring data to and from the device.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTransferBuffer")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTransferBuffer
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTransferBuffer")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTransferBufferPtr : IEquatable<SDLGPUTransferBufferPtr>
+	{
+		public SDLGPUTransferBufferPtr(SDLGPUTransferBuffer* handle) { Handle = handle; }
+
+		public SDLGPUTransferBuffer* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTransferBufferPtr Null => new SDLGPUTransferBufferPtr(null);
+
+		public SDLGPUTransferBuffer this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTransferBufferPtr(SDLGPUTransferBuffer* handle) => new SDLGPUTransferBufferPtr(handle);
+
+		public static implicit operator SDLGPUTransferBuffer*(SDLGPUTransferBufferPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTransferBufferPtr left, SDLGPUTransferBufferPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTransferBufferPtr left, SDLGPUTransferBufferPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTransferBufferPtr left, SDLGPUTransferBuffer* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTransferBufferPtr left, SDLGPUTransferBuffer* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTransferBufferPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTransferBufferPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTransferBufferPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

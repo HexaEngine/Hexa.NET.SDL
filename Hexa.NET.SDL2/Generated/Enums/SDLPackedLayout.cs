@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Packed component layout. <br/>
 	/// </summary>
-	[Flags]
 	public enum SDLPackedLayout : int
 	{
 		None = unchecked(0),

@@ -17,59 +17,89 @@ namespace Hexa.NET.SDL3
 	/// These are as described by https://www.itu.int/rec/T-REC-H.273-201612-S/en<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_MatrixCoefficients")]
 	public enum SDLMatrixCoefficients : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_IDENTITY")]
+		[NativeName(NativeNameType.Value, "0")]
 		Identity = unchecked(0),
 		/// <summary>
 		/// ITU-R BT.709-6 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_BT709")]
+		[NativeName(NativeNameType.Value, "1")]
 		Bt709 = unchecked(1),
 
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_UNSPECIFIED")]
+		[NativeName(NativeNameType.Value, "2")]
 		Unspecified = unchecked(2),
 		/// <summary>
 		/// US FCC Title 47 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_FCC")]
+		[NativeName(NativeNameType.Value, "4")]
 		Fcc = unchecked(4),
 
 		/// <summary>
 		/// ITU-R BT.470-6 System B, G / ITU-R BT.601-7 625, functionally the same as SDL_MATRIX_COEFFICIENTS_BT601 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_BT470BG")]
+		[NativeName(NativeNameType.Value, "5")]
 		Bt470Bg = unchecked(5),
 
 		/// <summary>
 		/// ITU-R BT.601-7 525 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_BT601")]
+		[NativeName(NativeNameType.Value, "6")]
 		Bt601 = unchecked(6),
 
 		/// <summary>
 		/// SMPTE 240M <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_SMPTE240")]
+		[NativeName(NativeNameType.Value, "7")]
 		Smpte240 = unchecked(7),
 
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_YCGCO")]
+		[NativeName(NativeNameType.Value, "8")]
 		Ycgco = unchecked(8),
 		/// <summary>
 		/// ITU-R BT.2020-2 non-constant luminance <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_BT2020_NCL")]
+		[NativeName(NativeNameType.Value, "9")]
 		Bt2020Ncl = unchecked(9),
 
 		/// <summary>
 		/// ITU-R BT.2020-2 constant luminance <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_BT2020_CL")]
+		[NativeName(NativeNameType.Value, "10")]
 		Bt2020Cl = unchecked(10),
 
 		/// <summary>
 		/// SMPTE ST 2085 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_SMPTE2085")]
+		[NativeName(NativeNameType.Value, "11")]
 		Smpte2085 = unchecked(11),
 
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_CHROMA_DERIVED_NCL")]
+		[NativeName(NativeNameType.Value, "12")]
 		ChromaDerivedNcl = unchecked(12),
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_CHROMA_DERIVED_CL")]
+		[NativeName(NativeNameType.Value, "13")]
 		ChromaDerivedCl = unchecked(13),
 		/// <summary>
 		/// ITU-R BT.2100-0 ICTCP <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_ICTCP")]
+		[NativeName(NativeNameType.Value, "14")]
 		Ictcp = unchecked(14),
 
+		[NativeName(NativeNameType.EnumItem, "SDL_MATRIX_COEFFICIENTS_CUSTOM")]
+		[NativeName(NativeNameType.Value, "31")]
 		Custom = unchecked(31),
 	}
 }

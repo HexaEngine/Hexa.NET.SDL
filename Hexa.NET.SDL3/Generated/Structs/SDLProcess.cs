@@ -15,16 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a system process.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Process")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLProcess
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Process")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLProcessPtr : IEquatable<SDLProcessPtr>
+	{
+		public SDLProcessPtr(SDLProcess* handle) { Handle = handle; }
+
+		public SDLProcess* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLProcessPtr Null => new SDLProcessPtr(null);
+
+		public SDLProcess this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLProcessPtr(SDLProcess* handle) => new SDLProcessPtr(handle);
+
+		public static implicit operator SDLProcess*(SDLProcessPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLProcessPtr left, SDLProcessPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLProcessPtr left, SDLProcessPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLProcessPtr left, SDLProcess* right) => left.Handle == right;
+
+		public static bool operator !=(SDLProcessPtr left, SDLProcess* right) => left.Handle != right;
+
+		public bool Equals(SDLProcessPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLProcessPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLProcessPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

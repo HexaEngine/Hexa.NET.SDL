@@ -15,30 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The opaque handle that represents an audio stream.<br/>
-	/// SDL_AudioStream is an audio conversion interface.<br/>
-	/// - It can handle resampling data in chunks without generating artifacts,<br/>
-	/// when it doesn't have the complete buffer available.<br/>
-	/// - It can handle incoming data in any variable size.<br/>
-	/// - It can handle input/output format changes on the fly.<br/>
-	/// - It can remap audio channels between inputs and outputs.<br/>
-	/// - You push data as you have it, and pull it when you need it<br/>
-	/// - It can also function as a basic audio data queue even if you just have<br/>
-	/// sound that needs to pass from one place to another.<br/>
-	/// - You can hook callbacks up to them when more data is added or requested,<br/>
-	/// to manage data on-the-fly.<br/>
-	/// Audio streams are the core of the SDL3 audio interface. You create one or<br/>
-	/// more of them, bind them to an opened audio device, and feed data to them<br/>
-	/// (or for recording, consume data from them).<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AudioStream")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAudioStream
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_AudioStream")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAudioStreamPtr : IEquatable<SDLAudioStreamPtr>
+	{
+		public SDLAudioStreamPtr(SDLAudioStream* handle) { Handle = handle; }
+
+		public SDLAudioStream* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAudioStreamPtr Null => new SDLAudioStreamPtr(null);
+
+		public SDLAudioStream this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAudioStreamPtr(SDLAudioStream* handle) => new SDLAudioStreamPtr(handle);
+
+		public static implicit operator SDLAudioStream*(SDLAudioStreamPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAudioStreamPtr left, SDLAudioStreamPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAudioStreamPtr left, SDLAudioStreamPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAudioStreamPtr left, SDLAudioStream* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAudioStreamPtr left, SDLAudioStream* right) => left.Handle != right;
+
+		public bool Equals(SDLAudioStreamPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAudioStreamPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAudioStreamPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

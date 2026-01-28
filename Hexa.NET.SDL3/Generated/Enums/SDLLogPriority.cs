@@ -16,17 +16,35 @@ namespace Hexa.NET.SDL3
 	/// The predefined log priorities<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_LogPriority")]
 	public enum SDLLogPriority : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_INVALID")]
+		[NativeName(NativeNameType.Value, "0")]
 		Invalid = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_TRACE")]
+		[NativeName(NativeNameType.Value, "1")]
 		Trace = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_VERBOSE")]
+		[NativeName(NativeNameType.Value, "2")]
 		Verbose = unchecked(2),
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_DEBUG")]
+		[NativeName(NativeNameType.Value, "3")]
 		Debug = unchecked(3),
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_INFO")]
+		[NativeName(NativeNameType.Value, "4")]
 		Info = unchecked(4),
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_WARN")]
+		[NativeName(NativeNameType.Value, "5")]
 		Warn = unchecked(5),
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_ERROR")]
+		[NativeName(NativeNameType.Value, "6")]
 		Error = unchecked(6),
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_CRITICAL")]
+		[NativeName(NativeNameType.Value, "7")]
 		Critical = unchecked(7),
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_COUNT")]
+		[NativeName(NativeNameType.Value, "8")]
 		Count = unchecked(8),
 	}
 }

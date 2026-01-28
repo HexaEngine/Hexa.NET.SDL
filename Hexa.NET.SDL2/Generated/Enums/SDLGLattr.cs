@@ -39,7 +39,6 @@ namespace Hexa.NET.SDL2
 	/// SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE or<br/>
 	/// SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH.<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLGLattr : int
 	{
 		/// <summary>

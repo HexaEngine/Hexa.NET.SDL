@@ -15,16 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The haptic structure used to identify an SDL haptic.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Haptic")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHaptic
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Haptic")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLHapticPtr : IEquatable<SDLHapticPtr>
+	{
+		public SDLHapticPtr(SDLHaptic* handle) { Handle = handle; }
+
+		public SDLHaptic* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLHapticPtr Null => new SDLHapticPtr(null);
+
+		public SDLHaptic this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLHapticPtr(SDLHaptic* handle) => new SDLHapticPtr(handle);
+
+		public static implicit operator SDLHaptic*(SDLHapticPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLHapticPtr left, SDLHapticPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLHapticPtr left, SDLHapticPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLHapticPtr left, SDLHaptic* right) => left.Handle == right;
+
+		public static bool operator !=(SDLHapticPtr left, SDLHaptic* right) => left.Handle != right;
+
+		public bool Equals(SDLHapticPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLHapticPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLHapticPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

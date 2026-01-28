@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Event subtype for window events<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLWindowEventID : int
 	{
 		/// <summary>

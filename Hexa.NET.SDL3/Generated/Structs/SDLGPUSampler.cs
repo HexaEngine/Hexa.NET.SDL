@@ -15,16 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a sampler.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUSampler")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUSampler
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUSampler")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUSamplerPtr : IEquatable<SDLGPUSamplerPtr>
+	{
+		public SDLGPUSamplerPtr(SDLGPUSampler* handle) { Handle = handle; }
+
+		public SDLGPUSampler* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUSamplerPtr Null => new SDLGPUSamplerPtr(null);
+
+		public SDLGPUSampler this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUSamplerPtr(SDLGPUSampler* handle) => new SDLGPUSamplerPtr(handle);
+
+		public static implicit operator SDLGPUSampler*(SDLGPUSamplerPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUSamplerPtr left, SDLGPUSamplerPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUSamplerPtr left, SDLGPUSamplerPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUSamplerPtr left, SDLGPUSampler* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUSamplerPtr left, SDLGPUSampler* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUSamplerPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUSamplerPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUSamplerPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

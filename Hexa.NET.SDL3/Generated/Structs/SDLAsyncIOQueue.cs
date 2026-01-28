@@ -15,20 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// A queue of completed asynchronous I/O tasks.<br/>
-	/// When starting an asynchronous operation, you specify a queue for the new<br/>
-	/// task. A queue can be asked later if any tasks in it have completed,<br/>
-	/// allowing an app to manage multiple pending tasks in one place, in whatever<br/>
-	/// order they complete.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AsyncIOQueue")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAsyncIOQueue
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_AsyncIOQueue")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAsyncIOQueuePtr : IEquatable<SDLAsyncIOQueuePtr>
+	{
+		public SDLAsyncIOQueuePtr(SDLAsyncIOQueue* handle) { Handle = handle; }
+
+		public SDLAsyncIOQueue* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAsyncIOQueuePtr Null => new SDLAsyncIOQueuePtr(null);
+
+		public SDLAsyncIOQueue this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAsyncIOQueuePtr(SDLAsyncIOQueue* handle) => new SDLAsyncIOQueuePtr(handle);
+
+		public static implicit operator SDLAsyncIOQueue*(SDLAsyncIOQueuePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAsyncIOQueuePtr left, SDLAsyncIOQueuePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAsyncIOQueuePtr left, SDLAsyncIOQueuePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAsyncIOQueuePtr left, SDLAsyncIOQueue* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAsyncIOQueuePtr left, SDLAsyncIOQueue* right) => left.Handle != right;
+
+		public bool Equals(SDLAsyncIOQueuePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAsyncIOQueuePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAsyncIOQueuePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

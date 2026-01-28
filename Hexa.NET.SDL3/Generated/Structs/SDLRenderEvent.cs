@@ -19,23 +19,32 @@ namespace Hexa.NET.SDL3
 	/// Renderer event structure (event.render.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_RenderEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLRenderEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_RENDER_TARGETS_RESET, SDL_EVENT_RENDER_DEVICE_RESET, SDL_EVENT_RENDER_DEVICE_LOST <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The window containing the renderer in question. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "windowID")]
+		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 

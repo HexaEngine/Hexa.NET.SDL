@@ -20,31 +20,40 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Palette")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPalette
 	{
 		/// <summary>
 		/// number of elements in `colors`. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "ncolors")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Ncolors;
 
 		/// <summary>
 		/// an array of colors, `ncolors` long. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "colors")]
+		[NativeName(NativeNameType.Type, "SDL_Color *")]
 		public unsafe SDLColor* Colors;
 
 		/// <summary>
 		/// internal use only, do not touch. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "version")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Version;
 
 		/// <summary>
 		/// internal use only, do not touch. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "refcount")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Refcount;
 
 
-		public unsafe SDLPalette(int ncolors = default, SDLColor* colors = default, uint version = default, int refcount = default)
+		public unsafe SDLPalette(int ncolors = default, SDLColorPtr colors = default, uint version = default, int refcount = default)
 		{
 			Ncolors = ncolors;
 			Colors = colors;
@@ -53,6 +62,68 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A set of indexed colors representing a palette.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Palette")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLPalettePtr : IEquatable<SDLPalettePtr>
+	{
+		public SDLPalettePtr(SDLPalette* handle) { Handle = handle; }
+
+		public SDLPalette* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLPalettePtr Null => new SDLPalettePtr(null);
+
+		public SDLPalette this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLPalettePtr(SDLPalette* handle) => new SDLPalettePtr(handle);
+
+		public static implicit operator SDLPalette*(SDLPalettePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLPalettePtr left, SDLPalettePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLPalettePtr left, SDLPalettePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLPalettePtr left, SDLPalette* right) => left.Handle == right;
+
+		public static bool operator !=(SDLPalettePtr left, SDLPalette* right) => left.Handle != right;
+
+		public bool Equals(SDLPalettePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLPalettePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLPalettePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// number of elements in `colors`. <br/>
+		/// </summary>
+		public ref int Ncolors => ref Unsafe.AsRef<int>(&Handle->Ncolors);
+		/// <summary>
+		/// an array of colors, `ncolors` long. <br/>
+		/// </summary>
+		public ref SDLColorPtr Colors => ref Unsafe.AsRef<SDLColorPtr>(&Handle->Colors);
+		/// <summary>
+		/// internal use only, do not touch. <br/>
+		/// </summary>
+		public ref uint Version => ref Unsafe.AsRef<uint>(&Handle->Version);
+		/// <summary>
+		/// internal use only, do not touch. <br/>
+		/// </summary>
+		public ref int Refcount => ref Unsafe.AsRef<int>(&Handle->Refcount);
 	}
 
 }

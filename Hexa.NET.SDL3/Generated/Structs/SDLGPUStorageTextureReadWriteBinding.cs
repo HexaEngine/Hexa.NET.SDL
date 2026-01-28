@@ -21,34 +21,49 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUStorageTextureReadWriteBinding")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUStorageTextureReadWriteBinding
 	{
 		/// <summary>
 		/// The texture to bind. Must have been created with SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_WRITE or SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "texture")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The mip level index to bind. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mip_level")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint MipLevel;
 
 		/// <summary>
 		/// The layer index to bind. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "layer")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Layer;
 
 		/// <summary>
 		/// true cycles the texture if it is already bound. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "cycle")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Cycle;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
+		[NativeName(NativeNameType.Field, "padding3")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
-		public unsafe SDLGPUStorageTextureReadWriteBinding(SDLGPUTexture* texture = default, uint mipLevel = default, uint layer = default, bool cycle = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
+		public unsafe SDLGPUStorageTextureReadWriteBinding(SDLGPUTexturePtr texture = default, uint mipLevel = default, uint layer = default, bool cycle = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
 		{
 			Texture = texture;
 			MipLevel = mipLevel;
@@ -60,6 +75,72 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying parameters related to binding textures in a compute<br/>
+	/// pass.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUStorageTextureReadWriteBinding")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUStorageTextureReadWriteBindingPtr : IEquatable<SDLGPUStorageTextureReadWriteBindingPtr>
+	{
+		public SDLGPUStorageTextureReadWriteBindingPtr(SDLGPUStorageTextureReadWriteBinding* handle) { Handle = handle; }
+
+		public SDLGPUStorageTextureReadWriteBinding* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUStorageTextureReadWriteBindingPtr Null => new SDLGPUStorageTextureReadWriteBindingPtr(null);
+
+		public SDLGPUStorageTextureReadWriteBinding this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUStorageTextureReadWriteBindingPtr(SDLGPUStorageTextureReadWriteBinding* handle) => new SDLGPUStorageTextureReadWriteBindingPtr(handle);
+
+		public static implicit operator SDLGPUStorageTextureReadWriteBinding*(SDLGPUStorageTextureReadWriteBindingPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUStorageTextureReadWriteBindingPtr left, SDLGPUStorageTextureReadWriteBindingPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUStorageTextureReadWriteBindingPtr left, SDLGPUStorageTextureReadWriteBindingPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUStorageTextureReadWriteBindingPtr left, SDLGPUStorageTextureReadWriteBinding* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUStorageTextureReadWriteBindingPtr left, SDLGPUStorageTextureReadWriteBinding* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUStorageTextureReadWriteBindingPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUStorageTextureReadWriteBindingPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUStorageTextureReadWriteBindingPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The texture to bind. Must have been created with SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_WRITE or SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_SIMULTANEOUS_READ_WRITE. <br/>
+		/// </summary>
+		public ref SDLGPUTexturePtr Texture => ref Unsafe.AsRef<SDLGPUTexturePtr>(&Handle->Texture);
+		/// <summary>
+		/// The mip level index to bind. <br/>
+		/// </summary>
+		public ref uint MipLevel => ref Unsafe.AsRef<uint>(&Handle->MipLevel);
+		/// <summary>
+		/// The layer index to bind. <br/>
+		/// </summary>
+		public ref uint Layer => ref Unsafe.AsRef<uint>(&Handle->Layer);
+		/// <summary>
+		/// true cycles the texture if it is already bound. <br/>
+		/// </summary>
+		public ref bool Cycle => ref Unsafe.AsRef<bool>(&Handle->Cycle);
+		public ref byte Padding1 => ref Unsafe.AsRef<byte>(&Handle->Padding1);
+		public ref byte Padding2 => ref Unsafe.AsRef<byte>(&Handle->Padding2);
+		public ref byte Padding3 => ref Unsafe.AsRef<byte>(&Handle->Padding3);
 	}
 
 }

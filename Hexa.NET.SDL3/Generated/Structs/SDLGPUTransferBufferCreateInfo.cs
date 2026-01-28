@@ -20,22 +20,29 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTransferBufferCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTransferBufferCreateInfo
 	{
 		/// <summary>
 		/// How the transfer buffer is intended to be used by the client. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "usage")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTransferBufferUsage")]
 		public SDLGPUTransferBufferUsage Usage;
 
 		/// <summary>
 		/// The size in bytes of the transfer buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "size")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Size;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "props")]
+		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 
@@ -47,6 +54,64 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of a transfer buffer.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTransferBufferCreateInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTransferBufferCreateInfoPtr : IEquatable<SDLGPUTransferBufferCreateInfoPtr>
+	{
+		public SDLGPUTransferBufferCreateInfoPtr(SDLGPUTransferBufferCreateInfo* handle) { Handle = handle; }
+
+		public SDLGPUTransferBufferCreateInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTransferBufferCreateInfoPtr Null => new SDLGPUTransferBufferCreateInfoPtr(null);
+
+		public SDLGPUTransferBufferCreateInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTransferBufferCreateInfoPtr(SDLGPUTransferBufferCreateInfo* handle) => new SDLGPUTransferBufferCreateInfoPtr(handle);
+
+		public static implicit operator SDLGPUTransferBufferCreateInfo*(SDLGPUTransferBufferCreateInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTransferBufferCreateInfoPtr left, SDLGPUTransferBufferCreateInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTransferBufferCreateInfoPtr left, SDLGPUTransferBufferCreateInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTransferBufferCreateInfoPtr left, SDLGPUTransferBufferCreateInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTransferBufferCreateInfoPtr left, SDLGPUTransferBufferCreateInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTransferBufferCreateInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTransferBufferCreateInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTransferBufferCreateInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// How the transfer buffer is intended to be used by the client. <br/>
+		/// </summary>
+		public ref SDLGPUTransferBufferUsage Usage => ref Unsafe.AsRef<SDLGPUTransferBufferUsage>(&Handle->Usage);
+		/// <summary>
+		/// The size in bytes of the transfer buffer. <br/>
+		/// </summary>
+		public ref uint Size => ref Unsafe.AsRef<uint>(&Handle->Size);
+		/// <summary>
+		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
+		/// </summary>
+		public ref uint Props => ref Unsafe.AsRef<uint>(&Handle->Props);
 	}
 
 }

@@ -15,14 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// Holds information about the execution of test suites.<br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDLTest_TestSuiteRunner")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestTestSuiteRunner
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDLTest_TestSuiteRunner")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestTestSuiteRunnerPtr : IEquatable<SDLTestTestSuiteRunnerPtr>
+	{
+		public SDLTestTestSuiteRunnerPtr(SDLTestTestSuiteRunner* handle) { Handle = handle; }
+
+		public SDLTestTestSuiteRunner* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestTestSuiteRunnerPtr Null => new SDLTestTestSuiteRunnerPtr(null);
+
+		public SDLTestTestSuiteRunner this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestTestSuiteRunnerPtr(SDLTestTestSuiteRunner* handle) => new SDLTestTestSuiteRunnerPtr(handle);
+
+		public static implicit operator SDLTestTestSuiteRunner*(SDLTestTestSuiteRunnerPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestTestSuiteRunnerPtr left, SDLTestTestSuiteRunnerPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestTestSuiteRunnerPtr left, SDLTestTestSuiteRunnerPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestTestSuiteRunnerPtr left, SDLTestTestSuiteRunner* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestTestSuiteRunnerPtr left, SDLTestTestSuiteRunner* right) => left.Handle != right;
+
+		public bool Equals(SDLTestTestSuiteRunnerPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestTestSuiteRunnerPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestTestSuiteRunnerPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

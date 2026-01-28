@@ -15,10 +15,15 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	[NativeName(NativeNameType.StructOrClass, "SDL_alignment_test")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAlignmentTest
 	{
+		[NativeName(NativeNameType.Field, "a")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte A;
+		[NativeName(NativeNameType.Field, "b")]
+		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* B;
 
 		public unsafe SDLAlignmentTest(byte a = default, void* b = default)

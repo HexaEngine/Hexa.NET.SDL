@@ -16,17 +16,29 @@ namespace Hexa.NET.SDL3
 	/// An enumeration of indices inside the colors array of<br/>
 	/// SDL_MessageBoxColorScheme.<br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_MessageBoxColorType")]
 	public enum SDLMessageBoxColorType : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BACKGROUND")]
+		[NativeName(NativeNameType.Value, "0")]
 		Background = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_TEXT")]
+		[NativeName(NativeNameType.Value, "1")]
 		Text = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BUTTON_BORDER")]
+		[NativeName(NativeNameType.Value, "2")]
 		ButtonBorder = unchecked(2),
+		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND")]
+		[NativeName(NativeNameType.Value, "3")]
 		ButtonBackground = unchecked(3),
+		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED")]
+		[NativeName(NativeNameType.Value, "4")]
 		ButtonSelected = unchecked(4),
 		/// <summary>
 		/// Size of the colors array of SDL_MessageBoxColorScheme. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_COUNT")]
+		[NativeName(NativeNameType.Value, "5")]
 		Count = unchecked(5),
 	}
 }

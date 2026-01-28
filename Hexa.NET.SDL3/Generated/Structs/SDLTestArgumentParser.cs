@@ -15,6 +15,7 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	[NativeName(NativeNameType.StructOrClass, "SDLTest_ArgumentParser")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestArgumentParser
 	{
@@ -23,18 +24,24 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// Parse an argument. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "parse_arguments")]
+		[NativeName(NativeNameType.Type, "SDLTest_ParseArgumentsFp")]
 		public unsafe void* ParseArguments;
 		/// <summary>
 		/// !<br/>
 		/// <<br/>
 		/// Finalize this argument parser. Called once before parsing the first argument. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "finalize")]
+		[NativeName(NativeNameType.Type, "SDLTest_FinalizeArgumentParserFp")]
 		public unsafe void* Finalize;
 		/// <summary>
 		/// !<br/>
 		/// <<br/>
 		/// Null-terminated array of arguments. Printed when running with --help. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "usage")]
+		[NativeName(NativeNameType.Type, "char const * *")]
 		public unsafe byte** Usage;
 
 		/// <summary>
@@ -42,6 +49,8 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// User data, passed to all callbacks. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "data")]
+		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Data;
 
 		/// <summary>
@@ -49,19 +58,92 @@ namespace Hexa.NET.SDL3
 		/// <<br/>
 		/// Next argument parser. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "next")]
+		[NativeName(NativeNameType.Type, "SDLTest_ArgumentParser *")]
 		public unsafe SDLTestArgumentParser* Next;
 
 
-		public unsafe SDLTestArgumentParser(SDLTestParseArgumentsFp parseArguments = default, SDLTestFinalizeArgumentParserFp finalize = default, byte** usage = default, void* data = default, SDLTestArgumentParser* next = default)
+		public unsafe SDLTestArgumentParser(delegate*<void*, byte**, int, int> parseArguments = default, delegate*<void*, void> finalize = default, byte** usage = default, void* data = default, SDLTestArgumentParser* next = default)
 		{
-			ParseArguments = (delegate*<void*, byte**, int, int>)Marshal.GetFunctionPointerForDelegate(parseArguments);
-			Finalize = (delegate*<void*, void>)Marshal.GetFunctionPointerForDelegate(finalize);
+			ParseArguments = (delegate*<void*, byte**, int, int>)parseArguments;
+			Finalize = (delegate*<void*, void>)finalize;
 			Usage = usage;
 			Data = data;
 			Next = next;
 		}
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDLTest_ArgumentParser")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestArgumentParserPtr : IEquatable<SDLTestArgumentParserPtr>
+	{
+		public SDLTestArgumentParserPtr(SDLTestArgumentParser* handle) { Handle = handle; }
+
+		public SDLTestArgumentParser* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestArgumentParserPtr Null => new SDLTestArgumentParserPtr(null);
+
+		public SDLTestArgumentParser this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestArgumentParserPtr(SDLTestArgumentParser* handle) => new SDLTestArgumentParserPtr(handle);
+
+		public static implicit operator SDLTestArgumentParser*(SDLTestArgumentParserPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestArgumentParserPtr left, SDLTestArgumentParserPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestArgumentParserPtr left, SDLTestArgumentParserPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestArgumentParserPtr left, SDLTestArgumentParser* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestArgumentParserPtr left, SDLTestArgumentParser* right) => left.Handle != right;
+
+		public bool Equals(SDLTestArgumentParserPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestArgumentParserPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestArgumentParserPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// !<br/>
+		/// <<br/>
+		/// Parse an argument. <br/>
+		/// </summary>
+		public void* ParseArguments { get => Handle->ParseArguments; set => Handle->ParseArguments = value; }
+		/// <summary>
+		/// !<br/>
+		/// <<br/>
+		/// Finalize this argument parser. Called once before parsing the first argument. <br/>
+		/// </summary>
+		public void* Finalize { get => Handle->Finalize; set => Handle->Finalize = value; }
+		/// <summary>
+		/// !<br/>
+		/// <<br/>
+		/// Null-terminated array of arguments. Printed when running with --help. <br/>
+		/// </summary>
+		public byte** Usage { get => Handle->Usage; set => Handle->Usage = value; }
+		/// <summary>
+		/// !<br/>
+		/// <<br/>
+		/// User data, passed to all callbacks. <br/>
+		/// </summary>
+		public void* Data { get => Handle->Data; set => Handle->Data = value; }
+		/// <summary>
+		/// !<br/>
+		/// <<br/>
+		/// Next argument parser. <br/>
+		/// </summary>
+		public ref SDLTestArgumentParserPtr Next => ref Unsafe.AsRef<SDLTestArgumentParserPtr>(&Handle->Next);
 	}
 
 }

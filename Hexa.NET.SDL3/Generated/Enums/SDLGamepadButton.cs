@@ -17,8 +17,9 @@ namespace Hexa.NET.SDL3
 	/// For controllers that use a diamond pattern for the face buttons, the<br/>
 	/// south/east/west/north buttons below correspond to the locations in the<br/>
 	/// diamond pattern. For Xbox controllers, this would be A/B/X/Y, for Nintendo<br/>
-	/// Switch controllers, this would be B/A/Y/X, for PlayStation controllers this<br/>
-	/// would be Cross/Circle/Square/Triangle.<br/>
+	/// Switch controllers, this would be B/A/Y/X, for GameCube controllers this<br/>
+	/// would be A/X/B/Y, for PlayStation controllers this would be<br/>
+	/// Cross/Circle/Square/Triangle.<br/>
 	/// For controllers that don't use a diamond pattern for the face buttons, the<br/>
 	/// south/east/west/north buttons indicate the buttons labeled A, B, C, D, or<br/>
 	/// 1, 2, 3, 4, or for controllers that aren't labeled, they are the primary,<br/>
@@ -30,96 +31,152 @@ namespace Hexa.NET.SDL3
 	/// SDL_GetGamepadButtonLabel()<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_GamepadButton")]
 	public enum SDLGamepadButton : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_INVALID")]
+		[NativeName(NativeNameType.Value, "-1")]
 		Invalid = unchecked(-1),
 		/// <summary>
 		/// Bottom face button (e.g. Xbox A button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_SOUTH")]
+		[NativeName(NativeNameType.Value, "0")]
 		South = unchecked(0),
 
 		/// <summary>
 		/// Right face button (e.g. Xbox B button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_EAST")]
+		[NativeName(NativeNameType.Value, "1")]
 		East = unchecked(1),
 
 		/// <summary>
 		/// Left face button (e.g. Xbox X button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_WEST")]
+		[NativeName(NativeNameType.Value, "2")]
 		West = unchecked(2),
 
 		/// <summary>
 		/// Top face button (e.g. Xbox Y button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_NORTH")]
+		[NativeName(NativeNameType.Value, "3")]
 		North = unchecked(3),
 
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_BACK")]
+		[NativeName(NativeNameType.Value, "4")]
 		Back = unchecked(4),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_GUIDE")]
+		[NativeName(NativeNameType.Value, "5")]
 		Guide = unchecked(5),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_START")]
+		[NativeName(NativeNameType.Value, "6")]
 		Start = unchecked(6),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LEFT_STICK")]
+		[NativeName(NativeNameType.Value, "7")]
 		LeftStick = unchecked(7),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_RIGHT_STICK")]
+		[NativeName(NativeNameType.Value, "8")]
 		RightStick = unchecked(8),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LEFT_SHOULDER")]
+		[NativeName(NativeNameType.Value, "9")]
 		LeftShoulder = unchecked(9),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER")]
+		[NativeName(NativeNameType.Value, "10")]
 		RightShoulder = unchecked(10),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_DPAD_UP")]
+		[NativeName(NativeNameType.Value, "11")]
 		DpadUp = unchecked(11),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_DPAD_DOWN")]
+		[NativeName(NativeNameType.Value, "12")]
 		DpadDown = unchecked(12),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_DPAD_LEFT")]
+		[NativeName(NativeNameType.Value, "13")]
 		DpadLeft = unchecked(13),
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_DPAD_RIGHT")]
+		[NativeName(NativeNameType.Value, "14")]
 		DpadRight = unchecked(14),
 		/// <summary>
 		/// Additional button (e.g. Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button, Amazon Luna microphone button, Google Stadia capture button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_MISC1")]
+		[NativeName(NativeNameType.Value, "15")]
 		Misc1 = unchecked(15),
 
 		/// <summary>
-		/// Upper or primary paddle, under your right hand (e.g. Xbox Elite paddle P1) <br/>
+		/// Upper or primary paddle, under your right hand (e.g. Xbox Elite paddle P1, DualSense Edge RB button, Right Joy-Con SR button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_RIGHT_PADDLE1")]
+		[NativeName(NativeNameType.Value, "16")]
 		RightPaddle1 = unchecked(16),
 
 		/// <summary>
-		/// Upper or primary paddle, under your left hand (e.g. Xbox Elite paddle P3) <br/>
+		/// Upper or primary paddle, under your left hand (e.g. Xbox Elite paddle P3, DualSense Edge LB button, Left Joy-Con SL button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LEFT_PADDLE1")]
+		[NativeName(NativeNameType.Value, "17")]
 		LeftPaddle1 = unchecked(17),
 
 		/// <summary>
-		/// Lower or secondary paddle, under your right hand (e.g. Xbox Elite paddle P2) <br/>
+		/// Lower or secondary paddle, under your right hand (e.g. Xbox Elite paddle P2, DualSense Edge right Fn button, Right Joy-Con SL button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_RIGHT_PADDLE2")]
+		[NativeName(NativeNameType.Value, "18")]
 		RightPaddle2 = unchecked(18),
 
 		/// <summary>
-		/// Lower or secondary paddle, under your left hand (e.g. Xbox Elite paddle P4) <br/>
+		/// Lower or secondary paddle, under your left hand (e.g. Xbox Elite paddle P4, DualSense Edge left Fn button, Left Joy-Con SR button) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_LEFT_PADDLE2")]
+		[NativeName(NativeNameType.Value, "19")]
 		LeftPaddle2 = unchecked(19),
 
 		/// <summary>
 		/// PS4/PS5 touchpad button <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_TOUCHPAD")]
+		[NativeName(NativeNameType.Value, "20")]
 		Touchpad = unchecked(20),
 
 		/// <summary>
 		/// Additional button <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_MISC2")]
+		[NativeName(NativeNameType.Value, "21")]
 		Misc2 = unchecked(21),
 
 		/// <summary>
-		/// Additional button <br/>
+		/// Additional button (e.g. Nintendo GameCube left trigger click) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_MISC3")]
+		[NativeName(NativeNameType.Value, "22")]
 		Misc3 = unchecked(22),
 
 		/// <summary>
-		/// Additional button <br/>
+		/// Additional button (e.g. Nintendo GameCube right trigger click) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_MISC4")]
+		[NativeName(NativeNameType.Value, "23")]
 		Misc4 = unchecked(23),
 
 		/// <summary>
 		/// Additional button <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_MISC5")]
+		[NativeName(NativeNameType.Value, "24")]
 		Misc5 = unchecked(24),
 
 		/// <summary>
 		/// Additional button <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_MISC6")]
+		[NativeName(NativeNameType.Value, "25")]
 		Misc6 = unchecked(25),
 
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_COUNT")]
+		[NativeName(NativeNameType.Value, "26")]
 		Count = unchecked(26),
 	}
 }

@@ -38,4 +38,52 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLLocalePtr : IEquatable<SDLLocalePtr>
+	{
+		public SDLLocalePtr(SDLLocale* handle) { Handle = handle; }
+
+		public SDLLocale* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLLocalePtr Null => new SDLLocalePtr(null);
+
+		public SDLLocale this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLLocalePtr(SDLLocale* handle) => new SDLLocalePtr(handle);
+
+		public static implicit operator SDLLocale*(SDLLocalePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLLocalePtr left, SDLLocalePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLLocalePtr left, SDLLocalePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLLocalePtr left, SDLLocale* right) => left.Handle == right;
+
+		public static bool operator !=(SDLLocalePtr left, SDLLocale* right) => left.Handle != right;
+
+		public bool Equals(SDLLocalePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLLocalePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLLocalePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// A language name, like "en" for English. <br/>
+		/// </summary>
+		public byte* Language { get => Handle->Language; set => Handle->Language = value; }
+		/// <summary>
+		/// A country, like "US" for America. Can be NULL. <br/>
+		/// </summary>
+		public byte* Country { get => Handle->Country; set => Handle->Country = value; }
+	}
+
 }

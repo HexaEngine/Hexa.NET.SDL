@@ -22,79 +22,112 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUSamplerCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUSamplerCreateInfo
 	{
 		/// <summary>
 		/// The minification filter to apply to lookups. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "min_filter")]
+		[NativeName(NativeNameType.Type, "SDL_GPUFilter")]
 		public SDLGPUFilter MinFilter;
 
 		/// <summary>
 		/// The magnification filter to apply to lookups. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mag_filter")]
+		[NativeName(NativeNameType.Type, "SDL_GPUFilter")]
 		public SDLGPUFilter MagFilter;
 
 		/// <summary>
 		/// The mipmap filter to apply to lookups. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mipmap_mode")]
+		[NativeName(NativeNameType.Type, "SDL_GPUSamplerMipmapMode")]
 		public SDLGPUSamplerMipmapMode MipmapMode;
 
 		/// <summary>
 		/// The addressing mode for U coordinates outside [0, 1). <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "address_mode_u")]
+		[NativeName(NativeNameType.Type, "SDL_GPUSamplerAddressMode")]
 		public SDLGPUSamplerAddressMode AddressModeU;
 
 		/// <summary>
 		/// The addressing mode for V coordinates outside [0, 1). <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "address_mode_v")]
+		[NativeName(NativeNameType.Type, "SDL_GPUSamplerAddressMode")]
 		public SDLGPUSamplerAddressMode AddressModeV;
 
 		/// <summary>
 		/// The addressing mode for W coordinates outside [0, 1). <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "address_mode_w")]
+		[NativeName(NativeNameType.Type, "SDL_GPUSamplerAddressMode")]
 		public SDLGPUSamplerAddressMode AddressModeW;
 
 		/// <summary>
 		/// The bias to be added to mipmap LOD calculation. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mip_lod_bias")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float MipLodBias;
 
 		/// <summary>
 		/// The anisotropy value clamp used by the sampler. If enable_anisotropy is false, this is ignored. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "max_anisotropy")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float MaxAnisotropy;
 
 		/// <summary>
 		/// The comparison operator to apply to fetched data before filtering. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "compare_op")]
+		[NativeName(NativeNameType.Type, "SDL_GPUCompareOp")]
 		public SDLGPUCompareOp CompareOp;
 
 		/// <summary>
 		/// Clamps the minimum of the computed LOD value. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "min_lod")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float MinLod;
 
 		/// <summary>
 		/// Clamps the maximum of the computed LOD value. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "max_lod")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float MaxLod;
 
 		/// <summary>
 		/// true to enable anisotropic filtering. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "enable_anisotropy")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte EnableAnisotropy;
 
 		/// <summary>
 		/// true to enable comparison against a reference value during lookups. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "enable_compare")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte EnableCompare;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "props")]
+		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 
@@ -119,6 +152,112 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of a sampler.<br/>
+	/// Note that mip_lod_bias is a no-op for the Metal driver. For Metal, LOD bias<br/>
+	/// must be applied via shader instead.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUSamplerCreateInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUSamplerCreateInfoPtr : IEquatable<SDLGPUSamplerCreateInfoPtr>
+	{
+		public SDLGPUSamplerCreateInfoPtr(SDLGPUSamplerCreateInfo* handle) { Handle = handle; }
+
+		public SDLGPUSamplerCreateInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUSamplerCreateInfoPtr Null => new SDLGPUSamplerCreateInfoPtr(null);
+
+		public SDLGPUSamplerCreateInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUSamplerCreateInfoPtr(SDLGPUSamplerCreateInfo* handle) => new SDLGPUSamplerCreateInfoPtr(handle);
+
+		public static implicit operator SDLGPUSamplerCreateInfo*(SDLGPUSamplerCreateInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUSamplerCreateInfoPtr left, SDLGPUSamplerCreateInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUSamplerCreateInfoPtr left, SDLGPUSamplerCreateInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUSamplerCreateInfoPtr left, SDLGPUSamplerCreateInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUSamplerCreateInfoPtr left, SDLGPUSamplerCreateInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUSamplerCreateInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUSamplerCreateInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUSamplerCreateInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The minification filter to apply to lookups. <br/>
+		/// </summary>
+		public ref SDLGPUFilter MinFilter => ref Unsafe.AsRef<SDLGPUFilter>(&Handle->MinFilter);
+		/// <summary>
+		/// The magnification filter to apply to lookups. <br/>
+		/// </summary>
+		public ref SDLGPUFilter MagFilter => ref Unsafe.AsRef<SDLGPUFilter>(&Handle->MagFilter);
+		/// <summary>
+		/// The mipmap filter to apply to lookups. <br/>
+		/// </summary>
+		public ref SDLGPUSamplerMipmapMode MipmapMode => ref Unsafe.AsRef<SDLGPUSamplerMipmapMode>(&Handle->MipmapMode);
+		/// <summary>
+		/// The addressing mode for U coordinates outside [0, 1). <br/>
+		/// </summary>
+		public ref SDLGPUSamplerAddressMode AddressModeU => ref Unsafe.AsRef<SDLGPUSamplerAddressMode>(&Handle->AddressModeU);
+		/// <summary>
+		/// The addressing mode for V coordinates outside [0, 1). <br/>
+		/// </summary>
+		public ref SDLGPUSamplerAddressMode AddressModeV => ref Unsafe.AsRef<SDLGPUSamplerAddressMode>(&Handle->AddressModeV);
+		/// <summary>
+		/// The addressing mode for W coordinates outside [0, 1). <br/>
+		/// </summary>
+		public ref SDLGPUSamplerAddressMode AddressModeW => ref Unsafe.AsRef<SDLGPUSamplerAddressMode>(&Handle->AddressModeW);
+		/// <summary>
+		/// The bias to be added to mipmap LOD calculation. <br/>
+		/// </summary>
+		public ref float MipLodBias => ref Unsafe.AsRef<float>(&Handle->MipLodBias);
+		/// <summary>
+		/// The anisotropy value clamp used by the sampler. If enable_anisotropy is false, this is ignored. <br/>
+		/// </summary>
+		public ref float MaxAnisotropy => ref Unsafe.AsRef<float>(&Handle->MaxAnisotropy);
+		/// <summary>
+		/// The comparison operator to apply to fetched data before filtering. <br/>
+		/// </summary>
+		public ref SDLGPUCompareOp CompareOp => ref Unsafe.AsRef<SDLGPUCompareOp>(&Handle->CompareOp);
+		/// <summary>
+		/// Clamps the minimum of the computed LOD value. <br/>
+		/// </summary>
+		public ref float MinLod => ref Unsafe.AsRef<float>(&Handle->MinLod);
+		/// <summary>
+		/// Clamps the maximum of the computed LOD value. <br/>
+		/// </summary>
+		public ref float MaxLod => ref Unsafe.AsRef<float>(&Handle->MaxLod);
+		/// <summary>
+		/// true to enable anisotropic filtering. <br/>
+		/// </summary>
+		public ref bool EnableAnisotropy => ref Unsafe.AsRef<bool>(&Handle->EnableAnisotropy);
+		/// <summary>
+		/// true to enable comparison against a reference value during lookups. <br/>
+		/// </summary>
+		public ref bool EnableCompare => ref Unsafe.AsRef<bool>(&Handle->EnableCompare);
+		public ref byte Padding1 => ref Unsafe.AsRef<byte>(&Handle->Padding1);
+		public ref byte Padding2 => ref Unsafe.AsRef<byte>(&Handle->Padding2);
+		/// <summary>
+		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
+		/// </summary>
+		public ref uint Props => ref Unsafe.AsRef<uint>(&Handle->Props);
 	}
 
 }

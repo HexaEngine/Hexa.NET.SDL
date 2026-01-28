@@ -15,16 +15,94 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a texture.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTexture")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTexture
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTexture")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTexturePtr : IEquatable<SDLGPUTexturePtr>
+	{
+		public SDLGPUTexturePtr(SDLGPUTexture* handle) { Handle = handle; }
+
+		public SDLGPUTexture* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTexturePtr Null => new SDLGPUTexturePtr(null);
+
+		public SDLGPUTexture this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTexturePtr(SDLGPUTexture* handle) => new SDLGPUTexturePtr(handle);
+
+		public static implicit operator SDLGPUTexture*(SDLGPUTexturePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTexturePtr left, SDLGPUTexturePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTexturePtr left, SDLGPUTexturePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTexturePtr left, SDLGPUTexture* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTexturePtr left, SDLGPUTexture* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTexturePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTexturePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTexturePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTexture")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTexturePtrPtr : IEquatable<SDLGPUTexturePtrPtr>
+	{
+		public SDLGPUTexturePtrPtr(SDLGPUTexture** handle) { Handle = handle; }
+
+		public SDLGPUTexture** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTexturePtrPtr Null => new SDLGPUTexturePtrPtr(null);
+
+		public SDLGPUTexture* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTexturePtrPtr(SDLGPUTexture** handle) => new SDLGPUTexturePtrPtr(handle);
+
+		public static implicit operator SDLGPUTexture**(SDLGPUTexturePtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTexturePtrPtr left, SDLGPUTexturePtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTexturePtrPtr left, SDLGPUTexturePtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTexturePtrPtr left, SDLGPUTexture** right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTexturePtrPtr left, SDLGPUTexture** right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTexturePtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTexturePtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTexturePtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

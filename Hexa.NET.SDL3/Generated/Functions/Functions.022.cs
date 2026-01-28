@@ -18,1297 +18,4397 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
+		/// Start accepting Unicode text input events in a window, with properties<br/>
+		/// describing the input.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
 		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
+		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
+		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
+		/// that describes how text should be capitalized, defaults to<br/>
+		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
+		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
+		/// addresses, usernames, and passwords.<br/>
+		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
+		/// and auto correction, defaults to true.<br/>
+		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
+		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
+		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
+		/// is "1".<br/>
+		/// On Android you can directly specify the input type:<br/>
+		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
+		/// use, overriding other properties. This is documented at<br/>
+		/// https://developer.android.com/reference/android/text/InputType<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAppMetadataPropertyNative(byte* name, byte* value)
+		internal static byte StartTextInputWithPropertiesNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[992])(name, value);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint, byte>)funcTable[783])(window, props);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[992])((nint)name, (nint)value);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[783])((nint)window, props);
 			#endif
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
+		/// Start accepting Unicode text input events in a window, with properties<br/>
+		/// describing the input.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
 		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
+		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
+		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
+		/// that describes how text should be capitalized, defaults to<br/>
+		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
+		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
+		/// addresses, usernames, and passwords.<br/>
+		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
+		/// and auto correction, defaults to true.<br/>
+		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
+		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
+		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
+		/// is "1".<br/>
+		/// On Android you can directly specify the input type:<br/>
+		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
+		/// use, overriding other properties. This is documented at<br/>
+		/// https://developer.android.com/reference/android/text/InputType<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(byte* name, byte* value)
+		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StartTextInputWithProperties([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
-			byte ret = SetAppMetadataPropertyNative(name, value);
+			byte ret = StartTextInputWithPropertiesNative((SDLWindow*)window, props);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
+		/// Start accepting Unicode text input events in a window, with properties<br/>
+		/// describing the input.<br/>
+		/// This function will enable text input (SDL_EVENT_TEXT_INPUT and<br/>
+		/// SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this<br/>
+		/// function paired with SDL_StopTextInput().<br/>
+		/// Text input events are not received by default.<br/>
+		/// On some platforms using this function shows the screen keyboard and/or<br/>
+		/// activates an IME, which can prevent some key press events from being passed<br/>
+		/// through.<br/>
 		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// - `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that<br/>
+		/// describes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.<br/>
+		/// - `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value<br/>
+		/// that describes how text should be capitalized, defaults to<br/>
+		/// SDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for<br/>
+		/// SDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail<br/>
+		/// addresses, usernames, and passwords.<br/>
+		/// - `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion<br/>
+		/// and auto correction, defaults to true.<br/>
+		/// - `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text<br/>
+		/// are allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is<br/>
+		/// "0" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME<br/>
+		/// is "1".<br/>
+		/// On Android you can directly specify the input type:<br/>
+		/// - `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to<br/>
+		/// use, overriding other properties. This is documented at<br/>
+		/// https://developer.android.com/reference/android/text/InputType<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(ref byte name, byte* value)
+		[NativeName(NativeNameType.Func, "SDL_StartTextInputWithProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StartTextInputWithProperties([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
-			fixed (byte* pname = &name)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = SetAppMetadataPropertyNative((byte*)pname, value);
+				byte ret = StartTextInputWithPropertiesNative((SDLWindow*)pwindow, props);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Check whether or not Unicode text input events are enabled for a window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(ReadOnlySpan<byte> name, byte* value)
+		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte TextInputActiveNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
 		{
-			fixed (byte* pname = name)
-			{
-				byte ret = SetAppMetadataPropertyNative((byte*)pname, value);
-				return ret != 0;
-			}
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[784])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[784])((nint)window);
+			#endif
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Check whether or not Unicode text input events are enabled for a window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(string name, byte* value)
+		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TextInputActive([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataPropertyNative(pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
+			byte ret = TextInputActiveNative((SDLWindow*)window);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Check whether or not Unicode text input events are enabled for a window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(byte* name, ref byte value)
+		[NativeName(NativeNameType.Func, "SDL_TextInputActive")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TextInputActive([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
 		{
-			fixed (byte* pvalue = &value)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte ret = SetAppMetadataPropertyNative(name, (byte*)pvalue);
+				byte ret = TextInputActiveNative((SDLWindow*)pwindow);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Stop receiving any text input events in a window.<br/>
+		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
+		/// it.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(byte* name, ReadOnlySpan<byte> value)
+		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte StopTextInputNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
 		{
-			fixed (byte* pvalue = value)
-			{
-				byte ret = SetAppMetadataPropertyNative(name, (byte*)pvalue);
-				return ret != 0;
-			}
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[785])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[785])((nint)window);
+			#endif
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Stop receiving any text input events in a window.<br/>
+		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
+		/// it.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(byte* name, string value)
+		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetAppMetadataPropertyNative(name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
+			byte ret = StopTextInputNative((SDLWindow*)window);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Stop receiving any text input events in a window.<br/>
+		/// If SDL_StartTextInput() showed the screen keyboard, this function will hide<br/>
+		/// it.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(ref byte name, ref byte value)
+		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool StopTextInput([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
 		{
-			fixed (byte* pname = &name)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* pvalue = &value)
+				byte ret = StopTextInputNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ClearCompositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[786])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[786])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearComposition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			byte ret = ClearCompositionNative((SDLWindow*)window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearComposition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = ClearCompositionNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTextInputAreaNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int, byte>)funcTable[787])(window, rect, cursor);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[787])((nint)window, (nint)rect, cursor);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			byte ret = SetTextInputAreaNative((SDLWindow*)window, (SDLRect*)rect, cursor);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] SDLRectPtr rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)rect, cursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = SetTextInputAreaNative((SDLWindow*)window, (SDLRect*)prect, cursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the area used to type Unicode text input.<br/>
+		/// Native input methods may place a window with word suggestions near the<br/>
+		/// cursor, without covering the text being entered.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect const *")] in SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int")] int cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLRect* prect = &rect)
 				{
-					byte ret = SetAppMetadataPropertyNative((byte*)pname, (byte*)pvalue);
+					byte ret = SetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, cursor);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(ReadOnlySpan<byte> name, ReadOnlySpan<byte> value)
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetTextInputAreaNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRect* rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
 		{
-			fixed (byte* pname = name)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int*, byte>)funcTable[788])(window, rect, cursor);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[788])((nint)window, (nint)rect, (nint)cursor);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRectPtr rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
+		{
+			byte ret = GetTextInputAreaNative((SDLWindow*)window, (SDLRect*)rect, cursor);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRectPtr rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* pvalue = value)
+				byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)rect, cursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				byte ret = GetTextInputAreaNative((SDLWindow*)window, (SDLRect*)prect, cursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] int* cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLRect* prect = &rect)
 				{
-					byte ret = SetAppMetadataPropertyNative((byte*)pname, (byte*)pvalue);
+					byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, cursor);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Specify metadata about your app through a set of properties.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left out, if a specific detail<br/>
-		/// doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Once set, this metadata can be read using SDL_GetAppMetadataProperty().<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
-		/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
-		/// anywhere the OS shows the name of the application separately from window<br/>
-		/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-		/// Application".<br/>
-		/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
-		/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
-		/// 2024" and a git hash are all valid options. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_IDENTIFIER_STRING`: A unique string that<br/>
-		/// identifies this app. This must be in reverse-domain format, like<br/>
-		/// "com.example.mygame2". This string is used by desktop compositors to<br/>
-		/// identify and group windows together, as well as match applications with<br/>
-		/// associated desktop settings and icons. If you plan to package your<br/>
-		/// application in a container such as Flatpak, the app ID should match the<br/>
-		/// name of your Flatpak container as well. This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_CREATOR_STRING`: The human-readable name of the<br/>
-		/// creator/developer/maker of this app, like "MojoWorkshop, LLC"<br/>
-		/// - `SDL_PROP_APP_METADATA_COPYRIGHT_STRING`: The human-readable copyright<br/>
-		/// notice, like "Copyright (c) 2024 MojoWorkshop, LLC" or whatnot. Keep this<br/>
-		/// to one line, don't paste a copy of a whole software license in here. This<br/>
-		/// has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_URL_STRING`: A URL to the app on the web. Maybe a<br/>
-		/// product page, or a storefront, or even a GitHub repository, for user's<br/>
-		/// further information This has no default.<br/>
-		/// - `SDL_PROP_APP_METADATA_TYPE_STRING`: The type of application this is.<br/>
-		/// Currently this string can be "game" for a video game, "mediaplayer" for a<br/>
-		/// media player, or generically "application" if nothing else applies.<br/>
-		/// Future versions of SDL might add new types. This defaults to<br/>
-		/// "application".<br/>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetAppMetadataProperty(string name, string value)
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRectPtr rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
 		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
+			fixed (int* pcursor = &cursor)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
+				byte ret = GetTextInputAreaNative((SDLWindow*)window, (SDLRect*)rect, (int*)pcursor);
+				return ret != 0;
 			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] SDLRectPtr rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
+				fixed (int* pcursor = &cursor)
 				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+					byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)rect, (int*)pcursor);
+					return ret != 0;
 				}
-				else
+			}
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* pcursor = &cursor)
 				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
+					byte ret = GetTextInputAreaNative((SDLWindow*)window, (SDLRect*)prect, (int*)pcursor);
+					return ret != 0;
 				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
 			}
-			byte ret = SetAppMetadataPropertyNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
+		}
+
+		/// <summary>
+		/// Get the area used to type Unicode text input.<br/>
+		/// This returns the values previously set by SDL_SetTextInputArea().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTextInputArea")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetTextInputArea([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect *")] ref SDLRect rect, [NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "int *")] ref int cursor)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				Utils.Free(pStr1);
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (int* pcursor = &cursor)
+					{
+						byte ret = GetTextInputAreaNative((SDLWindow*)pwindow, (SDLRect*)prect, (int*)pcursor);
+						return ret != 0;
+					}
+				}
 			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
+		}
+
+		/// <summary>
+		/// Check whether the platform has screen keyboard support.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HasScreenKeyboardSupportNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[789])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[789])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether the platform has screen keyboard support.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasScreenKeyboardSupport()
+		{
+			byte ret = HasScreenKeyboardSupportNative();
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Check whether the screen keyboard is shown for given window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetAppMetadataPropertyNative(byte* name)
+		internal static byte ScreenKeyboardShownNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[993])(name);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[790])(window);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[993])((nint)name);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[790])((nint)window);
 			#endif
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Check whether the screen keyboard is shown for given window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetAppMetadataProperty(byte* name)
+		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ScreenKeyboardShown([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
 		{
-			byte* ret = GetAppMetadataPropertyNative(name);
-			return ret;
+			byte ret = ScreenKeyboardShownNative((SDLWindow*)window);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Check whether the screen keyboard is shown for given window.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetAppMetadataPropertyS(byte* name)
+		[NativeName(NativeNameType.Func, "SDL_ScreenKeyboardShown")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ScreenKeyboardShown([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
 		{
-			string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative(name));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetAppMetadataProperty(ref byte name)
-		{
-			fixed (byte* pname = &name)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				byte* ret = GetAppMetadataPropertyNative((byte*)pname);
-				return ret;
+				byte ret = ScreenKeyboardShownNative((SDLWindow*)pwindow);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
+		/// Return whether a mouse is currently connected.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetAppMetadataPropertyS(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetAppMetadataProperty(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte* ret = GetAppMetadataPropertyNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetAppMetadataPropertyS(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetAppMetadataProperty(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetAppMetadataPropertyNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get metadata about your app.<br/>
-		/// This returns metadata previously set using SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty(). See SDL_SetAppMetadataProperty() for the list<br/>
-		/// of available properties and their meanings.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the string returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetAppMetadataProperty() to set that<br/>
-		/// property from another thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetAppMetadataPropertyS(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetAppMetadataPropertyNative(pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Dynamically load a shared object.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasMouse")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSharedObject* LoadObjectNative(byte* sofile)
+		internal static byte HasMouseNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLSharedObject*>)funcTable[994])(sofile);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[791])();
 			#else
-			return (SDLSharedObject*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[994])((nint)sofile);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[791])();
 			#endif
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Return whether a mouse is currently connected.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSharedObject* LoadObject(byte* sofile)
+		[NativeName(NativeNameType.Func, "SDL_HasMouse")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasMouse()
 		{
-			SDLSharedObject* ret = LoadObjectNative(sofile);
-			return ret;
+			byte ret = HasMouseNative();
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Dynamically load a shared object.<br/>
+		/// Get a list of currently connected mice.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
+		/// You should wait for input from a device before you consider it actively in<br/>
+		/// use.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSharedObject* LoadObject(ref byte sofile)
-		{
-			fixed (byte* psofile = &sofile)
-			{
-				SDLSharedObject* ret = LoadObjectNative((byte*)psofile);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Dynamically load a shared object.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSharedObject* LoadObject(ReadOnlySpan<byte> sofile)
-		{
-			fixed (byte* psofile = sofile)
-			{
-				SDLSharedObject* ret = LoadObjectNative((byte*)psofile);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Dynamically load a shared object.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSharedObject* LoadObject(string sofile)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (sofile != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(sofile);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(sofile, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLSharedObject* ret = LoadObjectNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMice")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static delegate*<void> LoadFunctionNative(SDLSharedObject* handle, byte* name)
+		internal static uint* GetMiceNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSharedObject*, byte*, delegate*<void>>)funcTable[995])(handle, name);
+			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[792])(count);
 			#else
-			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[995])((nint)handle, (nint)name);
+			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[792])((nint)count);
 			#endif
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Get a list of currently connected mice.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
+		/// You should wait for input from a device before you consider it actively in<br/>
+		/// use.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static delegate*<void> LoadFunction(SDLSharedObject* handle, byte* name)
+		[NativeName(NativeNameType.Func, "SDL_GetMice")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
+		public static uint* GetMice([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
 		{
-			delegate*<void> ret = LoadFunctionNative(handle, name);
+			uint* ret = GetMiceNative(count);
 			return ret;
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Get a list of currently connected mice.<br/>
+		/// Note that this will include any device or virtual driver that includes<br/>
+		/// mouse functionality, including some game controllers, KVM switches, etc.<br/>
+		/// You should wait for input from a device before you consider it actively in<br/>
+		/// use.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static delegate*<void> LoadFunction(ref SDLSharedObject handle, byte* name)
+		[NativeName(NativeNameType.Func, "SDL_GetMice")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseID *")]
+		public static uint* GetMice([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
-			fixed (SDLSharedObject* phandle = &handle)
+			fixed (int* pcount = &count)
 			{
-				delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, name);
+				uint* ret = GetMiceNative((int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Get the name of a mouse.<br/>
+		/// This function returns "" if the mouse doesn't have a name.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static delegate*<void> LoadFunction(SDLSharedObject* handle, ref byte name)
+		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetMouseNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
 		{
-			fixed (byte* pname = &name)
-			{
-				delegate*<void> ret = LoadFunctionNative(handle, (byte*)pname);
-				return ret;
-			}
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[793])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[793])(instanceId);
+			#endif
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Get the name of a mouse.<br/>
+		/// This function returns "" if the mouse doesn't have a name.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static delegate*<void> LoadFunction(SDLSharedObject* handle, ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetMouseNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
 		{
-			fixed (byte* pname = name)
-			{
-				delegate*<void> ret = LoadFunctionNative(handle, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static delegate*<void> LoadFunction(SDLSharedObject* handle, string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			delegate*<void> ret = LoadFunctionNative(handle, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
+			byte* ret = GetMouseNameForIDNative(instanceId);
 			return ret;
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Get the name of a mouse.<br/>
+		/// This function returns "" if the mouse doesn't have a name.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static delegate*<void> LoadFunction(ref SDLSharedObject handle, ref byte name)
+		[NativeName(NativeNameType.Func, "SDL_GetMouseNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetMouseNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_MouseID")] uint instanceId)
 		{
-			fixed (SDLSharedObject* phandle = &handle)
+			string ret = Utils.DecodeStringUTF8(GetMouseNameForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the window which currently has mouse focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetMouseFocusNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[794])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[794])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the window which currently has mouse focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindowPtr GetMouseFocus()
+		{
+			SDLWindowPtr ret = GetMouseFocusNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float*, float*, uint>)funcTable[795])(x, y);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[795])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			uint ret = GetMouseStateNative(x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			fixed (float* px = &x)
 			{
-				fixed (byte* pname = &name)
+				uint ret = GetMouseStateNative((float*)px, y);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* py = &y)
+			{
+				uint ret = GetMouseStateNative(x, (float*)py);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and the<br/>
+		/// window-relative SDL-cursor position.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the focused window.<br/>
+		/// In Relative Mode, the SDL-cursor's position usually contradicts the<br/>
+		/// platform-cursor's position as manually calculated from<br/>
+		/// SDL_GetGlobalMouseState() and SDL_GetWindowPosition.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
 				{
-					delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, (byte*)pname);
+					uint ret = GetMouseStateNative((float*)px, (float*)py);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// This function should only be called on the main thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static delegate*<void> LoadFunction(ref SDLSharedObject handle, ReadOnlySpan<byte> name)
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetGlobalMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
 		{
-			fixed (SDLSharedObject* phandle = &handle)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float*, float*, uint>)funcTable[796])(x, y);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[796])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			uint ret = GetGlobalMouseStateNative(x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			fixed (float* px = &x)
 			{
-				fixed (byte* pname = name)
+				uint ret = GetGlobalMouseStateNative((float*)px, y);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* py = &y)
+			{
+				uint ret = GetGlobalMouseStateNative(x, (float*)py);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the platform for the asynchronous mouse button state and the<br/>
+		/// desktop-relative platform-cursor position.<br/>
+		/// This function immediately queries the platform for the most recent<br/>
+		/// asynchronous state, more costly than retrieving SDL's cached state in<br/>
+		/// SDL_GetMouseState().<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y coordinates relative to the desktop.<br/>
+		/// In Relative Mode, the platform-cursor's position usually contradicts the<br/>
+		/// SDL-cursor's position as manually calculated from SDL_GetMouseState() and<br/>
+		/// SDL_GetWindowPosition.<br/>
+		/// This function can be useful if you need to track the mouse outside of a<br/>
+		/// specific window and SDL_CaptureMouse() doesn't fit your needs. For example,<br/>
+		/// it could be useful if you need to track the mouse while dragging a window,<br/>
+		/// where coordinates relative to a window might not be in sync at all times.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetGlobalMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
 				{
-					delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, (byte*)pname);
+					uint ret = GetGlobalMouseStateNative((float*)px, (float*)py);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Look up the address of the named function in a shared object.<br/>
-		/// This function pointer is no longer valid after calling SDL_UnloadObject().<br/>
-		/// This function can only look up C function names. Other languages may have<br/>
-		/// name mangling and intrinsic language support that varies from compiler to<br/>
-		/// compiler.<br/>
-		/// Make sure you declare your function pointers with the same calling<br/>
-		/// convention as the actual library function. Your code will crash<br/>
-		/// mysteriously if you do not do this.<br/>
-		/// If the requested function doesn't exist, NULL is returned.<br/>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetRelativeMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float*, float*, uint>)funcTable[797])(x, y);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[797])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			uint ret = GetRelativeMouseStateNative(x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] float* y)
+		{
+			fixed (float* px = &x)
+			{
+				uint ret = GetRelativeMouseStateNative((float*)px, y);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* py = &y)
+			{
+				uint ret = GetRelativeMouseStateNative(x, (float*)py);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query SDL's cache for the synchronous mouse button state and accumulated<br/>
+		/// mouse delta since last call.<br/>
+		/// This function returns the cached synchronous state as SDL understands it<br/>
+		/// from the last pump of the event queue.<br/>
+		/// To query the platform for immediate asynchronous state, use<br/>
+		/// SDL_GetGlobalMouseState.<br/>
+		/// Passing non-NULL pointers to `x` or `y` will write the destination with<br/>
+		/// respective x or y deltas accumulated since the last call to this function<br/>
+		/// (or since event initialization).<br/>
+		/// This function is useful for reducing overhead by processing relative mouse<br/>
+		/// inputs in one go per-frame instead of individually per-event, at the<br/>
+		/// expense of losing the order between events within the frame (e.g. quickly<br/>
+		/// pressing and releasing a button within the same frame).<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
+		[return: NativeName(NativeNameType.Type, "SDL_MouseButtonFlags")]
+		public static uint GetRelativeMouseState([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float *")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float *")] ref float y)
+		{
+			fixed (float* px = &x)
+			{
+				fixed (float* py = &y)
+				{
+					uint ret = GetRelativeMouseStateNative((float*)px, (float*)py);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Move the mouse cursor to the given position within the window.<br/>
+		/// This function generates a mouse motion event if relative mode is not<br/>
+		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
+		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void WarpMouseInWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, float, float, void>)funcTable[798])(window, x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, float, float, void>)funcTable[798])((nint)window, x, y);
+			#endif
+		}
+
+		/// <summary>
+		/// Move the mouse cursor to the given position within the window.<br/>
+		/// This function generates a mouse motion event if relative mode is not<br/>
+		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
+		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WarpMouseInWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			WarpMouseInWindowNative((SDLWindow*)window, x, y);
+		}
+
+		/// <summary>
+		/// Move the mouse cursor to the given position within the window.<br/>
+		/// This function generates a mouse motion event if relative mode is not<br/>
+		/// enabled. If relative mode is enabled, you can force mouse events for the<br/>
+		/// warp by setting the SDL_HINT_MOUSE_RELATIVE_WARP_MOTION hint.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WarpMouseInWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				WarpMouseInWindowNative((SDLWindow*)pwindow, x, y);
+			}
+		}
+
+		/// <summary>
+		/// Move the mouse to the given position in global screen space.<br/>
+		/// This function generates a mouse motion event.<br/>
+		/// A failure of this function usually means that it is unsupported by a<br/>
+		/// platform.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WarpMouseGlobalNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float, float, byte>)funcTable[799])(x, y);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<float, float, byte>)funcTable[799])(x, y);
+			#endif
+		}
+
+		/// <summary>
+		/// Move the mouse to the given position in global screen space.<br/>
+		/// This function generates a mouse motion event.<br/>
+		/// A failure of this function usually means that it is unsupported by a<br/>
+		/// platform.<br/>
+		/// Note that this function will appear to succeed, but not actually move the<br/>
+		/// mouse when used over Microsoft Remote Desktop.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WarpMouseGlobal([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		{
+			byte ret = WarpMouseGlobalNative(x, y);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a user-defined function by which to transform relative mouse inputs.<br/>
+		/// This overrides the relative system scale and relative speed scale hints.<br/>
+		/// Should be called prior to enabling relative mouse mode, fails otherwise.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetRelativeMouseTransform")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetRelativeMouseTransformNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_MouseMotionTransformCallback")] delegate*<void*, ulong, SDLWindow*, uint, float*, float*, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, ulong, SDLWindow*, uint, float*, float*, void>, void*, byte>)funcTable[800])(callback, userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[800])((nint)callback, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a user-defined function by which to transform relative mouse inputs.<br/>
+		/// This overrides the relative system scale and relative speed scale hints.<br/>
+		/// Should be called prior to enabling relative mouse mode, fails otherwise.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetRelativeMouseTransform")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetRelativeMouseTransform([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_MouseMotionTransformCallback")] delegate*<void*, ulong, SDLWindow*, uint, float*, float*, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetRelativeMouseTransformNative(callback, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a user-defined function by which to transform relative mouse inputs.<br/>
+		/// This overrides the relative system scale and relative speed scale hints.<br/>
+		/// Should be called prior to enabling relative mouse mode, fails otherwise.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetRelativeMouseTransform")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetRelativeMouseTransform([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_MouseMotionTransformCallback")] SDLMouseMotionTransformCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetRelativeMouseTransformNative((delegate*<void*, ulong, SDLWindow*, uint, float*, float*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a user-defined function by which to transform relative mouse inputs.<br/>
+		/// This overrides the relative system scale and relative speed scale hints.<br/>
+		/// Should be called prior to enabling relative mouse mode, fails otherwise.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetRelativeMouseTransform")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetRelativeMouseTransform([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_MouseMotionTransformCallback")] delegate*<void*, ulong, SDLWindow*, uint, float*, float*, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = SetRelativeMouseTransformNative(callback, (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a user-defined function by which to transform relative mouse inputs.<br/>
+		/// This overrides the relative system scale and relative speed scale hints.<br/>
+		/// Should be called prior to enabling relative mouse mode, fails otherwise.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetRelativeMouseTransform")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetRelativeMouseTransform([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_MouseMotionTransformCallback")] SDLMouseMotionTransformCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = SetRelativeMouseTransformNative((delegate*<void*, ulong, SDLWindow*, uint, float*, float*, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set relative mouse mode for a window.<br/>
+		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
+		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
+		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
+		/// the window.<br/>
+		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
+		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
+		/// specific location when relative mode ends, you should use<br/>
+		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
+		/// This function will flush any pending mouse motion for this window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetWindowRelativeMouseModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte, byte>)funcTable[801])(window, enabled);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[801])((nint)window, enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Set relative mouse mode for a window.<br/>
+		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
+		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
+		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
+		/// the window.<br/>
+		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
+		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
+		/// specific location when relative mode ends, you should use<br/>
+		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
+		/// This function will flush any pending mouse motion for this window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			byte ret = SetWindowRelativeMouseModeNative((SDLWindow*)window, enabled ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set relative mouse mode for a window.<br/>
+		/// While the window has focus and relative mouse mode is enabled, the cursor<br/>
+		/// is hidden, the mouse position is constrained to the window, and SDL will<br/>
+		/// report continuous relative mouse motion even if the mouse is at the edge of<br/>
+		/// the window.<br/>
+		/// If you'd like to keep the mouse position fixed while in relative mode you<br/>
+		/// can use SDL_SetWindowMouseRect(). If you'd like the cursor to be at a<br/>
+		/// specific location when relative mode ends, you should use<br/>
+		/// SDL_WarpMouseInWindow() before disabling relative mode.<br/>
+		/// This function will flush any pending mouse motion for this window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = SetWindowRelativeMouseModeNative((SDLWindow*)pwindow, enabled ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Query whether relative mouse mode is enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetWindowRelativeMouseModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte>)funcTable[802])(window);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[802])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether relative mouse mode is enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindowPtr window)
+		{
+			byte ret = GetWindowRelativeMouseModeNative((SDLWindow*)window);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Query whether relative mouse mode is enabled for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowRelativeMouseMode")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetWindowRelativeMouseMode([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window *")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				byte ret = GetWindowRelativeMouseModeNative((SDLWindow*)pwindow);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Capture the mouse and to track input outside an SDL window.<br/>
+		/// Capturing enables your app to obtain mouse events globally, instead of just<br/>
+		/// within your window. Not all video targets support this function. When<br/>
+		/// capturing is enabled, the current window will get all mouse events, but<br/>
+		/// unlike relative mode, no change is made to the cursor and it is not<br/>
+		/// restrained to your window.<br/>
+		/// This function may also deny mouse input to other windows--both those in<br/>
+		/// your application and others on the system--so you should use this function<br/>
+		/// sparingly, and in small bursts. For example, you might want to track the<br/>
+		/// mouse while the user is dragging something, until the user releases a mouse<br/>
+		/// button. It is not recommended that you capture the mouse for long periods<br/>
+		/// of time, such as the entire time your app is running. For that, you should<br/>
+		/// probably use SDL_SetWindowRelativeMouseMode() or SDL_SetWindowMouseGrab(),<br/>
+		/// depending on your goals.<br/>
+		/// While captured, mouse events still report coordinates relative to the<br/>
+		/// current (foreground) window, but those coordinates may be outside the<br/>
+		/// bounds of the window (including negative values). Capturing is only allowed<br/>
+		/// for the foreground window. If the window loses focus while capturing, the<br/>
+		/// capture will be disabled automatically.<br/>
+		/// While capturing is enabled, the current window will have the<br/>
+		/// `SDL_WINDOW_MOUSE_CAPTURE` flag set.<br/>
+		/// Please note that SDL will attempt to "auto capture" the mouse while the<br/>
+		/// user is pressing a button; this is to try and make mouse behavior more<br/>
+		/// consistent between platforms, and deal with the common case of a user<br/>
+		/// dragging the mouse outside of the window. This means that if you are<br/>
+		/// calling SDL_CaptureMouse() only to deal with this situation, you do not<br/>
+		/// have to (although it is safe to do so). If this causes problems for your<br/>
+		/// app, you can disable auto capture by setting the<br/>
+		/// `SDL_HINT_MOUSE_AUTO_CAPTURE` hint to zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CaptureMouseNative([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte, byte>)funcTable[803])(enabled);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte, byte>)funcTable[803])(enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Capture the mouse and to track input outside an SDL window.<br/>
+		/// Capturing enables your app to obtain mouse events globally, instead of just<br/>
+		/// within your window. Not all video targets support this function. When<br/>
+		/// capturing is enabled, the current window will get all mouse events, but<br/>
+		/// unlike relative mode, no change is made to the cursor and it is not<br/>
+		/// restrained to your window.<br/>
+		/// This function may also deny mouse input to other windows--both those in<br/>
+		/// your application and others on the system--so you should use this function<br/>
+		/// sparingly, and in small bursts. For example, you might want to track the<br/>
+		/// mouse while the user is dragging something, until the user releases a mouse<br/>
+		/// button. It is not recommended that you capture the mouse for long periods<br/>
+		/// of time, such as the entire time your app is running. For that, you should<br/>
+		/// probably use SDL_SetWindowRelativeMouseMode() or SDL_SetWindowMouseGrab(),<br/>
+		/// depending on your goals.<br/>
+		/// While captured, mouse events still report coordinates relative to the<br/>
+		/// current (foreground) window, but those coordinates may be outside the<br/>
+		/// bounds of the window (including negative values). Capturing is only allowed<br/>
+		/// for the foreground window. If the window loses focus while capturing, the<br/>
+		/// capture will be disabled automatically.<br/>
+		/// While capturing is enabled, the current window will have the<br/>
+		/// `SDL_WINDOW_MOUSE_CAPTURE` flag set.<br/>
+		/// Please note that SDL will attempt to "auto capture" the mouse while the<br/>
+		/// user is pressing a button; this is to try and make mouse behavior more<br/>
+		/// consistent between platforms, and deal with the common case of a user<br/>
+		/// dragging the mouse outside of the window. This means that if you are<br/>
+		/// calling SDL_CaptureMouse() only to deal with this situation, you do not<br/>
+		/// have to (although it is safe to do so). If this causes problems for your<br/>
+		/// app, you can disable auto capture by setting the<br/>
+		/// `SDL_HINT_MOUSE_AUTO_CAPTURE` hint to zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CaptureMouse([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			byte ret = CaptureMouseNative(enabled ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* CreateCursorNative([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int, int, int, int, SDLCursor*>)funcTable[804])(data, mask, w, h, hotX, hotY);
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int, int, nint>)funcTable[804])((nint)data, (nint)mask, w, h, hotX, hotY);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			SDLCursorPtr ret = CreateCursorNative(data, mask, w, h, hotX, hotY);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (byte* pdata = &data)
+			{
+				SDLCursorPtr ret = CreateCursorNative((byte*)pdata, mask, w, h, hotX, hotY);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (byte* pmask = &mask)
+			{
+				SDLCursorPtr ret = CreateCursorNative(data, (byte*)pmask, w, h, hotX, hotY);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a cursor using the specified bitmap data and mask (in MSB format).<br/>
+		/// `mask` has to be in MSB (Most Significant Bit) format.<br/>
+		/// The cursor width (`w`) must be a multiple of 8 bits.<br/>
+		/// The cursor is created in black and white according to the following:<br/>
+		/// - data=0, mask=1: white<br/>
+		/// - data=1, mask=1: black<br/>
+		/// - data=0, mask=0: transparent<br/>
+		/// - data=1, mask=0: inverted color if possible, black if not.<br/>
+		/// Cursors created with this function must be freed with SDL_DestroyCursor().<br/>
+		/// If you want to have a color cursor, or create your cursor from an<br/>
+		/// SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can<br/>
+		/// hide the cursor and draw your own as part of your game's rendering, but it<br/>
+		/// will be bound to the framerate.<br/>
+		/// Also, SDL_CreateSystemCursor() is available, which provides several<br/>
+		/// readily-available system cursors to pick from.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateCursor([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (byte* pdata = &data)
+			{
+				fixed (byte* pmask = &mask)
+				{
+					SDLCursorPtr ret = CreateCursorNative((byte*)pdata, (byte*)pmask, w, h, hotX, hotY);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a color cursor.<br/>
+		/// If this function is passed a surface with alternate representations added<br/>
+		/// with SDL_AddSurfaceAlternateImage(), the surface will be interpreted as the<br/>
+		/// content to be used for 100% display scale, and the alternate<br/>
+		/// representations will be used for high DPI situations if<br/>
+		/// SDL_HINT_MOUSE_DPI_SCALE_CURSORS is enabled. For example, if the original<br/>
+		/// surface is 32x32, then on a 2x macOS display or 200% display scale on<br/>
+		/// Windows, a 64x64 version of the image will be used, if available. If a<br/>
+		/// matching version of the image isn't available, the closest larger size<br/>
+		/// image will be downscaled to the appropriate size and be used instead, if<br/>
+		/// available. Otherwise, the closest smaller image will be upscaled and be<br/>
+		/// used instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* CreateColorCursorNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurface* surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, SDLCursor*>)funcTable[805])(surface, hotX, hotY);
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, int, int, nint>)funcTable[805])((nint)surface, hotX, hotY);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a color cursor.<br/>
+		/// If this function is passed a surface with alternate representations added<br/>
+		/// with SDL_AddSurfaceAlternateImage(), the surface will be interpreted as the<br/>
+		/// content to be used for 100% display scale, and the alternate<br/>
+		/// representations will be used for high DPI situations if<br/>
+		/// SDL_HINT_MOUSE_DPI_SCALE_CURSORS is enabled. For example, if the original<br/>
+		/// surface is 32x32, then on a 2x macOS display or 200% display scale on<br/>
+		/// Windows, a 64x64 version of the image will be used, if available. If a<br/>
+		/// matching version of the image isn't available, the closest larger size<br/>
+		/// image will be downscaled to the appropriate size and be used instead, if<br/>
+		/// available. Otherwise, the closest smaller image will be upscaled and be<br/>
+		/// used instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateColorCursor([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] SDLSurfacePtr surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			SDLCursorPtr ret = CreateColorCursorNative((SDLSurface*)surface, hotX, hotY);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a color cursor.<br/>
+		/// If this function is passed a surface with alternate representations added<br/>
+		/// with SDL_AddSurfaceAlternateImage(), the surface will be interpreted as the<br/>
+		/// content to be used for 100% display scale, and the alternate<br/>
+		/// representations will be used for high DPI situations if<br/>
+		/// SDL_HINT_MOUSE_DPI_SCALE_CURSORS is enabled. For example, if the original<br/>
+		/// surface is 32x32, then on a 2x macOS display or 200% display scale on<br/>
+		/// Windows, a 64x64 version of the image will be used, if available. If a<br/>
+		/// matching version of the image isn't available, the closest larger size<br/>
+		/// image will be downscaled to the appropriate size and be used instead, if<br/>
+		/// available. Otherwise, the closest smaller image will be upscaled and be<br/>
+		/// used instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateColorCursor([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface *")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLCursorPtr ret = CreateColorCursorNative((SDLSurface*)psurface, hotX, hotY);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create an animated color cursor.<br/>
+		/// Animated cursors are composed of a sequential array of frames, specified as<br/>
+		/// surfaces and durations in an array of SDL_CursorFrameInfo structs. The hot<br/>
+		/// spot coordinates are universal to all frames, and all frames must have the<br/>
+		/// same dimensions.<br/>
+		/// Frame durations are specified in milliseconds. A duration of 0 implies an<br/>
+		/// infinite frame time, and the animation will stop on that frame. To create a<br/>
+		/// one-shot animation, set the duration of the last frame in the sequence to<br/>
+		/// 0.<br/>
+		/// If this function is passed surfaces with alternate representations added<br/>
+		/// with SDL_AddSurfaceAlternateImage(), the surfaces will be interpreted as<br/>
+		/// the content to be used for 100% display scale, and the alternate<br/>
+		/// representations will be used for high DPI situations. For example, if the<br/>
+		/// original surfaces are 32x32, then on a 2x macOS display or 200% display<br/>
+		/// scale on Windows, a 64x64 version of the image will be used, if available.<br/>
+		/// If a matching version of the image isn't available, the closest larger size<br/>
+		/// image will be downscaled to the appropriate size and be used instead, if<br/>
+		/// available. Otherwise, the closest smaller image will be upscaled and be<br/>
+		/// used instead.<br/>
+		/// If the underlying platform does not support animated cursors, this function<br/>
+		/// will fall back to creating a static color cursor using the first frame in<br/>
+		/// the sequence.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateAnimatedCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* CreateAnimatedCursorNative([NativeName(NativeNameType.Param, "frames")] [NativeName(NativeNameType.Type, "SDL_CursorFrameInfo *")] SDLCursorFrameInfo* frames, [NativeName(NativeNameType.Param, "frame_count")] [NativeName(NativeNameType.Type, "int")] int frameCount, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCursorFrameInfo*, int, int, int, SDLCursor*>)funcTable[806])(frames, frameCount, hotX, hotY);
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, int, int, int, nint>)funcTable[806])((nint)frames, frameCount, hotX, hotY);
+			#endif
+		}
+
+		/// <summary>
+		/// Create an animated color cursor.<br/>
+		/// Animated cursors are composed of a sequential array of frames, specified as<br/>
+		/// surfaces and durations in an array of SDL_CursorFrameInfo structs. The hot<br/>
+		/// spot coordinates are universal to all frames, and all frames must have the<br/>
+		/// same dimensions.<br/>
+		/// Frame durations are specified in milliseconds. A duration of 0 implies an<br/>
+		/// infinite frame time, and the animation will stop on that frame. To create a<br/>
+		/// one-shot animation, set the duration of the last frame in the sequence to<br/>
+		/// 0.<br/>
+		/// If this function is passed surfaces with alternate representations added<br/>
+		/// with SDL_AddSurfaceAlternateImage(), the surfaces will be interpreted as<br/>
+		/// the content to be used for 100% display scale, and the alternate<br/>
+		/// representations will be used for high DPI situations. For example, if the<br/>
+		/// original surfaces are 32x32, then on a 2x macOS display or 200% display<br/>
+		/// scale on Windows, a 64x64 version of the image will be used, if available.<br/>
+		/// If a matching version of the image isn't available, the closest larger size<br/>
+		/// image will be downscaled to the appropriate size and be used instead, if<br/>
+		/// available. Otherwise, the closest smaller image will be upscaled and be<br/>
+		/// used instead.<br/>
+		/// If the underlying platform does not support animated cursors, this function<br/>
+		/// will fall back to creating a static color cursor using the first frame in<br/>
+		/// the sequence.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateAnimatedCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateAnimatedCursor([NativeName(NativeNameType.Param, "frames")] [NativeName(NativeNameType.Type, "SDL_CursorFrameInfo *")] SDLCursorFrameInfoPtr frames, [NativeName(NativeNameType.Param, "frame_count")] [NativeName(NativeNameType.Type, "int")] int frameCount, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			SDLCursorPtr ret = CreateAnimatedCursorNative((SDLCursorFrameInfo*)frames, frameCount, hotX, hotY);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create an animated color cursor.<br/>
+		/// Animated cursors are composed of a sequential array of frames, specified as<br/>
+		/// surfaces and durations in an array of SDL_CursorFrameInfo structs. The hot<br/>
+		/// spot coordinates are universal to all frames, and all frames must have the<br/>
+		/// same dimensions.<br/>
+		/// Frame durations are specified in milliseconds. A duration of 0 implies an<br/>
+		/// infinite frame time, and the animation will stop on that frame. To create a<br/>
+		/// one-shot animation, set the duration of the last frame in the sequence to<br/>
+		/// 0.<br/>
+		/// If this function is passed surfaces with alternate representations added<br/>
+		/// with SDL_AddSurfaceAlternateImage(), the surfaces will be interpreted as<br/>
+		/// the content to be used for 100% display scale, and the alternate<br/>
+		/// representations will be used for high DPI situations. For example, if the<br/>
+		/// original surfaces are 32x32, then on a 2x macOS display or 200% display<br/>
+		/// scale on Windows, a 64x64 version of the image will be used, if available.<br/>
+		/// If a matching version of the image isn't available, the closest larger size<br/>
+		/// image will be downscaled to the appropriate size and be used instead, if<br/>
+		/// available. Otherwise, the closest smaller image will be upscaled and be<br/>
+		/// used instead.<br/>
+		/// If the underlying platform does not support animated cursors, this function<br/>
+		/// will fall back to creating a static color cursor using the first frame in<br/>
+		/// the sequence.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateAnimatedCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateAnimatedCursor([NativeName(NativeNameType.Param, "frames")] [NativeName(NativeNameType.Type, "SDL_CursorFrameInfo *")] ref SDLCursorFrameInfo frames, [NativeName(NativeNameType.Param, "frame_count")] [NativeName(NativeNameType.Type, "int")] int frameCount, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
+		{
+			fixed (SDLCursorFrameInfo* pframes = &frames)
+			{
+				SDLCursorPtr ret = CreateAnimatedCursorNative((SDLCursorFrameInfo*)pframes, frameCount, hotX, hotY);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a system cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* CreateSystemCursorNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSystemCursor, SDLCursor*>)funcTable[807])(id);
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<SDLSystemCursor, nint>)funcTable[807])(id);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a system cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr CreateSystemCursor([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
+		{
+			SDLCursorPtr ret = CreateSystemCursorNative(id);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the active cursor.<br/>
+		/// This function sets the currently active cursor to the specified one. If the<br/>
+		/// cursor is currently visible, the change will be immediately represented on<br/>
+		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
+		/// this is desired for any reason.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCursor*, byte>)funcTable[808])(cursor);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[808])((nint)cursor);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the active cursor.<br/>
+		/// This function sets the currently active cursor to the specified one. If the<br/>
+		/// cursor is currently visible, the change will be immediately represented on<br/>
+		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
+		/// this is desired for any reason.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursorPtr cursor)
+		{
+			byte ret = SetCursorNative((SDLCursor*)cursor);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the active cursor.<br/>
+		/// This function sets the currently active cursor to the specified one. If the<br/>
+		/// cursor is currently visible, the change will be immediately represented on<br/>
+		/// the display. SDL_SetCursor(NULL) can be used to force cursor redraw, if<br/>
+		/// this is desired for any reason.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] ref SDLCursor cursor)
+		{
+			fixed (SDLCursor* pcursor = &cursor)
+			{
+				byte ret = SetCursorNative((SDLCursor*)pcursor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the active cursor.<br/>
+		/// This function returns a pointer to the current cursor which is owned by the<br/>
+		/// library. It is not necessary to free the cursor with SDL_DestroyCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* GetCursorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[809])();
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[809])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the active cursor.<br/>
+		/// This function returns a pointer to the current cursor which is owned by the<br/>
+		/// library. It is not necessary to free the cursor with SDL_DestroyCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr GetCursor()
+		{
+			SDLCursorPtr ret = GetCursorNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the default cursor.<br/>
+		/// You do not have to call SDL_DestroyCursor() on the return value, but it is<br/>
+		/// safe to do so.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCursor* GetDefaultCursorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[810])();
+			#else
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[810])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the default cursor.<br/>
+		/// You do not have to call SDL_DestroyCursor() on the return value, but it is<br/>
+		/// safe to do so.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
+		[return: NativeName(NativeNameType.Type, "SDL_Cursor *")]
+		public static SDLCursorPtr GetDefaultCursor()
+		{
+			SDLCursorPtr ret = GetDefaultCursorNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Free a previously-created cursor.<br/>
+		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
+		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursor* cursor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLCursor*, void>)funcTable[811])(cursor);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[811])((nint)cursor);
+			#endif
+		}
+
+		/// <summary>
+		/// Free a previously-created cursor.<br/>
+		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
+		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] SDLCursorPtr cursor)
+		{
+			DestroyCursorNative((SDLCursor*)cursor);
+		}
+
+		/// <summary>
+		/// Free a previously-created cursor.<br/>
+		/// Use this function to free cursor resources created with SDL_CreateCursor(),<br/>
+		/// SDL_CreateColorCursor() or SDL_CreateSystemCursor().<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCursor")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyCursor([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor *")] ref SDLCursor cursor)
+		{
+			fixed (SDLCursor* pcursor = &cursor)
+			{
+				DestroyCursorNative((SDLCursor*)pcursor);
+			}
+		}
+
+		/// <summary>
+		/// Show the cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ShowCursorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[812])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[812])();
+			#endif
+		}
+
+		/// <summary>
+		/// Show the cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShowCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ShowCursor()
+		{
+			byte ret = ShowCursorNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Hide the cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HideCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HideCursorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[813])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[813])();
+			#endif
+		}
+
+		/// <summary>
+		/// Hide the cursor.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HideCursor")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HideCursor()
+		{
+			byte ret = HideCursorNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Return whether the cursor is currently being shown.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CursorVisible")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CursorVisibleNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[814])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[814])();
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether the cursor is currently being shown.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CursorVisible")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CursorVisible()
+		{
+			byte ret = CursorVisibleNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get a list of registered touch devices.<br/>
+		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
+		/// Therefore the returned list might be empty, although devices are available.<br/>
+		/// After using all devices at least once the number will be correct.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
+		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long* GetTouchDevicesNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, long*>)funcTable[815])(count);
+			#else
+			return (long*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[815])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of registered touch devices.<br/>
+		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
+		/// Therefore the returned list might be empty, although devices are available.<br/>
+		/// After using all devices at least once the number will be correct.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
+		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
+		public static long* GetTouchDevices([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			long* ret = GetTouchDevicesNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of registered touch devices.<br/>
+		/// On some platforms SDL first sees the touch device if it was actually used.<br/>
+		/// Therefore the returned list might be empty, although devices are available.<br/>
+		/// After using all devices at least once the number will be correct.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchDevices")]
+		[return: NativeName(NativeNameType.Type, "SDL_TouchID *")]
+		public static long* GetTouchDevices([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				long* ret = GetTouchDevicesNative((int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the touch device name as reported from the driver.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetTouchDeviceNameNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, byte*>)funcTable[816])(touchID);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<long, nint>)funcTable[816])(touchID);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the touch device name as reported from the driver.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetTouchDeviceName([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		{
+			byte* ret = GetTouchDeviceNameNative(touchID);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the touch device name as reported from the driver.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetTouchDeviceNameS([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		{
+			string ret = Utils.DecodeStringUTF8(GetTouchDeviceNameNative(touchID));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of the given touch device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceType")]
+		[return: NativeName(NativeNameType.Type, "SDL_TouchDeviceType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTouchDeviceType GetTouchDeviceTypeNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[817])(touchID);
+			#else
+			return (SDLTouchDeviceType)((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)funcTable[817])(touchID);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of the given touch device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceType")]
+		[return: NativeName(NativeNameType.Type, "SDL_TouchDeviceType")]
+		public static SDLTouchDeviceType GetTouchDeviceType([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		{
+			SDLTouchDeviceType ret = GetTouchDeviceTypeNative(touchID);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of active fingers for a given touch device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
+		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLFinger** GetTouchFingersNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, int*, SDLFinger**>)funcTable[818])(touchID, count);
+			#else
+			return (SDLFinger**)((delegate* unmanaged[Cdecl]<long, nint, nint>)funcTable[818])(touchID, (nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of active fingers for a given touch device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
+		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
+		public static SDLFingerPtrPtr GetTouchFingers([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			SDLFingerPtrPtr ret = GetTouchFingersNative(touchID, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of active fingers for a given touch device.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTouchFingers")]
+		[return: NativeName(NativeNameType.Type, "SDL_Finger * *")]
+		public static SDLFingerPtrPtr GetTouchFingers([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				SDLFingerPtrPtr ret = GetTouchFingersNative(touchID, (int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the device type of the given pen.<br/>
+		/// Many platforms do not supply this information, so an app must always be<br/>
+		/// prepared to get an SDL_PEN_DEVICE_TYPE_UNKNOWN result.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPenDeviceType")]
+		[return: NativeName(NativeNameType.Type, "SDL_PenDeviceType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPenDeviceType GetPenDeviceTypeNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_PenID")] uint instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLPenDeviceType>)funcTable[819])(instanceId);
+			#else
+			return (SDLPenDeviceType)((delegate* unmanaged[Cdecl]<uint, SDLPenDeviceType>)funcTable[819])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the device type of the given pen.<br/>
+		/// Many platforms do not supply this information, so an app must always be<br/>
+		/// prepared to get an SDL_PEN_DEVICE_TYPE_UNKNOWN result.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPenDeviceType")]
+		[return: NativeName(NativeNameType.Type, "SDL_PenDeviceType")]
+		public static SDLPenDeviceType GetPenDeviceType([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_PenID")] uint instanceId)
+		{
+			SDLPenDeviceType ret = GetPenDeviceTypeNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Pump the event loop, gathering events from the input devices.<br/>
+		/// This function updates the event queue and internal input device state.<br/>
+		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
+		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
+		/// would ever be placed on the queue. Often the need for calls to<br/>
+		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
+		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
+		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
+		/// call SDL_PumpEvents() to force an event queue update.<br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PumpEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void PumpEventsNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[820])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[820])();
+			#endif
+		}
+
+		/// <summary>
+		/// Pump the event loop, gathering events from the input devices.<br/>
+		/// This function updates the event queue and internal input device state.<br/>
+		/// SDL_PumpEvents() gathers all the pending input information from devices and<br/>
+		/// places it in the event queue. Without calls to SDL_PumpEvents() no events<br/>
+		/// would ever be placed on the queue. Often the need for calls to<br/>
+		/// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and<br/>
+		/// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not<br/>
+		/// polling or waiting for events (e.g. you are filtering them), then you must<br/>
+		/// call SDL_PumpEvents() to force an event queue update.<br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PumpEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void PumpEvents()
+		{
+			PumpEventsNative();
+		}
+
+		/// <summary>
+		/// Check the event queue for messages and optionally return them.<br/>
+		/// `action` may be any of the following:<br/>
+		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
+		/// event queue.<br/>
+		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
+		/// `events`, then `numevents` is ignored and the total number of matching<br/>
+		/// events will be returned.<br/>
+		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will be removed from the queue.<br/>
+		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
+		/// Otherwise, the events may not be ready to be filtered when you call<br/>
+		/// SDL_PeepEvents().<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static delegate*<void> LoadFunction(ref SDLSharedObject handle, string name)
+		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int PeepEventsNative([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
 		{
-			fixed (SDLSharedObject* phandle = &handle)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, SDLEventAction, uint, uint, int>)funcTable[821])(events, numevents, action, minType, maxType);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, SDLEventAction, uint, uint, int>)funcTable[821])((nint)events, numevents, action, minType, maxType);
+			#endif
+		}
+
+		/// <summary>
+		/// Check the event queue for messages and optionally return them.<br/>
+		/// `action` may be any of the following:<br/>
+		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
+		/// event queue.<br/>
+		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
+		/// `events`, then `numevents` is ignored and the total number of matching<br/>
+		/// events will be returned.<br/>
+		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will be removed from the queue.<br/>
+		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
+		/// Otherwise, the events may not be ready to be filtered when you call<br/>
+		/// SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int PeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEventPtr events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		{
+			int ret = PeepEventsNative((SDLEvent*)events, numevents, action, minType, maxType);
+			return ret;
+		}
+
+		/// <summary>
+		/// Check the event queue for messages and optionally return them.<br/>
+		/// `action` may be any of the following:<br/>
+		/// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the<br/>
+		/// event queue.<br/>
+		/// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will _not_ be removed from the queue. If you pass NULL for<br/>
+		/// `events`, then `numevents` is ignored and the total number of matching<br/>
+		/// events will be returned.<br/>
+		/// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,<br/>
+		/// within the specified minimum and maximum type, will be returned to the<br/>
+		/// caller and will be removed from the queue.<br/>
+		/// You may have to call SDL_PumpEvents() before calling this function.<br/>
+		/// Otherwise, the events may not be ready to be filtered when you call<br/>
+		/// SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int PeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_EventAction")] SDLEventAction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		{
+			fixed (SDLEvent* pevents = &events)
+			{
+				int ret = PeepEventsNative((SDLEvent*)pevents, numevents, action, minType, maxType);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Check for the existence of a certain event type in the event queue.<br/>
+		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HasEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[822])(type);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[822])(type);
+			#endif
+		}
+
+		/// <summary>
+		/// Check for the existence of a certain event type in the event queue.<br/>
+		/// If you need to check for a range of event types, use SDL_HasEvents()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		{
+			byte ret = HasEventNative(type);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Check for the existence of certain event types in the event queue.<br/>
+		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasEvents")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte HasEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[823])(minType, maxType);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[823])(minType, maxType);
+			#endif
+		}
+
+		/// <summary>
+		/// Check for the existence of certain event types in the event queue.<br/>
+		/// If you need to check for a single event type, use SDL_HasEvent() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasEvents")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		{
+			byte ret = HasEventsNative(minType, maxType);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Clear events of a specific type from the event queue.<br/>
+		/// This will unconditionally remove any events from the queue that match<br/>
+		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
+		/// instead.<br/>
+		/// It's also normal to just ignore events you don't care about in your event<br/>
+		/// loop without calling this function.<br/>
+		/// This function only affects currently queued events. If you want to make<br/>
+		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
+		/// on the main thread immediately before the flush call.<br/>
+		/// If you have user events with custom data that needs to be freed, you should<br/>
+		/// use SDL_PeepEvents() to remove and clean up those events before calling<br/>
+		/// this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FlushEvent")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FlushEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[824])(type);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[824])(type);
+			#endif
+		}
+
+		/// <summary>
+		/// Clear events of a specific type from the event queue.<br/>
+		/// This will unconditionally remove any events from the queue that match<br/>
+		/// `type`. If you need to remove a range of event types, use SDL_FlushEvents()<br/>
+		/// instead.<br/>
+		/// It's also normal to just ignore events you don't care about in your event<br/>
+		/// loop without calling this function.<br/>
+		/// This function only affects currently queued events. If you want to make<br/>
+		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
+		/// on the main thread immediately before the flush call.<br/>
+		/// If you have user events with custom data that needs to be freed, you should<br/>
+		/// use SDL_PeepEvents() to remove and clean up those events before calling<br/>
+		/// this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FlushEvent")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void FlushEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		{
+			FlushEventNative(type);
+		}
+
+		/// <summary>
+		/// Clear events of a range of types from the event queue.<br/>
+		/// This will unconditionally remove any events from the queue that are in the<br/>
+		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
+		/// event type, use SDL_FlushEvent() instead.<br/>
+		/// It's also normal to just ignore events you don't care about in your event<br/>
+		/// loop without calling this function.<br/>
+		/// This function only affects currently queued events. If you want to make<br/>
+		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
+		/// on the main thread immediately before the flush call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FlushEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FlushEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[825])(minType, maxType);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[825])(minType, maxType);
+			#endif
+		}
+
+		/// <summary>
+		/// Clear events of a range of types from the event queue.<br/>
+		/// This will unconditionally remove any events from the queue that are in the<br/>
+		/// range of `minType` to `maxType`, inclusive. If you need to remove a single<br/>
+		/// event type, use SDL_FlushEvent() instead.<br/>
+		/// It's also normal to just ignore events you don't care about in your event<br/>
+		/// loop without calling this function.<br/>
+		/// This function only affects currently queued events. If you want to make<br/>
+		/// sure that all pending OS events are flushed, you can call SDL_PumpEvents()<br/>
+		/// on the main thread immediately before the flush call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FlushEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void FlushEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		{
+			FlushEventsNative(minType, maxType);
+		}
+
+		/// <summary>
+		/// Poll for currently pending events.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
+		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
+		/// to follow.<br/>
+		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
+		/// but will not remove it from the queue.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that set the video mode.<br/>
+		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
+		/// be done from the main loop and does not suspend the main loop while waiting<br/>
+		/// on an event to be posted.<br/>
+		/// The common practice is to fully process the event queue once every frame,<br/>
+		/// usually as a first step before updating the game's state:<br/>
+		/// ```c<br/>
+		/// while (game_is_still_running) {<br/>
+		/// SDL_Event event;<br/>
+		/// while (SDL_PollEvent(<br/>
+		/// &event<br/>
+		/// )) {  // poll until all events are handled!<br/>
+		/// // decide what to do with this event.<br/>
+		/// }<br/>
+		/// // update game state, draw the current frame<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// Note that Windows (and possibly other platforms) has a quirk about how it<br/>
+		/// handles events while dragging/resizing a window, which can cause this<br/>
+		/// function to block for significant amounts of time. Technical explanations<br/>
+		/// and solutions are discussed on the wiki:<br/>
+		/// https://wiki.libsdl.org/SDL3/AppFreezeDuringDrag<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte PollEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[826])(evnt);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[826])((nint)evnt);
+			#endif
+		}
+
+		/// <summary>
+		/// Poll for currently pending events.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
+		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
+		/// to follow.<br/>
+		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
+		/// but will not remove it from the queue.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that set the video mode.<br/>
+		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
+		/// be done from the main loop and does not suspend the main loop while waiting<br/>
+		/// on an event to be posted.<br/>
+		/// The common practice is to fully process the event queue once every frame,<br/>
+		/// usually as a first step before updating the game's state:<br/>
+		/// ```c<br/>
+		/// while (game_is_still_running) {<br/>
+		/// SDL_Event event;<br/>
+		/// while (SDL_PollEvent(<br/>
+		/// &event<br/>
+		/// )) {  // poll until all events are handled!<br/>
+		/// // decide what to do with this event.<br/>
+		/// }<br/>
+		/// // update game state, draw the current frame<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// Note that Windows (and possibly other platforms) has a quirk about how it<br/>
+		/// handles events while dragging/resizing a window, which can cause this<br/>
+		/// function to block for significant amounts of time. Technical explanations<br/>
+		/// and solutions are discussed on the wiki:<br/>
+		/// https://wiki.libsdl.org/SDL3/AppFreezeDuringDrag<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEventPtr evnt)
+		{
+			byte ret = PollEventNative((SDLEvent*)evnt);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Poll for currently pending events.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`. The 1 returned refers to<br/>
+		/// this event, immediately stored in the SDL Event structure -- not an event<br/>
+		/// to follow.<br/>
+		/// If `event` is NULL, it simply returns 1 if there is an event in the queue,<br/>
+		/// but will not remove it from the queue.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that set the video mode.<br/>
+		/// SDL_PollEvent() is the favored way of receiving system events since it can<br/>
+		/// be done from the main loop and does not suspend the main loop while waiting<br/>
+		/// on an event to be posted.<br/>
+		/// The common practice is to fully process the event queue once every frame,<br/>
+		/// usually as a first step before updating the game's state:<br/>
+		/// ```c<br/>
+		/// while (game_is_still_running) {<br/>
+		/// SDL_Event event;<br/>
+		/// while (SDL_PollEvent(<br/>
+		/// &event<br/>
+		/// )) {  // poll until all events are handled!<br/>
+		/// // decide what to do with this event.<br/>
+		/// }<br/>
+		/// // update game state, draw the current frame<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// Note that Windows (and possibly other platforms) has a quirk about how it<br/>
+		/// handles events while dragging/resizing a window, which can cause this<br/>
+		/// function to block for significant amounts of time. Technical explanations<br/>
+		/// and solutions are discussed on the wiki:<br/>
+		/// https://wiki.libsdl.org/SDL3/AppFreezeDuringDrag<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				byte ret = PollEventNative((SDLEvent*)pevnt);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[827])(evnt);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[827])((nint)evnt);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEventPtr evnt)
+		{
+			byte ret = WaitEventNative((SDLEvent*)evnt);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				byte ret = WaitEventNative((SDLEvent*)pevnt);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
+		/// system scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitEventTimeoutNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, byte>)funcTable[828])(evnt, timeoutMS);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[828])((nint)evnt, timeoutMS);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
+		/// system scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEventPtr evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			byte ret = WaitEventTimeoutNative((SDLEvent*)evnt, timeoutMS);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
+		/// system scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// This function should only be called on the main thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				byte ret = WaitEventTimeoutNative((SDLEvent*)pevnt, timeoutMS);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte PushEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[829])(evnt);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[829])((nint)evnt);
+			#endif
+		}
+
+		/// <summary>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEventPtr evnt)
+		{
+			byte ret = PushEventNative((SDLEvent*)evnt);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				byte ret = PushEventNative((SDLEvent*)pevnt);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they are added to the internal<br/>
+		/// event queue.<br/>
+		/// If you just want to see events without modifying them or preventing them<br/>
+		/// from being queued, you should use SDL_AddEventWatch() instead.<br/>
+		/// If the filter function returns true when called, then the event will be<br/>
+		/// added to the internal queue. If it returns false, then the event will be<br/>
+		/// dropped from the queue, but the internal state will still be updated. This<br/>
+		/// allows selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread! The exception is handling of<br/>
+		/// SDL_EVENT_WINDOW_EXPOSED, which is guaranteed to be sent from the OS on the<br/>
+		/// main thread and you are expected to redraw your window in response to this<br/>
+		/// event.<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_SetEventEnabled().<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[830])(filter, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[830])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they are added to the internal<br/>
+		/// event queue.<br/>
+		/// If you just want to see events without modifying them or preventing them<br/>
+		/// from being queued, you should use SDL_AddEventWatch() instead.<br/>
+		/// If the filter function returns true when called, then the event will be<br/>
+		/// added to the internal queue. If it returns false, then the event will be<br/>
+		/// dropped from the queue, but the internal state will still be updated. This<br/>
+		/// allows selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread! The exception is handling of<br/>
+		/// SDL_EVENT_WINDOW_EXPOSED, which is guaranteed to be sent from the OS on the<br/>
+		/// main thread and you are expected to redraw your window in response to this<br/>
+		/// event.<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_SetEventEnabled().<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			SetEventFilterNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they are added to the internal<br/>
+		/// event queue.<br/>
+		/// If you just want to see events without modifying them or preventing them<br/>
+		/// from being queued, you should use SDL_AddEventWatch() instead.<br/>
+		/// If the filter function returns true when called, then the event will be<br/>
+		/// added to the internal queue. If it returns false, then the event will be<br/>
+		/// dropped from the queue, but the internal state will still be updated. This<br/>
+		/// allows selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread! The exception is handling of<br/>
+		/// SDL_EVENT_WINDOW_EXPOSED, which is guaranteed to be sent from the OS on the<br/>
+		/// main thread and you are expected to redraw your window in response to this<br/>
+		/// event.<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_SetEventEnabled().<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			SetEventFilterNative((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they are added to the internal<br/>
+		/// event queue.<br/>
+		/// If you just want to see events without modifying them or preventing them<br/>
+		/// from being queued, you should use SDL_AddEventWatch() instead.<br/>
+		/// If the filter function returns true when called, then the event will be<br/>
+		/// added to the internal queue. If it returns false, then the event will be<br/>
+		/// dropped from the queue, but the internal state will still be updated. This<br/>
+		/// allows selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread! The exception is handling of<br/>
+		/// SDL_EVENT_WINDOW_EXPOSED, which is guaranteed to be sent from the OS on the<br/>
+		/// main thread and you are expected to redraw your window in response to this<br/>
+		/// event.<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_SetEventEnabled().<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			SetEventFilterNative(filter, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Set up a filter to process all events before they are added to the internal<br/>
+		/// event queue.<br/>
+		/// If you just want to see events without modifying them or preventing them<br/>
+		/// from being queued, you should use SDL_AddEventWatch() instead.<br/>
+		/// If the filter function returns true when called, then the event will be<br/>
+		/// added to the internal queue. If it returns false, then the event will be<br/>
+		/// dropped from the queue, but the internal state will still be updated. This<br/>
+		/// allows selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread! The exception is handling of<br/>
+		/// SDL_EVENT_WINDOW_EXPOSED, which is guaranteed to be sent from the OS on the<br/>
+		/// main thread and you are expected to redraw your window in response to this<br/>
+		/// event.<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_SetEventEnabled().<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			SetEventFilterNative((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Query the current event filter.<br/>
+		/// This function can be used to "chain" filters, by saving the existing filter<br/>
+		/// before replacing it with a function that will call that saved filter.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter *")] delegate*<void*, SDLEvent*, bool>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>*, void**, byte>)funcTable[831])(filter, userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[831])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Query the current event filter.<br/>
+		/// This function can be used to "chain" filters, by saving the existing filter<br/>
+		/// before replacing it with a function that will call that saved filter.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter *")] delegate*<void*, SDLEvent*, bool>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
+		{
+			byte ret = GetEventFilterNative(filter, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Query the current event filter.<br/>
+		/// This function can be used to "chain" filters, by saving the existing filter<br/>
+		/// before replacing it with a function that will call that saved filter.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter *")] delegate*<void*, SDLEvent*, bool>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] ref nint userdata)
+		{
+			fixed (nint* puserdata = &userdata)
+			{
+				byte ret = GetEventFilterNative(filter, (void**)puserdata);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte AddEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, byte>)funcTable[832])(filter, userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[832])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = AddEventWatchNative(filter, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = AddEventWatchNative((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = AddEventWatchNative(filter, (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = AddEventWatchNative((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void RemoveEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[833])(filter, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[833])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void RemoveEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			RemoveEventWatchNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void RemoveEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			RemoveEventWatchNative((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void RemoveEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			RemoveEventWatchNative(filter, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void RemoveEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			RemoveEventWatchNative((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns false.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FilterEventsNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[834])(filter, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[834])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns false.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void FilterEvents([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			FilterEventsNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns false.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void FilterEvents([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			FilterEventsNative((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns false.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void FilterEvents([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] delegate*<void*, SDLEvent*, bool> filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			FilterEventsNative(filter, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns false.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void FilterEvents([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			FilterEventsNative((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Set the state of processing events by type.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetEventEnabled")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetEventEnabledNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, byte, void>)funcTable[835])(type, enabled);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, byte, void>)funcTable[835])(type, enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of processing events by type.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetEventEnabled")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetEventEnabled([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			SetEventEnabledNative(type, enabled ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Query the state of processing events by type.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EventEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte EventEnabledNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[836])(type);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[836])(type);
+			#endif
+		}
+
+		/// <summary>
+		/// Query the state of processing events by type.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EventEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EventEnabled([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		{
+			byte ret = EventEnabledNative(type);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Allocate a set of user-defined events, and return the beginning event<br/>
+		/// number for that set of events.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RegisterEvents")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint RegisterEventsNative([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[837])(numevents);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[837])(numevents);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a set of user-defined events, and return the beginning event<br/>
+		/// number for that set of events.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RegisterEvents")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint RegisterEvents([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
+		{
+			uint ret = RegisterEventsNative(numevents);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get window associated with an event.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetWindowFromEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, SDLWindow*>)funcTable[838])(evnt);
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[838])((nint)evnt);
+			#endif
+		}
+
+		/// <summary>
+		/// Get window associated with an event.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindowPtr GetWindowFromEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEventPtr evnt)
+		{
+			SDLWindowPtr ret = GetWindowFromEventNative((SDLEvent*)evnt);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get window associated with an event.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindowPtr GetWindowFromEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] in SDLEvent evnt)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				SDLWindowPtr ret = GetWindowFromEventNative((SDLEvent*)pevnt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Generate an English description of an event.<br/>
+		/// This will fill `buf` with a null-terminated string that might look<br/>
+		/// something like this:<br/>
+		/// ```<br/>
+		/// SDL_EVENT_MOUSE_MOTION (timestamp=1140256324 windowid=2 which=0 state=0 x=492.99 y=139.09 xrel=52 yrel=6)<br/>
+		/// ```<br/>
+		/// The exact format of the string is not guaranteed; it is intended for<br/>
+		/// logging purposes, to be read by a human, and not parsed by a computer.<br/>
+		/// The returned value follows the same rules as SDL_snprintf(): `buf` will<br/>
+		/// always be NULL-terminated (unless `buflen` is zero), and will be truncated<br/>
+		/// if `buflen` is too small. The return code is the number of bytes needed for<br/>
+		/// the complete string, not counting the NULL-terminator, whether the string<br/>
+		/// was truncated or not. Unlike SDL_snprintf(), though, this function never<br/>
+		/// returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventDescription")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetEventDescriptionNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "char *")] byte* buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte*, int, int>)funcTable[839])(evnt, buf, buflen);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[839])((nint)evnt, (nint)buf, buflen);
+			#endif
+		}
+
+		/// <summary>
+		/// Generate an English description of an event.<br/>
+		/// This will fill `buf` with a null-terminated string that might look<br/>
+		/// something like this:<br/>
+		/// ```<br/>
+		/// SDL_EVENT_MOUSE_MOTION (timestamp=1140256324 windowid=2 which=0 state=0 x=492.99 y=139.09 xrel=52 yrel=6)<br/>
+		/// ```<br/>
+		/// The exact format of the string is not guaranteed; it is intended for<br/>
+		/// logging purposes, to be read by a human, and not parsed by a computer.<br/>
+		/// The returned value follows the same rules as SDL_snprintf(): `buf` will<br/>
+		/// always be NULL-terminated (unless `buflen` is zero), and will be truncated<br/>
+		/// if `buflen` is too small. The return code is the number of bytes needed for<br/>
+		/// the complete string, not counting the NULL-terminator, whether the string<br/>
+		/// was truncated or not. Unlike SDL_snprintf(), though, this function never<br/>
+		/// returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventDescription")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetEventDescription([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEventPtr evnt, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "char *")] byte* buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen)
+		{
+			int ret = GetEventDescriptionNative((SDLEvent*)evnt, buf, buflen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Generate an English description of an event.<br/>
+		/// This will fill `buf` with a null-terminated string that might look<br/>
+		/// something like this:<br/>
+		/// ```<br/>
+		/// SDL_EVENT_MOUSE_MOTION (timestamp=1140256324 windowid=2 which=0 state=0 x=492.99 y=139.09 xrel=52 yrel=6)<br/>
+		/// ```<br/>
+		/// The exact format of the string is not guaranteed; it is intended for<br/>
+		/// logging purposes, to be read by a human, and not parsed by a computer.<br/>
+		/// The returned value follows the same rules as SDL_snprintf(): `buf` will<br/>
+		/// always be NULL-terminated (unless `buflen` is zero), and will be truncated<br/>
+		/// if `buflen` is too small. The return code is the number of bytes needed for<br/>
+		/// the complete string, not counting the NULL-terminator, whether the string<br/>
+		/// was truncated or not. Unlike SDL_snprintf(), though, this function never<br/>
+		/// returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventDescription")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetEventDescription([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] in SDLEvent evnt, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "char *")] byte* buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				int ret = GetEventDescriptionNative((SDLEvent*)pevnt, buf, buflen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Generate an English description of an event.<br/>
+		/// This will fill `buf` with a null-terminated string that might look<br/>
+		/// something like this:<br/>
+		/// ```<br/>
+		/// SDL_EVENT_MOUSE_MOTION (timestamp=1140256324 windowid=2 which=0 state=0 x=492.99 y=139.09 xrel=52 yrel=6)<br/>
+		/// ```<br/>
+		/// The exact format of the string is not guaranteed; it is intended for<br/>
+		/// logging purposes, to be read by a human, and not parsed by a computer.<br/>
+		/// The returned value follows the same rules as SDL_snprintf(): `buf` will<br/>
+		/// always be NULL-terminated (unless `buflen` is zero), and will be truncated<br/>
+		/// if `buflen` is too small. The return code is the number of bytes needed for<br/>
+		/// the complete string, not counting the NULL-terminator, whether the string<br/>
+		/// was truncated or not. Unlike SDL_snprintf(), though, this function never<br/>
+		/// returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventDescription")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetEventDescription([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEventPtr evnt, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "char *")] ref byte buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen)
+		{
+			fixed (byte* pbuf = &buf)
+			{
+				int ret = GetEventDescriptionNative((SDLEvent*)evnt, (byte*)pbuf, buflen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Generate an English description of an event.<br/>
+		/// This will fill `buf` with a null-terminated string that might look<br/>
+		/// something like this:<br/>
+		/// ```<br/>
+		/// SDL_EVENT_MOUSE_MOTION (timestamp=1140256324 windowid=2 which=0 state=0 x=492.99 y=139.09 xrel=52 yrel=6)<br/>
+		/// ```<br/>
+		/// The exact format of the string is not guaranteed; it is intended for<br/>
+		/// logging purposes, to be read by a human, and not parsed by a computer.<br/>
+		/// The returned value follows the same rules as SDL_snprintf(): `buf` will<br/>
+		/// always be NULL-terminated (unless `buflen` is zero), and will be truncated<br/>
+		/// if `buflen` is too small. The return code is the number of bytes needed for<br/>
+		/// the complete string, not counting the NULL-terminator, whether the string<br/>
+		/// was truncated or not. Unlike SDL_snprintf(), though, this function never<br/>
+		/// returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventDescription")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetEventDescription([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEventPtr evnt, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "char *")] ref string buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (buf != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(buf);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(buf, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = GetEventDescriptionNative((SDLEvent*)evnt, pStr0, buflen);
+			buf = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Generate an English description of an event.<br/>
+		/// This will fill `buf` with a null-terminated string that might look<br/>
+		/// something like this:<br/>
+		/// ```<br/>
+		/// SDL_EVENT_MOUSE_MOTION (timestamp=1140256324 windowid=2 which=0 state=0 x=492.99 y=139.09 xrel=52 yrel=6)<br/>
+		/// ```<br/>
+		/// The exact format of the string is not guaranteed; it is intended for<br/>
+		/// logging purposes, to be read by a human, and not parsed by a computer.<br/>
+		/// The returned value follows the same rules as SDL_snprintf(): `buf` will<br/>
+		/// always be NULL-terminated (unless `buflen` is zero), and will be truncated<br/>
+		/// if `buflen` is too small. The return code is the number of bytes needed for<br/>
+		/// the complete string, not counting the NULL-terminator, whether the string<br/>
+		/// was truncated or not. Unlike SDL_snprintf(), though, this function never<br/>
+		/// returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventDescription")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetEventDescription([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] in SDLEvent evnt, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "char *")] ref byte buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
+			{
+				fixed (byte* pbuf = &buf)
+				{
+					int ret = GetEventDescriptionNative((SDLEvent*)pevnt, (byte*)pbuf, buflen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Generate an English description of an event.<br/>
+		/// This will fill `buf` with a null-terminated string that might look<br/>
+		/// something like this:<br/>
+		/// ```<br/>
+		/// SDL_EVENT_MOUSE_MOTION (timestamp=1140256324 windowid=2 which=0 state=0 x=492.99 y=139.09 xrel=52 yrel=6)<br/>
+		/// ```<br/>
+		/// The exact format of the string is not guaranteed; it is intended for<br/>
+		/// logging purposes, to be read by a human, and not parsed by a computer.<br/>
+		/// The returned value follows the same rules as SDL_snprintf(): `buf` will<br/>
+		/// always be NULL-terminated (unless `buflen` is zero), and will be truncated<br/>
+		/// if `buflen` is too small. The return code is the number of bytes needed for<br/>
+		/// the complete string, not counting the NULL-terminator, whether the string<br/>
+		/// was truncated or not. Unlike SDL_snprintf(), though, this function never<br/>
+		/// returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventDescription")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetEventDescription([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] in SDLEvent evnt, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "char *")] ref string buf, [NativeName(NativeNameType.Param, "buflen")] [NativeName(NativeNameType.Type, "int")] int buflen)
+		{
+			fixed (SDLEvent* pevnt = &evnt)
 			{
 				byte* pStr0 = null;
 				int pStrSize0 = 0;
-				if (name != null)
+				if (buf != null)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(name);
+					pStrSize0 = Utils.GetByteCountUTF8(buf);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
 						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -1318,10 +4418,11 @@ namespace Hexa.NET.SDL3
 						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 						pStr0 = pStrStack0;
 					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+					int pStrOffset0 = Utils.EncodeStringUTF8(buf, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				delegate*<void> ret = LoadFunctionNative((SDLSharedObject*)phandle, pStr0);
+				int ret = GetEventDescriptionNative((SDLEvent*)pevnt, pStr0, buflen);
+				buf = Utils.DecodeStringUTF8(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -1331,3707 +4432,593 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
+		/// Get the directory where the application was run from.<br/>
+		/// SDL caches the result of this call internally, but the first call to this<br/>
+		/// function is not necessarily fast, so plan accordingly.<br/>
+		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
+		/// bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Android Specific Functionality**: This function returns "./", which<br/>
+		/// allows filesystem operations to use internal storage and the asset system.<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnloadObjectNative(SDLSharedObject* handle)
+		internal static byte* GetBasePathNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSharedObject*, void>)funcTable[996])(handle);
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[840])();
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[996])((nint)handle);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[840])();
 			#endif
 		}
 
 		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
+		/// Get the directory where the application was run from.<br/>
+		/// SDL caches the result of this call internally, but the first call to this<br/>
+		/// function is not necessarily fast, so plan accordingly.<br/>
+		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
+		/// bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Android Specific Functionality**: This function returns "./", which<br/>
+		/// allows filesystem operations to use internal storage and the asset system.<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnloadObject(SDLSharedObject* handle)
+		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetBasePath()
 		{
-			UnloadObjectNative(handle);
-		}
-
-		/// <summary>
-		/// Unload a shared object from memory.<br/>
-		/// Note that any pointers from this object looked up through<br/>
-		/// SDL_LoadFunction() will no longer be valid.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnloadObject(ref SDLSharedObject handle)
-		{
-			fixed (SDLSharedObject* phandle = &handle)
-			{
-				UnloadObjectNative((SDLSharedObject*)phandle);
-			}
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLLocale** GetPreferredLocalesNative(int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, SDLLocale**>)funcTable[997])(count);
-			#else
-			return (SDLLocale**)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[997])((nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLLocale** GetPreferredLocales(int* count)
-		{
-			SDLLocale** ret = GetPreferredLocalesNative(count);
+			byte* ret = GetBasePathNative();
 			return ret;
 		}
 
 		/// <summary>
-		/// Report the user's preferred locale.<br/>
-		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
-		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
-		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
-		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
-		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
-		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
-		/// language, generically"). Language strings are never NULL, except to<br/>
-		/// terminate the array.<br/>
-		/// Please note that not all of these strings are 2 characters; some are three<br/>
-		/// or more.<br/>
-		/// The returned list of locales are in the order of the user's preference. For<br/>
-		/// example, a German citizen that is fluent in US English and knows enough<br/>
-		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
-		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
-		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
-		/// "en_GB", "en", NULL }.<br/>
-		/// This function returns NULL on error, including when the platform does not<br/>
-		/// supply this information at all.<br/>
-		/// This might be a "slow" call that has to query the operating system. It's<br/>
-		/// best to ask for this once and save the results. However, this list can<br/>
-		/// change, usually because the user has changed a system preference outside of<br/>
-		/// your program; SDL will send an SDL_EVENT_LOCALE_CHANGED event in this case,<br/>
-		/// if possible, and you can call this function again to get an updated copy of<br/>
-		/// preferred locales.<br/>
+		/// Get the directory where the application was run from.<br/>
+		/// SDL caches the result of this call internally, but the first call to this<br/>
+		/// function is not necessarily fast, so plan accordingly.<br/>
+		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
+		/// bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Android Specific Functionality**: This function returns "./", which<br/>
+		/// allows filesystem operations to use internal storage and the asset system.<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLLocale** GetPreferredLocales(ref int count)
+		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetBasePathS()
 		{
-			fixed (int* pcount = &count)
+			string ret = Utils.DecodeStringUTF8(GetBasePathNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPrefPathNative([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[841])(org, app);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[841])((nint)org, (nint)app);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			byte* ret = GetPrefPathNative(org, app);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, app));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] in byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			fixed (byte* porg = &org)
 			{
-				SDLLocale** ret = GetPreferredLocalesNative((int*)pcount);
+				byte* ret = GetPrefPathNative((byte*)porg, app);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set the priority of all log categories.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogPrioritiesNative(SDLLogPriority priority)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)funcTable[998])(priority);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)funcTable[998])(priority);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the priority of all log categories.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetLogPriorities(SDLLogPriority priority)
-		{
-			SetLogPrioritiesNative(priority);
-		}
-
-		/// <summary>
-		/// Set the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogPriorityNative(int category, SDLLogPriority priority)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)funcTable[999])(category, priority);
-			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)funcTable[999])(category, priority);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetLogPriority(int category, SDLLogPriority priority)
-		{
-			SetLogPriorityNative(category, priority);
-		}
-
-		/// <summary>
-		/// Get the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLLogPriority GetLogPriorityNative(int category)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)funcTable[1000])(category);
-			#else
-			return (SDLLogPriority)((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)funcTable[1000])(category);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the priority of a particular log category.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLLogPriority GetLogPriority(int category)
-		{
-			SDLLogPriority ret = GetLogPriorityNative(category);
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset all priorities to default.<br/>
-		/// This is called by SDL_Quit().<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetLogPrioritiesNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1001])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[1001])();
-			#endif
-		}
-
-		/// <summary>
-		/// Reset all priorities to default.<br/>
-		/// This is called by SDL_Quit().<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ResetLogPriorities()
-		{
-			ResetLogPrioritiesNative();
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetLogPriorityPrefixNative(SDLLogPriority priority, byte* prefix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLLogPriority, byte*, byte>)funcTable[1002])(priority, prefix);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLLogPriority, nint, byte>)funcTable[1002])(priority, (nint)prefix);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetLogPriorityPrefix(SDLLogPriority priority, byte* prefix)
-		{
-			byte ret = SetLogPriorityPrefixNative(priority, prefix);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetLogPriorityPrefix(SDLLogPriority priority, ref byte prefix)
-		{
-			fixed (byte* pprefix = &prefix)
-			{
-				byte ret = SetLogPriorityPrefixNative(priority, (byte*)pprefix);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetLogPriorityPrefix(SDLLogPriority priority, ReadOnlySpan<byte> prefix)
-		{
-			fixed (byte* pprefix = prefix)
-			{
-				byte ret = SetLogPriorityPrefixNative(priority, (byte*)pprefix);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the text prepended to log messages of a given priority.<br/>
-		/// By default SDL_LOG_PRIORITY_INFO and below have no prefix, and<br/>
-		/// SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.<br/>
-		/// "WARNING: ".<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetLogPriorityPrefix(SDLLogPriority priority, string prefix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (prefix != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(prefix);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(prefix, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = SetLogPriorityPrefixNative(priority, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogNative(byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1003])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1003])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void Log(byte* fmt)
-		{
-			LogNative(fmt);
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void Log(ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void Log(ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void Log(string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogTraceNative(int category, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1004])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1004])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogTrace(int category, byte* fmt)
-		{
-			LogTraceNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogTrace(int category, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogTraceNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogTrace(int category, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogTraceNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_TRACE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogTrace(int category, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogTraceNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogVerboseNative(int category, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1005])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1005])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogVerbose(int category, byte* fmt)
-		{
-			LogVerboseNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogVerbose(int category, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogVerboseNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogVerbose(int category, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogVerboseNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_VERBOSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogVerbose(int category, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogVerboseNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogDebugNative(int category, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1006])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1006])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogDebug(int category, byte* fmt)
-		{
-			LogDebugNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogDebug(int category, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogDebugNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogDebug(int category, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogDebugNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_DEBUG.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogDebug(int category, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogDebugNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogInfoNative(int category, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1007])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1007])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogInfo(int category, byte* fmt)
-		{
-			LogInfoNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogInfo(int category, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogInfoNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogInfo(int category, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogInfoNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_INFO.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogInfo(int category, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogInfoNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogWarnNative(int category, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1008])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1008])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogWarn(int category, byte* fmt)
-		{
-			LogWarnNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogWarn(int category, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogWarnNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogWarn(int category, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogWarnNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogWarn(int category, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogWarnNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogErrorNative(int category, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1009])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1009])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogError(int category, byte* fmt)
-		{
-			LogErrorNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogError(int category, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogErrorNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogError(int category, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogErrorNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogError(int category, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogErrorNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogCriticalNative(int category, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1010])(category, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1010])(category, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogCritical(int category, byte* fmt)
-		{
-			LogCriticalNative(category, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogCritical(int category, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogCriticalNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogCritical(int category, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogCriticalNative(category, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogCritical(int category, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogCriticalNative(category, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogMessageNative(int category, SDLLogPriority priority, byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, void>)funcTable[1011])(category, priority, fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, void>)funcTable[1011])(category, priority, (nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogMessage(int category, SDLLogPriority priority, byte* fmt)
-		{
-			LogMessageNative(category, priority, fmt);
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogMessage(int category, SDLLogPriority priority, ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogMessageNative(category, priority, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogMessage(int category, SDLLogPriority priority, ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogMessageNative(category, priority, (byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogMessage(int category, SDLLogPriority priority, string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogMessageNative(category, priority, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LogMessageVNative(int category, SDLLogPriority priority, byte* fmt, nint ap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, nint, void>)funcTable[1012])(category, priority, fmt, ap);
-			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, nint, void>)funcTable[1012])(category, priority, (nint)fmt, ap);
-			#endif
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogMessageV(int category, SDLLogPriority priority, byte* fmt, nint ap)
-		{
-			LogMessageVNative(category, priority, fmt, ap);
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogMessageV(int category, SDLLogPriority priority, ref byte fmt, nint ap)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				LogMessageVNative(category, priority, (byte*)pfmt, ap);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogMessageV(int category, SDLLogPriority priority, ReadOnlySpan<byte> fmt, nint ap)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				LogMessageVNative(category, priority, (byte*)pfmt, ap);
-			}
-		}
-
-		/// <summary>
-		/// Log a message with the specified category and priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LogMessageV(int category, SDLLogPriority priority, string fmt, nint ap)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			LogMessageVNative(category, priority, pStr0, ap);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Get the default log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static delegate*<void*, int, SDLLogPriority, byte*, void> GetDefaultLogOutputFunctionNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>>)funcTable[1013])();
-			#else
-			return (delegate*<void*, int, SDLLogPriority, byte*, void>)((delegate* unmanaged[Cdecl]<nint>)funcTable[1013])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the default log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static delegate*<void*, int, SDLLogPriority, byte*, void> GetDefaultLogOutputFunction()
-		{
-			delegate*<void*, int, SDLLogPriority, byte*, void> ret = GetDefaultLogOutputFunctionNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetLogOutputFunctionNative(delegate*<void*, int, SDLLogPriority, byte*, void>* callback, void** userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>*, void**, void>)funcTable[1014])(callback, userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1014])((nint)callback, (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current log output function.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetLogOutputFunction(delegate*<void*, int, SDLLogPriority, byte*, void>* callback, void** userdata)
-		{
-			GetLogOutputFunctionNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Replace the default log output function with one of your own.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetLogOutputFunctionNative(SDLLogOutputFunction callback, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>, void*, void>)funcTable[1015])((delegate*<void*, int, SDLLogPriority, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1015])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Replace the default log output function with one of your own.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetLogOutputFunction(SDLLogOutputFunction callback, void* userdata)
-		{
-			SetLogOutputFunctionNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ShowMessageBoxNative(SDLMessageBoxData* messageboxdata, int* buttonid)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxData*, int*, byte>)funcTable[1016])(messageboxdata, buttonid);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[1016])((nint)messageboxdata, (nint)buttonid);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowMessageBox(SDLMessageBoxData* messageboxdata, int* buttonid)
-		{
-			byte ret = ShowMessageBoxNative(messageboxdata, buttonid);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowMessageBox(ref SDLMessageBoxData messageboxdata, int* buttonid)
-		{
-			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
-			{
-				byte ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, buttonid);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowMessageBox(SDLMessageBoxData* messageboxdata, ref int buttonid)
-		{
-			fixed (int* pbuttonid = &buttonid)
-			{
-				byte ret = ShowMessageBoxNative(messageboxdata, (int*)pbuttonid);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a modal message box.<br/>
-		/// If your needs aren't complex, it might be easier to use<br/>
-		/// SDL_ShowSimpleMessageBox.<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowMessageBox(ref SDLMessageBoxData messageboxdata, ref int buttonid)
-		{
-			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
-			{
-				fixed (int* pbuttonid = &buttonid)
-				{
-					byte ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, (int*)pbuttonid);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ShowSimpleMessageBoxNative(SDLMessageBoxFlags flags, byte* title, byte* message, SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxFlags, byte*, byte*, SDLWindow*, byte>)funcTable[1017])(flags, title, message, window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<SDLMessageBoxFlags, nint, nint, nint, byte>)funcTable[1017])(flags, (nint)title, (nint)message, (nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, byte* title, byte* message, SDLWindow* window)
-		{
-			byte ret = ShowSimpleMessageBoxNative(flags, title, message, window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, ref byte title, byte* message, SDLWindow* window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, ReadOnlySpan<byte> title, byte* message, SDLWindow* window)
-		{
-			fixed (byte* ptitle = title)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, string title, byte* message, SDLWindow* window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, pStr0, message, window);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, byte* title, ref byte message, SDLWindow* window)
-		{
-			fixed (byte* pmessage = &message)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, byte* title, ReadOnlySpan<byte> message, SDLWindow* window)
-		{
-			fixed (byte* pmessage = message)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, byte* title, string message, SDLWindow* window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (message != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(message);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, title, pStr0, window);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, ref byte title, ref byte message, SDLWindow* window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (byte* pmessage = &message)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, ReadOnlySpan<byte> title, ReadOnlySpan<byte> message, SDLWindow* window)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (byte* pmessage = message)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, string title, string message, SDLWindow* window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (message != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(message);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, window);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, byte* title, byte* message, ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, message, (SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, ref byte title, byte* message, ref SDLWindow window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, ReadOnlySpan<byte> title, byte* message, ref SDLWindow window)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, string title, byte* message, ref SDLWindow window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, pStr0, message, (SDLWindow*)pwindow);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, byte* title, ref byte message, ref SDLWindow window)
-		{
-			fixed (byte* pmessage = &message)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, byte* title, ReadOnlySpan<byte> message, ref SDLWindow window)
-		{
-			fixed (byte* pmessage = message)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, byte* title, string message, ref SDLWindow window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (message != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(message);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, title, pStr0, (SDLWindow*)pwindow);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, ref byte title, ref byte message, ref SDLWindow window)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				fixed (byte* pmessage = &message)
-				{
-					fixed (SDLWindow* pwindow = &window)
-					{
-						byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, ReadOnlySpan<byte> title, ReadOnlySpan<byte> message, ref SDLWindow window)
-		{
-			fixed (byte* ptitle = title)
-			{
-				fixed (byte* pmessage = message)
-				{
-					fixed (SDLWindow* pwindow = &window)
-					{
-						byte ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Display a simple modal message box.<br/>
-		/// If your needs aren't complex, this function is preferred over<br/>
-		/// SDL_ShowMessageBox.<br/>
-		/// `flags` may be any of the following:<br/>
-		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
-		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
-		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
-		/// This function should be called on the thread that created the parent<br/>
-		/// window, or on the main thread if the messagebox has no parent. It will<br/>
-		/// block execution of that thread until the user clicks a button or closes the<br/>
-		/// messagebox.<br/>
-		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
-		/// it useful for reporting errors like a failure to create a renderer or<br/>
-		/// OpenGL context.<br/>
-		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
-		/// formal toolkit like GTK+ or Qt.<br/>
-		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
-		/// target, this function is likely to fail for the same reasons. If this is a<br/>
-		/// concern, check the return value from this function and fall back to writing<br/>
-		/// to stderr if you can.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ShowSimpleMessageBox(SDLMessageBoxFlags flags, string title, string message, ref SDLWindow window)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (message != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(message);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, (SDLWindow*)pwindow);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr1);
-				}
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLMetalView MetalCreateViewNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLMetalView>)funcTable[1018])(window);
-			#else
-			return (SDLMetalView)((delegate* unmanaged[Cdecl]<nint, SDLMetalView>)funcTable[1018])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLMetalView MetalCreateView(SDLWindow* window)
-		{
-			SDLMetalView ret = MetalCreateViewNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
-		/// window.<br/>
-		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
-		/// its own. It is up to user code to do that.<br/>
-		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
-		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLMetalView MetalCreateView(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLMetalView ret = MetalCreateViewNative((SDLWindow*)pwindow);
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] in byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			fixed (byte* porg = &org)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Destroy an existing SDL_MetalView object.<br/>
-		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
-		/// called after SDL_CreateWindow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void MetalDestroyViewNative(SDLMetalView view)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)funcTable[1019])(view);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)funcTable[1019])(view);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy an existing SDL_MetalView object.<br/>
-		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
-		/// called after SDL_CreateWindow.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MetalDestroyView(SDLMetalView view)
-		{
-			MetalDestroyViewNative(view);
-		}
-
-		/// <summary>
-		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MetalGetLayerNative(SDLMetalView view)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMetalView, void*>)funcTable[1020])(view);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<SDLMetalView, nint>)funcTable[1020])(view);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* MetalGetLayer(SDLMetalView view)
-		{
-			void* ret = MetalGetLayerNative(view);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte OpenURLNative(byte* url)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[1021])(url);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[1021])((nint)url);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool OpenURL(byte* url)
-		{
-			byte ret = OpenURLNative(url);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool OpenURL(ref byte url)
-		{
-			fixed (byte* purl = &url)
-			{
-				byte ret = OpenURLNative((byte*)purl);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool OpenURL(ReadOnlySpan<byte> url)
-		{
-			fixed (byte* purl = url)
-			{
-				byte ret = OpenURLNative((byte*)purl);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Open a URL/URI in the browser or other appropriate external application.<br/>
-		/// Open a URL in a separate, system-provided application. How this works will<br/>
-		/// vary wildly depending on the platform. This will likely launch what makes<br/>
-		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
-		/// etc), but it might also be able to launch file managers for directories and<br/>
-		/// other things.<br/>
-		/// What happens when you open a URL varies wildly as well: your game window<br/>
-		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
-		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
-		/// move to the background or your process might be paused. Any given platform<br/>
-		/// may or may not handle a given URL.<br/>
-		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
-		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
-		/// that we launched _something_ to handle it (or at least believe we did).<br/>
-		/// All this to say: this function can be useful, but you should definitely<br/>
-		/// test it on every platform you target.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool OpenURL(string url)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (url != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(url);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(url, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte ret = OpenURLNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetPlatformNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[1022])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1022])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetPlatform()
-		{
-			byte* ret = GetPlatformNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of the platform.<br/>
-		/// Here are the names returned for some (but not all) supported platforms:<br/>
-		/// - "Windows"<br/>
-		/// - "macOS"<br/>
-		/// - "Linux"<br/>
-		/// - "iOS"<br/>
-		/// - "Android"<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetPlatformS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetPlatformNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLProcess* CreateProcessNative(byte** args, byte pipeStdio)
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, byte, SDLProcess*>)funcTable[1023])(args, pipeStdio);
-			#else
-			return (SDLProcess*)((delegate* unmanaged[Cdecl]<nint, byte, nint>)funcTable[1023])((nint)args, pipeStdio);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLProcess* CreateProcess(byte** args, bool pipeStdio)
-		{
-			SDLProcess* ret = CreateProcessNative(args, pipeStdio ? (byte)1 : (byte)0);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new process.<br/>
-		/// The path to the executable is supplied in args[0]. args[1..N] are<br/>
-		/// additional arguments passed on the command line of the new process, and the<br/>
-		/// argument list should be terminated with a NULL, e.g.:<br/>
-		/// ```c<br/>
-		/// const char *args[] = { "myprogram", "argument", NULL };<br/>
-		/// ```<br/>
-		/// Setting pipe_stdio to true is equivalent to setting<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` to `SDL_PROCESS_STDIO_APP`, and<br/>
-		/// will allow the use of SDL_ReadProcess() or SDL_GetProcessInput() and<br/>
-		/// SDL_GetProcessOutput().<br/>
-		/// See SDL_CreateProcessWithProperties() for more details.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLProcess* CreateProcess(ref byte* args, bool pipeStdio)
-		{
-			fixed (byte** pargs = &args)
+			fixed (byte* porg = org)
 			{
-				SDLProcess* ret = CreateProcessNative((byte**)pargs, pipeStdio ? (byte)1 : (byte)0);
+				byte* ret = GetPrefPathNative((byte*)porg, app);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a new process with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ARGS_POINTER`: an array of strings containing<br/>
-		/// the program to run, any arguments, and a NULL pointer, e.g. const char<br/>
-		/// *args[] = { "myprogram", "argument", NULL }. This is a required property.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER`: an SDL_Environment<br/>
-		/// pointer. If this property is set, it will be the entire environment for<br/>
-		/// the process, otherwise the current environment is used.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER`: an SDL_ProcessIO value describing<br/>
-		/// where standard input for the process comes from, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_NULL`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_POINTER`: an SDL_IOStream pointer used for<br/>
-		/// standard input when `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard output for the process goes to, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard output when `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` is set<br/>
-		/// to `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard error for the process goes to, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard error when `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN`: true if the error<br/>
-		/// output of the process should be redirected into the standard output of<br/>
-		/// the process. This property has no effect if<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN`: true if the process should<br/>
-		/// run in the background. In this case the default input and output is<br/>
-		/// `SDL_PROCESS_STDIO_NULL` and the exitcode of the process is not<br/>
-		/// available, and will always be 0.<br/>
-		/// On POSIX platforms, wait() and waitpid(-1, ...) should not be called, and<br/>
-		/// SIGCHLD should not be ignored or handled because those would prevent SDL<br/>
-		/// from properly tracking the lifetime of the underlying process. You should<br/>
-		/// use SDL_WaitProcess() instead.<br/>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// Due to historical mistakes, `org` is allowed to be NULL or "". In such<br/>
+		/// cases, SDL will omit the org subdirectory, including on platforms where it<br/>
+		/// shouldn't, and including on platforms where this would make your app fail<br/>
+		/// certification for an app store. New apps should definitely specify a real<br/>
+		/// string for `org`.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLProcess* CreateProcessWithPropertiesNative(uint props)
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLProcess*>)funcTable[1024])(props);
-			#else
-			return (SDLProcess*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[1024])(props);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new process with the specified properties.<br/>
-		/// These are the supported properties:<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ARGS_POINTER`: an array of strings containing<br/>
-		/// the program to run, any arguments, and a NULL pointer, e.g. const char<br/>
-		/// *args[] = { "myprogram", "argument", NULL }. This is a required property.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER`: an SDL_Environment<br/>
-		/// pointer. If this property is set, it will be the entire environment for<br/>
-		/// the process, otherwise the current environment is used.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER`: an SDL_ProcessIO value describing<br/>
-		/// where standard input for the process comes from, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_NULL`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDIN_POINTER`: an SDL_IOStream pointer used for<br/>
-		/// standard input when `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard output for the process goes to, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDOUT_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard output when `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` is set<br/>
-		/// to `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER`: an SDL_ProcessIO value<br/>
-		/// describing where standard error for the process goes to, defaults to<br/>
-		/// `SDL_PROCESS_STDIO_INHERITED`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_POINTER`: an SDL_IOStream pointer used<br/>
-		/// for standard error when `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set to<br/>
-		/// `SDL_PROCESS_STDIO_REDIRECT`.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN`: true if the error<br/>
-		/// output of the process should be redirected into the standard output of<br/>
-		/// the process. This property has no effect if<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` is set.<br/>
-		/// - `SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN`: true if the process should<br/>
-		/// run in the background. In this case the default input and output is<br/>
-		/// `SDL_PROCESS_STDIO_NULL` and the exitcode of the process is not<br/>
-		/// available, and will always be 0.<br/>
-		/// On POSIX platforms, wait() and waitpid(-1, ...) should not be called, and<br/>
-		/// SIGCHLD should not be ignored or handled because those would prevent SDL<br/>
-		/// from properly tracking the lifetime of the underlying process. You should<br/>
-		/// use SDL_WaitProcess() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLProcess* CreateProcessWithProperties(uint props)
-		{
-			SDLProcess* ret = CreateProcessWithPropertiesNative(props);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetProcessPropertiesNative(SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, uint>)funcTable[1025])(process);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[1025])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetProcessProperties(SDLProcess* process)
-		{
-			uint ret = GetProcessPropertiesNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with a process.<br/>
-		/// The following read-only properties are provided by SDL:<br/>
-		/// - `SDL_PROP_PROCESS_PID_NUMBER`: the process ID of the process.<br/>
-		/// - `SDL_PROP_PROCESS_STDIN_POINTER`: an SDL_IOStream that can be used to<br/>
-		/// write input to the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDOUT_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_STDERR_POINTER`: a non-blocking SDL_IOStream that can<br/>
-		/// be used to read error output from the process, if it was created with<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDERR_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// - `SDL_PROP_PROCESS_BACKGROUND_BOOLEAN`: true if the process is running in<br/>
-		/// the background.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetProcessProperties(ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
+			fixed (byte* porg = org)
 			{
-				uint ret = GetProcessPropertiesNative((SDLProcess*)pprocess);
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* ReadProcessNative(SDLProcess* process, nuint* datasize, int* exitcode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, nuint*, int*, void*>)funcTable[1026])(process, datasize, exitcode);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint>)funcTable[1026])((nint)process, (nint)datasize, (nint)exitcode);
-			#endif
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* ReadProcess(SDLProcess* process, nuint* datasize, int* exitcode)
-		{
-			void* ret = ReadProcessNative(process, datasize, exitcode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* ReadProcess(ref SDLProcess process, nuint* datasize, int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				void* ret = ReadProcessNative((SDLProcess*)pprocess, datasize, exitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* ReadProcess(SDLProcess* process, ref nuint datasize, int* exitcode)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = ReadProcessNative(process, (nuint*)pdatasize, exitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* ReadProcess(ref SDLProcess process, ref nuint datasize, int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = ReadProcessNative((SDLProcess*)pprocess, (nuint*)pdatasize, exitcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* ReadProcess(SDLProcess* process, nuint* datasize, ref int exitcode)
-		{
-			fixed (int* pexitcode = &exitcode)
-			{
-				void* ret = ReadProcessNative(process, datasize, (int*)pexitcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* ReadProcess(ref SDLProcess process, nuint* datasize, ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (int* pexitcode = &exitcode)
-				{
-					void* ret = ReadProcessNative((SDLProcess*)pprocess, datasize, (int*)pexitcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* ReadProcess(SDLProcess* process, ref nuint datasize, ref int exitcode)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				fixed (int* pexitcode = &exitcode)
-				{
-					void* ret = ReadProcessNative(process, (nuint*)pdatasize, (int*)pexitcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read all the output from a process.<br/>
-		/// If a process was created with I/O enabled, you can use this function to<br/>
-		/// read the output. This function blocks until the process is complete,<br/>
-		/// capturing all output, and providing the process exit code.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void* ReadProcess(ref SDLProcess process, ref nuint datasize, ref int exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					fixed (int* pexitcode = &exitcode)
-					{
-						void* ret = ReadProcessNative((SDLProcess*)pprocess, (nuint*)pdatasize, (int*)pexitcode);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// if so you may need to call SDL_GetProcessOutput() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* GetProcessInputNative(SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, SDLIOStream*>)funcTable[1027])(process);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1027])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// if so you may need to call SDL_GetProcessOutput() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* GetProcessInput(SDLProcess* process)
-		{
-			SDLIOStream* ret = GetProcessInputNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard input.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Writing to this stream can return less data than expected if the process<br/>
-		/// hasn't read its input. It may be blocked waiting for its output to be read,<br/>
-		/// if so you may need to call SDL_GetProcessOutput() and read the output in<br/>
-		/// parallel with writing input.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* GetProcessInput(ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				SDLIOStream* ret = GetProcessInputNative((SDLProcess*)pprocess);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* GetProcessOutputNative(SDLProcess* process)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, SDLIOStream*>)funcTable[1028])(process);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1028])((nint)process);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* GetProcessOutput(SDLProcess* process)
-		{
-			SDLIOStream* ret = GetProcessOutputNative(process);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_IOStream associated with process standard output.<br/>
-		/// The process must have been created with SDL_CreateProcess() and pipe_stdio<br/>
-		/// set to true, or with SDL_CreateProcessWithProperties() and<br/>
-		/// `SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER` set to `SDL_PROCESS_STDIO_APP`.<br/>
-		/// Reading from this stream can return 0 with SDL_GetIOStatus() returning<br/>
-		/// SDL_IO_STATUS_NOT_READY if no output is available yet.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIOStream* GetProcessOutput(ref SDLProcess process)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				SDLIOStream* ret = GetProcessOutputNative((SDLProcess*)pprocess);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte KillProcessNative(SDLProcess* process, byte force)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, byte, byte>)funcTable[1029])(process, force);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[1029])((nint)process, force);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool KillProcess(SDLProcess* process, bool force)
-		{
-			byte ret = KillProcessNative(process, force ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Stop a process.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool KillProcess(ref SDLProcess process, bool force)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				byte ret = KillProcessNative((SDLProcess*)pprocess, force ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitProcessNative(SDLProcess* process, byte block, int* exitcode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLProcess*, byte, int*, byte>)funcTable[1030])(process, block, exitcode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, byte>)funcTable[1030])((nint)process, block, (nint)exitcode);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitProcess(SDLProcess* process, bool block, int* exitcode)
-		{
-			byte ret = WaitProcessNative(process, block ? (byte)1 : (byte)0, exitcode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Wait for a process to finish.<br/>
-		/// This can be called multiple times to get the status of a process.<br/>
-		/// The exit code will be the exit code of the process if it terminates<br/>
-		/// normally, a negative signal if it terminated due to a signal, or -255<br/>
-		/// otherwise. It will not be changed if the process is still running.<br/>
-		/// If you create a process with standard output piped to the application<br/>
-		/// (`pipe_stdio` being true) then you should read all of the process output<br/>
-		/// before calling SDL_WaitProcess(). If you don't do this the process might be<br/>
-		/// blocked indefinitely waiting for output to be read and SDL_WaitProcess()<br/>
-		/// will never return true;<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitProcess(ref SDLProcess process, bool block, int* exitcode)
-		{
-			fixed (SDLProcess* pprocess = &process)
-			{
-				byte ret = WaitProcessNative((SDLProcess*)pprocess, block ? (byte)1 : (byte)0, exitcode);
-				return ret != 0;
 			}
 		}
 	}

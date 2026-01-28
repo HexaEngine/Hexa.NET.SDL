@@ -7,9 +7,10 @@
 // </auto-generated>
 // ------------------------------------------------------------------------------
 
-using System;
-using System.Drawing;
 using HexaGen.Runtime;
+using System;
+using System.Diagnostics;
+using System.Drawing;
 
 namespace Hexa.NET.SDL3
 {

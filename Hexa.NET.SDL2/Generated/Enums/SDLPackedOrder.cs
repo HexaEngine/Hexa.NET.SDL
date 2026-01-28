@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Packed component order, high bit -> low bit. <br/>
 	/// </summary>
-	[Flags]
 	public enum SDLPackedOrder : int
 	{
 		None = unchecked(0),

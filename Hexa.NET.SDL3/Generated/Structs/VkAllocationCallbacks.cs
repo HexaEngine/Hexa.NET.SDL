@@ -15,11 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	[NativeName(NativeNameType.StructOrClass, "VkAllocationCallbacks")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct VkAllocationCallbacks
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "VkAllocationCallbacks")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct VkAllocationCallbacksPtr : IEquatable<VkAllocationCallbacksPtr>
+	{
+		public VkAllocationCallbacksPtr(VkAllocationCallbacks* handle) { Handle = handle; }
+
+		public VkAllocationCallbacks* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static VkAllocationCallbacksPtr Null => new VkAllocationCallbacksPtr(null);
+
+		public VkAllocationCallbacks this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator VkAllocationCallbacksPtr(VkAllocationCallbacks* handle) => new VkAllocationCallbacksPtr(handle);
+
+		public static implicit operator VkAllocationCallbacks*(VkAllocationCallbacksPtr handle) => handle.Handle;
+
+		public static bool operator ==(VkAllocationCallbacksPtr left, VkAllocationCallbacksPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(VkAllocationCallbacksPtr left, VkAllocationCallbacksPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(VkAllocationCallbacksPtr left, VkAllocationCallbacks* right) => left.Handle == right;
+
+		public static bool operator !=(VkAllocationCallbacksPtr left, VkAllocationCallbacks* right) => left.Handle != right;
+
+		public bool Equals(VkAllocationCallbacksPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is VkAllocationCallbacksPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("VkAllocationCallbacksPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

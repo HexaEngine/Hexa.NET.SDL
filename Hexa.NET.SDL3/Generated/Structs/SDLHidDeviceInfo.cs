@@ -19,55 +19,74 @@ namespace Hexa.NET.SDL3
 	/// Information about a connected HID device<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_hid_device_info")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHidDeviceInfo
 	{
 		/// <summary>
 		/// Platform-specific device path <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "path")]
+		[NativeName(NativeNameType.Type, "char *")]
 		public unsafe byte* Path;
 
 		/// <summary>
 		/// Device Vendor ID <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "vendor_id")]
+		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort VendorId;
 
 		/// <summary>
 		/// Device Product ID <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "product_id")]
+		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort ProductId;
 
 		/// <summary>
 		/// Serial Number <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "serial_number")]
+		[NativeName(NativeNameType.Type, "wchar_t *")]
 		public unsafe char* SerialNumber;
 
 		/// <summary>
 		/// Device Release Number in binary-coded decimal,<br/>
 		/// also known as Device Version Number <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "release_number")]
+		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort ReleaseNumber;
 
 		/// <summary>
 		/// Manufacturer String <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "manufacturer_string")]
+		[NativeName(NativeNameType.Type, "wchar_t *")]
 		public unsafe char* ManufacturerString;
 
 		/// <summary>
 		/// Product string <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "product_string")]
+		[NativeName(NativeNameType.Type, "wchar_t *")]
 		public unsafe char* ProductString;
 
 		/// <summary>
 		/// Usage Page for this Device/Interface<br/>
 		/// (Windows/Mac/hidraw only) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "usage_page")]
+		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort UsagePage;
 
 		/// <summary>
 		/// Usage for this Device/Interface<br/>
 		/// (Windows/Mac/hidraw only) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "usage")]
+		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort Usage;
 
 		/// <summary>
@@ -76,24 +95,36 @@ namespace Hexa.NET.SDL3
 		/// Valid only if the device is a USB HID device.<br/>
 		/// Set to -1 in all other cases.<br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "interface_number")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int InterfaceNumber;
 
 		/// <summary>
 		/// Additional information about the USB interface.<br/>
 		/// Valid on libusb and Android implementations. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "interface_class")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int InterfaceClass;
 
+		[NativeName(NativeNameType.Field, "interface_subclass")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int InterfaceSubclass;
+		[NativeName(NativeNameType.Field, "interface_protocol")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int InterfaceProtocol;
 		/// <summary>
 		/// Underlying bus type <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "bus_type")]
+		[NativeName(NativeNameType.Type, "SDL_hid_bus_type")]
 		public SDLHidBusType BusType;
 
 		/// <summary>
 		/// Pointer to the next device <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "next")]
+		[NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
 		public unsafe SDLHidDeviceInfo* Next;
 
 
@@ -117,6 +148,112 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Information about a connected HID device<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_hid_device_info")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLHidDeviceInfoPtr : IEquatable<SDLHidDeviceInfoPtr>
+	{
+		public SDLHidDeviceInfoPtr(SDLHidDeviceInfo* handle) { Handle = handle; }
+
+		public SDLHidDeviceInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLHidDeviceInfoPtr Null => new SDLHidDeviceInfoPtr(null);
+
+		public SDLHidDeviceInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLHidDeviceInfoPtr(SDLHidDeviceInfo* handle) => new SDLHidDeviceInfoPtr(handle);
+
+		public static implicit operator SDLHidDeviceInfo*(SDLHidDeviceInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLHidDeviceInfoPtr left, SDLHidDeviceInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLHidDeviceInfoPtr left, SDLHidDeviceInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLHidDeviceInfoPtr left, SDLHidDeviceInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLHidDeviceInfoPtr left, SDLHidDeviceInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLHidDeviceInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLHidDeviceInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLHidDeviceInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Platform-specific device path <br/>
+		/// </summary>
+		public byte* Path { get => Handle->Path; set => Handle->Path = value; }
+		/// <summary>
+		/// Device Vendor ID <br/>
+		/// </summary>
+		public ref ushort VendorId => ref Unsafe.AsRef<ushort>(&Handle->VendorId);
+		/// <summary>
+		/// Device Product ID <br/>
+		/// </summary>
+		public ref ushort ProductId => ref Unsafe.AsRef<ushort>(&Handle->ProductId);
+		/// <summary>
+		/// Serial Number <br/>
+		/// </summary>
+		public char* SerialNumber { get => Handle->SerialNumber; set => Handle->SerialNumber = value; }
+		/// <summary>
+		/// Device Release Number in binary-coded decimal,<br/>
+		/// also known as Device Version Number <br/>
+		/// </summary>
+		public ref ushort ReleaseNumber => ref Unsafe.AsRef<ushort>(&Handle->ReleaseNumber);
+		/// <summary>
+		/// Manufacturer String <br/>
+		/// </summary>
+		public char* ManufacturerString { get => Handle->ManufacturerString; set => Handle->ManufacturerString = value; }
+		/// <summary>
+		/// Product string <br/>
+		/// </summary>
+		public char* ProductString { get => Handle->ProductString; set => Handle->ProductString = value; }
+		/// <summary>
+		/// Usage Page for this Device/Interface<br/>
+		/// (Windows/Mac/hidraw only) <br/>
+		/// </summary>
+		public ref ushort UsagePage => ref Unsafe.AsRef<ushort>(&Handle->UsagePage);
+		/// <summary>
+		/// Usage for this Device/Interface<br/>
+		/// (Windows/Mac/hidraw only) <br/>
+		/// </summary>
+		public ref ushort Usage => ref Unsafe.AsRef<ushort>(&Handle->Usage);
+		/// <summary>
+		/// The USB interface which this logical device<br/>
+		/// represents.<br/>
+		/// Valid only if the device is a USB HID device.<br/>
+		/// Set to -1 in all other cases.<br/>
+		/// </summary>
+		public ref int InterfaceNumber => ref Unsafe.AsRef<int>(&Handle->InterfaceNumber);
+		/// <summary>
+		/// Additional information about the USB interface.<br/>
+		/// Valid on libusb and Android implementations. <br/>
+		/// </summary>
+		public ref int InterfaceClass => ref Unsafe.AsRef<int>(&Handle->InterfaceClass);
+		public ref int InterfaceSubclass => ref Unsafe.AsRef<int>(&Handle->InterfaceSubclass);
+		public ref int InterfaceProtocol => ref Unsafe.AsRef<int>(&Handle->InterfaceProtocol);
+		/// <summary>
+		/// Underlying bus type <br/>
+		/// </summary>
+		public ref SDLHidBusType BusType => ref Unsafe.AsRef<SDLHidBusType>(&Handle->BusType);
+		/// <summary>
+		/// Pointer to the next device <br/>
+		/// </summary>
+		public ref SDLHidDeviceInfoPtr Next => ref Unsafe.AsRef<SDLHidDeviceInfoPtr>(&Handle->Next);
 	}
 
 }

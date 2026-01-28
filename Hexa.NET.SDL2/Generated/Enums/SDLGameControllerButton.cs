@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The list of buttons available from a controller<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLGameControllerButton : int
 	{
 		Invalid = unchecked(-1),

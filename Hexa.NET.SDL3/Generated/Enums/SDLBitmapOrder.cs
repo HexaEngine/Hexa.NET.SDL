@@ -16,11 +16,18 @@ namespace Hexa.NET.SDL3
 	/// Bitmap pixel order, high bit -> low bit.<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_BitmapOrder")]
 	[Flags]
 	public enum SDLBitmapOrder : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_BITMAPORDER_NONE")]
+		[NativeName(NativeNameType.Value, "0")]
 		None = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_BITMAPORDER_4321")]
+		[NativeName(NativeNameType.Value, "1")]
 		Bitmaporder4321 = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_BITMAPORDER_1234")]
+		[NativeName(NativeNameType.Value, "2")]
 		Bitmaporder1234 = unchecked(2),
 	}
 }

@@ -20,46 +20,67 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBlitInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBlitInfo
 	{
 		/// <summary>
 		/// The source region for the blit. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "source")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBlitRegion")]
 		public SDLGPUBlitRegion Source;
 
 		/// <summary>
 		/// The destination region for the blit. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "destination")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBlitRegion")]
 		public SDLGPUBlitRegion Destination;
 
 		/// <summary>
 		/// What is done with the contents of the destination before the blit. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "load_op")]
+		[NativeName(NativeNameType.Type, "SDL_GPULoadOp")]
 		public SDLGPULoadOp LoadOp;
 
 		/// <summary>
 		/// The color to clear the destination region to before the blit. Ignored if load_op is not SDL_GPU_LOADOP_CLEAR. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "clear_color")]
+		[NativeName(NativeNameType.Type, "SDL_FColor")]
 		public SDLFColor ClearColor;
 
 		/// <summary>
 		/// The flip mode for the source region. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "flip_mode")]
+		[NativeName(NativeNameType.Type, "SDL_FlipMode")]
 		public SDLFlipMode FlipMode;
 
 		/// <summary>
 		/// The filter mode used when blitting. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "filter")]
+		[NativeName(NativeNameType.Type, "SDL_GPUFilter")]
 		public SDLGPUFilter Filter;
 
 		/// <summary>
 		/// true cycles the destination texture if it is already bound. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "cycle")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Cycle;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
+		[NativeName(NativeNameType.Field, "padding3")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
 		public unsafe SDLGPUBlitInfo(SDLGPUBlitRegion source = default, SDLGPUBlitRegion destination = default, SDLGPULoadOp loadOp = default, SDLFColor clearColor = default, SDLFlipMode flipMode = default, SDLGPUFilter filter = default, bool cycle = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
@@ -77,6 +98,83 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure containing parameters for a blit command.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUBlitInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUBlitInfoPtr : IEquatable<SDLGPUBlitInfoPtr>
+	{
+		public SDLGPUBlitInfoPtr(SDLGPUBlitInfo* handle) { Handle = handle; }
+
+		public SDLGPUBlitInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUBlitInfoPtr Null => new SDLGPUBlitInfoPtr(null);
+
+		public SDLGPUBlitInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUBlitInfoPtr(SDLGPUBlitInfo* handle) => new SDLGPUBlitInfoPtr(handle);
+
+		public static implicit operator SDLGPUBlitInfo*(SDLGPUBlitInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUBlitInfoPtr left, SDLGPUBlitInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUBlitInfoPtr left, SDLGPUBlitInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUBlitInfoPtr left, SDLGPUBlitInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUBlitInfoPtr left, SDLGPUBlitInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUBlitInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUBlitInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUBlitInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The source region for the blit. <br/>
+		/// </summary>
+		public ref SDLGPUBlitRegion Source => ref Unsafe.AsRef<SDLGPUBlitRegion>(&Handle->Source);
+		/// <summary>
+		/// The destination region for the blit. <br/>
+		/// </summary>
+		public ref SDLGPUBlitRegion Destination => ref Unsafe.AsRef<SDLGPUBlitRegion>(&Handle->Destination);
+		/// <summary>
+		/// What is done with the contents of the destination before the blit. <br/>
+		/// </summary>
+		public ref SDLGPULoadOp LoadOp => ref Unsafe.AsRef<SDLGPULoadOp>(&Handle->LoadOp);
+		/// <summary>
+		/// The color to clear the destination region to before the blit. Ignored if load_op is not SDL_GPU_LOADOP_CLEAR. <br/>
+		/// </summary>
+		public ref SDLFColor ClearColor => ref Unsafe.AsRef<SDLFColor>(&Handle->ClearColor);
+		/// <summary>
+		/// The flip mode for the source region. <br/>
+		/// </summary>
+		public ref SDLFlipMode FlipMode => ref Unsafe.AsRef<SDLFlipMode>(&Handle->FlipMode);
+		/// <summary>
+		/// The filter mode used when blitting. <br/>
+		/// </summary>
+		public ref SDLGPUFilter Filter => ref Unsafe.AsRef<SDLGPUFilter>(&Handle->Filter);
+		/// <summary>
+		/// true cycles the destination texture if it is already bound. <br/>
+		/// </summary>
+		public ref bool Cycle => ref Unsafe.AsRef<bool>(&Handle->Cycle);
+		public ref byte Padding1 => ref Unsafe.AsRef<byte>(&Handle->Padding1);
+		public ref byte Padding2 => ref Unsafe.AsRef<byte>(&Handle->Padding2);
+		public ref byte Padding3 => ref Unsafe.AsRef<byte>(&Handle->Padding3);
 	}
 
 }

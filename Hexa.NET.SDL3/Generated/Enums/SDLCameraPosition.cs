@@ -17,11 +17,18 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Enum, "SDL_CameraPosition")]
 	[Flags]
 	public enum SDLCameraPosition : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_CAMERA_POSITION_UNKNOWN")]
+		[NativeName(NativeNameType.Value, "0")]
 		Unknown = unchecked(0),
+		[NativeName(NativeNameType.EnumItem, "SDL_CAMERA_POSITION_FRONT_FACING")]
+		[NativeName(NativeNameType.Value, "1")]
 		FrontFacing = unchecked(1),
+		[NativeName(NativeNameType.EnumItem, "SDL_CAMERA_POSITION_BACK_FACING")]
+		[NativeName(NativeNameType.Value, "2")]
 		BackFacing = unchecked(2),
 	}
 }

@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The formula used for converting between YUV and RGB<br/>
 	/// </summary>
-	[Flags]
 	public enum SdlYuvConversionMode : int
 	{
 		/// <summary>

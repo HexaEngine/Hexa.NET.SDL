@@ -22,26 +22,33 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBufferCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBufferCreateInfo
 	{
 		/// <summary>
 		/// How the buffer is intended to be used by the client. <br/>
 		/// </summary>
-		public SDLGPUBufferUsageFlags Usage;
+		[NativeName(NativeNameType.Field, "usage")]
+		[NativeName(NativeNameType.Type, "SDL_GPUBufferUsageFlags")]
+		public uint Usage;
 
 		/// <summary>
 		/// The size in bytes of the buffer. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "size")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Size;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "props")]
+		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 
-		public unsafe SDLGPUBufferCreateInfo(SDLGPUBufferUsageFlags usage = default, uint size = default, uint props = default)
+		public unsafe SDLGPUBufferCreateInfo(uint usage = default, uint size = default, uint props = default)
 		{
 			Usage = usage;
 			Size = size;
@@ -49,6 +56,66 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of a buffer.<br/>
+	/// Usage flags can be bitwise OR'd together for combinations of usages. Note<br/>
+	/// that certain combinations are invalid, for example VERTEX and INDEX.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUBufferCreateInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUBufferCreateInfoPtr : IEquatable<SDLGPUBufferCreateInfoPtr>
+	{
+		public SDLGPUBufferCreateInfoPtr(SDLGPUBufferCreateInfo* handle) { Handle = handle; }
+
+		public SDLGPUBufferCreateInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUBufferCreateInfoPtr Null => new SDLGPUBufferCreateInfoPtr(null);
+
+		public SDLGPUBufferCreateInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUBufferCreateInfoPtr(SDLGPUBufferCreateInfo* handle) => new SDLGPUBufferCreateInfoPtr(handle);
+
+		public static implicit operator SDLGPUBufferCreateInfo*(SDLGPUBufferCreateInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUBufferCreateInfoPtr left, SDLGPUBufferCreateInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUBufferCreateInfoPtr left, SDLGPUBufferCreateInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUBufferCreateInfoPtr left, SDLGPUBufferCreateInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUBufferCreateInfoPtr left, SDLGPUBufferCreateInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUBufferCreateInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUBufferCreateInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUBufferCreateInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// How the buffer is intended to be used by the client. <br/>
+		/// </summary>
+		public ref uint Usage => ref Unsafe.AsRef<uint>(&Handle->Usage);
+		/// <summary>
+		/// The size in bytes of the buffer. <br/>
+		/// </summary>
+		public ref uint Size => ref Unsafe.AsRef<uint>(&Handle->Size);
+		/// <summary>
+		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
+		/// </summary>
+		public ref uint Props => ref Unsafe.AsRef<uint>(&Handle->Props);
 	}
 
 }

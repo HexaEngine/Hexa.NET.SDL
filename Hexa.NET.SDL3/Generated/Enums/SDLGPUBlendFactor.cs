@@ -20,73 +20,101 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_GPUBlendFactor")]
 	public enum SDLGPUBlendFactor : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_INVALID")]
+		[NativeName(NativeNameType.Value, "0")]
 		Invalid = unchecked(0),
 		/// <summary>
 		/// 0 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_ZERO")]
+		[NativeName(NativeNameType.Value, "1")]
 		Zero = unchecked(1),
 
 		/// <summary>
 		/// 1 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_ONE")]
+		[NativeName(NativeNameType.Value, "2")]
 		One = unchecked(2),
 
 		/// <summary>
 		/// source color <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_SRC_COLOR")]
+		[NativeName(NativeNameType.Value, "3")]
 		SrcColor = unchecked(3),
 
 		/// <summary>
 		/// 1 - source color <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_COLOR")]
+		[NativeName(NativeNameType.Value, "4")]
 		OneMinusSrcColor = unchecked(4),
 
 		/// <summary>
 		/// destination color <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_DST_COLOR")]
+		[NativeName(NativeNameType.Value, "5")]
 		DstColor = unchecked(5),
 
 		/// <summary>
 		/// 1 - destination color <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_COLOR")]
+		[NativeName(NativeNameType.Value, "6")]
 		OneMinusDstColor = unchecked(6),
 
 		/// <summary>
 		/// source alpha <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_SRC_ALPHA")]
+		[NativeName(NativeNameType.Value, "7")]
 		SrcAlpha = unchecked(7),
 
 		/// <summary>
 		/// 1 - source alpha <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_ALPHA")]
+		[NativeName(NativeNameType.Value, "8")]
 		OneMinusSrcAlpha = unchecked(8),
 
 		/// <summary>
 		/// destination alpha <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_DST_ALPHA")]
+		[NativeName(NativeNameType.Value, "9")]
 		DstAlpha = unchecked(9),
 
 		/// <summary>
 		/// 1 - destination alpha <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_ONE_MINUS_DST_ALPHA")]
+		[NativeName(NativeNameType.Value, "10")]
 		OneMinusDstAlpha = unchecked(10),
 
 		/// <summary>
 		/// blend constant <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_CONSTANT_COLOR")]
+		[NativeName(NativeNameType.Value, "11")]
 		ConstantColor = unchecked(11),
 
 		/// <summary>
 		/// 1 - blend constant <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_ONE_MINUS_CONSTANT_COLOR")]
+		[NativeName(NativeNameType.Value, "12")]
 		OneMinusConstantColor = unchecked(12),
 
 		/// <summary>
 		/// min(source alpha, 1 - destination alpha) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_GPU_BLENDFACTOR_SRC_ALPHA_SATURATE")]
+		[NativeName(NativeNameType.Value, "13")]
 		SrcAlphaSaturate = unchecked(13),
 	}
 }

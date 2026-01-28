@@ -76,7 +76,7 @@ namespace Hexa.NET.SDL2
 		public unsafe void* Userdata;
 
 
-		public unsafe SDLAudioSpec(int freq = default, ushort format = default, byte channels = default, byte silence = default, ushort samples = default, ushort padding = default, uint size = default, SDLAudioCallback callback = default, void* userdata = default)
+		public unsafe SDLAudioSpec(int freq = default, ushort format = default, byte channels = default, byte silence = default, ushort samples = default, ushort padding = default, uint size = default, delegate*<void*, byte*, int, void> callback = default, void* userdata = default)
 		{
 			Freq = freq;
 			Format = format;
@@ -85,11 +85,100 @@ namespace Hexa.NET.SDL2
 			Samples = samples;
 			Padding = padding;
 			Size = size;
-			Callback = (delegate*<void*, byte*, int, void>)Marshal.GetFunctionPointerForDelegate(callback);
+			Callback = (delegate*<void*, byte*, int, void>)callback;
 			Userdata = userdata;
 		}
 
 
+	}
+
+	/// <summary>
+	/// The calculated values in this structure are calculated by SDL_OpenAudio().<br/>
+	/// For multi-channel audio, the default SDL channel mapping is:<br/>
+	/// ```<br/>
+	/// 2:  FL  FR                          (stereo)<br/>
+	/// 3:  FL  FR LFE                      (2.1 surround)<br/>
+	/// 4:  FL  FR  BL  BR                  (quad)<br/>
+	/// 5:  FL  FR LFE  BL  BR              (4.1 surround)<br/>
+	/// 6:  FL  FR  FC LFE  SL  SR          (5.1 surround - last two can also be BL BR)<br/>
+	/// 7:  FL  FR  FC LFE  BC  SL  SR      (6.1 surround)<br/>
+	/// 8:  FL  FR  FC LFE  BL  BR  SL  SR  (7.1 surround)<br/>
+	/// ```<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAudioSpecPtr : IEquatable<SDLAudioSpecPtr>
+	{
+		public SDLAudioSpecPtr(SDLAudioSpec* handle) { Handle = handle; }
+
+		public SDLAudioSpec* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAudioSpecPtr Null => new SDLAudioSpecPtr(null);
+
+		public SDLAudioSpec this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAudioSpecPtr(SDLAudioSpec* handle) => new SDLAudioSpecPtr(handle);
+
+		public static implicit operator SDLAudioSpec*(SDLAudioSpecPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAudioSpecPtr left, SDLAudioSpecPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAudioSpecPtr left, SDLAudioSpecPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAudioSpecPtr left, SDLAudioSpec* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAudioSpecPtr left, SDLAudioSpec* right) => left.Handle != right;
+
+		public bool Equals(SDLAudioSpecPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAudioSpecPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAudioSpecPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// DSP frequency -- samples per second <br/>
+		/// </summary>
+		public ref int Freq => ref Unsafe.AsRef<int>(&Handle->Freq);
+		/// <summary>
+		/// Audio data format <br/>
+		/// </summary>
+		public ref ushort Format => ref Unsafe.AsRef<ushort>(&Handle->Format);
+		/// <summary>
+		/// Number of channels: 1 mono, 2 stereo <br/>
+		/// </summary>
+		public ref byte Channels => ref Unsafe.AsRef<byte>(&Handle->Channels);
+		/// <summary>
+		/// Audio buffer silence value (calculated) <br/>
+		/// </summary>
+		public ref byte Silence => ref Unsafe.AsRef<byte>(&Handle->Silence);
+		/// <summary>
+		/// Audio buffer size in sample FRAMES (total samples divided by channel count) <br/>
+		/// </summary>
+		public ref ushort Samples => ref Unsafe.AsRef<ushort>(&Handle->Samples);
+		/// <summary>
+		/// Necessary for some compile environments <br/>
+		/// </summary>
+		public ref ushort Padding => ref Unsafe.AsRef<ushort>(&Handle->Padding);
+		/// <summary>
+		/// Audio buffer size in bytes (calculated) <br/>
+		/// </summary>
+		public ref uint Size => ref Unsafe.AsRef<uint>(&Handle->Size);
+		/// <summary>
+		/// Callback that feeds the audio device (NULL to use SDL_QueueAudio()). <br/>
+		/// </summary>
+		public void* Callback { get => Handle->Callback; set => Handle->Callback = value; }
+		/// <summary>
+		/// Userdata passed to callback (ignored for NULL callbacks). <br/>
+		/// </summary>
+		public void* Userdata { get => Handle->Userdata; set => Handle->Userdata = value; }
 	}
 
 }

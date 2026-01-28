@@ -36,51 +36,68 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Surface")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSurface
 	{
 		/// <summary>
 		/// The flags of the surface, read-only <br/>
 		/// </summary>
-		public SDLSurfaceFlags Flags;
+		[NativeName(NativeNameType.Field, "flags")]
+		[NativeName(NativeNameType.Type, "SDL_SurfaceFlags")]
+		public uint Flags;
 
 		/// <summary>
 		/// The format of the surface, read-only <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
 
 		/// <summary>
 		/// The width of the surface, read-only. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "w")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int W;
 
 		/// <summary>
 		/// The height of the surface, read-only. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "h")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		/// <summary>
 		/// The distance in bytes between rows of pixels, read-only <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pitch")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Pitch;
 
 		/// <summary>
 		/// A pointer to the pixels of the surface, the pixels are writeable if non-NULL <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pixels")]
+		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Pixels;
 
 		/// <summary>
 		/// Application reference count, used when freeing surface <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "refcount")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Refcount;
 
 		/// <summary>
 		/// Reserved for internal use <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "void *")]
 		public unsafe void* Reserved;
 
 
-		public unsafe SDLSurface(SDLSurfaceFlags flags = default, SDLPixelFormat format = default, int w = default, int h = default, int pitch = default, void* pixels = default, int refcount = default, void* reserved = default)
+		public unsafe SDLSurface(uint flags = default, SDLPixelFormat format = default, int w = default, int h = default, int pitch = default, void* pixels = default, int refcount = default, void* reserved = default)
 		{
 			Flags = flags;
 			Format = format;
@@ -93,6 +110,162 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A collection of pixels used in software blitting.<br/>
+	/// Pixels are arranged in memory in rows, with the top row first. Each row<br/>
+	/// occupies an amount of memory given by the pitch (sometimes known as the row<br/>
+	/// stride in non-SDL APIs).<br/>
+	/// Within each row, pixels are arranged from left to right until the width is<br/>
+	/// reached. Each pixel occupies a number of bits appropriate for its format,<br/>
+	/// with most formats representing each pixel as one or more whole bytes (in<br/>
+	/// some indexed formats, instead multiple pixels are packed into each byte),<br/>
+	/// and a byte order given by the format. After encoding all pixels, any<br/>
+	/// remaining bytes to reach the pitch are used as padding to reach a desired<br/>
+	/// alignment, and have undefined contents.<br/>
+	/// When a surface holds YUV format data, the planes are assumed to be<br/>
+	/// contiguous without padding between them, e.g. a 32x32 surface in NV12<br/>
+	/// format with a pitch of 32 would consist of 32x32 bytes of Y plane followed<br/>
+	/// by 32x16 bytes of UV plane.<br/>
+	/// When a surface holds MJPG format data, pixels points at the compressed JPEG<br/>
+	/// image and pitch is the length of that data.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Surface")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLSurfacePtr : IEquatable<SDLSurfacePtr>
+	{
+		public SDLSurfacePtr(SDLSurface* handle) { Handle = handle; }
+
+		public SDLSurface* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLSurfacePtr Null => new SDLSurfacePtr(null);
+
+		public SDLSurface this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLSurfacePtr(SDLSurface* handle) => new SDLSurfacePtr(handle);
+
+		public static implicit operator SDLSurface*(SDLSurfacePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLSurfacePtr left, SDLSurfacePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLSurfacePtr left, SDLSurfacePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLSurfacePtr left, SDLSurface* right) => left.Handle == right;
+
+		public static bool operator !=(SDLSurfacePtr left, SDLSurface* right) => left.Handle != right;
+
+		public bool Equals(SDLSurfacePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLSurfacePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLSurfacePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The flags of the surface, read-only <br/>
+		/// </summary>
+		public ref uint Flags => ref Unsafe.AsRef<uint>(&Handle->Flags);
+		/// <summary>
+		/// The format of the surface, read-only <br/>
+		/// </summary>
+		public ref SDLPixelFormat Format => ref Unsafe.AsRef<SDLPixelFormat>(&Handle->Format);
+		/// <summary>
+		/// The width of the surface, read-only. <br/>
+		/// </summary>
+		public ref int W => ref Unsafe.AsRef<int>(&Handle->W);
+		/// <summary>
+		/// The height of the surface, read-only. <br/>
+		/// </summary>
+		public ref int H => ref Unsafe.AsRef<int>(&Handle->H);
+		/// <summary>
+		/// The distance in bytes between rows of pixels, read-only <br/>
+		/// </summary>
+		public ref int Pitch => ref Unsafe.AsRef<int>(&Handle->Pitch);
+		/// <summary>
+		/// A pointer to the pixels of the surface, the pixels are writeable if non-NULL <br/>
+		/// </summary>
+		public void* Pixels { get => Handle->Pixels; set => Handle->Pixels = value; }
+		/// <summary>
+		/// Application reference count, used when freeing surface <br/>
+		/// </summary>
+		public ref int Refcount => ref Unsafe.AsRef<int>(&Handle->Refcount);
+		/// <summary>
+		/// Reserved for internal use <br/>
+		/// </summary>
+		public void* Reserved { get => Handle->Reserved; set => Handle->Reserved = value; }
+	}
+
+	/// <summary>
+	/// A collection of pixels used in software blitting.<br/>
+	/// Pixels are arranged in memory in rows, with the top row first. Each row<br/>
+	/// occupies an amount of memory given by the pitch (sometimes known as the row<br/>
+	/// stride in non-SDL APIs).<br/>
+	/// Within each row, pixels are arranged from left to right until the width is<br/>
+	/// reached. Each pixel occupies a number of bits appropriate for its format,<br/>
+	/// with most formats representing each pixel as one or more whole bytes (in<br/>
+	/// some indexed formats, instead multiple pixels are packed into each byte),<br/>
+	/// and a byte order given by the format. After encoding all pixels, any<br/>
+	/// remaining bytes to reach the pitch are used as padding to reach a desired<br/>
+	/// alignment, and have undefined contents.<br/>
+	/// When a surface holds YUV format data, the planes are assumed to be<br/>
+	/// contiguous without padding between them, e.g. a 32x32 surface in NV12<br/>
+	/// format with a pitch of 32 would consist of 32x32 bytes of Y plane followed<br/>
+	/// by 32x16 bytes of UV plane.<br/>
+	/// When a surface holds MJPG format data, pixels points at the compressed JPEG<br/>
+	/// image and pitch is the length of that data.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Surface")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLSurfacePtrPtr : IEquatable<SDLSurfacePtrPtr>
+	{
+		public SDLSurfacePtrPtr(SDLSurface** handle) { Handle = handle; }
+
+		public SDLSurface** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLSurfacePtrPtr Null => new SDLSurfacePtrPtr(null);
+
+		public SDLSurface* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLSurfacePtrPtr(SDLSurface** handle) => new SDLSurfacePtrPtr(handle);
+
+		public static implicit operator SDLSurface**(SDLSurfacePtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLSurfacePtrPtr left, SDLSurfacePtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLSurfacePtrPtr left, SDLSurfacePtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLSurfacePtrPtr left, SDLSurface** right) => left.Handle == right;
+
+		public static bool operator !=(SDLSurfacePtrPtr left, SDLSurface** right) => left.Handle != right;
+
+		public bool Equals(SDLSurfacePtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLSurfacePtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLSurfacePtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

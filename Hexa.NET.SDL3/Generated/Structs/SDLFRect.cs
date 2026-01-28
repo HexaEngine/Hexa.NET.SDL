@@ -16,17 +16,28 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// A rectangle, with the origin at the upper left (using floating point<br/>
-	/// values).<br/>
+	/// A rectangle stored using floating point values.<br/>
+	/// The origin of the coordinate space is in the top-left, with increasing<br/>
+	/// values moving down and right. The properties `x` and `y` represent the<br/>
+	/// coordinates of the top-left corner of the rectangle.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_FRect")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLFRect
 	{
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float X;
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
+		[NativeName(NativeNameType.Field, "w")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float W;
+		[NativeName(NativeNameType.Field, "h")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float H;
 
 		public unsafe SDLFRect(float x = default, float y = default, float w = default, float h = default)
@@ -38,6 +49,59 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A rectangle stored using floating point values.<br/>
+	/// The origin of the coordinate space is in the top-left, with increasing<br/>
+	/// values moving down and right. The properties `x` and `y` represent the<br/>
+	/// coordinates of the top-left corner of the rectangle.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_FRect")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLFRectPtr : IEquatable<SDLFRectPtr>
+	{
+		public SDLFRectPtr(SDLFRect* handle) { Handle = handle; }
+
+		public SDLFRect* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLFRectPtr Null => new SDLFRectPtr(null);
+
+		public SDLFRect this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLFRectPtr(SDLFRect* handle) => new SDLFRectPtr(handle);
+
+		public static implicit operator SDLFRect*(SDLFRectPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLFRectPtr left, SDLFRectPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLFRectPtr left, SDLFRectPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLFRectPtr left, SDLFRect* right) => left.Handle == right;
+
+		public static bool operator !=(SDLFRectPtr left, SDLFRect* right) => left.Handle != right;
+
+		public bool Equals(SDLFRectPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLFRectPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLFRectPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref float X => ref Unsafe.AsRef<float>(&Handle->X);
+		public ref float Y => ref Unsafe.AsRef<float>(&Handle->Y);
+		public ref float W => ref Unsafe.AsRef<float>(&Handle->W);
+		public ref float H => ref Unsafe.AsRef<float>(&Handle->H);
 	}
 
 }

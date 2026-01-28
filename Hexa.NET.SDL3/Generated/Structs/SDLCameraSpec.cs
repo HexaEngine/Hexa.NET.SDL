@@ -22,37 +22,50 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_CameraSpec")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCameraSpec
 	{
 		/// <summary>
 		/// Frame format <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
 
 		/// <summary>
 		/// Frame colorspace <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "colorspace")]
+		[NativeName(NativeNameType.Type, "SDL_Colorspace")]
 		public SDLColorspace Colorspace;
 
 		/// <summary>
 		/// Frame width <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "width")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Width;
 
 		/// <summary>
 		/// Frame height <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "height")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int Height;
 
 		/// <summary>
 		/// Frame rate numerator ((num / denom) == FPS, (denom / num) == duration in seconds) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "framerate_numerator")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int FramerateNumerator;
 
 		/// <summary>
-		/// Frame rate demoninator ((num / denom) == FPS, (denom / num) == duration in seconds) <br/>
+		/// Frame rate denominator ((num / denom) == FPS, (denom / num) == duration in seconds) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "framerate_denominator")]
+		[NativeName(NativeNameType.Type, "int")]
 		public int FramerateDenominator;
 
 
@@ -67,6 +80,126 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// The details of an output format for a camera device.<br/>
+	/// Cameras often support multiple formats; each one will be encapsulated in<br/>
+	/// this struct.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_CameraSpec")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLCameraSpecPtrPtr : IEquatable<SDLCameraSpecPtrPtr>
+	{
+		public SDLCameraSpecPtrPtr(SDLCameraSpec** handle) { Handle = handle; }
+
+		public SDLCameraSpec** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLCameraSpecPtrPtr Null => new SDLCameraSpecPtrPtr(null);
+
+		public SDLCameraSpec* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLCameraSpecPtrPtr(SDLCameraSpec** handle) => new SDLCameraSpecPtrPtr(handle);
+
+		public static implicit operator SDLCameraSpec**(SDLCameraSpecPtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLCameraSpecPtrPtr left, SDLCameraSpecPtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLCameraSpecPtrPtr left, SDLCameraSpecPtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLCameraSpecPtrPtr left, SDLCameraSpec** right) => left.Handle == right;
+
+		public static bool operator !=(SDLCameraSpecPtrPtr left, SDLCameraSpec** right) => left.Handle != right;
+
+		public bool Equals(SDLCameraSpecPtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLCameraSpecPtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLCameraSpecPtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
+	/// <summary>
+	/// The details of an output format for a camera device.<br/>
+	/// Cameras often support multiple formats; each one will be encapsulated in<br/>
+	/// this struct.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_CameraSpec")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLCameraSpecPtr : IEquatable<SDLCameraSpecPtr>
+	{
+		public SDLCameraSpecPtr(SDLCameraSpec* handle) { Handle = handle; }
+
+		public SDLCameraSpec* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLCameraSpecPtr Null => new SDLCameraSpecPtr(null);
+
+		public SDLCameraSpec this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLCameraSpecPtr(SDLCameraSpec* handle) => new SDLCameraSpecPtr(handle);
+
+		public static implicit operator SDLCameraSpec*(SDLCameraSpecPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLCameraSpecPtr left, SDLCameraSpecPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLCameraSpecPtr left, SDLCameraSpecPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLCameraSpecPtr left, SDLCameraSpec* right) => left.Handle == right;
+
+		public static bool operator !=(SDLCameraSpecPtr left, SDLCameraSpec* right) => left.Handle != right;
+
+		public bool Equals(SDLCameraSpecPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLCameraSpecPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLCameraSpecPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Frame format <br/>
+		/// </summary>
+		public ref SDLPixelFormat Format => ref Unsafe.AsRef<SDLPixelFormat>(&Handle->Format);
+		/// <summary>
+		/// Frame colorspace <br/>
+		/// </summary>
+		public ref SDLColorspace Colorspace => ref Unsafe.AsRef<SDLColorspace>(&Handle->Colorspace);
+		/// <summary>
+		/// Frame width <br/>
+		/// </summary>
+		public ref int Width => ref Unsafe.AsRef<int>(&Handle->Width);
+		/// <summary>
+		/// Frame height <br/>
+		/// </summary>
+		public ref int Height => ref Unsafe.AsRef<int>(&Handle->Height);
+		/// <summary>
+		/// Frame rate numerator ((num / denom) == FPS, (denom / num) == duration in seconds) <br/>
+		/// </summary>
+		public ref int FramerateNumerator => ref Unsafe.AsRef<int>(&Handle->FramerateNumerator);
+		/// <summary>
+		/// Frame rate denominator ((num / denom) == FPS, (denom / num) == duration in seconds) <br/>
+		/// </summary>
+		public ref int FramerateDenominator => ref Unsafe.AsRef<int>(&Handle->FramerateDenominator);
 	}
 
 }

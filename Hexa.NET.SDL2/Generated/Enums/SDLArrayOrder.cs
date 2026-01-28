@@ -17,7 +17,6 @@ namespace Hexa.NET.SDL2
 	/// !!! FIXME: in 2.1, make these not overlap differently with<br/>
 	/// !!! FIXME:  SDL_PACKEDORDER_*, so we can simplify SDL_ISPIXELFORMAT_ALPHA <br/>
 	/// </summary>
-	[Flags]
 	public enum SDLArrayOrder : int
 	{
 		None = unchecked(0),

@@ -39,4 +39,52 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// Context structure for the random number generator state.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTestRandomContextPtr : IEquatable<SDLTestRandomContextPtr>
+	{
+		public SDLTestRandomContextPtr(SDLTestRandomContext* handle) { Handle = handle; }
+
+		public SDLTestRandomContext* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTestRandomContextPtr Null => new SDLTestRandomContextPtr(null);
+
+		public SDLTestRandomContext this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTestRandomContextPtr(SDLTestRandomContext* handle) => new SDLTestRandomContextPtr(handle);
+
+		public static implicit operator SDLTestRandomContext*(SDLTestRandomContextPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTestRandomContextPtr left, SDLTestRandomContextPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTestRandomContextPtr left, SDLTestRandomContextPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTestRandomContextPtr left, SDLTestRandomContext* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTestRandomContextPtr left, SDLTestRandomContext* right) => left.Handle != right;
+
+		public bool Equals(SDLTestRandomContextPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTestRandomContextPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTestRandomContextPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref uint A => ref Unsafe.AsRef<uint>(&Handle->A);
+		public ref uint X => ref Unsafe.AsRef<uint>(&Handle->X);
+		public ref uint C => ref Unsafe.AsRef<uint>(&Handle->C);
+		public ref uint Ah => ref Unsafe.AsRef<uint>(&Handle->Ah);
+		public ref uint Al => ref Unsafe.AsRef<uint>(&Handle->Al);
+	}
+
 }

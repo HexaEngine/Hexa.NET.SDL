@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Display orientation<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLDisplayOrientation : int
 	{
 		/// <summary>

@@ -22,4 +22,44 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLCursorPtr : IEquatable<SDLCursorPtr>
+	{
+		public SDLCursorPtr(SDLCursor* handle) { Handle = handle; }
+
+		public SDLCursor* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLCursorPtr Null => new SDLCursorPtr(null);
+
+		public SDLCursor this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLCursorPtr(SDLCursor* handle) => new SDLCursorPtr(handle);
+
+		public static implicit operator SDLCursor*(SDLCursorPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLCursorPtr left, SDLCursorPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLCursorPtr left, SDLCursorPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLCursorPtr left, SDLCursor* right) => left.Handle == right;
+
+		public static bool operator !=(SDLCursorPtr left, SDLCursor* right) => left.Handle != right;
+
+		public bool Equals(SDLCursorPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLCursorPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLCursorPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
 }

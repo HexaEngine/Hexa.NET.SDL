@@ -15,26 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a command buffer.<br/>
-	/// Most state is managed via command buffers. When setting state using a<br/>
-	/// command buffer, that state is local to the command buffer.<br/>
-	/// Commands only begin execution on the GPU once SDL_SubmitGPUCommandBuffer is<br/>
-	/// called. Once the command buffer is submitted, it is no longer valid to use<br/>
-	/// it.<br/>
-	/// Command buffers are executed in submission order. If you submit command<br/>
-	/// buffer A and then command buffer B all commands in A will begin executing<br/>
-	/// before any command in B begins executing.<br/>
-	/// In multi-threading scenarios, you should only access a command buffer on<br/>
-	/// the thread you acquired it from.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUCommandBuffer")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUCommandBuffer
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUCommandBuffer")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUCommandBufferPtr : IEquatable<SDLGPUCommandBufferPtr>
+	{
+		public SDLGPUCommandBufferPtr(SDLGPUCommandBuffer* handle) { Handle = handle; }
+
+		public SDLGPUCommandBuffer* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUCommandBufferPtr Null => new SDLGPUCommandBufferPtr(null);
+
+		public SDLGPUCommandBuffer this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUCommandBufferPtr(SDLGPUCommandBuffer* handle) => new SDLGPUCommandBufferPtr(handle);
+
+		public static implicit operator SDLGPUCommandBuffer*(SDLGPUCommandBufferPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUCommandBufferPtr left, SDLGPUCommandBufferPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUCommandBufferPtr left, SDLGPUCommandBufferPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUCommandBufferPtr left, SDLGPUCommandBuffer* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUCommandBufferPtr left, SDLGPUCommandBuffer* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUCommandBufferPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUCommandBufferPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUCommandBufferPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

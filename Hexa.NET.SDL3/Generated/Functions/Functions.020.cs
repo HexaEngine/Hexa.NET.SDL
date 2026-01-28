@@ -18,5013 +18,5015 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
+		/// Get the product version of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened. If the product version<br/>
+		/// isn't available this function returns 0.<br/>
 		/// <br/>
 		/// <br/>
-		/// </summary>
-		public static void CopyGPUBufferToBuffer(ref SDLGPUCopyPass copyPass, SDLGPUBufferLocation* source, ref SDLGPUBufferLocation destination, uint size, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUBufferLocation* pdestination = &destination)
-				{
-					CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUBufferToBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUBufferLocation source, ref SDLGPUBufferLocation destination, uint size, bool cycle)
-		{
-			fixed (SDLGPUBufferLocation* psource = &source)
-			{
-				fixed (SDLGPUBufferLocation* pdestination = &destination)
-				{
-					CopyGPUBufferToBufferNative(copyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a buffer-to-buffer copy.<br/>
-		/// This copy occurs on the GPU timeline. You may assume the copy has finished<br/>
-		/// in subsequent commands.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CopyGPUBufferToBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUBufferLocation source, ref SDLGPUBufferLocation destination, uint size, bool cycle)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUBufferLocation* psource = &source)
-				{
-					fixed (SDLGPUBufferLocation* pdestination = &destination)
-					{
-						CopyGPUBufferToBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferLocation*)psource, (SDLGPUBufferLocation*)pdestination, size, cycle ? (byte)1 : (byte)0);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DownloadFromGPUTextureNative(SDLGPUCopyPass* copyPass, SDLGPUTextureRegion* source, SDLGPUTextureTransferInfo* destination)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUTextureRegion*, SDLGPUTextureTransferInfo*, void>)funcTable[897])(copyPass, source, destination);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[897])((nint)copyPass, (nint)source, (nint)destination);
-			#endif
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureRegion* source, SDLGPUTextureTransferInfo* destination)
-		{
-			DownloadFromGPUTextureNative(copyPass, source, destination);
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureRegion* source, SDLGPUTextureTransferInfo* destination)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, destination);
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureRegion source, SDLGPUTextureTransferInfo* destination)
-		{
-			fixed (SDLGPUTextureRegion* psource = &source)
-			{
-				DownloadFromGPUTextureNative(copyPass, (SDLGPUTextureRegion*)psource, destination);
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureRegion source, SDLGPUTextureTransferInfo* destination)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureRegion* psource = &source)
-				{
-					DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)psource, destination);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUTexture(SDLGPUCopyPass* copyPass, SDLGPUTextureRegion* source, ref SDLGPUTextureTransferInfo destination)
-		{
-			fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
-			{
-				DownloadFromGPUTextureNative(copyPass, source, (SDLGPUTextureTransferInfo*)pdestination);
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUTexture(ref SDLGPUCopyPass copyPass, SDLGPUTextureRegion* source, ref SDLGPUTextureTransferInfo destination)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
-				{
-					DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTextureTransferInfo*)pdestination);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUTexture(SDLGPUCopyPass* copyPass, ref SDLGPUTextureRegion source, ref SDLGPUTextureTransferInfo destination)
-		{
-			fixed (SDLGPUTextureRegion* psource = &source)
-			{
-				fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
-				{
-					DownloadFromGPUTextureNative(copyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)pdestination);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a texture to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUTexture(ref SDLGPUCopyPass copyPass, ref SDLGPUTextureRegion source, ref SDLGPUTextureTransferInfo destination)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTextureRegion* psource = &source)
-				{
-					fixed (SDLGPUTextureTransferInfo* pdestination = &destination)
-					{
-						DownloadFromGPUTextureNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUTextureRegion*)psource, (SDLGPUTextureTransferInfo*)pdestination);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DownloadFromGPUBufferNative(SDLGPUCopyPass* copyPass, SDLGPUBufferRegion* source, SDLGPUTransferBufferLocation* destination)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, SDLGPUBufferRegion*, SDLGPUTransferBufferLocation*, void>)funcTable[898])(copyPass, source, destination);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[898])((nint)copyPass, (nint)source, (nint)destination);
-			#endif
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUBuffer(SDLGPUCopyPass* copyPass, SDLGPUBufferRegion* source, SDLGPUTransferBufferLocation* destination)
-		{
-			DownloadFromGPUBufferNative(copyPass, source, destination);
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUBuffer(ref SDLGPUCopyPass copyPass, SDLGPUBufferRegion* source, SDLGPUTransferBufferLocation* destination)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, destination);
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUBufferRegion source, SDLGPUTransferBufferLocation* destination)
-		{
-			fixed (SDLGPUBufferRegion* psource = &source)
-			{
-				DownloadFromGPUBufferNative(copyPass, (SDLGPUBufferRegion*)psource, destination);
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUBufferRegion source, SDLGPUTransferBufferLocation* destination)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUBufferRegion* psource = &source)
-				{
-					DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)psource, destination);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUBuffer(SDLGPUCopyPass* copyPass, SDLGPUBufferRegion* source, ref SDLGPUTransferBufferLocation destination)
-		{
-			fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
-			{
-				DownloadFromGPUBufferNative(copyPass, source, (SDLGPUTransferBufferLocation*)pdestination);
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUBuffer(ref SDLGPUCopyPass copyPass, SDLGPUBufferRegion* source, ref SDLGPUTransferBufferLocation destination)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
-				{
-					DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, source, (SDLGPUTransferBufferLocation*)pdestination);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUBuffer(SDLGPUCopyPass* copyPass, ref SDLGPUBufferRegion source, ref SDLGPUTransferBufferLocation destination)
-		{
-			fixed (SDLGPUBufferRegion* psource = &source)
-			{
-				fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
-				{
-					DownloadFromGPUBufferNative(copyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)pdestination);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copies data from a buffer to a transfer buffer on the GPU timeline.<br/>
-		/// This data is not guaranteed to be copied until the command buffer fence is<br/>
-		/// signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DownloadFromGPUBuffer(ref SDLGPUCopyPass copyPass, ref SDLGPUBufferRegion source, ref SDLGPUTransferBufferLocation destination)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				fixed (SDLGPUBufferRegion* psource = &source)
-				{
-					fixed (SDLGPUTransferBufferLocation* pdestination = &destination)
-					{
-						DownloadFromGPUBufferNative((SDLGPUCopyPass*)pcopyPass, (SDLGPUBufferRegion*)psource, (SDLGPUTransferBufferLocation*)pdestination);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Ends the current copy pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void EndGPUCopyPassNative(SDLGPUCopyPass* copyPass)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCopyPass*, void>)funcTable[899])(copyPass);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[899])((nint)copyPass);
-			#endif
-		}
-
-		/// <summary>
-		/// Ends the current copy pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void EndGPUCopyPass(SDLGPUCopyPass* copyPass)
-		{
-			EndGPUCopyPassNative(copyPass);
-		}
-
-		/// <summary>
-		/// Ends the current copy pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void EndGPUCopyPass(ref SDLGPUCopyPass copyPass)
-		{
-			fixed (SDLGPUCopyPass* pcopyPass = &copyPass)
-			{
-				EndGPUCopyPassNative((SDLGPUCopyPass*)pcopyPass);
-			}
-		}
-
-		/// <summary>
-		/// Generates mipmaps for the given texture.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GenerateMipmapsForGPUTextureNative(SDLGPUCommandBuffer* commandBuffer, SDLGPUTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUTexture*, void>)funcTable[900])(commandBuffer, texture);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[900])((nint)commandBuffer, (nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Generates mipmaps for the given texture.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GenerateMipmapsForGPUTexture(SDLGPUCommandBuffer* commandBuffer, SDLGPUTexture* texture)
-		{
-			GenerateMipmapsForGPUTextureNative(commandBuffer, texture);
-		}
-
-		/// <summary>
-		/// Generates mipmaps for the given texture.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GenerateMipmapsForGPUTexture(ref SDLGPUCommandBuffer commandBuffer, SDLGPUTexture* texture)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, texture);
-			}
-		}
-
-		/// <summary>
-		/// Generates mipmaps for the given texture.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GenerateMipmapsForGPUTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUTexture texture)
-		{
-			fixed (SDLGPUTexture* ptexture = &texture)
-			{
-				GenerateMipmapsForGPUTextureNative(commandBuffer, (SDLGPUTexture*)ptexture);
-			}
-		}
-
-		/// <summary>
-		/// Generates mipmaps for the given texture.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GenerateMipmapsForGPUTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUTexture texture)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture* ptexture = &texture)
-				{
-					GenerateMipmapsForGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUTexture*)ptexture);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blits from a source texture region to a destination texture region.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void BlitGPUTextureNative(SDLGPUCommandBuffer* commandBuffer, SDLGPUBlitInfo* info)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUBlitInfo*, void>)funcTable[901])(commandBuffer, info);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[901])((nint)commandBuffer, (nint)info);
-			#endif
-		}
-
-		/// <summary>
-		/// Blits from a source texture region to a destination texture region.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BlitGPUTexture(SDLGPUCommandBuffer* commandBuffer, SDLGPUBlitInfo* info)
-		{
-			BlitGPUTextureNative(commandBuffer, info);
-		}
-
-		/// <summary>
-		/// Blits from a source texture region to a destination texture region.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BlitGPUTexture(ref SDLGPUCommandBuffer commandBuffer, SDLGPUBlitInfo* info)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				BlitGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, info);
-			}
-		}
-
-		/// <summary>
-		/// Blits from a source texture region to a destination texture region.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BlitGPUTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLGPUBlitInfo info)
-		{
-			fixed (SDLGPUBlitInfo* pinfo = &info)
-			{
-				BlitGPUTextureNative(commandBuffer, (SDLGPUBlitInfo*)pinfo);
-			}
-		}
-
-		/// <summary>
-		/// Blits from a source texture region to a destination texture region.<br/>
-		/// This function must not be called inside of any pass.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void BlitGPUTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLGPUBlitInfo info)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUBlitInfo* pinfo = &info)
-				{
-					BlitGPUTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLGPUBlitInfo*)pinfo);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Determines whether a swapchain composition is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WindowSupportsGPUSwapchainCompositionNative(SDLGPUDevice* device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUSwapchainComposition, byte>)funcTable[902])(device, window, swapchainComposition);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUSwapchainComposition, byte>)funcTable[902])((nint)device, (nint)window, swapchainComposition);
-			#endif
-		}
-
-		/// <summary>
-		/// Determines whether a swapchain composition is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WindowSupportsGPUSwapchainComposition(SDLGPUDevice* device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition)
-		{
-			byte ret = WindowSupportsGPUSwapchainCompositionNative(device, window, swapchainComposition);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determines whether a swapchain composition is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WindowSupportsGPUSwapchainComposition(ref SDLGPUDevice device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)pdevice, window, swapchainComposition);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Determines whether a swapchain composition is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WindowSupportsGPUSwapchainComposition(SDLGPUDevice* device, ref SDLWindow window, SDLGPUSwapchainComposition swapchainComposition)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = WindowSupportsGPUSwapchainCompositionNative(device, (SDLWindow*)pwindow, swapchainComposition);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Determines whether a swapchain composition is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WindowSupportsGPUSwapchainComposition(ref SDLGPUDevice device, ref SDLWindow window, SDLGPUSwapchainComposition swapchainComposition)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = WindowSupportsGPUSwapchainCompositionNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, swapchainComposition);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Determines whether a presentation mode is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WindowSupportsGPUPresentModeNative(SDLGPUDevice* device, SDLWindow* window, SDLGPUPresentMode presentMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUPresentMode, byte>)funcTable[903])(device, window, presentMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUPresentMode, byte>)funcTable[903])((nint)device, (nint)window, presentMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Determines whether a presentation mode is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WindowSupportsGPUPresentMode(SDLGPUDevice* device, SDLWindow* window, SDLGPUPresentMode presentMode)
-		{
-			byte ret = WindowSupportsGPUPresentModeNative(device, window, presentMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determines whether a presentation mode is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WindowSupportsGPUPresentMode(ref SDLGPUDevice device, SDLWindow* window, SDLGPUPresentMode presentMode)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)pdevice, window, presentMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Determines whether a presentation mode is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WindowSupportsGPUPresentMode(SDLGPUDevice* device, ref SDLWindow window, SDLGPUPresentMode presentMode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = WindowSupportsGPUPresentModeNative(device, (SDLWindow*)pwindow, presentMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Determines whether a presentation mode is supported by the window.<br/>
-		/// The window must be claimed before calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WindowSupportsGPUPresentMode(ref SDLGPUDevice device, ref SDLWindow window, SDLGPUPresentMode presentMode)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = WindowSupportsGPUPresentModeNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, presentMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Claims a window, creating a swapchain structure for it.<br/>
-		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
-		/// the window. You should only call this function from the thread that created<br/>
-		/// the window.<br/>
-		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
-		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
-		/// window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ClaimWindowForGPUDeviceNative(SDLGPUDevice* device, SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, byte>)funcTable[904])(device, window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[904])((nint)device, (nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Claims a window, creating a swapchain structure for it.<br/>
-		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
-		/// the window. You should only call this function from the thread that created<br/>
-		/// the window.<br/>
-		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
-		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
-		/// window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ClaimWindowForGPUDevice(SDLGPUDevice* device, SDLWindow* window)
-		{
-			byte ret = ClaimWindowForGPUDeviceNative(device, window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Claims a window, creating a swapchain structure for it.<br/>
-		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
-		/// the window. You should only call this function from the thread that created<br/>
-		/// the window.<br/>
-		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
-		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
-		/// window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ClaimWindowForGPUDevice(ref SDLGPUDevice device, SDLWindow* window)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)pdevice, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Claims a window, creating a swapchain structure for it.<br/>
-		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
-		/// the window. You should only call this function from the thread that created<br/>
-		/// the window.<br/>
-		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
-		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
-		/// window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ClaimWindowForGPUDevice(SDLGPUDevice* device, ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = ClaimWindowForGPUDeviceNative(device, (SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Claims a window, creating a swapchain structure for it.<br/>
-		/// This must be called before SDL_AcquireGPUSwapchainTexture is called using<br/>
-		/// the window. You should only call this function from the thread that created<br/>
-		/// the window.<br/>
-		/// The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain<br/>
-		/// parameters, you must call SDL_SetGPUSwapchainParameters after claiming the<br/>
-		/// window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ClaimWindowForGPUDevice(ref SDLGPUDevice device, ref SDLWindow window)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = ClaimWindowForGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Unclaims a window, destroying its swapchain structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseWindowFromGPUDeviceNative(SDLGPUDevice* device, SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, void>)funcTable[905])(device, window);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[905])((nint)device, (nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Unclaims a window, destroying its swapchain structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseWindowFromGPUDevice(SDLGPUDevice* device, SDLWindow* window)
-		{
-			ReleaseWindowFromGPUDeviceNative(device, window);
-		}
-
-		/// <summary>
-		/// Unclaims a window, destroying its swapchain structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseWindowFromGPUDevice(ref SDLGPUDevice device, SDLWindow* window)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)pdevice, window);
-			}
-		}
-
-		/// <summary>
-		/// Unclaims a window, destroying its swapchain structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseWindowFromGPUDevice(SDLGPUDevice* device, ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				ReleaseWindowFromGPUDeviceNative(device, (SDLWindow*)pwindow);
-			}
-		}
-
-		/// <summary>
-		/// Unclaims a window, destroying its swapchain structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseWindowFromGPUDevice(ref SDLGPUDevice device, ref SDLWindow window)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					ReleaseWindowFromGPUDeviceNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Changes the swapchain parameters for the given claimed window.<br/>
-		/// This function will fail if the requested present mode or swapchain<br/>
-		/// composition are unsupported by the device. Check if the parameters are<br/>
-		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
-		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetGPUSwapchainParametersNative(SDLGPUDevice* device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUSwapchainComposition, SDLGPUPresentMode, byte>)funcTable[906])(device, window, swapchainComposition, presentMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUSwapchainComposition, SDLGPUPresentMode, byte>)funcTable[906])((nint)device, (nint)window, swapchainComposition, presentMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Changes the swapchain parameters for the given claimed window.<br/>
-		/// This function will fail if the requested present mode or swapchain<br/>
-		/// composition are unsupported by the device. Check if the parameters are<br/>
-		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
-		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetGPUSwapchainParameters(SDLGPUDevice* device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
-		{
-			byte ret = SetGPUSwapchainParametersNative(device, window, swapchainComposition, presentMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Changes the swapchain parameters for the given claimed window.<br/>
-		/// This function will fail if the requested present mode or swapchain<br/>
-		/// composition are unsupported by the device. Check if the parameters are<br/>
-		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
-		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetGPUSwapchainParameters(ref SDLGPUDevice device, SDLWindow* window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)pdevice, window, swapchainComposition, presentMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Changes the swapchain parameters for the given claimed window.<br/>
-		/// This function will fail if the requested present mode or swapchain<br/>
-		/// composition are unsupported by the device. Check if the parameters are<br/>
-		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
-		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetGPUSwapchainParameters(SDLGPUDevice* device, ref SDLWindow window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = SetGPUSwapchainParametersNative(device, (SDLWindow*)pwindow, swapchainComposition, presentMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Changes the swapchain parameters for the given claimed window.<br/>
-		/// This function will fail if the requested present mode or swapchain<br/>
-		/// composition are unsupported by the device. Check if the parameters are<br/>
-		/// supported via SDL_WindowSupportsGPUPresentMode /<br/>
-		/// SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.<br/>
-		/// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always<br/>
-		/// supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetGPUSwapchainParameters(ref SDLGPUDevice device, ref SDLWindow window, SDLGPUSwapchainComposition swapchainComposition, SDLGPUPresentMode presentMode)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = SetGPUSwapchainParametersNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow, swapchainComposition, presentMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Configures the maximum allowed number of frames in flight.<br/>
-		/// The default value when the device is created is 2. This means that after<br/>
-		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
-		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
-		/// swapchain texture pointer with NULL, and<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
-		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
-		/// values decrease visual latency at the expense of throughput.<br/>
-		/// Note that calling this function will stall and flush the command queue to<br/>
-		/// prevent synchronization issues.<br/>
-		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetGPUAllowedFramesInFlightNative(SDLGPUDevice* device, uint allowedFramesInFlight)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, uint, byte>)funcTable[907])(device, allowedFramesInFlight);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, byte>)funcTable[907])((nint)device, allowedFramesInFlight);
-			#endif
-		}
-
-		/// <summary>
-		/// Configures the maximum allowed number of frames in flight.<br/>
-		/// The default value when the device is created is 2. This means that after<br/>
-		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
-		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
-		/// swapchain texture pointer with NULL, and<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
-		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
-		/// values decrease visual latency at the expense of throughput.<br/>
-		/// Note that calling this function will stall and flush the command queue to<br/>
-		/// prevent synchronization issues.<br/>
-		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetGPUAllowedFramesInFlight(SDLGPUDevice* device, uint allowedFramesInFlight)
-		{
-			byte ret = SetGPUAllowedFramesInFlightNative(device, allowedFramesInFlight);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Configures the maximum allowed number of frames in flight.<br/>
-		/// The default value when the device is created is 2. This means that after<br/>
-		/// you have submitted 2 frames for presentation, if the GPU has not finished<br/>
-		/// working on the first frame, SDL_AcquireGPUSwapchainTexture() will fill the<br/>
-		/// swapchain texture pointer with NULL, and<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() will block.<br/>
-		/// Higher values increase throughput at the expense of visual latency. Lower<br/>
-		/// values decrease visual latency at the expense of throughput.<br/>
-		/// Note that calling this function will stall and flush the command queue to<br/>
-		/// prevent synchronization issues.<br/>
-		/// The minimum value of allowed frames in flight is 1, and the maximum is 3.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetGPUAllowedFramesInFlight(ref SDLGPUDevice device, uint allowedFramesInFlight)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = SetGPUAllowedFramesInFlightNative((SDLGPUDevice*)pdevice, allowedFramesInFlight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Obtains the texture format of the swapchain for the given window.<br/>
-		/// Note that this format can change if the swapchain parameters change.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUTextureFormat GetGPUSwapchainTextureFormatNative(SDLGPUDevice* device, SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, SDLGPUTextureFormat>)funcTable[908])(device, window);
-			#else
-			return (SDLGPUTextureFormat)((delegate* unmanaged[Cdecl]<nint, nint, SDLGPUTextureFormat>)funcTable[908])((nint)device, (nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Obtains the texture format of the swapchain for the given window.<br/>
-		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat(SDLGPUDevice* device, SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersionForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProductVersionForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative(device, window);
+			ushort ret = GetJoystickProductVersionForIDNative(instanceId);
 			return ret;
 		}
 
 		/// <summary>
-		/// Obtains the texture format of the swapchain for the given window.<br/>
-		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// Get the type of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat(ref SDLGPUDevice device, SDLWindow* window)
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystickType GetJoystickTypeForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLJoystickType>)funcTable[647])(instanceId);
+			#else
+			return (SDLJoystickType)((delegate* unmanaged[Cdecl]<int, SDLJoystickType>)funcTable[647])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a joystick, if available.<br/>
+		/// This can be called before any joysticks are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
+		public static SDLJoystickType GetJoystickTypeForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLJoystickType ret = GetJoystickTypeForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a joystick for use.<br/>
+		/// The joystick subsystem must be initialized before a joystick can be opened<br/>
+		/// for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystick* OpenJoystickNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[648])(instanceId);
+			#else
+			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[648])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a joystick for use.<br/>
+		/// The joystick subsystem must be initialized before a joystick can be opened<br/>
+		/// for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		public static SDLJoystickPtr OpenJoystick([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLJoystickPtr ret = OpenJoystickNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Joystick associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystick* GetJoystickFromIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[649])(instanceId);
+			#else
+			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[649])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Joystick associated with an instance ID, if it has been opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		public static SDLJoystickPtr GetJoystickFromID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLJoystickPtr ret = GetJoystickFromIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Joystick associated with a player index.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFromPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystick* GetJoystickFromPlayerIndexNative([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)funcTable[650])(playerIndex);
+			#else
+			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[650])(playerIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Joystick associated with a player index.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFromPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "SDL_Joystick *")]
+		public static SDLJoystickPtr GetJoystickFromPlayerIndex([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			SDLJoystickPtr ret = GetJoystickFromPlayerIndexNative(playerIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Attach a new virtual joystick.<br/>
+		/// Apps can create virtual joysticks, that exist without hardware directly<br/>
+		/// backing them, and have program-supplied inputs. Once attached, a virtual<br/>
+		/// joystick looks like any other joystick that SDL can access. These can be<br/>
+		/// used to make other things look like joysticks, or provide pre-recorded<br/>
+		/// input, etc.<br/>
+		/// Once attached, the app can send joystick inputs to the new virtual joystick<br/>
+		/// using SDL_SetJoystickVirtualAxis(), etc.<br/>
+		/// When no longer needed, the virtual joystick can be removed by calling<br/>
+		/// SDL_DetachVirtualJoystick().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AttachVirtualJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AttachVirtualJoystickNative([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "SDL_VirtualJoystickDesc const *")] SDLVirtualJoystickDesc* desc)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLVirtualJoystickDesc*, int>)funcTable[651])(desc);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[651])((nint)desc);
+			#endif
+		}
+
+		/// <summary>
+		/// Attach a new virtual joystick.<br/>
+		/// Apps can create virtual joysticks, that exist without hardware directly<br/>
+		/// backing them, and have program-supplied inputs. Once attached, a virtual<br/>
+		/// joystick looks like any other joystick that SDL can access. These can be<br/>
+		/// used to make other things look like joysticks, or provide pre-recorded<br/>
+		/// input, etc.<br/>
+		/// Once attached, the app can send joystick inputs to the new virtual joystick<br/>
+		/// using SDL_SetJoystickVirtualAxis(), etc.<br/>
+		/// When no longer needed, the virtual joystick can be removed by calling<br/>
+		/// SDL_DetachVirtualJoystick().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AttachVirtualJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		public static int AttachVirtualJoystick([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "SDL_VirtualJoystickDesc const *")] SDLVirtualJoystickDescPtr desc)
+		{
+			int ret = AttachVirtualJoystickNative((SDLVirtualJoystickDesc*)desc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Attach a new virtual joystick.<br/>
+		/// Apps can create virtual joysticks, that exist without hardware directly<br/>
+		/// backing them, and have program-supplied inputs. Once attached, a virtual<br/>
+		/// joystick looks like any other joystick that SDL can access. These can be<br/>
+		/// used to make other things look like joysticks, or provide pre-recorded<br/>
+		/// input, etc.<br/>
+		/// Once attached, the app can send joystick inputs to the new virtual joystick<br/>
+		/// using SDL_SetJoystickVirtualAxis(), etc.<br/>
+		/// When no longer needed, the virtual joystick can be removed by calling<br/>
+		/// SDL_DetachVirtualJoystick().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AttachVirtualJoystick")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		public static int AttachVirtualJoystick([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "SDL_VirtualJoystickDesc const *")] in SDLVirtualJoystickDesc desc)
+		{
+			fixed (SDLVirtualJoystickDesc* pdesc = &desc)
 			{
-				SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)pdevice, window);
+				int ret = AttachVirtualJoystickNative((SDLVirtualJoystickDesc*)pdesc);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Obtains the texture format of the swapchain for the given window.<br/>
-		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// Detach a virtual joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat(SDLGPUDevice* device, ref SDLWindow window)
+		[NativeName(NativeNameType.Func, "SDL_DetachVirtualJoystick")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte DetachVirtualJoystickNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
 		{
-			fixed (SDLWindow* pwindow = &window)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[652])(instanceId);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[652])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Detach a virtual joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DetachVirtualJoystick")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool DetachVirtualJoystick([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			byte ret = DetachVirtualJoystickNative(instanceId);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Query whether or not a joystick is virtual.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickVirtual")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte IsJoystickVirtualNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[653])(instanceId);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[653])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether or not a joystick is virtual.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsJoystickVirtual")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool IsJoystickVirtual([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			byte ret = IsJoystickVirtualNative(instanceId);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the state of an axis on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// Note that when sending trigger axes, you should scale the value to the full<br/>
+		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
+		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualAxis")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualAxisNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short, byte>)funcTable[654])(joystick, axis, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, short, byte>)funcTable[654])((nint)joystick, axis, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of an axis on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// Note that when sending trigger axes, you should scale the value to the full<br/>
+		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
+		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualAxis")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
+		{
+			byte ret = SetJoystickVirtualAxisNative((SDLJoystick*)joystick, axis, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the state of an axis on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// Note that when sending trigger axes, you should scale the value to the full<br/>
+		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
+		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualAxis")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative(device, (SDLWindow*)pwindow);
-				return ret;
+				byte ret = SetJoystickVirtualAxisNative((SDLJoystick*)pjoystick, axis, value);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Obtains the texture format of the swapchain for the given window.<br/>
-		/// Note that this format can change if the swapchain parameters change.<br/>
+		/// Generate ball motion on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUTextureFormat GetGPUSwapchainTextureFormat(ref SDLGPUDevice device, ref SDLWindow window)
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualBallNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "xrel")] [NativeName(NativeNameType.Type, "Sint16")] short xrel, [NativeName(NativeNameType.Param, "yrel")] [NativeName(NativeNameType.Type, "Sint16")] short yrel)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short, short, byte>)funcTable[655])(joystick, ball, xrel, yrel);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, short, short, byte>)funcTable[655])((nint)joystick, ball, xrel, yrel);
+			#endif
+		}
+
+		/// <summary>
+		/// Generate ball motion on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "xrel")] [NativeName(NativeNameType.Type, "Sint16")] short xrel, [NativeName(NativeNameType.Param, "yrel")] [NativeName(NativeNameType.Type, "Sint16")] short yrel)
+		{
+			byte ret = SetJoystickVirtualBallNative((SDLJoystick*)joystick, ball, xrel, yrel);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Generate ball motion on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "xrel")] [NativeName(NativeNameType.Type, "Sint16")] short xrel, [NativeName(NativeNameType.Param, "yrel")] [NativeName(NativeNameType.Type, "Sint16")] short yrel)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				fixed (SDLWindow* pwindow = &window)
+				byte ret = SetJoystickVirtualBallNative((SDLJoystick*)pjoystick, ball, xrel, yrel);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the state of a button on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualButtonNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] byte down)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte, byte>)funcTable[656])(joystick, button, down);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte, byte>)funcTable[656])((nint)joystick, button, down);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of a button on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] bool down)
+		{
+			byte ret = SetJoystickVirtualButtonNative((SDLJoystick*)joystick, button, down ? (byte)1 : (byte)0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the state of a button on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] bool down)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickVirtualButtonNative((SDLJoystick*)pjoystick, button, down ? (byte)1 : (byte)0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the state of a hat on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualHat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualHatNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte, byte>)funcTable[657])(joystick, hat, value);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte, byte>)funcTable[657])((nint)joystick, hat, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of a hat on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualHat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		{
+			byte ret = SetJoystickVirtualHatNative((SDLJoystick*)joystick, hat, value);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the state of a hat on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualHat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickVirtualHatNative((SDLJoystick*)pjoystick, hat, value);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set touchpad finger state on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualTouchpad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickVirtualTouchpadNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] byte down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float")] float pressure)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, int, byte, float, float, float, byte>)funcTable[658])(joystick, touchpad, finger, down, x, y, pressure);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, byte, float, float, float, byte>)funcTable[658])((nint)joystick, touchpad, finger, down, x, y, pressure);
+			#endif
+		}
+
+		/// <summary>
+		/// Set touchpad finger state on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualTouchpad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualTouchpad([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float")] float pressure)
+		{
+			byte ret = SetJoystickVirtualTouchpadNative((SDLJoystick*)joystick, touchpad, finger, down ? (byte)1 : (byte)0, x, y, pressure);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set touchpad finger state on an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickVirtualTouchpad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickVirtualTouchpad([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "down")] [NativeName(NativeNameType.Type, "bool")] bool down, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float")] float pressure)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickVirtualTouchpadNative((SDLJoystick*)pjoystick, touchpad, finger, down ? (byte)1 : (byte)0, x, y, pressure);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SendJoystickVirtualSensorDataNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLSensorType, ulong, float*, int, byte>)funcTable[659])(joystick, type, sensorTimestamp, data, numValues);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLSensorType, ulong, nint, int, byte>)funcTable[659])((nint)joystick, type, sensorTimestamp, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickVirtualSensorData([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			byte ret = SendJoystickVirtualSensorDataNative((SDLJoystick*)joystick, type, sensorTimestamp, data, numValues);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickVirtualSensorData([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SendJoystickVirtualSensorDataNative((SDLJoystick*)pjoystick, type, sensorTimestamp, data, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickVirtualSensorData([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] in float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				byte ret = SendJoystickVirtualSensorDataNative((SDLJoystick*)joystick, type, sensorTimestamp, (float*)pdata, numValues);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a sensor update for an opened virtual joystick.<br/>
+		/// Please note that values set here will not be applied until the next call to<br/>
+		/// SDL_UpdateJoysticks, which can either be called directly, or can be called<br/>
+		/// indirectly through various other SDL APIs, including, but not limited to<br/>
+		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
+		/// SDL_WaitEvent.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickVirtualSensorData")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickVirtualSensorData([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "sensor_timestamp")] [NativeName(NativeNameType.Type, "Uint64")] ulong sensorTimestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float const *")] in float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (float* pdata = &data)
 				{
-					SDLGPUTextureFormat ret = GetGPUSwapchainTextureFormatNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
+					byte ret = SendJoystickVirtualSensorDataNative((SDLJoystick*)pjoystick, type, sensorTimestamp, (float*)pdata, numValues);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the properties associated with a joystick.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
+		/// LED that has adjustable brightness<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetJoystickPropertiesNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, uint>)funcTable[660])(joystick);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[660])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with a joystick.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
+		/// LED that has adjustable brightness<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetJoystickProperties([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			uint ret = GetJoystickPropertiesNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with a joystick.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN`: true if this joystick has an<br/>
+		/// LED that has adjustable brightness<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN`: true if this joystick has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN`: true if this joystick has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this joystick has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetJoystickProperties([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				uint ret = GetJoystickPropertiesNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetJoystickNameNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[661])(joystick);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[661])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickName([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			byte* ret = GetJoystickNameNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickNameS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			string ret = Utils.DecodeStringUTF8(GetJoystickNameNative((SDLJoystick*)joystick));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickName([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte* ret = GetJoystickNameNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickNameS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				string ret = Utils.DecodeStringUTF8(GetJoystickNameNative((SDLJoystick*)pjoystick));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetJoystickPathNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[662])(joystick);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[662])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickPath([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			byte* ret = GetJoystickPathNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickPathS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			string ret = Utils.DecodeStringUTF8(GetJoystickPathNative((SDLJoystick*)joystick));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickPath([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte* ret = GetJoystickPathNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickPathS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				string ret = Utils.DecodeStringUTF8(GetJoystickPathNative((SDLJoystick*)pjoystick));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetJoystickPlayerIndexNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[663])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[663])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetJoystickPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			int ret = GetJoystickPlayerIndexNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the player index of an opened joystick.<br/>
+		/// For XInput controllers this returns the XInput user index. Many joysticks<br/>
+		/// will not be able to supply this information.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetJoystickPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = GetJoystickPlayerIndexNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickPlayerIndexNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[664])(joystick, playerIndex);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[664])((nint)joystick, playerIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			byte ret = SetJoystickPlayerIndexNative((SDLJoystick*)joystick, playerIndex);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the player index of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickPlayerIndexNative((SDLJoystick*)pjoystick, playerIndex);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SdlGuid GetJoystickGUIDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SdlGuid>)funcTable[665])(joystick);
+			#else
+			return (SdlGuid)((delegate* unmanaged[Cdecl]<nint, SdlGuid>)funcTable[665])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid GetJoystickGUID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			SdlGuid ret = GetJoystickGUIDNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID for the joystick.<br/>
+		/// This function requires an open joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid GetJoystickGUID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SdlGuid ret = GetJoystickGUIDNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendor")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickVendorNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[666])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[666])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendor")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickVendor([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			ushort ret = GetJoystickVendorNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of an opened joystick, if available.<br/>
+		/// If the vendor ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickVendor")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickVendor([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = GetJoystickVendorNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProduct")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickProductNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[667])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[667])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProduct")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProduct([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			ushort ret = GetJoystickProductNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB product ID of an opened joystick, if available.<br/>
+		/// If the product ID isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProduct")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProduct([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = GetJoystickProductNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickProductVersionNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[668])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[668])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProductVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			ushort ret = GetJoystickProductVersionNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the product version of an opened joystick, if available.<br/>
+		/// If the product version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickProductVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickProductVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = GetJoystickProductVersionNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the firmware version of an opened joystick, if available.<br/>
+		/// If the firmware version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFirmwareVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetJoystickFirmwareVersionNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)funcTable[669])(joystick);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[669])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the firmware version of an opened joystick, if available.<br/>
+		/// If the firmware version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFirmwareVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickFirmwareVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			ushort ret = GetJoystickFirmwareVersionNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the firmware version of an opened joystick, if available.<br/>
+		/// If the firmware version isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickFirmwareVersion")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetJoystickFirmwareVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				ushort ret = GetJoystickFirmwareVersionNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickSerial")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetJoystickSerialNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)funcTable[670])(joystick);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[670])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickSerial")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickSerial([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			byte* ret = GetJoystickSerialNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickSerial")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickSerialS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			string ret = Utils.DecodeStringUTF8(GetJoystickSerialNative((SDLJoystick*)joystick));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickSerial")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetJoystickSerial([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte* ret = GetJoystickSerialNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the serial number of an opened joystick, if available.<br/>
+		/// Returns the serial number of the joystick, or NULL if it is not available.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickSerial")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetJoystickSerialS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				string ret = Utils.DecodeStringUTF8(GetJoystickSerialNative((SDLJoystick*)pjoystick));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the type of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickType")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystickType GetJoystickTypeNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickType>)funcTable[671])(joystick);
+			#else
+			return (SDLJoystickType)((delegate* unmanaged[Cdecl]<nint, SDLJoystickType>)funcTable[671])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickType")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
+		public static SDLJoystickType GetJoystickType([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			SDLJoystickType ret = GetJoystickTypeNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickType")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
+		public static SDLJoystickType GetJoystickType([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLJoystickType ret = GetJoystickTypeNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetJoystickGUIDInfoNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SdlGuid, ushort*, ushort*, ushort*, ushort*, void>)funcTable[672])(guid, vendor, product, version, crc16);
+			#else
+			((delegate* unmanaged[Cdecl]<SdlGuid, nint, nint, nint, nint, void>)funcTable[672])(guid, (nint)vendor, (nint)product, (nint)version, (nint)crc16);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			GetJoystickGUIDInfoNative(guid, vendor, product, version, crc16);
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, crc16);
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			fixed (ushort* pproduct = &product)
+			{
+				GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, crc16);
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pproduct = &product)
+				{
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, crc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			fixed (ushort* pversion = &version)
+			{
+				GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, crc16);
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pversion = &version)
+				{
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, crc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			fixed (ushort* pproduct = &product)
+			{
+				fixed (ushort* pversion = &version)
+				{
+					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, crc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pproduct = &product)
+				{
+					fixed (ushort* pversion = &version)
+					{
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, crc16);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort crc16)
+		{
+			fixed (ushort* pcrc16 = &crc16)
+			{
+				GetJoystickGUIDInfoNative(guid, vendor, product, version, (ushort*)pcrc16);
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pcrc16 = &crc16)
+				{
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, (ushort*)pcrc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort crc16)
+		{
+			fixed (ushort* pproduct = &product)
+			{
+				fixed (ushort* pcrc16 = &crc16)
+				{
+					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, (ushort*)pcrc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pproduct = &product)
+				{
+					fixed (ushort* pcrc16 = &crc16)
+					{
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, (ushort*)pcrc16);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort crc16)
+		{
+			fixed (ushort* pversion = &version)
+			{
+				fixed (ushort* pcrc16 = &crc16)
+				{
+					GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, (ushort*)pcrc16);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pversion = &version)
+				{
+					fixed (ushort* pcrc16 = &crc16)
+					{
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, (ushort*)pcrc16);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort crc16)
+		{
+			fixed (ushort* pproduct = &product)
+			{
+				fixed (ushort* pversion = &version)
+				{
+					fixed (ushort* pcrc16 = &crc16)
+					{
+						GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the device information encoded in a SDL_GUID structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16 *")] ref ushort crc16)
+		{
+			fixed (ushort* pvendor = &vendor)
+			{
+				fixed (ushort* pproduct = &product)
+				{
+					fixed (ushort* pversion = &version)
+					{
+						fixed (ushort* pcrc16 = &crc16)
+						{
+							GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the status of a specified joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_JoystickConnected")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte JoystickConnectedNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte>)funcTable[673])(joystick);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[673])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the status of a specified joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_JoystickConnected")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool JoystickConnected([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			byte ret = JoystickConnectedNative((SDLJoystick*)joystick);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the status of a specified joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_JoystickConnected")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool JoystickConnected([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = JoystickConnectedNative((SDLJoystick*)pjoystick);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickID")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetJoystickIDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[674])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[674])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickID")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		public static int GetJoystickID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			int ret = GetJoystickIDNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickID")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		public static int GetJoystickID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = GetJoystickIDNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of general axis controls on a joystick.<br/>
+		/// Often, the directional pad on a game controller will either look like 4<br/>
+		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
+		/// device and platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumJoystickAxesNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[675])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[675])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of general axis controls on a joystick.<br/>
+		/// Often, the directional pad on a game controller will either look like 4<br/>
+		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
+		/// device and platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumJoystickAxes([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			int ret = GetNumJoystickAxesNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of general axis controls on a joystick.<br/>
+		/// Often, the directional pad on a game controller will either look like 4<br/>
+		/// separate buttons or a POV hat, and not axes, but all of this is up to the<br/>
+		/// device and platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickAxes")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumJoystickAxes([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = GetNumJoystickAxesNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of trackballs on a joystick.<br/>
+		/// Joystick trackballs have only relative motion events associated with them<br/>
+		/// and their state cannot be polled.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickBalls")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumJoystickBallsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[676])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[676])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of trackballs on a joystick.<br/>
+		/// Joystick trackballs have only relative motion events associated with them<br/>
+		/// and their state cannot be polled.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickBalls")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumJoystickBalls([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			int ret = GetNumJoystickBallsNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of trackballs on a joystick.<br/>
+		/// Joystick trackballs have only relative motion events associated with them<br/>
+		/// and their state cannot be polled.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickBalls")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumJoystickBalls([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = GetNumJoystickBallsNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of POV hats on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickHats")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumJoystickHatsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[677])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[677])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of POV hats on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickHats")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumJoystickHats([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			int ret = GetNumJoystickHatsNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of POV hats on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickHats")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumJoystickHats([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = GetNumJoystickHatsNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the number of buttons on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickButtons")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumJoystickButtonsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[678])(joystick);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[678])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of buttons on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickButtons")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumJoystickButtons([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			int ret = GetNumJoystickButtonsNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of buttons on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumJoystickButtons")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumJoystickButtons([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				int ret = GetNumJoystickButtonsNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the state of joystick event processing.<br/>
+		/// If joystick events are disabled, you must call SDL_UpdateJoysticks()<br/>
+		/// yourself and check the state of the joystick when you want joystick<br/>
+		/// information.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickEventsEnabled")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetJoystickEventsEnabledNative([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[679])(enabled);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[679])(enabled);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of joystick event processing.<br/>
+		/// If joystick events are disabled, you must call SDL_UpdateJoysticks()<br/>
+		/// yourself and check the state of the joystick when you want joystick<br/>
+		/// information.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickEventsEnabled")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetJoystickEventsEnabled([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
+		{
+			SetJoystickEventsEnabledNative(enabled ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Query the state of joystick event processing.<br/>
+		/// If joystick events are disabled, you must call SDL_UpdateJoysticks()<br/>
+		/// yourself and check the state of the joystick when you want joystick<br/>
+		/// information.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_JoystickEventsEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte JoystickEventsEnabledNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[680])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[680])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query the state of joystick event processing.<br/>
+		/// If joystick events are disabled, you must call SDL_UpdateJoysticks()<br/>
+		/// yourself and check the state of the joystick when you want joystick<br/>
+		/// information.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_JoystickEventsEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool JoystickEventsEnabled()
+		{
+			byte ret = JoystickEventsEnabledNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update the current state of the open joysticks.<br/>
+		/// This is called automatically by the event loop if any joystick events are<br/>
+		/// enabled.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UpdateJoysticksNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[681])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[681])();
+			#endif
+		}
+
+		/// <summary>
+		/// Update the current state of the open joysticks.<br/>
+		/// This is called automatically by the event loop if any joystick events are<br/>
+		/// enabled.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UpdateJoysticks")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UpdateJoysticks()
+		{
+			UpdateJoysticksNative();
+		}
+
+		/// <summary>
+		/// Get the current state of an axis control on a joystick.<br/>
+		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
+		/// to. Your game should have some sort of configuration UI to let users<br/>
+		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
+		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
+		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
+		/// The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to<br/>
+		/// 32767) representing the current position of the axis. It may be necessary<br/>
+		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickAxis")]
+		[return: NativeName(NativeNameType.Type, "Sint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static short GetJoystickAxisNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short>)funcTable[682])(joystick, axis);
+			#else
+			return (short)((delegate* unmanaged[Cdecl]<nint, int, short>)funcTable[682])((nint)joystick, axis);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of an axis control on a joystick.<br/>
+		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
+		/// to. Your game should have some sort of configuration UI to let users<br/>
+		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
+		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
+		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
+		/// The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to<br/>
+		/// 32767) representing the current position of the axis. It may be necessary<br/>
+		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickAxis")]
+		[return: NativeName(NativeNameType.Type, "Sint16")]
+		public static short GetJoystickAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
+		{
+			short ret = GetJoystickAxisNative((SDLJoystick*)joystick, axis);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of an axis control on a joystick.<br/>
+		/// SDL makes no promises about what part of the joystick any given axis refers<br/>
+		/// to. Your game should have some sort of configuration UI to let users<br/>
+		/// specify what each axis should be bound to. Alternately, SDL's higher-level<br/>
+		/// Game Controller API makes a great effort to apply order to this lower-level<br/>
+		/// interface, so you know that a specific axis is the "left thumb stick," etc.<br/>
+		/// The value returned by SDL_GetJoystickAxis() is a signed integer (-32768 to<br/>
+		/// 32767) representing the current position of the axis. It may be necessary<br/>
+		/// to impose certain tolerances on these values to account for jitter.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickAxis")]
+		[return: NativeName(NativeNameType.Type, "Sint16")]
+		public static short GetJoystickAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				short ret = GetJoystickAxisNative((SDLJoystick*)pjoystick, axis);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickAxisInitialState")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetJoystickAxisInitialStateNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16 *")] short* state)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short*, byte>)funcTable[683])(joystick, axis, state);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, nint, byte>)funcTable[683])((nint)joystick, axis, (nint)state);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickAxisInitialState")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16 *")] short* state)
+		{
+			byte ret = GetJoystickAxisInitialStateNative((SDLJoystick*)joystick, axis, state);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickAxisInitialState")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16 *")] short* state)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = GetJoystickAxisInitialStateNative((SDLJoystick*)pjoystick, axis, state);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickAxisInitialState")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16 *")] ref short state)
+		{
+			fixed (short* pstate = &state)
+			{
+				byte ret = GetJoystickAxisInitialStateNative((SDLJoystick*)joystick, axis, (short*)pstate);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the initial state of an axis control on a joystick.<br/>
+		/// The state is a value ranging from -32768 to 32767.<br/>
+		/// The axis indices start at index 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickAxisInitialState")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16 *")] ref short state)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (short* pstate = &state)
+				{
+					byte ret = GetJoystickAxisInitialStateNative((SDLJoystick*)pjoystick, axis, (short*)pstate);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetJoystickBallNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] int* dy)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, int*, int*, byte>)funcTable[684])(joystick, ball, dx, dy);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, byte>)funcTable[684])((nint)joystick, ball, (nint)dx, (nint)dy);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] int* dy)
+		{
+			byte ret = GetJoystickBallNative((SDLJoystick*)joystick, ball, dx, dy);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] int* dy)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = GetJoystickBallNative((SDLJoystick*)pjoystick, ball, dx, dy);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] int* dy)
+		{
+			fixed (int* pdx = &dx)
+			{
+				byte ret = GetJoystickBallNative((SDLJoystick*)joystick, ball, (int*)pdx, dy);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] int* dy)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (int* pdx = &dx)
+				{
+					byte ret = GetJoystickBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, dy);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] ref int dy)
+		{
+			fixed (int* pdy = &dy)
+			{
+				byte ret = GetJoystickBallNative((SDLJoystick*)joystick, ball, dx, (int*)pdy);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] ref int dy)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (int* pdy = &dy)
+				{
+					byte ret = GetJoystickBallNative((SDLJoystick*)pjoystick, ball, dx, (int*)pdy);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] ref int dy)
+		{
+			fixed (int* pdx = &dx)
+			{
+				fixed (int* pdy = &dy)
+				{
+					byte ret = GetJoystickBallNative((SDLJoystick*)joystick, ball, (int*)pdx, (int*)pdy);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the ball axis change since the last poll.<br/>
+		/// Trackballs can only return relative motion since the last call to<br/>
+		/// SDL_GetJoystickBall(), these motion deltas are placed into `dx` and `dy`.<br/>
+		/// Most joysticks do not have trackballs.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickBall")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int *")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int *")] ref int dy)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (int* pdx = &dx)
+				{
+					fixed (int* pdy = &dy)
+					{
+						byte ret = GetJoystickBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, (int*)pdy);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a POV hat on a joystick.<br/>
+		/// The returned value will be one of the `SDL_HAT_*` values.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickHat")]
+		[return: NativeName(NativeNameType.Type, "Uint8")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetJoystickHatNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[685])(joystick, hat);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[685])((nint)joystick, hat);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a POV hat on a joystick.<br/>
+		/// The returned value will be one of the `SDL_HAT_*` values.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickHat")]
+		[return: NativeName(NativeNameType.Type, "Uint8")]
+		public static byte GetJoystickHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
+		{
+			byte ret = GetJoystickHatNative((SDLJoystick*)joystick, hat);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of a POV hat on a joystick.<br/>
+		/// The returned value will be one of the `SDL_HAT_*` values.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickHat")]
+		[return: NativeName(NativeNameType.Type, "Uint8")]
+		public static byte GetJoystickHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = GetJoystickHatNative((SDLJoystick*)pjoystick, hat);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetJoystickButtonNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)funcTable[686])(joystick, button);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[686])((nint)joystick, button);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
+		{
+			byte ret = GetJoystickButtonNative((SDLJoystick*)joystick, button);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the current state of a button on a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickButton")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetJoystickButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = GetJoystickButtonNative((SDLJoystick*)pjoystick, button);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Start a rumble effect.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleJoystick")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RumbleJoystickNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort, ushort, uint, byte>)funcTable[687])(joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, byte>)funcTable[687])((nint)joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			#endif
+		}
+
+		/// <summary>
+		/// Start a rumble effect.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleJoystick")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RumbleJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			byte ret = RumbleJoystickNative((SDLJoystick*)joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Start a rumble effect.<br/>
+		/// Each call to this function cancels any previous rumble effect, and calling<br/>
+		/// it with 0 intensity stops any rumbling.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleJoystick")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RumbleJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = RumbleJoystickNative((SDLJoystick*)pjoystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the joystick's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use SDL_RumbleJoystick()<br/>
+		/// instead.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleJoystickTriggers")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RumbleJoystickTriggersNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort, ushort, uint, byte>)funcTable[688])(joystick, leftRumble, rightRumble, durationMs);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, ushort, ushort, uint, byte>)funcTable[688])((nint)joystick, leftRumble, rightRumble, durationMs);
+			#endif
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the joystick's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use SDL_RumbleJoystick()<br/>
+		/// instead.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleJoystickTriggers")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RumbleJoystickTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			byte ret = RumbleJoystickTriggersNative((SDLJoystick*)joystick, leftRumble, rightRumble, durationMs);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Start a rumble effect in the joystick's triggers.<br/>
+		/// Each call to this function cancels any previous trigger rumble effect, and<br/>
+		/// calling it with 0 intensity stops any rumbling.<br/>
+		/// Note that this is rumbling of the _triggers_ and not the game controller as<br/>
+		/// a whole. This is currently only supported on Xbox One controllers. If you<br/>
+		/// want the (more common) whole-controller rumble, use SDL_RumbleJoystick()<br/>
+		/// instead.<br/>
+		/// This function requires you to process SDL events or call<br/>
+		/// SDL_UpdateJoysticks() to update rumble state.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RumbleJoystickTriggers")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RumbleJoystickTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = RumbleJoystickTriggersNative((SDLJoystick*)pjoystick, leftRumble, rightRumble, durationMs);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Update a joystick's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// For joysticks with a single color LED, the maximum of the RGB values will<br/>
+		/// be used as the LED brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickLED")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetJoystickLEDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte, byte, byte, byte>)funcTable[689])(joystick, red, green, blue);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[689])((nint)joystick, red, green, blue);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a joystick's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// For joysticks with a single color LED, the maximum of the RGB values will<br/>
+		/// be used as the LED brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickLED")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		{
+			byte ret = SetJoystickLEDNative((SDLJoystick*)joystick, red, green, blue);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Update a joystick's LED color.<br/>
+		/// An example of a joystick LED is the light on the back of a PlayStation 4's<br/>
+		/// DualShock 4 controller.<br/>
+		/// For joysticks with a single color LED, the maximum of the RGB values will<br/>
+		/// be used as the LED brightness.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetJoystickLED")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetJoystickLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SetJoystickLEDNative((SDLJoystick*)pjoystick, red, green, blue);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SendJoystickEffectNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, void*, int, byte>)funcTable[690])(joystick, data, size);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[690])((nint)joystick, (nint)data, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickEffect([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		{
+			byte ret = SendJoystickEffectNative((SDLJoystick*)joystick, data, size);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickEffect([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SendJoystickEffectNative((SDLJoystick*)pjoystick, data, size);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickEffect([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		{
+			byte ret = SendJoystickEffectNative((SDLJoystick*)joystick, (void*)data, size);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Send a joystick specific effect packet.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SendJoystickEffect")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SendJoystickEffect([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				byte ret = SendJoystickEffectNative((SDLJoystick*)pjoystick, (void*)data, size);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Close a joystick previously opened with SDL_OpenJoystick().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseJoystick")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CloseJoystickNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLJoystick*, void>)funcTable[691])(joystick);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[691])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a joystick previously opened with SDL_OpenJoystick().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseJoystick")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			CloseJoystickNative((SDLJoystick*)joystick);
+		}
+
+		/// <summary>
+		/// Close a joystick previously opened with SDL_OpenJoystick().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseJoystick")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CloseJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				CloseJoystickNative((SDLJoystick*)pjoystick);
+			}
+		}
+
+		/// <summary>
+		/// Get the connection state of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickConnectionState")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickConnectionState")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLJoystickConnectionState GetJoystickConnectionStateNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickConnectionState>)funcTable[692])(joystick);
+			#else
+			return (SDLJoystickConnectionState)((delegate* unmanaged[Cdecl]<nint, SDLJoystickConnectionState>)funcTable[692])((nint)joystick);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the connection state of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickConnectionState")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickConnectionState")]
+		public static SDLJoystickConnectionState GetJoystickConnectionState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick)
+		{
+			SDLJoystickConnectionState ret = GetJoystickConnectionStateNative((SDLJoystick*)joystick);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the connection state of a joystick.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickConnectionState")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickConnectionState")]
+		public static SDLJoystickConnectionState GetJoystickConnectionState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLJoystickConnectionState ret = GetJoystickConnectionStateNative((SDLJoystick*)pjoystick);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the battery state of a joystick.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPowerState GetJoystickPowerInfoNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int*, SDLPowerState>)funcTable[693])(joystick, percent);
+			#else
+			return (SDLPowerState)((delegate* unmanaged[Cdecl]<nint, nint, SDLPowerState>)funcTable[693])((nint)joystick, (nint)percent);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the battery state of a joystick.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetJoystickPowerInfo([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
+		{
+			SDLPowerState ret = GetJoystickPowerInfoNative((SDLJoystick*)joystick, percent);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the battery state of a joystick.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetJoystickPowerInfo([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] int* percent)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				SDLPowerState ret = GetJoystickPowerInfoNative((SDLJoystick*)pjoystick, percent);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the battery state of a joystick.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetJoystickPowerInfo([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] SDLJoystickPtr joystick, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] ref int percent)
+		{
+			fixed (int* ppercent = &percent)
+			{
+				SDLPowerState ret = GetJoystickPowerInfoNative((SDLJoystick*)joystick, (int*)ppercent);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the battery state of a joystick.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetJoystickPowerInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		public static SDLPowerState GetJoystickPowerInfo([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick *")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int *")] ref int percent)
+		{
+			fixed (SDLJoystick* pjoystick = &joystick)
+			{
+				fixed (int* ppercent = &percent)
+				{
+					SDLPowerState ret = GetJoystickPowerInfoNative((SDLJoystick*)pjoystick, (int*)ppercent);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
+		/// Add support for gamepads that SDL is unaware of or change the binding of an<br/>
+		/// existing gamepad.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_GUIDToString(), name is the human readable string for<br/>
+		/// the device and mappings are gamepad mappings to joystick ones. Under<br/>
+		/// Windows there is a reserved GUID of "xinput" that covers all XInput<br/>
+		/// devices. The mapping format for joystick is:<br/>
+		/// - `bX`: a joystick button, index X<br/>
+		/// - `hX.Y`: hat X with value Y<br/>
+		/// - `aX`: axis X of the joystick<br/>
+		/// Buttons can be used as a gamepad axes and vice versa.<br/>
+		/// If a device with this GUID is already plugged in, SDL will generate an<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED event.<br/>
+		/// This string shows an example of a valid mapping for a gamepad:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
 		/// <br/>
 		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte AcquireGPUSwapchainTextureNative(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
+		internal static int AddGamepadMappingNative([NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] byte* mapping)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLWindow*, SDLGPUTexture**, uint*, uint*, byte>)funcTable[909])(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[694])(mapping);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[909])((nint)commandBuffer, (nint)window, (nint)swapchainTexture, (nint)swapchainTextureWidth, (nint)swapchainTextureHeight);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[694])((nint)mapping);
 			#endif
 		}
 
 		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-			{
-				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-			{
-				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-					{
-						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-						{
-							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-			{
-				byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-			{
-				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-					{
-						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-						{
-							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-			{
-				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-				{
-					byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-						{
-							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-						{
-							byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-						{
-							byte ret = AcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Acquire a texture to use in presentation.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it.<br/>
-		/// This function will fill the swapchain texture handle with NULL if too many<br/>
-		/// frames are in flight. This is not an error.<br/>
-		/// If you use this function, it is possible to create a situation where many<br/>
-		/// command buffers are allocated while the rendering context waits for the GPU<br/>
-		/// to catch up, which will cause memory usage to grow. You should use<br/>
-		/// SDL_WaitAndAcquireGPUSwapchainTexture() unless you know what you are doing<br/>
-		/// with timing.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-					{
-						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-						{
-							fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-							{
-								byte ret = AcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitForGPUSwapchainNative(SDLGPUDevice* device, SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLWindow*, byte>)funcTable[910])(device, window);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[910])((nint)device, (nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUSwapchain(SDLGPUDevice* device, SDLWindow* window)
-		{
-			byte ret = WaitForGPUSwapchainNative(device, window);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUSwapchain(ref SDLGPUDevice device, SDLWindow* window)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)pdevice, window);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUSwapchain(SDLGPUDevice* device, ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = WaitForGPUSwapchainNative(device, (SDLWindow*)pwindow);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUSwapchain(ref SDLGPUDevice device, ref SDLWindow window)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = WaitForGPUSwapchainNative((SDLGPUDevice*)pdevice, (SDLWindow*)pwindow);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitAndAcquireGPUSwapchainTextureNative(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLWindow*, SDLGPUTexture**, uint*, uint*, byte>)funcTable[911])(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, byte>)funcTable[911])((nint)commandBuffer, (nint)window, (nint)swapchainTexture, (nint)swapchainTextureWidth, (nint)swapchainTextureHeight);
-			#endif
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-			{
-				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, swapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-			{
-				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, uint* swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-					{
-						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-						{
-							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, swapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-			{
-				byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-			{
-				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, uint* swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-					{
-						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-						{
-							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, swapchainTextureWidth, (uint*)pswapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-			{
-				fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-				{
-					byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, SDLGPUTexture** swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-						{
-							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, swapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-			{
-				fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-				{
-					fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-					{
-						byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, SDLWindow* window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-						{
-							byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, window, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(SDLGPUCommandBuffer* commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-				{
-					fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-					{
-						fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-						{
-							byte ret = WaitAndAcquireGPUSwapchainTextureNative(commandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until a swapchain texture is available to be acquired,<br/>
-		/// and then acquires it.<br/>
-		/// When a swapchain texture is acquired on a command buffer, it will<br/>
-		/// automatically be submitted for presentation when the command buffer is<br/>
-		/// submitted. The swapchain texture should only be referenced by the command<br/>
-		/// buffer used to acquire it. It is an error to call<br/>
-		/// SDL_CancelGPUCommandBuffer() after a swapchain texture is acquired.<br/>
-		/// This function can fill the swapchain texture handle with NULL in certain<br/>
-		/// cases, for example if the window is minimized. This is not an error. You<br/>
-		/// should always make sure to check whether the pointer is NULL before<br/>
-		/// actually using it.<br/>
-		/// The swapchain texture is managed by the implementation and must not be<br/>
-		/// freed by the user. You MUST NOT call this function from any thread other<br/>
-		/// than the one that created the window.<br/>
-		/// The swapchain texture is write-only and cannot be used as a sampler or for<br/>
-		/// another reading operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should only be called from the thread that<br/>
-		/// created the window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitAndAcquireGPUSwapchainTexture(ref SDLGPUCommandBuffer commandBuffer, ref SDLWindow window, ref SDLGPUTexture* swapchainTexture, ref uint swapchainTextureWidth, ref uint swapchainTextureHeight)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				fixed (SDLWindow* pwindow = &window)
-				{
-					fixed (SDLGPUTexture** pswapchainTexture = &swapchainTexture)
-					{
-						fixed (uint* pswapchainTextureWidth = &swapchainTextureWidth)
-						{
-							fixed (uint* pswapchainTextureHeight = &swapchainTextureHeight)
-							{
-								byte ret = WaitAndAcquireGPUSwapchainTextureNative((SDLGPUCommandBuffer*)pcommandBuffer, (SDLWindow*)pwindow, (SDLGPUTexture**)pswapchainTexture, (uint*)pswapchainTextureWidth, (uint*)pswapchainTextureHeight);
-								return ret != 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
-		/// It is invalid to use the command buffer after this is called.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// All commands in the submission are guaranteed to begin executing before any<br/>
-		/// command in a subsequent submission begins executing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SubmitGPUCommandBufferNative(SDLGPUCommandBuffer* commandBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte>)funcTable[912])(commandBuffer);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[912])((nint)commandBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
-		/// It is invalid to use the command buffer after this is called.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// All commands in the submission are guaranteed to begin executing before any<br/>
-		/// command in a subsequent submission begins executing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SubmitGPUCommandBuffer(SDLGPUCommandBuffer* commandBuffer)
-		{
-			byte ret = SubmitGPUCommandBufferNative(commandBuffer);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Submits a command buffer so its commands can be processed on the GPU.<br/>
-		/// It is invalid to use the command buffer after this is called.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// All commands in the submission are guaranteed to begin executing before any<br/>
-		/// command in a subsequent submission begins executing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SubmitGPUCommandBuffer(ref SDLGPUCommandBuffer commandBuffer)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
-			{
-				byte ret = SubmitGPUCommandBufferNative((SDLGPUCommandBuffer*)pcommandBuffer);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
-		/// acquires a fence associated with the command buffer.<br/>
-		/// You must release this fence when it is no longer needed or it will cause a<br/>
-		/// leak. It is invalid to use the command buffer after this is called.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// All commands in the submission are guaranteed to begin executing before any<br/>
-		/// command in a subsequent submission begins executing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFenceNative(SDLGPUCommandBuffer* commandBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, SDLGPUFence*>)funcTable[913])(commandBuffer);
-			#else
-			return (SDLGPUFence*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[913])((nint)commandBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
-		/// acquires a fence associated with the command buffer.<br/>
-		/// You must release this fence when it is no longer needed or it will cause a<br/>
-		/// leak. It is invalid to use the command buffer after this is called.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// All commands in the submission are guaranteed to begin executing before any<br/>
-		/// command in a subsequent submission begins executing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFence(SDLGPUCommandBuffer* commandBuffer)
-		{
-			SDLGPUFence* ret = SubmitGPUCommandBufferAndAcquireFenceNative(commandBuffer);
+		/// Add support for gamepads that SDL is unaware of or change the binding of an<br/>
+		/// existing gamepad.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_GUIDToString(), name is the human readable string for<br/>
+		/// the device and mappings are gamepad mappings to joystick ones. Under<br/>
+		/// Windows there is a reserved GUID of "xinput" that covers all XInput<br/>
+		/// devices. The mapping format for joystick is:<br/>
+		/// - `bX`: a joystick button, index X<br/>
+		/// - `hX.Y`: hat X with value Y<br/>
+		/// - `aX`: axis X of the joystick<br/>
+		/// Buttons can be used as a gamepad axes and vice versa.<br/>
+		/// If a device with this GUID is already plugged in, SDL will generate an<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED event.<br/>
+		/// This string shows an example of a valid mapping for a gamepad:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMapping([NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] byte* mapping)
+		{
+			int ret = AddGamepadMappingNative(mapping);
 			return ret;
 		}
 
 		/// <summary>
-		/// Submits a command buffer so its commands can be processed on the GPU, and<br/>
-		/// acquires a fence associated with the command buffer.<br/>
-		/// You must release this fence when it is no longer needed or it will cause a<br/>
-		/// leak. It is invalid to use the command buffer after this is called.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// All commands in the submission are guaranteed to begin executing before any<br/>
-		/// command in a subsequent submission begins executing.<br/>
+		/// Add support for gamepads that SDL is unaware of or change the binding of an<br/>
+		/// existing gamepad.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_GUIDToString(), name is the human readable string for<br/>
+		/// the device and mappings are gamepad mappings to joystick ones. Under<br/>
+		/// Windows there is a reserved GUID of "xinput" that covers all XInput<br/>
+		/// devices. The mapping format for joystick is:<br/>
+		/// - `bX`: a joystick button, index X<br/>
+		/// - `hX.Y`: hat X with value Y<br/>
+		/// - `aX`: axis X of the joystick<br/>
+		/// Buttons can be used as a gamepad axes and vice versa.<br/>
+		/// If a device with this GUID is already plugged in, SDL will generate an<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED event.<br/>
+		/// This string shows an example of a valid mapping for a gamepad:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLGPUFence* SubmitGPUCommandBufferAndAcquireFence(ref SDLGPUCommandBuffer commandBuffer)
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMapping([NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] in byte mapping)
 		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (byte* pmapping = &mapping)
 			{
-				SDLGPUFence* ret = SubmitGPUCommandBufferAndAcquireFenceNative((SDLGPUCommandBuffer*)pcommandBuffer);
+				int ret = AddGamepadMappingNative((byte*)pmapping);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Cancels a command buffer.<br/>
-		/// None of the enqueued commands are executed.<br/>
-		/// It is an error to call this function after a swapchain texture has been<br/>
-		/// acquired.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// You must not reference the command buffer after calling this function.<br/>
+		/// Add support for gamepads that SDL is unaware of or change the binding of an<br/>
+		/// existing gamepad.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_GUIDToString(), name is the human readable string for<br/>
+		/// the device and mappings are gamepad mappings to joystick ones. Under<br/>
+		/// Windows there is a reserved GUID of "xinput" that covers all XInput<br/>
+		/// devices. The mapping format for joystick is:<br/>
+		/// - `bX`: a joystick button, index X<br/>
+		/// - `hX.Y`: hat X with value Y<br/>
+		/// - `aX`: axis X of the joystick<br/>
+		/// Buttons can be used as a gamepad axes and vice versa.<br/>
+		/// If a device with this GUID is already plugged in, SDL will generate an<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED event.<br/>
+		/// This string shows an example of a valid mapping for a gamepad:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte CancelGPUCommandBufferNative(SDLGPUCommandBuffer* commandBuffer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUCommandBuffer*, byte>)funcTable[914])(commandBuffer);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[914])((nint)commandBuffer);
-			#endif
-		}
-
-		/// <summary>
-		/// Cancels a command buffer.<br/>
-		/// None of the enqueued commands are executed.<br/>
-		/// It is an error to call this function after a swapchain texture has been<br/>
-		/// acquired.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// You must not reference the command buffer after calling this function.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool CancelGPUCommandBuffer(SDLGPUCommandBuffer* commandBuffer)
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMapping([NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> mapping)
 		{
-			byte ret = CancelGPUCommandBufferNative(commandBuffer);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Cancels a command buffer.<br/>
-		/// None of the enqueued commands are executed.<br/>
-		/// It is an error to call this function after a swapchain texture has been<br/>
-		/// acquired.<br/>
-		/// This must be called from the thread the command buffer was acquired on.<br/>
-		/// You must not reference the command buffer after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool CancelGPUCommandBuffer(ref SDLGPUCommandBuffer commandBuffer)
-		{
-			fixed (SDLGPUCommandBuffer* pcommandBuffer = &commandBuffer)
+			fixed (byte* pmapping = mapping)
 			{
-				byte ret = CancelGPUCommandBufferNative((SDLGPUCommandBuffer*)pcommandBuffer);
-				return ret != 0;
+				int ret = AddGamepadMappingNative((byte*)pmapping);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Blocks the thread until the GPU is completely idle.<br/>
+		/// Add support for gamepads that SDL is unaware of or change the binding of an<br/>
+		/// existing gamepad.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_GUIDToString(), name is the human readable string for<br/>
+		/// the device and mappings are gamepad mappings to joystick ones. Under<br/>
+		/// Windows there is a reserved GUID of "xinput" that covers all XInput<br/>
+		/// devices. The mapping format for joystick is:<br/>
+		/// - `bX`: a joystick button, index X<br/>
+		/// - `hX.Y`: hat X with value Y<br/>
+		/// - `aX`: axis X of the joystick<br/>
+		/// Buttons can be used as a gamepad axes and vice versa.<br/>
+		/// If a device with this GUID is already plugged in, SDL will generate an<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED event.<br/>
+		/// This string shows an example of a valid mapping for a gamepad:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitForGPUIdleNative(SDLGPUDevice* device)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte>)funcTable[915])(device);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[915])((nint)device);
-			#endif
-		}
-
-		/// <summary>
-		/// Blocks the thread until the GPU is completely idle.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUIdle(SDLGPUDevice* device)
-		{
-			byte ret = WaitForGPUIdleNative(device);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Blocks the thread until the GPU is completely idle.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool WaitForGPUIdle(ref SDLGPUDevice device)
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMapping([NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] string mapping)
 		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (mapping != null)
 			{
-				byte ret = WaitForGPUIdleNative((SDLGPUDevice*)pdevice);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until the given fences are signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte WaitForGPUFencesNative(SDLGPUDevice* device, byte waitAll, SDLGPUFence** fences, uint numFences)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte, SDLGPUFence**, uint, byte>)funcTable[916])(device, waitAll, fences, numFences);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, uint, byte>)funcTable[916])((nint)device, waitAll, (nint)fences, numFences);
-			#endif
-		}
-
-		/// <summary>
-		/// Blocks the thread until the given fences are signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUFences(SDLGPUDevice* device, bool waitAll, SDLGPUFence** fences, uint numFences)
-		{
-			byte ret = WaitForGPUFencesNative(device, waitAll ? (byte)1 : (byte)0, fences, numFences);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Blocks the thread until the given fences are signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUFences(ref SDLGPUDevice device, bool waitAll, SDLGPUFence** fences, uint numFences)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = WaitForGPUFencesNative((SDLGPUDevice*)pdevice, waitAll ? (byte)1 : (byte)0, fences, numFences);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until the given fences are signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUFences(SDLGPUDevice* device, bool waitAll, ref SDLGPUFence* fences, uint numFences)
-		{
-			fixed (SDLGPUFence** pfences = &fences)
-			{
-				byte ret = WaitForGPUFencesNative(device, waitAll ? (byte)1 : (byte)0, (SDLGPUFence**)pfences, numFences);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Blocks the thread until the given fences are signaled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool WaitForGPUFences(ref SDLGPUDevice device, bool waitAll, ref SDLGPUFence* fences, uint numFences)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUFence** pfences = &fences)
+				pStrSize0 = Utils.GetByteCountUTF8(mapping);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					byte ret = WaitForGPUFencesNative((SDLGPUDevice*)pdevice, waitAll ? (byte)1 : (byte)0, (SDLGPUFence**)pfences, numFences);
-					return ret != 0;
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
-			}
-		}
-
-		/// <summary>
-		/// Checks the status of a fence.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte QueryGPUFenceNative(SDLGPUDevice* device, SDLGPUFence* fence)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUFence*, byte>)funcTable[917])(device, fence);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[917])((nint)device, (nint)fence);
-			#endif
-		}
-
-		/// <summary>
-		/// Checks the status of a fence.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool QueryGPUFence(SDLGPUDevice* device, SDLGPUFence* fence)
-		{
-			byte ret = QueryGPUFenceNative(device, fence);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Checks the status of a fence.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool QueryGPUFence(ref SDLGPUDevice device, SDLGPUFence* fence)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = QueryGPUFenceNative((SDLGPUDevice*)pdevice, fence);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Checks the status of a fence.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool QueryGPUFence(SDLGPUDevice* device, ref SDLGPUFence fence)
-		{
-			fixed (SDLGPUFence* pfence = &fence)
-			{
-				byte ret = QueryGPUFenceNative(device, (SDLGPUFence*)pfence);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Checks the status of a fence.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool QueryGPUFence(ref SDLGPUDevice device, ref SDLGPUFence fence)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUFence* pfence = &fence)
+				else
 				{
-					byte ret = QueryGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)pfence);
-					return ret != 0;
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
 				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(mapping, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-		}
-
-		/// <summary>
-		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
-		/// You must not reference the fence after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ReleaseGPUFenceNative(SDLGPUDevice* device, SDLGPUFence* fence)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUFence*, void>)funcTable[918])(device, fence);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[918])((nint)device, (nint)fence);
-			#endif
-		}
-
-		/// <summary>
-		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
-		/// You must not reference the fence after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUFence(SDLGPUDevice* device, SDLGPUFence* fence)
-		{
-			ReleaseGPUFenceNative(device, fence);
-		}
-
-		/// <summary>
-		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
-		/// You must not reference the fence after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUFence(ref SDLGPUDevice device, SDLGPUFence* fence)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
+			int ret = AddGamepadMappingNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				ReleaseGPUFenceNative((SDLGPUDevice*)pdevice, fence);
+				Utils.Free(pStr0);
 			}
-		}
-
-		/// <summary>
-		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
-		/// You must not reference the fence after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUFence(SDLGPUDevice* device, ref SDLGPUFence fence)
-		{
-			fixed (SDLGPUFence* pfence = &fence)
-			{
-				ReleaseGPUFenceNative(device, (SDLGPUFence*)pfence);
-			}
-		}
-
-		/// <summary>
-		/// Releases a fence obtained from SDL_SubmitGPUCommandBufferAndAcquireFence.<br/>
-		/// You must not reference the fence after calling this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ReleaseGPUFence(ref SDLGPUDevice device, ref SDLGPUFence fence)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				fixed (SDLGPUFence* pfence = &fence)
-				{
-					ReleaseGPUFenceNative((SDLGPUDevice*)pdevice, (SDLGPUFence*)pfence);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Obtains the texel block size for a texture format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GPUTextureFormatTexelBlockSizeNative(SDLGPUTextureFormat format)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint>)funcTable[919])(format);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint>)funcTable[919])(format);
-			#endif
-		}
-
-		/// <summary>
-		/// Obtains the texel block size for a texture format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GPUTextureFormatTexelBlockSize(SDLGPUTextureFormat format)
-		{
-			uint ret = GPUTextureFormatTexelBlockSizeNative(format);
 			return ret;
 		}
 
 		/// <summary>
-		/// Determines whether a texture format is supported for a given type and<br/>
-		/// usage.<br/>
+		/// Load a set of gamepad mappings from an SDL_IOStream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known gamepad GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Any new mappings for already plugged in controllers will generate<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED events.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMappingsFromIO")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GPUTextureSupportsFormatNative(SDLGPUDevice* device, SDLGPUTextureFormat format, SDLGPUTextureType type, SDLGPUTextureUsageFlags usage)
+		internal static int AddGamepadMappingsFromIONative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureFormat, SDLGPUTextureType, SDLGPUTextureUsageFlags, byte>)funcTable[920])(device, format, type, usage);
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, int>)funcTable[695])(src, closeio);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGPUTextureFormat, SDLGPUTextureType, SDLGPUTextureUsageFlags, byte>)funcTable[920])((nint)device, format, type, usage);
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[695])((nint)src, closeio);
 			#endif
 		}
 
 		/// <summary>
-		/// Determines whether a texture format is supported for a given type and<br/>
-		/// usage.<br/>
+		/// Load a set of gamepad mappings from an SDL_IOStream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known gamepad GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Any new mappings for already plugged in controllers will generate<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED events.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GPUTextureSupportsFormat(SDLGPUDevice* device, SDLGPUTextureFormat format, SDLGPUTextureType type, SDLGPUTextureUsageFlags usage)
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMappingsFromIO")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMappingsFromIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
 		{
-			byte ret = GPUTextureSupportsFormatNative(device, format, type, usage);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determines whether a texture format is supported for a given type and<br/>
-		/// usage.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GPUTextureSupportsFormat(ref SDLGPUDevice device, SDLGPUTextureFormat format, SDLGPUTextureType type, SDLGPUTextureUsageFlags usage)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = GPUTextureSupportsFormatNative((SDLGPUDevice*)pdevice, format, type, usage);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Determines if a sample count for a texture format is supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GPUTextureSupportsSampleCountNative(SDLGPUDevice* device, SDLGPUTextureFormat format, SDLGPUSampleCount sampleCount)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUTextureFormat, SDLGPUSampleCount, byte>)funcTable[921])(device, format, sampleCount);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLGPUTextureFormat, SDLGPUSampleCount, byte>)funcTable[921])((nint)device, format, sampleCount);
-			#endif
-		}
-
-		/// <summary>
-		/// Determines if a sample count for a texture format is supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GPUTextureSupportsSampleCount(SDLGPUDevice* device, SDLGPUTextureFormat format, SDLGPUSampleCount sampleCount)
-		{
-			byte ret = GPUTextureSupportsSampleCountNative(device, format, sampleCount);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Determines if a sample count for a texture format is supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GPUTextureSupportsSampleCount(ref SDLGPUDevice device, SDLGPUTextureFormat format, SDLGPUSampleCount sampleCount)
-		{
-			fixed (SDLGPUDevice* pdevice = &device)
-			{
-				byte ret = GPUTextureSupportsSampleCountNative((SDLGPUDevice*)pdevice, format, sampleCount);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the size in bytes of a texture format with dimensions.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint CalculateGPUTextureFormatSizeNative(SDLGPUTextureFormat format, uint width, uint height, uint depthOrLayerCount)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint, uint, uint, uint>)funcTable[922])(format, width, height, depthOrLayerCount);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<SDLGPUTextureFormat, uint, uint, uint, uint>)funcTable[922])(format, width, height, depthOrLayerCount);
-			#endif
-		}
-
-		/// <summary>
-		/// Calculate the size in bytes of a texture format with dimensions.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint CalculateGPUTextureFormatSize(SDLGPUTextureFormat format, uint width, uint height, uint depthOrLayerCount)
-		{
-			uint ret = CalculateGPUTextureFormatSizeNative(format, width, height, depthOrLayerCount);
+			int ret = AddGamepadMappingsFromIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a list of currently connected haptic devices.<br/>
+		/// Load a set of gamepad mappings from an SDL_IOStream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known gamepad GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Any new mappings for already plugged in controllers will generate<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED events.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMappingsFromIO")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMappingsFromIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				int ret = AddGamepadMappingsFromIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load a set of gamepad mappings from a file.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known gamepad GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Any new mappings for already plugged in controllers will generate<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED events.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMappingsFromFile")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint* GetHapticsNative(int* count)
+		internal static int AddGamepadMappingsFromFileNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, uint*>)funcTable[923])(count);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[696])(file);
 			#else
-			return (uint*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[923])((nint)count);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[696])((nint)file);
 			#endif
 		}
 
 		/// <summary>
-		/// Get a list of currently connected haptic devices.<br/>
+		/// Load a set of gamepad mappings from a file.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known gamepad GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Any new mappings for already plugged in controllers will generate<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED events.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint* GetHaptics(int* count)
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMappingsFromFile")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMappingsFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file)
 		{
-			uint* ret = GetHapticsNative(count);
+			int ret = AddGamepadMappingsFromFileNative(file);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a list of currently connected haptic devices.<br/>
+		/// Load a set of gamepad mappings from a file.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known gamepad GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Any new mappings for already plugged in controllers will generate<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED events.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint* GetHaptics(ref int count)
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMappingsFromFile")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMappingsFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file)
+		{
+			fixed (byte* pfile = &file)
+			{
+				int ret = AddGamepadMappingsFromFileNative((byte*)pfile);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load a set of gamepad mappings from a file.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known gamepad GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Any new mappings for already plugged in controllers will generate<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED events.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMappingsFromFile")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMappingsFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file)
+		{
+			fixed (byte* pfile = file)
+			{
+				int ret = AddGamepadMappingsFromFileNative((byte*)pfile);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Load a set of gamepad mappings from a file.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known gamepad GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Any new mappings for already plugged in controllers will generate<br/>
+		/// SDL_EVENT_GAMEPAD_ADDED events.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddGamepadMappingsFromFile")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddGamepadMappingsFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = AddGamepadMappingsFromFileNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Reinitialize the SDL mapping database to its initial state.<br/>
+		/// This will generate gamepad events as needed if device mappings change.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReloadGamepadMappings")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ReloadGamepadMappingsNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[697])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[697])();
+			#endif
+		}
+
+		/// <summary>
+		/// Reinitialize the SDL mapping database to its initial state.<br/>
+		/// This will generate gamepad events as needed if device mappings change.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReloadGamepadMappings")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ReloadGamepadMappings()
+		{
+			byte ret = ReloadGamepadMappingsNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the current gamepad mappings.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappings")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte** GetGamepadMappingsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, byte**>)funcTable[698])(count);
+			#else
+			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[698])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current gamepad mappings.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappings")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GetGamepadMappings([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte** ret = GetGamepadMappingsNative(count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current gamepad mappings.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappings")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GetGamepadMappings([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
 			fixed (int* pcount = &count)
 			{
-				uint* ret = GetHapticsNative((int*)pcount);
+				byte** ret = GetGamepadMappingsNative((int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// This can be called before any haptic devices are opened.<br/>
+		/// Get the gamepad mapping string for a given GUID.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappingForGUID")]
+		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetHapticNameForIDNative(uint instanceId)
+		internal static byte* GetGamepadMappingForGUIDNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[924])(instanceId);
+			return ((delegate* unmanaged[Cdecl]<SdlGuid, byte*>)funcTable[699])(guid);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[924])(instanceId);
+			return (byte*)((delegate* unmanaged[Cdecl]<SdlGuid, nint>)funcTable[699])(guid);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// This can be called before any haptic devices are opened.<br/>
+		/// Get the gamepad mapping string for a given GUID.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static byte* GetHapticNameForID(uint instanceId)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappingForGUID")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetGamepadMappingForGUID([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid)
 		{
-			byte* ret = GetHapticNameForIDNative(instanceId);
+			byte* ret = GetGamepadMappingForGUIDNative(guid);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// This can be called before any haptic devices are opened.<br/>
+		/// Get the gamepad mapping string for a given GUID.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetHapticNameForIDS(uint instanceId)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappingForGUID")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetGamepadMappingForGUIDS([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid)
 		{
-			string ret = Utils.DecodeStringUTF8(GetHapticNameForIDNative(instanceId));
+			string ret = Utils.DecodeStringUTF8(GetGamepadMappingForGUIDNative(guid));
 			return ret;
 		}
 
 		/// <summary>
-		/// Open a haptic device for use.<br/>
-		/// The index passed as an argument refers to the N'th haptic device on this<br/>
-		/// system.<br/>
-		/// When opening a haptic device, its gain will be set to maximum and<br/>
-		/// autocenter will be disabled. To modify these values use SDL_SetHapticGain()<br/>
-		/// and SDL_SetHapticAutocenter().<br/>
+		/// Get the current mapping of a gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "char *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHaptic* OpenHapticNative(uint instanceId)
+		internal static byte* GetGamepadMappingNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLHaptic*>)funcTable[925])(instanceId);
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, byte*>)funcTable[700])(gamepad);
 			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[925])(instanceId);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[700])((nint)gamepad);
 			#endif
 		}
 
 		/// <summary>
-		/// Open a haptic device for use.<br/>
-		/// The index passed as an argument refers to the N'th haptic device on this<br/>
-		/// system.<br/>
-		/// When opening a haptic device, its gain will be set to maximum and<br/>
-		/// autocenter will be disabled. To modify these values use SDL_SetHapticGain()<br/>
-		/// and SDL_SetHapticAutocenter().<br/>
+		/// Get the current mapping of a gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLHaptic* OpenHaptic(uint instanceId)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetGamepadMapping([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepadPtr gamepad)
 		{
-			SDLHaptic* ret = OpenHapticNative(instanceId);
+			byte* ret = GetGamepadMappingNative((SDLGamepad*)gamepad);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the SDL_Haptic associated with an instance ID, if it has been opened.<br/>
+		/// Get the current mapping of a gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHaptic* GetHapticFromIDNative(uint instanceId)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetGamepadMappingS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepadPtr gamepad)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLHaptic*>)funcTable[926])(instanceId);
-			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[926])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_Haptic associated with an instance ID, if it has been opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHaptic* GetHapticFromID(uint instanceId)
-		{
-			SDLHaptic* ret = GetHapticFromIDNative(instanceId);
+			string ret = Utils.DecodeStringUTF8(GetGamepadMappingNative((SDLGamepad*)gamepad));
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the instance ID of an opened haptic device.<br/>
+		/// Get the current mapping of a gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetHapticIDNative(SDLHaptic* haptic)
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetGamepadMapping([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[927])(haptic);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[927])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the instance ID of an opened haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetHapticID(SDLHaptic* haptic)
-		{
-			uint ret = GetHapticIDNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the instance ID of an opened haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetHapticID(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
+			fixed (SDLGamepad* pgamepad = &gamepad)
 			{
-				uint ret = GetHapticIDNative((SDLHaptic*)phaptic);
+				byte* ret = GetGamepadMappingNative((SDLGamepad*)pgamepad);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
+		/// Get the current mapping of a gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetGamepadMappingS([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				string ret = Utils.DecodeStringUTF8(GetGamepadMappingNative((SDLGamepad*)pgamepad));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the current mapping of a joystick or gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetHapticNameNative(SDLHaptic* haptic)
+		internal static byte SetGamepadMappingNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] byte* mapping)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, byte*>)funcTable[928])(haptic);
+			return ((delegate* unmanaged[Cdecl]<int, byte*, byte>)funcTable[701])(instanceId, mapping);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[928])((nint)haptic);
+			return (byte)((delegate* unmanaged[Cdecl]<int, nint, byte>)funcTable[701])(instanceId, (nint)mapping);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
+		/// Set the current mapping of a joystick or gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHapticName(SDLHaptic* haptic)
-		{
-			byte* ret = GetHapticNameNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static string GetHapticNameS(SDLHaptic* haptic)
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGamepadMapping([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] byte* mapping)
 		{
-			string ret = Utils.DecodeStringUTF8(GetHapticNameNative(haptic));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHapticName(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				byte* ret = GetHapticNameNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHapticNameS(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHapticNameNative((SDLHaptic*)phaptic));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether or not the current mouse has haptic capabilities.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte IsMouseHapticNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[929])();
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[929])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether or not the current mouse has haptic capabilities.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool IsMouseHaptic()
-		{
-			byte ret = IsMouseHapticNative();
+			byte ret = SetGamepadMappingNative(instanceId, mapping);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Try to open a haptic device from the current mouse.<br/>
+		/// Set the current mapping of a joystick or gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHaptic* OpenHapticFromMouseNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*>)funcTable[930])();
-			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint>)funcTable[930])();
-			#endif
-		}
-
-		/// <summary>
-		/// Try to open a haptic device from the current mouse.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLHaptic* OpenHapticFromMouse()
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGamepadMapping([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] in byte mapping)
 		{
-			SDLHaptic* ret = OpenHapticFromMouseNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Query if a joystick has haptic features.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte IsJoystickHapticNative(SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte>)funcTable[931])(joystick);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[931])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Query if a joystick has haptic features.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool IsJoystickHaptic(SDLJoystick* joystick)
-		{
-			byte ret = IsJoystickHapticNative(joystick);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query if a joystick has haptic features.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool IsJoystickHaptic(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte* pmapping = &mapping)
 			{
-				byte ret = IsJoystickHapticNative((SDLJoystick*)pjoystick);
+				byte ret = SetGamepadMappingNative(instanceId, (byte*)pmapping);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Open a haptic device for use from a joystick device.<br/>
-		/// You must still close the haptic device separately. It will not be closed<br/>
-		/// with the joystick.<br/>
-		/// When opened from a joystick you should first close the haptic device before<br/>
-		/// closing the joystick device. If not, on some implementations the haptic<br/>
-		/// device will also get unallocated and you'll be unable to use force feedback<br/>
-		/// on that device.<br/>
+		/// Set the current mapping of a joystick or gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHaptic* OpenHapticFromJoystickNative(SDLJoystick* joystick)
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGamepadMapping([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> mapping)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLHaptic*>)funcTable[932])(joystick);
-			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[932])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a haptic device for use from a joystick device.<br/>
-		/// You must still close the haptic device separately. It will not be closed<br/>
-		/// with the joystick.<br/>
-		/// When opened from a joystick you should first close the haptic device before<br/>
-		/// closing the joystick device. If not, on some implementations the haptic<br/>
-		/// device will also get unallocated and you'll be unable to use force feedback<br/>
-		/// on that device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHaptic* OpenHapticFromJoystick(SDLJoystick* joystick)
-		{
-			SDLHaptic* ret = OpenHapticFromJoystickNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a haptic device for use from a joystick device.<br/>
-		/// You must still close the haptic device separately. It will not be closed<br/>
-		/// with the joystick.<br/>
-		/// When opened from a joystick you should first close the haptic device before<br/>
-		/// closing the joystick device. If not, on some implementations the haptic<br/>
-		/// device will also get unallocated and you'll be unable to use force feedback<br/>
-		/// on that device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLHaptic* OpenHapticFromJoystick(ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
+			fixed (byte* pmapping = mapping)
 			{
-				SDLHaptic* ret = OpenHapticFromJoystickNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CloseHapticNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHaptic*, void>)funcTable[933])(haptic);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[933])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CloseHaptic(SDLHaptic* haptic)
-		{
-			CloseHapticNative(haptic);
-		}
-
-		/// <summary>
-		/// Close a haptic device previously opened with SDL_OpenHaptic().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CloseHaptic(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				CloseHapticNative((SDLHaptic*)phaptic);
-			}
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetMaxHapticEffectsNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[934])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[934])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetMaxHapticEffects(SDLHaptic* haptic)
-		{
-			int ret = GetMaxHapticEffectsNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_GetMaxHapticEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetMaxHapticEffects(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = GetMaxHapticEffectsNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetMaxHapticEffectsPlayingNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[935])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[935])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetMaxHapticEffectsPlaying(SDLHaptic* haptic)
-		{
-			int ret = GetMaxHapticEffectsPlayingNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetMaxHapticEffectsPlaying(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = GetMaxHapticEffectsPlayingNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetHapticFeaturesNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[936])(haptic);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[936])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetHapticFeatures(SDLHaptic* haptic)
-		{
-			uint ret = GetHapticFeaturesNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetHapticFeatures(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				uint ret = GetHapticFeaturesNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumHapticAxesNative(SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[937])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[937])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumHapticAxes(SDLHaptic* haptic)
-		{
-			int ret = GetNumHapticAxesNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetNumHapticAxes(ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = GetNumHapticAxesNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte HapticEffectSupportedNative(SDLHaptic* haptic, SDLHapticEffect* effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, byte>)funcTable[938])(haptic, effect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[938])((nint)haptic, (nint)effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HapticEffectSupported(SDLHaptic* haptic, SDLHapticEffect* effect)
-		{
-			byte ret = HapticEffectSupportedNative(haptic, effect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HapticEffectSupported(ref SDLHaptic haptic, SDLHapticEffect* effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				byte ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, effect);
+				byte ret = SetGamepadMappingNative(instanceId, (byte*)pmapping);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// Set the current mapping of a joystick or gamepad.<br/>
+		/// Details about mappings are discussed with SDL_AddGamepadMapping().<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool HapticEffectSupported(SDLHaptic* haptic, ref SDLHapticEffect effect)
-		{
-			fixed (SDLHapticEffect* peffect = &effect)
-			{
-				byte ret = HapticEffectSupportedNative(haptic, (SDLHapticEffect*)peffect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool HapticEffectSupported(ref SDLHaptic haptic, ref SDLHapticEffect effect)
+		[NativeName(NativeNameType.Func, "SDL_SetGamepadMapping")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetGamepadMapping([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "char const *")] string mapping)
 		{
-			fixed (SDLHaptic* phaptic = &haptic)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (mapping != null)
 			{
-				fixed (SDLHapticEffect* peffect = &effect)
+				pStrSize0 = Utils.GetByteCountUTF8(mapping);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					byte ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
-					return ret != 0;
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(mapping, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
+			byte ret = SetGamepadMappingNative(instanceId, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
+		/// Return whether a gamepad is currently connected.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_HasGamepad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int CreateHapticEffectNative(SDLHaptic* haptic, SDLHapticEffect* effect)
+		internal static byte HasGamepadNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[939])(haptic, effect);
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[702])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[939])((nint)haptic, (nint)effect);
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[702])();
 			#endif
 		}
 
 		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
+		/// Return whether a gamepad is currently connected.<br/>
 		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int CreateHapticEffect(SDLHaptic* haptic, SDLHapticEffect* effect)
+		[NativeName(NativeNameType.Func, "SDL_HasGamepad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool HasGamepad()
 		{
-			int ret = CreateHapticEffectNative(haptic, effect);
+			byte ret = HasGamepadNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected gamepads.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepads")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int* GetGamepadsNative([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, int*>)funcTable[703])(count);
+			#else
+			return (int*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[703])((nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of currently connected gamepads.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepads")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
+		public static int* GetGamepads([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			int* ret = GetGamepadsNative(count);
 			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of currently connected gamepads.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepads")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID *")]
+		public static int* GetGamepads([NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (int* pcount = &count)
+			{
+				int* ret = GetGamepadsNative((int*)pcount);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Check if the given joystick is supported by the gamepad interface.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsGamepad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte IsGamepadNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte>)funcTable[704])(instanceId);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, byte>)funcTable[704])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Check if the given joystick is supported by the gamepad interface.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IsGamepad")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool IsGamepad([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			byte ret = IsGamepadNative(instanceId);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGamepadNameForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[705])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[705])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGamepadNameForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			byte* ret = GetGamepadNameForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent name of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadNameForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGamepadNameForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGamepadNameForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadPathForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGamepadPathForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[706])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[706])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadPathForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGamepadPathForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			byte* ret = GetGamepadPathForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation dependent path of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadPathForID")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGamepadPathForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGamepadPathForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the player index of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadPlayerIndexForID")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetGamepadPlayerIndexForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[707])(instanceId);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[707])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the player index of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadPlayerIndexForID")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetGamepadPlayerIndexForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			int ret = GetGamepadPlayerIndexForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadGUIDForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SdlGuid GetGamepadGUIDForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SdlGuid>)funcTable[708])(instanceId);
+			#else
+			return (SdlGuid)((delegate* unmanaged[Cdecl]<int, SdlGuid>)funcTable[708])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the implementation-dependent GUID of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadGUIDForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		public static SdlGuid GetGamepadGUIDForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SdlGuid ret = GetGamepadGUIDForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of a gamepad, if available.<br/>
+		/// This can be called before any gamepads are opened. If the vendor ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadVendorForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetGamepadVendorForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[709])(instanceId);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[709])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB vendor ID of a gamepad, if available.<br/>
+		/// This can be called before any gamepads are opened. If the vendor ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadVendorForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetGamepadVendorForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			ushort ret = GetGamepadVendorForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the USB product ID of a gamepad, if available.<br/>
+		/// This can be called before any gamepads are opened. If the product ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadProductForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetGamepadProductForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[710])(instanceId);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[710])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the USB product ID of a gamepad, if available.<br/>
+		/// This can be called before any gamepads are opened. If the product ID isn't<br/>
+		/// available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadProductForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetGamepadProductForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			ushort ret = GetGamepadProductForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the product version of a gamepad, if available.<br/>
+		/// This can be called before any gamepads are opened. If the product version<br/>
+		/// isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadProductVersionForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort GetGamepadProductVersionForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[711])(instanceId);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[711])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the product version of a gamepad, if available.<br/>
+		/// This can be called before any gamepads are opened. If the product version<br/>
+		/// isn't available this function returns 0.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadProductVersionForID")]
+		[return: NativeName(NativeNameType.Type, "Uint16")]
+		public static ushort GetGamepadProductVersionForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			ushort ret = GetGamepadProductVersionForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGamepadType GetGamepadTypeForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLGamepadType>)funcTable[712])(instanceId);
+			#else
+			return (SDLGamepadType)((delegate* unmanaged[Cdecl]<int, SDLGamepadType>)funcTable[712])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadType")]
+		public static SDLGamepadType GetGamepadTypeForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLGamepadType ret = GetGamepadTypeForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the type of a gamepad, ignoring any mapping override.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRealGamepadTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGamepadType GetRealGamepadTypeForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLGamepadType>)funcTable[713])(instanceId);
+			#else
+			return (SDLGamepadType)((delegate* unmanaged[Cdecl]<int, SDLGamepadType>)funcTable[713])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the type of a gamepad, ignoring any mapping override.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetRealGamepadTypeForID")]
+		[return: NativeName(NativeNameType.Type, "SDL_GamepadType")]
+		public static SDLGamepadType GetRealGamepadTypeForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLGamepadType ret = GetRealGamepadTypeForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the mapping of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappingForID")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGamepadMappingForIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[714])(instanceId);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[714])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the mapping of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappingForID")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetGamepadMappingForID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			byte* ret = GetGamepadMappingForIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the mapping of a gamepad.<br/>
+		/// This can be called before any gamepads are opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadMappingForID")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetGamepadMappingForIDS([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGamepadMappingForIDNative(instanceId));
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a gamepad for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenGamepad")]
+		[return: NativeName(NativeNameType.Type, "SDL_Gamepad *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGamepad* OpenGamepadNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLGamepad*>)funcTable[715])(instanceId);
+			#else
+			return (SDLGamepad*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[715])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a gamepad for use.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenGamepad")]
+		[return: NativeName(NativeNameType.Type, "SDL_Gamepad *")]
+		public static SDLGamepadPtr OpenGamepad([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLGamepadPtr ret = OpenGamepadNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Gamepad associated with a joystick instance ID, if it has been<br/>
+		/// opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Gamepad *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGamepad* GetGamepadFromIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLGamepad*>)funcTable[716])(instanceId);
+			#else
+			return (SDLGamepad*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[716])(instanceId);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Gamepad associated with a joystick instance ID, if it has been<br/>
+		/// opened.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Gamepad *")]
+		public static SDLGamepadPtr GetGamepadFromID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
+		{
+			SDLGamepadPtr ret = GetGamepadFromIDNative(instanceId);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the SDL_Gamepad associated with a player index.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadFromPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "SDL_Gamepad *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGamepad* GetGamepadFromPlayerIndexNative([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLGamepad*>)funcTable[717])(playerIndex);
+			#else
+			return (SDLGamepad*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[717])(playerIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the SDL_Gamepad associated with a player index.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadFromPlayerIndex")]
+		[return: NativeName(NativeNameType.Type, "SDL_Gamepad *")]
+		public static SDLGamepadPtr GetGamepadFromPlayerIndex([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		{
+			SDLGamepadPtr ret = GetGamepadFromPlayerIndexNative(playerIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with an opened gamepad.<br/>
+		/// These properties are shared with the underlying joystick object.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN`: true if this gamepad has an LED<br/>
+		/// that has adjustable brightness<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN`: true if this gamepad has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN`: true if this gamepad has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN`: true if this gamepad has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this gamepad has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetGamepadPropertiesNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, uint>)funcTable[718])(gamepad);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[718])((nint)gamepad);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with an opened gamepad.<br/>
+		/// These properties are shared with the underlying joystick object.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN`: true if this gamepad has an LED<br/>
+		/// that has adjustable brightness<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN`: true if this gamepad has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN`: true if this gamepad has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN`: true if this gamepad has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this gamepad has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetGamepadProperties([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepadPtr gamepad)
+		{
+			uint ret = GetGamepadPropertiesNative((SDLGamepad*)gamepad);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with an opened gamepad.<br/>
+		/// These properties are shared with the underlying joystick object.<br/>
+		/// The following read-only properties are provided by SDL:<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN`: true if this gamepad has an LED<br/>
+		/// that has adjustable brightness<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN`: true if this gamepad has an LED<br/>
+		/// that has adjustable color<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN`: true if this gamepad has a<br/>
+		/// player LED<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN`: true if this gamepad has<br/>
+		/// left/right rumble<br/>
+		/// - `SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN`: true if this gamepad has<br/>
+		/// simple trigger rumble<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetGamepadProperties([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] ref SDLGamepad gamepad)
+		{
+			fixed (SDLGamepad* pgamepad = &gamepad)
+			{
+				uint ret = GetGamepadPropertiesNative((SDLGamepad*)pgamepad);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the instance ID of an opened gamepad.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGamepadID")]
+		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetGamepadIDNative([NativeName(NativeNameType.Param, "gamepad")] [NativeName(NativeNameType.Type, "SDL_Gamepad *")] SDLGamepad* gamepad)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGamepad*, int>)funcTable[719])(gamepad);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[719])((nint)gamepad);
+			#endif
 		}
 	}
 }

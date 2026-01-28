@@ -45,56 +45,87 @@ namespace Hexa.NET.SDL3
 	/// This is often a good option for depth/stencil textures that don't need to<br/>
 	/// be reused again.<br/>
 	/// Note that depth/stencil targets do not support multisample resolves.<br/>
+	/// Due to ABI limitations, depth textures with more than 255 layers are not<br/>
+	/// supported.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUDepthStencilTargetInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUDepthStencilTargetInfo
 	{
 		/// <summary>
 		/// The texture that will be used as the depth stencil target by the render pass. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "texture")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The value to clear the depth component to at the beginning of the render pass. Ignored if SDL_GPU_LOADOP_CLEAR is not used. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "clear_depth")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float ClearDepth;
 
 		/// <summary>
 		/// What is done with the depth contents at the beginning of the render pass. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "load_op")]
+		[NativeName(NativeNameType.Type, "SDL_GPULoadOp")]
 		public SDLGPULoadOp LoadOp;
 
 		/// <summary>
 		/// What is done with the depth results of the render pass. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "store_op")]
+		[NativeName(NativeNameType.Type, "SDL_GPUStoreOp")]
 		public SDLGPUStoreOp StoreOp;
 
 		/// <summary>
 		/// What is done with the stencil contents at the beginning of the render pass. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "stencil_load_op")]
+		[NativeName(NativeNameType.Type, "SDL_GPULoadOp")]
 		public SDLGPULoadOp StencilLoadOp;
 
 		/// <summary>
 		/// What is done with the stencil results of the render pass. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "stencil_store_op")]
+		[NativeName(NativeNameType.Type, "SDL_GPUStoreOp")]
 		public SDLGPUStoreOp StencilStoreOp;
 
 		/// <summary>
 		/// true cycles the texture if the texture is bound and any load ops are not LOAD <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "cycle")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Cycle;
 
 		/// <summary>
 		/// The value to clear the stencil component to at the beginning of the render pass. Ignored if SDL_GPU_LOADOP_CLEAR is not used. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "clear_stencil")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte ClearStencil;
 
-		public byte Padding1;
-		public byte Padding2;
+		/// <summary>
+		/// The mip level to use as the depth stencil target. <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "mip_level")]
+		[NativeName(NativeNameType.Type, "Uint8")]
+		public byte MipLevel;
 
-		public unsafe SDLGPUDepthStencilTargetInfo(SDLGPUTexture* texture = default, float clearDepth = default, SDLGPULoadOp loadOp = default, SDLGPUStoreOp storeOp = default, SDLGPULoadOp stencilLoadOp = default, SDLGPUStoreOp stencilStoreOp = default, bool cycle = default, byte clearStencil = default, byte padding1 = default, byte padding2 = default)
+		/// <summary>
+		/// The layer index to use as the depth stencil target. <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "layer")]
+		[NativeName(NativeNameType.Type, "Uint8")]
+		public byte Layer;
+
+
+		public unsafe SDLGPUDepthStencilTargetInfo(SDLGPUTexturePtr texture = default, float clearDepth = default, SDLGPULoadOp loadOp = default, SDLGPUStoreOp storeOp = default, SDLGPULoadOp stencilLoadOp = default, SDLGPUStoreOp stencilStoreOp = default, bool cycle = default, byte clearStencil = default, byte mipLevel = default, byte layer = default)
 		{
 			Texture = texture;
 			ClearDepth = clearDepth;
@@ -104,11 +135,127 @@ namespace Hexa.NET.SDL3
 			StencilStoreOp = stencilStoreOp;
 			Cycle = cycle ? (byte)1 : (byte)0;
 			ClearStencil = clearStencil;
-			Padding1 = padding1;
-			Padding2 = padding2;
+			MipLevel = mipLevel;
+			Layer = layer;
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of a depth-stencil target used by a<br/>
+	/// render pass.<br/>
+	/// The load_op field determines what is done with the depth contents of the<br/>
+	/// texture at the beginning of the render pass.<br/>
+	/// - LOAD: Loads the depth values currently in the texture.<br/>
+	/// - CLEAR: Clears the texture to a single depth.<br/>
+	/// - DONT_CARE: The driver will do whatever it wants with the memory. This is<br/>
+	/// a good option if you know that every single pixel will be touched in the<br/>
+	/// render pass.<br/>
+	/// The store_op field determines what is done with the depth results of the<br/>
+	/// render pass.<br/>
+	/// - STORE: Stores the depth results in the texture.<br/>
+	/// - DONT_CARE: The driver will do whatever it wants with the depth results.<br/>
+	/// This is often a good option for depth/stencil textures that don't need to<br/>
+	/// be reused again.<br/>
+	/// The stencil_load_op field determines what is done with the stencil contents<br/>
+	/// of the texture at the beginning of the render pass.<br/>
+	/// - LOAD: Loads the stencil values currently in the texture.<br/>
+	/// - CLEAR: Clears the stencil values to a single value.<br/>
+	/// - DONT_CARE: The driver will do whatever it wants with the memory. This is<br/>
+	/// a good option if you know that every single pixel will be touched in the<br/>
+	/// render pass.<br/>
+	/// The stencil_store_op field determines what is done with the stencil results<br/>
+	/// of the render pass.<br/>
+	/// - STORE: Stores the stencil results in the texture.<br/>
+	/// - DONT_CARE: The driver will do whatever it wants with the stencil results.<br/>
+	/// This is often a good option for depth/stencil textures that don't need to<br/>
+	/// be reused again.<br/>
+	/// Note that depth/stencil targets do not support multisample resolves.<br/>
+	/// Due to ABI limitations, depth textures with more than 255 layers are not<br/>
+	/// supported.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUDepthStencilTargetInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUDepthStencilTargetInfoPtr : IEquatable<SDLGPUDepthStencilTargetInfoPtr>
+	{
+		public SDLGPUDepthStencilTargetInfoPtr(SDLGPUDepthStencilTargetInfo* handle) { Handle = handle; }
+
+		public SDLGPUDepthStencilTargetInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUDepthStencilTargetInfoPtr Null => new SDLGPUDepthStencilTargetInfoPtr(null);
+
+		public SDLGPUDepthStencilTargetInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUDepthStencilTargetInfoPtr(SDLGPUDepthStencilTargetInfo* handle) => new SDLGPUDepthStencilTargetInfoPtr(handle);
+
+		public static implicit operator SDLGPUDepthStencilTargetInfo*(SDLGPUDepthStencilTargetInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUDepthStencilTargetInfoPtr left, SDLGPUDepthStencilTargetInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUDepthStencilTargetInfoPtr left, SDLGPUDepthStencilTargetInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUDepthStencilTargetInfoPtr left, SDLGPUDepthStencilTargetInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUDepthStencilTargetInfoPtr left, SDLGPUDepthStencilTargetInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUDepthStencilTargetInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUDepthStencilTargetInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUDepthStencilTargetInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The texture that will be used as the depth stencil target by the render pass. <br/>
+		/// </summary>
+		public ref SDLGPUTexturePtr Texture => ref Unsafe.AsRef<SDLGPUTexturePtr>(&Handle->Texture);
+		/// <summary>
+		/// The value to clear the depth component to at the beginning of the render pass. Ignored if SDL_GPU_LOADOP_CLEAR is not used. <br/>
+		/// </summary>
+		public ref float ClearDepth => ref Unsafe.AsRef<float>(&Handle->ClearDepth);
+		/// <summary>
+		/// What is done with the depth contents at the beginning of the render pass. <br/>
+		/// </summary>
+		public ref SDLGPULoadOp LoadOp => ref Unsafe.AsRef<SDLGPULoadOp>(&Handle->LoadOp);
+		/// <summary>
+		/// What is done with the depth results of the render pass. <br/>
+		/// </summary>
+		public ref SDLGPUStoreOp StoreOp => ref Unsafe.AsRef<SDLGPUStoreOp>(&Handle->StoreOp);
+		/// <summary>
+		/// What is done with the stencil contents at the beginning of the render pass. <br/>
+		/// </summary>
+		public ref SDLGPULoadOp StencilLoadOp => ref Unsafe.AsRef<SDLGPULoadOp>(&Handle->StencilLoadOp);
+		/// <summary>
+		/// What is done with the stencil results of the render pass. <br/>
+		/// </summary>
+		public ref SDLGPUStoreOp StencilStoreOp => ref Unsafe.AsRef<SDLGPUStoreOp>(&Handle->StencilStoreOp);
+		/// <summary>
+		/// true cycles the texture if the texture is bound and any load ops are not LOAD <br/>
+		/// </summary>
+		public ref bool Cycle => ref Unsafe.AsRef<bool>(&Handle->Cycle);
+		/// <summary>
+		/// The value to clear the stencil component to at the beginning of the render pass. Ignored if SDL_GPU_LOADOP_CLEAR is not used. <br/>
+		/// </summary>
+		public ref byte ClearStencil => ref Unsafe.AsRef<byte>(&Handle->ClearStencil);
+		/// <summary>
+		/// The mip level to use as the depth stencil target. <br/>
+		/// </summary>
+		public ref byte MipLevel => ref Unsafe.AsRef<byte>(&Handle->MipLevel);
+		/// <summary>
+		/// The layer index to use as the depth stencil target. <br/>
+		/// </summary>
+		public ref byte Layer => ref Unsafe.AsRef<byte>(&Handle->Layer);
 	}
 
 }

@@ -18,6 +18,2535 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormatPtr format, ref byte r, byte* g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				GetRGBNative(pixel, (SDLPixelFormat*)format, (byte*)pr, g, b);
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, in SDLPixelFormat format, ref byte r, byte* g, byte* b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormatPtr format, byte* r, ref byte g, byte* b)
+		{
+			fixed (byte* pg = &g)
+			{
+				GetRGBNative(pixel, (SDLPixelFormat*)format, r, (byte*)pg, b);
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, in SDLPixelFormat format, byte* r, ref byte g, byte* b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormatPtr format, ref byte r, ref byte g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)format, (byte*)pr, (byte*)pg, b);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, in SDLPixelFormat format, ref byte r, ref byte g, byte* b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormatPtr format, byte* r, byte* g, ref byte b)
+		{
+			fixed (byte* pb = &b)
+			{
+				GetRGBNative(pixel, (SDLPixelFormat*)format, r, g, (byte*)pb);
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, in SDLPixelFormat format, byte* r, byte* g, ref byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormatPtr format, ref byte r, byte* g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)format, (byte*)pr, g, (byte*)pb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, in SDLPixelFormat format, ref byte r, byte* g, ref byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormatPtr format, byte* r, ref byte g, ref byte b)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)format, r, (byte*)pg, (byte*)pb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, in SDLPixelFormat format, byte* r, ref byte g, ref byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormatPtr format, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, (SDLPixelFormat*)format, (byte*)pr, (byte*)pg, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, in SDLPixelFormat format, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetRGBANative(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b, byte* a)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, byte*, void>)funcTable[291])(pixel, format, r, g, b, a);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, void>)funcTable[291])(pixel, (nint)format, (nint)r, (nint)g, (nint)b, (nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, byte* r, byte* g, byte* b, byte* a)
+		{
+			GetRGBANative(pixel, (SDLPixelFormat*)format, r, g, b, a);
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, byte* r, byte* g, byte* b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, a);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, ref byte r, byte* g, byte* b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				GetRGBANative(pixel, (SDLPixelFormat*)format, (byte*)pr, g, b, a);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, ref byte r, byte* g, byte* b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, byte* r, ref byte g, byte* b, byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				GetRGBANative(pixel, (SDLPixelFormat*)format, r, (byte*)pg, b, a);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, byte* r, ref byte g, byte* b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, ref byte r, ref byte g, byte* b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)format, (byte*)pr, (byte*)pg, b, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, ref byte r, ref byte g, byte* b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, byte* r, byte* g, ref byte b, byte* a)
+		{
+			fixed (byte* pb = &b)
+			{
+				GetRGBANative(pixel, (SDLPixelFormat*)format, r, g, (byte*)pb, a);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, byte* r, byte* g, ref byte b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, ref byte r, byte* g, ref byte b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)format, (byte*)pr, g, (byte*)pb, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, ref byte r, byte* g, ref byte b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, byte* r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)format, r, (byte*)pg, (byte*)pb, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, byte* r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, ref byte r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)format, (byte*)pr, (byte*)pg, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, ref byte r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, a);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, byte* r, byte* g, byte* b, ref byte a)
+		{
+			fixed (byte* pa = &a)
+			{
+				GetRGBANative(pixel, (SDLPixelFormat*)format, r, g, b, (byte*)pa);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, byte* r, byte* g, byte* b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, ref byte r, byte* g, byte* b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)format, (byte*)pr, g, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, ref byte r, byte* g, byte* b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, byte* r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)format, r, (byte*)pg, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, byte* r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, ref byte r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)format, (byte*)pr, (byte*)pg, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, ref byte r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, byte* r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (byte* pb = &b)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)format, r, g, (byte*)pb, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, byte* r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, ref byte r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)format, (byte*)pr, g, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, ref byte r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, byte* r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)format, r, (byte*)pg, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, byte* r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormatPtr format, ref byte r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)format, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, in SDLPixelFormat format, ref byte r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CalculateGammaRampNative(float gamma, ushort* ramp)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, ushort*, void>)funcTable[292])(gamma, ramp);
+			#else
+			((delegate* unmanaged[Cdecl]<float, nint, void>)funcTable[292])(gamma, (nint)ramp);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CalculateGammaRamp(float gamma, ushort* ramp)
+		{
+			CalculateGammaRampNative(gamma, ramp);
+		}
+
+		/// <summary>
+		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CalculateGammaRamp(float gamma, ref ushort ramp)
+		{
+			fixed (ushort* pramp = &ramp)
+			{
+				CalculateGammaRampNative(gamma, (ushort*)pramp);
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasIntersectionNative(SDLRect* a, SDLRect* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLBool>)funcTable[293])(a, b);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[293])((nint)a, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersection(SDLRectPtr a, SDLRectPtr b)
+		{
+			SDLBool ret = HasIntersectionNative((SDLRect*)a, (SDLRect*)b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersection(in SDLRect a, SDLRectPtr b)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				SDLBool ret = HasIntersectionNative((SDLRect*)pa, (SDLRect*)b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersection(SDLRectPtr a, in SDLRect b)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				SDLBool ret = HasIntersectionNative((SDLRect*)a, (SDLRect*)pb);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersection(in SDLRect a, in SDLRect b)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					SDLBool ret = HasIntersectionNative((SDLRect*)pa, (SDLRect*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IntersectRectNative(SDLRect* a, SDLRect* b, SDLRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, SDLBool>)funcTable[294])(a, b, result);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, SDLBool>)funcTable[294])((nint)a, (nint)b, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(SDLRectPtr a, SDLRectPtr b, SDLRectPtr result)
+		{
+			SDLBool ret = IntersectRectNative((SDLRect*)a, (SDLRect*)b, (SDLRect*)result);
+			return ret;
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(in SDLRect a, SDLRectPtr b, SDLRectPtr result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)b, (SDLRect*)result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(SDLRectPtr a, in SDLRect b, SDLRectPtr result)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				SDLBool ret = IntersectRectNative((SDLRect*)a, (SDLRect*)pb, (SDLRect*)result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(in SDLRect a, in SDLRect b, SDLRectPtr result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)result);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(SDLRectPtr a, SDLRectPtr b, ref SDLRect result)
+		{
+			fixed (SDLRect* presult = &result)
+			{
+				SDLBool ret = IntersectRectNative((SDLRect*)a, (SDLRect*)b, (SDLRect*)presult);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(in SDLRect a, SDLRectPtr b, ref SDLRect result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)b, (SDLRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(SDLRectPtr a, in SDLRect b, ref SDLRect result)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					SDLBool ret = IntersectRectNative((SDLRect*)a, (SDLRect*)pb, (SDLRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(in SDLRect a, in SDLRect b, ref SDLRect result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					fixed (SDLRect* presult = &result)
+					{
+						SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnionRectNative(SDLRect* a, SDLRect* b, SDLRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, void>)funcTable[295])(a, b, result);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[295])((nint)a, (nint)b, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(SDLRectPtr a, SDLRectPtr b, SDLRectPtr result)
+		{
+			UnionRectNative((SDLRect*)a, (SDLRect*)b, (SDLRect*)result);
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(in SDLRect a, SDLRectPtr b, SDLRectPtr result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				UnionRectNative((SDLRect*)pa, (SDLRect*)b, (SDLRect*)result);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(SDLRectPtr a, in SDLRect b, SDLRectPtr result)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				UnionRectNative((SDLRect*)a, (SDLRect*)pb, (SDLRect*)result);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(in SDLRect a, in SDLRect b, SDLRectPtr result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					UnionRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)result);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(SDLRectPtr a, SDLRectPtr b, ref SDLRect result)
+		{
+			fixed (SDLRect* presult = &result)
+			{
+				UnionRectNative((SDLRect*)a, (SDLRect*)b, (SDLRect*)presult);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(in SDLRect a, SDLRectPtr b, ref SDLRect result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					UnionRectNative((SDLRect*)pa, (SDLRect*)b, (SDLRect*)presult);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(SDLRectPtr a, in SDLRect b, ref SDLRect result)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					UnionRectNative((SDLRect*)a, (SDLRect*)pb, (SDLRect*)presult);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(in SDLRect a, in SDLRect b, ref SDLRect result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					fixed (SDLRect* presult = &result)
+					{
+						UnionRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool EnclosePointsNative(SDLPoint* points, int count, SDLRect* clip, SDLRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPoint*, int, SDLRect*, SDLRect*, SDLBool>)funcTable[296])(points, count, clip, result);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, SDLBool>)funcTable[296])((nint)points, count, (nint)clip, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(SDLPointPtr points, int count, SDLRectPtr clip, SDLRectPtr result)
+		{
+			SDLBool ret = EnclosePointsNative((SDLPoint*)points, count, (SDLRect*)clip, (SDLRect*)result);
+			return ret;
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(in SDLPoint points, int count, SDLRectPtr clip, SDLRectPtr result)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)clip, (SDLRect*)result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(SDLPointPtr points, int count, in SDLRect clip, SDLRectPtr result)
+		{
+			fixed (SDLRect* pclip = &clip)
+			{
+				SDLBool ret = EnclosePointsNative((SDLPoint*)points, count, (SDLRect*)pclip, (SDLRect*)result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(in SDLPoint points, int count, in SDLRect clip, SDLRectPtr result)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				fixed (SDLRect* pclip = &clip)
+				{
+					SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, (SDLRect*)result);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(SDLPointPtr points, int count, SDLRectPtr clip, ref SDLRect result)
+		{
+			fixed (SDLRect* presult = &result)
+			{
+				SDLBool ret = EnclosePointsNative((SDLPoint*)points, count, (SDLRect*)clip, (SDLRect*)presult);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(in SDLPoint points, int count, SDLRectPtr clip, ref SDLRect result)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)clip, (SDLRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(SDLPointPtr points, int count, in SDLRect clip, ref SDLRect result)
+		{
+			fixed (SDLRect* pclip = &clip)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					SDLBool ret = EnclosePointsNative((SDLPoint*)points, count, (SDLRect*)pclip, (SDLRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(in SDLPoint points, int count, in SDLRect clip, ref SDLRect result)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				fixed (SDLRect* pclip = &clip)
+				{
+					fixed (SDLRect* presult = &result)
+					{
+						SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, (SDLRect*)presult);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IntersectRectAndLineNative(SDLRect* rect, int* x1, int* y1, int* x2, int* y2)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRect*, int*, int*, int*, int*, SDLBool>)funcTable[297])(rect, x1, y1, x2, y2);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, SDLBool>)funcTable[297])((nint)rect, (nint)x1, (nint)y1, (nint)x2, (nint)y2);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, int* x1, int* y1, int* x2, int* y2)
+		{
+			SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, x1, y1, x2, y2);
+			return ret;
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, int* x1, int* y1, int* x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, ref int x1, int* y1, int* x2, int* y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, (int*)px1, y1, x2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, ref int x1, int* y1, int* x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, int* x1, ref int y1, int* x2, int* y2)
+		{
+			fixed (int* py1 = &y1)
+			{
+				SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, x1, (int*)py1, x2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, int* x1, ref int y1, int* x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py1 = &y1)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, ref int x1, ref int y1, int* x2, int* y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py1 = &y1)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, (int*)px1, (int*)py1, x2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, ref int x1, ref int y1, int* x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py1 = &y1)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, y2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, int* x1, int* y1, ref int x2, int* y2)
+		{
+			fixed (int* px2 = &x2)
+			{
+				SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, x1, y1, (int*)px2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, int* x1, int* y1, ref int x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px2 = &x2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, ref int x1, int* y1, ref int x2, int* y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* px2 = &x2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, (int*)px1, y1, (int*)px2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, ref int x1, int* y1, ref int x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, y2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, int* x1, ref int y1, ref int x2, int* y2)
+		{
+			fixed (int* py1 = &y1)
+			{
+				fixed (int* px2 = &x2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, x1, (int*)py1, (int*)px2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, int* x1, ref int y1, ref int x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, y2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, ref int x1, ref int y1, ref int x2, int* y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, (int*)px1, (int*)py1, (int*)px2, y2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, ref int x1, ref int y1, ref int x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py1 = &y1)
+					{
+						fixed (int* px2 = &x2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, y2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, int* x1, int* y1, int* x2, ref int y2)
+		{
+			fixed (int* py2 = &y2)
+			{
+				SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, x1, y1, x2, (int*)py2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, int* x1, int* y1, int* x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py2 = &y2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, (int*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, ref int x1, int* y1, int* x2, ref int y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py2 = &y2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, (int*)px1, y1, x2, (int*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, ref int x1, int* y1, int* x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, int* x1, ref int y1, int* x2, ref int y2)
+		{
+			fixed (int* py1 = &y1)
+			{
+				fixed (int* py2 = &y2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, x1, (int*)py1, x2, (int*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, int* x1, ref int y1, int* x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, ref int x1, ref int y1, int* x2, ref int y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, (int*)px1, (int*)py1, x2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, ref int x1, ref int y1, int* x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py1 = &y1)
+					{
+						fixed (int* py2 = &y2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, (int*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, int* x1, int* y1, ref int x2, ref int y2)
+		{
+			fixed (int* px2 = &x2)
+			{
+				fixed (int* py2 = &y2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, x1, y1, (int*)px2, (int*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, int* x1, int* y1, ref int x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px2 = &x2)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, ref int x1, int* y1, ref int x2, ref int y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* px2 = &x2)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, (int*)px1, y1, (int*)px2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, ref int x1, int* y1, ref int x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						fixed (int* py2 = &y2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, (int*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, int* x1, ref int y1, ref int x2, ref int y2)
+		{
+			fixed (int* py1 = &y1)
+			{
+				fixed (int* px2 = &x2)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, x1, (int*)py1, (int*)px2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, int* x1, ref int y1, ref int x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						fixed (int* py2 = &y2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, (int*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRectPtr rect, ref int x1, ref int y1, ref int x2, ref int y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						fixed (int* py2 = &y2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)rect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(in SDLRect rect, ref int x1, ref int y1, ref int x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py1 = &y1)
+					{
+						fixed (int* px2 = &x2)
+						{
+							fixed (int* py2 = &y2)
+							{
+								SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasIntersectionFNative(SDLFRect* a, SDLFRect* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLBool>)funcTable[298])(a, b);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[298])((nint)a, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersectionF(SDLFRectPtr a, SDLFRectPtr b)
+		{
+			SDLBool ret = HasIntersectionFNative((SDLFRect*)a, (SDLFRect*)b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersectionF(in SDLFRect a, SDLFRectPtr b)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, (SDLFRect*)b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersectionF(SDLFRectPtr a, in SDLFRect b)
+		{
+			fixed (SDLFRect* pb = &b)
+			{
+				SDLBool ret = HasIntersectionFNative((SDLFRect*)a, (SDLFRect*)pb);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersectionF(in SDLFRect a, in SDLFRect b)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* pb = &b)
+				{
+					SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, (SDLFRect*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Calculate the intersection of two rectangles with float precision.<br/>
 		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
@@ -41,9 +2570,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRect(SDLFRect* a, SDLFRect* b, SDLFRect* result)
+		public static SDLBool IntersectFRect(SDLFRectPtr a, SDLFRectPtr b, SDLFRectPtr result)
 		{
-			SDLBool ret = IntersectFRectNative(a, b, result);
+			SDLBool ret = IntersectFRectNative((SDLFRect*)a, (SDLFRect*)b, (SDLFRect*)result);
 			return ret;
 		}
 
@@ -54,11 +2583,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRect(ref SDLFRect a, SDLFRect* b, SDLFRect* result)
+		public static SDLBool IntersectFRect(in SDLFRect a, SDLFRectPtr b, SDLFRectPtr result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
-				SDLBool ret = IntersectFRectNative((SDLFRect*)pa, b, result);
+				SDLBool ret = IntersectFRectNative((SDLFRect*)pa, (SDLFRect*)b, (SDLFRect*)result);
 				return ret;
 			}
 		}
@@ -70,11 +2599,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRect(SDLFRect* a, ref SDLFRect b, SDLFRect* result)
+		public static SDLBool IntersectFRect(SDLFRectPtr a, in SDLFRect b, SDLFRectPtr result)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
-				SDLBool ret = IntersectFRectNative(a, (SDLFRect*)pb, result);
+				SDLBool ret = IntersectFRectNative((SDLFRect*)a, (SDLFRect*)pb, (SDLFRect*)result);
 				return ret;
 			}
 		}
@@ -86,13 +2615,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRect(ref SDLFRect a, ref SDLFRect b, SDLFRect* result)
+		public static SDLBool IntersectFRect(in SDLFRect a, in SDLFRect b, SDLFRectPtr result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* pb = &b)
 				{
-					SDLBool ret = IntersectFRectNative((SDLFRect*)pa, (SDLFRect*)pb, result);
+					SDLBool ret = IntersectFRectNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)result);
 					return ret;
 				}
 			}
@@ -105,11 +2634,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRect(SDLFRect* a, SDLFRect* b, ref SDLFRect result)
+		public static SDLBool IntersectFRect(SDLFRectPtr a, SDLFRectPtr b, ref SDLFRect result)
 		{
 			fixed (SDLFRect* presult = &result)
 			{
-				SDLBool ret = IntersectFRectNative(a, b, (SDLFRect*)presult);
+				SDLBool ret = IntersectFRectNative((SDLFRect*)a, (SDLFRect*)b, (SDLFRect*)presult);
 				return ret;
 			}
 		}
@@ -121,13 +2650,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRect(ref SDLFRect a, SDLFRect* b, ref SDLFRect result)
+		public static SDLBool IntersectFRect(in SDLFRect a, SDLFRectPtr b, ref SDLFRect result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLBool ret = IntersectFRectNative((SDLFRect*)pa, b, (SDLFRect*)presult);
+					SDLBool ret = IntersectFRectNative((SDLFRect*)pa, (SDLFRect*)b, (SDLFRect*)presult);
 					return ret;
 				}
 			}
@@ -140,13 +2669,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRect(SDLFRect* a, ref SDLFRect b, ref SDLFRect result)
+		public static SDLBool IntersectFRect(SDLFRectPtr a, in SDLFRect b, ref SDLFRect result)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLBool ret = IntersectFRectNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
+					SDLBool ret = IntersectFRectNative((SDLFRect*)a, (SDLFRect*)pb, (SDLFRect*)presult);
 					return ret;
 				}
 			}
@@ -159,7 +2688,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRect(ref SDLFRect a, ref SDLFRect b, ref SDLFRect result)
+		public static SDLBool IntersectFRect(in SDLFRect a, in SDLFRect b, ref SDLFRect result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
@@ -194,9 +2723,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnionFRect(SDLFRect* a, SDLFRect* b, SDLFRect* result)
+		public static void UnionFRect(SDLFRectPtr a, SDLFRectPtr b, SDLFRectPtr result)
 		{
-			UnionFRectNative(a, b, result);
+			UnionFRectNative((SDLFRect*)a, (SDLFRect*)b, (SDLFRect*)result);
 		}
 
 		/// <summary>
@@ -204,11 +2733,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnionFRect(ref SDLFRect a, SDLFRect* b, SDLFRect* result)
+		public static void UnionFRect(in SDLFRect a, SDLFRectPtr b, SDLFRectPtr result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
-				UnionFRectNative((SDLFRect*)pa, b, result);
+				UnionFRectNative((SDLFRect*)pa, (SDLFRect*)b, (SDLFRect*)result);
 			}
 		}
 
@@ -217,11 +2746,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnionFRect(SDLFRect* a, ref SDLFRect b, SDLFRect* result)
+		public static void UnionFRect(SDLFRectPtr a, in SDLFRect b, SDLFRectPtr result)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
-				UnionFRectNative(a, (SDLFRect*)pb, result);
+				UnionFRectNative((SDLFRect*)a, (SDLFRect*)pb, (SDLFRect*)result);
 			}
 		}
 
@@ -230,13 +2759,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnionFRect(ref SDLFRect a, ref SDLFRect b, SDLFRect* result)
+		public static void UnionFRect(in SDLFRect a, in SDLFRect b, SDLFRectPtr result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* pb = &b)
 				{
-					UnionFRectNative((SDLFRect*)pa, (SDLFRect*)pb, result);
+					UnionFRectNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)result);
 				}
 			}
 		}
@@ -246,11 +2775,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnionFRect(SDLFRect* a, SDLFRect* b, ref SDLFRect result)
+		public static void UnionFRect(SDLFRectPtr a, SDLFRectPtr b, ref SDLFRect result)
 		{
 			fixed (SDLFRect* presult = &result)
 			{
-				UnionFRectNative(a, b, (SDLFRect*)presult);
+				UnionFRectNative((SDLFRect*)a, (SDLFRect*)b, (SDLFRect*)presult);
 			}
 		}
 
@@ -259,13 +2788,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnionFRect(ref SDLFRect a, SDLFRect* b, ref SDLFRect result)
+		public static void UnionFRect(in SDLFRect a, SDLFRectPtr b, ref SDLFRect result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					UnionFRectNative((SDLFRect*)pa, b, (SDLFRect*)presult);
+					UnionFRectNative((SDLFRect*)pa, (SDLFRect*)b, (SDLFRect*)presult);
 				}
 			}
 		}
@@ -275,13 +2804,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnionFRect(SDLFRect* a, ref SDLFRect b, ref SDLFRect result)
+		public static void UnionFRect(SDLFRectPtr a, in SDLFRect b, ref SDLFRect result)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					UnionFRectNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
+					UnionFRectNative((SDLFRect*)a, (SDLFRect*)pb, (SDLFRect*)presult);
 				}
 			}
 		}
@@ -291,7 +2820,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnionFRect(ref SDLFRect a, ref SDLFRect b, ref SDLFRect result)
+		public static void UnionFRect(in SDLFRect a, in SDLFRect b, ref SDLFRect result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
@@ -331,9 +2860,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool EncloseFPoints(SDLFPoint* points, int count, SDLFRect* clip, SDLFRect* result)
+		public static SDLBool EncloseFPoints(SDLFPointPtr points, int count, SDLFRectPtr clip, SDLFRectPtr result)
 		{
-			SDLBool ret = EncloseFPointsNative(points, count, clip, result);
+			SDLBool ret = EncloseFPointsNative((SDLFPoint*)points, count, (SDLFRect*)clip, (SDLFRect*)result);
 			return ret;
 		}
 
@@ -345,11 +2874,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool EncloseFPoints(ref SDLFPoint points, int count, SDLFRect* clip, SDLFRect* result)
+		public static SDLBool EncloseFPoints(in SDLFPoint points, int count, SDLFRectPtr clip, SDLFRectPtr result)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
-				SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, clip, result);
+				SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)clip, (SDLFRect*)result);
 				return ret;
 			}
 		}
@@ -362,11 +2891,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool EncloseFPoints(SDLFPoint* points, int count, ref SDLFRect clip, SDLFRect* result)
+		public static SDLBool EncloseFPoints(SDLFPointPtr points, int count, in SDLFRect clip, SDLFRectPtr result)
 		{
 			fixed (SDLFRect* pclip = &clip)
 			{
-				SDLBool ret = EncloseFPointsNative(points, count, (SDLFRect*)pclip, result);
+				SDLBool ret = EncloseFPointsNative((SDLFPoint*)points, count, (SDLFRect*)pclip, (SDLFRect*)result);
 				return ret;
 			}
 		}
@@ -379,13 +2908,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool EncloseFPoints(ref SDLFPoint points, int count, ref SDLFRect clip, SDLFRect* result)
+		public static SDLBool EncloseFPoints(in SDLFPoint points, int count, in SDLFRect clip, SDLFRectPtr result)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
 				fixed (SDLFRect* pclip = &clip)
 				{
-					SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, result);
+					SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, (SDLFRect*)result);
 					return ret;
 				}
 			}
@@ -399,11 +2928,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool EncloseFPoints(SDLFPoint* points, int count, SDLFRect* clip, ref SDLFRect result)
+		public static SDLBool EncloseFPoints(SDLFPointPtr points, int count, SDLFRectPtr clip, ref SDLFRect result)
 		{
 			fixed (SDLFRect* presult = &result)
 			{
-				SDLBool ret = EncloseFPointsNative(points, count, clip, (SDLFRect*)presult);
+				SDLBool ret = EncloseFPointsNative((SDLFPoint*)points, count, (SDLFRect*)clip, (SDLFRect*)presult);
 				return ret;
 			}
 		}
@@ -416,13 +2945,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool EncloseFPoints(ref SDLFPoint points, int count, SDLFRect* clip, ref SDLFRect result)
+		public static SDLBool EncloseFPoints(in SDLFPoint points, int count, SDLFRectPtr clip, ref SDLFRect result)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, clip, (SDLFRect*)presult);
+					SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)clip, (SDLFRect*)presult);
 					return ret;
 				}
 			}
@@ -436,13 +2965,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool EncloseFPoints(SDLFPoint* points, int count, ref SDLFRect clip, ref SDLFRect result)
+		public static SDLBool EncloseFPoints(SDLFPointPtr points, int count, in SDLFRect clip, ref SDLFRect result)
 		{
 			fixed (SDLFRect* pclip = &clip)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLBool ret = EncloseFPointsNative(points, count, (SDLFRect*)pclip, (SDLFRect*)presult);
+					SDLBool ret = EncloseFPointsNative((SDLFPoint*)points, count, (SDLFRect*)pclip, (SDLFRect*)presult);
 					return ret;
 				}
 			}
@@ -456,7 +2985,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool EncloseFPoints(ref SDLFPoint points, int count, ref SDLFRect clip, ref SDLFRect result)
+		public static SDLBool EncloseFPoints(in SDLFPoint points, int count, in SDLFRect clip, ref SDLFRect result)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
@@ -503,9 +3032,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, float* y1, float* x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, float* x1, float* y1, float* x2, float* y2)
 		{
-			SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, x2, y2);
+			SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, x1, y1, x2, y2);
 			return ret;
 		}
 
@@ -520,7 +3049,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, float* y1, float* x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, float* x1, float* y1, float* x2, float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -540,11 +3069,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, float* y1, float* x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, ref float x1, float* y1, float* x2, float* y2)
 		{
 			fixed (float* px1 = &x1)
 			{
-				SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, x2, y2);
+				SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, (float*)px1, y1, x2, y2);
 				return ret;
 			}
 		}
@@ -560,7 +3089,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, float* y1, float* x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, ref float x1, float* y1, float* x2, float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -583,11 +3112,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, ref float y1, float* x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, float* x1, ref float y1, float* x2, float* y2)
 		{
 			fixed (float* py1 = &y1)
 			{
-				SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, x2, y2);
+				SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, x1, (float*)py1, x2, y2);
 				return ret;
 			}
 		}
@@ -603,7 +3132,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, ref float y1, float* x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, float* x1, ref float y1, float* x2, float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -626,13 +3155,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, ref float y1, float* x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, ref float x1, ref float y1, float* x2, float* y2)
 		{
 			fixed (float* px1 = &x1)
 			{
 				fixed (float* py1 = &y1)
 				{
-					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, x2, y2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, (float*)px1, (float*)py1, x2, y2);
 					return ret;
 				}
 			}
@@ -649,7 +3178,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, ref float y1, float* x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, ref float x1, ref float y1, float* x2, float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -675,11 +3204,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, float* y1, ref float x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, float* x1, float* y1, ref float x2, float* y2)
 		{
 			fixed (float* px2 = &x2)
 			{
-				SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, (float*)px2, y2);
+				SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, x1, y1, (float*)px2, y2);
 				return ret;
 			}
 		}
@@ -695,7 +3224,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, float* y1, ref float x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, float* x1, float* y1, ref float x2, float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -718,13 +3247,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, float* y1, ref float x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, ref float x1, float* y1, ref float x2, float* y2)
 		{
 			fixed (float* px1 = &x1)
 			{
 				fixed (float* px2 = &x2)
 				{
-					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, (float*)px2, y2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, (float*)px1, y1, (float*)px2, y2);
 					return ret;
 				}
 			}
@@ -741,7 +3270,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, float* y1, ref float x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, ref float x1, float* y1, ref float x2, float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -767,13 +3296,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, ref float y1, ref float x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, float* x1, ref float y1, ref float x2, float* y2)
 		{
 			fixed (float* py1 = &y1)
 			{
 				fixed (float* px2 = &x2)
 				{
-					SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, (float*)px2, y2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, x1, (float*)py1, (float*)px2, y2);
 					return ret;
 				}
 			}
@@ -790,7 +3319,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, ref float y1, ref float x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, float* x1, ref float y1, ref float x2, float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -816,7 +3345,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, ref float y1, ref float x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, ref float x1, ref float y1, ref float x2, float* y2)
 		{
 			fixed (float* px1 = &x1)
 			{
@@ -824,7 +3353,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* px2 = &x2)
 					{
-						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, (float*)px2, y2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, (float*)px1, (float*)py1, (float*)px2, y2);
 						return ret;
 					}
 				}
@@ -842,7 +3371,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, ref float y1, ref float x2, float* y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, ref float x1, ref float y1, ref float x2, float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -871,11 +3400,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, float* y1, float* x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, float* x1, float* y1, float* x2, ref float y2)
 		{
 			fixed (float* py2 = &y2)
 			{
-				SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, x2, (float*)py2);
+				SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, x1, y1, x2, (float*)py2);
 				return ret;
 			}
 		}
@@ -891,7 +3420,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, float* y1, float* x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, float* x1, float* y1, float* x2, ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -914,13 +3443,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, float* y1, float* x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, ref float x1, float* y1, float* x2, ref float y2)
 		{
 			fixed (float* px1 = &x1)
 			{
 				fixed (float* py2 = &y2)
 				{
-					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, x2, (float*)py2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, (float*)px1, y1, x2, (float*)py2);
 					return ret;
 				}
 			}
@@ -937,7 +3466,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, float* y1, float* x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, ref float x1, float* y1, float* x2, ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -963,13 +3492,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, ref float y1, float* x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, float* x1, ref float y1, float* x2, ref float y2)
 		{
 			fixed (float* py1 = &y1)
 			{
 				fixed (float* py2 = &y2)
 				{
-					SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, x2, (float*)py2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, x1, (float*)py1, x2, (float*)py2);
 					return ret;
 				}
 			}
@@ -986,7 +3515,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, ref float y1, float* x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, float* x1, ref float y1, float* x2, ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -1012,7 +3541,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, ref float y1, float* x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, ref float x1, ref float y1, float* x2, ref float y2)
 		{
 			fixed (float* px1 = &x1)
 			{
@@ -1020,7 +3549,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, x2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, (float*)px1, (float*)py1, x2, (float*)py2);
 						return ret;
 					}
 				}
@@ -1038,7 +3567,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, ref float y1, float* x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, ref float x1, ref float y1, float* x2, ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -1067,13 +3596,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, float* y1, ref float x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, float* x1, float* y1, ref float x2, ref float y2)
 		{
 			fixed (float* px2 = &x2)
 			{
 				fixed (float* py2 = &y2)
 				{
-					SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, (float*)px2, (float*)py2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, x1, y1, (float*)px2, (float*)py2);
 					return ret;
 				}
 			}
@@ -1090,7 +3619,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, float* y1, ref float x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, float* x1, float* y1, ref float x2, ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -1116,7 +3645,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, float* y1, ref float x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, ref float x1, float* y1, ref float x2, ref float y2)
 		{
 			fixed (float* px1 = &x1)
 			{
@@ -1124,7 +3653,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, (float*)px2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, (float*)px1, y1, (float*)px2, (float*)py2);
 						return ret;
 					}
 				}
@@ -1142,7 +3671,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, float* y1, ref float x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, ref float x1, float* y1, ref float x2, ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -1171,7 +3700,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, ref float y1, ref float x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, float* x1, ref float y1, ref float x2, ref float y2)
 		{
 			fixed (float* py1 = &y1)
 			{
@@ -1179,7 +3708,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, (float*)px2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, x1, (float*)py1, (float*)px2, (float*)py2);
 						return ret;
 					}
 				}
@@ -1197,7 +3726,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, ref float y1, ref float x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, float* x1, ref float y1, ref float x2, ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -1226,7 +3755,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, ref float y1, ref float x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(SDLFRectPtr rect, ref float x1, ref float y1, ref float x2, ref float y2)
 		{
 			fixed (float* px1 = &x1)
 			{
@@ -1236,7 +3765,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* py2 = &y2)
 						{
-							SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)rect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
 							return ret;
 						}
 					}
@@ -1255,7 +3784,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, ref float y1, ref float x2, ref float y2)
+		public static SDLBool IntersectFRectAndLine(in SDLFRect rect, ref float x1, ref float y1, ref float x2, ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -1468,9 +3997,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* CreateRGBSurface(uint flags, int width, int height, int depth, uint rmask, uint gmask, uint bmask, uint amask)
+		public static SDLSurfacePtr CreateRGBSurface(uint flags, int width, int height, int depth, uint rmask, uint gmask, uint bmask, uint amask)
 		{
-			SDLSurface* ret = CreateRGBSurfaceNative(flags, width, height, depth, rmask, gmask, bmask, amask);
+			SDLSurfacePtr ret = CreateRGBSurfaceNative(flags, width, height, depth, rmask, gmask, bmask, amask);
 			return ret;
 		}
 
@@ -1502,9 +4031,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* CreateRGBSurfaceWithFormat(uint flags, int width, int height, int depth, uint format)
+		public static SDLSurfacePtr CreateRGBSurfaceWithFormat(uint flags, int width, int height, int depth, uint format)
 		{
-			SDLSurface* ret = CreateRGBSurfaceWithFormatNative(flags, width, height, depth, format);
+			SDLSurfacePtr ret = CreateRGBSurfaceWithFormatNative(flags, width, height, depth, format);
 			return ret;
 		}
 
@@ -1540,9 +4069,26 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* CreateRGBSurfaceFrom(void* pixels, int width, int height, int depth, int pitch, uint rmask, uint gmask, uint bmask, uint amask)
+		public static SDLSurfacePtr CreateRGBSurfaceFrom(void* pixels, int width, int height, int depth, int pitch, uint rmask, uint gmask, uint bmask, uint amask)
 		{
-			SDLSurface* ret = CreateRGBSurfaceFromNative(pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
+			SDLSurfacePtr ret = CreateRGBSurfaceFromNative(pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface with existing pixel data.<br/>
+		/// This function operates mostly like SDL_CreateRGBSurface(), except it does<br/>
+		/// not allocate memory for the pixel data, instead the caller provides an<br/>
+		/// existing buffer of data for the surface to use.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr CreateRGBSurfaceFrom(nint pixels, int width, int height, int depth, int pitch, uint rmask, uint gmask, uint bmask, uint amask)
+		{
+			SDLSurfacePtr ret = CreateRGBSurfaceFromNative((void*)pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
 			return ret;
 		}
 
@@ -1580,9 +4126,27 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* CreateRGBSurfaceWithFormatFrom(void* pixels, int width, int height, int depth, int pitch, uint format)
+		public static SDLSurfacePtr CreateRGBSurfaceWithFormatFrom(void* pixels, int width, int height, int depth, int pitch, uint format)
 		{
-			SDLSurface* ret = CreateRGBSurfaceWithFormatFromNative(pixels, width, height, depth, pitch, format);
+			SDLSurfacePtr ret = CreateRGBSurfaceWithFormatFromNative(pixels, width, height, depth, pitch, format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface with with a specific pixel format and existing<br/>
+		/// pixel data.<br/>
+		/// This function operates mostly like SDL_CreateRGBSurfaceFrom(), except<br/>
+		/// instead of providing pixel color masks, you provide it with a predefined<br/>
+		/// format from SDL_PixelFormatEnum.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurfacePtr CreateRGBSurfaceWithFormatFrom(nint pixels, int width, int height, int depth, int pitch, uint format)
+		{
+			SDLSurfacePtr ret = CreateRGBSurfaceWithFormatFromNative((void*)pixels, width, height, depth, pitch, format);
 			return ret;
 		}
 
@@ -1610,9 +4174,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void FreeSurface(SDLSurface* surface)
+		public static void FreeSurface(SDLSurfacePtr surface)
 		{
-			FreeSurfaceNative(surface);
+			FreeSurfaceNative((SDLSurface*)surface);
 		}
 
 		/// <summary>
@@ -1652,9 +4216,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetSurfacePalette(SDLSurface* surface, SDLPalette* palette)
+		public static int SetSurfacePalette(SDLSurfacePtr surface, SDLPalettePtr palette)
 		{
-			int ret = SetSurfacePaletteNative(surface, palette);
+			int ret = SetSurfacePaletteNative((SDLSurface*)surface, (SDLPalette*)palette);
 			return ret;
 		}
 
@@ -1664,11 +4228,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetSurfacePalette(ref SDLSurface surface, SDLPalette* palette)
+		public static int SetSurfacePalette(ref SDLSurface surface, SDLPalettePtr palette)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SetSurfacePaletteNative((SDLSurface*)psurface, palette);
+				int ret = SetSurfacePaletteNative((SDLSurface*)psurface, (SDLPalette*)palette);
 				return ret;
 			}
 		}
@@ -1679,11 +4243,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetSurfacePalette(SDLSurface* surface, ref SDLPalette palette)
+		public static int SetSurfacePalette(SDLSurfacePtr surface, ref SDLPalette palette)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
-				int ret = SetSurfacePaletteNative(surface, (SDLPalette*)ppalette);
+				int ret = SetSurfacePaletteNative((SDLSurface*)surface, (SDLPalette*)ppalette);
 				return ret;
 			}
 		}
@@ -1742,9 +4306,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int LockSurface(SDLSurface* surface)
+		public static int LockSurface(SDLSurfacePtr surface)
 		{
-			int ret = LockSurfaceNative(surface);
+			int ret = LockSurfaceNative((SDLSurface*)surface);
 			return ret;
 		}
 
@@ -1792,9 +4356,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void UnlockSurface(SDLSurface* surface)
+		public static void UnlockSurface(SDLSurfacePtr surface)
 		{
-			UnlockSurfaceNative(surface);
+			UnlockSurfaceNative((SDLSurface*)surface);
 		}
 
 		/// <summary>
@@ -1843,9 +4407,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* LoadBMPRW(SDLRWops* src, int freesrc)
+		public static SDLSurfacePtr LoadBMPRW(SDLRWopsPtr src, int freesrc)
 		{
-			SDLSurface* ret = LoadBMPRWNative(src, freesrc);
+			SDLSurfacePtr ret = LoadBMPRWNative((SDLRWops*)src, freesrc);
 			return ret;
 		}
 
@@ -1860,11 +4424,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* LoadBMPRW(ref SDLRWops src, int freesrc)
+		public static SDLSurfacePtr LoadBMPRW(ref SDLRWops src, int freesrc)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				SDLSurface* ret = LoadBMPRWNative((SDLRWops*)psrc, freesrc);
+				SDLSurfacePtr ret = LoadBMPRWNative((SDLRWops*)psrc, freesrc);
 				return ret;
 			}
 		}
@@ -1901,9 +4465,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SaveBMPRW(SDLSurface* surface, SDLRWops* dst, int freedst)
+		public static int SaveBMPRW(SDLSurfacePtr surface, SDLRWopsPtr dst, int freedst)
 		{
-			int ret = SaveBMPRWNative(surface, dst, freedst);
+			int ret = SaveBMPRWNative((SDLSurface*)surface, (SDLRWops*)dst, freedst);
 			return ret;
 		}
 
@@ -1918,11 +4482,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SaveBMPRW(ref SDLSurface surface, SDLRWops* dst, int freedst)
+		public static int SaveBMPRW(ref SDLSurface surface, SDLRWopsPtr dst, int freedst)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SaveBMPRWNative((SDLSurface*)psurface, dst, freedst);
+				int ret = SaveBMPRWNative((SDLSurface*)psurface, (SDLRWops*)dst, freedst);
 				return ret;
 			}
 		}
@@ -1938,11 +4502,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SaveBMPRW(SDLSurface* surface, ref SDLRWops dst, int freedst)
+		public static int SaveBMPRW(SDLSurfacePtr surface, ref SDLRWops dst, int freedst)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				int ret = SaveBMPRWNative(surface, (SDLRWops*)pdst, freedst);
+				int ret = SaveBMPRWNative((SDLSurface*)surface, (SDLRWops*)pdst, freedst);
 				return ret;
 			}
 		}
@@ -1996,9 +4560,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetSurfaceRLE(SDLSurface* surface, int flag)
+		public static int SetSurfaceRLE(SDLSurfacePtr surface, int flag)
 		{
-			int ret = SetSurfaceRLENative(surface, flag);
+			int ret = SetSurfaceRLENative((SDLSurface*)surface, flag);
 			return ret;
 		}
 
@@ -2043,9 +4607,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool HasSurfaceRLE(SDLSurface* surface)
+		public static SDLBool HasSurfaceRLE(SDLSurfacePtr surface)
 		{
-			SDLBool ret = HasSurfaceRLENative(surface);
+			SDLBool ret = HasSurfaceRLENative((SDLSurface*)surface);
 			return ret;
 		}
 
@@ -2101,9 +4665,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetColorKey(SDLSurface* surface, int flag, uint key)
+		public static int SetColorKey(SDLSurfacePtr surface, int flag, uint key)
 		{
-			int ret = SetColorKeyNative(surface, flag, key);
+			int ret = SetColorKeyNative((SDLSurface*)surface, flag, key);
 			return ret;
 		}
 
@@ -2153,9 +4717,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLBool HasColorKey(SDLSurface* surface)
+		public static SDLBool HasColorKey(SDLSurfacePtr surface)
 		{
-			SDLBool ret = HasColorKeyNative(surface);
+			SDLBool ret = HasColorKeyNative((SDLSurface*)surface);
 			return ret;
 		}
 
@@ -2203,9 +4767,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetColorKey(SDLSurface* surface, uint* key)
+		public static int GetColorKey(SDLSurfacePtr surface, uint* key)
 		{
-			int ret = GetColorKeyNative(surface, key);
+			int ret = GetColorKeyNative((SDLSurface*)surface, key);
 			return ret;
 		}
 
@@ -2236,11 +4800,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetColorKey(SDLSurface* surface, ref uint key)
+		public static int GetColorKey(SDLSurfacePtr surface, ref uint key)
 		{
 			fixed (uint* pkey = &key)
 			{
-				int ret = GetColorKeyNative(surface, (uint*)pkey);
+				int ret = GetColorKeyNative((SDLSurface*)surface, (uint*)pkey);
 				return ret;
 			}
 		}
@@ -2296,9 +4860,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetSurfaceColorMod(SDLSurface* surface, byte r, byte g, byte b)
+		public static int SetSurfaceColorMod(SDLSurfacePtr surface, byte r, byte g, byte b)
 		{
-			int ret = SetSurfaceColorModNative(surface, r, g, b);
+			int ret = SetSurfaceColorModNative((SDLSurface*)surface, r, g, b);
 			return ret;
 		}
 
@@ -2343,9 +4907,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetSurfaceColorMod(SDLSurface* surface, byte* r, byte* g, byte* b)
+		public static int GetSurfaceColorMod(SDLSurfacePtr surface, byte* r, byte* g, byte* b)
 		{
-			int ret = GetSurfaceColorModNative(surface, r, g, b);
+			int ret = GetSurfaceColorModNative((SDLSurface*)surface, r, g, b);
 			return ret;
 		}
 
@@ -2370,11 +4934,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetSurfaceColorMod(SDLSurface* surface, ref byte r, byte* g, byte* b)
+		public static int GetSurfaceColorMod(SDLSurfacePtr surface, ref byte r, byte* g, byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
-				int ret = GetSurfaceColorModNative(surface, (byte*)pr, g, b);
+				int ret = GetSurfaceColorModNative((SDLSurface*)surface, (byte*)pr, g, b);
 				return ret;
 			}
 		}
@@ -2403,11 +4967,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetSurfaceColorMod(SDLSurface* surface, byte* r, ref byte g, byte* b)
+		public static int GetSurfaceColorMod(SDLSurfacePtr surface, byte* r, ref byte g, byte* b)
 		{
 			fixed (byte* pg = &g)
 			{
-				int ret = GetSurfaceColorModNative(surface, r, (byte*)pg, b);
+				int ret = GetSurfaceColorModNative((SDLSurface*)surface, r, (byte*)pg, b);
 				return ret;
 			}
 		}
@@ -2436,13 +5000,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetSurfaceColorMod(SDLSurface* surface, ref byte r, ref byte g, byte* b)
+		public static int GetSurfaceColorMod(SDLSurfacePtr surface, ref byte r, ref byte g, byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pg = &g)
 				{
-					int ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, b);
+					int ret = GetSurfaceColorModNative((SDLSurface*)surface, (byte*)pr, (byte*)pg, b);
 					return ret;
 				}
 			}
@@ -2465,2574 +5029,6 @@ namespace Hexa.NET.SDL2
 						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, b);
 						return ret;
 					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceColorMod(SDLSurface* surface, byte* r, byte* g, ref byte b)
-		{
-			fixed (byte* pb = &b)
-			{
-				int ret = GetSurfaceColorModNative(surface, r, g, (byte*)pb);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceColorMod(ref SDLSurface surface, byte* r, byte* g, ref byte b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, (byte*)pb);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceColorMod(SDLSurface* surface, ref byte r, byte* g, ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetSurfaceColorModNative(surface, (byte*)pr, g, (byte*)pb);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceColorMod(ref SDLSurface surface, ref byte r, byte* g, ref byte b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, (byte*)pb);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceColorMod(SDLSurface* surface, byte* r, ref byte g, ref byte b)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetSurfaceColorModNative(surface, r, (byte*)pg, (byte*)pb);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceColorMod(ref SDLSurface surface, byte* r, ref byte g, ref byte b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceColorMod(SDLSurface* surface, ref byte r, ref byte g, ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, (byte*)pb);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceColorMod(ref SDLSurface surface, ref byte r, ref byte g, ref byte b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, (byte*)pb);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetSurfaceAlphaModNative(SDLSurface* surface, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, int>)funcTable[321])(surface, alpha);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[321])((nint)surface, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetSurfaceAlphaMod(SDLSurface* surface, byte alpha)
-		{
-			int ret = SetSurfaceAlphaModNative(surface, alpha);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetSurfaceAlphaMod(ref SDLSurface surface, byte alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				int ret = SetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetSurfaceAlphaModNative(SDLSurface* surface, byte* alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int>)funcTable[322])(surface, alpha);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[322])((nint)surface, (nint)alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceAlphaMod(SDLSurface* surface, byte* alpha)
-		{
-			int ret = GetSurfaceAlphaModNative(surface, alpha);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceAlphaMod(ref SDLSurface surface, byte* alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceAlphaMod(SDLSurface* surface, ref byte alpha)
-		{
-			fixed (byte* palpha = &alpha)
-			{
-				int ret = GetSurfaceAlphaModNative(surface, (byte*)palpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceAlphaMod(ref SDLSurface surface, ref byte alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* palpha = &alpha)
-				{
-					int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetSurfaceBlendModeNative(SDLSurface* surface, SDLBlendMode blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode, int>)funcTable[323])(surface, blendMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[323])((nint)surface, blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetSurfaceBlendMode(SDLSurface* surface, SDLBlendMode blendMode)
-		{
-			int ret = SetSurfaceBlendModeNative(surface, blendMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetSurfaceBlendMode(ref SDLSurface surface, SDLBlendMode blendMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				int ret = SetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetSurfaceBlendModeNative(SDLSurface* surface, SDLBlendMode* blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode*, int>)funcTable[324])(surface, blendMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[324])((nint)surface, (nint)blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceBlendMode(SDLSurface* surface, SDLBlendMode* blendMode)
-		{
-			int ret = GetSurfaceBlendModeNative(surface, blendMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceBlendMode(ref SDLSurface surface, SDLBlendMode* blendMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceBlendMode(SDLSurface* surface, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				int ret = GetSurfaceBlendModeNative(surface, (SDLBlendMode*)pblendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetSurfaceBlendMode(ref SDLSurface surface, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, (SDLBlendMode*)pblendMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool SetClipRectNative(SDLSurface* surface, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLBool>)funcTable[325])(surface, rect);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[325])((nint)surface, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetClipRect(SDLSurface* surface, SDLRect* rect)
-		{
-			SDLBool ret = SetClipRectNative(surface, rect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetClipRect(ref SDLSurface surface, SDLRect* rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLBool ret = SetClipRectNative((SDLSurface*)psurface, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetClipRect(SDLSurface* surface, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				SDLBool ret = SetClipRectNative(surface, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetClipRect(ref SDLSurface surface, ref SDLRect rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					SDLBool ret = SetClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetClipRectNative(SDLSurface* surface, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, void>)funcTable[326])(surface, rect);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[326])((nint)surface, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetClipRect(SDLSurface* surface, SDLRect* rect)
-		{
-			GetClipRectNative(surface, rect);
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetClipRect(ref SDLSurface surface, SDLRect* rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				GetClipRectNative((SDLSurface*)psurface, rect);
-			}
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetClipRect(SDLSurface* surface, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				GetClipRectNative(surface, (SDLRect*)prect);
-			}
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetClipRect(ref SDLSurface surface, ref SDLRect rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					GetClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// The returned surface should be freed with SDL_FreeSurface().<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* DuplicateSurfaceNative(SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*>)funcTable[327])(surface);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[327])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// The returned surface should be freed with SDL_FreeSurface().<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* DuplicateSurface(SDLSurface* surface)
-		{
-			SDLSurface* ret = DuplicateSurfaceNative(surface);
-			return ret;
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// The returned surface should be freed with SDL_FreeSurface().<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* DuplicateSurface(ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLSurface* ret = DuplicateSurfaceNative((SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* ConvertSurfaceNative(SDLSurface* src, SDLPixelFormat* fmt, uint flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat*, uint, SDLSurface*>)funcTable[328])(src, fmt, flags);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint>)funcTable[328])((nint)src, (nint)fmt, flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* ConvertSurface(SDLSurface* src, SDLPixelFormat* fmt, uint flags)
-		{
-			SDLSurface* ret = ConvertSurfaceNative(src, fmt, flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* ConvertSurface(ref SDLSurface src, SDLPixelFormat* fmt, uint flags)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				SDLSurface* ret = ConvertSurfaceNative((SDLSurface*)psrc, fmt, flags);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* ConvertSurface(SDLSurface* src, ref SDLPixelFormat fmt, uint flags)
-		{
-			fixed (SDLPixelFormat* pfmt = &fmt)
-			{
-				SDLSurface* ret = ConvertSurfaceNative(src, (SDLPixelFormat*)pfmt, flags);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* ConvertSurface(ref SDLSurface src, ref SDLPixelFormat fmt, uint flags)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLPixelFormat* pfmt = &fmt)
-				{
-					SDLSurface* ret = ConvertSurfaceNative((SDLSurface*)psrc, (SDLPixelFormat*)pfmt, flags);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format enum.<br/>
-		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
-		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
-		/// it might be easier to call but it doesn't have access to palette<br/>
-		/// information for the destination surface, in case that would be important.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* ConvertSurfaceFormatNative(SDLSurface* src, uint pixelFormat, uint flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint, uint, SDLSurface*>)funcTable[329])(src, pixelFormat, flags);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, uint, uint, nint>)funcTable[329])((nint)src, pixelFormat, flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format enum.<br/>
-		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
-		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
-		/// it might be easier to call but it doesn't have access to palette<br/>
-		/// information for the destination surface, in case that would be important.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* ConvertSurfaceFormat(SDLSurface* src, uint pixelFormat, uint flags)
-		{
-			SDLSurface* ret = ConvertSurfaceFormatNative(src, pixelFormat, flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format enum.<br/>
-		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
-		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
-		/// it might be easier to call but it doesn't have access to palette<br/>
-		/// information for the destination surface, in case that would be important.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* ConvertSurfaceFormat(ref SDLSurface src, uint pixelFormat, uint flags)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				SDLSurface* ret = ConvertSurfaceFormatNative((SDLSurface*)psrc, pixelFormat, flags);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format to another format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int ConvertPixelsNative(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)funcTable[330])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)funcTable[330])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format to another format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int ConvertPixels(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
-		{
-			int ret = ConvertPixelsNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
-			return ret;
-		}
-
-		/// <summary>
-		/// Premultiply the alpha on a block of pixels.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int PremultiplyAlphaNative(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)funcTable[331])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)funcTable[331])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Premultiply the alpha on a block of pixels.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int PremultiplyAlpha(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
-		{
-			int ret = PremultiplyAlphaNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
-			return ret;
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int FillRectNative(SDLSurface* dst, SDLRect* rect, uint color)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, uint, int>)funcTable[332])(dst, rect, color);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, int>)funcTable[332])((nint)dst, (nint)rect, color);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FillRect(SDLSurface* dst, SDLRect* rect, uint color)
-		{
-			int ret = FillRectNative(dst, rect, color);
-			return ret;
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FillRect(ref SDLSurface dst, SDLRect* rect, uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = FillRectNative((SDLSurface*)pdst, rect, color);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FillRect(SDLSurface* dst, ref SDLRect rect, uint color)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = FillRectNative(dst, (SDLRect*)prect, color);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FillRect(ref SDLSurface dst, ref SDLRect rect, uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = FillRectNative((SDLSurface*)pdst, (SDLRect*)prect, color);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int FillRectsNative(SDLSurface* dst, SDLRect* rects, int count, uint color)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, int, uint, int>)funcTable[333])(dst, rects, count, color);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, uint, int>)funcTable[333])((nint)dst, (nint)rects, count, color);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FillRects(SDLSurface* dst, SDLRect* rects, int count, uint color)
-		{
-			int ret = FillRectsNative(dst, rects, count, color);
-			return ret;
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FillRects(ref SDLSurface dst, SDLRect* rects, int count, uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = FillRectsNative((SDLSurface*)pdst, rects, count, color);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FillRects(SDLSurface* dst, ref SDLRect rects, int count, uint color)
-		{
-			fixed (SDLRect* prects = &rects)
-			{
-				int ret = FillRectsNative(dst, (SDLRect*)prects, count, color);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
-		/// of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int FillRects(ref SDLSurface dst, ref SDLRect rects, int count, uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* prects = &rects)
-				{
-					int ret = FillRectsNative((SDLSurface*)pdst, (SDLRect*)prects, count, color);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UpperBlitNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[334])(src, srcrect, dst, dstrect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[334])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			int ret = UpperBlitNative(src, srcrect, dst, dstrect);
-			return ret;
-		}
-
-		public static int BlitSurface(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlit(src, srcrect, dst, dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				int ret = UpperBlitNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		public static int BlitSurface(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlit(ref src, srcrect, dst, dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = UpperBlitNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		public static int BlitSurface(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlit(src, ref srcrect, dst, dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitSurface(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlit(ref src, ref srcrect, dst, dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = UpperBlitNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret;
-			}
-		}
-
-		public static int BlitSurface(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlit(src, srcrect, ref dst, dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = UpperBlitNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitSurface(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlit(ref src, srcrect, ref dst, dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = UpperBlitNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitSurface(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlit(src, ref srcrect, ref dst, dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		public static int BlitSurface(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlit(ref src, ref srcrect, ref dst, dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = UpperBlitNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		public static int BlitSurface(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlit(src, srcrect, dst, ref dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = UpperBlitNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitSurface(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlit(ref src, srcrect, dst, ref dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = UpperBlitNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitSurface(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlit(src, ref srcrect, dst, ref dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		public static int BlitSurface(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlit(ref src, ref srcrect, dst, ref dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = UpperBlitNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitSurface(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(src, srcrect, ref dst, ref dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = UpperBlitNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		public static int BlitSurface(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(ref src, srcrect, ref dst, ref dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = UpperBlitNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		public static int BlitSurface(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(src, ref srcrect, ref dst, ref dstrect);
-
-		/// <summary>
-		/// Perform a fast blit from the source surface to the destination surface.<br/>
-		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
-		/// macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		public static int BlitSurface(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(ref src, ref srcrect, ref dst, ref dstrect);
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LowerBlitNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[335])(src, srcrect, dst, dstrect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[335])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			int ret = LowerBlitNative(src, srcrect, dst, dstrect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				int ret = LowerBlitNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = LowerBlitNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = LowerBlitNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = LowerBlitNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = LowerBlitNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = LowerBlitNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = LowerBlitNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = LowerBlitNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = LowerBlitNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = LowerBlitNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = LowerBlitNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SoftStretchNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[336])(src, srcrect, dst, dstrect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[336])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			int ret = SoftStretchNative(src, srcrect, dst, dstrect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = SoftStretchNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = SoftStretchNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = SoftStretchNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = SoftStretchNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SoftStretchLinearNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[337])(src, srcrect, dst, dstrect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[337])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			int ret = SoftStretchLinearNative(src, srcrect, dst, dstrect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = SoftStretchLinearNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = SoftStretchLinearNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchLinearNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UpperBlitScaledNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[338])(src, srcrect, dst, dstrect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[338])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			int ret = UpperBlitScaledNative(src, srcrect, dst, dstrect);
-			return ret;
-		}
-
-		public static int BlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlitScaled(src, srcrect, dst, dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		public static int BlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlitScaled(ref src, srcrect, dst, dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		public static int BlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlitScaled(src, ref srcrect, dst, dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlitScaled(ref src, ref srcrect, dst, dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = UpperBlitScaledNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret;
-			}
-		}
-
-		public static int BlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlitScaled(src, srcrect, ref dst, dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlitScaled(ref src, srcrect, ref dst, dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		public static int BlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlitScaled(src, ref srcrect, ref dst, dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		public static int BlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlitScaled(ref src, ref srcrect, ref dst, dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = UpperBlitScaledNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		public static int BlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlitScaled(src, srcrect, dst, ref dstrect);
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret;
 				}
 			}
 		}

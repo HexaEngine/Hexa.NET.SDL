@@ -43,27 +43,35 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_ProcessIO")]
 	public enum SDLProcessIO : int
 	{
 		/// <summary>
 		/// The I/O stream is inherited from the application. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PROCESS_STDIO_INHERITED")]
+		[NativeName(NativeNameType.Value, "0")]
 		StdioInherited = unchecked(0),
 
 		/// <summary>
 		/// The I/O stream is ignored. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PROCESS_STDIO_NULL")]
+		[NativeName(NativeNameType.Value, "1")]
 		StdioNull = unchecked(1),
 
 		/// <summary>
 		/// The I/O stream is connected to a new SDL_IOStream that the application can read or write <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PROCESS_STDIO_APP")]
+		[NativeName(NativeNameType.Value, "2")]
 		StdioApp = unchecked(2),
 
 		/// <summary>
 		/// The I/O stream is redirected to an existing SDL_IOStream. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_PROCESS_STDIO_REDIRECT")]
+		[NativeName(NativeNameType.Value, "3")]
 		StdioRedirect = unchecked(3),
 	}
 }

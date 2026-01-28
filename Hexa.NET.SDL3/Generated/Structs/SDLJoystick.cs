@@ -15,16 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The joystick structure used to identify an SDL joystick.<br/>
-	/// This is opaque data.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Joystick")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoystick
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Joystick")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLJoystickPtr : IEquatable<SDLJoystickPtr>
+	{
+		public SDLJoystickPtr(SDLJoystick* handle) { Handle = handle; }
+
+		public SDLJoystick* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLJoystickPtr Null => new SDLJoystickPtr(null);
+
+		public SDLJoystick this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLJoystickPtr(SDLJoystick* handle) => new SDLJoystickPtr(handle);
+
+		public static implicit operator SDLJoystick*(SDLJoystickPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLJoystickPtr left, SDLJoystickPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLJoystickPtr left, SDLJoystickPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLJoystickPtr left, SDLJoystick* right) => left.Handle == right;
+
+		public static bool operator !=(SDLJoystickPtr left, SDLJoystick* right) => left.Handle != right;
+
+		public bool Equals(SDLJoystickPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLJoystickPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLJoystickPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

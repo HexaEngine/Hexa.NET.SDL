@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Enumeration of valid key mods (possibly OR'd together).<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLKeymod : int
 	{
 		None = unchecked(0),

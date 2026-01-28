@@ -34,9 +34,12 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_AtomicU32")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAtomicU32
 	{
+		[NativeName(NativeNameType.Field, "value")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Value;
 
 		public unsafe SDLAtomicU32(uint value = default)
@@ -45,6 +48,67 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A type representing an atomic unsigned 32-bit value.<br/>
+	/// This can be used to manage a value that is synchronized across multiple<br/>
+	/// CPUs without a race condition; when an app sets a value with<br/>
+	/// SDL_SetAtomicU32 all other threads, regardless of the CPU it is running on,<br/>
+	/// will see that value when retrieved with SDL_GetAtomicU32, regardless of CPU<br/>
+	/// caches, etc.<br/>
+	/// This is also useful for atomic compare-and-swap operations: a thread can<br/>
+	/// change the value as long as its current value matches expectations. When<br/>
+	/// done in a loop, one can guarantee data consistency across threads without a<br/>
+	/// lock (but the usual warnings apply: if you don't know what you're doing, or<br/>
+	/// you don't do it carefully, you can confidently cause any number of<br/>
+	/// disasters with this, so in most cases, you _should_ use a mutex instead of<br/>
+	/// this!).<br/>
+	/// This is a struct so people don't accidentally use numeric operations on it<br/>
+	/// directly. You have to use SDL atomic functions.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_AtomicU32")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAtomicU32Ptr : IEquatable<SDLAtomicU32Ptr>
+	{
+		public SDLAtomicU32Ptr(SDLAtomicU32* handle) { Handle = handle; }
+
+		public SDLAtomicU32* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAtomicU32Ptr Null => new SDLAtomicU32Ptr(null);
+
+		public SDLAtomicU32 this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAtomicU32Ptr(SDLAtomicU32* handle) => new SDLAtomicU32Ptr(handle);
+
+		public static implicit operator SDLAtomicU32*(SDLAtomicU32Ptr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAtomicU32Ptr left, SDLAtomicU32Ptr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAtomicU32Ptr left, SDLAtomicU32Ptr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAtomicU32Ptr left, SDLAtomicU32* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAtomicU32Ptr left, SDLAtomicU32* right) => left.Handle != right;
+
+		public bool Equals(SDLAtomicU32Ptr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAtomicU32Ptr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAtomicU32Ptr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref uint Value => ref Unsafe.AsRef<uint>(&Handle->Value);
 	}
 
 }

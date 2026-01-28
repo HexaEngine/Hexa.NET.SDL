@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The predefined log priorities<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLLogPriority : int
 	{
 		Verbose = unchecked(1),

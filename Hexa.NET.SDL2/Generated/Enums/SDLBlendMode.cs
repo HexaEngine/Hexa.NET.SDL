@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The blend mode used in SDL_RenderCopy() and drawing operations.<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLBlendMode : int
 	{
 		/// <summary>

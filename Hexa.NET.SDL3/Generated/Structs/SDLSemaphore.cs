@@ -15,21 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// A means to manage access to a resource, by count, between threads.<br/>
-	/// Semaphores (specifically, "counting semaphores"), let X number of threads<br/>
-	/// request access at the same time, each thread granted access decrementing a<br/>
-	/// counter. When the counter reaches zero, future requests block until a prior<br/>
-	/// thread releases their request, incrementing the counter again.<br/>
-	/// Wikipedia has a thorough explanation of the concept:<br/>
-	/// https://en.wikipedia.org/wiki/Semaphore_(programming)<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Semaphore")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSemaphore
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Semaphore")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLSemaphorePtr : IEquatable<SDLSemaphorePtr>
+	{
+		public SDLSemaphorePtr(SDLSemaphore* handle) { Handle = handle; }
+
+		public SDLSemaphore* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLSemaphorePtr Null => new SDLSemaphorePtr(null);
+
+		public SDLSemaphore this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLSemaphorePtr(SDLSemaphore* handle) => new SDLSemaphorePtr(handle);
+
+		public static implicit operator SDLSemaphore*(SDLSemaphorePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLSemaphorePtr left, SDLSemaphorePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLSemaphorePtr left, SDLSemaphorePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLSemaphorePtr left, SDLSemaphore* right) => left.Handle == right;
+
+		public static bool operator !=(SDLSemaphorePtr left, SDLSemaphore* right) => left.Handle != right;
+
+		public bool Equals(SDLSemaphorePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLSemaphorePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLSemaphorePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

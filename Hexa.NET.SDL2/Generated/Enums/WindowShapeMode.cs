@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[Flags]
 	public enum WindowShapeMode : int
 	{
 		/// <summary>

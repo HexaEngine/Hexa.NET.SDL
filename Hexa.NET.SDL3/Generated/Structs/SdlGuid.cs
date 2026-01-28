@@ -28,9 +28,12 @@ namespace Hexa.NET.SDL3
 	/// GUIDs on different operating systems).<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GUID")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SdlGuid
 	{
+		[NativeName(NativeNameType.Field, "data")]
+		[NativeName(NativeNameType.Type, "Uint8[16]")]
 		public byte Data_0;
 		public byte Data_1;
 		public byte Data_2;

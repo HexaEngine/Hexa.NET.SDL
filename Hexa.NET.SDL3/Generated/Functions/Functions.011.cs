@@ -18,221 +18,1747 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Convenience function for straightforward audio init for the common case.<br/>
+		/// If all your app intends to do is provide a single source of PCM audio, this<br/>
+		/// function allows you to do all your audio setup in a single call.<br/>
+		/// This is also intended to be a clean means to migrate apps from SDL2.<br/>
+		/// This function will open an audio device, create a stream and bind it.<br/>
+		/// Unlike other methods of setup, the audio device will be closed when this<br/>
+		/// stream is destroyed, so the app can treat the returned SDL_AudioStream as<br/>
+		/// the only object needed to manage audio playback.<br/>
+		/// Also unlike other functions, the audio device begins paused. This is to map<br/>
+		/// more closely to SDL2-style behavior, since there is no extra step here to<br/>
+		/// bind a stream to begin audio flowing. The audio device should be resumed<br/>
+		/// with SDL_ResumeAudioStreamDevice().<br/>
+		/// This function works with both playback and recording devices.<br/>
+		/// The `spec` parameter represents the app's side of the audio stream. That<br/>
+		/// is, for recording audio, this will be the output format, and for playing<br/>
+		/// audio, this will be the input format. If spec is NULL, the system will<br/>
+		/// choose the format, and the app can use SDL_GetAudioStreamFormat() to obtain<br/>
+		/// this information later.<br/>
+		/// If you don't care about opening a specific audio device, you can (and<br/>
+		/// probably _should_), use SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK for playback and<br/>
+		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING for recording.<br/>
+		/// One can optionally provide a callback function; if NULL, the app is<br/>
+		/// expected to queue audio data for playback (or unqueue audio data if<br/>
+		/// capturing). Otherwise, the callback will begin to fire once the device is<br/>
+		/// unpaused.<br/>
+		/// Destroying the returned stream with SDL_DestroyAudioStream will also close<br/>
+		/// the audio device associated with this stream.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMPIO(SDLSurface* surface, SDLIOStream* dst, bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_OpenAudioDeviceStream")]
+		[return: NativeName(NativeNameType.Type, "SDL_AudioStream *")]
+		public static SDLAudioStreamPtr OpenAudioDeviceStream([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
 		{
-			byte ret = SaveBMPIONative(surface, dst, closeio ? (byte)1 : (byte)0);
+			SDLAudioStreamPtr ret = OpenAudioDeviceStreamNative(devid, (SDLAudioSpec*)spec, (delegate*<void*, SDLAudioStream*, int, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convenience function for straightforward audio init for the common case.<br/>
+		/// If all your app intends to do is provide a single source of PCM audio, this<br/>
+		/// function allows you to do all your audio setup in a single call.<br/>
+		/// This is also intended to be a clean means to migrate apps from SDL2.<br/>
+		/// This function will open an audio device, create a stream and bind it.<br/>
+		/// Unlike other methods of setup, the audio device will be closed when this<br/>
+		/// stream is destroyed, so the app can treat the returned SDL_AudioStream as<br/>
+		/// the only object needed to manage audio playback.<br/>
+		/// Also unlike other functions, the audio device begins paused. This is to map<br/>
+		/// more closely to SDL2-style behavior, since there is no extra step here to<br/>
+		/// bind a stream to begin audio flowing. The audio device should be resumed<br/>
+		/// with SDL_ResumeAudioStreamDevice().<br/>
+		/// This function works with both playback and recording devices.<br/>
+		/// The `spec` parameter represents the app's side of the audio stream. That<br/>
+		/// is, for recording audio, this will be the output format, and for playing<br/>
+		/// audio, this will be the input format. If spec is NULL, the system will<br/>
+		/// choose the format, and the app can use SDL_GetAudioStreamFormat() to obtain<br/>
+		/// this information later.<br/>
+		/// If you don't care about opening a specific audio device, you can (and<br/>
+		/// probably _should_), use SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK for playback and<br/>
+		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING for recording.<br/>
+		/// One can optionally provide a callback function; if NULL, the app is<br/>
+		/// expected to queue audio data for playback (or unqueue audio data if<br/>
+		/// capturing). Otherwise, the callback will begin to fire once the device is<br/>
+		/// unpaused.<br/>
+		/// Destroying the returned stream with SDL_DestroyAudioStream will also close<br/>
+		/// the audio device associated with this stream.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenAudioDeviceStream")]
+		[return: NativeName(NativeNameType.Type, "SDL_AudioStream *")]
+		public static SDLAudioStreamPtr OpenAudioDeviceStream([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec spec, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioStreamCallback")] SDLAudioStreamCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				SDLAudioStreamPtr ret = OpenAudioDeviceStreamNative(devid, (SDLAudioSpec*)pspec, (delegate*<void*, SDLAudioStream*, int, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
+		/// This is useful for accessing the final mix, perhaps for writing a<br/>
+		/// visualizer or applying a final effect to the audio data before playback.<br/>
+		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
+		/// this callback will fire regularly for any device that is both opened and<br/>
+		/// unpaused. If there is no new data to mix, either because no streams are<br/>
+		/// bound to the device or all the streams are empty, this callback will still<br/>
+		/// fire with the entire buffer set to silence.<br/>
+		/// This callback is allowed to make changes to the data; the contents of the<br/>
+		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
+		/// The callback is always provided the data in float format (values from -1.0f<br/>
+		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
+		/// the format the app requested when opening the device; SDL might have had to<br/>
+		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
+		/// new physical hardware when a system default changed, etc. These details may<br/>
+		/// change between calls. Accordingly, the size of the buffer might change<br/>
+		/// between calls as well.<br/>
+		/// This callback can run at any time, and from any thread; if you need to<br/>
+		/// serialize access to your app's data, you should provide and use a mutex or<br/>
+		/// other synchronization device.<br/>
+		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
+		/// it is not the simplest interface. Apps should generally provide audio in<br/>
+		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
+		/// difference.<br/>
+		/// This function is extremely time-sensitive; the callback should do the least<br/>
+		/// amount of work possible and return as quickly as it can. The longer the<br/>
+		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
+		/// This function will block until the audio device is in between iterations,<br/>
+		/// so any existing callback that might be running will finish before this<br/>
+		/// function sets the new callback and returns.<br/>
+		/// Setting a NULL callback function disables any previously-set callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioPostmixCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetAudioPostmixCallbackNative([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioPostmixCallback")] delegate*<void*, SDLAudioSpec*, float*, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, delegate*<void*, SDLAudioSpec*, float*, int, void>, void*, byte>)funcTable[362])(devid, callback, userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[362])(devid, (nint)callback, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
+		/// This is useful for accessing the final mix, perhaps for writing a<br/>
+		/// visualizer or applying a final effect to the audio data before playback.<br/>
+		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
+		/// this callback will fire regularly for any device that is both opened and<br/>
+		/// unpaused. If there is no new data to mix, either because no streams are<br/>
+		/// bound to the device or all the streams are empty, this callback will still<br/>
+		/// fire with the entire buffer set to silence.<br/>
+		/// This callback is allowed to make changes to the data; the contents of the<br/>
+		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
+		/// The callback is always provided the data in float format (values from -1.0f<br/>
+		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
+		/// the format the app requested when opening the device; SDL might have had to<br/>
+		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
+		/// new physical hardware when a system default changed, etc. These details may<br/>
+		/// change between calls. Accordingly, the size of the buffer might change<br/>
+		/// between calls as well.<br/>
+		/// This callback can run at any time, and from any thread; if you need to<br/>
+		/// serialize access to your app's data, you should provide and use a mutex or<br/>
+		/// other synchronization device.<br/>
+		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
+		/// it is not the simplest interface. Apps should generally provide audio in<br/>
+		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
+		/// difference.<br/>
+		/// This function is extremely time-sensitive; the callback should do the least<br/>
+		/// amount of work possible and return as quickly as it can. The longer the<br/>
+		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
+		/// This function will block until the audio device is in between iterations,<br/>
+		/// so any existing callback that might be running will finish before this<br/>
+		/// function sets the new callback and returns.<br/>
+		/// Setting a NULL callback function disables any previously-set callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioPostmixCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioPostmixCallback([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioPostmixCallback")] delegate*<void*, SDLAudioSpec*, float*, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetAudioPostmixCallbackNative(devid, callback, userdata);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
+		/// This is useful for accessing the final mix, perhaps for writing a<br/>
+		/// visualizer or applying a final effect to the audio data before playback.<br/>
+		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
+		/// this callback will fire regularly for any device that is both opened and<br/>
+		/// unpaused. If there is no new data to mix, either because no streams are<br/>
+		/// bound to the device or all the streams are empty, this callback will still<br/>
+		/// fire with the entire buffer set to silence.<br/>
+		/// This callback is allowed to make changes to the data; the contents of the<br/>
+		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
+		/// The callback is always provided the data in float format (values from -1.0f<br/>
+		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
+		/// the format the app requested when opening the device; SDL might have had to<br/>
+		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
+		/// new physical hardware when a system default changed, etc. These details may<br/>
+		/// change between calls. Accordingly, the size of the buffer might change<br/>
+		/// between calls as well.<br/>
+		/// This callback can run at any time, and from any thread; if you need to<br/>
+		/// serialize access to your app's data, you should provide and use a mutex or<br/>
+		/// other synchronization device.<br/>
+		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
+		/// it is not the simplest interface. Apps should generally provide audio in<br/>
+		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
+		/// difference.<br/>
+		/// This function is extremely time-sensitive; the callback should do the least<br/>
+		/// amount of work possible and return as quickly as it can. The longer the<br/>
+		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
+		/// This function will block until the audio device is in between iterations,<br/>
+		/// so any existing callback that might be running will finish before this<br/>
+		/// function sets the new callback and returns.<br/>
+		/// Setting a NULL callback function disables any previously-set callback.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioPostmixCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioPostmixCallback([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioPostmixCallback")] SDLAudioPostmixCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = SetAudioPostmixCallbackNative(devid, (delegate*<void*, SDLAudioSpec*, float*, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
+		/// This is useful for accessing the final mix, perhaps for writing a<br/>
+		/// visualizer or applying a final effect to the audio data before playback.<br/>
+		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
+		/// this callback will fire regularly for any device that is both opened and<br/>
+		/// unpaused. If there is no new data to mix, either because no streams are<br/>
+		/// bound to the device or all the streams are empty, this callback will still<br/>
+		/// fire with the entire buffer set to silence.<br/>
+		/// This callback is allowed to make changes to the data; the contents of the<br/>
+		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
+		/// The callback is always provided the data in float format (values from -1.0f<br/>
+		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
+		/// the format the app requested when opening the device; SDL might have had to<br/>
+		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
+		/// new physical hardware when a system default changed, etc. These details may<br/>
+		/// change between calls. Accordingly, the size of the buffer might change<br/>
+		/// between calls as well.<br/>
+		/// This callback can run at any time, and from any thread; if you need to<br/>
+		/// serialize access to your app's data, you should provide and use a mutex or<br/>
+		/// other synchronization device.<br/>
+		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
+		/// it is not the simplest interface. Apps should generally provide audio in<br/>
+		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
+		/// difference.<br/>
+		/// This function is extremely time-sensitive; the callback should do the least<br/>
+		/// amount of work possible and return as quickly as it can. The longer the<br/>
+		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
+		/// This function will block until the audio device is in between iterations,<br/>
+		/// so any existing callback that might be running will finish before this<br/>
+		/// function sets the new callback and returns.<br/>
+		/// Setting a NULL callback function disables any previously-set callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioPostmixCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioPostmixCallback([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioPostmixCallback")] delegate*<void*, SDLAudioSpec*, float*, int, void> callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = SetAudioPostmixCallbackNative(devid, callback, (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
+		/// This is useful for accessing the final mix, perhaps for writing a<br/>
+		/// visualizer or applying a final effect to the audio data before playback.<br/>
+		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
+		/// this callback will fire regularly for any device that is both opened and<br/>
+		/// unpaused. If there is no new data to mix, either because no streams are<br/>
+		/// bound to the device or all the streams are empty, this callback will still<br/>
+		/// fire with the entire buffer set to silence.<br/>
+		/// This callback is allowed to make changes to the data; the contents of the<br/>
+		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
+		/// The callback is always provided the data in float format (values from -1.0f<br/>
+		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
+		/// the format the app requested when opening the device; SDL might have had to<br/>
+		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
+		/// new physical hardware when a system default changed, etc. These details may<br/>
+		/// change between calls. Accordingly, the size of the buffer might change<br/>
+		/// between calls as well.<br/>
+		/// This callback can run at any time, and from any thread; if you need to<br/>
+		/// serialize access to your app's data, you should provide and use a mutex or<br/>
+		/// other synchronization device.<br/>
+		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
+		/// it is not the simplest interface. Apps should generally provide audio in<br/>
+		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
+		/// difference.<br/>
+		/// This function is extremely time-sensitive; the callback should do the least<br/>
+		/// amount of work possible and return as quickly as it can. The longer the<br/>
+		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
+		/// This function will block until the audio device is in between iterations,<br/>
+		/// so any existing callback that might be running will finish before this<br/>
+		/// function sets the new callback and returns.<br/>
+		/// Setting a NULL callback function disables any previously-set callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAudioPostmixCallback")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetAudioPostmixCallback([NativeName(NativeNameType.Param, "devid")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint devid, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_AudioPostmixCallback")] SDLAudioPostmixCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			byte ret = SetAudioPostmixCallbackNative(devid, (delegate*<void*, SDLAudioSpec*, float*, int, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMPIO(ref SDLSurface surface, SDLIOStream* dst, bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte LoadWAVIONative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] byte closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, SDLAudioSpec*, byte**, uint*, byte>)funcTable[363])(src, closeio, spec, audioBuf, audioLen);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, nint, nint, byte>)funcTable[363])((nint)src, closeio, (nint)spec, (nint)audioBuf, (nint)audioLen);
+			#endif
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			byte ret = LoadWAVIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)spec, audioBuf, audioLen);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
 			{
-				byte ret = SaveBMPIONative((SDLSurface*)psurface, dst, closeio ? (byte)1 : (byte)0);
+				byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)spec, audioBuf, audioLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMPIO(SDLSurface* surface, ref SDLIOStream dst, bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLIOStream* pdst = &dst)
+			fixed (SDLAudioSpec* pspec = &spec)
 			{
-				byte ret = SaveBMPIONative(surface, (SDLIOStream*)pdst, closeio ? (byte)1 : (byte)0);
+				byte ret = LoadWAVIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMPIO(ref SDLSurface surface, ref SDLIOStream dst, bool closeio)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLIOStream* psrc = &src)
 			{
-				fixed (SDLIOStream* pdst = &dst)
+				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					byte ret = SaveBMPIONative((SDLSurface*)psurface, (SDLIOStream*)pdst, closeio ? (byte)1 : (byte)0);
+					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				byte ret = LoadWAVIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)spec, (byte**)paudioBuf, audioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)spec, (byte**)paudioBuf, audioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					byte ret = LoadWAVIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (uint* paudioLen = &audioLen)
+			{
+				byte ret = LoadWAVIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)spec, audioBuf, (uint*)paudioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)spec, audioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)spec, (byte**)paudioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)spec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVIONative((SDLIOStream*)src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the return value is zero and the pointer to the<br/>
+		/// audio data allocated by the function is written to `audio_buf` and its<br/>
+		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
+		/// `channels`, and `format` are set to the values of the audio data in the<br/>
+		/// buffer.<br/>
+		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
+		/// less messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_IO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAVIO([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream src, [NativeName(NativeNameType.Param, "closeio")] [NativeName(NativeNameType.Type, "bool")] bool closeio, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLIOStream* psrc = &src)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						fixed (uint* paudioLen = &audioLen)
+						{
+							byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SaveBMPNative(SDLSurface* surface, byte* file)
+		internal static byte LoadWAVNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte>)funcTable[406])(surface, file);
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLAudioSpec*, byte**, uint*, byte>)funcTable[364])(path, spec, audioBuf, audioLen);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[406])((nint)surface, (nint)file);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[364])((nint)path, (nint)spec, (nint)audioBuf, (nint)audioLen);
 			#endif
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMP(SDLSurface* surface, byte* file)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			byte ret = SaveBMPNative(surface, file);
+			byte ret = LoadWAVNative(path, (SDLAudioSpec*)spec, audioBuf, audioLen);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMP(ref SDLSurface surface, byte* file)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* ppath = &path)
 			{
-				byte ret = SaveBMPNative((SDLSurface*)psurface, file);
+				byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)spec, audioBuf, audioLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMP(SDLSurface* surface, ref byte file)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (byte* pfile = &file)
+			fixed (byte* ppath = path)
 			{
-				byte ret = SaveBMPNative(surface, (byte*)pfile);
+				byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)spec, audioBuf, audioLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SaveBMP(SDLSurface* surface, ReadOnlySpan<byte> file)
-		{
-			fixed (byte* pfile = file)
-			{
-				byte ret = SaveBMPNative(surface, (byte*)pfile);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMP(SDLSurface* surface, string file)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (file != null)
+			if (path != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
+				pStrSize0 = Utils.GetByteCountUTF8(path);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -242,10 +1768,10 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = SaveBMPNative(surface, pStr0);
+			byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)spec, audioBuf, audioLen);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -254,90 +1780,136 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMP(ref SDLSurface surface, ref byte file)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioSpec* pspec = &spec)
 			{
-				fixed (byte* pfile = &file)
+				byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					byte ret = SaveBMPNative((SDLSurface*)psurface, (byte*)pfile);
+					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, audioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMP(ref SDLSurface surface, ReadOnlySpan<byte> file)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* ppath = path)
 			{
-				fixed (byte* pfile = file)
+				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					byte ret = SaveBMPNative((SDLSurface*)psurface, (byte*)pfile);
+					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, audioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Save a surface to a file.<br/>
-		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
-		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
-		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
-		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
-		/// not supported.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SaveBMP(ref SDLSurface surface, string file)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
 			{
-				byte* pStr0 = null;
-				int pStrSize0 = 0;
-				if (file != null)
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					pStrSize0 = Utils.GetByteCountUTF8(file);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = 0;
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
-				byte ret = SaveBMPNative((SDLSurface*)psurface, pStr0);
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -347,550 +1919,203 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set the RLE acceleration hint for a surface.<br/>
-		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
-		/// the surface must be locked before directly accessing the pixels.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceRLENative(SDLSurface* surface, byte enabled)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte>)funcTable[407])(surface, enabled);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[407])((nint)surface, enabled);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the RLE acceleration hint for a surface.<br/>
-		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
-		/// the surface must be locked before directly accessing the pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetSurfaceRLE(SDLSurface* surface, bool enabled)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			byte ret = SetSurfaceRLENative(surface, enabled ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the RLE acceleration hint for a surface.<br/>
-		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
-		/// the surface must be locked before directly accessing the pixels.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetSurfaceRLE(ref SDLSurface surface, bool enabled)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte** paudioBuf = &audioBuf)
 			{
-				byte ret = SetSurfaceRLENative((SDLSurface*)psurface, enabled ? (byte)1 : (byte)0);
+				byte ret = LoadWAVNative(path, (SDLAudioSpec*)spec, (byte**)paudioBuf, audioLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Returns whether the surface is RLE enabled.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SurfaceHasRLENative(SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[408])(surface);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[408])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns whether the surface is RLE enabled.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SurfaceHasRLE(SDLSurface* surface)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			byte ret = SurfaceHasRLENative(surface);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Returns whether the surface is RLE enabled.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SurfaceHasRLE(ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* ppath = &path)
 			{
-				byte ret = SurfaceHasRLENative((SDLSurface*)psurface);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the color key (transparent pixel) in a surface.<br/>
-		/// The color key defines a pixel value that will be treated as transparent in<br/>
-		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
-		/// considered transparent, and therefore not rendered.<br/>
-		/// It is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceColorKeyNative(SDLSurface* surface, byte enabled, uint key)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, uint, byte>)funcTable[409])(surface, enabled, key);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, uint, byte>)funcTable[409])((nint)surface, enabled, key);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the color key (transparent pixel) in a surface.<br/>
-		/// The color key defines a pixel value that will be treated as transparent in<br/>
-		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
-		/// considered transparent, and therefore not rendered.<br/>
-		/// It is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetSurfaceColorKey(SDLSurface* surface, bool enabled, uint key)
-		{
-			byte ret = SetSurfaceColorKeyNative(surface, enabled ? (byte)1 : (byte)0, key);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the color key (transparent pixel) in a surface.<br/>
-		/// The color key defines a pixel value that will be treated as transparent in<br/>
-		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
-		/// considered transparent, and therefore not rendered.<br/>
-		/// It is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetSurfaceColorKey(ref SDLSurface surface, bool enabled, uint key)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SetSurfaceColorKeyNative((SDLSurface*)psurface, enabled ? (byte)1 : (byte)0, key);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Returns whether the surface has a color key.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SurfaceHasColorKeyNative(SDLSurface* surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte>)funcTable[410])(surface);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[410])((nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns whether the surface has a color key.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SurfaceHasColorKey(SDLSurface* surface)
-		{
-			byte ret = SurfaceHasColorKeyNative(surface);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Returns whether the surface has a color key.<br/>
-		/// It is safe to pass a NULL `surface` here; it will return false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SurfaceHasColorKey(ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = SurfaceHasColorKeyNative((SDLSurface*)psurface);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceColorKeyNative(SDLSurface* surface, uint* key)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint*, byte>)funcTable[411])(surface, key);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[411])((nint)surface, (nint)key);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorKey(SDLSurface* surface, uint* key)
-		{
-			byte ret = GetSurfaceColorKeyNative(surface, key);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorKey(ref SDLSurface surface, uint* key)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = GetSurfaceColorKeyNative((SDLSurface*)psurface, key);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorKey(SDLSurface* surface, ref uint key)
-		{
-			fixed (uint* pkey = &key)
-			{
-				byte ret = GetSurfaceColorKeyNative(surface, (uint*)pkey);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the color key (transparent pixel) for a surface.<br/>
-		/// The color key is a pixel of the format used by the surface, as generated by<br/>
-		/// SDL_MapRGB().<br/>
-		/// If the surface doesn't have color key enabled this function returns false.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorKey(ref SDLSurface surface, ref uint key)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (uint* pkey = &key)
+				fixed (byte** paudioBuf = &audioBuf)
 				{
-					byte ret = GetSurfaceColorKeyNative((SDLSurface*)psurface, (uint*)pkey);
+					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)spec, (byte**)paudioBuf, audioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set an additional color value multiplied into blit operations.<br/>
-		/// When this surface is blitted, during the blit operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceColorModNative(SDLSurface* surface, byte r, byte g, byte b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte, byte, byte>)funcTable[412])(surface, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte>)funcTable[412])((nint)surface, r, g, b);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into blit operations.<br/>
-		/// When this surface is blitted, during the blit operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetSurfaceColorMod(SDLSurface* surface, byte r, byte g, byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			byte ret = SetSurfaceColorModNative(surface, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into blit operations.<br/>
-		/// When this surface is blitted, during the blit operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetSurfaceColorMod(ref SDLSurface surface, byte r, byte g, byte b)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* ppath = path)
 			{
-				byte ret = SetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceColorModNative(SDLSurface* surface, byte* r, byte* g, byte* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte*, byte*, byte>)funcTable[413])(surface, r, g, b);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[413])((nint)surface, (nint)r, (nint)g, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorMod(SDLSurface* surface, byte* r, byte* g, byte* b)
-		{
-			byte ret = GetSurfaceColorModNative(surface, r, g, b);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorMod(ref SDLSurface surface, byte* r, byte* g, byte* b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorMod(SDLSurface* surface, ref byte r, byte* g, byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				byte ret = GetSurfaceColorModNative(surface, (byte*)pr, g, b);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorMod(ref SDLSurface surface, ref byte r, byte* g, byte* b)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* pr = &r)
+				fixed (byte** paudioBuf = &audioBuf)
 				{
-					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, b);
+					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)spec, (byte**)paudioBuf, audioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(SDLSurface* surface, byte* r, ref byte g, byte* b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (byte* pg = &g)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
 			{
-				byte ret = GetSurfaceColorModNative(surface, r, (byte*)pg, b);
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)spec, (byte**)paudioBuf, audioLen);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(ref SDLSurface surface, byte* r, ref byte g, byte* b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioSpec* pspec = &spec)
 			{
-				fixed (byte* pg = &g)
+				fixed (byte** paudioBuf = &audioBuf)
 				{
-					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, b);
+					byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceColorMod(SDLSurface* surface, ref byte r, ref byte g, byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					byte ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, b);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(ref SDLSurface surface, ref byte r, ref byte g, byte* b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* ppath = &path)
 			{
-				fixed (byte* pr = &r)
+				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					fixed (byte* pg = &g)
+					fixed (byte** paudioBuf = &audioBuf)
 					{
-						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, b);
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
 						return ret != 0;
 					}
 				}
@@ -898,79 +2123,289 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(SDLSurface* surface, byte* r, byte* g, ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
 		{
-			fixed (byte* pb = &b)
+			fixed (byte* ppath = path)
 			{
-				byte ret = GetSurfaceColorModNative(surface, r, g, (byte*)pb);
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (uint* paudioLen = &audioLen)
+			{
+				byte ret = LoadWAVNative(path, (SDLAudioSpec*)spec, audioBuf, (uint*)paudioLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(ref SDLSurface surface, byte* r, byte* g, ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* ppath = &path)
 			{
-				fixed (byte* pb = &b)
+				fixed (uint* paudioLen = &audioLen)
 				{
-					byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, (byte*)pb);
+					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)spec, audioBuf, (uint*)paudioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(SDLSurface* surface, ref byte r, byte* g, ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
 		{
-			fixed (byte* pr = &r)
+			fixed (byte* ppath = path)
 			{
-				fixed (byte* pb = &b)
+				fixed (uint* paudioLen = &audioLen)
 				{
-					byte ret = GetSurfaceColorModNative(surface, (byte*)pr, g, (byte*)pb);
+					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)spec, audioBuf, (uint*)paudioLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(ref SDLSurface surface, ref byte r, byte* g, ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
 			{
-				fixed (byte* pr = &r)
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					fixed (byte* pb = &b)
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (uint* paudioLen = &audioLen)
+			{
+				byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)spec, audioBuf, (uint*)paudioLen);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (uint* paudioLen = &audioLen)
 					{
-						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, (byte*)pb);
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
 						return ret != 0;
 					}
 				}
@@ -978,42 +2413,150 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(SDLSurface* surface, byte* r, ref byte g, ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
 		{
-			fixed (byte* pg = &g)
+			fixed (byte* ppath = path)
 			{
-				fixed (byte* pb = &b)
+				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					byte ret = GetSurfaceColorModNative(surface, r, (byte*)pg, (byte*)pb);
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						Utils.Free(pStr0);
+					}
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(ref SDLSurface surface, byte* r, ref byte g, ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte** paudioBuf = &audioBuf)
 			{
-				fixed (byte* pg = &g)
+				fixed (uint* paudioLen = &audioLen)
 				{
-					fixed (byte* pb = &b)
+					byte ret = LoadWAVNative(path, (SDLAudioSpec*)spec, (byte**)paudioBuf, (uint*)paudioLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
 					{
-						byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)spec, (byte**)paudioBuf, (uint*)paudioLen);
 						return ret != 0;
 					}
 				}
@@ -1021,22 +2564,33 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(SDLSurface* surface, ref byte r, ref byte g, ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
 		{
-			fixed (byte* pr = &r)
+			fixed (byte* ppath = path)
 			{
-				fixed (byte* pg = &g)
+				fixed (byte** paudioBuf = &audioBuf)
 				{
-					fixed (byte* pb = &b)
+					fixed (uint* paudioLen = &audioLen)
 					{
-						byte ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, (byte*)pb);
+						byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)spec, (byte**)paudioBuf, (uint*)paudioLen);
 						return ret != 0;
 					}
 				}
@@ -1044,24 +2598,121 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into blit operations.<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceColorMod(ref SDLSurface surface, ref byte r, ref byte g, ref byte b)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] SDLAudioSpecPtr spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
 			{
-				fixed (byte* pr = &r)
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					fixed (byte* pg = &g)
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)spec, (byte**)paudioBuf, (uint*)paudioLen);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
-						fixed (byte* pb = &b)
+						Utils.Free(pStr0);
+					}
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] in byte path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLAudioSpec* pspec = &spec)
+				{
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						fixed (uint* paudioLen = &audioLen)
 						{
-							byte ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, (byte*)pb);
+							byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
 							return ret != 0;
 						}
 					}
@@ -1070,1846 +2721,1702 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
 		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceAlphaModNative(SDLSurface* surface, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte>)funcTable[414])(surface, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[414])((nint)surface, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetSurfaceAlphaMod(SDLSurface* surface, byte alpha)
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
 		{
-			byte ret = SetSurfaceAlphaModNative(surface, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set an additional alpha value used in blit operations.<br/>
-		/// When this surface is blitted, during the blit operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetSurfaceAlphaMod(ref SDLSurface surface, byte alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* ppath = path)
 			{
-				byte ret = SetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceAlphaModNative(SDLSurface* surface, byte* alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte>)funcTable[415])(surface, alpha);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[415])((nint)surface, (nint)alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceAlphaMod(SDLSurface* surface, byte* alpha)
-		{
-			byte ret = GetSurfaceAlphaModNative(surface, alpha);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceAlphaMod(ref SDLSurface surface, byte* alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceAlphaMod(SDLSurface* surface, ref byte alpha)
-		{
-			fixed (byte* palpha = &alpha)
-			{
-				byte ret = GetSurfaceAlphaModNative(surface, (byte*)palpha);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value used in blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceAlphaMod(ref SDLSurface surface, ref byte alpha)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (byte* palpha = &alpha)
+				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					byte ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
+					fixed (byte** paudioBuf = &audioBuf)
+					{
+						fixed (uint* paudioLen = &audioLen)
+						{
+							byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Loads a WAV from a file path.<br/>
+		/// This is a convenience function that is effectively the same as:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns false if the .WAV file cannot be opened,<br/>
+		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
+		/// for more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LoadWAV([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec *")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint audioLen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						if (pStrSize0 >= Utils.MaxStackallocSize)
+						{
+							Utils.Free(pStr0);
+						}
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte MixAudioNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLAudioFormat, uint, float, byte>)funcTable[365])(dst, src, format, len, volume);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, SDLAudioFormat, uint, float, byte>)funcTable[365])((nint)dst, (nint)src, format, len, volume);
+			#endif
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			byte ret = MixAudioNative(dst, src, format, len, volume);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				byte ret = MixAudioNative((byte*)pdst, src, format, len, volume);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			fixed (byte* psrc = &src)
+			{
+				byte ret = MixAudioNative(dst, (byte*)psrc, format, len, volume);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudio() is really only needed when you're mixing a single audio<br/>
+		/// stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8 *")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "float")] float volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					byte ret = MixAudioNative((byte*)pdst, (byte*)psrc, format, len, volume);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceBlendModeNative(SDLSurface* surface, SDLBlendMode blendMode)
+		internal static byte ConvertAudioSamplesNative([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpec* dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode, byte>)funcTable[416])(surface, blendMode);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioSpec*, byte*, int, SDLAudioSpec*, byte**, int*, byte>)funcTable[366])(srcSpec, srcData, srcLen, dstSpec, dstData, dstLen);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, byte>)funcTable[416])((nint)surface, blendMode);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, nint, nint, nint, byte>)funcTable[366])((nint)srcSpec, (nint)srcData, srcLen, (nint)dstSpec, (nint)dstData, (nint)dstLen);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetSurfaceBlendMode(SDLSurface* surface, SDLBlendMode blendMode)
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
-			byte ret = SetSurfaceBlendModeNative(surface, blendMode);
+			byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, srcData, srcLen, (SDLAudioSpec*)dstSpec, dstData, dstLen);
 			return ret != 0;
 		}
 
 		/// <summary>
-		/// Set the blend mode used for blit operations.<br/>
-		/// To copy a surface to another surface (or texture) without blending with the<br/>
-		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
-		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetSurfaceBlendMode(ref SDLSurface surface, SDLBlendMode blendMode)
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
 			{
-				byte ret = SetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)dstSpec, dstData, dstLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceBlendModeNative(SDLSurface* surface, SDLBlendMode* blendMode)
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode*, byte>)funcTable[417])(surface, blendMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[417])((nint)surface, (nint)blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceBlendMode(SDLSurface* surface, SDLBlendMode* blendMode)
-		{
-			byte ret = GetSurfaceBlendModeNative(surface, blendMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceBlendMode(ref SDLSurface surface, SDLBlendMode* blendMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* psrcData = &srcData)
 			{
-				byte ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)dstSpec, dstData, dstLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceBlendMode(SDLSurface* surface, ref SDLBlendMode blendMode)
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
 			{
-				byte ret = GetSurfaceBlendModeNative(surface, (SDLBlendMode*)pblendMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for blit operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceBlendMode(ref SDLSurface surface, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
+				fixed (byte* psrcData = &srcData)
 				{
-					byte ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, (SDLBlendMode*)pblendMode);
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)dstSpec, dstData, dstLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetSurfaceClipRectNative(SDLSurface* surface, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, byte>)funcTable[418])(surface, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[418])((nint)surface, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetSurfaceClipRect(SDLSurface* surface, SDLRect* rect)
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
-			byte ret = SetSurfaceClipRectNative(surface, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetSurfaceClipRect(ref SDLSurface surface, SDLRect* rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
 			{
-				byte ret = SetSurfaceClipRectNative((SDLSurface*)psurface, rect);
+				byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, dstLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetSurfaceClipRect(SDLSurface* surface, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = SetSurfaceClipRectNative(surface, (SDLRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// Note that blits are automatically clipped to the edges of the source and<br/>
-		/// destination surfaces.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static bool SetSurfaceClipRect(ref SDLSurface surface, ref SDLRect rect)
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
 			{
-				fixed (SDLRect* prect = &rect)
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
 				{
-					byte ret = SetSurfaceClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, dstLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetSurfaceClipRectNative(SDLSurface* surface, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, byte>)funcTable[419])(surface, rect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[419])((nint)surface, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static bool GetSurfaceClipRect(SDLSurface* surface, SDLRect* rect)
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
-			byte ret = GetSurfaceClipRectNative(surface, rect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceClipRect(ref SDLSurface surface, SDLRect* rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (byte* psrcData = &srcData)
 			{
-				byte ret = GetSurfaceClipRectNative((SDLSurface*)psurface, rect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceClipRect(SDLSurface* surface, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = GetSurfaceClipRectNative(surface, (SDLRect*)prect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the clipping rectangle for a surface.<br/>
-		/// When `surface` is the destination of a blit, only the area within the clip<br/>
-		/// rectangle is drawn into.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetSurfaceClipRect(ref SDLSurface surface, ref SDLRect rect)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				fixed (SDLRect* prect = &rect)
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
 				{
-					byte ret = GetSurfaceClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, dstLen);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Flip a surface vertically or horizontally.<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FlipSurfaceNative(SDLSurface* surface, SDLFlipMode flip)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLFlipMode, byte>)funcTable[420])(surface, flip);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, SDLFlipMode, byte>)funcTable[420])((nint)surface, flip);
-			#endif
-		}
-
-		/// <summary>
-		/// Flip a surface vertically or horizontally.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static bool FlipSurface(SDLSurface* surface, SDLFlipMode flip)
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
 		{
-			byte ret = FlipSurfaceNative(surface, flip);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Flip a surface vertically or horizontally.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool FlipSurface(ref SDLSurface surface, SDLFlipMode flip)
-		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
 			{
-				byte ret = FlipSurfaceNative((SDLSurface*)psurface, flip);
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, dstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (byte** pdstData = &dstData)
+			{
+				byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, srcData, srcLen, (SDLAudioSpec*)dstSpec, (byte**)pdstData, dstLen);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)dstSpec, (byte**)pdstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)dstSpec, (byte**)pdstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)dstSpec, (byte**)pdstData, dstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, dstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, dstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, dstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] int* dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+					{
+						fixed (byte** pdstData = &dstData)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, dstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (int* pdstLen = &dstLen)
+			{
+				byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, srcData, srcLen, (SDLAudioSpec*)dstSpec, dstData, (int*)pdstLen);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (int* pdstLen = &dstLen)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)dstSpec, dstData, (int*)pdstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (int* pdstLen = &dstLen)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)dstSpec, dstData, (int*)pdstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)dstSpec, dstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+			{
+				fixed (int* pdstLen = &dstLen)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, (int*)pdstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] byte** dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+					{
+						fixed (int* pdstLen = &dstLen)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, dstData, (int*)pdstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte** pdstData = &dstData)
+			{
+				fixed (int* pdstLen = &dstLen)
+				{
+					byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, srcData, srcLen, (SDLAudioSpec*)dstSpec, (byte**)pdstData, (int*)pdstLen);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)dstSpec, (byte**)pdstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)dstSpec, (byte**)pdstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						fixed (int* pdstLen = &dstLen)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)dstSpec, (byte**)pdstData, (int*)pdstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+			{
+				fixed (byte** pdstData = &dstData)
+				{
+					fixed (int* pdstLen = &dstLen)
+					{
+						byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, (int*)pdstLen);
+						return ret != 0;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] byte* srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						fixed (int* pdstLen = &dstLen)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, srcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, (int*)pdstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] SDLAudioSpecPtr srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (byte* psrcData = &srcData)
+			{
+				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+				{
+					fixed (byte** pdstData = &dstData)
+					{
+						fixed (int* pdstLen = &dstLen)
+						{
+							byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)srcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, (int*)pdstLen);
+							return ret != 0;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert some audio data of one format to another format.<br/>
+		/// Please note that this function is for convenience, but should not be used<br/>
+		/// to resample audio in blocks, as it will introduce audio artifacts on the<br/>
+		/// boundaries. You should only use this function if you are converting audio<br/>
+		/// data in its entirety in one call. If you want to convert audio in smaller<br/>
+		/// chunks, use an SDL_AudioStream, which is designed for this situation.<br/>
+		/// Internally, this function creates and destroys an SDL_AudioStream on each<br/>
+		/// use, so it's also less efficient than using one directly, if you need to<br/>
+		/// convert multiple times.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ConvertAudioSamples")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ConvertAudioSamples([NativeName(NativeNameType.Param, "src_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec srcSpec, [NativeName(NativeNameType.Param, "src_data")] [NativeName(NativeNameType.Type, "Uint8 const *")] in byte srcData, [NativeName(NativeNameType.Param, "src_len")] [NativeName(NativeNameType.Type, "int")] int srcLen, [NativeName(NativeNameType.Param, "dst_spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec const *")] in SDLAudioSpec dstSpec, [NativeName(NativeNameType.Param, "dst_data")] [NativeName(NativeNameType.Type, "Uint8 * *")] ref byte* dstData, [NativeName(NativeNameType.Param, "dst_len")] [NativeName(NativeNameType.Type, "int *")] ref int dstLen)
+		{
+			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			{
+				fixed (byte* psrcData = &srcData)
+				{
+					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
+					{
+						fixed (byte** pdstData = &dstData)
+						{
+							fixed (int* pdstLen = &dstLen)
+							{
+								byte ret = ConvertAudioSamplesNative((SDLAudioSpec*)psrcSpec, (byte*)psrcData, srcLen, (SDLAudioSpec*)pdstSpec, (byte**)pdstData, (int*)pdstLen);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the human readable name of an audio format.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAudioFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* DuplicateSurfaceNative(SDLSurface* surface)
+		internal static byte* GetAudioFormatNameNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*>)funcTable[421])(surface);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioFormat, byte*>)funcTable[367])(format);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[421])((nint)surface);
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLAudioFormat, nint>)funcTable[367])(format);
 			#endif
 		}
 
 		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
+		/// Get the human readable name of an audio format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* DuplicateSurface(SDLSurface* surface)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetAudioFormatName([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
 		{
-			SDLSurface* ret = DuplicateSurfaceNative(surface);
+			byte* ret = GetAudioFormatNameNative(format);
 			return ret;
 		}
 
 		/// <summary>
-		/// Creates a new surface identical to the existing surface.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
+		/// Get the human readable name of an audio format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* DuplicateSurface(ref SDLSurface surface)
+		[NativeName(NativeNameType.Func, "SDL_GetAudioFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetAudioFormatNameS([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
 		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLSurface* ret = DuplicateSurfaceNative((SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface, scaled to the<br/>
-		/// desired size.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* ScaleSurfaceNative(SDLSurface* surface, int width, int height, SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, SDLScaleMode, SDLSurface*>)funcTable[422])(surface, width, height, scaleMode);
-			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, int, int, SDLScaleMode, nint>)funcTable[422])((nint)surface, width, height, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Creates a new surface identical to the existing surface, scaled to the<br/>
-		/// desired size.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* ScaleSurface(SDLSurface* surface, int width, int height, SDLScaleMode scaleMode)
-		{
-			SDLSurface* ret = ScaleSurfaceNative(surface, width, height, scaleMode);
+			string ret = Utils.DecodeStringUTF8(GetAudioFormatNameNative(format));
 			return ret;
 		}
 
 		/// <summary>
-		/// Creates a new surface identical to the existing surface, scaled to the<br/>
-		/// desired size.<br/>
-		/// The returned surface should be freed with SDL_DestroySurface().<br/>
+		/// Get the appropriate memset value for silencing an audio format.<br/>
+		/// The value returned by this function can be used as the second argument to<br/>
+		/// memset (or SDL_memset) to set an audio buffer in a specific format to<br/>
+		/// silence.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLSurface* ScaleSurface(ref SDLSurface surface, int width, int height, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLSurface* ret = ScaleSurfaceNative((SDLSurface*)psurface, width, height, scaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// If you are converting to an indexed surface and want to map colors to a<br/>
-		/// palette, you can use SDL_ConvertSurfaceAndColorspace() instead.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSilenceValueForFormat")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* ConvertSurfaceNative(SDLSurface* surface, SDLPixelFormat format)
+		internal static int GetSilenceValueForFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat, SDLSurface*>)funcTable[423])(surface, format);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioFormat, int>)funcTable[368])(format);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, SDLPixelFormat, nint>)funcTable[423])((nint)surface, format);
+			return (int)((delegate* unmanaged[Cdecl]<SDLAudioFormat, int>)funcTable[368])(format);
 			#endif
 		}
 
 		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// If you are converting to an indexed surface and want to map colors to a<br/>
-		/// palette, you can use SDL_ConvertSurfaceAndColorspace() instead.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
+		/// Get the appropriate memset value for silencing an audio format.<br/>
+		/// The value returned by this function can be used as the second argument to<br/>
+		/// memset (or SDL_memset) to set an audio buffer in a specific format to<br/>
+		/// silence.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* ConvertSurface(SDLSurface* surface, SDLPixelFormat format)
+		[NativeName(NativeNameType.Func, "SDL_GetSilenceValueForFormat")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSilenceValueForFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] SDLAudioFormat format)
 		{
-			SDLSurface* ret = ConvertSurfaceNative(surface, format);
+			int ret = GetSilenceValueForFormatNative(format);
 			return ret;
 		}
 
 		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format.<br/>
-		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
-		/// is accomplished by converting the original and storing the result as a new<br/>
-		/// surface. The new, optimized surface can then be used as the source for<br/>
-		/// future blits, making them faster.<br/>
-		/// If you are converting to an indexed surface and want to map colors to a<br/>
-		/// palette, you can use SDL_ConvertSurfaceAndColorspace() instead.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
+		/// Compose a custom blend mode for renderers.<br/>
+		/// The functions SDL_SetRenderDrawBlendMode and SDL_SetTextureBlendMode accept<br/>
+		/// the SDL_BlendMode returned by this function if the renderer supports it.<br/>
+		/// A blend mode controls how the pixels from a drawing operation (source) get<br/>
+		/// combined with the pixels from the render target (destination). First, the<br/>
+		/// components of the source and destination pixels get multiplied with their<br/>
+		/// blend factors. Then, the blend operation takes the two products and<br/>
+		/// calculates the result that will get stored in the render target.<br/>
+		/// Expressed in pseudocode, it would look like this:<br/>
+		/// ```c<br/>
+		/// dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);<br/>
+		/// dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);<br/>
+		/// ```<br/>
+		/// Where the functions `colorOperation(src, dst)` and `alphaOperation(src,<br/>
+		/// dst)` can return one of the following:<br/>
+		/// - `src + dst`<br/>
+		/// - `src - dst`<br/>
+		/// - `dst - src`<br/>
+		/// - `min(src, dst)`<br/>
+		/// - `max(src, dst)`<br/>
+		/// The red, green, and blue components are always multiplied with the first,<br/>
+		/// second, and third components of the SDL_BlendFactor, respectively. The<br/>
+		/// fourth component is not used.<br/>
+		/// The alpha component is always multiplied with the fourth component of the<br/>
+		/// SDL_BlendFactor. The other components are not used in the alpha<br/>
+		/// calculation.<br/>
+		/// Support for these blend modes varies for each renderer. To check if a<br/>
+		/// specific SDL_BlendMode is supported, create a renderer and pass it to<br/>
+		/// either SDL_SetRenderDrawBlendMode or SDL_SetTextureBlendMode. They will<br/>
+		/// return with an error if the blend mode is not supported.<br/>
+		/// This list describes the support of custom blend modes for each renderer.<br/>
+		/// All renderers support the four blend modes listed in the SDL_BlendMode<br/>
+		/// enumeration.<br/>
+		/// - **direct3d**: Supports all operations with all factors. However, some<br/>
+		/// factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and<br/>
+		/// `SDL_BLENDOPERATION_MAXIMUM`.<br/>
+		/// - **direct3d11**: Same as Direct3D 9.<br/>
+		/// - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all<br/>
+		/// factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly here.<br/>
+		/// - **opengles2**: Supports the `SDL_BLENDOPERATION_ADD`,<br/>
+		/// `SDL_BLENDOPERATION_SUBTRACT`, `SDL_BLENDOPERATION_REV_SUBTRACT`<br/>
+		/// operations with all factors.<br/>
+		/// - **psp**: No custom blend mode support.<br/>
+		/// - **software**: No custom blend mode support.<br/>
+		/// Some renderers do not provide an alpha component for the default render<br/>
+		/// target. The `SDL_BLENDFACTOR_DST_ALPHA` and<br/>
+		/// `SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA` factors do not have an effect in this<br/>
+		/// case.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* ConvertSurface(ref SDLSurface surface, SDLPixelFormat format)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLSurface* ret = ConvertSurfaceNative((SDLSurface*)psurface, format);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ComposeCustomBlendMode")]
+		[return: NativeName(NativeNameType.Type, "SDL_BlendMode")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSurface* ConvertSurfaceAndColorspaceNative(SDLSurface* surface, SDLPixelFormat format, SDLPalette* palette, SDLColorspace colorspace, uint props)
+		internal static uint ComposeCustomBlendModeNative([NativeName(NativeNameType.Param, "srcColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcColorFactor, [NativeName(NativeNameType.Param, "dstColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstColorFactor, [NativeName(NativeNameType.Param, "colorOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation colorOperation, [NativeName(NativeNameType.Param, "srcAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcAlphaFactor, [NativeName(NativeNameType.Param, "dstAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstAlphaFactor, [NativeName(NativeNameType.Param, "alphaOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation alphaOperation)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat, SDLPalette*, SDLColorspace, uint, SDLSurface*>)funcTable[424])(surface, format, palette, colorspace, props);
+			return ((delegate* unmanaged[Cdecl]<SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, uint>)funcTable[369])(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, SDLPixelFormat, nint, SDLColorspace, uint, nint>)funcTable[424])((nint)surface, format, (nint)palette, colorspace, props);
+			return (uint)((delegate* unmanaged[Cdecl]<SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, uint>)funcTable[369])(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
 			#endif
 		}
 
 		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
+		/// Compose a custom blend mode for renderers.<br/>
+		/// The functions SDL_SetRenderDrawBlendMode and SDL_SetTextureBlendMode accept<br/>
+		/// the SDL_BlendMode returned by this function if the renderer supports it.<br/>
+		/// A blend mode controls how the pixels from a drawing operation (source) get<br/>
+		/// combined with the pixels from the render target (destination). First, the<br/>
+		/// components of the source and destination pixels get multiplied with their<br/>
+		/// blend factors. Then, the blend operation takes the two products and<br/>
+		/// calculates the result that will get stored in the render target.<br/>
+		/// Expressed in pseudocode, it would look like this:<br/>
+		/// ```c<br/>
+		/// dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);<br/>
+		/// dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);<br/>
+		/// ```<br/>
+		/// Where the functions `colorOperation(src, dst)` and `alphaOperation(src,<br/>
+		/// dst)` can return one of the following:<br/>
+		/// - `src + dst`<br/>
+		/// - `src - dst`<br/>
+		/// - `dst - src`<br/>
+		/// - `min(src, dst)`<br/>
+		/// - `max(src, dst)`<br/>
+		/// The red, green, and blue components are always multiplied with the first,<br/>
+		/// second, and third components of the SDL_BlendFactor, respectively. The<br/>
+		/// fourth component is not used.<br/>
+		/// The alpha component is always multiplied with the fourth component of the<br/>
+		/// SDL_BlendFactor. The other components are not used in the alpha<br/>
+		/// calculation.<br/>
+		/// Support for these blend modes varies for each renderer. To check if a<br/>
+		/// specific SDL_BlendMode is supported, create a renderer and pass it to<br/>
+		/// either SDL_SetRenderDrawBlendMode or SDL_SetTextureBlendMode. They will<br/>
+		/// return with an error if the blend mode is not supported.<br/>
+		/// This list describes the support of custom blend modes for each renderer.<br/>
+		/// All renderers support the four blend modes listed in the SDL_BlendMode<br/>
+		/// enumeration.<br/>
+		/// - **direct3d**: Supports all operations with all factors. However, some<br/>
+		/// factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and<br/>
+		/// `SDL_BLENDOPERATION_MAXIMUM`.<br/>
+		/// - **direct3d11**: Same as Direct3D 9.<br/>
+		/// - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all<br/>
+		/// factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly here.<br/>
+		/// - **opengles2**: Supports the `SDL_BLENDOPERATION_ADD`,<br/>
+		/// `SDL_BLENDOPERATION_SUBTRACT`, `SDL_BLENDOPERATION_REV_SUBTRACT`<br/>
+		/// operations with all factors.<br/>
+		/// - **psp**: No custom blend mode support.<br/>
+		/// - **software**: No custom blend mode support.<br/>
+		/// Some renderers do not provide an alpha component for the default render<br/>
+		/// target. The `SDL_BLENDFACTOR_DST_ALPHA` and<br/>
+		/// `SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA` factors do not have an effect in this<br/>
+		/// case.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* ConvertSurfaceAndColorspace(SDLSurface* surface, SDLPixelFormat format, SDLPalette* palette, SDLColorspace colorspace, uint props)
+		[NativeName(NativeNameType.Func, "SDL_ComposeCustomBlendMode")]
+		[return: NativeName(NativeNameType.Type, "SDL_BlendMode")]
+		public static uint ComposeCustomBlendMode([NativeName(NativeNameType.Param, "srcColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcColorFactor, [NativeName(NativeNameType.Param, "dstColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstColorFactor, [NativeName(NativeNameType.Param, "colorOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation colorOperation, [NativeName(NativeNameType.Param, "srcAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcAlphaFactor, [NativeName(NativeNameType.Param, "dstAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstAlphaFactor, [NativeName(NativeNameType.Param, "alphaOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation alphaOperation)
 		{
-			SDLSurface* ret = ConvertSurfaceAndColorspaceNative(surface, format, palette, colorspace, props);
+			uint ret = ComposeCustomBlendModeNative(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
 			return ret;
 		}
 
 		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
+		/// Get the human readable name of a pixel format.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPixelFormatNameNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat, byte*>)funcTable[370])(format);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLPixelFormat, nint>)funcTable[370])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the human readable name of a pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetPixelFormatName([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			byte* ret = GetPixelFormatNameNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the human readable name of a pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetPixelFormatNameS([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format)
+		{
+			string ret = Utils.DecodeStringUTF8(GetPixelFormatNameNative(format));
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* ConvertSurfaceAndColorspace(ref SDLSurface surface, SDLPixelFormat format, SDLPalette* palette, SDLColorspace colorspace, uint props)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetMasksForPixelFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat, int*, uint*, uint*, uint*, uint*, byte>)funcTable[371])(format, bpp, rmask, gmask, bmask, amask);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLPixelFormat, nint, nint, nint, nint, nint, byte>)funcTable[371])(format, (nint)bpp, (nint)rmask, (nint)gmask, (nint)bmask, (nint)amask);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, gmask, bmask, amask);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
 			{
-				SDLSurface* ret = ConvertSurfaceAndColorspaceNative((SDLSurface*)psurface, format, palette, colorspace, props);
-				return ret;
+				byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, gmask, bmask, amask);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* ConvertSurfaceAndColorspace(SDLSurface* surface, SDLPixelFormat format, ref SDLPalette palette, SDLColorspace colorspace, uint props)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLPalette* ppalette = &palette)
+			fixed (uint* prmask = &rmask)
 			{
-				SDLSurface* ret = ConvertSurfaceAndColorspaceNative(surface, format, (SDLPalette*)ppalette, colorspace, props);
-				return ret;
+				byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, gmask, bmask, amask);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Copy an existing surface to a new surface of the specified format and<br/>
-		/// colorspace.<br/>
-		/// This function converts an existing surface to a new format and colorspace<br/>
-		/// and returns the new surface. This will perform any pixel format and<br/>
-		/// colorspace conversion needed.<br/>
-		/// If the original surface has alternate images, the new surface will have a<br/>
-		/// reference to them as well.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLSurface* ConvertSurfaceAndColorspace(ref SDLSurface surface, SDLPixelFormat format, ref SDLPalette palette, SDLColorspace colorspace, uint props)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* psurface = &surface)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLPalette* ppalette = &palette)
+				fixed (uint* prmask = &rmask)
 				{
-					SDLSurface* ret = ConvertSurfaceAndColorspaceNative((SDLSurface*)psurface, format, (SDLPalette*)ppalette, colorspace, props);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format to another format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination pixels should not be used from two<br/>
-		/// threads at once. It is safe to use the same source pixels<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ConvertPixelsNative(int width, int height, SDLPixelFormat srcFormat, void* src, int srcPitch, SDLPixelFormat dstFormat, void* dst, int dstPitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, void*, int, SDLPixelFormat, void*, int, byte>)funcTable[425])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, nint, int, SDLPixelFormat, nint, int, byte>)funcTable[425])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format to another format.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination pixels should not be used from two<br/>
-		/// threads at once. It is safe to use the same source pixels<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ConvertPixels(int width, int height, SDLPixelFormat srcFormat, void* src, int srcPitch, SDLPixelFormat dstFormat, void* dst, int dstPitch)
-		{
-			byte ret = ConvertPixelsNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format and colorspace to another format and<br/>
-		/// colorspace.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination pixels should not be used from two<br/>
-		/// threads at once. It is safe to use the same source pixels<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ConvertPixelsAndColorspaceNative(int width, int height, SDLPixelFormat srcFormat, SDLColorspace srcColorspace, uint srcProperties, void* src, int srcPitch, SDLPixelFormat dstFormat, SDLColorspace dstColorspace, uint dstProperties, void* dst, int dstPitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, SDLColorspace, uint, void*, int, SDLPixelFormat, SDLColorspace, uint, void*, int, byte>)funcTable[426])(width, height, srcFormat, srcColorspace, srcProperties, src, srcPitch, dstFormat, dstColorspace, dstProperties, dst, dstPitch);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, SDLColorspace, uint, nint, int, SDLPixelFormat, SDLColorspace, uint, nint, int, byte>)funcTable[426])(width, height, srcFormat, srcColorspace, srcProperties, (nint)src, srcPitch, dstFormat, dstColorspace, dstProperties, (nint)dst, dstPitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a block of pixels of one format and colorspace to another format and<br/>
-		/// colorspace.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination pixels should not be used from two<br/>
-		/// threads at once. It is safe to use the same source pixels<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ConvertPixelsAndColorspace(int width, int height, SDLPixelFormat srcFormat, SDLColorspace srcColorspace, uint srcProperties, void* src, int srcPitch, SDLPixelFormat dstFormat, SDLColorspace dstColorspace, uint dstProperties, void* dst, int dstPitch)
-		{
-			byte ret = ConvertPixelsAndColorspaceNative(width, height, srcFormat, srcColorspace, srcProperties, src, srcPitch, dstFormat, dstColorspace, dstProperties, dst, dstPitch);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Premultiply the alpha on a block of pixels.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination pixels should not be used from two<br/>
-		/// threads at once. It is safe to use the same source pixels<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PremultiplyAlphaNative(int width, int height, SDLPixelFormat srcFormat, void* src, int srcPitch, SDLPixelFormat dstFormat, void* dst, int dstPitch, byte linear)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, void*, int, SDLPixelFormat, void*, int, byte, byte>)funcTable[427])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch, linear);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, int, SDLPixelFormat, nint, int, SDLPixelFormat, nint, int, byte, byte>)funcTable[427])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch, linear);
-			#endif
-		}
-
-		/// <summary>
-		/// Premultiply the alpha on a block of pixels.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// The same destination pixels should not be used from two<br/>
-		/// threads at once. It is safe to use the same source pixels<br/>
-		/// from multiple threads.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool PremultiplyAlpha(int width, int height, SDLPixelFormat srcFormat, void* src, int srcPitch, SDLPixelFormat dstFormat, void* dst, int dstPitch, bool linear)
-		{
-			byte ret = PremultiplyAlphaNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch, linear ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Premultiply the alpha in a surface.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PremultiplySurfaceAlphaNative(SDLSurface* surface, byte linear)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte>)funcTable[428])(surface, linear);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, byte>)funcTable[428])((nint)surface, linear);
-			#endif
-		}
-
-		/// <summary>
-		/// Premultiply the alpha in a surface.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool PremultiplySurfaceAlpha(SDLSurface* surface, bool linear)
-		{
-			byte ret = PremultiplySurfaceAlphaNative(surface, linear ? (byte)1 : (byte)0);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Premultiply the alpha in a surface.<br/>
-		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool PremultiplySurfaceAlpha(ref SDLSurface surface, bool linear)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = PremultiplySurfaceAlphaNative((SDLSurface*)psurface, linear ? (byte)1 : (byte)0);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Clear a surface with a specific color, with floating point precision.<br/>
-		/// This function handles all surface formats, and ignores any clip rectangle.<br/>
-		/// If the surface is YUV, the color is assumed to be in the sRGB colorspace,<br/>
-		/// otherwise the color is assumed to be in the colorspace of the suface.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ClearSurfaceNative(SDLSurface* surface, float r, float g, float b, float a)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, float, float, float, float, byte>)funcTable[429])(surface, r, g, b, a);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, float, float, float, byte>)funcTable[429])((nint)surface, r, g, b, a);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear a surface with a specific color, with floating point precision.<br/>
-		/// This function handles all surface formats, and ignores any clip rectangle.<br/>
-		/// If the surface is YUV, the color is assumed to be in the sRGB colorspace,<br/>
-		/// otherwise the color is assumed to be in the colorspace of the suface.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ClearSurface(SDLSurface* surface, float r, float g, float b, float a)
-		{
-			byte ret = ClearSurfaceNative(surface, r, g, b, a);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Clear a surface with a specific color, with floating point precision.<br/>
-		/// This function handles all surface formats, and ignores any clip rectangle.<br/>
-		/// If the surface is YUV, the color is assumed to be in the sRGB colorspace,<br/>
-		/// otherwise the color is assumed to be in the colorspace of the suface.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool ClearSurface(ref SDLSurface surface, float r, float g, float b, float a)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				byte ret = ClearSurfaceNative((SDLSurface*)psurface, r, g, b, a);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FillSurfaceRectNative(SDLSurface* dst, SDLRect* rect, uint color)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, uint, byte>)funcTable[430])(dst, rect, color);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, uint, byte>)funcTable[430])((nint)dst, (nint)rect, color);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FillSurfaceRect(SDLSurface* dst, SDLRect* rect, uint color)
-		{
-			byte ret = FillSurfaceRectNative(dst, rect, color);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FillSurfaceRect(ref SDLSurface dst, SDLRect* rect, uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = FillSurfaceRectNative((SDLSurface*)pdst, rect, color);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FillSurfaceRect(SDLSurface* dst, ref SDLRect rect, uint color)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				byte ret = FillSurfaceRectNative(dst, (SDLRect*)prect, color);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a rectangle with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FillSurfaceRect(ref SDLSurface dst, ref SDLRect rect, uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					byte ret = FillSurfaceRectNative((SDLSurface*)pdst, (SDLRect*)prect, color);
+					byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, amask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FillSurfaceRectsNative(SDLSurface* dst, SDLRect* rects, int count, uint color)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, int, uint, byte>)funcTable[431])(dst, rects, count, color);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, uint, byte>)funcTable[431])((nint)dst, (nint)rects, count, color);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FillSurfaceRects(SDLSurface* dst, SDLRect* rects, int count, uint color)
-		{
-			byte ret = FillSurfaceRectsNative(dst, rects, count, color);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FillSurfaceRects(ref SDLSurface dst, SDLRect* rects, int count, uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
+			fixed (uint* pgmask = &gmask)
 			{
-				byte ret = FillSurfaceRectsNative((SDLSurface*)pdst, rects, count, color);
+				byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, (uint*)pgmask, bmask, amask);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// This function is not thread safe.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool FillSurfaceRects(SDLSurface* dst, ref SDLRect rects, int count, uint color)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLRect* prects = &rects)
+			fixed (int* pbpp = &bpp)
 			{
-				byte ret = FillSurfaceRectsNative(dst, (SDLRect*)prects, count, color);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
-		/// `color` should be a pixel of the format used by the surface, and can be<br/>
-		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
-		/// alpha component then the destination is simply filled with that alpha<br/>
-		/// information, no blending takes place.<br/>
-		/// If there is a clip rectangle set on the destination (set via<br/>
-		/// SDL_SetSurfaceClipRect()), then this function will fill based on the<br/>
-		/// intersection of the clip rectangle and `rect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function is not thread safe.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FillSurfaceRects(ref SDLSurface dst, ref SDLRect rects, int count, uint color)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* prects = &rects)
+				fixed (uint* pgmask = &gmask)
 				{
-					byte ret = FillSurfaceRectsNative((SDLSurface*)pdst, (SDLRect*)prects, count, color);
+					byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, amask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, byte>)funcTable[432])(src, srcrect, dst, dstrect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[432])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurface(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			byte ret = BlitSurfaceNative(src, srcrect, dst, dstrect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurface(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (uint* prmask = &rmask)
 			{
-				byte ret = BlitSurfaceNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurface(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				byte ret = BlitSurfaceNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurface(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (uint* pgmask = &gmask)
 				{
-					byte ret = BlitSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
+					byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* pdst = &dst)
+			fixed (int* pbpp = &bpp)
 			{
-				byte ret = BlitSurfaceNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurface(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (uint* prmask = &rmask)
 				{
-					byte ret = BlitSurfaceNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurface(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurface(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (uint* pgmask = &gmask)
 					{
-						byte ret = BlitSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
 						return ret != 0;
 					}
 				}
@@ -2917,251 +4424,87 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLRect* pdstrect = &dstrect)
+			fixed (uint* pbmask = &bmask)
 			{
-				byte ret = BlitSurfaceNative(src, srcrect, dst, (SDLRect*)pdstrect);
+				byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, gmask, (uint*)pbmask, amask);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (uint* pbmask = &bmask)
 				{
-					byte ret = BlitSurfaceNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
+					byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, amask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (uint* prmask = &rmask)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (uint* pbmask = &bmask)
 				{
-					byte ret = BlitSurfaceNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+					byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (uint* prmask = &rmask)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pbmask = &bmask)
 					{
-						byte ret = BlitSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
 						return ret != 0;
 					}
 				}
@@ -3169,128 +4512,46 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* pdst = &dst)
+			fixed (uint* pgmask = &gmask)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (uint* pbmask = &bmask)
 				{
-					byte ret = BlitSurfaceNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (uint* pgmask = &gmask)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pbmask = &bmask)
 					{
-						byte ret = BlitSurfaceNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
 						return ret != 0;
 					}
 				}
@@ -3298,65 +4559,24 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (uint* prmask = &rmask)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (uint* pgmask = &gmask)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pbmask = &bmask)
 					{
-						byte ret = BlitSurfaceNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
 						return ret != 0;
 					}
 				}
@@ -3364,67 +4584,26 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Performs a fast blit from the source surface to the destination surface<br/>
-		/// with clipping.<br/>
-		/// If either `srcrect` or `dstrect` are NULL, the entire surface (`src` or<br/>
-		/// `dst`) is copied while ensuring clipping to `dst->clip_rect`.<br/>
-		/// The blit function should not be called on a locked surface.<br/>
-		/// The blit semantics for surfaces with and without blending and colorkey are<br/>
-		/// defined as follows:<br/>
-		/// ```<br/>
-		/// RGBA->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB, set destination alpha to source per-surface alpha value.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// RGBA->RGBA:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source alpha-channel and per-surface alpha)<br/>
-		/// SDL_SRCCOLORKEY ignored.<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy all of RGBA to the destination.<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// RGB values of the source color key, ignoring alpha in the<br/>
-		/// comparison.<br/>
-		/// RGB->RGB:<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_BLEND:<br/>
-		/// alpha-blend (using the source per-surface alpha)<br/>
-		/// Source surface blend mode set to SDL_BLENDMODE_NONE:<br/>
-		/// copy RGB.<br/>
-		/// both:<br/>
-		/// if SDL_SRCCOLORKEY set, only copy the pixels that do not match the<br/>
-		/// source color key.<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurface(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* amask)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (uint* prmask = &rmask)
 				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (uint* pgmask = &gmask)
 					{
-						fixed (SDLRect* pdstrect = &dstrect)
+						fixed (uint* pbmask = &bmask)
 						{
-							byte ret = BlitSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
 							return ret != 0;
 						}
 					}
@@ -3433,192 +4612,87 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceUncheckedNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, byte>)funcTable[433])(src, srcrect, dst, dstrect);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[433])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			byte ret = BlitSurfaceUncheckedNative(src, srcrect, dst, dstrect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (uint* pamask = &amask)
 			{
-				byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, srcrect, dst, dstrect);
+				byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, gmask, bmask, (uint*)pamask);
 				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceUnchecked(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (int* pbpp = &bpp)
 			{
-				byte ret = BlitSurfaceUncheckedNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (uint* pamask = &amask)
 				{
-					byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
+					byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, gmask, bmask, (uint*)pamask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceUnchecked(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLSurface* pdst = &dst)
+			fixed (uint* prmask = &rmask)
 			{
-				byte ret = BlitSurfaceUncheckedNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (uint* pamask = &amask)
 				{
-					byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
+					byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceUnchecked(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (uint* prmask = &rmask)
 				{
-					byte ret = BlitSurfaceUncheckedNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (uint* pamask = &amask)
 					{
-						byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
 						return ret != 0;
 					}
 				}
@@ -3626,91 +4700,46 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceUnchecked(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLRect* pdstrect = &dstrect)
+			fixed (uint* pgmask = &gmask)
 			{
-				byte ret = BlitSurfaceUncheckedNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (uint* pamask = &amask)
 				{
-					byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
+					byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceUnchecked(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (uint* pgmask = &gmask)
 				{
-					byte ret = BlitSurfaceUncheckedNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pamask = &amask)
 					{
-						byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
 						return ret != 0;
 					}
 				}
@@ -3718,48 +4747,24 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceUnchecked(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLSurface* pdst = &dst)
+			fixed (uint* prmask = &rmask)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (uint* pgmask = &gmask)
 				{
-					byte ret = BlitSurfaceUncheckedNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pamask = &amask)
 					{
-						byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
 						return ret != 0;
 					}
 				}
@@ -3767,53 +4772,26 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceUnchecked(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLRect* psrcrect = &srcrect)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (uint* prmask = &rmask)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pgmask = &gmask)
 					{
-						byte ret = BlitSurfaceUncheckedNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface blitting only.<br/>
-		/// This is a semi-private blit function and it performs low-level surface<br/>
-		/// blitting, assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUnchecked(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
+						fixed (uint* pamask = &amask)
 						{
-							byte ret = BlitSurfaceUncheckedNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
 							return ret != 0;
 						}
 					}
@@ -3822,183 +4800,46 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceScaledNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, SDLScaleMode, byte>)funcTable[434])(src, srcrect, dst, dstrect, scaleMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, SDLScaleMode, byte>)funcTable[434])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			byte ret = BlitSurfaceScaledNative(src, srcrect, dst, dstrect, scaleMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (uint* pbmask = &bmask)
 			{
-				byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, srcrect, dst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				byte ret = BlitSurfaceScaledNative(src, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (uint* pamask = &amask)
 				{
-					byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
+					byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
 					return ret != 0;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = BlitSurfaceScaledNative(src, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (uint* pbmask = &bmask)
 				{
-					byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (uint* pamask = &amask)
 					{
-						byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
+						byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
 						return ret != 0;
 					}
 				}
@@ -4006,87 +4847,24 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				byte ret = BlitSurfaceScaledNative(src, srcrect, dst, (SDLRect*)pdstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (uint* prmask = &rmask)
 			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (uint* pbmask = &bmask)
 				{
-					byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceScaledNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pamask = &amask)
 					{
-						byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect, scaleMode);
+						byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
 						return ret != 0;
 					}
 				}
@@ -4094,98 +4872,26 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceScaledNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLSurface* pdst = &dst)
+				fixed (uint* prmask = &rmask)
 				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pbmask = &bmask)
 					{
-						byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = BlitSurfaceScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
+						fixed (uint* pamask = &amask)
 						{
-							byte ret = BlitSurfaceScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
+							byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
 							return ret != 0;
 						}
 					}
@@ -4194,192 +4900,24 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceUncheckedScaledNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, SDLScaleMode, byte>)funcTable[435])(src, srcrect, dst, dstrect, scaleMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, SDLScaleMode, byte>)funcTable[435])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			byte ret = BlitSurfaceUncheckedScaledNative(src, srcrect, dst, dstrect, scaleMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (uint* pgmask = &gmask)
 			{
-				byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, srcrect, dst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				byte ret = BlitSurfaceUncheckedScaledNative(src, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (uint* pbmask = &bmask)
 				{
-					byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = BlitSurfaceUncheckedScaledNative(src, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = BlitSurfaceUncheckedScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (uint* pamask = &amask)
 					{
-						byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
+						byte ret = GetMasksForPixelFormatNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
 						return ret != 0;
 					}
 				}
@@ -4387,194 +4925,26 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			fixed (SDLRect* pdstrect = &dstrect)
+			fixed (int* pbpp = &bpp)
 			{
-				byte ret = BlitSurfaceUncheckedScaledNative(src, srcrect, dst, (SDLRect*)pdstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
+				fixed (uint* pgmask = &gmask)
 				{
-					byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceUncheckedScaledNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
+					fixed (uint* pbmask = &bmask)
 					{
-						byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = BlitSurfaceUncheckedScaledNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = BlitSurfaceUncheckedScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform low-level surface scaled blitting only.<br/>
-		/// This is a semi-private function and it performs low-level surface blitting,<br/>
-		/// assuming the input rectangles have already been clipped.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceUncheckedScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
+						fixed (uint* pamask = &amask)
 						{
-							byte ret = BlitSurfaceUncheckedScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
+							byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
 							return ret != 0;
 						}
 					}
@@ -4583,353 +4953,26 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte StretchSurfaceNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, SDLScaleMode, byte>)funcTable[436])(src, srcrect, dst, dstrect, scaleMode);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, SDLScaleMode, byte>)funcTable[436])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool StretchSurface(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
 		{
-			byte ret = StretchSurfaceNative(src, srcrect, dst, dstrect, scaleMode);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
+			fixed (uint* prmask = &rmask)
 			{
-				byte ret = StretchSurfaceNative((SDLSurface*)psrc, srcrect, dst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				byte ret = StretchSurfaceNative(src, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
+				fixed (uint* pgmask = &gmask)
 				{
-					byte ret = StretchSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				byte ret = StretchSurfaceNative(src, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = StretchSurfaceNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					byte ret = StretchSurfaceNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
+					fixed (uint* pbmask = &bmask)
 					{
-						byte ret = StretchSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				byte ret = StretchSurfaceNative(src, srcrect, dst, (SDLRect*)pdstrect, scaleMode);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = StretchSurfaceNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = StretchSurfaceNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = StretchSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					byte ret = StretchSurfaceNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = StretchSurfaceNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						byte ret = StretchSurfaceNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a stretched pixel copy from one surface to another.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool StretchSurface(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect, SDLScaleMode scaleMode)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
+						fixed (uint* pamask = &amask)
 						{
-							byte ret = StretchSurfaceNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect, scaleMode);
+							byte ret = GetMasksForPixelFormatNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
 							return ret != 0;
 						}
 					}
@@ -4938,85 +4981,56 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Perform a tiled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
 		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
+		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetMasksForPixelFormat")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetMasksForPixelFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat")] SDLPixelFormat format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int *")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32 *")] ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pgmask = &gmask)
+					{
+						fixed (uint* pbmask = &bmask)
+						{
+							fixed (uint* pamask = &amask)
+							{
+								byte ret = GetMasksForPixelFormatNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+								return ret != 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert a bpp value and RGBA masks to an enumerated pixel format.<br/>
+		/// This will return `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't<br/>
+		/// possible.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatForMasks")]
+		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BlitSurfaceTiledNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		internal static SDLPixelFormat GetPixelFormatForMasksNative([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, byte>)funcTable[437])(src, srcrect, dst, dstrect);
+			return ((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, SDLPixelFormat>)funcTable[372])(bpp, rmask, gmask, bmask, amask);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[437])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			return (SDLPixelFormat)((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, SDLPixelFormat>)funcTable[372])(bpp, rmask, gmask, bmask, amask);
 			#endif
-		}
-
-		/// <summary>
-		/// Perform a tiled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceTiled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			byte ret = BlitSurfaceTiledNative(src, srcrect, dst, dstrect);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Perform a tiled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceTiled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				byte ret = BlitSurfaceTiledNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Perform a tiled blit to a destination surface, which may be of a different<br/>
-		/// format.<br/>
-		/// The pixels in `srcrect` will be repeated as many times as needed to<br/>
-		/// completely fill `dstrect`.<br/>
-		/// <br/>
-		/// <br/>
-		/// Only one thread should be using the `src` and `dst` surfaces<br/>
-		/// at any given time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BlitSurfaceTiled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				byte ret = BlitSurfaceTiledNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret != 0;
-			}
 		}
 	}
 }

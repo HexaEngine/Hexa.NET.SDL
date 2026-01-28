@@ -20,56 +20,75 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUGraphicsPipelineCreateInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUGraphicsPipelineCreateInfo
 	{
 		/// <summary>
 		/// The vertex shader used by the graphics pipeline. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "vertex_shader")]
+		[NativeName(NativeNameType.Type, "SDL_GPUShader *")]
 		public unsafe SDLGPUShader* VertexShader;
 
 		/// <summary>
 		/// The fragment shader used by the graphics pipeline. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "fragment_shader")]
+		[NativeName(NativeNameType.Type, "SDL_GPUShader *")]
 		public unsafe SDLGPUShader* FragmentShader;
 
 		/// <summary>
 		/// The vertex layout of the graphics pipeline. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "vertex_input_state")]
+		[NativeName(NativeNameType.Type, "SDL_GPUVertexInputState")]
 		public SDLGPUVertexInputState VertexInputState;
 
 		/// <summary>
 		/// The primitive topology of the graphics pipeline. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "primitive_type")]
+		[NativeName(NativeNameType.Type, "SDL_GPUPrimitiveType")]
 		public SDLGPUPrimitiveType PrimitiveType;
 
 		/// <summary>
 		/// The rasterizer state of the graphics pipeline. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "rasterizer_state")]
+		[NativeName(NativeNameType.Type, "SDL_GPURasterizerState")]
 		public SDLGPURasterizerState RasterizerState;
 
 		/// <summary>
 		/// The multisample state of the graphics pipeline. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "multisample_state")]
+		[NativeName(NativeNameType.Type, "SDL_GPUMultisampleState")]
 		public SDLGPUMultisampleState MultisampleState;
 
 		/// <summary>
 		/// The depth-stencil state of the graphics pipeline. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "depth_stencil_state")]
+		[NativeName(NativeNameType.Type, "SDL_GPUDepthStencilState")]
 		public SDLGPUDepthStencilState DepthStencilState;
 
 		/// <summary>
 		/// Formats and blend modes for the render targets of the graphics pipeline. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "target_info")]
+		[NativeName(NativeNameType.Type, "SDL_GPUGraphicsPipelineTargetInfo")]
 		public SDLGPUGraphicsPipelineTargetInfo TargetInfo;
 
 		/// <summary>
 		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "props")]
+		[NativeName(NativeNameType.Type, "SDL_PropertiesID")]
 		public uint Props;
 
 
-		public unsafe SDLGPUGraphicsPipelineCreateInfo(SDLGPUShader* vertexShader = default, SDLGPUShader* fragmentShader = default, SDLGPUVertexInputState vertexInputState = default, SDLGPUPrimitiveType primitiveType = default, SDLGPURasterizerState rasterizerState = default, SDLGPUMultisampleState multisampleState = default, SDLGPUDepthStencilState depthStencilState = default, SDLGPUGraphicsPipelineTargetInfo targetInfo = default, uint props = default)
+		public unsafe SDLGPUGraphicsPipelineCreateInfo(SDLGPUShaderPtr vertexShader = default, SDLGPUShaderPtr fragmentShader = default, SDLGPUVertexInputState vertexInputState = default, SDLGPUPrimitiveType primitiveType = default, SDLGPURasterizerState rasterizerState = default, SDLGPUMultisampleState multisampleState = default, SDLGPUDepthStencilState depthStencilState = default, SDLGPUGraphicsPipelineTargetInfo targetInfo = default, uint props = default)
 		{
 			VertexShader = vertexShader;
 			FragmentShader = fragmentShader;
@@ -83,6 +102,88 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying the parameters of a graphics pipeline state.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUGraphicsPipelineCreateInfo")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUGraphicsPipelineCreateInfoPtr : IEquatable<SDLGPUGraphicsPipelineCreateInfoPtr>
+	{
+		public SDLGPUGraphicsPipelineCreateInfoPtr(SDLGPUGraphicsPipelineCreateInfo* handle) { Handle = handle; }
+
+		public SDLGPUGraphicsPipelineCreateInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUGraphicsPipelineCreateInfoPtr Null => new SDLGPUGraphicsPipelineCreateInfoPtr(null);
+
+		public SDLGPUGraphicsPipelineCreateInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUGraphicsPipelineCreateInfoPtr(SDLGPUGraphicsPipelineCreateInfo* handle) => new SDLGPUGraphicsPipelineCreateInfoPtr(handle);
+
+		public static implicit operator SDLGPUGraphicsPipelineCreateInfo*(SDLGPUGraphicsPipelineCreateInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUGraphicsPipelineCreateInfoPtr left, SDLGPUGraphicsPipelineCreateInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUGraphicsPipelineCreateInfoPtr left, SDLGPUGraphicsPipelineCreateInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUGraphicsPipelineCreateInfoPtr left, SDLGPUGraphicsPipelineCreateInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUGraphicsPipelineCreateInfoPtr left, SDLGPUGraphicsPipelineCreateInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUGraphicsPipelineCreateInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUGraphicsPipelineCreateInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUGraphicsPipelineCreateInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The vertex shader used by the graphics pipeline. <br/>
+		/// </summary>
+		public ref SDLGPUShaderPtr VertexShader => ref Unsafe.AsRef<SDLGPUShaderPtr>(&Handle->VertexShader);
+		/// <summary>
+		/// The fragment shader used by the graphics pipeline. <br/>
+		/// </summary>
+		public ref SDLGPUShaderPtr FragmentShader => ref Unsafe.AsRef<SDLGPUShaderPtr>(&Handle->FragmentShader);
+		/// <summary>
+		/// The vertex layout of the graphics pipeline. <br/>
+		/// </summary>
+		public ref SDLGPUVertexInputState VertexInputState => ref Unsafe.AsRef<SDLGPUVertexInputState>(&Handle->VertexInputState);
+		/// <summary>
+		/// The primitive topology of the graphics pipeline. <br/>
+		/// </summary>
+		public ref SDLGPUPrimitiveType PrimitiveType => ref Unsafe.AsRef<SDLGPUPrimitiveType>(&Handle->PrimitiveType);
+		/// <summary>
+		/// The rasterizer state of the graphics pipeline. <br/>
+		/// </summary>
+		public ref SDLGPURasterizerState RasterizerState => ref Unsafe.AsRef<SDLGPURasterizerState>(&Handle->RasterizerState);
+		/// <summary>
+		/// The multisample state of the graphics pipeline. <br/>
+		/// </summary>
+		public ref SDLGPUMultisampleState MultisampleState => ref Unsafe.AsRef<SDLGPUMultisampleState>(&Handle->MultisampleState);
+		/// <summary>
+		/// The depth-stencil state of the graphics pipeline. <br/>
+		/// </summary>
+		public ref SDLGPUDepthStencilState DepthStencilState => ref Unsafe.AsRef<SDLGPUDepthStencilState>(&Handle->DepthStencilState);
+		/// <summary>
+		/// Formats and blend modes for the render targets of the graphics pipeline. <br/>
+		/// </summary>
+		public ref SDLGPUGraphicsPipelineTargetInfo TargetInfo => ref Unsafe.AsRef<SDLGPUGraphicsPipelineTargetInfo>(&Handle->TargetInfo);
+		/// <summary>
+		/// A properties ID for extensions. Should be 0 if no extensions are needed. <br/>
+		/// </summary>
+		public ref uint Props => ref Unsafe.AsRef<uint>(&Handle->Props);
 	}
 
 }

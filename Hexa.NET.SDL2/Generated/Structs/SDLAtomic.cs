@@ -32,4 +32,49 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// A type representing an atomic integer value.<br/>
+	/// It is a struct so people don't accidentally use numeric operations on it.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLAtomicPtr : IEquatable<SDLAtomicPtr>
+	{
+		public SDLAtomicPtr(SDLAtomic* handle) { Handle = handle; }
+
+		public SDLAtomic* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLAtomicPtr Null => new SDLAtomicPtr(null);
+
+		public SDLAtomic this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLAtomicPtr(SDLAtomic* handle) => new SDLAtomicPtr(handle);
+
+		public static implicit operator SDLAtomic*(SDLAtomicPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLAtomicPtr left, SDLAtomicPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLAtomicPtr left, SDLAtomicPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLAtomicPtr left, SDLAtomic* right) => left.Handle == right;
+
+		public static bool operator !=(SDLAtomicPtr left, SDLAtomic* right) => left.Handle != right;
+
+		public bool Equals(SDLAtomicPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLAtomicPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLAtomicPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref int Value => ref Unsafe.AsRef<int>(&Handle->Value);
+	}
+
 }

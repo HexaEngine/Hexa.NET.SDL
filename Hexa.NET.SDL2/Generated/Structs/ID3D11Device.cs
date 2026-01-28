@@ -22,4 +22,44 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct ID3D11DevicePtr : IEquatable<ID3D11DevicePtr>
+	{
+		public ID3D11DevicePtr(ID3D11Device* handle) { Handle = handle; }
+
+		public ID3D11Device* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static ID3D11DevicePtr Null => new ID3D11DevicePtr(null);
+
+		public ID3D11Device this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator ID3D11DevicePtr(ID3D11Device* handle) => new ID3D11DevicePtr(handle);
+
+		public static implicit operator ID3D11Device*(ID3D11DevicePtr handle) => handle.Handle;
+
+		public static bool operator ==(ID3D11DevicePtr left, ID3D11DevicePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(ID3D11DevicePtr left, ID3D11DevicePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(ID3D11DevicePtr left, ID3D11Device* right) => left.Handle == right;
+
+		public static bool operator !=(ID3D11DevicePtr left, ID3D11Device* right) => left.Handle != right;
+
+		public bool Equals(ID3D11DevicePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is ID3D11DevicePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("ID3D11DevicePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
 }

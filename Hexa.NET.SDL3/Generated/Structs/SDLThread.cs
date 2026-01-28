@@ -15,17 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// The SDL thread object.<br/>
-	/// These are opaque data.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Thread")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLThread
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Thread")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLThreadPtr : IEquatable<SDLThreadPtr>
+	{
+		public SDLThreadPtr(SDLThread* handle) { Handle = handle; }
+
+		public SDLThread* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLThreadPtr Null => new SDLThreadPtr(null);
+
+		public SDLThread this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLThreadPtr(SDLThread* handle) => new SDLThreadPtr(handle);
+
+		public static implicit operator SDLThread*(SDLThreadPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLThreadPtr left, SDLThreadPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLThreadPtr left, SDLThreadPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLThreadPtr left, SDLThread* right) => left.Handle == right;
+
+		public static bool operator !=(SDLThreadPtr left, SDLThread* right) => left.Handle != right;
+
+		public bool Equals(SDLThreadPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLThreadPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLThreadPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

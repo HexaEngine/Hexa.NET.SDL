@@ -156,4 +156,76 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// This is the read/write operation structure -- very basic.<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLRWopsPtr : IEquatable<SDLRWopsPtr>
+	{
+		public SDLRWopsPtr(SDLRWops* handle) { Handle = handle; }
+
+		public SDLRWops* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLRWopsPtr Null => new SDLRWopsPtr(null);
+
+		public SDLRWops this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLRWopsPtr(SDLRWops* handle) => new SDLRWopsPtr(handle);
+
+		public static implicit operator SDLRWops*(SDLRWopsPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLRWopsPtr left, SDLRWopsPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLRWopsPtr left, SDLRWopsPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLRWopsPtr left, SDLRWops* right) => left.Handle == right;
+
+		public static bool operator !=(SDLRWopsPtr left, SDLRWops* right) => left.Handle != right;
+
+		public bool Equals(SDLRWopsPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLRWopsPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLRWopsPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Return the size of the file in this rwops, or -1 if unknown<br/>
+		/// </summary>
+		public void* Size { get => Handle->Size; set => Handle->Size = value; }
+		/// <summary>
+		/// Seek to `offset` relative to `whence`, one of stdio's whence values:<br/>
+		/// RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END<br/>
+		/// <br/>
+		/// </summary>
+		public void* Seek { get => Handle->Seek; set => Handle->Seek = value; }
+		/// <summary>
+		/// Read up to `maxnum` objects each of size `size` from the data<br/>
+		/// stream to the area pointed at by `ptr`.<br/>
+		/// <br/>
+		/// </summary>
+		public void* Read { get => Handle->Read; set => Handle->Read = value; }
+		/// <summary>
+		/// Write exactly `num` objects each of size `size` from the area<br/>
+		/// pointed at by `ptr` to data stream.<br/>
+		/// <br/>
+		/// </summary>
+		public void* Write { get => Handle->Write; set => Handle->Write = value; }
+		/// <summary>
+		/// Close and free an allocated SDL_RWops structure.<br/>
+		/// <br/>
+		/// </summary>
+		public void* Close { get => Handle->Close; set => Handle->Close = value; }
+		public ref uint Type => ref Unsafe.AsRef<uint>(&Handle->Type);
+		public ref SDLRWops.HiddenUnion Union => ref Unsafe.AsRef<SDLRWops.HiddenUnion>(&Handle->Union);
+	}
+
 }

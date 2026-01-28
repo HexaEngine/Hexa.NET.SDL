@@ -41,4 +41,55 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLWindowShapeModePtr : IEquatable<SDLWindowShapeModePtr>
+	{
+		public SDLWindowShapeModePtr(SDLWindowShapeMode* handle) { Handle = handle; }
+
+		public SDLWindowShapeMode* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLWindowShapeModePtr Null => new SDLWindowShapeModePtr(null);
+
+		public SDLWindowShapeMode this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLWindowShapeModePtr(SDLWindowShapeMode* handle) => new SDLWindowShapeModePtr(handle);
+
+		public static implicit operator SDLWindowShapeMode*(SDLWindowShapeModePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLWindowShapeModePtr left, SDLWindowShapeModePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLWindowShapeModePtr left, SDLWindowShapeModePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLWindowShapeModePtr left, SDLWindowShapeMode* right) => left.Handle == right;
+
+		public static bool operator !=(SDLWindowShapeModePtr left, SDLWindowShapeMode* right) => left.Handle != right;
+
+		public bool Equals(SDLWindowShapeModePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLWindowShapeModePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLWindowShapeModePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// <br/>
+		/// </summary>
+		public ref WindowShapeMode Mode => ref Unsafe.AsRef<WindowShapeMode>(&Handle->Mode);
+		/// <summary>
+		/// <br/>
+		/// </summary>
+		public ref SDLWindowShapeParams Parameters => ref Unsafe.AsRef<SDLWindowShapeParams>(&Handle->Parameters);
+	}
+
 }

@@ -15,19 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// A means to serialize access to a resource between threads.<br/>
-	/// Mutexes (short for "mutual exclusion") are a synchronization primitive that<br/>
-	/// allows exactly one thread to proceed at a time.<br/>
-	/// Wikipedia has a thorough explanation of the concept:<br/>
-	/// https://en.wikipedia.org/wiki/Mutex<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Mutex")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMutex
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_Mutex")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLMutexPtr : IEquatable<SDLMutexPtr>
+	{
+		public SDLMutexPtr(SDLMutex* handle) { Handle = handle; }
+
+		public SDLMutex* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLMutexPtr Null => new SDLMutexPtr(null);
+
+		public SDLMutex this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLMutexPtr(SDLMutex* handle) => new SDLMutexPtr(handle);
+
+		public static implicit operator SDLMutex*(SDLMutexPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLMutexPtr left, SDLMutexPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLMutexPtr left, SDLMutexPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLMutexPtr left, SDLMutex* right) => left.Handle == right;
+
+		public static bool operator !=(SDLMutexPtr left, SDLMutex* right) => left.Handle != right;
+
+		public bool Equals(SDLMutexPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLMutexPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLMutexPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

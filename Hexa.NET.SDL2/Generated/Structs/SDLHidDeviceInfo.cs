@@ -113,4 +113,105 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// Information about a connected HID device<br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLHidDeviceInfoPtr : IEquatable<SDLHidDeviceInfoPtr>
+	{
+		public SDLHidDeviceInfoPtr(SDLHidDeviceInfo* handle) { Handle = handle; }
+
+		public SDLHidDeviceInfo* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLHidDeviceInfoPtr Null => new SDLHidDeviceInfoPtr(null);
+
+		public SDLHidDeviceInfo this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLHidDeviceInfoPtr(SDLHidDeviceInfo* handle) => new SDLHidDeviceInfoPtr(handle);
+
+		public static implicit operator SDLHidDeviceInfo*(SDLHidDeviceInfoPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLHidDeviceInfoPtr left, SDLHidDeviceInfoPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLHidDeviceInfoPtr left, SDLHidDeviceInfoPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLHidDeviceInfoPtr left, SDLHidDeviceInfo* right) => left.Handle == right;
+
+		public static bool operator !=(SDLHidDeviceInfoPtr left, SDLHidDeviceInfo* right) => left.Handle != right;
+
+		public bool Equals(SDLHidDeviceInfoPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLHidDeviceInfoPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLHidDeviceInfoPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// Platform-specific device path <br/>
+		/// </summary>
+		public byte* Path { get => Handle->Path; set => Handle->Path = value; }
+		/// <summary>
+		/// Device Vendor ID <br/>
+		/// </summary>
+		public ref ushort VendorId => ref Unsafe.AsRef<ushort>(&Handle->VendorId);
+		/// <summary>
+		/// Device Product ID <br/>
+		/// </summary>
+		public ref ushort ProductId => ref Unsafe.AsRef<ushort>(&Handle->ProductId);
+		/// <summary>
+		/// Serial Number <br/>
+		/// </summary>
+		public char* SerialNumber { get => Handle->SerialNumber; set => Handle->SerialNumber = value; }
+		/// <summary>
+		/// Device Release Number in binary-coded decimal,<br/>
+		/// also known as Device Version Number <br/>
+		/// </summary>
+		public ref ushort ReleaseNumber => ref Unsafe.AsRef<ushort>(&Handle->ReleaseNumber);
+		/// <summary>
+		/// Manufacturer String <br/>
+		/// </summary>
+		public char* ManufacturerString { get => Handle->ManufacturerString; set => Handle->ManufacturerString = value; }
+		/// <summary>
+		/// Product string <br/>
+		/// </summary>
+		public char* ProductString { get => Handle->ProductString; set => Handle->ProductString = value; }
+		/// <summary>
+		/// Usage Page for this Device/Interface<br/>
+		/// (Windows/Mac only). <br/>
+		/// </summary>
+		public ref ushort UsagePage => ref Unsafe.AsRef<ushort>(&Handle->UsagePage);
+		/// <summary>
+		/// Usage for this Device/Interface<br/>
+		/// (Windows/Mac only).<br/>
+		/// </summary>
+		public ref ushort Usage => ref Unsafe.AsRef<ushort>(&Handle->Usage);
+		/// <summary>
+		/// The USB interface which this logical device<br/>
+		/// represents.<br/>
+		/// Valid on both Linux implementations in all cases.<br/>
+		/// Valid on the Windows implementation only if the device<br/>
+		/// contains more than one interface. <br/>
+		/// </summary>
+		public ref int InterfaceNumber => ref Unsafe.AsRef<int>(&Handle->InterfaceNumber);
+		/// <summary>
+		/// Additional information about the USB interface.<br/>
+		/// Valid on libusb and Android implementations. <br/>
+		/// </summary>
+		public ref int InterfaceClass => ref Unsafe.AsRef<int>(&Handle->InterfaceClass);
+		public ref int InterfaceSubclass => ref Unsafe.AsRef<int>(&Handle->InterfaceSubclass);
+		public ref int InterfaceProtocol => ref Unsafe.AsRef<int>(&Handle->InterfaceProtocol);
+		/// <summary>
+		/// Pointer to the next device <br/>
+		/// </summary>
+		public ref SDLHidDeviceInfoPtr Next => ref Unsafe.AsRef<SDLHidDeviceInfoPtr>(&Handle->Next);
+	}
+
 }

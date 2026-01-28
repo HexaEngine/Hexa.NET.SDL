@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Pixel type. <br/>
 	/// </summary>
-	[Flags]
 	public enum SDLPixelType : int
 	{
 		Unknown = unchecked(0),

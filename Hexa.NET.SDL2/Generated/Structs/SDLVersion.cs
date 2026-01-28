@@ -52,4 +52,64 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// Information about the version of SDL in use.<br/>
+	/// Represents the library's version as three levels: major revision<br/>
+	/// (increments with massive changes, additions, and enhancements), minor<br/>
+	/// revision (increments with backwards-compatible changes to the major<br/>
+	/// revision), and patchlevel (increments with fixes to the minor revision).<br/>
+	/// <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLVersionPtr : IEquatable<SDLVersionPtr>
+	{
+		public SDLVersionPtr(SDLVersion* handle) { Handle = handle; }
+
+		public SDLVersion* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLVersionPtr Null => new SDLVersionPtr(null);
+
+		public SDLVersion this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLVersionPtr(SDLVersion* handle) => new SDLVersionPtr(handle);
+
+		public static implicit operator SDLVersion*(SDLVersionPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLVersionPtr left, SDLVersionPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLVersionPtr left, SDLVersionPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLVersionPtr left, SDLVersion* right) => left.Handle == right;
+
+		public static bool operator !=(SDLVersionPtr left, SDLVersion* right) => left.Handle != right;
+
+		public bool Equals(SDLVersionPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLVersionPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLVersionPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// major version <br/>
+		/// </summary>
+		public ref byte Major => ref Unsafe.AsRef<byte>(&Handle->Major);
+		/// <summary>
+		/// minor version <br/>
+		/// </summary>
+		public ref byte Minor => ref Unsafe.AsRef<byte>(&Handle->Minor);
+		/// <summary>
+		/// update version <br/>
+		/// </summary>
+		public ref byte Patch => ref Unsafe.AsRef<byte>(&Handle->Patch);
+	}
+
 }

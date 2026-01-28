@@ -18,6 +18,7 @@ namespace Hexa.NET.SDL3
 	/// A handle to a CAMetalLayer-backed NSView (macOS) or UIView (iOS/tvOS).<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_MetalView")]
 	#if NET5_0_OR_GREATER
 	[DebuggerDisplay("{DebuggerDisplay,nq}")]
 	#endif

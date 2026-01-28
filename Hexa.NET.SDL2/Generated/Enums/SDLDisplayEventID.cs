@@ -15,7 +15,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Event subtype for display events<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLDisplayEventID : int
 	{
 		/// <summary>

@@ -18,6 +18,4005 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogWarn(int category, byte* fmt)
+		{
+			LogWarnNative(category, fmt);
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogWarn(int category, in byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				LogWarnNative(category, (byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogWarn(int category, ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				LogWarnNative(category, (byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_WARN.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogWarn(int category, string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			LogWarnNative(category, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LogErrorNative(int category, byte* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[710])(category, fmt);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[710])(category, (nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogError(int category, byte* fmt)
+		{
+			LogErrorNative(category, fmt);
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogError(int category, in byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				LogErrorNative(category, (byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogError(int category, ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				LogErrorNative(category, (byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_ERROR.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogError(int category, string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			LogErrorNative(category, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LogCriticalNative(int category, byte* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[711])(category, fmt);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[711])(category, (nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogCritical(int category, byte* fmt)
+		{
+			LogCriticalNative(category, fmt);
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogCritical(int category, in byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				LogCriticalNative(category, (byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogCritical(int category, ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				LogCriticalNative(category, (byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with SDL_LOG_PRIORITY_CRITICAL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogCritical(int category, string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			LogCriticalNative(category, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LogMessageNative(int category, SDLLogPriority priority, byte* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, void>)funcTable[712])(category, priority, fmt);
+			#else
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, void>)funcTable[712])(category, priority, (nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogMessage(int category, SDLLogPriority priority, byte* fmt)
+		{
+			LogMessageNative(category, priority, fmt);
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogMessage(int category, SDLLogPriority priority, in byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				LogMessageNative(category, priority, (byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogMessage(int category, SDLLogPriority priority, ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				LogMessageNative(category, priority, (byte*)pfmt);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogMessage(int category, SDLLogPriority priority, string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			LogMessageNative(category, priority, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LogMessageVNative(int category, SDLLogPriority priority, byte* fmt, nint ap)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, nint, void>)funcTable[713])(category, priority, fmt, ap);
+			#else
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, nint, void>)funcTable[713])(category, priority, (nint)fmt, ap);
+			#endif
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogMessageV(int category, SDLLogPriority priority, byte* fmt, nint ap)
+		{
+			LogMessageVNative(category, priority, fmt, ap);
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogMessageV(int category, SDLLogPriority priority, in byte fmt, nint ap)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				LogMessageVNative(category, priority, (byte*)pfmt, ap);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogMessageV(int category, SDLLogPriority priority, ReadOnlySpan<byte> fmt, nint ap)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				LogMessageVNative(category, priority, (byte*)pfmt, ap);
+			}
+		}
+
+		/// <summary>
+		/// Log a message with the specified category and priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogMessageV(int category, SDLLogPriority priority, string fmt, nint ap)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			LogMessageVNative(category, priority, pStr0, ap);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// Get the current log output function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LogGetOutputFunctionNative(delegate*<void*, int, SDLLogPriority, byte*, void>* callback, void** userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>*, void**, void>)funcTable[714])(callback, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[714])((nint)callback, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current log output function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogGetOutputFunction(delegate*<void*, int, SDLLogPriority, byte*, void>* callback, void** userdata)
+		{
+			LogGetOutputFunctionNative(callback, userdata);
+		}
+
+		/// <summary>
+		/// Get the current log output function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogGetOutputFunction(delegate*<void*, int, SDLLogPriority, byte*, void>* callback, ref nint userdata)
+		{
+			fixed (nint* puserdata = &userdata)
+			{
+				LogGetOutputFunctionNative(callback, (void**)puserdata);
+			}
+		}
+
+		/// <summary>
+		/// Replace the default log output function with one of your own.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LogSetOutputFunctionNative(delegate*<void*, int, SDLLogPriority, byte*, void> callback, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>, void*, void>)funcTable[715])(callback, userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[715])((nint)callback, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Replace the default log output function with one of your own.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogSetOutputFunction(delegate*<void*, int, SDLLogPriority, byte*, void> callback, void* userdata)
+		{
+			LogSetOutputFunctionNative(callback, userdata);
+		}
+
+		/// <summary>
+		/// Replace the default log output function with one of your own.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogSetOutputFunction(SDLLogOutputFunction callback, void* userdata)
+		{
+			LogSetOutputFunctionNative((delegate*<void*, int, SDLLogPriority, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+		}
+
+		/// <summary>
+		/// Replace the default log output function with one of your own.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogSetOutputFunction(delegate*<void*, int, SDLLogPriority, byte*, void> callback, nint userdata)
+		{
+			LogSetOutputFunctionNative(callback, (void*)userdata);
+		}
+
+		/// <summary>
+		/// Replace the default log output function with one of your own.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LogSetOutputFunction(SDLLogOutputFunction callback, nint userdata)
+		{
+			LogSetOutputFunctionNative((delegate*<void*, int, SDLLogPriority, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), (void*)userdata);
+		}
+
+		/// <summary>
+		/// Create a modal message box.<br/>
+		/// If your needs aren't complex, it might be easier to use<br/>
+		/// SDL_ShowSimpleMessageBox.<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int ShowMessageBoxNative(SDLMessageBoxData* messageboxdata, int* buttonid)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxData*, int*, int>)funcTable[716])(messageboxdata, buttonid);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[716])((nint)messageboxdata, (nint)buttonid);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a modal message box.<br/>
+		/// If your needs aren't complex, it might be easier to use<br/>
+		/// SDL_ShowSimpleMessageBox.<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowMessageBox(SDLMessageBoxDataPtr messageboxdata, int* buttonid)
+		{
+			int ret = ShowMessageBoxNative((SDLMessageBoxData*)messageboxdata, buttonid);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a modal message box.<br/>
+		/// If your needs aren't complex, it might be easier to use<br/>
+		/// SDL_ShowSimpleMessageBox.<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowMessageBox(in SDLMessageBoxData messageboxdata, int* buttonid)
+		{
+			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
+			{
+				int ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, buttonid);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a modal message box.<br/>
+		/// If your needs aren't complex, it might be easier to use<br/>
+		/// SDL_ShowSimpleMessageBox.<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowMessageBox(SDLMessageBoxDataPtr messageboxdata, ref int buttonid)
+		{
+			fixed (int* pbuttonid = &buttonid)
+			{
+				int ret = ShowMessageBoxNative((SDLMessageBoxData*)messageboxdata, (int*)pbuttonid);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a modal message box.<br/>
+		/// If your needs aren't complex, it might be easier to use<br/>
+		/// SDL_ShowSimpleMessageBox.<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowMessageBox(in SDLMessageBoxData messageboxdata, ref int buttonid)
+		{
+			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
+			{
+				fixed (int* pbuttonid = &buttonid)
+				{
+					int ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, (int*)pbuttonid);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int ShowSimpleMessageBoxNative(uint flags, byte* title, byte* message, SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, SDLWindow*, int>)funcTable[717])(flags, title, message, window);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, int>)funcTable[717])(flags, (nint)title, (nint)message, (nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, byte* title, byte* message, SDLWindowPtr window)
+		{
+			int ret = ShowSimpleMessageBoxNative(flags, title, message, (SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, in byte title, byte* message, SDLWindowPtr window)
+		{
+			fixed (byte* ptitle = &title)
+			{
+				int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)window);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, ReadOnlySpan<byte> title, byte* message, SDLWindowPtr window)
+		{
+			fixed (byte* ptitle = title)
+			{
+				int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)window);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, string title, byte* message, SDLWindowPtr window)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (title != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(title);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = ShowSimpleMessageBoxNative(flags, pStr0, message, (SDLWindow*)window);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, byte* title, in byte message, SDLWindowPtr window)
+		{
+			fixed (byte* pmessage = &message)
+			{
+				int ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)window);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, byte* title, ReadOnlySpan<byte> message, SDLWindowPtr window)
+		{
+			fixed (byte* pmessage = message)
+			{
+				int ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)window);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, byte* title, string message, SDLWindowPtr window)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (message != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(message);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = ShowSimpleMessageBoxNative(flags, title, pStr0, (SDLWindow*)window);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, in byte title, in byte message, SDLWindowPtr window)
+		{
+			fixed (byte* ptitle = &title)
+			{
+				fixed (byte* pmessage = &message)
+				{
+					int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)window);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, ReadOnlySpan<byte> title, ReadOnlySpan<byte> message, SDLWindowPtr window)
+		{
+			fixed (byte* ptitle = title)
+			{
+				fixed (byte* pmessage = message)
+				{
+					int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)window);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, string title, string message, SDLWindowPtr window)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (title != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(title);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (message != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(message);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			int ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, (SDLWindow*)window);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, byte* title, byte* message, ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = ShowSimpleMessageBoxNative(flags, title, message, (SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, in byte title, byte* message, ref SDLWindow window)
+		{
+			fixed (byte* ptitle = &title)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, ReadOnlySpan<byte> title, byte* message, ref SDLWindow window)
+		{
+			fixed (byte* ptitle = title)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, string title, byte* message, ref SDLWindow window)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (title != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(title);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = ShowSimpleMessageBoxNative(flags, pStr0, message, (SDLWindow*)pwindow);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, byte* title, in byte message, ref SDLWindow window)
+		{
+			fixed (byte* pmessage = &message)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					int ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, byte* title, ReadOnlySpan<byte> message, ref SDLWindow window)
+		{
+			fixed (byte* pmessage = message)
+			{
+				fixed (SDLWindow* pwindow = &window)
+				{
+					int ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, byte* title, string message, ref SDLWindow window)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (message != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(message);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = ShowSimpleMessageBoxNative(flags, title, pStr0, (SDLWindow*)pwindow);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, in byte title, in byte message, ref SDLWindow window)
+		{
+			fixed (byte* ptitle = &title)
+			{
+				fixed (byte* pmessage = &message)
+				{
+					fixed (SDLWindow* pwindow = &window)
+					{
+						int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, ReadOnlySpan<byte> title, ReadOnlySpan<byte> message, ref SDLWindow window)
+		{
+			fixed (byte* ptitle = title)
+			{
+				fixed (byte* pmessage = message)
+				{
+					fixed (SDLWindow* pwindow = &window)
+					{
+						int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Display a simple modal message box.<br/>
+		/// If your needs aren't complex, this function is preferred over<br/>
+		/// SDL_ShowMessageBox.<br/>
+		/// `flags` may be any of the following:<br/>
+		/// - `SDL_MESSAGEBOX_ERROR`: error dialog<br/>
+		/// - `SDL_MESSAGEBOX_WARNING`: warning dialog<br/>
+		/// - `SDL_MESSAGEBOX_INFORMATION`: informational dialog<br/>
+		/// This function should be called on the thread that created the parent<br/>
+		/// window, or on the main thread if the messagebox has no parent. It will<br/>
+		/// block execution of that thread until the user clicks a button or closes the<br/>
+		/// messagebox.<br/>
+		/// This function may be called at any time, even before SDL_Init(). This makes<br/>
+		/// it useful for reporting errors like a failure to create a renderer or<br/>
+		/// OpenGL context.<br/>
+		/// On X11, SDL rolls its own dialog box with X11 primitives instead of a<br/>
+		/// formal toolkit like GTK+ or Qt.<br/>
+		/// Note that if SDL_Init() would fail because there isn't any available video<br/>
+		/// target, this function is likely to fail for the same reasons. If this is a<br/>
+		/// concern, check the return value from this function and fall back to writing<br/>
+		/// to stderr if you can.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ShowSimpleMessageBox(uint flags, string title, string message, ref SDLWindow window)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (title != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(title);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (message != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(message);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			fixed (SDLWindow* pwindow = &window)
+			{
+				int ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, (SDLWindow*)pwindow);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr1);
+				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
+		/// window.<br/>
+		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
+		/// its own. It is up to user code to do that.<br/>
+		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
+		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* MetalCreateViewNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, void*>)funcTable[718])(window);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[718])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
+		/// window.<br/>
+		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
+		/// its own. It is up to user code to do that.<br/>
+		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
+		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* MetalCreateView(SDLWindowPtr window)
+		{
+			void* ret = MetalCreateViewNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a CAMetalLayer-backed NSView/UIView and attach it to the specified<br/>
+		/// window.<br/>
+		/// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on<br/>
+		/// its own. It is up to user code to do that.<br/>
+		/// The returned handle can be casted directly to a NSView or UIView. To access<br/>
+		/// the backing CAMetalLayer, call SDL_Metal_GetLayer().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* MetalCreateView(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				void* ret = MetalCreateViewNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Destroy an existing SDL_MetalView object.<br/>
+		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
+		/// called after SDL_CreateWindow.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void MetalDestroyViewNative(void* view)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[719])(view);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[719])((nint)view);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy an existing SDL_MetalView object.<br/>
+		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
+		/// called after SDL_CreateWindow.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalDestroyView(void* view)
+		{
+			MetalDestroyViewNative(view);
+		}
+
+		/// <summary>
+		/// Destroy an existing SDL_MetalView object.<br/>
+		/// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was<br/>
+		/// called after SDL_CreateWindow.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalDestroyView(nint view)
+		{
+			MetalDestroyViewNative((void*)view);
+		}
+
+		/// <summary>
+		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* MetalGetLayerNative(void* view)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, void*>)funcTable[720])(view);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[720])((nint)view);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* MetalGetLayer(void* view)
+		{
+			void* ret = MetalGetLayerNative(view);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a pointer to the backing CAMetalLayer for the given view.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* MetalGetLayer(nint view)
+		{
+			void* ret = MetalGetLayerNative((void*)view);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void MetalGetDrawableSizeNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[721])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[721])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalGetDrawableSize(SDLWindowPtr window, int* w, int* h)
+		{
+			MetalGetDrawableSizeNative((SDLWindow*)window, w, h);
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalGetDrawableSize(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				MetalGetDrawableSizeNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalGetDrawableSize(SDLWindowPtr window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				MetalGetDrawableSizeNative((SDLWindow*)window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalGetDrawableSize(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					MetalGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalGetDrawableSize(SDLWindowPtr window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				MetalGetDrawableSizeNative((SDLWindow*)window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalGetDrawableSize(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					MetalGetDrawableSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalGetDrawableSize(SDLWindowPtr window, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					MetalGetDrawableSizeNative((SDLWindow*)window, (int*)pw, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's underlying drawable in pixels (for use with<br/>
+		/// setting viewport, scissor <br/>
+		/// &<br/>
+		/// etc).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MetalGetDrawableSize(ref SDLWindow window, ref int w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						MetalGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPowerState GetPowerInfoNative(int* seconds, int* percent)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, int*, SDLPowerState>)funcTable[722])(seconds, percent);
+			#else
+			return (SDLPowerState)((delegate* unmanaged[Cdecl]<nint, nint, SDLPowerState>)funcTable[722])((nint)seconds, (nint)percent);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLPowerState GetPowerInfo(int* seconds, int* percent)
+		{
+			SDLPowerState ret = GetPowerInfoNative(seconds, percent);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLPowerState GetPowerInfo(ref int seconds, int* percent)
+		{
+			fixed (int* pseconds = &seconds)
+			{
+				SDLPowerState ret = GetPowerInfoNative((int*)pseconds, percent);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLPowerState GetPowerInfo(int* seconds, ref int percent)
+		{
+			fixed (int* ppercent = &percent)
+			{
+				SDLPowerState ret = GetPowerInfoNative(seconds, (int*)ppercent);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current power supply details.<br/>
+		/// You should never take a battery status as absolute truth. Batteries<br/>
+		/// (especially failing batteries) are delicate hardware, and the values<br/>
+		/// reported here are best estimates based on what that hardware reports. It's<br/>
+		/// not uncommon for older batteries to lose stored power much faster than it<br/>
+		/// reports, or completely drain when reporting it has 20 percent left, etc.<br/>
+		/// Battery status can change at any time; if you are concerned with power<br/>
+		/// state, you should call this function frequently, and perhaps ignore changes<br/>
+		/// until they seem to be stable for a few seconds.<br/>
+		/// It's possible a platform can only report battery percentage or time left<br/>
+		/// but not both.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLPowerState GetPowerInfo(ref int seconds, ref int percent)
+		{
+			fixed (int* pseconds = &seconds)
+			{
+				fixed (int* ppercent = &percent)
+				{
+					SDLPowerState ret = GetPowerInfoNative((int*)pseconds, (int*)ppercent);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the number of 2D rendering drivers available for the current display.<br/>
+		/// A render driver is a set of code that handles rendering and texture<br/>
+		/// management on a particular display. Normally there is only one, but some<br/>
+		/// drivers may have several available with different capabilities.<br/>
+		/// There may be none if SDL was compiled without render support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumRenderDriversNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[723])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[723])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of 2D rendering drivers available for the current display.<br/>
+		/// A render driver is a set of code that handles rendering and texture<br/>
+		/// management on a particular display. Normally there is only one, but some<br/>
+		/// drivers may have several available with different capabilities.<br/>
+		/// There may be none if SDL was compiled without render support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetNumRenderDrivers()
+		{
+			int ret = GetNumRenderDriversNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get info about a specific 2D rendering driver for the current display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetRenderDriverInfoNative(int index, SDLRendererInfo* info)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLRendererInfo*, int>)funcTable[724])(index, info);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[724])(index, (nint)info);
+			#endif
+		}
+
+		/// <summary>
+		/// Get info about a specific 2D rendering driver for the current display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDriverInfo(int index, SDLRendererInfoPtr info)
+		{
+			int ret = GetRenderDriverInfoNative(index, (SDLRendererInfo*)info);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get info about a specific 2D rendering driver for the current display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDriverInfo(int index, ref SDLRendererInfo info)
+		{
+			fixed (SDLRendererInfo* pinfo = &info)
+			{
+				int ret = GetRenderDriverInfoNative(index, (SDLRendererInfo*)pinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int CreateWindowAndRendererNative(int width, int height, uint windowFlags, SDLWindow** window, SDLRenderer** renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, uint, SDLWindow**, SDLRenderer**, int>)funcTable[725])(width, height, windowFlags, window, renderer);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, nint, int>)funcTable[725])(width, height, windowFlags, (nint)window, (nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int CreateWindowAndRenderer(int width, int height, uint windowFlags, SDLWindowPtrPtr window, SDLRendererPtrPtr renderer)
+		{
+			int ret = CreateWindowAndRendererNative(width, height, windowFlags, (SDLWindow**)window, (SDLRenderer**)renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int CreateWindowAndRenderer(int width, int height, uint windowFlags, ref SDLWindow* window, SDLRendererPtrPtr renderer)
+		{
+			fixed (SDLWindow** pwindow = &window)
+			{
+				int ret = CreateWindowAndRendererNative(width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)renderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int CreateWindowAndRenderer(int width, int height, uint windowFlags, SDLWindowPtrPtr window, ref SDLRenderer* renderer)
+		{
+			fixed (SDLRenderer** prenderer = &renderer)
+			{
+				int ret = CreateWindowAndRendererNative(width, height, windowFlags, (SDLWindow**)window, (SDLRenderer**)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a window and default renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int CreateWindowAndRenderer(int width, int height, uint windowFlags, ref SDLWindow* window, ref SDLRenderer* renderer)
+		{
+			fixed (SDLWindow** pwindow = &window)
+			{
+				fixed (SDLRenderer** prenderer = &renderer)
+				{
+					int ret = CreateWindowAndRendererNative(width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRenderer* CreateRendererNative(SDLWindow* window, int index, uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int, uint, SDLRenderer*>)funcTable[726])(window, index, flags);
+			#else
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, int, uint, nint>)funcTable[726])((nint)window, index, flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRendererPtr CreateRenderer(SDLWindowPtr window, int index, uint flags)
+		{
+			SDLRendererPtr ret = CreateRendererNative((SDLWindow*)window, index, flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a 2D rendering context for a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRendererPtr CreateRenderer(ref SDLWindow window, int index, uint flags)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLRendererPtr ret = CreateRendererNative((SDLWindow*)pwindow, index, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a 2D software rendering context for a surface.<br/>
+		/// Two other API which can be used to create SDL_Renderer:<br/>
+		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
+		/// create a software renderer, but they are intended to be used with an<br/>
+		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRenderer* CreateSoftwareRendererNative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRenderer*>)funcTable[727])(surface);
+			#else
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[727])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a 2D software rendering context for a surface.<br/>
+		/// Two other API which can be used to create SDL_Renderer:<br/>
+		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
+		/// create a software renderer, but they are intended to be used with an<br/>
+		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRendererPtr CreateSoftwareRenderer(SDLSurfacePtr surface)
+		{
+			SDLRendererPtr ret = CreateSoftwareRendererNative((SDLSurface*)surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a 2D software rendering context for a surface.<br/>
+		/// Two other API which can be used to create SDL_Renderer:<br/>
+		/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
+		/// create a software renderer, but they are intended to be used with an<br/>
+		/// SDL_Window as the final destination and not an SDL_Surface.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRendererPtr CreateSoftwareRenderer(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLRendererPtr ret = CreateSoftwareRendererNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the renderer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRenderer* GetRendererNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRenderer*>)funcTable[728])(window);
+			#else
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[728])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the renderer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRendererPtr GetRenderer(SDLWindowPtr window)
+		{
+			SDLRendererPtr ret = GetRendererNative((SDLWindow*)window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the renderer associated with a window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLRendererPtr GetRenderer(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLRendererPtr ret = GetRendererNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the window associated with a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* RenderGetWindowNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*>)funcTable[729])(renderer);
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[729])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the window associated with a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr RenderGetWindow(SDLRendererPtr renderer)
+		{
+			SDLWindowPtr ret = RenderGetWindowNative((SDLRenderer*)renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the window associated with a renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindowPtr RenderGetWindow(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLWindowPtr ret = RenderGetWindowNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a rendering context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetRendererInfoNative(SDLRenderer* renderer, SDLRendererInfo* info)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRendererInfo*, int>)funcTable[730])(renderer, info);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[730])((nint)renderer, (nint)info);
+			#endif
+		}
+
+		/// <summary>
+		/// Get information about a rendering context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererInfo(SDLRendererPtr renderer, SDLRendererInfoPtr info)
+		{
+			int ret = GetRendererInfoNative((SDLRenderer*)renderer, (SDLRendererInfo*)info);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get information about a rendering context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererInfo(ref SDLRenderer renderer, SDLRendererInfoPtr info)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = GetRendererInfoNative((SDLRenderer*)prenderer, (SDLRendererInfo*)info);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a rendering context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererInfo(SDLRendererPtr renderer, ref SDLRendererInfo info)
+		{
+			fixed (SDLRendererInfo* pinfo = &info)
+			{
+				int ret = GetRendererInfoNative((SDLRenderer*)renderer, (SDLRendererInfo*)pinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a rendering context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererInfo(ref SDLRenderer renderer, ref SDLRendererInfo info)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRendererInfo* pinfo = &info)
+				{
+					int ret = GetRendererInfoNative((SDLRenderer*)prenderer, (SDLRendererInfo*)pinfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetRendererOutputSizeNative(SDLRenderer* renderer, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, int>)funcTable[731])(renderer, w, h);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[731])((nint)renderer, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererOutputSize(SDLRendererPtr renderer, int* w, int* h)
+		{
+			int ret = GetRendererOutputSizeNative((SDLRenderer*)renderer, w, h);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererOutputSize(ref SDLRenderer renderer, int* w, int* h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = GetRendererOutputSizeNative((SDLRenderer*)prenderer, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererOutputSize(SDLRendererPtr renderer, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				int ret = GetRendererOutputSizeNative((SDLRenderer*)renderer, (int*)pw, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererOutputSize(ref SDLRenderer renderer, ref int w, int* h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					int ret = GetRendererOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererOutputSize(SDLRendererPtr renderer, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				int ret = GetRendererOutputSizeNative((SDLRenderer*)renderer, w, (int*)ph);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererOutputSize(ref SDLRenderer renderer, int* w, ref int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = GetRendererOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererOutputSize(SDLRendererPtr renderer, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = GetRendererOutputSizeNative((SDLRenderer*)renderer, (int*)pw, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the output size in pixels of a rendering context.<br/>
+		/// Due to high-dpi displays, you might end up with a rendering context that<br/>
+		/// has more pixels than the window that contains it, so use this instead of<br/>
+		/// SDL_GetWindowSize() to decide how much drawing area you have.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRendererOutputSize(ref SDLRenderer renderer, ref int w, ref int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = GetRendererOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Create a texture for a rendering context.<br/>
+		/// You can set the texture scaling method by setting<br/>
+		/// `SDL_HINT_RENDER_SCALE_QUALITY` before creating the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTexture* CreateTextureNative(SDLRenderer* renderer, uint format, int access, int w, int h)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint, int, int, int, SDLTexture*>)funcTable[732])(renderer, format, access, w, h);
+			#else
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, uint, int, int, int, nint>)funcTable[732])((nint)renderer, format, access, w, h);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a texture for a rendering context.<br/>
+		/// You can set the texture scaling method by setting<br/>
+		/// `SDL_HINT_RENDER_SCALE_QUALITY` before creating the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexturePtr CreateTexture(SDLRendererPtr renderer, uint format, int access, int w, int h)
+		{
+			SDLTexturePtr ret = CreateTextureNative((SDLRenderer*)renderer, format, access, w, h);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a texture for a rendering context.<br/>
+		/// You can set the texture scaling method by setting<br/>
+		/// `SDL_HINT_RENDER_SCALE_QUALITY` before creating the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexturePtr CreateTexture(ref SDLRenderer renderer, uint format, int access, int w, int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLTexturePtr ret = CreateTextureNative((SDLRenderer*)prenderer, format, access, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
+		/// the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTexture* CreateTextureFromSurfaceNative(SDLRenderer* renderer, SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLSurface*, SDLTexture*>)funcTable[733])(renderer, surface);
+			#else
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[733])((nint)renderer, (nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
+		/// the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexturePtr CreateTextureFromSurface(SDLRendererPtr renderer, SDLSurfacePtr surface)
+		{
+			SDLTexturePtr ret = CreateTextureFromSurfaceNative((SDLRenderer*)renderer, (SDLSurface*)surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
+		/// the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexturePtr CreateTextureFromSurface(ref SDLRenderer renderer, SDLSurfacePtr surface)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLTexturePtr ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)surface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
+		/// the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexturePtr CreateTextureFromSurface(SDLRendererPtr renderer, ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLTexturePtr ret = CreateTextureFromSurfaceNative((SDLRenderer*)renderer, (SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
+		/// the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexturePtr CreateTextureFromSurface(ref SDLRenderer renderer, ref SDLSurface surface)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLSurface* psurface = &surface)
+				{
+					SDLTexturePtr ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int QueryTextureNative(SDLTexture* texture, uint* format, int* access, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, uint*, int*, int*, int*, int>)funcTable[734])(texture, format, access, w, h);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[734])((nint)texture, (nint)format, (nint)access, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, uint* format, int* access, int* w, int* h)
+		{
+			int ret = QueryTextureNative((SDLTexture*)texture, format, access, w, h);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, uint* format, int* access, int* w, int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, ref uint format, int* access, int* w, int* h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				int ret = QueryTextureNative((SDLTexture*)texture, (uint*)pformat, access, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, ref uint format, int* access, int* w, int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, uint* format, ref int access, int* w, int* h)
+		{
+			fixed (int* paccess = &access)
+			{
+				int ret = QueryTextureNative((SDLTexture*)texture, format, (int*)paccess, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, uint* format, ref int access, int* w, int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* paccess = &access)
+				{
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, ref uint format, ref int access, int* w, int* h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* paccess = &access)
+				{
+					int ret = QueryTextureNative((SDLTexture*)texture, (uint*)pformat, (int*)paccess, w, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, ref uint format, ref int access, int* w, int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* paccess = &access)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, h);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, uint* format, int* access, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				int ret = QueryTextureNative((SDLTexture*)texture, format, access, (int*)pw, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, uint* format, int* access, ref int w, int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* pw = &w)
+				{
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, ref uint format, int* access, ref int w, int* h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* pw = &w)
+				{
+					int ret = QueryTextureNative((SDLTexture*)texture, (uint*)pformat, access, (int*)pw, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, ref uint format, int* access, ref int w, int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* pw = &w)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, h);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, uint* format, ref int access, ref int w, int* h)
+		{
+			fixed (int* paccess = &access)
+			{
+				fixed (int* pw = &w)
+				{
+					int ret = QueryTextureNative((SDLTexture*)texture, format, (int*)paccess, (int*)pw, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, uint* format, ref int access, ref int w, int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* pw = &w)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, (int*)pw, h);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, ref uint format, ref int access, ref int w, int* h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* pw = &w)
+					{
+						int ret = QueryTextureNative((SDLTexture*)texture, (uint*)pformat, (int*)paccess, (int*)pw, h);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, ref uint format, ref int access, ref int w, int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* paccess = &access)
+					{
+						fixed (int* pw = &w)
+						{
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, (int*)pw, h);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, uint* format, int* access, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				int ret = QueryTextureNative((SDLTexture*)texture, format, access, w, (int*)ph);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, uint* format, int* access, int* w, ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, ref uint format, int* access, int* w, ref int h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = QueryTextureNative((SDLTexture*)texture, (uint*)pformat, access, w, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, ref uint format, int* access, int* w, ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, uint* format, ref int access, int* w, ref int h)
+		{
+			fixed (int* paccess = &access)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = QueryTextureNative((SDLTexture*)texture, format, (int*)paccess, w, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, uint* format, ref int access, int* w, ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, ref uint format, ref int access, int* w, ref int h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)texture, (uint*)pformat, (int*)paccess, w, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, ref uint format, ref int access, int* w, ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* paccess = &access)
+					{
+						fixed (int* ph = &h)
+						{
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, (int*)ph);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, uint* format, int* access, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = QueryTextureNative((SDLTexture*)texture, format, access, (int*)pw, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, uint* format, int* access, ref int w, ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, ref uint format, int* access, ref int w, ref int h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)texture, (uint*)pformat, access, (int*)pw, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, ref uint format, int* access, ref int w, ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* pw = &w)
+					{
+						fixed (int* ph = &h)
+						{
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, (int*)ph);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, uint* format, ref int access, ref int w, ref int h)
+		{
+			fixed (int* paccess = &access)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)texture, format, (int*)paccess, (int*)pw, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, uint* format, ref int access, ref int w, ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* pw = &w)
+					{
+						fixed (int* ph = &h)
+						{
+							int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, (int*)pw, (int*)ph);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(SDLTexturePtr texture, ref uint format, ref int access, ref int w, ref int h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* pw = &w)
+					{
+						fixed (int* ph = &h)
+						{
+							int ret = QueryTextureNative((SDLTexture*)texture, (uint*)pformat, (int*)paccess, (int*)pw, (int*)ph);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueryTexture(ref SDLTexture texture, ref uint format, ref int access, ref int w, ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* paccess = &access)
+					{
+						fixed (int* pw = &w)
+						{
+							fixed (int* ph = &h)
+							{
+								int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, (int*)pw, (int*)ph);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// Color modulation is not always supported by the renderer; it will return -1<br/>
+		/// if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureColorModNative(SDLTexture* texture, byte r, byte g, byte b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte, byte, int>)funcTable[735])(texture, r, g, b);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)funcTable[735])((nint)texture, r, g, b);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// Color modulation is not always supported by the renderer; it will return -1<br/>
+		/// if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureColorMod(SDLTexturePtr texture, byte r, byte g, byte b)
+		{
+			int ret = SetTextureColorModNative((SDLTexture*)texture, r, g, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// Color modulation is not always supported by the renderer; it will return -1<br/>
+		/// if color modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureColorMod(ref SDLTexture texture, byte r, byte g, byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureColorModNative(SDLTexture* texture, byte* r, byte* g, byte* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte*, byte*, int>)funcTable[736])(texture, r, g, b);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[736])((nint)texture, (nint)r, (nint)g, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexturePtr texture, byte* r, byte* g, byte* b)
+		{
+			int ret = GetTextureColorModNative((SDLTexture*)texture, r, g, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexturePtr texture, ref byte r, byte* g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				int ret = GetTextureColorModNative((SDLTexture*)texture, (byte*)pr, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, b);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexturePtr texture, byte* r, ref byte g, byte* b)
+		{
+			fixed (byte* pg = &g)
+			{
+				int ret = GetTextureColorModNative((SDLTexture*)texture, r, (byte*)pg, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pg = &g)
+				{
+					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, b);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexturePtr texture, ref byte r, ref byte g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					int ret = GetTextureColorModNative((SDLTexture*)texture, (byte*)pr, (byte*)pg, b);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, b);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexturePtr texture, byte* r, byte* g, ref byte b)
+		{
+			fixed (byte* pb = &b)
+			{
+				int ret = GetTextureColorModNative((SDLTexture*)texture, r, g, (byte*)pb);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexturePtr texture, ref byte r, byte* g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetTextureColorModNative((SDLTexture*)texture, (byte*)pr, g, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexturePtr texture, byte* r, ref byte g, ref byte b)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetTextureColorModNative((SDLTexture*)texture, r, (byte*)pg, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexturePtr texture, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)texture, (byte*)pr, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, (byte*)pb);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureAlphaModNative(SDLTexture* texture, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, int>)funcTable[737])(texture, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[737])((nint)texture, alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureAlphaMod(SDLTexturePtr texture, byte alpha)
+		{
+			int ret = SetTextureAlphaModNative((SDLTexture*)texture, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureAlphaMod(ref SDLTexture texture, byte alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureAlphaModNative(SDLTexture* texture, byte* alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, int>)funcTable[738])(texture, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[738])((nint)texture, (nint)alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureAlphaMod(SDLTexturePtr texture, byte* alpha)
+		{
+			int ret = GetTextureAlphaModNative((SDLTexture*)texture, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureAlphaMod(ref SDLTexture texture, byte* alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureAlphaMod(SDLTexturePtr texture, ref byte alpha)
+		{
+			fixed (byte* palpha = &alpha)
+			{
+				int ret = GetTextureAlphaModNative((SDLTexture*)texture, (byte*)palpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureAlphaMod(ref SDLTexture texture, ref byte alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* palpha = &alpha)
+				{
+					int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, (byte*)palpha);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, int>)funcTable[739])(texture, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[739])((nint)texture, blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureBlendMode(SDLTexturePtr texture, SDLBlendMode blendMode)
+		{
+			int ret = SetTextureBlendModeNative((SDLTexture*)texture, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureBlendMode(ref SDLTexture texture, SDLBlendMode blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode* blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, int>)funcTable[740])(texture, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[740])((nint)texture, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(SDLTexturePtr texture, SDLBlendMode* blendMode)
+		{
+			int ret = GetTextureBlendModeNative((SDLTexture*)texture, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(ref SDLTexture texture, SDLBlendMode* blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(SDLTexturePtr texture, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLBlendMode* pblendMode = &blendMode)
+			{
+				int ret = GetTextureBlendModeNative((SDLTexture*)texture, (SDLBlendMode*)pblendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(ref SDLTexture texture, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLBlendMode* pblendMode = &blendMode)
+				{
+					int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Set the scale mode used for texture scale operations.<br/>
 		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
 		/// <br/>
@@ -41,9 +4040,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetTextureScaleMode(SDLTexture* texture, SDLScaleMode scaleMode)
+		public static int SetTextureScaleMode(SDLTexturePtr texture, SDLScaleMode scaleMode)
 		{
-			int ret = SetTextureScaleModeNative(texture, scaleMode);
+			int ret = SetTextureScaleModeNative((SDLTexture*)texture, scaleMode);
 			return ret;
 		}
 
@@ -85,9 +4084,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetTextureScaleMode(SDLTexture* texture, SDLScaleMode* scaleMode)
+		public static int GetTextureScaleMode(SDLTexturePtr texture, SDLScaleMode* scaleMode)
 		{
-			int ret = GetTextureScaleModeNative(texture, scaleMode);
+			int ret = GetTextureScaleModeNative((SDLTexture*)texture, scaleMode);
 			return ret;
 		}
 
@@ -112,11 +4111,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int GetTextureScaleMode(SDLTexture* texture, ref SDLScaleMode scaleMode)
+		public static int GetTextureScaleMode(SDLTexturePtr texture, ref SDLScaleMode scaleMode)
 		{
 			fixed (SDLScaleMode* pscaleMode = &scaleMode)
 			{
-				int ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
+				int ret = GetTextureScaleModeNative((SDLTexture*)texture, (SDLScaleMode*)pscaleMode);
 				return ret;
 			}
 		}
@@ -161,9 +4160,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int SetTextureUserData(SDLTexture* texture, void* userdata)
+		public static int SetTextureUserData(SDLTexturePtr texture, void* userdata)
 		{
-			int ret = SetTextureUserDataNative(texture, userdata);
+			int ret = SetTextureUserDataNative((SDLTexture*)texture, userdata);
 			return ret;
 		}
 
@@ -178,6 +4177,33 @@ namespace Hexa.NET.SDL2
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				int ret = SetTextureUserDataNative((SDLTexture*)ptexture, userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Associate a user-specified pointer with a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureUserData(SDLTexturePtr texture, nint userdata)
+		{
+			int ret = SetTextureUserDataNative((SDLTexture*)texture, (void*)userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Associate a user-specified pointer with a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureUserData(ref SDLTexture texture, nint userdata)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureUserDataNative((SDLTexture*)ptexture, (void*)userdata);
 				return ret;
 			}
 		}
@@ -204,9 +4230,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void* GetTextureUserData(SDLTexture* texture)
+		public static void* GetTextureUserData(SDLTexturePtr texture)
 		{
-			void* ret = GetTextureUserDataNative(texture);
+			void* ret = GetTextureUserDataNative((SDLTexture*)texture);
 			return ret;
 		}
 
@@ -263,9 +4289,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateTexture(SDLTexture* texture, SDLRect* rect, void* pixels, int pitch)
+		public static int UpdateTexture(SDLTexturePtr texture, SDLRectPtr rect, void* pixels, int pitch)
 		{
-			int ret = UpdateTextureNative(texture, rect, pixels, pitch);
+			int ret = UpdateTextureNative((SDLTexture*)texture, (SDLRect*)rect, pixels, pitch);
 			return ret;
 		}
 
@@ -283,11 +4309,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateTexture(ref SDLTexture texture, SDLRect* rect, void* pixels, int pitch)
+		public static int UpdateTexture(ref SDLTexture texture, SDLRectPtr rect, void* pixels, int pitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = UpdateTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
+				int ret = UpdateTextureNative((SDLTexture*)ptexture, (SDLRect*)rect, pixels, pitch);
 				return ret;
 			}
 		}
@@ -306,11 +4332,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateTexture(SDLTexture* texture, ref SDLRect rect, void* pixels, int pitch)
+		public static int UpdateTexture(SDLTexturePtr texture, in SDLRect rect, void* pixels, int pitch)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
-				int ret = UpdateTextureNative(texture, (SDLRect*)prect, pixels, pitch);
+				int ret = UpdateTextureNative((SDLTexture*)texture, (SDLRect*)prect, pixels, pitch);
 				return ret;
 			}
 		}
@@ -329,13 +4355,105 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateTexture(ref SDLTexture texture, ref SDLRect rect, void* pixels, int pitch)
+		public static int UpdateTexture(ref SDLTexture texture, in SDLRect rect, void* pixels, int pitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLRect* prect = &rect)
 				{
 					int ret = UpdateTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateTexture(SDLTexturePtr texture, SDLRectPtr rect, nint pixels, int pitch)
+		{
+			int ret = UpdateTextureNative((SDLTexture*)texture, (SDLRect*)rect, (void*)pixels, pitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateTexture(ref SDLTexture texture, SDLRectPtr rect, nint pixels, int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = UpdateTextureNative((SDLTexture*)ptexture, (SDLRect*)rect, (void*)pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateTexture(SDLTexturePtr texture, in SDLRect rect, nint pixels, int pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = UpdateTextureNative((SDLTexture*)texture, (SDLRect*)prect, (void*)pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateTexture(ref SDLTexture texture, in SDLRect rect, nint pixels, int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = UpdateTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (void*)pixels, pitch);
 					return ret;
 				}
 			}
@@ -371,9 +4489,9 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, SDLRectPtr rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
 		{
-			int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+			int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
 			return ret;
 		}
 
@@ -387,11 +4505,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRectPtr rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+				int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
 				return ret;
 			}
 		}
@@ -406,11 +4524,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, in SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
-				int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+				int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
 				return ret;
 			}
 		}
@@ -425,7 +4543,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, in SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -447,11 +4565,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, SDLRectPtr rect, in byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (byte* pyplane = &yplane)
 			{
-				int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+				int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
 				return ret;
 			}
 		}
@@ -466,13 +4584,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRectPtr rect, in byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (byte* pyplane = &yplane)
 				{
-					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
 					return ret;
 				}
 			}
@@ -488,13 +4606,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, in SDLRect rect, in byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
 				fixed (byte* pyplane = &yplane)
 				{
-					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+					int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
 					return ret;
 				}
 			}
@@ -510,7 +4628,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, in SDLRect rect, in byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -535,11 +4653,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, SDLRectPtr rect, byte* yplane, int ypitch, in byte uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (byte* puplane = &uplane)
 			{
-				int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+				int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
 				return ret;
 			}
 		}
@@ -554,13 +4672,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRectPtr rect, byte* yplane, int ypitch, in byte uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (byte* puplane = &uplane)
 				{
-					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
 					return ret;
 				}
 			}
@@ -576,13 +4694,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, in SDLRect rect, byte* yplane, int ypitch, in byte uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
 				fixed (byte* puplane = &uplane)
 				{
-					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
 					return ret;
 				}
 			}
@@ -598,7 +4716,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, in SDLRect rect, byte* yplane, int ypitch, in byte uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -623,13 +4741,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, SDLRectPtr rect, in byte yplane, int ypitch, in byte uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (byte* pyplane = &yplane)
 			{
 				fixed (byte* puplane = &uplane)
 				{
-					int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
 					return ret;
 				}
 			}
@@ -645,7 +4763,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRectPtr rect, in byte yplane, int ypitch, in byte uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -653,7 +4771,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* puplane = &uplane)
 					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
 						return ret;
 					}
 				}
@@ -670,7 +4788,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, in SDLRect rect, in byte yplane, int ypitch, in byte uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -678,7 +4796,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* puplane = &uplane)
 					{
-						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+						int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
 						return ret;
 					}
 				}
@@ -695,7 +4813,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, in SDLRect rect, in byte yplane, int ypitch, in byte uplane, int upitch, byte* vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -723,11 +4841,11 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, SDLRectPtr rect, byte* yplane, int ypitch, byte* uplane, int upitch, in byte vplane, int vpitch)
 		{
 			fixed (byte* pvplane = &vplane)
 			{
-				int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+				int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
 				return ret;
 			}
 		}
@@ -742,13 +4860,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRectPtr rect, byte* yplane, int ypitch, byte* uplane, int upitch, in byte vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (byte* pvplane = &vplane)
 				{
-					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
 					return ret;
 				}
 			}
@@ -764,13 +4882,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, in SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, in byte vplane, int vpitch)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
 				fixed (byte* pvplane = &vplane)
 				{
-					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
 					return ret;
 				}
 			}
@@ -786,7 +4904,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, in SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, in byte vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -811,13 +4929,13 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, SDLRectPtr rect, in byte yplane, int ypitch, byte* uplane, int upitch, in byte vplane, int vpitch)
 		{
 			fixed (byte* pyplane = &yplane)
 			{
 				fixed (byte* pvplane = &vplane)
 				{
-					int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
 					return ret;
 				}
 			}
@@ -833,7 +4951,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRectPtr rect, in byte yplane, int ypitch, byte* uplane, int upitch, in byte vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -841,7 +4959,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pvplane = &vplane)
 					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
 						return ret;
 					}
 				}
@@ -858,7 +4976,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		public static int UpdateYUVTexture(SDLTexturePtr texture, in SDLRect rect, in byte yplane, int ypitch, byte* uplane, int upitch, in byte vplane, int vpitch)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -866,7 +4984,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pvplane = &vplane)
 					{
-						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+						int ret = UpdateYUVTextureNative((SDLTexture*)texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
 						return ret;
 					}
 				}
@@ -883,7 +5001,7 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		public static int UpdateYUVTexture(ref SDLTexture texture, in SDLRect rect, in byte yplane, int ypitch, byte* uplane, int upitch, in byte vplane, int vpitch)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -897,4132 +5015,6 @@ namespace Hexa.NET.SDL2
 							return ret;
 						}
 					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (byte* puplane = &uplane)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* puplane = &uplane)
-						{
-							fixed (byte* pvplane = &vplane)
-							{
-								int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UpdateNVTextureNative(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, int>)funcTable[747])(texture, rect, yplane, ypitch, uVplane, uVpitch);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, int>)funcTable[747])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uVplane, uVpitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			int ret = UpdateNVTextureNative(texture, rect, yplane, ypitch, uVplane, uVpitch);
-			return ret;
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uVplane, uVpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uVplane, uVpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				int ret = UpdateNVTextureNative(texture, rect, (byte*)pyplane, ypitch, uVplane, uVpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uVplane, uVpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
-		{
-			fixed (byte* puVplane = &uVplane)
-			{
-				int ret = UpdateNVTextureNative(texture, rect, yplane, ypitch, (byte*)puVplane, uVpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* puVplane = &uVplane)
-				{
-					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* puVplane = &uVplane)
-				{
-					int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* puVplane = &uVplane)
-					{
-						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puVplane, uVpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* puVplane = &uVplane)
-				{
-					int ret = UpdateNVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puVplane = &uVplane)
-					{
-						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puVplane = &uVplane)
-					{
-						int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* puVplane = &uVplane)
-						{
-							int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LockTextureNative(SDLTexture* texture, SDLRect* rect, void** pixels, int* pitch)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void**, int*, int>)funcTable[748])(texture, rect, pixels, pitch);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[748])((nint)texture, (nint)rect, (nint)pixels, (nint)pitch);
-			#endif
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTexture(SDLTexture* texture, SDLRect* rect, void** pixels, int* pitch)
-		{
-			int ret = LockTextureNative(texture, rect, pixels, pitch);
-			return ret;
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTexture(ref SDLTexture texture, SDLRect* rect, void** pixels, int* pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = LockTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTexture(SDLTexture* texture, ref SDLRect rect, void** pixels, int* pitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = LockTextureNative(texture, (SDLRect*)prect, pixels, pitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTexture(ref SDLTexture texture, ref SDLRect rect, void** pixels, int* pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = LockTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTexture(SDLTexture* texture, SDLRect* rect, void** pixels, ref int pitch)
-		{
-			fixed (int* ppitch = &pitch)
-			{
-				int ret = LockTextureNative(texture, rect, pixels, (int*)ppitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTexture(ref SDLTexture texture, SDLRect* rect, void** pixels, ref int pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* ppitch = &pitch)
-				{
-					int ret = LockTextureNative((SDLTexture*)ptexture, rect, pixels, (int*)ppitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTexture(SDLTexture* texture, ref SDLRect rect, void** pixels, ref int pitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* ppitch = &pitch)
-				{
-					int ret = LockTextureNative(texture, (SDLRect*)prect, pixels, (int*)ppitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTexture(ref SDLTexture texture, ref SDLRect rect, void** pixels, ref int pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (int* ppitch = &pitch)
-					{
-						int ret = LockTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, (int*)ppitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LockTextureToSurfaceNative(SDLTexture* texture, SDLRect* rect, SDLSurface** surface)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, SDLSurface**, int>)funcTable[749])(texture, rect, surface);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[749])((nint)texture, (nint)rect, (nint)surface);
-			#endif
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTextureToSurface(SDLTexture* texture, SDLRect* rect, SDLSurface** surface)
-		{
-			int ret = LockTextureToSurfaceNative(texture, rect, surface);
-			return ret;
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTextureToSurface(ref SDLTexture texture, SDLRect* rect, SDLSurface** surface)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, rect, surface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTextureToSurface(SDLTexture* texture, ref SDLRect rect, SDLSurface** surface)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = LockTextureToSurfaceNative(texture, (SDLRect*)prect, surface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTextureToSurface(ref SDLTexture texture, ref SDLRect rect, SDLSurface** surface)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, (SDLRect*)prect, surface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTextureToSurface(SDLTexture* texture, SDLRect* rect, ref SDLSurface* surface)
-		{
-			fixed (SDLSurface** psurface = &surface)
-			{
-				int ret = LockTextureToSurfaceNative(texture, rect, (SDLSurface**)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTextureToSurface(ref SDLTexture texture, SDLRect* rect, ref SDLSurface* surface)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLSurface** psurface = &surface)
-				{
-					int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, rect, (SDLSurface**)psurface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTextureToSurface(SDLTexture* texture, ref SDLRect rect, ref SDLSurface* surface)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (SDLSurface** psurface = &surface)
-				{
-					int ret = LockTextureToSurfaceNative(texture, (SDLRect*)prect, (SDLSurface**)psurface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int LockTextureToSurface(ref SDLTexture texture, ref SDLRect rect, ref SDLSurface* surface)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (SDLSurface** psurface = &surface)
-					{
-						int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, (SDLRect*)prect, (SDLSurface**)psurface);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
-		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
-		/// write-only; it will not guarantee the previous contents of the texture will<br/>
-		/// be provided. You must fully initialize any area of a texture that you lock<br/>
-		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
-		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
-		/// corrupted textures, depending on the renderer in use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnlockTextureNative(SDLTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)funcTable[750])(texture);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[750])((nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
-		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
-		/// write-only; it will not guarantee the previous contents of the texture will<br/>
-		/// be provided. You must fully initialize any area of a texture that you lock<br/>
-		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
-		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
-		/// corrupted textures, depending on the renderer in use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnlockTexture(SDLTexture* texture)
-		{
-			UnlockTextureNative(texture);
-		}
-
-		/// <summary>
-		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
-		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
-		/// write-only; it will not guarantee the previous contents of the texture will<br/>
-		/// be provided. You must fully initialize any area of a texture that you lock<br/>
-		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
-		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
-		/// corrupted textures, depending on the renderer in use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnlockTexture(ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				UnlockTextureNative((SDLTexture*)ptexture);
-			}
-		}
-
-		/// <summary>
-		/// Determine whether a renderer supports the use of render targets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool RenderTargetSupportedNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[751])(renderer);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[751])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether a renderer supports the use of render targets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool RenderTargetSupported(SDLRenderer* renderer)
-		{
-			SDLBool ret = RenderTargetSupportedNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether a renderer supports the use of render targets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool RenderTargetSupported(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLBool ret = RenderTargetSupportedNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
-		/// clipping rectangle, and scaling settings to the state they were in before<br/>
-		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
-		/// meantime.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetRenderTargetNative(SDLRenderer* renderer, SDLTexture* texture)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, int>)funcTable[752])(renderer, texture);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[752])((nint)renderer, (nint)texture);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
-		/// clipping rectangle, and scaling settings to the state they were in before<br/>
-		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
-		/// meantime.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetRenderTarget(SDLRenderer* renderer, SDLTexture* texture)
-		{
-			int ret = SetRenderTargetNative(renderer, texture);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
-		/// clipping rectangle, and scaling settings to the state they were in before<br/>
-		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
-		/// meantime.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetRenderTarget(ref SDLRenderer renderer, SDLTexture* texture)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = SetRenderTargetNative((SDLRenderer*)prenderer, texture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
-		/// clipping rectangle, and scaling settings to the state they were in before<br/>
-		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
-		/// meantime.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetRenderTarget(SDLRenderer* renderer, ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetRenderTargetNative(renderer, (SDLTexture*)ptexture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`. This will reset the renderer's viewport,<br/>
-		/// clipping rectangle, and scaling settings to the state they were in before<br/>
-		/// setting a non-NULL `texture` target, losing any changes made in the<br/>
-		/// meantime.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetRenderTarget(ref SDLRenderer renderer, ref SDLTexture texture)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					int ret = SetRenderTargetNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current render target.<br/>
-		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported as NULL here.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTexture* GetRenderTargetNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*>)funcTable[753])(renderer);
-			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[753])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current render target.<br/>
-		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported as NULL here.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* GetRenderTarget(SDLRenderer* renderer)
-		{
-			SDLTexture* ret = GetRenderTargetNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current render target.<br/>
-		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported as NULL here.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLTexture* GetRenderTarget(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = GetRenderTargetNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a device independent resolution for rendering.<br/>
-		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
-		/// logical resolution for rendering, regardless of the actual output<br/>
-		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
-		/// ratio the output rendering will be centered within the output display.<br/>
-		/// If the output display is a window, mouse and touch events in the window<br/>
-		/// will be filtered and scaled so they seem to arrive within the logical<br/>
-		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
-		/// relative motion events are also scaled.<br/>
-		/// If this function results in scaling or subpixel drawing by the rendering<br/>
-		/// backend, it will be handled using the appropriate quality hints.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetLogicalSizeNative(SDLRenderer* renderer, int w, int h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)funcTable[754])(renderer, w, h);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int>)funcTable[754])((nint)renderer, w, h);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a device independent resolution for rendering.<br/>
-		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
-		/// logical resolution for rendering, regardless of the actual output<br/>
-		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
-		/// ratio the output rendering will be centered within the output display.<br/>
-		/// If the output display is a window, mouse and touch events in the window<br/>
-		/// will be filtered and scaled so they seem to arrive within the logical<br/>
-		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
-		/// relative motion events are also scaled.<br/>
-		/// If this function results in scaling or subpixel drawing by the rendering<br/>
-		/// backend, it will be handled using the appropriate quality hints.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetLogicalSize(SDLRenderer* renderer, int w, int h)
-		{
-			int ret = RenderSetLogicalSizeNative(renderer, w, h);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a device independent resolution for rendering.<br/>
-		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
-		/// logical resolution for rendering, regardless of the actual output<br/>
-		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
-		/// ratio the output rendering will be centered within the output display.<br/>
-		/// If the output display is a window, mouse and touch events in the window<br/>
-		/// will be filtered and scaled so they seem to arrive within the logical<br/>
-		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
-		/// relative motion events are also scaled.<br/>
-		/// If this function results in scaling or subpixel drawing by the rendering<br/>
-		/// backend, it will be handled using the appropriate quality hints.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetLogicalSize(ref SDLRenderer renderer, int w, int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetLogicalSizeNative((SDLRenderer*)prenderer, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderGetLogicalSizeNative(SDLRenderer* renderer, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, void>)funcTable[755])(renderer, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[755])((nint)renderer, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetLogicalSize(SDLRenderer* renderer, int* w, int* h)
-		{
-			RenderGetLogicalSizeNative(renderer, w, h);
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetLogicalSize(ref SDLRenderer renderer, int* w, int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderGetLogicalSizeNative((SDLRenderer*)prenderer, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetLogicalSize(SDLRenderer* renderer, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				RenderGetLogicalSizeNative(renderer, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetLogicalSize(ref SDLRenderer renderer, ref int w, int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					RenderGetLogicalSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetLogicalSize(SDLRenderer* renderer, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				RenderGetLogicalSizeNative(renderer, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetLogicalSize(ref SDLRenderer renderer, int* w, ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* ph = &h)
-				{
-					RenderGetLogicalSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetLogicalSize(SDLRenderer* renderer, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					RenderGetLogicalSizeNative(renderer, (int*)pw, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetLogicalSize(ref SDLRenderer renderer, ref int w, ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						RenderGetLogicalSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set whether to force integer scales for resolution-independent rendering.<br/>
-		/// This function restricts the logical viewport to integer values - that is,<br/>
-		/// when a resolution is between two multiples of a logical size, the viewport<br/>
-		/// size is rounded down to the lower multiple.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetIntegerScaleNative(SDLRenderer* renderer, SDLBool enable)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool, int>)funcTable[756])(renderer, enable);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBool, int>)funcTable[756])((nint)renderer, enable);
-			#endif
-		}
-
-		/// <summary>
-		/// Set whether to force integer scales for resolution-independent rendering.<br/>
-		/// This function restricts the logical viewport to integer values - that is,<br/>
-		/// when a resolution is between two multiples of a logical size, the viewport<br/>
-		/// size is rounded down to the lower multiple.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetIntegerScale(SDLRenderer* renderer, SDLBool enable)
-		{
-			int ret = RenderSetIntegerScaleNative(renderer, enable);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set whether to force integer scales for resolution-independent rendering.<br/>
-		/// This function restricts the logical viewport to integer values - that is,<br/>
-		/// when a resolution is between two multiples of a logical size, the viewport<br/>
-		/// size is rounded down to the lower multiple.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetIntegerScale(ref SDLRenderer renderer, SDLBool enable)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetIntegerScaleNative((SDLRenderer*)prenderer, enable);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool RenderGetIntegerScaleNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[757])(renderer);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[757])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool RenderGetIntegerScale(SDLRenderer* renderer)
-		{
-			SDLBool ret = RenderGetIntegerScaleNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool RenderGetIntegerScale(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLBool ret = RenderGetIntegerScaleNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetViewportNative(SDLRenderer* renderer, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[758])(renderer, rect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[758])((nint)renderer, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetViewport(SDLRenderer* renderer, SDLRect* rect)
-		{
-			int ret = RenderSetViewportNative(renderer, rect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetViewport(ref SDLRenderer renderer, SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetViewportNative((SDLRenderer*)prenderer, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetViewport(SDLRenderer* renderer, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = RenderSetViewportNative(renderer, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetViewport(ref SDLRenderer renderer, ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = RenderSetViewportNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderGetViewportNative(SDLRenderer* renderer, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)funcTable[759])(renderer, rect);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[759])((nint)renderer, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetViewport(SDLRenderer* renderer, SDLRect* rect)
-		{
-			RenderGetViewportNative(renderer, rect);
-		}
-
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetViewport(ref SDLRenderer renderer, SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderGetViewportNative((SDLRenderer*)prenderer, rect);
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetViewport(SDLRenderer* renderer, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				RenderGetViewportNative(renderer, (SDLRect*)prect);
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetViewport(ref SDLRenderer renderer, ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					RenderGetViewportNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetClipRectNative(SDLRenderer* renderer, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[760])(renderer, rect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[760])((nint)renderer, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetClipRect(SDLRenderer* renderer, SDLRect* rect)
-		{
-			int ret = RenderSetClipRectNative(renderer, rect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetClipRect(ref SDLRenderer renderer, SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetClipRectNative((SDLRenderer*)prenderer, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetClipRect(SDLRenderer* renderer, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = RenderSetClipRectNative(renderer, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetClipRect(ref SDLRenderer renderer, ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = RenderSetClipRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderGetClipRectNative(SDLRenderer* renderer, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)funcTable[761])(renderer, rect);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[761])((nint)renderer, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetClipRect(SDLRenderer* renderer, SDLRect* rect)
-		{
-			RenderGetClipRectNative(renderer, rect);
-		}
-
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetClipRect(ref SDLRenderer renderer, SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderGetClipRectNative((SDLRenderer*)prenderer, rect);
-			}
-		}
-
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetClipRect(SDLRenderer* renderer, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				RenderGetClipRectNative(renderer, (SDLRect*)prect);
-			}
-		}
-
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetClipRect(ref SDLRenderer renderer, ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					RenderGetClipRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool RenderIsClipEnabledNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[762])(renderer);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[762])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool RenderIsClipEnabled(SDLRenderer* renderer)
-		{
-			SDLBool ret = RenderIsClipEnabledNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool RenderIsClipEnabled(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLBool ret = RenderIsClipEnabledNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the drawing scale for rendering on the current target.<br/>
-		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
-		/// are used by the renderer. This allows resolution independent drawing with a<br/>
-		/// single coordinate system.<br/>
-		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
-		/// will be handled using the appropriate quality hints. For best results use<br/>
-		/// integer scaling factors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetScaleNative(SDLRenderer* renderer, float scaleX, float scaleY)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int>)funcTable[763])(renderer, scaleX, scaleY);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, int>)funcTable[763])((nint)renderer, scaleX, scaleY);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the drawing scale for rendering on the current target.<br/>
-		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
-		/// are used by the renderer. This allows resolution independent drawing with a<br/>
-		/// single coordinate system.<br/>
-		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
-		/// will be handled using the appropriate quality hints. For best results use<br/>
-		/// integer scaling factors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetScale(SDLRenderer* renderer, float scaleX, float scaleY)
-		{
-			int ret = RenderSetScaleNative(renderer, scaleX, scaleY);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the drawing scale for rendering on the current target.<br/>
-		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
-		/// are used by the renderer. This allows resolution independent drawing with a<br/>
-		/// single coordinate system.<br/>
-		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
-		/// will be handled using the appropriate quality hints. For best results use<br/>
-		/// integer scaling factors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetScale(ref SDLRenderer renderer, float scaleX, float scaleY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetScaleNative((SDLRenderer*)prenderer, scaleX, scaleY);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderGetScaleNative(SDLRenderer* renderer, float* scaleX, float* scaleY)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, float*, float*, void>)funcTable[764])(renderer, scaleX, scaleY);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[764])((nint)renderer, (nint)scaleX, (nint)scaleY);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetScale(SDLRenderer* renderer, float* scaleX, float* scaleY)
-		{
-			RenderGetScaleNative(renderer, scaleX, scaleY);
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetScale(ref SDLRenderer renderer, float* scaleX, float* scaleY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderGetScaleNative((SDLRenderer*)prenderer, scaleX, scaleY);
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetScale(SDLRenderer* renderer, ref float scaleX, float* scaleY)
-		{
-			fixed (float* pscaleX = &scaleX)
-			{
-				RenderGetScaleNative(renderer, (float*)pscaleX, scaleY);
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetScale(ref SDLRenderer renderer, ref float scaleX, float* scaleY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pscaleX = &scaleX)
-				{
-					RenderGetScaleNative((SDLRenderer*)prenderer, (float*)pscaleX, scaleY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetScale(SDLRenderer* renderer, float* scaleX, ref float scaleY)
-		{
-			fixed (float* pscaleY = &scaleY)
-			{
-				RenderGetScaleNative(renderer, scaleX, (float*)pscaleY);
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetScale(ref SDLRenderer renderer, float* scaleX, ref float scaleY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pscaleY = &scaleY)
-				{
-					RenderGetScaleNative((SDLRenderer*)prenderer, scaleX, (float*)pscaleY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetScale(SDLRenderer* renderer, ref float scaleX, ref float scaleY)
-		{
-			fixed (float* pscaleX = &scaleX)
-			{
-				fixed (float* pscaleY = &scaleY)
-				{
-					RenderGetScaleNative(renderer, (float*)pscaleX, (float*)pscaleY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderGetScale(ref SDLRenderer renderer, ref float scaleX, ref float scaleY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pscaleX = &scaleX)
-				{
-					fixed (float* pscaleY = &scaleY)
-					{
-						RenderGetScaleNative((SDLRenderer*)prenderer, (float*)pscaleX, (float*)pscaleY);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderWindowToLogicalNative(SDLRenderer* renderer, int windowX, int windowY, float* logicalX, float* logicalY)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, float*, float*, void>)funcTable[765])(renderer, windowX, windowY, logicalX, logicalY);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, void>)funcTable[765])((nint)renderer, windowX, windowY, (nint)logicalX, (nint)logicalY);
-			#endif
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderWindowToLogical(SDLRenderer* renderer, int windowX, int windowY, float* logicalX, float* logicalY)
-		{
-			RenderWindowToLogicalNative(renderer, windowX, windowY, logicalX, logicalY);
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderWindowToLogical(ref SDLRenderer renderer, int windowX, int windowY, float* logicalX, float* logicalY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, logicalX, logicalY);
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderWindowToLogical(SDLRenderer* renderer, int windowX, int windowY, ref float logicalX, float* logicalY)
-		{
-			fixed (float* plogicalX = &logicalX)
-			{
-				RenderWindowToLogicalNative(renderer, windowX, windowY, (float*)plogicalX, logicalY);
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderWindowToLogical(ref SDLRenderer renderer, int windowX, int windowY, ref float logicalX, float* logicalY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* plogicalX = &logicalX)
-				{
-					RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, (float*)plogicalX, logicalY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderWindowToLogical(SDLRenderer* renderer, int windowX, int windowY, float* logicalX, ref float logicalY)
-		{
-			fixed (float* plogicalY = &logicalY)
-			{
-				RenderWindowToLogicalNative(renderer, windowX, windowY, logicalX, (float*)plogicalY);
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderWindowToLogical(ref SDLRenderer renderer, int windowX, int windowY, float* logicalX, ref float logicalY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* plogicalY = &logicalY)
-				{
-					RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, logicalX, (float*)plogicalY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderWindowToLogical(SDLRenderer* renderer, int windowX, int windowY, ref float logicalX, ref float logicalY)
-		{
-			fixed (float* plogicalX = &logicalX)
-			{
-				fixed (float* plogicalY = &logicalY)
-				{
-					RenderWindowToLogicalNative(renderer, windowX, windowY, (float*)plogicalX, (float*)plogicalY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderWindowToLogical(ref SDLRenderer renderer, int windowX, int windowY, ref float logicalX, ref float logicalY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* plogicalX = &logicalX)
-				{
-					fixed (float* plogicalY = &logicalY)
-					{
-						RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, (float*)plogicalX, (float*)plogicalY);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderLogicalToWindowNative(SDLRenderer* renderer, float logicalX, float logicalY, int* windowX, int* windowY)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int*, int*, void>)funcTable[766])(renderer, logicalX, logicalY, windowX, windowY);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, float, float, nint, nint, void>)funcTable[766])((nint)renderer, logicalX, logicalY, (nint)windowX, (nint)windowY);
-			#endif
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderLogicalToWindow(SDLRenderer* renderer, float logicalX, float logicalY, int* windowX, int* windowY)
-		{
-			RenderLogicalToWindowNative(renderer, logicalX, logicalY, windowX, windowY);
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderLogicalToWindow(ref SDLRenderer renderer, float logicalX, float logicalY, int* windowX, int* windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, windowX, windowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderLogicalToWindow(SDLRenderer* renderer, float logicalX, float logicalY, ref int windowX, int* windowY)
-		{
-			fixed (int* pwindowX = &windowX)
-			{
-				RenderLogicalToWindowNative(renderer, logicalX, logicalY, (int*)pwindowX, windowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderLogicalToWindow(ref SDLRenderer renderer, float logicalX, float logicalY, ref int windowX, int* windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowX = &windowX)
-				{
-					RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, (int*)pwindowX, windowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderLogicalToWindow(SDLRenderer* renderer, float logicalX, float logicalY, int* windowX, ref int windowY)
-		{
-			fixed (int* pwindowY = &windowY)
-			{
-				RenderLogicalToWindowNative(renderer, logicalX, logicalY, windowX, (int*)pwindowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderLogicalToWindow(ref SDLRenderer renderer, float logicalX, float logicalY, int* windowX, ref int windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowY = &windowY)
-				{
-					RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, windowX, (int*)pwindowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderLogicalToWindow(SDLRenderer* renderer, float logicalX, float logicalY, ref int windowX, ref int windowY)
-		{
-			fixed (int* pwindowX = &windowX)
-			{
-				fixed (int* pwindowY = &windowY)
-				{
-					RenderLogicalToWindowNative(renderer, logicalX, logicalY, (int*)pwindowX, (int*)pwindowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void RenderLogicalToWindow(ref SDLRenderer renderer, float logicalX, float logicalY, ref int windowX, ref int windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowX = &windowX)
-				{
-					fixed (int* pwindowY = &windowY)
-					{
-						RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, (int*)pwindowX, (int*)pwindowY);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetRenderDrawColorNative(SDLRenderer* renderer, byte r, byte g, byte b, byte a)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte, byte, byte, byte, int>)funcTable[767])(renderer, r, g, b, a);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, int>)funcTable[767])((nint)renderer, r, g, b, a);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetRenderDrawColor(SDLRenderer* renderer, byte r, byte g, byte b, byte a)
-		{
-			int ret = SetRenderDrawColorNative(renderer, r, g, b, a);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetRenderDrawColor(ref SDLRenderer renderer, byte r, byte g, byte b, byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = SetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetRenderDrawColorNative(SDLRenderer* renderer, byte* r, byte* g, byte* b, byte* a)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte*, byte*, byte*, byte*, int>)funcTable[768])(renderer, r, g, b, a);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[768])((nint)renderer, (nint)r, (nint)g, (nint)b, (nint)a);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, byte* b, byte* a)
-		{
-			int ret = GetRenderDrawColorNative(renderer, r, g, b, a);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, byte* b, byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, byte* b, byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, byte* b, byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, byte* b, byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, byte* b, byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, byte* b, byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, byte* b, byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, ref byte b, byte* a)
-		{
-			fixed (byte* pb = &b)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, ref byte b, byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, ref byte b, byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, ref byte b, byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, ref byte b, byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, ref byte b, byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, ref byte b, byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, ref byte b, byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, byte* b, ref byte a)
-		{
-			fixed (byte* pa = &a)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, g, b, (byte*)pa);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, byte* b, ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, byte* b, ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, byte* b, ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, byte* b, ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, byte* b, ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, byte* b, ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, byte* b, ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pa = &a)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, ref byte b, ref byte a)
-		{
-			fixed (byte* pb = &b)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, ref byte b, ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, ref byte b, ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, ref byte b, ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, ref byte b, ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, ref byte b, ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, ref byte b, ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, ref byte b, ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							fixed (byte* pa = &a)
-							{
-								int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetRenderDrawBlendModeNative(SDLRenderer* renderer, SDLBlendMode blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode, int>)funcTable[769])(renderer, blendMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[769])((nint)renderer, blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetRenderDrawBlendMode(SDLRenderer* renderer, SDLBlendMode blendMode)
-		{
-			int ret = SetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetRenderDrawBlendMode(ref SDLRenderer renderer, SDLBlendMode blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = SetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetRenderDrawBlendModeNative(SDLRenderer* renderer, SDLBlendMode* blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode*, int>)funcTable[770])(renderer, blendMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[770])((nint)renderer, (nint)blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawBlendMode(SDLRenderer* renderer, SDLBlendMode* blendMode)
-		{
-			int ret = GetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawBlendMode(ref SDLRenderer renderer, SDLBlendMode* blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawBlendMode(SDLRenderer* renderer, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				int ret = GetRenderDrawBlendModeNative(renderer, (SDLBlendMode*)pblendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetRenderDrawBlendMode(ref SDLRenderer renderer, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					int ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, (SDLBlendMode*)pblendMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderClearNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int>)funcTable[771])(renderer);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[771])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderClear(SDLRenderer* renderer)
-		{
-			int ret = RenderClearNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderClear(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderClearNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target.<br/>
-		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
-		/// use SDL_RenderDrawPoints() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawPointNative(SDLRenderer* renderer, int x, int y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)funcTable[772])(renderer, x, y);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int>)funcTable[772])((nint)renderer, x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target.<br/>
-		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
-		/// use SDL_RenderDrawPoints() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawPoint(SDLRenderer* renderer, int x, int y)
-		{
-			int ret = RenderDrawPointNative(renderer, x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target.<br/>
-		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
-		/// use SDL_RenderDrawPoints() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawPoint(ref SDLRenderer renderer, int x, int y)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawPointNative((SDLRenderer*)prenderer, x, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawPointsNative(SDLRenderer* renderer, SDLPoint* points, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPoint*, int, int>)funcTable[773])(renderer, points, count);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[773])((nint)renderer, (nint)points, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawPoints(SDLRenderer* renderer, SDLPoint* points, int count)
-		{
-			int ret = RenderDrawPointsNative(renderer, points, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawPoints(ref SDLRenderer renderer, SDLPoint* points, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawPointsNative((SDLRenderer*)prenderer, points, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawPoints(SDLRenderer* renderer, ref SDLPoint points, int count)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				int ret = RenderDrawPointsNative(renderer, (SDLPoint*)ppoints, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawPoints(ref SDLRenderer renderer, ref SDLPoint points, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLPoint* ppoints = &points)
-				{
-					int ret = RenderDrawPointsNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a line on the current rendering target.<br/>
-		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
-		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawLineNative(SDLRenderer* renderer, int x1, int y1, int x2, int y2)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int, int, int>)funcTable[774])(renderer, x1, y1, x2, y2);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int, int, int>)funcTable[774])((nint)renderer, x1, y1, x2, y2);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a line on the current rendering target.<br/>
-		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
-		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawLine(SDLRenderer* renderer, int x1, int y1, int x2, int y2)
-		{
-			int ret = RenderDrawLineNative(renderer, x1, y1, x2, y2);
-			return ret;
-		}
-
-		/// <summary>
-		/// Draw a line on the current rendering target.<br/>
-		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
-		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawLine(ref SDLRenderer renderer, int x1, int y1, int x2, int y2)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawLineNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawLinesNative(SDLRenderer* renderer, SDLPoint* points, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPoint*, int, int>)funcTable[775])(renderer, points, count);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[775])((nint)renderer, (nint)points, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawLines(SDLRenderer* renderer, SDLPoint* points, int count)
-		{
-			int ret = RenderDrawLinesNative(renderer, points, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawLines(ref SDLRenderer renderer, SDLPoint* points, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawLinesNative((SDLRenderer*)prenderer, points, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawLines(SDLRenderer* renderer, ref SDLPoint points, int count)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				int ret = RenderDrawLinesNative(renderer, (SDLPoint*)ppoints, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawLines(ref SDLRenderer renderer, ref SDLPoint points, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLPoint* ppoints = &points)
-				{
-					int ret = RenderDrawLinesNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawRectNative(SDLRenderer* renderer, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[776])(renderer, rect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[776])((nint)renderer, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawRect(SDLRenderer* renderer, SDLRect* rect)
-		{
-			int ret = RenderDrawRectNative(renderer, rect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawRect(ref SDLRenderer renderer, SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawRectNative((SDLRenderer*)prenderer, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawRect(SDLRenderer* renderer, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = RenderDrawRectNative(renderer, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawRect(ref SDLRenderer renderer, ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = RenderDrawRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawRectsNative(SDLRenderer* renderer, SDLRect* rects, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int, int>)funcTable[777])(renderer, rects, count);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[777])((nint)renderer, (nint)rects, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawRects(SDLRenderer* renderer, SDLRect* rects, int count)
-		{
-			int ret = RenderDrawRectsNative(renderer, rects, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawRects(ref SDLRenderer renderer, SDLRect* rects, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawRectsNative((SDLRenderer*)prenderer, rects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawRects(SDLRenderer* renderer, ref SDLRect rects, int count)
-		{
-			fixed (SDLRect* prects = &rects)
-			{
-				int ret = RenderDrawRectsNative(renderer, (SDLRect*)prects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderDrawRects(ref SDLRenderer renderer, ref SDLRect rects, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prects = &rects)
-				{
-					int ret = RenderDrawRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderFillRectNative(SDLRenderer* renderer, SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[778])(renderer, rect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[778])((nint)renderer, (nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderFillRect(SDLRenderer* renderer, SDLRect* rect)
-		{
-			int ret = RenderFillRectNative(renderer, rect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderFillRect(ref SDLRenderer renderer, SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderFillRectNative((SDLRenderer*)prenderer, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderFillRect(SDLRenderer* renderer, ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = RenderFillRectNative(renderer, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderFillRect(ref SDLRenderer renderer, ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = RenderFillRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderFillRectsNative(SDLRenderer* renderer, SDLRect* rects, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int, int>)funcTable[779])(renderer, rects, count);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[779])((nint)renderer, (nint)rects, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderFillRects(SDLRenderer* renderer, SDLRect* rects, int count)
-		{
-			int ret = RenderFillRectsNative(renderer, rects, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderFillRects(ref SDLRenderer renderer, SDLRect* rects, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderFillRectsNative((SDLRenderer*)prenderer, rects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderFillRects(SDLRenderer* renderer, ref SDLRect rects, int count)
-		{
-			fixed (SDLRect* prects = &rects)
-			{
-				int ret = RenderFillRectsNative(renderer, (SDLRect*)prects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderFillRects(ref SDLRenderer renderer, ref SDLRect rects, int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prects = &rects)
-				{
-					int ret = RenderFillRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderCopyNative(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLRect*, int>)funcTable[780])(renderer, texture, srcrect, dstrect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[780])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, SDLRect* dstrect)
-		{
-			int ret = RenderCopyNative(renderer, texture, srcrect, dstrect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(ref SDLRenderer renderer, SDLTexture* texture, SDLRect* srcrect, SDLRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(SDLRenderer* renderer, ref SDLTexture texture, SDLRect* srcrect, SDLRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(ref SDLRenderer renderer, ref SDLTexture texture, SDLRect* srcrect, SDLRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, ref SDLRect srcrect, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(ref SDLRenderer renderer, SDLTexture* texture, ref SDLRect srcrect, SDLRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderCopy(SDLRenderer* renderer, ref SDLTexture texture, ref SDLRect srcrect, SDLRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
-					return ret;
 				}
 			}
 		}

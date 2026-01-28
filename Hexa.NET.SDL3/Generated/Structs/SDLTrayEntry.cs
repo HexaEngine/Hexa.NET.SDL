@@ -15,15 +15,94 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing an entry on a system tray object.<br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_TrayEntry")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTrayEntry
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_TrayEntry")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTrayEntryPtr : IEquatable<SDLTrayEntryPtr>
+	{
+		public SDLTrayEntryPtr(SDLTrayEntry* handle) { Handle = handle; }
+
+		public SDLTrayEntry* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTrayEntryPtr Null => new SDLTrayEntryPtr(null);
+
+		public SDLTrayEntry this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTrayEntryPtr(SDLTrayEntry* handle) => new SDLTrayEntryPtr(handle);
+
+		public static implicit operator SDLTrayEntry*(SDLTrayEntryPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTrayEntryPtr left, SDLTrayEntryPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTrayEntryPtr left, SDLTrayEntryPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTrayEntryPtr left, SDLTrayEntry* right) => left.Handle == right;
+
+		public static bool operator !=(SDLTrayEntryPtr left, SDLTrayEntry* right) => left.Handle != right;
+
+		public bool Equals(SDLTrayEntryPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTrayEntryPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTrayEntryPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_TrayEntry")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLTrayEntryPtrPtr : IEquatable<SDLTrayEntryPtrPtr>
+	{
+		public SDLTrayEntryPtrPtr(SDLTrayEntry** handle) { Handle = handle; }
+
+		public SDLTrayEntry** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLTrayEntryPtrPtr Null => new SDLTrayEntryPtrPtr(null);
+
+		public SDLTrayEntry* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLTrayEntryPtrPtr(SDLTrayEntry** handle) => new SDLTrayEntryPtrPtr(handle);
+
+		public static implicit operator SDLTrayEntry**(SDLTrayEntryPtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLTrayEntryPtrPtr left, SDLTrayEntryPtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLTrayEntryPtrPtr left, SDLTrayEntryPtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLTrayEntryPtrPtr left, SDLTrayEntry** right) => left.Handle == right;
+
+		public static bool operator !=(SDLTrayEntryPtrPtr left, SDLTrayEntry** right) => left.Handle != right;
+
+		public bool Equals(SDLTrayEntryPtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLTrayEntryPtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLTrayEntryPtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

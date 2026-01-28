@@ -19,63 +19,88 @@ namespace Hexa.NET.SDL3
 	/// Mouse wheel event structure (event.wheel.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_MouseWheelEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMouseWheelEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_MOUSE_WHEEL <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The window with mouse focus, if any <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "windowID")]
+		[NativeName(NativeNameType.Type, "SDL_WindowID")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The mouse instance id in relative mode or 0 <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_MouseID")]
 		public uint Which;
 
 		/// <summary>
 		/// The amount scrolled horizontally, positive to the right and negative to the left <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// The amount scrolled vertically, positive away from the user and negative toward the user <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// Set to one of the SDL_MOUSEWHEEL_* defines. When FLIPPED the values in X and Y will be opposite. Multiply by -1 to change them back <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "direction")]
+		[NativeName(NativeNameType.Type, "SDL_MouseWheelDirection")]
 		public SDLMouseWheelDirection Direction;
 
 		/// <summary>
 		/// X coordinate, relative to window <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mouse_x")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float MouseX;
 
 		/// <summary>
 		/// Y coordinate, relative to window <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mouse_y")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float MouseY;
 
 		/// <summary>
 		/// The amount scrolled horizontally, accumulated to whole scroll "ticks" (added in 3.2.12) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "integer_x")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int IntegerX;
 
 		/// <summary>
 		/// The amount scrolled vertically, accumulated to whole scroll "ticks" (added in 3.2.12) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "integer_y")]
+		[NativeName(NativeNameType.Type, "Sint32")]
 		public int IntegerY;
 
 

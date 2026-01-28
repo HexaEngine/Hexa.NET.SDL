@@ -60,4 +60,68 @@ namespace Hexa.NET.SDL2
 
 	}
 
+	/// <summary>
+	/// The structure that defines a display mode<br/>
+	/// <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLDisplayModePtr : IEquatable<SDLDisplayModePtr>
+	{
+		public SDLDisplayModePtr(SDLDisplayMode* handle) { Handle = handle; }
+
+		public SDLDisplayMode* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLDisplayModePtr Null => new SDLDisplayModePtr(null);
+
+		public SDLDisplayMode this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLDisplayModePtr(SDLDisplayMode* handle) => new SDLDisplayModePtr(handle);
+
+		public static implicit operator SDLDisplayMode*(SDLDisplayModePtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLDisplayModePtr left, SDLDisplayModePtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLDisplayModePtr left, SDLDisplayModePtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLDisplayModePtr left, SDLDisplayMode* right) => left.Handle == right;
+
+		public static bool operator !=(SDLDisplayModePtr left, SDLDisplayMode* right) => left.Handle != right;
+
+		public bool Equals(SDLDisplayModePtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLDisplayModePtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLDisplayModePtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// pixel format <br/>
+		/// </summary>
+		public ref uint Format => ref Unsafe.AsRef<uint>(&Handle->Format);
+		/// <summary>
+		/// width, in screen coordinates <br/>
+		/// </summary>
+		public ref int W => ref Unsafe.AsRef<int>(&Handle->W);
+		/// <summary>
+		/// height, in screen coordinates <br/>
+		/// </summary>
+		public ref int H => ref Unsafe.AsRef<int>(&Handle->H);
+		/// <summary>
+		/// refresh rate (or zero for unspecified) <br/>
+		/// </summary>
+		public ref int RefreshRate => ref Unsafe.AsRef<int>(&Handle->RefreshRate);
+		/// <summary>
+		/// driver-specific data, initialize to 0 <br/>
+		/// </summary>
+		public void* Driverdata { get => Handle->Driverdata; set => Handle->Driverdata = value; }
+	}
+
 }

@@ -18,4872 +18,82 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Determine if an audio device is a playback device (instead of recording).<br/>
-		/// This function may return either true or false for invalid device IDs.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool IsAudioDevicePlayback(uint devid)
-		{
-			byte ret = IsAudioDevicePlaybackNative(devid);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to pause audio playback on a specified device.<br/>
-		/// This function pauses audio processing for a given device. Any bound audio<br/>
-		/// streams will not progress, and no audio will be generated. Pausing one<br/>
-		/// device does not prevent other unpaused devices from running.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow. Pausing a paused device is<br/>
-		/// a legal no-op.<br/>
-		/// Pausing a device can be useful to halt all audio without unbinding all the<br/>
-		/// audio streams. This might be useful while a game is paused, or a level is<br/>
-		/// loading, etc.<br/>
-		/// Physical devices can not be paused or unpaused, only logical devices<br/>
-		/// created through SDL_OpenAudioDevice() can be.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PauseAudioDeviceNative(uint devid)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[321])(devid);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[321])(devid);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to pause audio playback on a specified device.<br/>
-		/// This function pauses audio processing for a given device. Any bound audio<br/>
-		/// streams will not progress, and no audio will be generated. Pausing one<br/>
-		/// device does not prevent other unpaused devices from running.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow. Pausing a paused device is<br/>
-		/// a legal no-op.<br/>
-		/// Pausing a device can be useful to halt all audio without unbinding all the<br/>
-		/// audio streams. This might be useful while a game is paused, or a level is<br/>
-		/// loading, etc.<br/>
-		/// Physical devices can not be paused or unpaused, only logical devices<br/>
-		/// created through SDL_OpenAudioDevice() can be.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool PauseAudioDevice(uint devid)
-		{
-			byte ret = PauseAudioDeviceNative(devid);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to unpause audio playback on a specified device.<br/>
-		/// This function unpauses audio processing for a given device that has<br/>
-		/// previously been paused with SDL_PauseAudioDevice(). Once unpaused, any<br/>
-		/// bound audio streams will begin to progress again, and audio can be<br/>
-		/// generated.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow. Unpausing an unpaused<br/>
-		/// device is a legal no-op.<br/>
-		/// Physical devices can not be paused or unpaused, only logical devices<br/>
-		/// created through SDL_OpenAudioDevice() can be.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ResumeAudioDeviceNative(uint devid)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[322])(devid);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[322])(devid);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to unpause audio playback on a specified device.<br/>
-		/// This function unpauses audio processing for a given device that has<br/>
-		/// previously been paused with SDL_PauseAudioDevice(). Once unpaused, any<br/>
-		/// bound audio streams will begin to progress again, and audio can be<br/>
-		/// generated.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow. Unpausing an unpaused<br/>
-		/// device is a legal no-op.<br/>
-		/// Physical devices can not be paused or unpaused, only logical devices<br/>
-		/// created through SDL_OpenAudioDevice() can be.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ResumeAudioDevice(uint devid)
-		{
-			byte ret = ResumeAudioDeviceNative(devid);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to query if an audio device is paused.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow.<br/>
-		/// Physical devices can not be paused or unpaused, only logical devices<br/>
-		/// created through SDL_OpenAudioDevice() can be. Physical and invalid device<br/>
-		/// IDs will report themselves as unpaused here.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte AudioDevicePausedNative(uint devid)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[323])(devid);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[323])(devid);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to query if an audio device is paused.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow.<br/>
-		/// Physical devices can not be paused or unpaused, only logical devices<br/>
-		/// created through SDL_OpenAudioDevice() can be. Physical and invalid device<br/>
-		/// IDs will report themselves as unpaused here.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AudioDevicePaused(uint devid)
-		{
-			byte ret = AudioDevicePausedNative(devid);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Get the gain of an audio device.<br/>
-		/// The gain of a device is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio devices default to a gain of 1.0f (no change in output).<br/>
-		/// Physical devices may not have their gain changed, only logical devices, and<br/>
-		/// this function will always return -1.0f when used on physical devices.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetAudioDeviceGainNative(uint devid)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, float>)funcTable[324])(devid);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<uint, float>)funcTable[324])(devid);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the gain of an audio device.<br/>
-		/// The gain of a device is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio devices default to a gain of 1.0f (no change in output).<br/>
-		/// Physical devices may not have their gain changed, only logical devices, and<br/>
-		/// this function will always return -1.0f when used on physical devices.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GetAudioDeviceGain(uint devid)
-		{
-			float ret = GetAudioDeviceGainNative(devid);
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, name, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			return ret;
 		}
 
 		/// <summary>
-		/// Change the gain of an audio device.<br/>
-		/// The gain of a device is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio devices default to a gain of 1.0f (no change in output).<br/>
-		/// Physical devices may not have their gain changed, only logical devices, and<br/>
-		/// this function will always return false when used on physical devices. While<br/>
-		/// it might seem attractive to adjust several logical devices at once in this<br/>
-		/// way, it would allow an app or library to interfere with another portion of<br/>
-		/// the program's otherwise-isolated devices.<br/>
-		/// This is applied, along with any per-audiostream gain, during playback to<br/>
-		/// the hardware, and can be continuously changed to create various effects. On<br/>
-		/// recording devices, this will adjust the gain before passing the data into<br/>
-		/// an audiostream; that recording audiostream can then adjust its gain further<br/>
-		/// when outputting the data elsewhere, if it likes, but that second gain is<br/>
-		/// not applied until the data leaves the audiostream again.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioDeviceGainNative(uint devid, float gain)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, float, byte>)funcTable[325])(devid, gain);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, float, byte>)funcTable[325])(devid, gain);
-			#endif
-		}
-
-		/// <summary>
-		/// Change the gain of an audio device.<br/>
-		/// The gain of a device is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio devices default to a gain of 1.0f (no change in output).<br/>
-		/// Physical devices may not have their gain changed, only logical devices, and<br/>
-		/// this function will always return false when used on physical devices. While<br/>
-		/// it might seem attractive to adjust several logical devices at once in this<br/>
-		/// way, it would allow an app or library to interfere with another portion of<br/>
-		/// the program's otherwise-isolated devices.<br/>
-		/// This is applied, along with any per-audiostream gain, during playback to<br/>
-		/// the hardware, and can be continuously changed to create various effects. On<br/>
-		/// recording devices, this will adjust the gain before passing the data into<br/>
-		/// an audiostream; that recording audiostream can then adjust its gain further<br/>
-		/// when outputting the data elsewhere, if it likes, but that second gain is<br/>
-		/// not applied until the data leaves the audiostream again.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioDeviceGain(uint devid, float gain)
-		{
-			byte ret = SetAudioDeviceGainNative(devid, gain);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Close a previously-opened audio device.<br/>
-		/// The application should close open audio devices once they are no longer<br/>
-		/// needed.<br/>
-		/// This function may block briefly while pending audio data is played by the<br/>
-		/// hardware, so that applications don't drop the last buffer of data they<br/>
-		/// supplied if terminating immediately afterwards.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CloseAudioDeviceNative(uint devid)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[326])(devid);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[326])(devid);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a previously-opened audio device.<br/>
-		/// The application should close open audio devices once they are no longer<br/>
-		/// needed.<br/>
-		/// This function may block briefly while pending audio data is played by the<br/>
-		/// hardware, so that applications don't drop the last buffer of data they<br/>
-		/// supplied if terminating immediately afterwards.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void CloseAudioDevice(uint devid)
-		{
-			CloseAudioDeviceNative(devid);
-		}
-
-		/// <summary>
-		/// Bind a list of audio streams to an audio device.<br/>
-		/// Audio data will flow through any bound streams. For a playback device, data<br/>
-		/// for all bound streams will be mixed together and fed to the device. For a<br/>
-		/// recording device, a copy of recorded data will be provided to each bound<br/>
-		/// stream.<br/>
-		/// Audio streams can only be bound to an open device. This operation is<br/>
-		/// atomic--all streams bound in the same call will start processing at the<br/>
-		/// same time, so they can stay in sync. Also: either all streams will be bound<br/>
-		/// or none of them will be.<br/>
-		/// It is an error to bind an already-bound stream; it must be explicitly<br/>
-		/// unbound first.<br/>
-		/// Binding a stream to a device will set its output format for playback<br/>
-		/// devices, and its input format for recording devices, so they match the<br/>
-		/// device's settings. The caller is welcome to change the other end of the<br/>
-		/// stream's format at any time with SDL_SetAudioStreamFormat().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BindAudioStreamsNative(uint devid, SDLAudioStream** streams, int numStreams)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioStream**, int, byte>)funcTable[327])(devid, streams, numStreams);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, int, byte>)funcTable[327])(devid, (nint)streams, numStreams);
-			#endif
-		}
-
-		/// <summary>
-		/// Bind a list of audio streams to an audio device.<br/>
-		/// Audio data will flow through any bound streams. For a playback device, data<br/>
-		/// for all bound streams will be mixed together and fed to the device. For a<br/>
-		/// recording device, a copy of recorded data will be provided to each bound<br/>
-		/// stream.<br/>
-		/// Audio streams can only be bound to an open device. This operation is<br/>
-		/// atomic--all streams bound in the same call will start processing at the<br/>
-		/// same time, so they can stay in sync. Also: either all streams will be bound<br/>
-		/// or none of them will be.<br/>
-		/// It is an error to bind an already-bound stream; it must be explicitly<br/>
-		/// unbound first.<br/>
-		/// Binding a stream to a device will set its output format for playback<br/>
-		/// devices, and its input format for recording devices, so they match the<br/>
-		/// device's settings. The caller is welcome to change the other end of the<br/>
-		/// stream's format at any time with SDL_SetAudioStreamFormat().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BindAudioStreams(uint devid, SDLAudioStream** streams, int numStreams)
-		{
-			byte ret = BindAudioStreamsNative(devid, streams, numStreams);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Bind a list of audio streams to an audio device.<br/>
-		/// Audio data will flow through any bound streams. For a playback device, data<br/>
-		/// for all bound streams will be mixed together and fed to the device. For a<br/>
-		/// recording device, a copy of recorded data will be provided to each bound<br/>
-		/// stream.<br/>
-		/// Audio streams can only be bound to an open device. This operation is<br/>
-		/// atomic--all streams bound in the same call will start processing at the<br/>
-		/// same time, so they can stay in sync. Also: either all streams will be bound<br/>
-		/// or none of them will be.<br/>
-		/// It is an error to bind an already-bound stream; it must be explicitly<br/>
-		/// unbound first.<br/>
-		/// Binding a stream to a device will set its output format for playback<br/>
-		/// devices, and its input format for recording devices, so they match the<br/>
-		/// device's settings. The caller is welcome to change the other end of the<br/>
-		/// stream's format at any time with SDL_SetAudioStreamFormat().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BindAudioStreams(uint devid, ref SDLAudioStream* streams, int numStreams)
-		{
-			fixed (SDLAudioStream** pstreams = &streams)
-			{
-				byte ret = BindAudioStreamsNative(devid, (SDLAudioStream**)pstreams, numStreams);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Bind a single audio stream to an audio device.<br/>
-		/// This is a convenience function, equivalent to calling<br/>
-		/// `SDL_BindAudioStreams(devid, <br/>
-		/// &stream<br/>
-		/// , 1)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte BindAudioStreamNative(uint devid, SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioStream*, byte>)funcTable[328])(devid, stream);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, byte>)funcTable[328])(devid, (nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Bind a single audio stream to an audio device.<br/>
-		/// This is a convenience function, equivalent to calling<br/>
-		/// `SDL_BindAudioStreams(devid, <br/>
-		/// &stream<br/>
-		/// , 1)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BindAudioStream(uint devid, SDLAudioStream* stream)
-		{
-			byte ret = BindAudioStreamNative(devid, stream);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Bind a single audio stream to an audio device.<br/>
-		/// This is a convenience function, equivalent to calling<br/>
-		/// `SDL_BindAudioStreams(devid, <br/>
-		/// &stream<br/>
-		/// , 1)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool BindAudioStream(uint devid, ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = BindAudioStreamNative(devid, (SDLAudioStream*)pstream);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Unbind a list of audio streams from their audio devices.<br/>
-		/// The streams being unbound do not all have to be on the same device. All<br/>
-		/// streams on the same device will be unbound atomically (data will stop<br/>
-		/// flowing through all unbound streams on the same device at the same time).<br/>
-		/// Unbinding a stream that isn't bound to a device is a legal no-op.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnbindAudioStreamsNative(SDLAudioStream** streams, int numStreams)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream**, int, void>)funcTable[329])(streams, numStreams);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[329])((nint)streams, numStreams);
-			#endif
-		}
-
-		/// <summary>
-		/// Unbind a list of audio streams from their audio devices.<br/>
-		/// The streams being unbound do not all have to be on the same device. All<br/>
-		/// streams on the same device will be unbound atomically (data will stop<br/>
-		/// flowing through all unbound streams on the same device at the same time).<br/>
-		/// Unbinding a stream that isn't bound to a device is a legal no-op.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnbindAudioStreams(SDLAudioStream** streams, int numStreams)
-		{
-			UnbindAudioStreamsNative(streams, numStreams);
-		}
-
-		/// <summary>
-		/// Unbind a list of audio streams from their audio devices.<br/>
-		/// The streams being unbound do not all have to be on the same device. All<br/>
-		/// streams on the same device will be unbound atomically (data will stop<br/>
-		/// flowing through all unbound streams on the same device at the same time).<br/>
-		/// Unbinding a stream that isn't bound to a device is a legal no-op.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnbindAudioStreams(ref SDLAudioStream* streams, int numStreams)
-		{
-			fixed (SDLAudioStream** pstreams = &streams)
-			{
-				UnbindAudioStreamsNative((SDLAudioStream**)pstreams, numStreams);
-			}
-		}
-
-		/// <summary>
-		/// Unbind a single audio stream from its audio device.<br/>
-		/// This is a convenience function, equivalent to calling<br/>
-		/// `SDL_UnbindAudioStreams(<br/>
-		/// &stream<br/>
-		/// , 1)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnbindAudioStreamNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[330])(stream);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[330])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Unbind a single audio stream from its audio device.<br/>
-		/// This is a convenience function, equivalent to calling<br/>
-		/// `SDL_UnbindAudioStreams(<br/>
-		/// &stream<br/>
-		/// , 1)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnbindAudioStream(SDLAudioStream* stream)
-		{
-			UnbindAudioStreamNative(stream);
-		}
-
-		/// <summary>
-		/// Unbind a single audio stream from its audio device.<br/>
-		/// This is a convenience function, equivalent to calling<br/>
-		/// `SDL_UnbindAudioStreams(<br/>
-		/// &stream<br/>
-		/// , 1)`.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void UnbindAudioStream(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				UnbindAudioStreamNative((SDLAudioStream*)pstream);
-			}
-		}
-
-		/// <summary>
-		/// Query an audio stream for its currently-bound device.<br/>
-		/// This reports the audio device that an audio stream is currently bound to.<br/>
-		/// If not bound, or invalid, this returns zero, which is not a valid device<br/>
-		/// ID.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetAudioStreamDeviceNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, uint>)funcTable[331])(stream);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[331])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Query an audio stream for its currently-bound device.<br/>
-		/// This reports the audio device that an audio stream is currently bound to.<br/>
-		/// If not bound, or invalid, this returns zero, which is not a valid device<br/>
-		/// ID.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetAudioStreamDevice(SDLAudioStream* stream)
-		{
-			uint ret = GetAudioStreamDeviceNative(stream);
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			return ret;
 		}
 
 		/// <summary>
-		/// Query an audio stream for its currently-bound device.<br/>
-		/// This reports the audio device that an audio stream is currently bound to.<br/>
-		/// If not bound, or invalid, this returns zero, which is not a valid device<br/>
-		/// ID.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint GetAudioStreamDevice(ref SDLAudioStream stream)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
 		{
-			fixed (SDLAudioStream* pstream = &stream)
+			fixed (byte* pname = &name)
 			{
-				uint ret = GetAudioStreamDeviceNative((SDLAudioStream*)pstream);
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a new audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAudioStream* CreateAudioStreamNative(SDLAudioSpec* srcSpec, SDLAudioSpec* dstSpec)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioSpec*, SDLAudioSpec*, SDLAudioStream*>)funcTable[332])(srcSpec, dstSpec);
-			#else
-			return (SDLAudioStream*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[332])((nint)srcSpec, (nint)dstSpec);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static SDLAudioStream* CreateAudioStream(SDLAudioSpec* srcSpec, SDLAudioSpec* dstSpec)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
 		{
-			SDLAudioStream* ret = CreateAudioStreamNative(srcSpec, dstSpec);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioStream* CreateAudioStream(ref SDLAudioSpec srcSpec, SDLAudioSpec* dstSpec)
-		{
-			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
+			fixed (byte* pname = name)
 			{
-				SDLAudioStream* ret = CreateAudioStreamNative((SDLAudioSpec*)psrcSpec, dstSpec);
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Create a new audio stream.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioStream* CreateAudioStream(SDLAudioSpec* srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-			{
-				SDLAudioStream* ret = CreateAudioStreamNative(srcSpec, (SDLAudioSpec*)pdstSpec);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioStream* CreateAudioStream(ref SDLAudioSpec srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-			{
-				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-				{
-					SDLAudioStream* ret = CreateAudioStreamNative((SDLAudioSpec*)psrcSpec, (SDLAudioSpec*)pdstSpec);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the properties associated with an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetAudioStreamPropertiesNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, uint>)funcTable[333])(stream);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[333])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the properties associated with an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetAudioStreamProperties(SDLAudioStream* stream)
-		{
-			uint ret = GetAudioStreamPropertiesNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the properties associated with an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetAudioStreamProperties(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				uint ret = GetAudioStreamPropertiesNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte GetAudioStreamFormatNative(SDLAudioStream* stream, SDLAudioSpec* srcSpec, SDLAudioSpec* dstSpec)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, SDLAudioSpec*, SDLAudioSpec*, byte>)funcTable[334])(stream, srcSpec, dstSpec);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[334])((nint)stream, (nint)srcSpec, (nint)dstSpec);
-			#endif
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioStreamFormat(SDLAudioStream* stream, SDLAudioSpec* srcSpec, SDLAudioSpec* dstSpec)
-		{
-			byte ret = GetAudioStreamFormatNative(stream, srcSpec, dstSpec);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioStreamFormat(ref SDLAudioStream stream, SDLAudioSpec* srcSpec, SDLAudioSpec* dstSpec)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = GetAudioStreamFormatNative((SDLAudioStream*)pstream, srcSpec, dstSpec);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioStreamFormat(SDLAudioStream* stream, ref SDLAudioSpec srcSpec, SDLAudioSpec* dstSpec)
-		{
-			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-			{
-				byte ret = GetAudioStreamFormatNative(stream, (SDLAudioSpec*)psrcSpec, dstSpec);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioStreamFormat(ref SDLAudioStream stream, ref SDLAudioSpec srcSpec, SDLAudioSpec* dstSpec)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-				{
-					byte ret = GetAudioStreamFormatNative((SDLAudioStream*)pstream, (SDLAudioSpec*)psrcSpec, dstSpec);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioStreamFormat(SDLAudioStream* stream, SDLAudioSpec* srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-			{
-				byte ret = GetAudioStreamFormatNative(stream, srcSpec, (SDLAudioSpec*)pdstSpec);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioStreamFormat(ref SDLAudioStream stream, SDLAudioSpec* srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-				{
-					byte ret = GetAudioStreamFormatNative((SDLAudioStream*)pstream, srcSpec, (SDLAudioSpec*)pdstSpec);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioStreamFormat(SDLAudioStream* stream, ref SDLAudioSpec srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-			{
-				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-				{
-					byte ret = GetAudioStreamFormatNative(stream, (SDLAudioSpec*)psrcSpec, (SDLAudioSpec*)pdstSpec);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the current format of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool GetAudioStreamFormat(ref SDLAudioStream stream, ref SDLAudioSpec srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-				{
-					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-					{
-						byte ret = GetAudioStreamFormatNative((SDLAudioStream*)pstream, (SDLAudioSpec*)psrcSpec, (SDLAudioSpec*)pdstSpec);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioStreamFormatNative(SDLAudioStream* stream, SDLAudioSpec* srcSpec, SDLAudioSpec* dstSpec)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, SDLAudioSpec*, SDLAudioSpec*, byte>)funcTable[335])(stream, srcSpec, dstSpec);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[335])((nint)stream, (nint)srcSpec, (nint)dstSpec);
-			#endif
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFormat(SDLAudioStream* stream, SDLAudioSpec* srcSpec, SDLAudioSpec* dstSpec)
-		{
-			byte ret = SetAudioStreamFormatNative(stream, srcSpec, dstSpec);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFormat(ref SDLAudioStream stream, SDLAudioSpec* srcSpec, SDLAudioSpec* dstSpec)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = SetAudioStreamFormatNative((SDLAudioStream*)pstream, srcSpec, dstSpec);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFormat(SDLAudioStream* stream, ref SDLAudioSpec srcSpec, SDLAudioSpec* dstSpec)
-		{
-			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-			{
-				byte ret = SetAudioStreamFormatNative(stream, (SDLAudioSpec*)psrcSpec, dstSpec);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFormat(ref SDLAudioStream stream, ref SDLAudioSpec srcSpec, SDLAudioSpec* dstSpec)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-				{
-					byte ret = SetAudioStreamFormatNative((SDLAudioStream*)pstream, (SDLAudioSpec*)psrcSpec, dstSpec);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFormat(SDLAudioStream* stream, SDLAudioSpec* srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-			{
-				byte ret = SetAudioStreamFormatNative(stream, srcSpec, (SDLAudioSpec*)pdstSpec);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFormat(ref SDLAudioStream stream, SDLAudioSpec* srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-				{
-					byte ret = SetAudioStreamFormatNative((SDLAudioStream*)pstream, srcSpec, (SDLAudioSpec*)pdstSpec);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFormat(SDLAudioStream* stream, ref SDLAudioSpec srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-			{
-				fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-				{
-					byte ret = SetAudioStreamFormatNative(stream, (SDLAudioSpec*)psrcSpec, (SDLAudioSpec*)pdstSpec);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Change the input and output formats of an audio stream.<br/>
-		/// Future calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData<br/>
-		/// will reflect the new format, and future calls to SDL_PutAudioStreamData<br/>
-		/// must provide data in the new input formats.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the format that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one format to a stream, change formats for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// If a stream is bound to a device, then the format of the side of the stream<br/>
-		/// bound to a device cannot be changed (src_spec for recording devices,<br/>
-		/// dst_spec for playback devices). Attempts to make a change to this side will<br/>
-		/// be ignored, but this will not report an error. The other side's format can<br/>
-		/// be changed.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFormat(ref SDLAudioStream stream, ref SDLAudioSpec srcSpec, ref SDLAudioSpec dstSpec)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (SDLAudioSpec* psrcSpec = &srcSpec)
-				{
-					fixed (SDLAudioSpec* pdstSpec = &dstSpec)
-					{
-						byte ret = SetAudioStreamFormatNative((SDLAudioStream*)pstream, (SDLAudioSpec*)psrcSpec, (SDLAudioSpec*)pdstSpec);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the frequency ratio of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetAudioStreamFrequencyRatioNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, float>)funcTable[336])(stream);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<nint, float>)funcTable[336])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the frequency ratio of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GetAudioStreamFrequencyRatio(SDLAudioStream* stream)
-		{
-			float ret = GetAudioStreamFrequencyRatioNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the frequency ratio of an audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GetAudioStreamFrequencyRatio(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				float ret = GetAudioStreamFrequencyRatioNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Change the frequency ratio of an audio stream.<br/>
-		/// The frequency ratio is used to adjust the rate at which input data is<br/>
-		/// consumed. Changing this effectively modifies the speed and pitch of the<br/>
-		/// audio. A value greater than 1.0 will play the audio faster, and at a higher<br/>
-		/// pitch. A value less than 1.0 will play the audio slower, and at a lower<br/>
-		/// pitch.<br/>
-		/// This is applied during SDL_GetAudioStreamData, and can be continuously<br/>
-		/// changed to create various effects.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioStreamFrequencyRatioNative(SDLAudioStream* stream, float ratio)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, float, byte>)funcTable[337])(stream, ratio);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, byte>)funcTable[337])((nint)stream, ratio);
-			#endif
-		}
-
-		/// <summary>
-		/// Change the frequency ratio of an audio stream.<br/>
-		/// The frequency ratio is used to adjust the rate at which input data is<br/>
-		/// consumed. Changing this effectively modifies the speed and pitch of the<br/>
-		/// audio. A value greater than 1.0 will play the audio faster, and at a higher<br/>
-		/// pitch. A value less than 1.0 will play the audio slower, and at a lower<br/>
-		/// pitch.<br/>
-		/// This is applied during SDL_GetAudioStreamData, and can be continuously<br/>
-		/// changed to create various effects.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFrequencyRatio(SDLAudioStream* stream, float ratio)
-		{
-			byte ret = SetAudioStreamFrequencyRatioNative(stream, ratio);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Change the frequency ratio of an audio stream.<br/>
-		/// The frequency ratio is used to adjust the rate at which input data is<br/>
-		/// consumed. Changing this effectively modifies the speed and pitch of the<br/>
-		/// audio. A value greater than 1.0 will play the audio faster, and at a higher<br/>
-		/// pitch. A value less than 1.0 will play the audio slower, and at a lower<br/>
-		/// pitch.<br/>
-		/// This is applied during SDL_GetAudioStreamData, and can be continuously<br/>
-		/// changed to create various effects.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamFrequencyRatio(ref SDLAudioStream stream, float ratio)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = SetAudioStreamFrequencyRatioNative((SDLAudioStream*)pstream, ratio);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the gain of an audio stream.<br/>
-		/// The gain of a stream is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio streams default to a gain of 1.0f (no change in output).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetAudioStreamGainNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, float>)funcTable[338])(stream);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<nint, float>)funcTable[338])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the gain of an audio stream.<br/>
-		/// The gain of a stream is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio streams default to a gain of 1.0f (no change in output).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GetAudioStreamGain(SDLAudioStream* stream)
-		{
-			float ret = GetAudioStreamGainNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the gain of an audio stream.<br/>
-		/// The gain of a stream is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio streams default to a gain of 1.0f (no change in output).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float GetAudioStreamGain(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				float ret = GetAudioStreamGainNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Change the gain of an audio stream.<br/>
-		/// The gain of a stream is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio streams default to a gain of 1.0f (no change in output).<br/>
-		/// This is applied during SDL_GetAudioStreamData, and can be continuously<br/>
-		/// changed to create various effects.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioStreamGainNative(SDLAudioStream* stream, float gain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, float, byte>)funcTable[339])(stream, gain);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, float, byte>)funcTable[339])((nint)stream, gain);
-			#endif
-		}
-
-		/// <summary>
-		/// Change the gain of an audio stream.<br/>
-		/// The gain of a stream is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio streams default to a gain of 1.0f (no change in output).<br/>
-		/// This is applied during SDL_GetAudioStreamData, and can be continuously<br/>
-		/// changed to create various effects.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamGain(SDLAudioStream* stream, float gain)
-		{
-			byte ret = SetAudioStreamGainNative(stream, gain);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Change the gain of an audio stream.<br/>
-		/// The gain of a stream is its volume; a larger gain means a louder output,<br/>
-		/// with a gain of zero being silence.<br/>
-		/// Audio streams default to a gain of 1.0f (no change in output).<br/>
-		/// This is applied during SDL_GetAudioStreamData, and can be continuously<br/>
-		/// changed to create various effects.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamGain(ref SDLAudioStream stream, float gain)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = SetAudioStreamGainNative((SDLAudioStream*)pstream, gain);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int* GetAudioStreamInputChannelMapNative(SDLAudioStream* stream, int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int*, int*>)funcTable[340])(stream, count);
-			#else
-			return (int*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[340])((nint)stream, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioStreamInputChannelMap(SDLAudioStream* stream, int* count)
-		{
-			int* ret = GetAudioStreamInputChannelMapNative(stream, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioStreamInputChannelMap(ref SDLAudioStream stream, int* count)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int* ret = GetAudioStreamInputChannelMapNative((SDLAudioStream*)pstream, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioStreamInputChannelMap(SDLAudioStream* stream, ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				int* ret = GetAudioStreamInputChannelMapNative(stream, (int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioStreamInputChannelMap(ref SDLAudioStream stream, ref int count)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (int* pcount = &count)
-				{
-					int* ret = GetAudioStreamInputChannelMapNative((SDLAudioStream*)pstream, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int* GetAudioStreamOutputChannelMapNative(SDLAudioStream* stream, int* count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int*, int*>)funcTable[341])(stream, count);
-			#else
-			return (int*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[341])((nint)stream, (nint)count);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioStreamOutputChannelMap(SDLAudioStream* stream, int* count)
-		{
-			int* ret = GetAudioStreamOutputChannelMapNative(stream, count);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioStreamOutputChannelMap(ref SDLAudioStream stream, int* count)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int* ret = GetAudioStreamOutputChannelMapNative((SDLAudioStream*)pstream, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioStreamOutputChannelMap(SDLAudioStream* stream, ref int count)
-		{
-			fixed (int* pcount = &count)
-			{
-				int* ret = GetAudioStreamOutputChannelMapNative(stream, (int*)pcount);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// Audio streams default to no remapping applied. This is represented by<br/>
-		/// returning NULL, and does not signify an error.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int* GetAudioStreamOutputChannelMap(ref SDLAudioStream stream, ref int count)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (int* pcount = &count)
-				{
-					int* ret = GetAudioStreamOutputChannelMapNative((SDLAudioStream*)pstream, (int*)pcount);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The input channel map reorders data that is added to a stream via<br/>
-		/// SDL_PutAudioStreamData. Future calls to SDL_PutAudioStreamData must provide<br/>
-		/// data in the new channel order.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the order that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one order to a stream, change orders for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the input channel map on a<br/>
-		/// stream bound to a recording device is permitted to change at any time; any<br/>
-		/// data added to the stream from the device after this call will have the new<br/>
-		/// mapping, but previously-added data will still have the prior mapping.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioStreamInputChannelMapNative(SDLAudioStream* stream, int* chmap, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int*, int, byte>)funcTable[342])(stream, chmap, count);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[342])((nint)stream, (nint)chmap, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The input channel map reorders data that is added to a stream via<br/>
-		/// SDL_PutAudioStreamData. Future calls to SDL_PutAudioStreamData must provide<br/>
-		/// data in the new channel order.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the order that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one order to a stream, change orders for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the input channel map on a<br/>
-		/// stream bound to a recording device is permitted to change at any time; any<br/>
-		/// data added to the stream from the device after this call will have the new<br/>
-		/// mapping, but previously-added data will still have the prior mapping.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamInputChannelMap(SDLAudioStream* stream, int* chmap, int count)
-		{
-			byte ret = SetAudioStreamInputChannelMapNative(stream, chmap, count);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The input channel map reorders data that is added to a stream via<br/>
-		/// SDL_PutAudioStreamData. Future calls to SDL_PutAudioStreamData must provide<br/>
-		/// data in the new channel order.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the order that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one order to a stream, change orders for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the input channel map on a<br/>
-		/// stream bound to a recording device is permitted to change at any time; any<br/>
-		/// data added to the stream from the device after this call will have the new<br/>
-		/// mapping, but previously-added data will still have the prior mapping.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamInputChannelMap(ref SDLAudioStream stream, int* chmap, int count)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = SetAudioStreamInputChannelMapNative((SDLAudioStream*)pstream, chmap, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The input channel map reorders data that is added to a stream via<br/>
-		/// SDL_PutAudioStreamData. Future calls to SDL_PutAudioStreamData must provide<br/>
-		/// data in the new channel order.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the order that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one order to a stream, change orders for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the input channel map on a<br/>
-		/// stream bound to a recording device is permitted to change at any time; any<br/>
-		/// data added to the stream from the device after this call will have the new<br/>
-		/// mapping, but previously-added data will still have the prior mapping.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamInputChannelMap(SDLAudioStream* stream, ref int chmap, int count)
-		{
-			fixed (int* pchmap = &chmap)
-			{
-				byte ret = SetAudioStreamInputChannelMapNative(stream, (int*)pchmap, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the current input channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The input channel map reorders data that is added to a stream via<br/>
-		/// SDL_PutAudioStreamData. Future calls to SDL_PutAudioStreamData must provide<br/>
-		/// data in the new channel order.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// Data that was previously queued in the stream will still be operated on in<br/>
-		/// the order that was current when it was added, which is to say you can put<br/>
-		/// the end of a sound file in one order to a stream, change orders for the<br/>
-		/// next sound file, and start putting that new data while the previous sound<br/>
-		/// file is still queued, and everything will still play back correctly.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the input channel map on a<br/>
-		/// stream bound to a recording device is permitted to change at any time; any<br/>
-		/// data added to the stream from the device after this call will have the new<br/>
-		/// mapping, but previously-added data will still have the prior mapping.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamInputChannelMap(ref SDLAudioStream stream, ref int chmap, int count)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (int* pchmap = &chmap)
-				{
-					byte ret = SetAudioStreamInputChannelMapNative((SDLAudioStream*)pstream, (int*)pchmap, count);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The output channel map reorders data that leaving a stream via<br/>
-		/// SDL_GetAudioStreamData.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// The output channel map can be changed at any time, as output remapping is<br/>
-		/// applied during SDL_GetAudioStreamData.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the output channel map on<br/>
-		/// a stream bound to a recording device is permitted to change at any time;<br/>
-		/// any data added to the stream after this call will have the new mapping, but<br/>
-		/// previously-added data will still have the prior mapping. When the channel<br/>
-		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
-		/// before feeding it to the device for playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioStreamOutputChannelMapNative(SDLAudioStream* stream, int* chmap, int count)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int*, int, byte>)funcTable[343])(stream, chmap, count);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[343])((nint)stream, (nint)chmap, count);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The output channel map reorders data that leaving a stream via<br/>
-		/// SDL_GetAudioStreamData.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// The output channel map can be changed at any time, as output remapping is<br/>
-		/// applied during SDL_GetAudioStreamData.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the output channel map on<br/>
-		/// a stream bound to a recording device is permitted to change at any time;<br/>
-		/// any data added to the stream after this call will have the new mapping, but<br/>
-		/// previously-added data will still have the prior mapping. When the channel<br/>
-		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
-		/// before feeding it to the device for playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamOutputChannelMap(SDLAudioStream* stream, int* chmap, int count)
-		{
-			byte ret = SetAudioStreamOutputChannelMapNative(stream, chmap, count);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The output channel map reorders data that leaving a stream via<br/>
-		/// SDL_GetAudioStreamData.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// The output channel map can be changed at any time, as output remapping is<br/>
-		/// applied during SDL_GetAudioStreamData.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the output channel map on<br/>
-		/// a stream bound to a recording device is permitted to change at any time;<br/>
-		/// any data added to the stream after this call will have the new mapping, but<br/>
-		/// previously-added data will still have the prior mapping. When the channel<br/>
-		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
-		/// before feeding it to the device for playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamOutputChannelMap(ref SDLAudioStream stream, int* chmap, int count)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = SetAudioStreamOutputChannelMapNative((SDLAudioStream*)pstream, chmap, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The output channel map reorders data that leaving a stream via<br/>
-		/// SDL_GetAudioStreamData.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// The output channel map can be changed at any time, as output remapping is<br/>
-		/// applied during SDL_GetAudioStreamData.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the output channel map on<br/>
-		/// a stream bound to a recording device is permitted to change at any time;<br/>
-		/// any data added to the stream after this call will have the new mapping, but<br/>
-		/// previously-added data will still have the prior mapping. When the channel<br/>
-		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
-		/// before feeding it to the device for playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamOutputChannelMap(SDLAudioStream* stream, ref int chmap, int count)
-		{
-			fixed (int* pchmap = &chmap)
-			{
-				byte ret = SetAudioStreamOutputChannelMapNative(stream, (int*)pchmap, count);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set the current output channel map of an audio stream.<br/>
-		/// Channel maps are optional; most things do not need them, instead passing<br/>
-		/// data in the [order that SDL expects](CategoryAudio#channel-layouts).<br/>
-		/// The output channel map reorders data that leaving a stream via<br/>
-		/// SDL_GetAudioStreamData.<br/>
-		/// Each item in the array represents an input channel, and its value is the<br/>
-		/// channel that it should be remapped to. To reverse a stereo signal's left<br/>
-		/// and right values, you'd have an array of `{ 1, 0 }`. It is legal to remap<br/>
-		/// multiple channels to the same thing, so `{ 1, 1 }` would duplicate the<br/>
-		/// right channel to both channels of a stereo signal. An element in the<br/>
-		/// channel map set to -1 instead of a valid channel will mute that channel,<br/>
-		/// setting it to a silence value.<br/>
-		/// You cannot change the number of channels through a channel map, just<br/>
-		/// reorder/mute them.<br/>
-		/// The output channel map can be changed at any time, as output remapping is<br/>
-		/// applied during SDL_GetAudioStreamData.<br/>
-		/// Audio streams default to no remapping applied. Passing a NULL channel map<br/>
-		/// is legal, and turns off remapping.<br/>
-		/// SDL will copy the channel map; the caller does not have to save this array<br/>
-		/// after this call.<br/>
-		/// If `count` is not equal to the current number of channels in the audio<br/>
-		/// stream's format, this will fail. This is a safety measure to make sure a<br/>
-		/// race condition hasn't changed the format while this call is setting the<br/>
-		/// channel map.<br/>
-		/// Unlike attempting to change the stream's format, the output channel map on<br/>
-		/// a stream bound to a recording device is permitted to change at any time;<br/>
-		/// any data added to the stream after this call will have the new mapping, but<br/>
-		/// previously-added data will still have the prior mapping. When the channel<br/>
-		/// map doesn't match the hardware's channel layout, SDL will convert the data<br/>
-		/// before feeding it to the device for playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, as it holds<br/>
-		/// a stream-specific mutex while running. Don't change the<br/>
-		/// stream's format to have a different number of channels from a<br/>
-		/// a different thread at the same time, though!<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamOutputChannelMap(ref SDLAudioStream stream, ref int chmap, int count)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				fixed (int* pchmap = &chmap)
-				{
-					byte ret = SetAudioStreamOutputChannelMapNative((SDLAudioStream*)pstream, (int*)pchmap, count);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Add data to the stream.<br/>
-		/// This data must match the format/channels/samplerate specified in the latest<br/>
-		/// call to SDL_SetAudioStreamFormat, or the format specified when creating the<br/>
-		/// stream if it hasn't been changed.<br/>
-		/// Note that this call simply copies the unconverted data for later. This is<br/>
-		/// different than SDL2, where data was converted during the Put call and the<br/>
-		/// Get call would just dequeue the previously-converted data.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, but if the<br/>
-		/// stream has a callback set, the caller might need to manage<br/>
-		/// extra locking.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PutAudioStreamDataNative(SDLAudioStream* stream, void* buf, int len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, byte>)funcTable[344])(stream, buf, len);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[344])((nint)stream, (nint)buf, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Add data to the stream.<br/>
-		/// This data must match the format/channels/samplerate specified in the latest<br/>
-		/// call to SDL_SetAudioStreamFormat, or the format specified when creating the<br/>
-		/// stream if it hasn't been changed.<br/>
-		/// Note that this call simply copies the unconverted data for later. This is<br/>
-		/// different than SDL2, where data was converted during the Put call and the<br/>
-		/// Get call would just dequeue the previously-converted data.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, but if the<br/>
-		/// stream has a callback set, the caller might need to manage<br/>
-		/// extra locking.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool PutAudioStreamData(SDLAudioStream* stream, void* buf, int len)
-		{
-			byte ret = PutAudioStreamDataNative(stream, buf, len);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Add data to the stream.<br/>
-		/// This data must match the format/channels/samplerate specified in the latest<br/>
-		/// call to SDL_SetAudioStreamFormat, or the format specified when creating the<br/>
-		/// stream if it hasn't been changed.<br/>
-		/// Note that this call simply copies the unconverted data for later. This is<br/>
-		/// different than SDL2, where data was converted during the Put call and the<br/>
-		/// Get call would just dequeue the previously-converted data.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, but if the<br/>
-		/// stream has a callback set, the caller might need to manage<br/>
-		/// extra locking.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool PutAudioStreamData(ref SDLAudioStream stream, void* buf, int len)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = PutAudioStreamDataNative((SDLAudioStream*)pstream, buf, len);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream.<br/>
-		/// The input/output data format/channels/samplerate is specified when creating<br/>
-		/// the stream, and can be changed after creation by calling<br/>
-		/// SDL_SetAudioStreamFormat.<br/>
-		/// Note that any conversion and resampling necessary is done during this call,<br/>
-		/// and SDL_PutAudioStreamData simply queues unconverted data for later. This<br/>
-		/// is different than SDL2, where that work was done while inputting new data<br/>
-		/// to the stream and requesting the output just copied the converted data.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, but if the<br/>
-		/// stream has a callback set, the caller might need to manage<br/>
-		/// extra locking.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetAudioStreamDataNative(SDLAudioStream* stream, void* buf, int len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[345])(stream, buf, len);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[345])((nint)stream, (nint)buf, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream.<br/>
-		/// The input/output data format/channels/samplerate is specified when creating<br/>
-		/// the stream, and can be changed after creation by calling<br/>
-		/// SDL_SetAudioStreamFormat.<br/>
-		/// Note that any conversion and resampling necessary is done during this call,<br/>
-		/// and SDL_PutAudioStreamData simply queues unconverted data for later. This<br/>
-		/// is different than SDL2, where that work was done while inputting new data<br/>
-		/// to the stream and requesting the output just copied the converted data.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, but if the<br/>
-		/// stream has a callback set, the caller might need to manage<br/>
-		/// extra locking.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetAudioStreamData(SDLAudioStream* stream, void* buf, int len)
-		{
-			int ret = GetAudioStreamDataNative(stream, buf, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream.<br/>
-		/// The input/output data format/channels/samplerate is specified when creating<br/>
-		/// the stream, and can be changed after creation by calling<br/>
-		/// SDL_SetAudioStreamFormat.<br/>
-		/// Note that any conversion and resampling necessary is done during this call,<br/>
-		/// and SDL_PutAudioStreamData simply queues unconverted data for later. This<br/>
-		/// is different than SDL2, where that work was done while inputting new data<br/>
-		/// to the stream and requesting the output just copied the converted data.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, but if the<br/>
-		/// stream has a callback set, the caller might need to manage<br/>
-		/// extra locking.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetAudioStreamData(ref SDLAudioStream stream, void* buf, int len)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = GetAudioStreamDataNative((SDLAudioStream*)pstream, buf, len);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// If the stream has so much data that it would overflow an int, the return<br/>
-		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
-		/// are gigabytes of data queued, the app might need to read some of it with<br/>
-		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
-		/// clamped.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetAudioStreamAvailableNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[346])(stream);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[346])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// If the stream has so much data that it would overflow an int, the return<br/>
-		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
-		/// are gigabytes of data queued, the app might need to read some of it with<br/>
-		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
-		/// clamped.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetAudioStreamAvailable(SDLAudioStream* stream)
-		{
-			int ret = GetAudioStreamAvailableNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// If the stream has so much data that it would overflow an int, the return<br/>
-		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
-		/// are gigabytes of data queued, the app might need to read some of it with<br/>
-		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
-		/// clamped.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetAudioStreamAvailable(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = GetAudioStreamAvailableNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of bytes currently queued.<br/>
-		/// This is the number of bytes put into a stream as input, not the number that<br/>
-		/// can be retrieved as output. Because of several details, it's not possible<br/>
-		/// to calculate one number directly from the other. If you need to know how<br/>
-		/// much usable data can be retrieved right now, you should use<br/>
-		/// SDL_GetAudioStreamAvailable() and not this function.<br/>
-		/// Note that audio streams can change their input format at any time, even if<br/>
-		/// there is still data queued in a different format, so the returned byte<br/>
-		/// count will not necessarily match the number of _sample frames_ available.<br/>
-		/// Users of this API should be aware of format changes they make when feeding<br/>
-		/// a stream and plan accordingly.<br/>
-		/// Queued data is not converted until it is consumed by<br/>
-		/// SDL_GetAudioStreamData, so this value should be representative of the exact<br/>
-		/// data that was put into the stream.<br/>
-		/// If the stream has so much data that it would overflow an int, the return<br/>
-		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
-		/// are gigabytes of data queued, the app might need to read some of it with<br/>
-		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
-		/// clamped.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetAudioStreamQueuedNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[347])(stream);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[347])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of bytes currently queued.<br/>
-		/// This is the number of bytes put into a stream as input, not the number that<br/>
-		/// can be retrieved as output. Because of several details, it's not possible<br/>
-		/// to calculate one number directly from the other. If you need to know how<br/>
-		/// much usable data can be retrieved right now, you should use<br/>
-		/// SDL_GetAudioStreamAvailable() and not this function.<br/>
-		/// Note that audio streams can change their input format at any time, even if<br/>
-		/// there is still data queued in a different format, so the returned byte<br/>
-		/// count will not necessarily match the number of _sample frames_ available.<br/>
-		/// Users of this API should be aware of format changes they make when feeding<br/>
-		/// a stream and plan accordingly.<br/>
-		/// Queued data is not converted until it is consumed by<br/>
-		/// SDL_GetAudioStreamData, so this value should be representative of the exact<br/>
-		/// data that was put into the stream.<br/>
-		/// If the stream has so much data that it would overflow an int, the return<br/>
-		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
-		/// are gigabytes of data queued, the app might need to read some of it with<br/>
-		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
-		/// clamped.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetAudioStreamQueued(SDLAudioStream* stream)
-		{
-			int ret = GetAudioStreamQueuedNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of bytes currently queued.<br/>
-		/// This is the number of bytes put into a stream as input, not the number that<br/>
-		/// can be retrieved as output. Because of several details, it's not possible<br/>
-		/// to calculate one number directly from the other. If you need to know how<br/>
-		/// much usable data can be retrieved right now, you should use<br/>
-		/// SDL_GetAudioStreamAvailable() and not this function.<br/>
-		/// Note that audio streams can change their input format at any time, even if<br/>
-		/// there is still data queued in a different format, so the returned byte<br/>
-		/// count will not necessarily match the number of _sample frames_ available.<br/>
-		/// Users of this API should be aware of format changes they make when feeding<br/>
-		/// a stream and plan accordingly.<br/>
-		/// Queued data is not converted until it is consumed by<br/>
-		/// SDL_GetAudioStreamData, so this value should be representative of the exact<br/>
-		/// data that was put into the stream.<br/>
-		/// If the stream has so much data that it would overflow an int, the return<br/>
-		/// value is clamped to a maximum value, but no queued data is lost; if there<br/>
-		/// are gigabytes of data queued, the app might need to read some of it with<br/>
-		/// SDL_GetAudioStreamData before this function's return value is no longer<br/>
-		/// clamped.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetAudioStreamQueued(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = GetAudioStreamQueuedNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there may be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte FlushAudioStreamNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[348])(stream);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[348])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there may be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FlushAudioStream(SDLAudioStream* stream)
-		{
-			byte ret = FlushAudioStreamNative(stream);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there may be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool FlushAudioStream(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = FlushAudioStreamNative((SDLAudioStream*)pstream);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream.<br/>
-		/// This drops any queued data, so there will be nothing to read from the<br/>
-		/// stream until more is added.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ClearAudioStreamNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[349])(stream);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[349])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream.<br/>
-		/// This drops any queued data, so there will be nothing to read from the<br/>
-		/// stream until more is added.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ClearAudioStream(SDLAudioStream* stream)
-		{
-			byte ret = ClearAudioStreamNative(stream);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream.<br/>
-		/// This drops any queued data, so there will be nothing to read from the<br/>
-		/// stream until more is added.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ClearAudioStream(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = ClearAudioStreamNative((SDLAudioStream*)pstream);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to pause audio playback on the audio device associated<br/>
-		/// with an audio stream.<br/>
-		/// This function pauses audio processing for a given device. Any bound audio<br/>
-		/// streams will not progress, and no audio will be generated. Pausing one<br/>
-		/// device does not prevent other unpaused devices from running.<br/>
-		/// Pausing a device can be useful to halt all audio without unbinding all the<br/>
-		/// audio streams. This might be useful while a game is paused, or a level is<br/>
-		/// loading, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte PauseAudioStreamDeviceNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[350])(stream);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[350])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to pause audio playback on the audio device associated<br/>
-		/// with an audio stream.<br/>
-		/// This function pauses audio processing for a given device. Any bound audio<br/>
-		/// streams will not progress, and no audio will be generated. Pausing one<br/>
-		/// device does not prevent other unpaused devices from running.<br/>
-		/// Pausing a device can be useful to halt all audio without unbinding all the<br/>
-		/// audio streams. This might be useful while a game is paused, or a level is<br/>
-		/// loading, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool PauseAudioStreamDevice(SDLAudioStream* stream)
-		{
-			byte ret = PauseAudioStreamDeviceNative(stream);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to pause audio playback on the audio device associated<br/>
-		/// with an audio stream.<br/>
-		/// This function pauses audio processing for a given device. Any bound audio<br/>
-		/// streams will not progress, and no audio will be generated. Pausing one<br/>
-		/// device does not prevent other unpaused devices from running.<br/>
-		/// Pausing a device can be useful to halt all audio without unbinding all the<br/>
-		/// audio streams. This might be useful while a game is paused, or a level is<br/>
-		/// loading, etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool PauseAudioStreamDevice(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = PauseAudioStreamDeviceNative((SDLAudioStream*)pstream);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to unpause audio playback on the audio device associated<br/>
-		/// with an audio stream.<br/>
-		/// This function unpauses audio processing for a given device that has<br/>
-		/// previously been paused. Once unpaused, any bound audio streams will begin<br/>
-		/// to progress again, and audio can be generated.<br/>
-		/// Remember, SDL_OpenAudioDeviceStream opens device in a paused state, so this<br/>
-		/// function call is required for audio playback to begin on such device.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ResumeAudioStreamDeviceNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[351])(stream);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[351])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to unpause audio playback on the audio device associated<br/>
-		/// with an audio stream.<br/>
-		/// This function unpauses audio processing for a given device that has<br/>
-		/// previously been paused. Once unpaused, any bound audio streams will begin<br/>
-		/// to progress again, and audio can be generated.<br/>
-		/// Remember, SDL_OpenAudioDeviceStream opens device in a paused state, so this<br/>
-		/// function call is required for audio playback to begin on such device.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ResumeAudioStreamDevice(SDLAudioStream* stream)
-		{
-			byte ret = ResumeAudioStreamDeviceNative(stream);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to unpause audio playback on the audio device associated<br/>
-		/// with an audio stream.<br/>
-		/// This function unpauses audio processing for a given device that has<br/>
-		/// previously been paused. Once unpaused, any bound audio streams will begin<br/>
-		/// to progress again, and audio can be generated.<br/>
-		/// Remember, SDL_OpenAudioDeviceStream opens device in a paused state, so this<br/>
-		/// function call is required for audio playback to begin on such device.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool ResumeAudioStreamDevice(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = ResumeAudioStreamDeviceNative((SDLAudioStream*)pstream);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to query if an audio device associated with a stream is<br/>
-		/// paused.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte AudioStreamDevicePausedNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[352])(stream);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[352])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to query if an audio device associated with a stream is<br/>
-		/// paused.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AudioStreamDevicePaused(SDLAudioStream* stream)
-		{
-			byte ret = AudioStreamDevicePausedNative(stream);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Use this function to query if an audio device associated with a stream is<br/>
-		/// paused.<br/>
-		/// Unlike in SDL2, audio devices start in an _unpaused_ state, since an app<br/>
-		/// has to bind a stream before any audio will flow.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool AudioStreamDevicePaused(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = AudioStreamDevicePausedNative((SDLAudioStream*)pstream);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Lock an audio stream for serialized access.<br/>
-		/// Each SDL_AudioStream has an internal mutex it uses to protect its data<br/>
-		/// structures from threading conflicts. This function allows an app to lock<br/>
-		/// that mutex, which could be useful if registering callbacks on this stream.<br/>
-		/// One does not need to lock a stream to use in it most cases, as the stream<br/>
-		/// manages this lock internally. However, this lock is held during callbacks,<br/>
-		/// which may run from arbitrary threads at any time, so if an app needs to<br/>
-		/// protect shared data during those callbacks, locking the stream guarantees<br/>
-		/// that the callback is not running while the lock is held.<br/>
-		/// As this is just a wrapper over SDL_LockMutex for an internal lock; it has<br/>
-		/// all the same attributes (recursive locks are allowed, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte LockAudioStreamNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[353])(stream);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[353])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Lock an audio stream for serialized access.<br/>
-		/// Each SDL_AudioStream has an internal mutex it uses to protect its data<br/>
-		/// structures from threading conflicts. This function allows an app to lock<br/>
-		/// that mutex, which could be useful if registering callbacks on this stream.<br/>
-		/// One does not need to lock a stream to use in it most cases, as the stream<br/>
-		/// manages this lock internally. However, this lock is held during callbacks,<br/>
-		/// which may run from arbitrary threads at any time, so if an app needs to<br/>
-		/// protect shared data during those callbacks, locking the stream guarantees<br/>
-		/// that the callback is not running while the lock is held.<br/>
-		/// As this is just a wrapper over SDL_LockMutex for an internal lock; it has<br/>
-		/// all the same attributes (recursive locks are allowed, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LockAudioStream(SDLAudioStream* stream)
-		{
-			byte ret = LockAudioStreamNative(stream);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Lock an audio stream for serialized access.<br/>
-		/// Each SDL_AudioStream has an internal mutex it uses to protect its data<br/>
-		/// structures from threading conflicts. This function allows an app to lock<br/>
-		/// that mutex, which could be useful if registering callbacks on this stream.<br/>
-		/// One does not need to lock a stream to use in it most cases, as the stream<br/>
-		/// manages this lock internally. However, this lock is held during callbacks,<br/>
-		/// which may run from arbitrary threads at any time, so if an app needs to<br/>
-		/// protect shared data during those callbacks, locking the stream guarantees<br/>
-		/// that the callback is not running while the lock is held.<br/>
-		/// As this is just a wrapper over SDL_LockMutex for an internal lock; it has<br/>
-		/// all the same attributes (recursive locks are allowed, etc).<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LockAudioStream(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = LockAudioStreamNative((SDLAudioStream*)pstream);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Unlock an audio stream for serialized access.<br/>
-		/// This unlocks an audio stream after a call to SDL_LockAudioStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// You should only call this from the same thread that<br/>
-		/// previously called SDL_LockAudioStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte UnlockAudioStreamNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, byte>)funcTable[354])(stream);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[354])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Unlock an audio stream for serialized access.<br/>
-		/// This unlocks an audio stream after a call to SDL_LockAudioStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// You should only call this from the same thread that<br/>
-		/// previously called SDL_LockAudioStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UnlockAudioStream(SDLAudioStream* stream)
-		{
-			byte ret = UnlockAudioStreamNative(stream);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Unlock an audio stream for serialized access.<br/>
-		/// This unlocks an audio stream after a call to SDL_LockAudioStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// You should only call this from the same thread that<br/>
-		/// previously called SDL_LockAudioStream.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool UnlockAudioStream(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = UnlockAudioStreamNative((SDLAudioStream*)pstream);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a callback that runs when data is requested from an audio stream.<br/>
-		/// This callback is called _before_ data is obtained from the stream, giving<br/>
-		/// the callback the chance to add more on-demand.<br/>
-		/// The callback can (optionally) call SDL_PutAudioStreamData() to add more<br/>
-		/// audio to the stream during this call; if needed, the request that triggered<br/>
-		/// this callback will obtain the new data immediately.<br/>
-		/// The callback's `additional_amount` argument is roughly how many bytes of<br/>
-		/// _unconverted_ data (in the stream's input format) is needed by the caller,<br/>
-		/// although this may overestimate a little for safety. This takes into account<br/>
-		/// how much is already in the stream and only asks for any extra necessary to<br/>
-		/// resolve the request, which means the callback may be asked for zero bytes,<br/>
-		/// and a different amount on each call.<br/>
-		/// The callback is not required to supply exact amounts; it is allowed to<br/>
-		/// supply too much or too little or none at all. The caller will get what's<br/>
-		/// available, up to the amount they requested, regardless of this callback's<br/>
-		/// outcome.<br/>
-		/// Clearing or flushing an audio stream does not call this callback.<br/>
-		/// This function obtains the stream's lock, which means any existing callback<br/>
-		/// (get or put) in progress will finish running before setting the new<br/>
-		/// callback.<br/>
-		/// Setting a NULL function turns off the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioStreamGetCallbackNative(SDLAudioStream* stream, SDLAudioStreamCallback callback, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, delegate*<void*, SDLAudioStream*, int, int, void>, void*, byte>)funcTable[355])(stream, (delegate*<void*, SDLAudioStream*, int, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[355])((nint)stream, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a callback that runs when data is requested from an audio stream.<br/>
-		/// This callback is called _before_ data is obtained from the stream, giving<br/>
-		/// the callback the chance to add more on-demand.<br/>
-		/// The callback can (optionally) call SDL_PutAudioStreamData() to add more<br/>
-		/// audio to the stream during this call; if needed, the request that triggered<br/>
-		/// this callback will obtain the new data immediately.<br/>
-		/// The callback's `additional_amount` argument is roughly how many bytes of<br/>
-		/// _unconverted_ data (in the stream's input format) is needed by the caller,<br/>
-		/// although this may overestimate a little for safety. This takes into account<br/>
-		/// how much is already in the stream and only asks for any extra necessary to<br/>
-		/// resolve the request, which means the callback may be asked for zero bytes,<br/>
-		/// and a different amount on each call.<br/>
-		/// The callback is not required to supply exact amounts; it is allowed to<br/>
-		/// supply too much or too little or none at all. The caller will get what's<br/>
-		/// available, up to the amount they requested, regardless of this callback's<br/>
-		/// outcome.<br/>
-		/// Clearing or flushing an audio stream does not call this callback.<br/>
-		/// This function obtains the stream's lock, which means any existing callback<br/>
-		/// (get or put) in progress will finish running before setting the new<br/>
-		/// callback.<br/>
-		/// Setting a NULL function turns off the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamGetCallback(SDLAudioStream* stream, SDLAudioStreamCallback callback, void* userdata)
-		{
-			byte ret = SetAudioStreamGetCallbackNative(stream, callback, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a callback that runs when data is requested from an audio stream.<br/>
-		/// This callback is called _before_ data is obtained from the stream, giving<br/>
-		/// the callback the chance to add more on-demand.<br/>
-		/// The callback can (optionally) call SDL_PutAudioStreamData() to add more<br/>
-		/// audio to the stream during this call; if needed, the request that triggered<br/>
-		/// this callback will obtain the new data immediately.<br/>
-		/// The callback's `additional_amount` argument is roughly how many bytes of<br/>
-		/// _unconverted_ data (in the stream's input format) is needed by the caller,<br/>
-		/// although this may overestimate a little for safety. This takes into account<br/>
-		/// how much is already in the stream and only asks for any extra necessary to<br/>
-		/// resolve the request, which means the callback may be asked for zero bytes,<br/>
-		/// and a different amount on each call.<br/>
-		/// The callback is not required to supply exact amounts; it is allowed to<br/>
-		/// supply too much or too little or none at all. The caller will get what's<br/>
-		/// available, up to the amount they requested, regardless of this callback's<br/>
-		/// outcome.<br/>
-		/// Clearing or flushing an audio stream does not call this callback.<br/>
-		/// This function obtains the stream's lock, which means any existing callback<br/>
-		/// (get or put) in progress will finish running before setting the new<br/>
-		/// callback.<br/>
-		/// Setting a NULL function turns off the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamGetCallback(ref SDLAudioStream stream, SDLAudioStreamCallback callback, void* userdata)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = SetAudioStreamGetCallbackNative((SDLAudioStream*)pstream, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Set a callback that runs when data is added to an audio stream.<br/>
-		/// This callback is called _after_ the data is added to the stream, giving the<br/>
-		/// callback the chance to obtain it immediately.<br/>
-		/// The callback can (optionally) call SDL_GetAudioStreamData() to obtain audio<br/>
-		/// from the stream during this call.<br/>
-		/// The callback's `additional_amount` argument is how many bytes of<br/>
-		/// _converted_ data (in the stream's output format) was provided by the<br/>
-		/// caller, although this may underestimate a little for safety. This value<br/>
-		/// might be less than what is currently available in the stream, if data was<br/>
-		/// already there, and might be less than the caller provided if the stream<br/>
-		/// needs to keep a buffer to aid in resampling. Which means the callback may<br/>
-		/// be provided with zero bytes, and a different amount on each call.<br/>
-		/// The callback may call SDL_GetAudioStreamAvailable to see the total amount<br/>
-		/// currently available to read from the stream, instead of the total provided<br/>
-		/// by the current call.<br/>
-		/// The callback is not required to obtain all data. It is allowed to read less<br/>
-		/// or none at all. Anything not read now simply remains in the stream for<br/>
-		/// later access.<br/>
-		/// Clearing or flushing an audio stream does not call this callback.<br/>
-		/// This function obtains the stream's lock, which means any existing callback<br/>
-		/// (get or put) in progress will finish running before setting the new<br/>
-		/// callback.<br/>
-		/// Setting a NULL function turns off the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioStreamPutCallbackNative(SDLAudioStream* stream, SDLAudioStreamCallback callback, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, delegate*<void*, SDLAudioStream*, int, int, void>, void*, byte>)funcTable[356])(stream, (delegate*<void*, SDLAudioStream*, int, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[356])((nint)stream, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a callback that runs when data is added to an audio stream.<br/>
-		/// This callback is called _after_ the data is added to the stream, giving the<br/>
-		/// callback the chance to obtain it immediately.<br/>
-		/// The callback can (optionally) call SDL_GetAudioStreamData() to obtain audio<br/>
-		/// from the stream during this call.<br/>
-		/// The callback's `additional_amount` argument is how many bytes of<br/>
-		/// _converted_ data (in the stream's output format) was provided by the<br/>
-		/// caller, although this may underestimate a little for safety. This value<br/>
-		/// might be less than what is currently available in the stream, if data was<br/>
-		/// already there, and might be less than the caller provided if the stream<br/>
-		/// needs to keep a buffer to aid in resampling. Which means the callback may<br/>
-		/// be provided with zero bytes, and a different amount on each call.<br/>
-		/// The callback may call SDL_GetAudioStreamAvailable to see the total amount<br/>
-		/// currently available to read from the stream, instead of the total provided<br/>
-		/// by the current call.<br/>
-		/// The callback is not required to obtain all data. It is allowed to read less<br/>
-		/// or none at all. Anything not read now simply remains in the stream for<br/>
-		/// later access.<br/>
-		/// Clearing or flushing an audio stream does not call this callback.<br/>
-		/// This function obtains the stream's lock, which means any existing callback<br/>
-		/// (get or put) in progress will finish running before setting the new<br/>
-		/// callback.<br/>
-		/// Setting a NULL function turns off the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamPutCallback(SDLAudioStream* stream, SDLAudioStreamCallback callback, void* userdata)
-		{
-			byte ret = SetAudioStreamPutCallbackNative(stream, callback, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Set a callback that runs when data is added to an audio stream.<br/>
-		/// This callback is called _after_ the data is added to the stream, giving the<br/>
-		/// callback the chance to obtain it immediately.<br/>
-		/// The callback can (optionally) call SDL_GetAudioStreamData() to obtain audio<br/>
-		/// from the stream during this call.<br/>
-		/// The callback's `additional_amount` argument is how many bytes of<br/>
-		/// _converted_ data (in the stream's output format) was provided by the<br/>
-		/// caller, although this may underestimate a little for safety. This value<br/>
-		/// might be less than what is currently available in the stream, if data was<br/>
-		/// already there, and might be less than the caller provided if the stream<br/>
-		/// needs to keep a buffer to aid in resampling. Which means the callback may<br/>
-		/// be provided with zero bytes, and a different amount on each call.<br/>
-		/// The callback may call SDL_GetAudioStreamAvailable to see the total amount<br/>
-		/// currently available to read from the stream, instead of the total provided<br/>
-		/// by the current call.<br/>
-		/// The callback is not required to obtain all data. It is allowed to read less<br/>
-		/// or none at all. Anything not read now simply remains in the stream for<br/>
-		/// later access.<br/>
-		/// Clearing or flushing an audio stream does not call this callback.<br/>
-		/// This function obtains the stream's lock, which means any existing callback<br/>
-		/// (get or put) in progress will finish running before setting the new<br/>
-		/// callback.<br/>
-		/// Setting a NULL function turns off the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioStreamPutCallback(ref SDLAudioStream stream, SDLAudioStreamCallback callback, void* userdata)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				byte ret = SetAudioStreamPutCallbackNative((SDLAudioStream*)pstream, callback, userdata);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Free an audio stream.<br/>
-		/// This will release all allocated data, including any audio that is still<br/>
-		/// queued. You do not need to manually clear the stream first.<br/>
-		/// If this stream was bound to an audio device, it is unbound during this<br/>
-		/// call. If this stream was created with SDL_OpenAudioDeviceStream, the audio<br/>
-		/// device that was opened alongside this stream's creation will be closed,<br/>
-		/// too.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyAudioStreamNative(SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[357])(stream);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[357])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Free an audio stream.<br/>
-		/// This will release all allocated data, including any audio that is still<br/>
-		/// queued. You do not need to manually clear the stream first.<br/>
-		/// If this stream was bound to an audio device, it is unbound during this<br/>
-		/// call. If this stream was created with SDL_OpenAudioDeviceStream, the audio<br/>
-		/// device that was opened alongside this stream's creation will be closed,<br/>
-		/// too.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyAudioStream(SDLAudioStream* stream)
-		{
-			DestroyAudioStreamNative(stream);
-		}
-
-		/// <summary>
-		/// Free an audio stream.<br/>
-		/// This will release all allocated data, including any audio that is still<br/>
-		/// queued. You do not need to manually clear the stream first.<br/>
-		/// If this stream was bound to an audio device, it is unbound during this<br/>
-		/// call. If this stream was created with SDL_OpenAudioDeviceStream, the audio<br/>
-		/// device that was opened alongside this stream's creation will be closed,<br/>
-		/// too.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void DestroyAudioStream(ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				DestroyAudioStreamNative((SDLAudioStream*)pstream);
-			}
-		}
-
-		/// <summary>
-		/// Convenience function for straightforward audio init for the common case.<br/>
-		/// If all your app intends to do is provide a single source of PCM audio, this<br/>
-		/// function allows you to do all your audio setup in a single call.<br/>
-		/// This is also intended to be a clean means to migrate apps from SDL2.<br/>
-		/// This function will open an audio device, create a stream and bind it.<br/>
-		/// Unlike other methods of setup, the audio device will be closed when this<br/>
-		/// stream is destroyed, so the app can treat the returned SDL_AudioStream as<br/>
-		/// the only object needed to manage audio playback.<br/>
-		/// Also unlike other functions, the audio device begins paused. This is to map<br/>
-		/// more closely to SDL2-style behavior, since there is no extra step here to<br/>
-		/// bind a stream to begin audio flowing. The audio device should be resumed<br/>
-		/// with `SDL_ResumeAudioStreamDevice(stream);`<br/>
-		/// This function works with both playback and recording devices.<br/>
-		/// The `spec` parameter represents the app's side of the audio stream. That<br/>
-		/// is, for recording audio, this will be the output format, and for playing<br/>
-		/// audio, this will be the input format. If spec is NULL, the system will<br/>
-		/// choose the format, and the app can use SDL_GetAudioStreamFormat() to obtain<br/>
-		/// this information later.<br/>
-		/// If you don't care about opening a specific audio device, you can (and<br/>
-		/// probably _should_), use SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK for playback and<br/>
-		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING for recording.<br/>
-		/// One can optionally provide a callback function; if NULL, the app is<br/>
-		/// expected to queue audio data for playback (or unqueue audio data if<br/>
-		/// capturing). Otherwise, the callback will begin to fire once the device is<br/>
-		/// unpaused.<br/>
-		/// Destroying the returned stream with SDL_DestroyAudioStream will also close<br/>
-		/// the audio device associated with this stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAudioStream* OpenAudioDeviceStreamNative(uint devid, SDLAudioSpec* spec, SDLAudioStreamCallback callback, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioSpec*, delegate*<void*, SDLAudioStream*, int, int, void>, void*, SDLAudioStream*>)funcTable[358])(devid, spec, (delegate*<void*, SDLAudioStream*, int, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (SDLAudioStream*)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint>)funcTable[358])(devid, (nint)spec, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Convenience function for straightforward audio init for the common case.<br/>
-		/// If all your app intends to do is provide a single source of PCM audio, this<br/>
-		/// function allows you to do all your audio setup in a single call.<br/>
-		/// This is also intended to be a clean means to migrate apps from SDL2.<br/>
-		/// This function will open an audio device, create a stream and bind it.<br/>
-		/// Unlike other methods of setup, the audio device will be closed when this<br/>
-		/// stream is destroyed, so the app can treat the returned SDL_AudioStream as<br/>
-		/// the only object needed to manage audio playback.<br/>
-		/// Also unlike other functions, the audio device begins paused. This is to map<br/>
-		/// more closely to SDL2-style behavior, since there is no extra step here to<br/>
-		/// bind a stream to begin audio flowing. The audio device should be resumed<br/>
-		/// with `SDL_ResumeAudioStreamDevice(stream);`<br/>
-		/// This function works with both playback and recording devices.<br/>
-		/// The `spec` parameter represents the app's side of the audio stream. That<br/>
-		/// is, for recording audio, this will be the output format, and for playing<br/>
-		/// audio, this will be the input format. If spec is NULL, the system will<br/>
-		/// choose the format, and the app can use SDL_GetAudioStreamFormat() to obtain<br/>
-		/// this information later.<br/>
-		/// If you don't care about opening a specific audio device, you can (and<br/>
-		/// probably _should_), use SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK for playback and<br/>
-		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING for recording.<br/>
-		/// One can optionally provide a callback function; if NULL, the app is<br/>
-		/// expected to queue audio data for playback (or unqueue audio data if<br/>
-		/// capturing). Otherwise, the callback will begin to fire once the device is<br/>
-		/// unpaused.<br/>
-		/// Destroying the returned stream with SDL_DestroyAudioStream will also close<br/>
-		/// the audio device associated with this stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioStream* OpenAudioDeviceStream(uint devid, SDLAudioSpec* spec, SDLAudioStreamCallback callback, void* userdata)
-		{
-			SDLAudioStream* ret = OpenAudioDeviceStreamNative(devid, spec, callback, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convenience function for straightforward audio init for the common case.<br/>
-		/// If all your app intends to do is provide a single source of PCM audio, this<br/>
-		/// function allows you to do all your audio setup in a single call.<br/>
-		/// This is also intended to be a clean means to migrate apps from SDL2.<br/>
-		/// This function will open an audio device, create a stream and bind it.<br/>
-		/// Unlike other methods of setup, the audio device will be closed when this<br/>
-		/// stream is destroyed, so the app can treat the returned SDL_AudioStream as<br/>
-		/// the only object needed to manage audio playback.<br/>
-		/// Also unlike other functions, the audio device begins paused. This is to map<br/>
-		/// more closely to SDL2-style behavior, since there is no extra step here to<br/>
-		/// bind a stream to begin audio flowing. The audio device should be resumed<br/>
-		/// with `SDL_ResumeAudioStreamDevice(stream);`<br/>
-		/// This function works with both playback and recording devices.<br/>
-		/// The `spec` parameter represents the app's side of the audio stream. That<br/>
-		/// is, for recording audio, this will be the output format, and for playing<br/>
-		/// audio, this will be the input format. If spec is NULL, the system will<br/>
-		/// choose the format, and the app can use SDL_GetAudioStreamFormat() to obtain<br/>
-		/// this information later.<br/>
-		/// If you don't care about opening a specific audio device, you can (and<br/>
-		/// probably _should_), use SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK for playback and<br/>
-		/// SDL_AUDIO_DEVICE_DEFAULT_RECORDING for recording.<br/>
-		/// One can optionally provide a callback function; if NULL, the app is<br/>
-		/// expected to queue audio data for playback (or unqueue audio data if<br/>
-		/// capturing). Otherwise, the callback will begin to fire once the device is<br/>
-		/// unpaused.<br/>
-		/// Destroying the returned stream with SDL_DestroyAudioStream will also close<br/>
-		/// the audio device associated with this stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLAudioStream* OpenAudioDeviceStream(uint devid, ref SDLAudioSpec spec, SDLAudioStreamCallback callback, void* userdata)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				SDLAudioStream* ret = OpenAudioDeviceStreamNative(devid, (SDLAudioSpec*)pspec, callback, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
-		/// This is useful for accessing the final mix, perhaps for writing a<br/>
-		/// visualizer or applying a final effect to the audio data before playback.<br/>
-		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
-		/// this callback will fire regularly for any device that is both opened and<br/>
-		/// unpaused. If there is no new data to mix, either because no streams are<br/>
-		/// bound to the device or all the streams are empty, this callback will still<br/>
-		/// fire with the entire buffer set to silence.<br/>
-		/// This callback is allowed to make changes to the data; the contents of the<br/>
-		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
-		/// The callback is always provided the data in float format (values from -1.0f<br/>
-		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
-		/// the format the app requested when opening the device; SDL might have had to<br/>
-		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
-		/// new physical hardware when a system default changed, etc. These details may<br/>
-		/// change between calls. Accordingly, the size of the buffer might change<br/>
-		/// between calls as well.<br/>
-		/// This callback can run at any time, and from any thread; if you need to<br/>
-		/// serialize access to your app's data, you should provide and use a mutex or<br/>
-		/// other synchronization device.<br/>
-		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
-		/// it is not the simplest interface. Apps should generally provide audio in<br/>
-		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
-		/// difference.<br/>
-		/// This function is extremely time-sensitive; the callback should do the least<br/>
-		/// amount of work possible and return as quickly as it can. The longer the<br/>
-		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
-		/// This function will block until the audio device is in between iterations,<br/>
-		/// so any existing callback that might be running will finish before this<br/>
-		/// function sets the new callback and returns.<br/>
-		/// Setting a NULL callback function disables any previously-set callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte SetAudioPostmixCallbackNative(uint devid, SDLAudioPostmixCallback callback, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, delegate*<void*, SDLAudioSpec*, float*, int, void>, void*, byte>)funcTable[359])(devid, (delegate*<void*, SDLAudioSpec*, float*, int, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[359])(devid, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a callback that fires when data is about to be fed to an audio device.<br/>
-		/// This is useful for accessing the final mix, perhaps for writing a<br/>
-		/// visualizer or applying a final effect to the audio data before playback.<br/>
-		/// The buffer is the final mix of all bound audio streams on an opened device;<br/>
-		/// this callback will fire regularly for any device that is both opened and<br/>
-		/// unpaused. If there is no new data to mix, either because no streams are<br/>
-		/// bound to the device or all the streams are empty, this callback will still<br/>
-		/// fire with the entire buffer set to silence.<br/>
-		/// This callback is allowed to make changes to the data; the contents of the<br/>
-		/// buffer after this call is what is ultimately passed along to the hardware.<br/>
-		/// The callback is always provided the data in float format (values from -1.0f<br/>
-		/// to 1.0f), but the number of channels or sample rate may be different than<br/>
-		/// the format the app requested when opening the device; SDL might have had to<br/>
-		/// manage a conversion behind the scenes, or the playback might have jumped to<br/>
-		/// new physical hardware when a system default changed, etc. These details may<br/>
-		/// change between calls. Accordingly, the size of the buffer might change<br/>
-		/// between calls as well.<br/>
-		/// This callback can run at any time, and from any thread; if you need to<br/>
-		/// serialize access to your app's data, you should provide and use a mutex or<br/>
-		/// other synchronization device.<br/>
-		/// All of this to say: there are specific needs this callback can fulfill, but<br/>
-		/// it is not the simplest interface. Apps should generally provide audio in<br/>
-		/// their preferred format through an SDL_AudioStream and let SDL handle the<br/>
-		/// difference.<br/>
-		/// This function is extremely time-sensitive; the callback should do the least<br/>
-		/// amount of work possible and return as quickly as it can. The longer the<br/>
-		/// callback runs, the higher the risk of audio dropouts or other problems.<br/>
-		/// This function will block until the audio device is in between iterations,<br/>
-		/// so any existing callback that might be running will finish before this<br/>
-		/// function sets the new callback and returns.<br/>
-		/// Setting a NULL callback function disables any previously-set callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		public static bool SetAudioPostmixCallback(uint devid, SDLAudioPostmixCallback callback, void* userdata)
-		{
-			byte ret = SetAudioPostmixCallbackNative(devid, callback, userdata);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte LoadWAVIONative(SDLIOStream* src, byte closeio, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte, SDLAudioSpec*, byte**, uint*, byte>)funcTable[360])(src, closeio, spec, audioBuf, audioLen);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte, nint, nint, nint, byte>)funcTable[360])((nint)src, closeio, (nint)spec, (nint)audioBuf, (nint)audioLen);
-			#endif
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(SDLIOStream* src, bool closeio, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, spec, audioBuf, audioLen);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(ref SDLIOStream src, bool closeio, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, spec, audioBuf, audioLen);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(SDLIOStream* src, bool closeio, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(ref SDLIOStream src, bool closeio, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(SDLIOStream* src, bool closeio, SDLAudioSpec* spec, ref byte* audioBuf, uint* audioLen)
-		{
-			fixed (byte** paudioBuf = &audioBuf)
-			{
-				byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, spec, (byte**)paudioBuf, audioLen);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(ref SDLIOStream src, bool closeio, SDLAudioSpec* spec, ref byte* audioBuf, uint* audioLen)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, spec, (byte**)paudioBuf, audioLen);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(SDLIOStream* src, bool closeio, ref SDLAudioSpec spec, ref byte* audioBuf, uint* audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(ref SDLIOStream src, bool closeio, ref SDLAudioSpec spec, ref byte* audioBuf, uint* audioLen)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					fixed (byte** paudioBuf = &audioBuf)
-					{
-						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(SDLIOStream* src, bool closeio, SDLAudioSpec* spec, byte** audioBuf, ref uint audioLen)
-		{
-			fixed (uint* paudioLen = &audioLen)
-			{
-				byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, spec, audioBuf, (uint*)paudioLen);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(ref SDLIOStream src, bool closeio, SDLAudioSpec* spec, byte** audioBuf, ref uint audioLen)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (uint* paudioLen = &audioLen)
-				{
-					byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, spec, audioBuf, (uint*)paudioLen);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(SDLIOStream* src, bool closeio, ref SDLAudioSpec spec, byte** audioBuf, ref uint audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				fixed (uint* paudioLen = &audioLen)
-				{
-					byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(ref SDLIOStream src, bool closeio, ref SDLAudioSpec spec, byte** audioBuf, ref uint audioLen)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					fixed (uint* paudioLen = &audioLen)
-					{
-						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(SDLIOStream* src, bool closeio, SDLAudioSpec* spec, ref byte* audioBuf, ref uint audioLen)
-		{
-			fixed (byte** paudioBuf = &audioBuf)
-			{
-				fixed (uint* paudioLen = &audioLen)
-				{
-					byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, spec, (byte**)paudioBuf, (uint*)paudioLen);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(ref SDLIOStream src, bool closeio, SDLAudioSpec* spec, ref byte* audioBuf, ref uint audioLen)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					fixed (uint* paudioLen = &audioLen)
-					{
-						byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, spec, (byte**)paudioBuf, (uint*)paudioLen);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(SDLIOStream* src, bool closeio, ref SDLAudioSpec spec, ref byte* audioBuf, ref uint audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					fixed (uint* paudioLen = &audioLen)
-					{
-						byte ret = LoadWAVIONative(src, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
-						return ret != 0;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the return value is zero and the pointer to the<br/>
-		/// audio data allocated by the function is written to `audio_buf` and its<br/>
-		/// length in bytes to `audio_len`. The SDL_AudioSpec members `freq`,<br/>
-		/// `channels`, and `format` are set to the values of the audio data in the<br/>
-		/// buffer.<br/>
-		/// It's necessary to use SDL_free() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV function does this same thing for you, but in a<br/>
-		/// less messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAVIO(ref SDLIOStream src, bool closeio, ref SDLAudioSpec spec, ref byte* audioBuf, ref uint audioLen)
-		{
-			fixed (SDLIOStream* psrc = &src)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					fixed (byte** paudioBuf = &audioBuf)
-					{
-						fixed (uint* paudioLen = &audioLen)
-						{
-							byte ret = LoadWAVIONative((SDLIOStream*)psrc, closeio ? (byte)1 : (byte)0, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
-							return ret != 0;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte LoadWAVNative(byte* path, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLAudioSpec*, byte**, uint*, byte>)funcTable[361])(path, spec, audioBuf, audioLen);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, byte>)funcTable[361])((nint)path, (nint)spec, (nint)audioBuf, (nint)audioLen);
-			#endif
-		}
-
-		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAV(byte* path, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			byte ret = LoadWAVNative(path, spec, audioBuf, audioLen);
-			return ret != 0;
-		}
-
-		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAV(ref byte path, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (byte* ppath = &path)
-			{
-				byte ret = LoadWAVNative((byte*)ppath, spec, audioBuf, audioLen);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAV(ReadOnlySpan<byte> path, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (byte* ppath = path)
-			{
-				byte ret = LoadWAVNative((byte*)ppath, spec, audioBuf, audioLen);
-				return ret != 0;
-			}
-		}
-
-		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
 		/// </summary>
-		public static bool LoadWAV(string path, SDLAudioSpec* spec, byte** audioBuf, uint* audioLen)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (path != null)
+			if (name != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
+				pStrSize0 = Utils.GetByteCountUTF8(name);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -4893,125 +103,66 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte ret = LoadWAVNative(pStr0, spec, audioBuf, audioLen);
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, pStr0, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret != 0;
+			return ret;
 		}
 
 		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool LoadWAV(byte* path, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
 		{
-			fixed (SDLAudioSpec* pspec = &spec)
+			fixed (byte* pname = &name)
 			{
-				byte ret = LoadWAVNative(path, (SDLAudioSpec*)pspec, audioBuf, audioLen);
-				return ret != 0;
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool LoadWAV(ref byte path, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
 		{
-			fixed (byte* ppath = &path)
+			fixed (byte* pname = name)
 			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, audioLen);
-					return ret != 0;
-				}
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static bool LoadWAV(ReadOnlySpan<byte> path, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
-		{
-			fixed (byte* ppath = path)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					byte ret = LoadWAVNative((byte*)ppath, (SDLAudioSpec*)pspec, audioBuf, audioLen);
-					return ret != 0;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Loads a WAV from a file path.<br/>
-		/// This is a convenience function that is effectively the same as:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_IO(SDL_IOFromFile(path, "rb"), true, spec, audio_buf, audio_len);<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns false if the .WAV file cannot be opened,<br/>
-		/// uses an unknown data format, or is corrupt; call SDL_GetError()<br/>
-		/// for more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_free() to dispose of it.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static bool LoadWAV(string path, ref SDLAudioSpec spec, byte** audioBuf, uint* audioLen)
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (path != null)
+			if (name != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
+				pStrSize0 = Utils.GetByteCountUTF8(name);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -5021,18 +172,4858 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			fixed (SDLAudioSpec* pspec = &spec)
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				byte ret = LoadWAVNative(pStr0, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, name, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative(fn, (byte*)pname, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] delegate*<void*, int> fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					Utils.Free(pStr0);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative(fn, pStr0, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] in byte name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), (byte*)pname, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// These are the actual functions exported from SDL! Don't use them directly! Use the SDL_CreateThread and SDL_CreateThreadWithProperties macros! <br/>
+		/// The actual entry point for SDL_CreateThread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadRuntime([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLThreadPtr ret = CreateThreadRuntimeNative((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), pStr0, (void*)data, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// The actual entry point for SDL_CreateThreadWithProperties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadWithPropertiesRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLThread* CreateThreadWithPropertiesRuntimeNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, delegate*<void>, delegate*<void>, SDLThread*>)funcTable[224])(props, pfnBeginThread, pfnEndThread);
+			#else
+			return (SDLThread*)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint>)funcTable[224])(props, (nint)pfnBeginThread, (nint)pfnEndThread);
+			#endif
+		}
+
+		/// <summary>
+		/// The actual entry point for SDL_CreateThreadWithProperties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadWithPropertiesRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadWithPropertiesRuntime([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithPropertiesRuntimeNative(props, pfnBeginThread, pfnEndThread);
+			return ret;
+		}
+
+		/// <summary>
+		/// The actual entry point for SDL_CreateThreadWithProperties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadWithPropertiesRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadWithPropertiesRuntime([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithPropertiesRuntimeNative(props, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), pfnEndThread);
+			return ret;
+		}
+
+		/// <summary>
+		/// The actual entry point for SDL_CreateThreadWithProperties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadWithPropertiesRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadWithPropertiesRuntime([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] delegate*<void> pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithPropertiesRuntimeNative(props, pfnBeginThread, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		/// <summary>
+		/// The actual entry point for SDL_CreateThreadWithProperties.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateThreadWithPropertiesRuntime")]
+		[return: NativeName(NativeNameType.Type, "SDL_Thread *")]
+		public static SDLThreadPtr CreateThreadWithPropertiesRuntime([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "SDL_FunctionPointer")] SDLFunctionPointer pfnEndThread)
+		{
+			SDLThreadPtr ret = CreateThreadWithPropertiesRuntimeNative(props, (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the thread name as it was specified in SDL_CreateThread().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetThreadNameNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThread* thread)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLThread*, byte*>)funcTable[225])(thread);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[225])((nint)thread);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the thread name as it was specified in SDL_CreateThread().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetThreadName([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThreadPtr thread)
+		{
+			byte* ret = GetThreadNameNative((SDLThread*)thread);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the thread name as it was specified in SDL_CreateThread().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetThreadNameS([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThreadPtr thread)
+		{
+			string ret = Utils.DecodeStringUTF8(GetThreadNameNative((SDLThread*)thread));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the thread name as it was specified in SDL_CreateThread().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetThreadName([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] ref SDLThread thread)
+		{
+			fixed (SDLThread* pthread = &thread)
+			{
+				byte* ret = GetThreadNameNative((SDLThread*)pthread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the thread name as it was specified in SDL_CreateThread().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadName")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetThreadNameS([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] ref SDLThread thread)
+		{
+			fixed (SDLThread* pthread = &thread)
+			{
+				string ret = Utils.DecodeStringUTF8(GetThreadNameNative((SDLThread*)pthread));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the thread identifier for the current thread.<br/>
+		/// This thread identifier is as reported by the underlying operating system.<br/>
+		/// If SDL is running on a platform that does not support threads the return<br/>
+		/// value will always be zero.<br/>
+		/// This function also returns a valid thread ID when called from the main<br/>
+		/// thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCurrentThreadID")]
+		[return: NativeName(NativeNameType.Type, "SDL_ThreadID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetCurrentThreadIDNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[226])();
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[226])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the thread identifier for the current thread.<br/>
+		/// This thread identifier is as reported by the underlying operating system.<br/>
+		/// If SDL is running on a platform that does not support threads the return<br/>
+		/// value will always be zero.<br/>
+		/// This function also returns a valid thread ID when called from the main<br/>
+		/// thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetCurrentThreadID")]
+		[return: NativeName(NativeNameType.Type, "SDL_ThreadID")]
+		public static ulong GetCurrentThreadID()
+		{
+			ulong ret = GetCurrentThreadIDNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the thread identifier for the specified thread.<br/>
+		/// This thread identifier is as reported by the underlying operating system.<br/>
+		/// If SDL is running on a platform that does not support threads the return<br/>
+		/// value will always be zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadID")]
+		[return: NativeName(NativeNameType.Type, "SDL_ThreadID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetThreadIDNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThread* thread)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLThread*, ulong>)funcTable[227])(thread);
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[227])((nint)thread);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the thread identifier for the specified thread.<br/>
+		/// This thread identifier is as reported by the underlying operating system.<br/>
+		/// If SDL is running on a platform that does not support threads the return<br/>
+		/// value will always be zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadID")]
+		[return: NativeName(NativeNameType.Type, "SDL_ThreadID")]
+		public static ulong GetThreadID([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThreadPtr thread)
+		{
+			ulong ret = GetThreadIDNative((SDLThread*)thread);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the thread identifier for the specified thread.<br/>
+		/// This thread identifier is as reported by the underlying operating system.<br/>
+		/// If SDL is running on a platform that does not support threads the return<br/>
+		/// value will always be zero.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadID")]
+		[return: NativeName(NativeNameType.Type, "SDL_ThreadID")]
+		public static ulong GetThreadID([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] ref SDLThread thread)
+		{
+			fixed (SDLThread* pthread = &thread)
+			{
+				ulong ret = GetThreadIDNative((SDLThread*)pthread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the priority for the current thread.<br/>
+		/// Note that some platforms will not let you alter the priority (or at least,<br/>
+		/// promote the thread to a higher priority) at all, and some require you to be<br/>
+		/// an administrator account. Be prepared for this to fail.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetCurrentThreadPriority")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetCurrentThreadPriorityNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_ThreadPriority")] SDLThreadPriority priority)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLThreadPriority, byte>)funcTable[228])(priority);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLThreadPriority, byte>)funcTable[228])(priority);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the priority for the current thread.<br/>
+		/// Note that some platforms will not let you alter the priority (or at least,<br/>
+		/// promote the thread to a higher priority) at all, and some require you to be<br/>
+		/// an administrator account. Be prepared for this to fail.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetCurrentThreadPriority")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetCurrentThreadPriority([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_ThreadPriority")] SDLThreadPriority priority)
+		{
+			byte ret = SetCurrentThreadPriorityNative(priority);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Wait for a thread to finish.<br/>
+		/// Threads that haven't been detached will remain until this function cleans<br/>
+		/// them up. Not doing so is a resource leak.<br/>
+		/// Once a thread has been cleaned up through this function, the SDL_Thread<br/>
+		/// that references it becomes invalid and should not be referenced again. As<br/>
+		/// such, only one thread may call SDL_WaitThread() on another.<br/>
+		/// The return code from the thread function is placed in the area pointed to<br/>
+		/// by `status`, if `status` is not NULL.<br/>
+		/// You may not wait on a thread that has been used in a call to<br/>
+		/// SDL_DetachThread(). Use either that function or this one, but not both, or<br/>
+		/// behavior is undefined.<br/>
+		/// It is safe to pass a NULL thread to this function; it is a no-op.<br/>
+		/// Note that the thread pointer is freed by this function and is not valid<br/>
+		/// afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitThread")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void WaitThreadNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThread* thread, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "int *")] int* status)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLThread*, int*, void>)funcTable[229])(thread, status);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[229])((nint)thread, (nint)status);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait for a thread to finish.<br/>
+		/// Threads that haven't been detached will remain until this function cleans<br/>
+		/// them up. Not doing so is a resource leak.<br/>
+		/// Once a thread has been cleaned up through this function, the SDL_Thread<br/>
+		/// that references it becomes invalid and should not be referenced again. As<br/>
+		/// such, only one thread may call SDL_WaitThread() on another.<br/>
+		/// The return code from the thread function is placed in the area pointed to<br/>
+		/// by `status`, if `status` is not NULL.<br/>
+		/// You may not wait on a thread that has been used in a call to<br/>
+		/// SDL_DetachThread(). Use either that function or this one, but not both, or<br/>
+		/// behavior is undefined.<br/>
+		/// It is safe to pass a NULL thread to this function; it is a no-op.<br/>
+		/// Note that the thread pointer is freed by this function and is not valid<br/>
+		/// afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitThread")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitThread([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThreadPtr thread, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "int *")] int* status)
+		{
+			WaitThreadNative((SDLThread*)thread, status);
+		}
+
+		/// <summary>
+		/// Wait for a thread to finish.<br/>
+		/// Threads that haven't been detached will remain until this function cleans<br/>
+		/// them up. Not doing so is a resource leak.<br/>
+		/// Once a thread has been cleaned up through this function, the SDL_Thread<br/>
+		/// that references it becomes invalid and should not be referenced again. As<br/>
+		/// such, only one thread may call SDL_WaitThread() on another.<br/>
+		/// The return code from the thread function is placed in the area pointed to<br/>
+		/// by `status`, if `status` is not NULL.<br/>
+		/// You may not wait on a thread that has been used in a call to<br/>
+		/// SDL_DetachThread(). Use either that function or this one, but not both, or<br/>
+		/// behavior is undefined.<br/>
+		/// It is safe to pass a NULL thread to this function; it is a no-op.<br/>
+		/// Note that the thread pointer is freed by this function and is not valid<br/>
+		/// afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitThread")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitThread([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] ref SDLThread thread, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "int *")] int* status)
+		{
+			fixed (SDLThread* pthread = &thread)
+			{
+				WaitThreadNative((SDLThread*)pthread, status);
+			}
+		}
+
+		/// <summary>
+		/// Wait for a thread to finish.<br/>
+		/// Threads that haven't been detached will remain until this function cleans<br/>
+		/// them up. Not doing so is a resource leak.<br/>
+		/// Once a thread has been cleaned up through this function, the SDL_Thread<br/>
+		/// that references it becomes invalid and should not be referenced again. As<br/>
+		/// such, only one thread may call SDL_WaitThread() on another.<br/>
+		/// The return code from the thread function is placed in the area pointed to<br/>
+		/// by `status`, if `status` is not NULL.<br/>
+		/// You may not wait on a thread that has been used in a call to<br/>
+		/// SDL_DetachThread(). Use either that function or this one, but not both, or<br/>
+		/// behavior is undefined.<br/>
+		/// It is safe to pass a NULL thread to this function; it is a no-op.<br/>
+		/// Note that the thread pointer is freed by this function and is not valid<br/>
+		/// afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitThread")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitThread([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThreadPtr thread, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "int *")] ref int status)
+		{
+			fixed (int* pstatus = &status)
+			{
+				WaitThreadNative((SDLThread*)thread, (int*)pstatus);
+			}
+		}
+
+		/// <summary>
+		/// Wait for a thread to finish.<br/>
+		/// Threads that haven't been detached will remain until this function cleans<br/>
+		/// them up. Not doing so is a resource leak.<br/>
+		/// Once a thread has been cleaned up through this function, the SDL_Thread<br/>
+		/// that references it becomes invalid and should not be referenced again. As<br/>
+		/// such, only one thread may call SDL_WaitThread() on another.<br/>
+		/// The return code from the thread function is placed in the area pointed to<br/>
+		/// by `status`, if `status` is not NULL.<br/>
+		/// You may not wait on a thread that has been used in a call to<br/>
+		/// SDL_DetachThread(). Use either that function or this one, but not both, or<br/>
+		/// behavior is undefined.<br/>
+		/// It is safe to pass a NULL thread to this function; it is a no-op.<br/>
+		/// Note that the thread pointer is freed by this function and is not valid<br/>
+		/// afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitThread")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitThread([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] ref SDLThread thread, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "int *")] ref int status)
+		{
+			fixed (SDLThread* pthread = &thread)
+			{
+				fixed (int* pstatus = &status)
+				{
+					WaitThreadNative((SDLThread*)pthread, (int*)pstatus);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of a thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadState")]
+		[return: NativeName(NativeNameType.Type, "SDL_ThreadState")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLThreadState GetThreadStateNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThread* thread)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLThread*, SDLThreadState>)funcTable[230])(thread);
+			#else
+			return (SDLThreadState)((delegate* unmanaged[Cdecl]<nint, SDLThreadState>)funcTable[230])((nint)thread);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of a thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadState")]
+		[return: NativeName(NativeNameType.Type, "SDL_ThreadState")]
+		public static SDLThreadState GetThreadState([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThreadPtr thread)
+		{
+			SDLThreadState ret = GetThreadStateNative((SDLThread*)thread);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of a thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetThreadState")]
+		[return: NativeName(NativeNameType.Type, "SDL_ThreadState")]
+		public static SDLThreadState GetThreadState([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] ref SDLThread thread)
+		{
+			fixed (SDLThread* pthread = &thread)
+			{
+				SDLThreadState ret = GetThreadStateNative((SDLThread*)pthread);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Let a thread clean up on exit without intervention.<br/>
+		/// A thread may be "detached" to signify that it should not remain until<br/>
+		/// another thread has called SDL_WaitThread() on it. Detaching a thread is<br/>
+		/// useful for long-running threads that nothing needs to synchronize with or<br/>
+		/// further manage. When a detached thread is done, it simply goes away.<br/>
+		/// There is no way to recover the return code of a detached thread. If you<br/>
+		/// need this, don't detach the thread and instead use SDL_WaitThread().<br/>
+		/// Once a thread is detached, you should usually assume the SDL_Thread isn't<br/>
+		/// safe to reference again, as it will become invalid immediately upon the<br/>
+		/// detached thread's exit, instead of remaining until someone has called<br/>
+		/// SDL_WaitThread() to finally clean it up. As such, don't detach the same<br/>
+		/// thread more than once.<br/>
+		/// If a thread has already exited when passed to SDL_DetachThread(), it will<br/>
+		/// stop waiting for a call to SDL_WaitThread() and clean up immediately. It is<br/>
+		/// not safe to detach a thread that might be used with SDL_WaitThread().<br/>
+		/// You may not call SDL_WaitThread() on a thread that has been detached. Use<br/>
+		/// either that function or this one, but not both, or behavior is undefined.<br/>
+		/// It is safe to pass NULL to this function; it is a no-op.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DetachThread")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DetachThreadNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThread* thread)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLThread*, void>)funcTable[231])(thread);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[231])((nint)thread);
+			#endif
+		}
+
+		/// <summary>
+		/// Let a thread clean up on exit without intervention.<br/>
+		/// A thread may be "detached" to signify that it should not remain until<br/>
+		/// another thread has called SDL_WaitThread() on it. Detaching a thread is<br/>
+		/// useful for long-running threads that nothing needs to synchronize with or<br/>
+		/// further manage. When a detached thread is done, it simply goes away.<br/>
+		/// There is no way to recover the return code of a detached thread. If you<br/>
+		/// need this, don't detach the thread and instead use SDL_WaitThread().<br/>
+		/// Once a thread is detached, you should usually assume the SDL_Thread isn't<br/>
+		/// safe to reference again, as it will become invalid immediately upon the<br/>
+		/// detached thread's exit, instead of remaining until someone has called<br/>
+		/// SDL_WaitThread() to finally clean it up. As such, don't detach the same<br/>
+		/// thread more than once.<br/>
+		/// If a thread has already exited when passed to SDL_DetachThread(), it will<br/>
+		/// stop waiting for a call to SDL_WaitThread() and clean up immediately. It is<br/>
+		/// not safe to detach a thread that might be used with SDL_WaitThread().<br/>
+		/// You may not call SDL_WaitThread() on a thread that has been detached. Use<br/>
+		/// either that function or this one, but not both, or behavior is undefined.<br/>
+		/// It is safe to pass NULL to this function; it is a no-op.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DetachThread")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DetachThread([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] SDLThreadPtr thread)
+		{
+			DetachThreadNative((SDLThread*)thread);
+		}
+
+		/// <summary>
+		/// Let a thread clean up on exit without intervention.<br/>
+		/// A thread may be "detached" to signify that it should not remain until<br/>
+		/// another thread has called SDL_WaitThread() on it. Detaching a thread is<br/>
+		/// useful for long-running threads that nothing needs to synchronize with or<br/>
+		/// further manage. When a detached thread is done, it simply goes away.<br/>
+		/// There is no way to recover the return code of a detached thread. If you<br/>
+		/// need this, don't detach the thread and instead use SDL_WaitThread().<br/>
+		/// Once a thread is detached, you should usually assume the SDL_Thread isn't<br/>
+		/// safe to reference again, as it will become invalid immediately upon the<br/>
+		/// detached thread's exit, instead of remaining until someone has called<br/>
+		/// SDL_WaitThread() to finally clean it up. As such, don't detach the same<br/>
+		/// thread more than once.<br/>
+		/// If a thread has already exited when passed to SDL_DetachThread(), it will<br/>
+		/// stop waiting for a call to SDL_WaitThread() and clean up immediately. It is<br/>
+		/// not safe to detach a thread that might be used with SDL_WaitThread().<br/>
+		/// You may not call SDL_WaitThread() on a thread that has been detached. Use<br/>
+		/// either that function or this one, but not both, or behavior is undefined.<br/>
+		/// It is safe to pass NULL to this function; it is a no-op.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DetachThread")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DetachThread([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread *")] ref SDLThread thread)
+		{
+			fixed (SDLThread* pthread = &thread)
+			{
+				DetachThreadNative((SDLThread*)pthread);
+			}
+		}
+
+		/// <summary>
+		/// Get the current thread's value associated with a thread local storage ID.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTLS")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* GetTLSNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] uint* id)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint*, void*>)funcTable[232])(id);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[232])((nint)id);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current thread's value associated with a thread local storage ID.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTLS")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] uint* id)
+		{
+			void* ret = GetTLSNative(id);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current thread's value associated with a thread local storage ID.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetTLS")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] ref uint id)
+		{
+			fixed (uint* pid = &id)
+			{
+				void* ret = GetTLSNative((uint*)pid);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetTLSNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] uint* id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] void* value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] delegate*<void*, void> destructor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint*, void*, delegate*<void*, void>, byte>)funcTable[233])(id, value, destructor);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[233])((nint)id, (nint)value, (nint)destructor);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] uint* id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] void* value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] delegate*<void*, void> destructor)
+		{
+			byte ret = SetTLSNative(id, value, destructor);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] ref uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] void* value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] delegate*<void*, void> destructor)
+		{
+			fixed (uint* pid = &id)
+			{
+				byte ret = SetTLSNative((uint*)pid, value, destructor);
 				return ret != 0;
 			}
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] uint* id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] nint value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] delegate*<void*, void> destructor)
+		{
+			byte ret = SetTLSNative(id, (void*)value, destructor);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] ref uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] nint value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] delegate*<void*, void> destructor)
+		{
+			fixed (uint* pid = &id)
+			{
+				byte ret = SetTLSNative((uint*)pid, (void*)value, destructor);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] uint* id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] void* value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] SDLTLSDestructorCallback destructor)
+		{
+			byte ret = SetTLSNative(id, value, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(destructor));
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] ref uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] void* value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] SDLTLSDestructorCallback destructor)
+		{
+			fixed (uint* pid = &id)
+			{
+				byte ret = SetTLSNative((uint*)pid, value, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(destructor));
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] uint* id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] nint value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] SDLTLSDestructorCallback destructor)
+		{
+			byte ret = SetTLSNative(id, (void*)value, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(destructor));
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the current thread's value associated with a thread local storage ID.<br/>
+		/// If the thread local storage ID is not initialized (the value is 0), a new<br/>
+		/// ID will be created in a thread-safe way, so all calls using a pointer to<br/>
+		/// the same ID will refer to the same local storage.<br/>
+		/// Note that replacing a value from a previous call to this function on the<br/>
+		/// same thread does _not_ call the previous value's destructor!<br/>
+		/// `destructor` can be NULL; it is assumed that `value` does not need to be<br/>
+		/// cleaned up if so.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetTLS")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetTLS([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID *")] ref uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void const *")] nint value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "SDL_TLSDestructorCallback")] SDLTLSDestructorCallback destructor)
+		{
+			fixed (uint* pid = &id)
+			{
+				byte ret = SetTLSNative((uint*)pid, (void*)value, (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(destructor));
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Cleanup all TLS data for this thread.<br/>
+		/// If you are creating your threads outside of SDL and then calling SDL<br/>
+		/// functions, you should call this function before your thread exits, to<br/>
+		/// properly clean up SDL memory.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CleanupTLS")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CleanupTLSNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[234])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[234])();
+			#endif
+		}
+
+		/// <summary>
+		/// Cleanup all TLS data for this thread.<br/>
+		/// If you are creating your threads outside of SDL and then calling SDL<br/>
+		/// functions, you should call this function before your thread exits, to<br/>
+		/// properly clean up SDL memory.<br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CleanupTLS")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void CleanupTLS()
+		{
+			CleanupTLSNative();
+		}
+
+		/// <summary>
+		/// Create a new mutex.<br/>
+		/// All newly-created mutexes begin in the _unlocked_ state.<br/>
+		/// Calls to SDL_LockMutex() will not return while the mutex is locked by<br/>
+		/// another thread. See SDL_TryLockMutex() to attempt to lock without blocking.<br/>
+		/// SDL mutexes are reentrant.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateMutex")]
+		[return: NativeName(NativeNameType.Type, "SDL_Mutex *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLMutex* CreateMutexNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLMutex*>)funcTable[235])();
+			#else
+			return (SDLMutex*)((delegate* unmanaged[Cdecl]<nint>)funcTable[235])();
+			#endif
+		}
+
+		/// <summary>
+		/// Create a new mutex.<br/>
+		/// All newly-created mutexes begin in the _unlocked_ state.<br/>
+		/// Calls to SDL_LockMutex() will not return while the mutex is locked by<br/>
+		/// another thread. See SDL_TryLockMutex() to attempt to lock without blocking.<br/>
+		/// SDL mutexes are reentrant.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateMutex")]
+		[return: NativeName(NativeNameType.Type, "SDL_Mutex *")]
+		public static SDLMutexPtr CreateMutex()
+		{
+			SDLMutexPtr ret = CreateMutexNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Lock the mutex.<br/>
+		/// This will block until the mutex is available, which is to say it is in the<br/>
+		/// unlocked state and the OS has chosen the caller as the next thread to lock<br/>
+		/// it. Of all threads waiting to lock the mutex, only one may do so at a time.<br/>
+		/// It is legal for the owning thread to lock an already-locked mutex. It must<br/>
+		/// unlock it the same number of times before it is actually made available for<br/>
+		/// other threads in the system (this is known as a "recursive mutex").<br/>
+		/// This function does not fail; if mutex is NULL, it will return immediately<br/>
+		/// having locked nothing. If the mutex is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockMutexNative([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLMutex*, void>)funcTable[236])(mutex);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[236])((nint)mutex);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock the mutex.<br/>
+		/// This will block until the mutex is available, which is to say it is in the<br/>
+		/// unlocked state and the OS has chosen the caller as the next thread to lock<br/>
+		/// it. Of all threads waiting to lock the mutex, only one may do so at a time.<br/>
+		/// It is legal for the owning thread to lock an already-locked mutex. It must<br/>
+		/// unlock it the same number of times before it is actually made available for<br/>
+		/// other threads in the system (this is known as a "recursive mutex").<br/>
+		/// This function does not fail; if mutex is NULL, it will return immediately<br/>
+		/// having locked nothing. If the mutex is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockMutex([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutexPtr mutex)
+		{
+			LockMutexNative((SDLMutex*)mutex);
+		}
+
+		/// <summary>
+		/// Lock the mutex.<br/>
+		/// This will block until the mutex is available, which is to say it is in the<br/>
+		/// unlocked state and the OS has chosen the caller as the next thread to lock<br/>
+		/// it. Of all threads waiting to lock the mutex, only one may do so at a time.<br/>
+		/// It is legal for the owning thread to lock an already-locked mutex. It must<br/>
+		/// unlock it the same number of times before it is actually made available for<br/>
+		/// other threads in the system (this is known as a "recursive mutex").<br/>
+		/// This function does not fail; if mutex is NULL, it will return immediately<br/>
+		/// having locked nothing. If the mutex is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockMutex([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex)
+		{
+			fixed (SDLMutex* pmutex = &mutex)
+			{
+				LockMutexNative((SDLMutex*)pmutex);
+			}
+		}
+
+		/// <summary>
+		/// Try to lock a mutex without blocking.<br/>
+		/// This works just like SDL_LockMutex(), but if the mutex is not available,<br/>
+		/// this function returns false immediately.<br/>
+		/// This technique is useful if you need exclusive access to a resource but<br/>
+		/// don't want to wait for it, and will return to it to try again later.<br/>
+		/// This function returns true if passed a NULL mutex.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockMutex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte TryLockMutexNative([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLMutex*, byte>)funcTable[237])(mutex);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[237])((nint)mutex);
+			#endif
+		}
+
+		/// <summary>
+		/// Try to lock a mutex without blocking.<br/>
+		/// This works just like SDL_LockMutex(), but if the mutex is not available,<br/>
+		/// this function returns false immediately.<br/>
+		/// This technique is useful if you need exclusive access to a resource but<br/>
+		/// don't want to wait for it, and will return to it to try again later.<br/>
+		/// This function returns true if passed a NULL mutex.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockMutex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryLockMutex([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutexPtr mutex)
+		{
+			byte ret = TryLockMutexNative((SDLMutex*)mutex);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Try to lock a mutex without blocking.<br/>
+		/// This works just like SDL_LockMutex(), but if the mutex is not available,<br/>
+		/// this function returns false immediately.<br/>
+		/// This technique is useful if you need exclusive access to a resource but<br/>
+		/// don't want to wait for it, and will return to it to try again later.<br/>
+		/// This function returns true if passed a NULL mutex.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockMutex")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryLockMutex([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex)
+		{
+			fixed (SDLMutex* pmutex = &mutex)
+			{
+				byte ret = TryLockMutexNative((SDLMutex*)pmutex);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Unlock the mutex.<br/>
+		/// It is legal for the owning thread to lock an already-locked mutex. It must<br/>
+		/// unlock it the same number of times before it is actually made available for<br/>
+		/// other threads in the system (this is known as a "recursive mutex").<br/>
+		/// It is illegal to unlock a mutex that has not been locked by the current<br/>
+		/// thread, and doing so results in undefined behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockMutexNative([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLMutex*, void>)funcTable[238])(mutex);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[238])((nint)mutex);
+			#endif
+		}
+
+		/// <summary>
+		/// Unlock the mutex.<br/>
+		/// It is legal for the owning thread to lock an already-locked mutex. It must<br/>
+		/// unlock it the same number of times before it is actually made available for<br/>
+		/// other threads in the system (this is known as a "recursive mutex").<br/>
+		/// It is illegal to unlock a mutex that has not been locked by the current<br/>
+		/// thread, and doing so results in undefined behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockMutex([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutexPtr mutex)
+		{
+			UnlockMutexNative((SDLMutex*)mutex);
+		}
+
+		/// <summary>
+		/// Unlock the mutex.<br/>
+		/// It is legal for the owning thread to lock an already-locked mutex. It must<br/>
+		/// unlock it the same number of times before it is actually made available for<br/>
+		/// other threads in the system (this is known as a "recursive mutex").<br/>
+		/// It is illegal to unlock a mutex that has not been locked by the current<br/>
+		/// thread, and doing so results in undefined behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockMutex([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex)
+		{
+			fixed (SDLMutex* pmutex = &mutex)
+			{
+				UnlockMutexNative((SDLMutex*)pmutex);
+			}
+		}
+
+		/// <summary>
+		/// Destroy a mutex created with SDL_CreateMutex().<br/>
+		/// This function must be called on any mutex that is no longer needed. Failure<br/>
+		/// to destroy a mutex will result in a system memory or resource leak. While<br/>
+		/// it is safe to destroy a mutex that is _unlocked_, it is not safe to attempt<br/>
+		/// to destroy a locked mutex, and may result in undefined behavior depending<br/>
+		/// on the platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyMutexNative([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLMutex*, void>)funcTable[239])(mutex);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[239])((nint)mutex);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a mutex created with SDL_CreateMutex().<br/>
+		/// This function must be called on any mutex that is no longer needed. Failure<br/>
+		/// to destroy a mutex will result in a system memory or resource leak. While<br/>
+		/// it is safe to destroy a mutex that is _unlocked_, it is not safe to attempt<br/>
+		/// to destroy a locked mutex, and may result in undefined behavior depending<br/>
+		/// on the platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyMutex([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutexPtr mutex)
+		{
+			DestroyMutexNative((SDLMutex*)mutex);
+		}
+
+		/// <summary>
+		/// Destroy a mutex created with SDL_CreateMutex().<br/>
+		/// This function must be called on any mutex that is no longer needed. Failure<br/>
+		/// to destroy a mutex will result in a system memory or resource leak. While<br/>
+		/// it is safe to destroy a mutex that is _unlocked_, it is not safe to attempt<br/>
+		/// to destroy a locked mutex, and may result in undefined behavior depending<br/>
+		/// on the platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyMutex")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyMutex([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex)
+		{
+			fixed (SDLMutex* pmutex = &mutex)
+			{
+				DestroyMutexNative((SDLMutex*)pmutex);
+			}
+		}
+
+		/// <summary>
+		/// Create a new read/write lock.<br/>
+		/// A read/write lock is useful for situations where you have multiple threads<br/>
+		/// trying to access a resource that is rarely updated. All threads requesting<br/>
+		/// a read-only lock will be allowed to run in parallel; if a thread requests a<br/>
+		/// write lock, it will be provided exclusive access. This makes it safe for<br/>
+		/// multiple threads to use a resource at the same time if they promise not to<br/>
+		/// change it, and when it has to be changed, the rwlock will serve as a<br/>
+		/// gateway to make sure those changes can be made safely.<br/>
+		/// In the right situation, a rwlock can be more efficient than a mutex, which<br/>
+		/// only lets a single thread proceed at a time, even if it won't be modifying<br/>
+		/// the data.<br/>
+		/// All newly-created read/write locks begin in the _unlocked_ state.<br/>
+		/// Calls to SDL_LockRWLockForReading() and SDL_LockRWLockForWriting will not<br/>
+		/// return while the rwlock is locked _for writing_ by another thread. See<br/>
+		/// SDL_TryLockRWLockForReading() and SDL_TryLockRWLockForWriting() to attempt<br/>
+		/// to lock without blocking.<br/>
+		/// SDL read/write locks are only recursive for read-only locks! They are not<br/>
+		/// guaranteed to be fair, or provide access in a FIFO manner! They are not<br/>
+		/// guaranteed to favor writers. You may not lock a rwlock for both read-only<br/>
+		/// and write access at the same time from the same thread (so you can't<br/>
+		/// promote your read-only lock to a write lock without unlocking first).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateRWLock")]
+		[return: NativeName(NativeNameType.Type, "SDL_RWLock *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLRWLock* CreateRWLockNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWLock*>)funcTable[240])();
+			#else
+			return (SDLRWLock*)((delegate* unmanaged[Cdecl]<nint>)funcTable[240])();
+			#endif
+		}
+
+		/// <summary>
+		/// Create a new read/write lock.<br/>
+		/// A read/write lock is useful for situations where you have multiple threads<br/>
+		/// trying to access a resource that is rarely updated. All threads requesting<br/>
+		/// a read-only lock will be allowed to run in parallel; if a thread requests a<br/>
+		/// write lock, it will be provided exclusive access. This makes it safe for<br/>
+		/// multiple threads to use a resource at the same time if they promise not to<br/>
+		/// change it, and when it has to be changed, the rwlock will serve as a<br/>
+		/// gateway to make sure those changes can be made safely.<br/>
+		/// In the right situation, a rwlock can be more efficient than a mutex, which<br/>
+		/// only lets a single thread proceed at a time, even if it won't be modifying<br/>
+		/// the data.<br/>
+		/// All newly-created read/write locks begin in the _unlocked_ state.<br/>
+		/// Calls to SDL_LockRWLockForReading() and SDL_LockRWLockForWriting will not<br/>
+		/// return while the rwlock is locked _for writing_ by another thread. See<br/>
+		/// SDL_TryLockRWLockForReading() and SDL_TryLockRWLockForWriting() to attempt<br/>
+		/// to lock without blocking.<br/>
+		/// SDL read/write locks are only recursive for read-only locks! They are not<br/>
+		/// guaranteed to be fair, or provide access in a FIFO manner! They are not<br/>
+		/// guaranteed to favor writers. You may not lock a rwlock for both read-only<br/>
+		/// and write access at the same time from the same thread (so you can't<br/>
+		/// promote your read-only lock to a write lock without unlocking first).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateRWLock")]
+		[return: NativeName(NativeNameType.Type, "SDL_RWLock *")]
+		public static SDLRWLockPtr CreateRWLock()
+		{
+			SDLRWLockPtr ret = CreateRWLockNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Lock the read/write lock for _read only_ operations.<br/>
+		/// This will block until the rwlock is available, which is to say it is not<br/>
+		/// locked for writing by any other thread. Of all threads waiting to lock the<br/>
+		/// rwlock, all may do so at the same time as long as they are requesting<br/>
+		/// read-only access; if a thread wants to lock for writing, only one may do so<br/>
+		/// at a time, and no other threads, read-only or not, may hold the lock at the<br/>
+		/// same time.<br/>
+		/// It is legal for the owning thread to lock an already-locked rwlock for<br/>
+		/// reading. It must unlock it the same number of times before it is actually<br/>
+		/// made available for other threads in the system (this is known as a<br/>
+		/// "recursive rwlock").<br/>
+		/// Note that locking for writing is not recursive (this is only available to<br/>
+		/// read-only locks).<br/>
+		/// It is illegal to request a read-only lock from a thread that already holds<br/>
+		/// the write lock. Doing so results in undefined behavior. Unlock the write<br/>
+		/// lock before requesting a read-only lock. (But, of course, if you have the<br/>
+		/// write lock, you don't need further locks to read in any case.)<br/>
+		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
+		/// having locked nothing. If the rwlock is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockRWLockForReading")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockRWLockForReadingNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRWLock*, void>)funcTable[241])(rwlock);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[241])((nint)rwlock);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock the read/write lock for _read only_ operations.<br/>
+		/// This will block until the rwlock is available, which is to say it is not<br/>
+		/// locked for writing by any other thread. Of all threads waiting to lock the<br/>
+		/// rwlock, all may do so at the same time as long as they are requesting<br/>
+		/// read-only access; if a thread wants to lock for writing, only one may do so<br/>
+		/// at a time, and no other threads, read-only or not, may hold the lock at the<br/>
+		/// same time.<br/>
+		/// It is legal for the owning thread to lock an already-locked rwlock for<br/>
+		/// reading. It must unlock it the same number of times before it is actually<br/>
+		/// made available for other threads in the system (this is known as a<br/>
+		/// "recursive rwlock").<br/>
+		/// Note that locking for writing is not recursive (this is only available to<br/>
+		/// read-only locks).<br/>
+		/// It is illegal to request a read-only lock from a thread that already holds<br/>
+		/// the write lock. Doing so results in undefined behavior. Unlock the write<br/>
+		/// lock before requesting a read-only lock. (But, of course, if you have the<br/>
+		/// write lock, you don't need further locks to read in any case.)<br/>
+		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
+		/// having locked nothing. If the rwlock is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockRWLockForReading")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockRWLockForReading([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLockPtr rwlock)
+		{
+			LockRWLockForReadingNative((SDLRWLock*)rwlock);
+		}
+
+		/// <summary>
+		/// Lock the read/write lock for _read only_ operations.<br/>
+		/// This will block until the rwlock is available, which is to say it is not<br/>
+		/// locked for writing by any other thread. Of all threads waiting to lock the<br/>
+		/// rwlock, all may do so at the same time as long as they are requesting<br/>
+		/// read-only access; if a thread wants to lock for writing, only one may do so<br/>
+		/// at a time, and no other threads, read-only or not, may hold the lock at the<br/>
+		/// same time.<br/>
+		/// It is legal for the owning thread to lock an already-locked rwlock for<br/>
+		/// reading. It must unlock it the same number of times before it is actually<br/>
+		/// made available for other threads in the system (this is known as a<br/>
+		/// "recursive rwlock").<br/>
+		/// Note that locking for writing is not recursive (this is only available to<br/>
+		/// read-only locks).<br/>
+		/// It is illegal to request a read-only lock from a thread that already holds<br/>
+		/// the write lock. Doing so results in undefined behavior. Unlock the write<br/>
+		/// lock before requesting a read-only lock. (But, of course, if you have the<br/>
+		/// write lock, you don't need further locks to read in any case.)<br/>
+		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
+		/// having locked nothing. If the rwlock is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockRWLockForReading")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockRWLockForReading([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
+		{
+			fixed (SDLRWLock* prwlock = &rwlock)
+			{
+				LockRWLockForReadingNative((SDLRWLock*)prwlock);
+			}
+		}
+
+		/// <summary>
+		/// Lock the read/write lock for _write_ operations.<br/>
+		/// This will block until the rwlock is available, which is to say it is not<br/>
+		/// locked for reading or writing by any other thread. Only one thread may hold<br/>
+		/// the lock when it requests write access; all other threads, whether they<br/>
+		/// also want to write or only want read-only access, must wait until the<br/>
+		/// writer thread has released the lock.<br/>
+		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
+		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
+		/// results in undefined behavior.<br/>
+		/// It is illegal to request a write lock from a thread that already holds a<br/>
+		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
+		/// read-only lock before requesting a write lock.<br/>
+		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
+		/// having locked nothing. If the rwlock is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockRWLockForWriting")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockRWLockForWritingNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRWLock*, void>)funcTable[242])(rwlock);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[242])((nint)rwlock);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock the read/write lock for _write_ operations.<br/>
+		/// This will block until the rwlock is available, which is to say it is not<br/>
+		/// locked for reading or writing by any other thread. Only one thread may hold<br/>
+		/// the lock when it requests write access; all other threads, whether they<br/>
+		/// also want to write or only want read-only access, must wait until the<br/>
+		/// writer thread has released the lock.<br/>
+		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
+		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
+		/// results in undefined behavior.<br/>
+		/// It is illegal to request a write lock from a thread that already holds a<br/>
+		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
+		/// read-only lock before requesting a write lock.<br/>
+		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
+		/// having locked nothing. If the rwlock is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockRWLockForWriting")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockRWLockForWriting([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLockPtr rwlock)
+		{
+			LockRWLockForWritingNative((SDLRWLock*)rwlock);
+		}
+
+		/// <summary>
+		/// Lock the read/write lock for _write_ operations.<br/>
+		/// This will block until the rwlock is available, which is to say it is not<br/>
+		/// locked for reading or writing by any other thread. Only one thread may hold<br/>
+		/// the lock when it requests write access; all other threads, whether they<br/>
+		/// also want to write or only want read-only access, must wait until the<br/>
+		/// writer thread has released the lock.<br/>
+		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
+		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
+		/// results in undefined behavior.<br/>
+		/// It is illegal to request a write lock from a thread that already holds a<br/>
+		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
+		/// read-only lock before requesting a write lock.<br/>
+		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
+		/// having locked nothing. If the rwlock is valid, this function will always<br/>
+		/// block until it can lock the mutex, and return with it locked.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockRWLockForWriting")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockRWLockForWriting([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
+		{
+			fixed (SDLRWLock* prwlock = &rwlock)
+			{
+				LockRWLockForWritingNative((SDLRWLock*)prwlock);
+			}
+		}
+
+		/// <summary>
+		/// Try to lock a read/write lock _for reading_ without blocking.<br/>
+		/// This works just like SDL_LockRWLockForReading(), but if the rwlock is not<br/>
+		/// available, then this function returns false immediately.<br/>
+		/// This technique is useful if you need access to a resource but don't want to<br/>
+		/// wait for it, and will return to it to try again later.<br/>
+		/// Trying to lock for read-only access can succeed if other threads are<br/>
+		/// holding read-only locks, as this won't prevent access.<br/>
+		/// This function returns true if passed a NULL rwlock.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForReading")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte TryLockRWLockForReadingNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWLock*, byte>)funcTable[243])(rwlock);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[243])((nint)rwlock);
+			#endif
+		}
+
+		/// <summary>
+		/// Try to lock a read/write lock _for reading_ without blocking.<br/>
+		/// This works just like SDL_LockRWLockForReading(), but if the rwlock is not<br/>
+		/// available, then this function returns false immediately.<br/>
+		/// This technique is useful if you need access to a resource but don't want to<br/>
+		/// wait for it, and will return to it to try again later.<br/>
+		/// Trying to lock for read-only access can succeed if other threads are<br/>
+		/// holding read-only locks, as this won't prevent access.<br/>
+		/// This function returns true if passed a NULL rwlock.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForReading")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryLockRWLockForReading([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLockPtr rwlock)
+		{
+			byte ret = TryLockRWLockForReadingNative((SDLRWLock*)rwlock);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Try to lock a read/write lock _for reading_ without blocking.<br/>
+		/// This works just like SDL_LockRWLockForReading(), but if the rwlock is not<br/>
+		/// available, then this function returns false immediately.<br/>
+		/// This technique is useful if you need access to a resource but don't want to<br/>
+		/// wait for it, and will return to it to try again later.<br/>
+		/// Trying to lock for read-only access can succeed if other threads are<br/>
+		/// holding read-only locks, as this won't prevent access.<br/>
+		/// This function returns true if passed a NULL rwlock.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForReading")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryLockRWLockForReading([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
+		{
+			fixed (SDLRWLock* prwlock = &rwlock)
+			{
+				byte ret = TryLockRWLockForReadingNative((SDLRWLock*)prwlock);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Try to lock a read/write lock _for writing_ without blocking.<br/>
+		/// This works just like SDL_LockRWLockForWriting(), but if the rwlock is not<br/>
+		/// available, then this function returns false immediately.<br/>
+		/// This technique is useful if you need exclusive access to a resource but<br/>
+		/// don't want to wait for it, and will return to it to try again later.<br/>
+		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
+		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
+		/// results in undefined behavior.<br/>
+		/// It is illegal to request a write lock from a thread that already holds a<br/>
+		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
+		/// read-only lock before requesting a write lock.<br/>
+		/// This function returns true if passed a NULL rwlock.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForWriting")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte TryLockRWLockForWritingNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWLock*, byte>)funcTable[244])(rwlock);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[244])((nint)rwlock);
+			#endif
+		}
+
+		/// <summary>
+		/// Try to lock a read/write lock _for writing_ without blocking.<br/>
+		/// This works just like SDL_LockRWLockForWriting(), but if the rwlock is not<br/>
+		/// available, then this function returns false immediately.<br/>
+		/// This technique is useful if you need exclusive access to a resource but<br/>
+		/// don't want to wait for it, and will return to it to try again later.<br/>
+		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
+		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
+		/// results in undefined behavior.<br/>
+		/// It is illegal to request a write lock from a thread that already holds a<br/>
+		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
+		/// read-only lock before requesting a write lock.<br/>
+		/// This function returns true if passed a NULL rwlock.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForWriting")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryLockRWLockForWriting([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLockPtr rwlock)
+		{
+			byte ret = TryLockRWLockForWritingNative((SDLRWLock*)rwlock);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Try to lock a read/write lock _for writing_ without blocking.<br/>
+		/// This works just like SDL_LockRWLockForWriting(), but if the rwlock is not<br/>
+		/// available, then this function returns false immediately.<br/>
+		/// This technique is useful if you need exclusive access to a resource but<br/>
+		/// don't want to wait for it, and will return to it to try again later.<br/>
+		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
+		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
+		/// results in undefined behavior.<br/>
+		/// It is illegal to request a write lock from a thread that already holds a<br/>
+		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
+		/// read-only lock before requesting a write lock.<br/>
+		/// This function returns true if passed a NULL rwlock.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForWriting")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryLockRWLockForWriting([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
+		{
+			fixed (SDLRWLock* prwlock = &rwlock)
+			{
+				byte ret = TryLockRWLockForWritingNative((SDLRWLock*)prwlock);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Unlock the read/write lock.<br/>
+		/// Use this function to unlock the rwlock, whether it was locked for read-only<br/>
+		/// or write operations.<br/>
+		/// It is legal for the owning thread to lock an already-locked read-only lock.<br/>
+		/// It must unlock it the same number of times before it is actually made<br/>
+		/// available for other threads in the system (this is known as a "recursive<br/>
+		/// rwlock").<br/>
+		/// It is illegal to unlock a rwlock that has not been locked by the current<br/>
+		/// thread, and doing so results in undefined behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockRWLock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockRWLockNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRWLock*, void>)funcTable[245])(rwlock);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[245])((nint)rwlock);
+			#endif
+		}
+
+		/// <summary>
+		/// Unlock the read/write lock.<br/>
+		/// Use this function to unlock the rwlock, whether it was locked for read-only<br/>
+		/// or write operations.<br/>
+		/// It is legal for the owning thread to lock an already-locked read-only lock.<br/>
+		/// It must unlock it the same number of times before it is actually made<br/>
+		/// available for other threads in the system (this is known as a "recursive<br/>
+		/// rwlock").<br/>
+		/// It is illegal to unlock a rwlock that has not been locked by the current<br/>
+		/// thread, and doing so results in undefined behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockRWLock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockRWLock([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLockPtr rwlock)
+		{
+			UnlockRWLockNative((SDLRWLock*)rwlock);
+		}
+
+		/// <summary>
+		/// Unlock the read/write lock.<br/>
+		/// Use this function to unlock the rwlock, whether it was locked for read-only<br/>
+		/// or write operations.<br/>
+		/// It is legal for the owning thread to lock an already-locked read-only lock.<br/>
+		/// It must unlock it the same number of times before it is actually made<br/>
+		/// available for other threads in the system (this is known as a "recursive<br/>
+		/// rwlock").<br/>
+		/// It is illegal to unlock a rwlock that has not been locked by the current<br/>
+		/// thread, and doing so results in undefined behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockRWLock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockRWLock([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
+		{
+			fixed (SDLRWLock* prwlock = &rwlock)
+			{
+				UnlockRWLockNative((SDLRWLock*)prwlock);
+			}
+		}
+
+		/// <summary>
+		/// Destroy a read/write lock created with SDL_CreateRWLock().<br/>
+		/// This function must be called on any read/write lock that is no longer<br/>
+		/// needed. Failure to destroy a rwlock will result in a system memory or<br/>
+		/// resource leak. While it is safe to destroy a rwlock that is _unlocked_, it<br/>
+		/// is not safe to attempt to destroy a locked rwlock, and may result in<br/>
+		/// undefined behavior depending on the platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyRWLock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyRWLockNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRWLock*, void>)funcTable[246])(rwlock);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[246])((nint)rwlock);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a read/write lock created with SDL_CreateRWLock().<br/>
+		/// This function must be called on any read/write lock that is no longer<br/>
+		/// needed. Failure to destroy a rwlock will result in a system memory or<br/>
+		/// resource leak. While it is safe to destroy a rwlock that is _unlocked_, it<br/>
+		/// is not safe to attempt to destroy a locked rwlock, and may result in<br/>
+		/// undefined behavior depending on the platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyRWLock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyRWLock([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLockPtr rwlock)
+		{
+			DestroyRWLockNative((SDLRWLock*)rwlock);
+		}
+
+		/// <summary>
+		/// Destroy a read/write lock created with SDL_CreateRWLock().<br/>
+		/// This function must be called on any read/write lock that is no longer<br/>
+		/// needed. Failure to destroy a rwlock will result in a system memory or<br/>
+		/// resource leak. While it is safe to destroy a rwlock that is _unlocked_, it<br/>
+		/// is not safe to attempt to destroy a locked rwlock, and may result in<br/>
+		/// undefined behavior depending on the platform.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyRWLock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyRWLock([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
+		{
+			fixed (SDLRWLock* prwlock = &rwlock)
+			{
+				DestroyRWLockNative((SDLRWLock*)prwlock);
+			}
+		}
+
+		/// <summary>
+		/// Create a semaphore.<br/>
+		/// This function creates a new semaphore and initializes it with the value<br/>
+		/// `initial_value`. Each wait operation on the semaphore will atomically<br/>
+		/// decrement the semaphore value and potentially block if the semaphore value<br/>
+		/// is 0. Each post operation will atomically increment the semaphore value and<br/>
+		/// wake waiting threads and allow them to retry the wait operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSemaphore")]
+		[return: NativeName(NativeNameType.Type, "SDL_Semaphore *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSemaphore* CreateSemaphoreNative([NativeName(NativeNameType.Param, "initial_value")] [NativeName(NativeNameType.Type, "Uint32")] uint initialValue)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLSemaphore*>)funcTable[247])(initialValue);
+			#else
+			return (SDLSemaphore*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[247])(initialValue);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a semaphore.<br/>
+		/// This function creates a new semaphore and initializes it with the value<br/>
+		/// `initial_value`. Each wait operation on the semaphore will atomically<br/>
+		/// decrement the semaphore value and potentially block if the semaphore value<br/>
+		/// is 0. Each post operation will atomically increment the semaphore value and<br/>
+		/// wake waiting threads and allow them to retry the wait operation.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateSemaphore")]
+		[return: NativeName(NativeNameType.Type, "SDL_Semaphore *")]
+		public static SDLSemaphorePtr CreateSemaphore([NativeName(NativeNameType.Param, "initial_value")] [NativeName(NativeNameType.Type, "Uint32")] uint initialValue)
+		{
+			SDLSemaphorePtr ret = CreateSemaphoreNative(initialValue);
+			return ret;
+		}
+
+		/// <summary>
+		/// Destroy a semaphore.<br/>
+		/// It is not safe to destroy a semaphore if there are threads currently<br/>
+		/// waiting on it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroySemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroySemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSemaphore*, void>)funcTable[248])(sem);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[248])((nint)sem);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a semaphore.<br/>
+		/// It is not safe to destroy a semaphore if there are threads currently<br/>
+		/// waiting on it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroySemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroySemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphorePtr sem)
+		{
+			DestroySemaphoreNative((SDLSemaphore*)sem);
+		}
+
+		/// <summary>
+		/// Destroy a semaphore.<br/>
+		/// It is not safe to destroy a semaphore if there are threads currently<br/>
+		/// waiting on it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroySemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroySemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
+		{
+			fixed (SDLSemaphore* psem = &sem)
+			{
+				DestroySemaphoreNative((SDLSemaphore*)psem);
+			}
+		}
+
+		/// <summary>
+		/// Wait until a semaphore has a positive value and then decrements it.<br/>
+		/// This function suspends the calling thread until the semaphore pointed to by<br/>
+		/// `sem` has a positive value, and then atomically decrement the semaphore<br/>
+		/// value.<br/>
+		/// This function is the equivalent of calling SDL_WaitSemaphoreTimeout() with<br/>
+		/// a time length of -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitSemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void WaitSemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSemaphore*, void>)funcTable[249])(sem);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[249])((nint)sem);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait until a semaphore has a positive value and then decrements it.<br/>
+		/// This function suspends the calling thread until the semaphore pointed to by<br/>
+		/// `sem` has a positive value, and then atomically decrement the semaphore<br/>
+		/// value.<br/>
+		/// This function is the equivalent of calling SDL_WaitSemaphoreTimeout() with<br/>
+		/// a time length of -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitSemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphorePtr sem)
+		{
+			WaitSemaphoreNative((SDLSemaphore*)sem);
+		}
+
+		/// <summary>
+		/// Wait until a semaphore has a positive value and then decrements it.<br/>
+		/// This function suspends the calling thread until the semaphore pointed to by<br/>
+		/// `sem` has a positive value, and then atomically decrement the semaphore<br/>
+		/// value.<br/>
+		/// This function is the equivalent of calling SDL_WaitSemaphoreTimeout() with<br/>
+		/// a time length of -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitSemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
+		{
+			fixed (SDLSemaphore* psem = &sem)
+			{
+				WaitSemaphoreNative((SDLSemaphore*)psem);
+			}
+		}
+
+		/// <summary>
+		/// See if a semaphore has a positive value and decrement it if it does.<br/>
+		/// This function checks to see if the semaphore pointed to by `sem` has a<br/>
+		/// positive value and atomically decrements the semaphore value if it does. If<br/>
+		/// the semaphore doesn't have a positive value, the function immediately<br/>
+		/// returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryWaitSemaphore")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte TryWaitSemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, byte>)funcTable[250])(sem);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[250])((nint)sem);
+			#endif
+		}
+
+		/// <summary>
+		/// See if a semaphore has a positive value and decrement it if it does.<br/>
+		/// This function checks to see if the semaphore pointed to by `sem` has a<br/>
+		/// positive value and atomically decrements the semaphore value if it does. If<br/>
+		/// the semaphore doesn't have a positive value, the function immediately<br/>
+		/// returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryWaitSemaphore")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryWaitSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphorePtr sem)
+		{
+			byte ret = TryWaitSemaphoreNative((SDLSemaphore*)sem);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// See if a semaphore has a positive value and decrement it if it does.<br/>
+		/// This function checks to see if the semaphore pointed to by `sem` has a<br/>
+		/// positive value and atomically decrements the semaphore value if it does. If<br/>
+		/// the semaphore doesn't have a positive value, the function immediately<br/>
+		/// returns false.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryWaitSemaphore")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryWaitSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
+		{
+			fixed (SDLSemaphore* psem = &sem)
+			{
+				byte ret = TryWaitSemaphoreNative((SDLSemaphore*)psem);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Wait until a semaphore has a positive value and then decrements it.<br/>
+		/// This function suspends the calling thread until either the semaphore<br/>
+		/// pointed to by `sem` has a positive value or the specified time has elapsed.<br/>
+		/// If the call is successful it will atomically decrement the semaphore value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitSemaphoreTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitSemaphoreTimeoutNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int, byte>)funcTable[251])(sem, timeoutMS);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[251])((nint)sem, timeoutMS);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait until a semaphore has a positive value and then decrements it.<br/>
+		/// This function suspends the calling thread until either the semaphore<br/>
+		/// pointed to by `sem` has a positive value or the specified time has elapsed.<br/>
+		/// If the call is successful it will atomically decrement the semaphore value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitSemaphoreTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitSemaphoreTimeout([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphorePtr sem, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			byte ret = WaitSemaphoreTimeoutNative((SDLSemaphore*)sem, timeoutMS);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Wait until a semaphore has a positive value and then decrements it.<br/>
+		/// This function suspends the calling thread until either the semaphore<br/>
+		/// pointed to by `sem` has a positive value or the specified time has elapsed.<br/>
+		/// If the call is successful it will atomically decrement the semaphore value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitSemaphoreTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitSemaphoreTimeout([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			fixed (SDLSemaphore* psem = &sem)
+			{
+				byte ret = WaitSemaphoreTimeoutNative((SDLSemaphore*)psem, timeoutMS);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Atomically increment a semaphore's value and wake waiting threads.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SignalSemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SignalSemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSemaphore*, void>)funcTable[252])(sem);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[252])((nint)sem);
+			#endif
+		}
+
+		/// <summary>
+		/// Atomically increment a semaphore's value and wake waiting threads.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SignalSemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SignalSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphorePtr sem)
+		{
+			SignalSemaphoreNative((SDLSemaphore*)sem);
+		}
+
+		/// <summary>
+		/// Atomically increment a semaphore's value and wake waiting threads.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SignalSemaphore")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SignalSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
+		{
+			fixed (SDLSemaphore* psem = &sem)
+			{
+				SignalSemaphoreNative((SDLSemaphore*)psem);
+			}
+		}
+
+		/// <summary>
+		/// Get the current value of a semaphore.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSemaphoreValue")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetSemaphoreValueNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, uint>)funcTable[253])(sem);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[253])((nint)sem);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current value of a semaphore.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSemaphoreValue")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetSemaphoreValue([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphorePtr sem)
+		{
+			uint ret = GetSemaphoreValueNative((SDLSemaphore*)sem);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current value of a semaphore.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSemaphoreValue")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetSemaphoreValue([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
+		{
+			fixed (SDLSemaphore* psem = &sem)
+			{
+				uint ret = GetSemaphoreValueNative((SDLSemaphore*)psem);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCondition")]
+		[return: NativeName(NativeNameType.Type, "SDL_Condition *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLCondition* CreateConditionNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCondition*>)funcTable[254])();
+			#else
+			return (SDLCondition*)((delegate* unmanaged[Cdecl]<nint>)funcTable[254])();
+			#endif
+		}
+
+		/// <summary>
+		/// Create a condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateCondition")]
+		[return: NativeName(NativeNameType.Type, "SDL_Condition *")]
+		public static SDLConditionPtr CreateCondition()
+		{
+			SDLConditionPtr ret = CreateConditionNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Destroy a condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyConditionNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLCondition*, void>)funcTable[255])(cond);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[255])((nint)cond);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroy a condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLConditionPtr cond)
+		{
+			DestroyConditionNative((SDLCondition*)cond);
+		}
+
+		/// <summary>
+		/// Destroy a condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond)
+		{
+			fixed (SDLCondition* pcond = &cond)
+			{
+				DestroyConditionNative((SDLCondition*)pcond);
+			}
+		}
+
+		/// <summary>
+		/// Restart one of the threads that are waiting on the condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SignalCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SignalConditionNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLCondition*, void>)funcTable[256])(cond);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[256])((nint)cond);
+			#endif
+		}
+
+		/// <summary>
+		/// Restart one of the threads that are waiting on the condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SignalCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SignalCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLConditionPtr cond)
+		{
+			SignalConditionNative((SDLCondition*)cond);
+		}
+
+		/// <summary>
+		/// Restart one of the threads that are waiting on the condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SignalCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SignalCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond)
+		{
+			fixed (SDLCondition* pcond = &cond)
+			{
+				SignalConditionNative((SDLCondition*)pcond);
+			}
+		}
+
+		/// <summary>
+		/// Restart all threads that are waiting on the condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BroadcastCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void BroadcastConditionNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLCondition*, void>)funcTable[257])(cond);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[257])((nint)cond);
+			#endif
+		}
+
+		/// <summary>
+		/// Restart all threads that are waiting on the condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BroadcastCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BroadcastCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLConditionPtr cond)
+		{
+			BroadcastConditionNative((SDLCondition*)cond);
+		}
+
+		/// <summary>
+		/// Restart all threads that are waiting on the condition variable.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_BroadcastCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void BroadcastCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond)
+		{
+			fixed (SDLCondition* pcond = &cond)
+			{
+				BroadcastConditionNative((SDLCondition*)pcond);
+			}
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
+		/// re-locked and the function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
+		/// a time length of -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void WaitConditionNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLCondition*, SDLMutex*, void>)funcTable[258])(cond, mutex);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[258])((nint)cond, (nint)mutex);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
+		/// re-locked and the function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
+		/// a time length of -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLConditionPtr cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutexPtr mutex)
+		{
+			WaitConditionNative((SDLCondition*)cond, (SDLMutex*)mutex);
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
+		/// re-locked and the function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
+		/// a time length of -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutexPtr mutex)
+		{
+			fixed (SDLCondition* pcond = &cond)
+			{
+				WaitConditionNative((SDLCondition*)pcond, (SDLMutex*)mutex);
+			}
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
+		/// re-locked and the function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
+		/// a time length of -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLConditionPtr cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex)
+		{
+			fixed (SDLMutex* pmutex = &mutex)
+			{
+				WaitConditionNative((SDLCondition*)cond, (SDLMutex*)pmutex);
+			}
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
+		/// re-locked and the function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
+		/// a time length of -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void WaitCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex)
+		{
+			fixed (SDLCondition* pcond = &cond)
+			{
+				fixed (SDLMutex* pmutex = &mutex)
+				{
+					WaitConditionNative((SDLCondition*)pcond, (SDLMutex*)pmutex);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
+		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
+		/// function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte WaitConditionTimeoutNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLCondition*, SDLMutex*, int, byte>)funcTable[259])(cond, mutex, timeoutMS);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, int, byte>)funcTable[259])((nint)cond, (nint)mutex, timeoutMS);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
+		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
+		/// function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitConditionTimeout([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLConditionPtr cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutexPtr mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			byte ret = WaitConditionTimeoutNative((SDLCondition*)cond, (SDLMutex*)mutex, timeoutMS);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
+		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
+		/// function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitConditionTimeout([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutexPtr mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			fixed (SDLCondition* pcond = &cond)
+			{
+				byte ret = WaitConditionTimeoutNative((SDLCondition*)pcond, (SDLMutex*)mutex, timeoutMS);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
+		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
+		/// function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitConditionTimeout([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLConditionPtr cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			fixed (SDLMutex* pmutex = &mutex)
+			{
+				byte ret = WaitConditionTimeoutNative((SDLCondition*)cond, (SDLMutex*)pmutex, timeoutMS);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
+		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
+		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
+		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
+		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
+		/// function returns.<br/>
+		/// The mutex must be locked before calling this function. Locking the mutex<br/>
+		/// recursively (more than once) is not supported and leads to undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitConditionTimeout([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		{
+			fixed (SDLCondition* pcond = &cond)
+			{
+				fixed (SDLMutex* pmutex = &mutex)
+				{
+					byte ret = WaitConditionTimeoutNative((SDLCondition*)pcond, (SDLMutex*)pmutex, timeoutMS);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Return whether initialization should be done.<br/>
+		/// This function checks the passed in state and if initialization should be<br/>
+		/// done, sets the status to `SDL_INIT_STATUS_INITIALIZING` and returns true.<br/>
+		/// If another thread is already modifying this state, it will wait until<br/>
+		/// that's done before returning.<br/>
+		/// If this function returns true, the calling code must call<br/>
+		/// SDL_SetInitialized() to complete the initialization.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShouldInit")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ShouldInitNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] SDLInitState* state)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLInitState*, byte>)funcTable[260])(state);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[260])((nint)state);
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether initialization should be done.<br/>
+		/// This function checks the passed in state and if initialization should be<br/>
+		/// done, sets the status to `SDL_INIT_STATUS_INITIALIZING` and returns true.<br/>
+		/// If another thread is already modifying this state, it will wait until<br/>
+		/// that's done before returning.<br/>
+		/// If this function returns true, the calling code must call<br/>
+		/// SDL_SetInitialized() to complete the initialization.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShouldInit")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ShouldInit([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] SDLInitStatePtr state)
+		{
+			byte ret = ShouldInitNative((SDLInitState*)state);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Return whether initialization should be done.<br/>
+		/// This function checks the passed in state and if initialization should be<br/>
+		/// done, sets the status to `SDL_INIT_STATUS_INITIALIZING` and returns true.<br/>
+		/// If another thread is already modifying this state, it will wait until<br/>
+		/// that's done before returning.<br/>
+		/// If this function returns true, the calling code must call<br/>
+		/// SDL_SetInitialized() to complete the initialization.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShouldInit")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ShouldInit([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] ref SDLInitState state)
+		{
+			fixed (SDLInitState* pstate = &state)
+			{
+				byte ret = ShouldInitNative((SDLInitState*)pstate);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Return whether cleanup should be done.<br/>
+		/// This function checks the passed in state and if cleanup should be done,<br/>
+		/// sets the status to `SDL_INIT_STATUS_UNINITIALIZING` and returns true.<br/>
+		/// If this function returns true, the calling code must call<br/>
+		/// SDL_SetInitialized() to complete the cleanup.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShouldQuit")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ShouldQuitNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] SDLInitState* state)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLInitState*, byte>)funcTable[261])(state);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[261])((nint)state);
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether cleanup should be done.<br/>
+		/// This function checks the passed in state and if cleanup should be done,<br/>
+		/// sets the status to `SDL_INIT_STATUS_UNINITIALIZING` and returns true.<br/>
+		/// If this function returns true, the calling code must call<br/>
+		/// SDL_SetInitialized() to complete the cleanup.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShouldQuit")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ShouldQuit([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] SDLInitStatePtr state)
+		{
+			byte ret = ShouldQuitNative((SDLInitState*)state);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Return whether cleanup should be done.<br/>
+		/// This function checks the passed in state and if cleanup should be done,<br/>
+		/// sets the status to `SDL_INIT_STATUS_UNINITIALIZING` and returns true.<br/>
+		/// If this function returns true, the calling code must call<br/>
+		/// SDL_SetInitialized() to complete the cleanup.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ShouldQuit")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ShouldQuit([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] ref SDLInitState state)
+		{
+			fixed (SDLInitState* pstate = &state)
+			{
+				byte ret = ShouldQuitNative((SDLInitState*)pstate);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Finish an initialization state transition.<br/>
+		/// This function sets the status of the passed in state to<br/>
+		/// `SDL_INIT_STATUS_INITIALIZED` or `SDL_INIT_STATUS_UNINITIALIZED` and allows<br/>
+		/// any threads waiting for the status to proceed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetInitialized")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetInitializedNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] SDLInitState* state, [NativeName(NativeNameType.Param, "initialized")] [NativeName(NativeNameType.Type, "bool")] byte initialized)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLInitState*, byte, void>)funcTable[262])(state, initialized);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, byte, void>)funcTable[262])((nint)state, initialized);
+			#endif
+		}
+
+		/// <summary>
+		/// Finish an initialization state transition.<br/>
+		/// This function sets the status of the passed in state to<br/>
+		/// `SDL_INIT_STATUS_INITIALIZED` or `SDL_INIT_STATUS_UNINITIALIZED` and allows<br/>
+		/// any threads waiting for the status to proceed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetInitialized")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetInitialized([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] SDLInitStatePtr state, [NativeName(NativeNameType.Param, "initialized")] [NativeName(NativeNameType.Type, "bool")] bool initialized)
+		{
+			SetInitializedNative((SDLInitState*)state, initialized ? (byte)1 : (byte)0);
+		}
+
+		/// <summary>
+		/// Finish an initialization state transition.<br/>
+		/// This function sets the status of the passed in state to<br/>
+		/// `SDL_INIT_STATUS_INITIALIZED` or `SDL_INIT_STATUS_UNINITIALIZED` and allows<br/>
+		/// any threads waiting for the status to proceed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetInitialized")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetInitialized([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDL_InitState *")] ref SDLInitState state, [NativeName(NativeNameType.Param, "initialized")] [NativeName(NativeNameType.Type, "bool")] bool initialized)
+		{
+			fixed (SDLInitState* pstate = &state)
+			{
+				SetInitializedNative((SDLInitState*)pstate, initialized ? (byte)1 : (byte)0);
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLIOStream* IOFromFileNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLIOStream*>)funcTable[263])(file, mode);
+			#else
+			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[263])((nint)file, (nint)mode);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
+		{
+			SDLIOStreamPtr ret = IOFromFileNative(file, mode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
+		{
+			fixed (byte* pfile = &file)
+			{
+				SDLIOStreamPtr ret = IOFromFileNative((byte*)pfile, mode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
+		{
+			fixed (byte* pfile = file)
+			{
+				SDLIOStreamPtr ret = IOFromFileNative((byte*)pfile, mode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLIOStreamPtr ret = IOFromFileNative(pStr0, mode);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] in byte mode)
+		{
+			fixed (byte* pmode = &mode)
+			{
+				SDLIOStreamPtr ret = IOFromFileNative(file, (byte*)pmode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> mode)
+		{
+			fixed (byte* pmode = mode)
+			{
+				SDLIOStreamPtr ret = IOFromFileNative(file, (byte*)pmode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] string mode)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (mode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(mode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(mode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLIOStreamPtr ret = IOFromFileNative(file, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] in byte file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] in byte mode)
+		{
+			fixed (byte* pfile = &file)
+			{
+				fixed (byte* pmode = &mode)
+				{
+					SDLIOStreamPtr ret = IOFromFileNative((byte*)pfile, (byte*)pmode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> mode)
+		{
+			fixed (byte* pfile = file)
+			{
+				fixed (byte* pmode = mode)
+				{
+					SDLIOStreamPtr ret = IOFromFileNative((byte*)pfile, (byte*)pmode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
+		/// and/or writing to a named file.<br/>
+		/// The `mode` string is treated roughly the same as in a call to the C<br/>
+		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
+		/// scenes.<br/>
+		/// Available `mode` strings:<br/>
+		/// - "r": Open a file for reading. The file must exist.<br/>
+		/// - "w": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists its content is erased and the file is treated as a new<br/>
+		/// empty file.<br/>
+		/// - "wx": Create an empty file for writing. If a file with the same name<br/>
+		/// already exists, the call fails.<br/>
+		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
+		/// file. The file is created if it does not exist.<br/>
+		/// - "r+": Open a file for update both reading and writing. The file must<br/>
+		/// exist.<br/>
+		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists its content is erased and the file is<br/>
+		/// treated as a new empty file.<br/>
+		/// - "w+x": Create an empty file for both reading and writing. If a file with<br/>
+		/// the same name already exists, the call fails.<br/>
+		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
+		/// performed at the end of the file, protecting the previous content to be<br/>
+		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
+		/// anywhere in the file for reading, but writing operations will move it<br/>
+		/// back to the end of file. The file is created if it does not exist.<br/>
+		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
+		/// be included in the `mode` string. This additional "b" character can either<br/>
+		/// be appended at the end of the string (thus making the following compound<br/>
+		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
+		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
+		/// Additional characters may follow the sequence, although they should have no<br/>
+		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
+		/// a text file.<br/>
+		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
+		/// format, regardless of the underlying operating system.<br/>
+		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
+		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
+		/// the app's `assets`.<br/>
+		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
+		/// The following properties may be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
+		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
+		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
+		/// other method to access the filesystem, this property will not be set.<br/>
+		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
+		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
+		/// If SDL used some other method to access the filesystem, this property<br/>
+		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
+		/// than your app, trying to use this pointer will almost certainly result in<br/>
+		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
+		/// your app with the same compiler and settings to avoid it.<br/>
+		/// - `SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER`: a file descriptor that this<br/>
+		/// SDL_IOStream is using to access the filesystem.<br/>
+		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
+		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
+		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
+		/// this property will not be set.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] string mode)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (file != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(file);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (mode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(mode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(mode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			SDLIOStreamPtr ret = IOFromFileNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-write memory buffer for use with<br/>
+		/// SDL_IOStream.<br/>
+		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
+		/// certain size, for both read and write access.<br/>
+		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
+		/// provide must remain valid until you close the stream.<br/>
+		/// If you need to make sure the SDL_IOStream never writes to the memory<br/>
+		/// buffer, you should use SDL_IOFromConstMem() with a read-only buffer of<br/>
+		/// memory instead.<br/>
+		/// The following properties will be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
+		/// was passed to this function.<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
+		/// that was passed to this function.<br/>
+		/// Additionally, the following properties are recognized:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER`: if this property is set to<br/>
+		/// a non-NULL value it will be interpreted as a function of SDL_free_func<br/>
+		/// type and called with the passed `mem` pointer when closing the stream. By<br/>
+		/// default it is unset, i.e., the memory will not be freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromMem")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLIOStream* IOFromMemNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, nuint, SDLIOStream*>)funcTable[264])(mem, size);
+			#else
+			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[264])((nint)mem, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-write memory buffer for use with<br/>
+		/// SDL_IOStream.<br/>
+		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
+		/// certain size, for both read and write access.<br/>
+		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
+		/// provide must remain valid until you close the stream.<br/>
+		/// If you need to make sure the SDL_IOStream never writes to the memory<br/>
+		/// buffer, you should use SDL_IOFromConstMem() with a read-only buffer of<br/>
+		/// memory instead.<br/>
+		/// The following properties will be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
+		/// was passed to this function.<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
+		/// that was passed to this function.<br/>
+		/// Additionally, the following properties are recognized:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER`: if this property is set to<br/>
+		/// a non-NULL value it will be interpreted as a function of SDL_free_func<br/>
+		/// type and called with the passed `mem` pointer when closing the stream. By<br/>
+		/// default it is unset, i.e., the memory will not be freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromMem")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromMem([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			SDLIOStreamPtr ret = IOFromMemNative(mem, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-write memory buffer for use with<br/>
+		/// SDL_IOStream.<br/>
+		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
+		/// certain size, for both read and write access.<br/>
+		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
+		/// provide must remain valid until you close the stream.<br/>
+		/// If you need to make sure the SDL_IOStream never writes to the memory<br/>
+		/// buffer, you should use SDL_IOFromConstMem() with a read-only buffer of<br/>
+		/// memory instead.<br/>
+		/// The following properties will be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
+		/// was passed to this function.<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
+		/// that was passed to this function.<br/>
+		/// Additionally, the following properties are recognized:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER`: if this property is set to<br/>
+		/// a non-NULL value it will be interpreted as a function of SDL_free_func<br/>
+		/// type and called with the passed `mem` pointer when closing the stream. By<br/>
+		/// default it is unset, i.e., the memory will not be freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromMem")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromMem([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] nint mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			SDLIOStreamPtr ret = IOFromMemNative((void*)mem, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-only memory buffer for use with<br/>
+		/// SDL_IOStream.<br/>
+		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
+		/// certain size. It assumes the memory area is not writable.<br/>
+		/// Attempting to write to this SDL_IOStream stream will report an error<br/>
+		/// without writing to the memory buffer.<br/>
+		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
+		/// provide must remain valid until you close the stream.<br/>
+		/// If you need to write to a memory buffer, you should use SDL_IOFromMem()<br/>
+		/// with a writable buffer of memory instead.<br/>
+		/// The following properties will be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
+		/// was passed to this function.<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
+		/// that was passed to this function.<br/>
+		/// Additionally, the following properties are recognized:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER`: if this property is set to<br/>
+		/// a non-NULL value it will be interpreted as a function of SDL_free_func<br/>
+		/// type and called with the passed `mem` pointer when closing the stream. By<br/>
+		/// default it is unset, i.e., the memory will not be freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromConstMem")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLIOStream* IOFromConstMemNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void const *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, nuint, SDLIOStream*>)funcTable[265])(mem, size);
+			#else
+			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[265])((nint)mem, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-only memory buffer for use with<br/>
+		/// SDL_IOStream.<br/>
+		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
+		/// certain size. It assumes the memory area is not writable.<br/>
+		/// Attempting to write to this SDL_IOStream stream will report an error<br/>
+		/// without writing to the memory buffer.<br/>
+		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
+		/// provide must remain valid until you close the stream.<br/>
+		/// If you need to write to a memory buffer, you should use SDL_IOFromMem()<br/>
+		/// with a writable buffer of memory instead.<br/>
+		/// The following properties will be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
+		/// was passed to this function.<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
+		/// that was passed to this function.<br/>
+		/// Additionally, the following properties are recognized:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER`: if this property is set to<br/>
+		/// a non-NULL value it will be interpreted as a function of SDL_free_func<br/>
+		/// type and called with the passed `mem` pointer when closing the stream. By<br/>
+		/// default it is unset, i.e., the memory will not be freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromConstMem")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromConstMem([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void const *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			SDLIOStreamPtr ret = IOFromConstMemNative(mem, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to prepare a read-only memory buffer for use with<br/>
+		/// SDL_IOStream.<br/>
+		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
+		/// certain size. It assumes the memory area is not writable.<br/>
+		/// Attempting to write to this SDL_IOStream stream will report an error<br/>
+		/// without writing to the memory buffer.<br/>
+		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
+		/// provide must remain valid until you close the stream.<br/>
+		/// If you need to write to a memory buffer, you should use SDL_IOFromMem()<br/>
+		/// with a writable buffer of memory instead.<br/>
+		/// The following properties will be set at creation time by SDL:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_POINTER`: this will be the `mem` parameter that<br/>
+		/// was passed to this function.<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter<br/>
+		/// that was passed to this function.<br/>
+		/// Additionally, the following properties are recognized:<br/>
+		/// - `SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER`: if this property is set to<br/>
+		/// a non-NULL value it will be interpreted as a function of SDL_free_func<br/>
+		/// type and called with the passed `mem` pointer when closing the stream. By<br/>
+		/// default it is unset, i.e., the memory will not be freed.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromConstMem")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromConstMem([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void const *")] nint mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			SDLIOStreamPtr ret = IOFromConstMemNative((void*)mem, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to create an SDL_IOStream that is backed by dynamically<br/>
+		/// allocated memory.<br/>
+		/// This supports the following properties to provide access to the memory and<br/>
+		/// control over allocations:<br/>
+		/// - `SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER`: a pointer to the internal<br/>
+		/// memory of the stream. This can be set to NULL to transfer ownership of<br/>
+		/// the memory to the application, which should free the memory with<br/>
+		/// SDL_free(). If this is done, the next operation on the stream must be<br/>
+		/// SDL_CloseIO().<br/>
+		/// - `SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER`: memory will be allocated in<br/>
+		/// multiples of this size, defaulting to 1024.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromDynamicMem")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLIOStream* IOFromDynamicMemNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*>)funcTable[266])();
+			#else
+			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint>)funcTable[266])();
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to create an SDL_IOStream that is backed by dynamically<br/>
+		/// allocated memory.<br/>
+		/// This supports the following properties to provide access to the memory and<br/>
+		/// control over allocations:<br/>
+		/// - `SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER`: a pointer to the internal<br/>
+		/// memory of the stream. This can be set to NULL to transfer ownership of<br/>
+		/// the memory to the application, which should free the memory with<br/>
+		/// SDL_free(). If this is done, the next operation on the stream must be<br/>
+		/// SDL_CloseIO().<br/>
+		/// - `SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER`: memory will be allocated in<br/>
+		/// multiples of this size, defaulting to 1024.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_IOFromDynamicMem")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr IOFromDynamicMem()
+		{
+			SDLIOStreamPtr ret = IOFromDynamicMemNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a custom SDL_IOStream.<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_IOStream implementation. If you just need an SDL_IOStream to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.<br/>
+		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
+		/// it around after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenIO")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLIOStream* OpenIONative([NativeName(NativeNameType.Param, "iface")] [NativeName(NativeNameType.Type, "SDL_IOStreamInterface const *")] SDLIOStreamInterface* iface, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStreamInterface*, void*, SDLIOStream*>)funcTable[267])(iface, userdata);
+			#else
+			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[267])((nint)iface, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a custom SDL_IOStream.<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_IOStream implementation. If you just need an SDL_IOStream to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.<br/>
+		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
+		/// it around after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenIO")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr OpenIO([NativeName(NativeNameType.Param, "iface")] [NativeName(NativeNameType.Type, "SDL_IOStreamInterface const *")] SDLIOStreamInterfacePtr iface, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			SDLIOStreamPtr ret = OpenIONative((SDLIOStreamInterface*)iface, userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a custom SDL_IOStream.<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_IOStream implementation. If you just need an SDL_IOStream to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.<br/>
+		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
+		/// it around after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenIO")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr OpenIO([NativeName(NativeNameType.Param, "iface")] [NativeName(NativeNameType.Type, "SDL_IOStreamInterface const *")] in SDLIOStreamInterface iface, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			fixed (SDLIOStreamInterface* piface = &iface)
+			{
+				SDLIOStreamPtr ret = OpenIONative((SDLIOStreamInterface*)piface, userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a custom SDL_IOStream.<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_IOStream implementation. If you just need an SDL_IOStream to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.<br/>
+		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
+		/// it around after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenIO")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr OpenIO([NativeName(NativeNameType.Param, "iface")] [NativeName(NativeNameType.Type, "SDL_IOStreamInterface const *")] SDLIOStreamInterfacePtr iface, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			SDLIOStreamPtr ret = OpenIONative((SDLIOStreamInterface*)iface, (void*)userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a custom SDL_IOStream.<br/>
+		/// Applications do not need to use this function unless they are providing<br/>
+		/// their own SDL_IOStream implementation. If you just need an SDL_IOStream to<br/>
+		/// read/write a common data source, you should use the built-in<br/>
+		/// implementations in SDL, like SDL_IOFromFile() or SDL_IOFromMem(), etc.<br/>
+		/// This function makes a copy of `iface` and the caller does not need to keep<br/>
+		/// it around after this call.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OpenIO")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
+		public static SDLIOStreamPtr OpenIO([NativeName(NativeNameType.Param, "iface")] [NativeName(NativeNameType.Type, "SDL_IOStreamInterface const *")] in SDLIOStreamInterface iface, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata)
+		{
+			fixed (SDLIOStreamInterface* piface = &iface)
+			{
+				SDLIOStreamPtr ret = OpenIONative((SDLIOStreamInterface*)piface, (void*)userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Close and free an allocated SDL_IOStream structure.<br/>
+		/// SDL_CloseIO() closes and cleans up the SDL_IOStream stream. It releases any<br/>
+		/// resources used by the stream and frees the SDL_IOStream itself. This<br/>
+		/// returns true on success, or false if the stream failed to flush to its<br/>
+		/// output (e.g. to disk).<br/>
+		/// Note that if this fails to flush the stream for any reason, this function<br/>
+		/// reports an error, but the SDL_IOStream is still invalid once this function<br/>
+		/// returns.<br/>
+		/// This call flushes any buffered writes to the operating system, but there<br/>
+		/// are no guarantees that those writes have gone to physical media; they might<br/>
+		/// be in the OS's file cache, waiting to go to disk later. If it's absolutely<br/>
+		/// crucial that writes go to disk immediately, so they are definitely stored<br/>
+		/// even if the power fails before the file cache would have caught up, one<br/>
+		/// should call SDL_FlushIO() before closing. Note that flushing takes time and<br/>
+		/// makes the system and your app operate less efficiently, so do so sparingly.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseIO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CloseIONative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, byte>)funcTable[268])(context);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[268])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Close and free an allocated SDL_IOStream structure.<br/>
+		/// SDL_CloseIO() closes and cleans up the SDL_IOStream stream. It releases any<br/>
+		/// resources used by the stream and frees the SDL_IOStream itself. This<br/>
+		/// returns true on success, or false if the stream failed to flush to its<br/>
+		/// output (e.g. to disk).<br/>
+		/// Note that if this fails to flush the stream for any reason, this function<br/>
+		/// reports an error, but the SDL_IOStream is still invalid once this function<br/>
+		/// returns.<br/>
+		/// This call flushes any buffered writes to the operating system, but there<br/>
+		/// are no guarantees that those writes have gone to physical media; they might<br/>
+		/// be in the OS's file cache, waiting to go to disk later. If it's absolutely<br/>
+		/// crucial that writes go to disk immediately, so they are definitely stored<br/>
+		/// even if the power fails before the file cache would have caught up, one<br/>
+		/// should call SDL_FlushIO() before closing. Note that flushing takes time and<br/>
+		/// makes the system and your app operate less efficiently, so do so sparingly.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseIO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CloseIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context)
+		{
+			byte ret = CloseIONative((SDLIOStream*)context);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Close and free an allocated SDL_IOStream structure.<br/>
+		/// SDL_CloseIO() closes and cleans up the SDL_IOStream stream. It releases any<br/>
+		/// resources used by the stream and frees the SDL_IOStream itself. This<br/>
+		/// returns true on success, or false if the stream failed to flush to its<br/>
+		/// output (e.g. to disk).<br/>
+		/// Note that if this fails to flush the stream for any reason, this function<br/>
+		/// reports an error, but the SDL_IOStream is still invalid once this function<br/>
+		/// returns.<br/>
+		/// This call flushes any buffered writes to the operating system, but there<br/>
+		/// are no guarantees that those writes have gone to physical media; they might<br/>
+		/// be in the OS's file cache, waiting to go to disk later. If it's absolutely<br/>
+		/// crucial that writes go to disk immediately, so they are definitely stored<br/>
+		/// even if the power fails before the file cache would have caught up, one<br/>
+		/// should call SDL_FlushIO() before closing. Note that flushing takes time and<br/>
+		/// makes the system and your app operate less efficiently, so do so sparingly.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CloseIO")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CloseIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream context)
+		{
+			fixed (SDLIOStream* pcontext = &context)
+			{
+				byte ret = CloseIONative((SDLIOStream*)pcontext);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get the properties associated with an SDL_IOStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetIOPropertiesNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, uint>)funcTable[269])(context);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[269])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the properties associated with an SDL_IOStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetIOProperties([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context)
+		{
+			uint ret = GetIOPropertiesNative((SDLIOStream*)context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the properties associated with an SDL_IOStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_PropertiesID")]
+		public static uint GetIOProperties([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream context)
+		{
+			fixed (SDLIOStream* pcontext = &context)
+			{
+				uint ret = GetIOPropertiesNative((SDLIOStream*)pcontext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the stream status of an SDL_IOStream.<br/>
+		/// This information can be useful to decide if a short read or write was due<br/>
+		/// to an error, an EOF, or a non-blocking operation that isn't yet ready to<br/>
+		/// complete.<br/>
+		/// An SDL_IOStream's status is only expected to change after a SDL_ReadIO or<br/>
+		/// SDL_WriteIO call; don't expect it to change if you just call this query<br/>
+		/// function in a tight loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOStatus")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStatus")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLIOStatus GetIOStatusNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, SDLIOStatus>)funcTable[270])(context);
+			#else
+			return (SDLIOStatus)((delegate* unmanaged[Cdecl]<nint, SDLIOStatus>)funcTable[270])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Query the stream status of an SDL_IOStream.<br/>
+		/// This information can be useful to decide if a short read or write was due<br/>
+		/// to an error, an EOF, or a non-blocking operation that isn't yet ready to<br/>
+		/// complete.<br/>
+		/// An SDL_IOStream's status is only expected to change after a SDL_ReadIO or<br/>
+		/// SDL_WriteIO call; don't expect it to change if you just call this query<br/>
+		/// function in a tight loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOStatus")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStatus")]
+		public static SDLIOStatus GetIOStatus([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context)
+		{
+			SDLIOStatus ret = GetIOStatusNative((SDLIOStream*)context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query the stream status of an SDL_IOStream.<br/>
+		/// This information can be useful to decide if a short read or write was due<br/>
+		/// to an error, an EOF, or a non-blocking operation that isn't yet ready to<br/>
+		/// complete.<br/>
+		/// An SDL_IOStream's status is only expected to change after a SDL_ReadIO or<br/>
+		/// SDL_WriteIO call; don't expect it to change if you just call this query<br/>
+		/// function in a tight loop.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOStatus")]
+		[return: NativeName(NativeNameType.Type, "SDL_IOStatus")]
+		public static SDLIOStatus GetIOStatus([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream context)
+		{
+			fixed (SDLIOStream* pcontext = &context)
+			{
+				SDLIOStatus ret = GetIOStatusNative((SDLIOStream*)pcontext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to get the size of the data stream in an SDL_IOStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOSize")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long GetIOSizeNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long>)funcTable[271])(context);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[271])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to get the size of the data stream in an SDL_IOStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOSize")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long GetIOSize([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context)
+		{
+			long ret = GetIOSizeNative((SDLIOStream*)context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to get the size of the data stream in an SDL_IOStream.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetIOSize")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long GetIOSize([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream context)
+		{
+			fixed (SDLIOStream* pcontext = &context)
+			{
+				long ret = GetIOSizeNative((SDLIOStream*)pcontext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Seek within an SDL_IOStream data stream.<br/>
+		/// This function seeks to byte `offset`, relative to `whence`.<br/>
+		/// `whence` may be any of the following values:<br/>
+		/// - `SDL_IO_SEEK_SET`: seek from the beginning of data<br/>
+		/// - `SDL_IO_SEEK_CUR`: seek relative to current read point<br/>
+		/// - `SDL_IO_SEEK_END`: seek relative to the end of data<br/>
+		/// If this stream can not seek, it will return -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SeekIO")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long SeekIONative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* context, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Sint64")] long offset, [NativeName(NativeNameType.Param, "whence")] [NativeName(NativeNameType.Type, "SDL_IOWhence")] SDLIOWhence whence)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long, SDLIOWhence, long>)funcTable[272])(context, offset, whence);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<nint, long, SDLIOWhence, long>)funcTable[272])((nint)context, offset, whence);
+			#endif
+		}
+
+		/// <summary>
+		/// Seek within an SDL_IOStream data stream.<br/>
+		/// This function seeks to byte `offset`, relative to `whence`.<br/>
+		/// `whence` may be any of the following values:<br/>
+		/// - `SDL_IO_SEEK_SET`: seek from the beginning of data<br/>
+		/// - `SDL_IO_SEEK_CUR`: seek relative to current read point<br/>
+		/// - `SDL_IO_SEEK_END`: seek relative to the end of data<br/>
+		/// If this stream can not seek, it will return -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SeekIO")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long SeekIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Sint64")] long offset, [NativeName(NativeNameType.Param, "whence")] [NativeName(NativeNameType.Type, "SDL_IOWhence")] SDLIOWhence whence)
+		{
+			long ret = SeekIONative((SDLIOStream*)context, offset, whence);
+			return ret;
+		}
+
+		/// <summary>
+		/// Seek within an SDL_IOStream data stream.<br/>
+		/// This function seeks to byte `offset`, relative to `whence`.<br/>
+		/// `whence` may be any of the following values:<br/>
+		/// - `SDL_IO_SEEK_SET`: seek from the beginning of data<br/>
+		/// - `SDL_IO_SEEK_CUR`: seek relative to current read point<br/>
+		/// - `SDL_IO_SEEK_END`: seek relative to the end of data<br/>
+		/// If this stream can not seek, it will return -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SeekIO")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long SeekIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream context, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Sint64")] long offset, [NativeName(NativeNameType.Param, "whence")] [NativeName(NativeNameType.Type, "SDL_IOWhence")] SDLIOWhence whence)
+		{
+			fixed (SDLIOStream* pcontext = &context)
+			{
+				long ret = SeekIONative((SDLIOStream*)pcontext, offset, whence);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine the current read/write offset in an SDL_IOStream data stream.<br/>
+		/// SDL_TellIO is actually a wrapper function that calls the SDL_IOStream's<br/>
+		/// `seek` method, with an offset of 0 bytes from `SDL_IO_SEEK_CUR`, to<br/>
+		/// simplify application development.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TellIO")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static long TellIONative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, long>)funcTable[273])(context);
+			#else
+			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[273])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Determine the current read/write offset in an SDL_IOStream data stream.<br/>
+		/// SDL_TellIO is actually a wrapper function that calls the SDL_IOStream's<br/>
+		/// `seek` method, with an offset of 0 bytes from `SDL_IO_SEEK_CUR`, to<br/>
+		/// simplify application development.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TellIO")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long TellIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context)
+		{
+			long ret = TellIONative((SDLIOStream*)context);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine the current read/write offset in an SDL_IOStream data stream.<br/>
+		/// SDL_TellIO is actually a wrapper function that calls the SDL_IOStream's<br/>
+		/// `seek` method, with an offset of 0 bytes from `SDL_IO_SEEK_CUR`, to<br/>
+		/// simplify application development.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TellIO")]
+		[return: NativeName(NativeNameType.Type, "Sint64")]
+		public static long TellIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream context)
+		{
+			fixed (SDLIOStream* pcontext = &context)
+			{
+				long ret = TellIONative((SDLIOStream*)pcontext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up `size` bytes from the data source to the area<br/>
+		/// pointed at by `ptr`. This function may read less bytes than requested.<br/>
+		/// This function will return zero when the data stream is completely read, and<br/>
+		/// SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and<br/>
+		/// the stream is not at EOF, SDL_GetIOStatus() will return a different error<br/>
+		/// value and SDL_GetError() will offer a human-readable message.<br/>
+		/// A request for zero bytes on a valid stream will return zero immediately<br/>
+		/// without accessing the stream, so the stream status (EOF, err, etc) will not<br/>
+		/// change.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadIO")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint ReadIONative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void *")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, void*, nuint, nuint>)funcTable[274])(context, ptr, size);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[274])((nint)context, (nint)ptr, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up `size` bytes from the data source to the area<br/>
+		/// pointed at by `ptr`. This function may read less bytes than requested.<br/>
+		/// This function will return zero when the data stream is completely read, and<br/>
+		/// SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and<br/>
+		/// the stream is not at EOF, SDL_GetIOStatus() will return a different error<br/>
+		/// value and SDL_GetError() will offer a human-readable message.<br/>
+		/// A request for zero bytes on a valid stream will return zero immediately<br/>
+		/// without accessing the stream, so the stream status (EOF, err, etc) will not<br/>
+		/// change.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadIO")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint ReadIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void *")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			nuint ret = ReadIONative((SDLIOStream*)context, ptr, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up `size` bytes from the data source to the area<br/>
+		/// pointed at by `ptr`. This function may read less bytes than requested.<br/>
+		/// This function will return zero when the data stream is completely read, and<br/>
+		/// SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and<br/>
+		/// the stream is not at EOF, SDL_GetIOStatus() will return a different error<br/>
+		/// value and SDL_GetError() will offer a human-readable message.<br/>
+		/// A request for zero bytes on a valid stream will return zero immediately<br/>
+		/// without accessing the stream, so the stream status (EOF, err, etc) will not<br/>
+		/// change.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadIO")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint ReadIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void *")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			fixed (SDLIOStream* pcontext = &context)
+			{
+				nuint ret = ReadIONative((SDLIOStream*)pcontext, ptr, size);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up `size` bytes from the data source to the area<br/>
+		/// pointed at by `ptr`. This function may read less bytes than requested.<br/>
+		/// This function will return zero when the data stream is completely read, and<br/>
+		/// SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and<br/>
+		/// the stream is not at EOF, SDL_GetIOStatus() will return a different error<br/>
+		/// value and SDL_GetError() will offer a human-readable message.<br/>
+		/// A request for zero bytes on a valid stream will return zero immediately<br/>
+		/// without accessing the stream, so the stream status (EOF, err, etc) will not<br/>
+		/// change.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadIO")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint ReadIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void *")] nint ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			nuint ret = ReadIONative((SDLIOStream*)context, (void*)ptr, size);
+			return ret;
+		}
+
+		/// <summary>
+		/// Read from a data source.<br/>
+		/// This function reads up `size` bytes from the data source to the area<br/>
+		/// pointed at by `ptr`. This function may read less bytes than requested.<br/>
+		/// This function will return zero when the data stream is completely read, and<br/>
+		/// SDL_GetIOStatus() will return SDL_IO_STATUS_EOF. If zero is returned and<br/>
+		/// the stream is not at EOF, SDL_GetIOStatus() will return a different error<br/>
+		/// value and SDL_GetError() will offer a human-readable message.<br/>
+		/// A request for zero bytes on a valid stream will return zero immediately<br/>
+		/// without accessing the stream, so the stream status (EOF, err, etc) will not<br/>
+		/// change.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ReadIO")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint ReadIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] ref SDLIOStream context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void *")] nint ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			fixed (SDLIOStream* pcontext = &context)
+			{
+				nuint ret = ReadIONative((SDLIOStream*)pcontext, (void*)ptr, size);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write to an SDL_IOStream data stream.<br/>
+		/// This function writes exactly `size` bytes from the area pointed at by `ptr`<br/>
+		/// to the stream. If this fails for any reason, it'll return less than `size`<br/>
+		/// to demonstrate how far the write progressed. On success, it returns `size`.<br/>
+		/// On error, this function still attempts to write as much as possible, so it<br/>
+		/// might return a positive value less than the requested write size.<br/>
+		/// The caller can use SDL_GetIOStatus() to determine if the problem is<br/>
+		/// recoverable, such as a non-blocking write that can simply be retried later,<br/>
+		/// or a fatal error.<br/>
+		/// A request for zero bytes on a valid stream will return zero immediately<br/>
+		/// without accessing the stream, so the stream status (EOF, err, etc) will not<br/>
+		/// change.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WriteIO")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteIONative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStream* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void const *")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIOStream*, void*, nuint, nuint>)funcTable[275])(context, ptr, size);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[275])((nint)context, (nint)ptr, size);
+			#endif
+		}
+
+		/// <summary>
+		/// Write to an SDL_IOStream data stream.<br/>
+		/// This function writes exactly `size` bytes from the area pointed at by `ptr`<br/>
+		/// to the stream. If this fails for any reason, it'll return less than `size`<br/>
+		/// to demonstrate how far the write progressed. On success, it returns `size`.<br/>
+		/// On error, this function still attempts to write as much as possible, so it<br/>
+		/// might return a positive value less than the requested write size.<br/>
+		/// The caller can use SDL_GetIOStatus() to determine if the problem is<br/>
+		/// recoverable, such as a non-blocking write that can simply be retried later,<br/>
+		/// or a fatal error.<br/>
+		/// A request for zero bytes on a valid stream will return zero immediately<br/>
+		/// without accessing the stream, so the stream status (EOF, err, etc) will not<br/>
+		/// change.<br/>
+		/// <br/>
+		/// <br/>
+		/// Do not use the same SDL_IOStream from two threads at once.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_WriteIO")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint WriteIO([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_IOStream *")] SDLIOStreamPtr context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void const *")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
+		{
+			nuint ret = WriteIONative((SDLIOStream*)context, ptr, size);
+			return ret;
 		}
 	}
 }

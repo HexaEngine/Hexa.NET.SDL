@@ -16,23 +16,31 @@ namespace Hexa.NET.SDL3
 	/// An enum that describes the type of a touch device.<br/>
 	/// <br/>
 	/// </summary>
-	[Flags]
+	[NativeName(NativeNameType.Enum, "SDL_TouchDeviceType")]
 	public enum SDLTouchDeviceType : int
 	{
+		[NativeName(NativeNameType.EnumItem, "SDL_TOUCH_DEVICE_INVALID")]
+		[NativeName(NativeNameType.Value, "-1")]
 		Invalid = unchecked(-1),
 		/// <summary>
 		/// touch screen with window-relative coordinates <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_TOUCH_DEVICE_DIRECT")]
+		[NativeName(NativeNameType.Value, "0")]
 		Direct = unchecked(0),
 
 		/// <summary>
 		/// trackpad with absolute device coordinates <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE")]
+		[NativeName(NativeNameType.Value, "1")]
 		IndirectAbsolute = unchecked(1),
 
 		/// <summary>
 		/// trackpad with screen cursor-relative coordinates <br/>
 		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_TOUCH_DEVICE_INDIRECT_RELATIVE")]
+		[NativeName(NativeNameType.Value, "2")]
 		IndirectRelative = unchecked(2),
 	}
 }

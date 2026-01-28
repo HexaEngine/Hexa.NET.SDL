@@ -18,6 +18,3420 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] byte* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] byte* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			int ret = StrncasecmpNative(str1, str2, maxlen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] in byte str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] byte* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr1 = &str1)
+			{
+				int ret = StrncasecmpNative((byte*)pstr1, str2, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] byte* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr1 = str1)
+			{
+				int ret = StrncasecmpNative((byte*)pstr1, str2, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] byte* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = StrncasecmpNative(pStr0, str2, maxlen);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] byte* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] in byte str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr2 = &str2)
+			{
+				int ret = StrncasecmpNative(str1, (byte*)pstr2, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] byte* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr2 = str2)
+			{
+				int ret = StrncasecmpNative(str1, (byte*)pstr2, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] byte* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str2 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str2);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str2, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = StrncasecmpNative(str1, pStr0, maxlen);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] in byte str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] in byte str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr1 = &str1)
+			{
+				fixed (byte* pstr2 = &str2)
+				{
+					int ret = StrncasecmpNative((byte*)pstr1, (byte*)pstr2, maxlen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (byte* pstr1 = str1)
+			{
+				fixed (byte* pstr2 = str2)
+				{
+					int ret = StrncasecmpNative((byte*)pstr1, (byte*)pstr2, maxlen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Compare two UTF-8 strings, case-insensitively, up to a number of bytes.<br/>
+		/// This will work with Unicode strings, using a technique called<br/>
+		/// "case-folding" to handle the vast majority of case-sensitive human<br/>
+		/// languages regardless of system locale. It can deal with expanding values: a<br/>
+		/// German Eszett character can compare against two ASCII 's' chars and be<br/>
+		/// considered a match, for example. A notable exception: it does not handle<br/>
+		/// the Turkish 'i' character; human language is complicated!<br/>
+		/// Since this handles Unicode, it expects the string to be well-formed UTF-8<br/>
+		/// and not a null-terminated string of arbitrary bytes. Bytes that are not<br/>
+		/// valid UTF-8 are treated as Unicode character U+FFFD (REPLACEMENT<br/>
+		/// CHARACTER), which is to say two strings of random bits may turn out to<br/>
+		/// match if they convert to the same amount of replacement characters.<br/>
+		/// Note that while this function is intended to be used with UTF-8, `maxlen`<br/>
+		/// specifies a _byte_ limit! If the limit lands in the middle of a multi-byte<br/>
+		/// UTF-8 sequence, it may convert a portion of the final character to one or<br/>
+		/// more Unicode character U+FFFD (REPLACEMENT CHARACTER) so as not to overflow<br/>
+		/// a buffer.<br/>
+		/// `maxlen` specifies a maximum number of bytes to compare; if the strings<br/>
+		/// match to this number of bytes (or both have matched to a null-terminator<br/>
+		/// character before this number of bytes), they will be considered equal.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strncasecmp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Strncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "char const *")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "char const *")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (str2 != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(str2);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(str2, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			int ret = StrncasecmpNative(pStr0, pStr1, maxlen);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrpbrkNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[93])(str, breakset);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[93])((nint)str, (nint)breakset);
+			#endif
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			byte* ret = StrpbrkNative(str, breakset);
+			return ret;
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			string ret = Utils.DecodeStringUTF8(StrpbrkNative(str, breakset));
+			return ret;
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrpbrkNative((byte*)pstr, breakset);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrpbrkNative((byte*)pstr, breakset));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrpbrkNative((byte*)pstr, breakset);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrpbrkNative((byte*)pstr, breakset));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrpbrkNative(pStr0, breakset);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] byte* breakset)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrpbrkNative(pStr0, breakset));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] in byte breakset)
+		{
+			fixed (byte* pbreakset = &breakset)
+			{
+				byte* ret = StrpbrkNative(str, (byte*)pbreakset);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] in byte breakset)
+		{
+			fixed (byte* pbreakset = &breakset)
+			{
+				string ret = Utils.DecodeStringUTF8(StrpbrkNative(str, (byte*)pbreakset));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> breakset)
+		{
+			fixed (byte* pbreakset = breakset)
+			{
+				byte* ret = StrpbrkNative(str, (byte*)pbreakset);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> breakset)
+		{
+			fixed (byte* pbreakset = breakset)
+			{
+				string ret = Utils.DecodeStringUTF8(StrpbrkNative(str, (byte*)pbreakset));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] string breakset)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (breakset != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(breakset);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(breakset, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrpbrkNative(str, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] byte* str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] string breakset)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (breakset != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(breakset);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(breakset, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrpbrkNative(str, pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] in byte breakset)
+		{
+			fixed (byte* pstr = &str)
+			{
+				fixed (byte* pbreakset = &breakset)
+				{
+					byte* ret = StrpbrkNative((byte*)pstr, (byte*)pbreakset);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] in byte str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] in byte breakset)
+		{
+			fixed (byte* pstr = &str)
+			{
+				fixed (byte* pbreakset = &breakset)
+				{
+					string ret = Utils.DecodeStringUTF8(StrpbrkNative((byte*)pstr, (byte*)pbreakset));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> breakset)
+		{
+			fixed (byte* pstr = str)
+			{
+				fixed (byte* pbreakset = breakset)
+				{
+					byte* ret = StrpbrkNative((byte*)pstr, (byte*)pbreakset);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> breakset)
+		{
+			fixed (byte* pstr = str)
+			{
+				fixed (byte* pbreakset = breakset)
+				{
+					string ret = Utils.DecodeStringUTF8(StrpbrkNative((byte*)pstr, (byte*)pbreakset));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* Strpbrk([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] string breakset)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (breakset != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(breakset);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(breakset, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = StrpbrkNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Searches a string for the first occurrence of any character contained in a<br/>
+		/// breakset, and returns a pointer from the string to that character.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_strpbrk")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string StrpbrkS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char const *")] string str, [NativeName(NativeNameType.Param, "breakset")] [NativeName(NativeNameType.Type, "char const *")] string breakset)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (breakset != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(breakset);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(breakset, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrpbrkNative(pStr0, pStr1));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string, one Unicode codepoint at a time.<br/>
+		/// This will return the first Unicode codepoint in the UTF-8 encoded string in<br/>
+		/// `*pstr`, and then advance `*pstr` past any consumed bytes before returning.<br/>
+		/// It will not access more than `*pslen` bytes from the string. `*pslen` will<br/>
+		/// be adjusted, as well, subtracting the number of bytes consumed.<br/>
+		/// `pslen` is allowed to be NULL, in which case the string _must_ be<br/>
+		/// NULL-terminated, as the function will blindly read until it sees the NULL<br/>
+		/// char.<br/>
+		/// if `*pslen` is zero, it assumes the end of string is reached and returns a<br/>
+		/// zero codepoint regardless of the contents of the string buffer.<br/>
+		/// If the resulting codepoint is zero (a NULL terminator), or `*pslen` is<br/>
+		/// zero, it will not advance `*pstr` or `*pslen` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameters each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT and advances the string/length by one byte<br/>
+		/// (which is to say, a multibyte sequence might produce several<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT returns before it syncs to the next valid<br/>
+		/// UTF-8 sequence).<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint StepUTF8Native([NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] byte** pstr, [NativeName(NativeNameType.Param, "pslen")] [NativeName(NativeNameType.Type, "size_t *")] nuint* pslen)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte**, nuint*, uint>)funcTable[94])(pstr, pslen);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[94])((nint)pstr, (nint)pslen);
+			#endif
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string, one Unicode codepoint at a time.<br/>
+		/// This will return the first Unicode codepoint in the UTF-8 encoded string in<br/>
+		/// `*pstr`, and then advance `*pstr` past any consumed bytes before returning.<br/>
+		/// It will not access more than `*pslen` bytes from the string. `*pslen` will<br/>
+		/// be adjusted, as well, subtracting the number of bytes consumed.<br/>
+		/// `pslen` is allowed to be NULL, in which case the string _must_ be<br/>
+		/// NULL-terminated, as the function will blindly read until it sees the NULL<br/>
+		/// char.<br/>
+		/// if `*pslen` is zero, it assumes the end of string is reached and returns a<br/>
+		/// zero codepoint regardless of the contents of the string buffer.<br/>
+		/// If the resulting codepoint is zero (a NULL terminator), or `*pslen` is<br/>
+		/// zero, it will not advance `*pstr` or `*pslen` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameters each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT and advances the string/length by one byte<br/>
+		/// (which is to say, a multibyte sequence might produce several<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT returns before it syncs to the next valid<br/>
+		/// UTF-8 sequence).<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepUTF8([NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] byte** pstr, [NativeName(NativeNameType.Param, "pslen")] [NativeName(NativeNameType.Type, "size_t *")] nuint* pslen)
+		{
+			uint ret = StepUTF8Native(pstr, pslen);
+			return ret;
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string, one Unicode codepoint at a time.<br/>
+		/// This will return the first Unicode codepoint in the UTF-8 encoded string in<br/>
+		/// `*pstr`, and then advance `*pstr` past any consumed bytes before returning.<br/>
+		/// It will not access more than `*pslen` bytes from the string. `*pslen` will<br/>
+		/// be adjusted, as well, subtracting the number of bytes consumed.<br/>
+		/// `pslen` is allowed to be NULL, in which case the string _must_ be<br/>
+		/// NULL-terminated, as the function will blindly read until it sees the NULL<br/>
+		/// char.<br/>
+		/// if `*pslen` is zero, it assumes the end of string is reached and returns a<br/>
+		/// zero codepoint regardless of the contents of the string buffer.<br/>
+		/// If the resulting codepoint is zero (a NULL terminator), or `*pslen` is<br/>
+		/// zero, it will not advance `*pstr` or `*pslen` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameters each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT and advances the string/length by one byte<br/>
+		/// (which is to say, a multibyte sequence might produce several<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT returns before it syncs to the next valid<br/>
+		/// UTF-8 sequence).<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepUTF8([NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* pstr, [NativeName(NativeNameType.Param, "pslen")] [NativeName(NativeNameType.Type, "size_t *")] nuint* pslen)
+		{
+			fixed (byte** ppstr = &pstr)
+			{
+				uint ret = StepUTF8Native((byte**)ppstr, pslen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string, one Unicode codepoint at a time.<br/>
+		/// This will return the first Unicode codepoint in the UTF-8 encoded string in<br/>
+		/// `*pstr`, and then advance `*pstr` past any consumed bytes before returning.<br/>
+		/// It will not access more than `*pslen` bytes from the string. `*pslen` will<br/>
+		/// be adjusted, as well, subtracting the number of bytes consumed.<br/>
+		/// `pslen` is allowed to be NULL, in which case the string _must_ be<br/>
+		/// NULL-terminated, as the function will blindly read until it sees the NULL<br/>
+		/// char.<br/>
+		/// if `*pslen` is zero, it assumes the end of string is reached and returns a<br/>
+		/// zero codepoint regardless of the contents of the string buffer.<br/>
+		/// If the resulting codepoint is zero (a NULL terminator), or `*pslen` is<br/>
+		/// zero, it will not advance `*pstr` or `*pslen` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameters each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT and advances the string/length by one byte<br/>
+		/// (which is to say, a multibyte sequence might produce several<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT returns before it syncs to the next valid<br/>
+		/// UTF-8 sequence).<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepUTF8([NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] byte** pstr, [NativeName(NativeNameType.Param, "pslen")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint pslen)
+		{
+			fixed (nuint* ppslen = &pslen)
+			{
+				uint ret = StepUTF8Native(pstr, (nuint*)ppslen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string, one Unicode codepoint at a time.<br/>
+		/// This will return the first Unicode codepoint in the UTF-8 encoded string in<br/>
+		/// `*pstr`, and then advance `*pstr` past any consumed bytes before returning.<br/>
+		/// It will not access more than `*pslen` bytes from the string. `*pslen` will<br/>
+		/// be adjusted, as well, subtracting the number of bytes consumed.<br/>
+		/// `pslen` is allowed to be NULL, in which case the string _must_ be<br/>
+		/// NULL-terminated, as the function will blindly read until it sees the NULL<br/>
+		/// char.<br/>
+		/// if `*pslen` is zero, it assumes the end of string is reached and returns a<br/>
+		/// zero codepoint regardless of the contents of the string buffer.<br/>
+		/// If the resulting codepoint is zero (a NULL terminator), or `*pslen` is<br/>
+		/// zero, it will not advance `*pstr` or `*pslen` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameters each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT and advances the string/length by one byte<br/>
+		/// (which is to say, a multibyte sequence might produce several<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT returns before it syncs to the next valid<br/>
+		/// UTF-8 sequence).<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepUTF8([NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* pstr, [NativeName(NativeNameType.Param, "pslen")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint pslen)
+		{
+			fixed (byte** ppstr = &pstr)
+			{
+				fixed (nuint* ppslen = &pslen)
+				{
+					uint ret = StepUTF8Native((byte**)ppstr, (nuint*)ppslen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint StepBackUTF8Native([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] byte* start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] byte** pstr)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte**, uint>)funcTable[95])(start, pstr);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[95])((nint)start, (nint)pstr);
+			#endif
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepBackUTF8([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] byte* start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] byte** pstr)
+		{
+			uint ret = StepBackUTF8Native(start, pstr);
+			return ret;
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepBackUTF8([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] in byte start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] byte** pstr)
+		{
+			fixed (byte* pstart = &start)
+			{
+				uint ret = StepBackUTF8Native((byte*)pstart, pstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepBackUTF8([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] byte** pstr)
+		{
+			fixed (byte* pstart = start)
+			{
+				uint ret = StepBackUTF8Native((byte*)pstart, pstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepBackUTF8([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] string start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] byte** pstr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (start != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(start);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(start, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			uint ret = StepBackUTF8Native(pStr0, pstr);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepBackUTF8([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] byte* start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* pstr)
+		{
+			fixed (byte** ppstr = &pstr)
+			{
+				uint ret = StepBackUTF8Native(start, (byte**)ppstr);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepBackUTF8([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] in byte start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* pstr)
+		{
+			fixed (byte* pstart = &start)
+			{
+				fixed (byte** ppstr = &pstr)
+				{
+					uint ret = StepBackUTF8Native((byte*)pstart, (byte**)ppstr);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepBackUTF8([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* pstr)
+		{
+			fixed (byte* pstart = start)
+			{
+				fixed (byte** ppstr = &pstr)
+				{
+					uint ret = StepBackUTF8Native((byte*)pstart, (byte**)ppstr);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Decode a UTF-8 string in reverse, one Unicode codepoint at a time.<br/>
+		/// This will go to the start of the previous Unicode codepoint in the string,<br/>
+		/// move `*pstr` to that location and return that codepoint.<br/>
+		/// If `*pstr` is already at the start of the string), it will not advance<br/>
+		/// `*pstr` at all.<br/>
+		/// Generally this function is called in a loop until it returns zero,<br/>
+		/// adjusting its parameter each iteration.<br/>
+		/// If an invalid UTF-8 sequence is encountered, this function returns<br/>
+		/// SDL_INVALID_UNICODE_CODEPOINT.<br/>
+		/// Several things can generate invalid UTF-8 sequences, including overlong<br/>
+		/// encodings, the use of UTF-16 surrogate values, and truncated data. Please<br/>
+		/// refer to<br/>
+		/// [RFC3629](https://www.ietf.org/rfc/rfc3629.txt)<br/>
+		/// for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_StepBackUTF8")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint StepBackUTF8([NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "char const *")] string start, [NativeName(NativeNameType.Param, "pstr")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* pstr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (start != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(start);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(start, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** ppstr = &pstr)
+			{
+				uint ret = StepBackUTF8Native(pStr0, (byte**)ppstr);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a single Unicode codepoint to UTF-8.<br/>
+		/// The buffer pointed to by `dst` must be at least 4 bytes long, as this<br/>
+		/// function may generate between 1 and 4 bytes of output.<br/>
+		/// This function returns the first byte _after_ the newly-written UTF-8<br/>
+		/// sequence, which is useful for encoding multiple codepoints in a loop, or<br/>
+		/// knowing where to write a NULL-terminator character to end the string (in<br/>
+		/// either case, plan to have a buffer of _more_ than 4 bytes!).<br/>
+		/// If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16<br/>
+		/// surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the<br/>
+		/// codepoint instead, and not set an error.<br/>
+		/// If `dst` is NULL, this returns NULL immediately without writing to the<br/>
+		/// pointer and without setting an error.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UCS4ToUTF8")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* UCS4ToUTF8Native([NativeName(NativeNameType.Param, "codepoint")] [NativeName(NativeNameType.Type, "Uint32")] uint codepoint, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*>)funcTable[96])(codepoint, dst);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, nint>)funcTable[96])(codepoint, (nint)dst);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert a single Unicode codepoint to UTF-8.<br/>
+		/// The buffer pointed to by `dst` must be at least 4 bytes long, as this<br/>
+		/// function may generate between 1 and 4 bytes of output.<br/>
+		/// This function returns the first byte _after_ the newly-written UTF-8<br/>
+		/// sequence, which is useful for encoding multiple codepoints in a loop, or<br/>
+		/// knowing where to write a NULL-terminator character to end the string (in<br/>
+		/// either case, plan to have a buffer of _more_ than 4 bytes!).<br/>
+		/// If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16<br/>
+		/// surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the<br/>
+		/// codepoint instead, and not set an error.<br/>
+		/// If `dst` is NULL, this returns NULL immediately without writing to the<br/>
+		/// pointer and without setting an error.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UCS4ToUTF8")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* UCS4ToUTF8([NativeName(NativeNameType.Param, "codepoint")] [NativeName(NativeNameType.Type, "Uint32")] uint codepoint, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst)
+		{
+			byte* ret = UCS4ToUTF8Native(codepoint, dst);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a single Unicode codepoint to UTF-8.<br/>
+		/// The buffer pointed to by `dst` must be at least 4 bytes long, as this<br/>
+		/// function may generate between 1 and 4 bytes of output.<br/>
+		/// This function returns the first byte _after_ the newly-written UTF-8<br/>
+		/// sequence, which is useful for encoding multiple codepoints in a loop, or<br/>
+		/// knowing where to write a NULL-terminator character to end the string (in<br/>
+		/// either case, plan to have a buffer of _more_ than 4 bytes!).<br/>
+		/// If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16<br/>
+		/// surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the<br/>
+		/// codepoint instead, and not set an error.<br/>
+		/// If `dst` is NULL, this returns NULL immediately without writing to the<br/>
+		/// pointer and without setting an error.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UCS4ToUTF8")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string UCS4ToUTF8S([NativeName(NativeNameType.Param, "codepoint")] [NativeName(NativeNameType.Type, "Uint32")] uint codepoint, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] byte* dst)
+		{
+			string ret = Utils.DecodeStringUTF8(UCS4ToUTF8Native(codepoint, dst));
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a single Unicode codepoint to UTF-8.<br/>
+		/// The buffer pointed to by `dst` must be at least 4 bytes long, as this<br/>
+		/// function may generate between 1 and 4 bytes of output.<br/>
+		/// This function returns the first byte _after_ the newly-written UTF-8<br/>
+		/// sequence, which is useful for encoding multiple codepoints in a loop, or<br/>
+		/// knowing where to write a NULL-terminator character to end the string (in<br/>
+		/// either case, plan to have a buffer of _more_ than 4 bytes!).<br/>
+		/// If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16<br/>
+		/// surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the<br/>
+		/// codepoint instead, and not set an error.<br/>
+		/// If `dst` is NULL, this returns NULL immediately without writing to the<br/>
+		/// pointer and without setting an error.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UCS4ToUTF8")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* UCS4ToUTF8([NativeName(NativeNameType.Param, "codepoint")] [NativeName(NativeNameType.Type, "Uint32")] uint codepoint, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				byte* ret = UCS4ToUTF8Native(codepoint, (byte*)pdst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a single Unicode codepoint to UTF-8.<br/>
+		/// The buffer pointed to by `dst` must be at least 4 bytes long, as this<br/>
+		/// function may generate between 1 and 4 bytes of output.<br/>
+		/// This function returns the first byte _after_ the newly-written UTF-8<br/>
+		/// sequence, which is useful for encoding multiple codepoints in a loop, or<br/>
+		/// knowing where to write a NULL-terminator character to end the string (in<br/>
+		/// either case, plan to have a buffer of _more_ than 4 bytes!).<br/>
+		/// If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16<br/>
+		/// surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the<br/>
+		/// codepoint instead, and not set an error.<br/>
+		/// If `dst` is NULL, this returns NULL immediately without writing to the<br/>
+		/// pointer and without setting an error.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UCS4ToUTF8")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string UCS4ToUTF8S([NativeName(NativeNameType.Param, "codepoint")] [NativeName(NativeNameType.Type, "Uint32")] uint codepoint, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref byte dst)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				string ret = Utils.DecodeStringUTF8(UCS4ToUTF8Native(codepoint, (byte*)pdst));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert a single Unicode codepoint to UTF-8.<br/>
+		/// The buffer pointed to by `dst` must be at least 4 bytes long, as this<br/>
+		/// function may generate between 1 and 4 bytes of output.<br/>
+		/// This function returns the first byte _after_ the newly-written UTF-8<br/>
+		/// sequence, which is useful for encoding multiple codepoints in a loop, or<br/>
+		/// knowing where to write a NULL-terminator character to end the string (in<br/>
+		/// either case, plan to have a buffer of _more_ than 4 bytes!).<br/>
+		/// If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16<br/>
+		/// surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the<br/>
+		/// codepoint instead, and not set an error.<br/>
+		/// If `dst` is NULL, this returns NULL immediately without writing to the<br/>
+		/// pointer and without setting an error.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UCS4ToUTF8")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* UCS4ToUTF8([NativeName(NativeNameType.Param, "codepoint")] [NativeName(NativeNameType.Type, "Uint32")] uint codepoint, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (dst != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(dst);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = UCS4ToUTF8Native(codepoint, pStr0);
+			dst = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert a single Unicode codepoint to UTF-8.<br/>
+		/// The buffer pointed to by `dst` must be at least 4 bytes long, as this<br/>
+		/// function may generate between 1 and 4 bytes of output.<br/>
+		/// This function returns the first byte _after_ the newly-written UTF-8<br/>
+		/// sequence, which is useful for encoding multiple codepoints in a loop, or<br/>
+		/// knowing where to write a NULL-terminator character to end the string (in<br/>
+		/// either case, plan to have a buffer of _more_ than 4 bytes!).<br/>
+		/// If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16<br/>
+		/// surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the<br/>
+		/// codepoint instead, and not set an error.<br/>
+		/// If `dst` is NULL, this returns NULL immediately without writing to the<br/>
+		/// pointer and without setting an error.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UCS4ToUTF8")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string UCS4ToUTF8S([NativeName(NativeNameType.Param, "codepoint")] [NativeName(NativeNameType.Type, "Uint32")] uint codepoint, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char *")] ref string dst)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (dst != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(dst);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(UCS4ToUTF8Native(codepoint, pStr0));
+			dst = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SscanfNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int>)funcTable[97])(text, fmt);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[97])((nint)text, (nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			int ret = SscanfNative(text, fmt);
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] in byte text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			fixed (byte* ptext = &text)
+			{
+				int ret = SscanfNative((byte*)ptext, fmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			fixed (byte* ptext = text)
+			{
+				int ret = SscanfNative((byte*)ptext, fmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = SscanfNative(pStr0, fmt);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				int ret = SscanfNative(text, (byte*)pfmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				int ret = SscanfNative(text, (byte*)pfmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = SscanfNative(text, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] in byte text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt)
+		{
+			fixed (byte* ptext = &text)
+			{
+				fixed (byte* pfmt = &fmt)
+				{
+					int ret = SscanfNative((byte*)ptext, (byte*)pfmt);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* ptext = text)
+			{
+				fixed (byte* pfmt = fmt)
+				{
+					int ret = SscanfNative((byte*)ptext, (byte*)pfmt);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like sscanf() but doesn't require access to a C runtime.<br/>
+		/// Scan a string, matching a format string, converting each '%' item and<br/>
+		/// storing it to pointers provided through variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Sscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fmt != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fmt, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			int ret = SscanfNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int VsscanfNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nint, int>)funcTable[98])(text, fmt, ap);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[98])((nint)text, (nint)fmt, ap);
+			#endif
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			int ret = VsscanfNative(text, fmt, ap);
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] in byte text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* ptext = &text)
+			{
+				int ret = VsscanfNative((byte*)ptext, fmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* ptext = text)
+			{
+				int ret = VsscanfNative((byte*)ptext, fmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = VsscanfNative(pStr0, fmt, ap);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				int ret = VsscanfNative(text, (byte*)pfmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				int ret = VsscanfNative(text, (byte*)pfmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] byte* text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = VsscanfNative(text, pStr0, ap);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] in byte text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* ptext = &text)
+			{
+				fixed (byte* pfmt = &fmt)
+				{
+					int ret = VsscanfNative((byte*)ptext, (byte*)pfmt, ap);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* ptext = text)
+			{
+				fixed (byte* pfmt = fmt)
+				{
+					int ret = VsscanfNative((byte*)ptext, (byte*)pfmt, ap);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsscanf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_sscanf(), except it takes a `va_list` instead<br/>
+		/// of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsscanf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsscanf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char const *")] string text, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fmt != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fmt, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			int ret = VsscanfNative(pStr0, pStr1, ap);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SnprintfNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint, byte*, int>)funcTable[99])(text, maxlen, fmt);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nuint, nint, int>)funcTable[99])((nint)text, maxlen, (nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			int ret = SnprintfNative(text, maxlen, fmt);
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref byte text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			fixed (byte* ptext = &text)
+			{
+				int ret = SnprintfNative((byte*)ptext, maxlen, fmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref string text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = SnprintfNative(pStr0, maxlen, fmt);
+			text = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				int ret = SnprintfNative(text, maxlen, (byte*)pfmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				int ret = SnprintfNative(text, maxlen, (byte*)pfmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = SnprintfNative(text, maxlen, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref byte text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt)
+		{
+			fixed (byte* ptext = &text)
+			{
+				fixed (byte* pfmt = &fmt)
+				{
+					int ret = SnprintfNative((byte*)ptext, maxlen, (byte*)pfmt);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref byte text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* ptext = &text)
+			{
+				fixed (byte* pfmt = fmt)
+				{
+					int ret = SnprintfNative((byte*)ptext, maxlen, (byte*)pfmt);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like snprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a string of up to `maxlen`-1 bytes, converting each '%' item with<br/>
+		/// values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no<br/>
+		/// bytes will be written at all.<br/>
+		/// This function returns the number of _bytes_ (not _characters_) that should<br/>
+		/// be written, excluding the null-terminator character. If this returns a<br/>
+		/// number >= `maxlen`, it means the output string was truncated. A negative<br/>
+		/// return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_snprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Snprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref string text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fmt != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fmt, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			int ret = SnprintfNative(pStr0, maxlen, pStr1);
+			text = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SwprintfNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<char*, nuint, char*, int>)funcTable[100])(text, maxlen, fmt);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nuint, nint, int>)funcTable[100])((nint)text, maxlen, (nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* fmt)
+		{
+			int ret = SwprintfNative(text, maxlen, fmt);
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* fmt)
+		{
+			fixed (char* ptext = &text)
+			{
+				int ret = SwprintfNative((char*)ptext, maxlen, fmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref string text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* fmt)
+		{
+			char* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF16(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = (char*)pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF16(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = '\0';
+			}
+			int ret = SwprintfNative(pStr0, maxlen, fmt);
+			text = Utils.DecodeStringUTF16(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] in char fmt)
+		{
+			fixed (char* pfmt = &fmt)
+			{
+				int ret = SwprintfNative(text, maxlen, (char*)pfmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] ReadOnlySpan<char> fmt)
+		{
+			fixed (char* pfmt = fmt)
+			{
+				int ret = SwprintfNative(text, maxlen, (char*)pfmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] string fmt)
+		{
+			fixed (char* pfmt = fmt)
+			{
+				int ret = SwprintfNative(text, maxlen, pfmt);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] in char fmt)
+		{
+			fixed (char* ptext = &text)
+			{
+				fixed (char* pfmt = &fmt)
+				{
+					int ret = SwprintfNative((char*)ptext, maxlen, (char*)pfmt);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] ReadOnlySpan<char> fmt)
+		{
+			fixed (char* ptext = &text)
+			{
+				fixed (char* pfmt = fmt)
+				{
+					int ret = SwprintfNative((char*)ptext, maxlen, (char*)pfmt);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like swprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Format a wide string of up to `maxlen`-1 wchar_t values, converting each<br/>
+		/// '%' item with values provided through variable arguments.<br/>
+		/// While some C runtimes differ on how to deal with too-large strings, this<br/>
+		/// function null-terminates the output, by treating the null-terminator as<br/>
+		/// part of the `maxlen` count. Note that if `maxlen` is zero, however, no wide<br/>
+		/// characters will be written at all.<br/>
+		/// This function returns the number of _wide characters_ (not _codepoints_)<br/>
+		/// that should be written, excluding the null-terminator character. If this<br/>
+		/// returns a number >= `maxlen`, it means the output string was truncated. A<br/>
+		/// negative return value means an error occurred.<br/>
+		/// Referencing the output string's pointer with a format item is undefined<br/>
+		/// behavior.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_swprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Swprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref string text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] string fmt)
+		{
+			char* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF16(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = (char*)pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF16(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = '\0';
+			}
+			fixed (char* pfmt = fmt)
+			{
+				int ret = SwprintfNative(pStr0, maxlen, pfmt);
+				text = Utils.DecodeStringUTF16(pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int VsnprintfNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint, byte*, nint, int>)funcTable[101])(text, maxlen, fmt, ap);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nuint, nint, nint, int>)funcTable[101])((nint)text, maxlen, (nint)fmt, ap);
+			#endif
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			int ret = VsnprintfNative(text, maxlen, fmt, ap);
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref byte text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* ptext = &text)
+			{
+				int ret = VsnprintfNative((byte*)ptext, maxlen, fmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref string text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = VsnprintfNative(pStr0, maxlen, fmt, ap);
+			text = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				int ret = VsnprintfNative(text, maxlen, (byte*)pfmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				int ret = VsnprintfNative(text, maxlen, (byte*)pfmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] byte* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = VsnprintfNative(text, maxlen, pStr0, ap);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref byte text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* ptext = &text)
+			{
+				fixed (byte* pfmt = &fmt)
+				{
+					int ret = VsnprintfNative((byte*)ptext, maxlen, (byte*)pfmt, ap);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref byte text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (byte* ptext = &text)
+			{
+				fixed (byte* pfmt = fmt)
+				{
+					int ret = VsnprintfNative((byte*)ptext, maxlen, (byte*)pfmt, ap);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vsnprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_snprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vsnprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vsnprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "char *")] ref string text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fmt != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fmt, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			int ret = VsnprintfNative(pStr0, maxlen, pStr1, ap);
+			text = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
 		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
 		/// runtime.<br/>
 		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
@@ -27,7 +3441,221 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vswprintf(ref string text, nuint maxlen, string fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int VswprintfNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<char*, nuint, char*, nint, int>)funcTable[102])(text, maxlen, fmt, ap);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nuint, nint, nint, int>)funcTable[102])((nint)text, maxlen, (nint)fmt, ap);
+			#endif
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			int ret = VswprintfNative(text, maxlen, fmt, ap);
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (char* ptext = &text)
+			{
+				int ret = VswprintfNative((char*)ptext, maxlen, fmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref string text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] char* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			char* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF16(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = (char*)pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF16(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = '\0';
+			}
+			int ret = VswprintfNative(pStr0, maxlen, fmt, ap);
+			text = Utils.DecodeStringUTF16(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] in char fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (char* pfmt = &fmt)
+			{
+				int ret = VswprintfNative(text, maxlen, (char*)pfmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] ReadOnlySpan<char> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (char* pfmt = fmt)
+			{
+				int ret = VswprintfNative(text, maxlen, (char*)pfmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] char* text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (char* pfmt = fmt)
+			{
+				int ret = VswprintfNative(text, maxlen, pfmt, ap);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] in char fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (char* ptext = &text)
+			{
+				fixed (char* pfmt = &fmt)
+				{
+					int ret = VswprintfNative((char*)ptext, maxlen, (char*)pfmt, ap);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref char text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] ReadOnlySpan<char> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		{
+			fixed (char* ptext = &text)
+			{
+				fixed (char* pfmt = fmt)
+				{
+					int ret = VswprintfNative((char*)ptext, maxlen, (char*)pfmt, ap);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This works exactly like vswprintf() but doesn't require access to a C<br/>
+		/// runtime.<br/>
+		/// Functions identically to SDL_swprintf(), except it takes a `va_list`<br/>
+		/// instead of using `...` variable arguments.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vswprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vswprintf([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "wchar_t *")] ref string text, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "wchar_t const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -75,8 +3703,10 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AsprintfNative(byte** strp, byte* fmt)
+		internal static int AsprintfNative([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte**, byte*, int>)funcTable[103])(strp, fmt);
@@ -102,7 +3732,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Asprintf(byte** strp, byte* fmt)
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Asprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
 		{
 			int ret = AsprintfNative(strp, fmt);
 			return ret;
@@ -125,7 +3757,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Asprintf(ref byte* strp, byte* fmt)
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Asprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] ref byte* strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -151,7 +3785,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Asprintf(byte** strp, ref byte fmt)
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Asprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -177,7 +3813,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Asprintf(byte** strp, ReadOnlySpan<byte> fmt)
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Asprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
@@ -203,7 +3841,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Asprintf(byte** strp, string fmt)
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Asprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -247,7 +3887,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Asprintf(ref byte* strp, ref byte fmt)
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Asprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] ref byte* strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -276,7 +3918,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Asprintf(ref byte* strp, ReadOnlySpan<byte> fmt)
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Asprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] ref byte* strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -305,7 +3949,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Asprintf(ref byte* strp, string fmt)
+		[NativeName(NativeNameType.Func, "SDL_asprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Asprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] ref byte* strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -345,8 +3991,10 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int VasprintfNative(byte** strp, byte* fmt, nint ap)
+		internal static int VasprintfNative([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte**, byte*, nint, int>)funcTable[104])(strp, fmt, ap);
@@ -365,7 +4013,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vasprintf(byte** strp, byte* fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vasprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			int ret = VasprintfNative(strp, fmt, ap);
 			return ret;
@@ -381,7 +4031,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vasprintf(ref byte* strp, byte* fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vasprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] ref byte* strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -400,7 +4052,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vasprintf(byte** strp, ref byte fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vasprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
@@ -419,7 +4073,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vasprintf(byte** strp, ReadOnlySpan<byte> fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vasprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			fixed (byte* pfmt = fmt)
 			{
@@ -438,7 +4094,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vasprintf(byte** strp, string fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vasprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] byte** strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -475,7 +4133,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vasprintf(ref byte* strp, ref byte fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vasprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] ref byte* strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] in byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -497,7 +4157,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vasprintf(ref byte* strp, ReadOnlySpan<byte> fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vasprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] ref byte* strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -519,7 +4181,9 @@ namespace Hexa.NET.SDL3
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// </summary>
-		public static int Vasprintf(ref byte* strp, string fmt, nint ap)
+		[NativeName(NativeNameType.Func, "SDL_vasprintf")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int Vasprintf([NativeName(NativeNameType.Param, "strp")] [NativeName(NativeNameType.Type, "char * *")] ref byte* strp, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			fixed (byte** pstrp = &strp)
 			{
@@ -560,8 +4224,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_srand")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SrandNative(ulong seed)
+		internal static void SrandNative([NativeName(NativeNameType.Param, "seed")] [NativeName(NativeNameType.Type, "Uint64")] ulong seed)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[105])(seed);
@@ -581,7 +4247,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static void Srand(ulong seed)
+		[NativeName(NativeNameType.Func, "SDL_srand")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void Srand([NativeName(NativeNameType.Param, "seed")] [NativeName(NativeNameType.Type, "Uint64")] ulong seed)
 		{
 			SrandNative(seed);
 		}
@@ -608,8 +4276,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_rand")]
+		[return: NativeName(NativeNameType.Type, "Sint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RandNative(int n)
+		internal static int RandNative([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "Sint32")] int n)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[106])(n);
@@ -640,7 +4310,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int Rand(int n)
+		[NativeName(NativeNameType.Func, "SDL_rand")]
+		[return: NativeName(NativeNameType.Type, "Sint32")]
+		public static int Rand([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "Sint32")] int n)
 		{
 			int ret = RandNative(n);
 			return ret;
@@ -661,6 +4333,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_randf")]
+		[return: NativeName(NativeNameType.Type, "float")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static float RandfNative()
 		{
@@ -686,6 +4360,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_randf")]
+		[return: NativeName(NativeNameType.Type, "float")]
 		public static float Randf()
 		{
 			float ret = RandfNative();
@@ -706,6 +4382,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_rand_bits")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint RandBitsNative()
 		{
@@ -730,6 +4408,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_rand_bits")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
 		public static uint RandBits()
 		{
 			uint ret = RandBitsNative();
@@ -757,8 +4437,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_rand_r")]
+		[return: NativeName(NativeNameType.Type, "Sint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RandRNative(ulong* state, int n)
+		internal static int RandRNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* state, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "Sint32")] int n)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ulong*, int, int>)funcTable[109])(state, n);
@@ -788,7 +4470,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int RandR(ulong* state, int n)
+		[NativeName(NativeNameType.Func, "SDL_rand_r")]
+		[return: NativeName(NativeNameType.Type, "Sint32")]
+		public static int RandR([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* state, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "Sint32")] int n)
 		{
 			int ret = RandRNative(state, n);
 			return ret;
@@ -815,7 +4499,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static int RandR(ref ulong state, int n)
+		[NativeName(NativeNameType.Func, "SDL_rand_r")]
+		[return: NativeName(NativeNameType.Type, "Sint32")]
+		public static int RandR([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ref ulong state, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "Sint32")] int n)
 		{
 			fixed (ulong* pstate = &state)
 			{
@@ -840,8 +4526,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_randf_r")]
+		[return: NativeName(NativeNameType.Type, "float")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float RandfRNative(ulong* state)
+		internal static float RandfRNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* state)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ulong*, float>)funcTable[110])(state);
@@ -866,7 +4554,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static float RandfR(ulong* state)
+		[NativeName(NativeNameType.Func, "SDL_randf_r")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float RandfR([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* state)
 		{
 			float ret = RandfRNative(state);
 			return ret;
@@ -888,7 +4578,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static float RandfR(ref ulong state)
+		[NativeName(NativeNameType.Func, "SDL_randf_r")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float RandfR([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ref ulong state)
 		{
 			fixed (ulong* pstate = &state)
 			{
@@ -912,8 +4604,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_rand_bits_r")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint RandBitsRNative(ulong* state)
+		internal static uint RandBitsRNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* state)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ulong*, uint>)funcTable[111])(state);
@@ -937,7 +4631,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint RandBitsR(ulong* state)
+		[NativeName(NativeNameType.Func, "SDL_rand_bits_r")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint RandBitsR([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ulong* state)
 		{
 			uint ret = RandBitsRNative(state);
 			return ret;
@@ -958,7 +4654,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static uint RandBitsR(ref ulong state)
+		[NativeName(NativeNameType.Func, "SDL_rand_bits_r")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint RandBitsR([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint64 *")] ref ulong state)
 		{
 			fixed (ulong* pstate = &state)
 			{
@@ -992,8 +4690,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_acos")]
+		[return: NativeName(NativeNameType.Type, "double")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double AcosNative(double x)
+		internal static double AcosNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[112])(x);
@@ -1027,7 +4727,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static double Acos(double x)
+		[NativeName(NativeNameType.Func, "SDL_acos")]
+		[return: NativeName(NativeNameType.Type, "double")]
+		public static double Acos([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
 			double ret = AcosNative(x);
 			return ret;
@@ -1058,8 +4760,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_acosf")]
+		[return: NativeName(NativeNameType.Type, "float")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float AcosfNative(float x)
+		internal static float AcosfNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[113])(x);
@@ -1093,7 +4797,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static float Acosf(float x)
+		[NativeName(NativeNameType.Func, "SDL_acosf")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float Acosf([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
 		{
 			float ret = AcosfNative(x);
 			return ret;
@@ -1124,8 +4830,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_asin")]
+		[return: NativeName(NativeNameType.Type, "double")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double AsinNative(double x)
+		internal static double AsinNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[114])(x);
@@ -1159,7 +4867,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static double Asin(double x)
+		[NativeName(NativeNameType.Func, "SDL_asin")]
+		[return: NativeName(NativeNameType.Type, "double")]
+		public static double Asin([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
 			double ret = AsinNative(x);
 			return ret;
@@ -1190,8 +4900,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_asinf")]
+		[return: NativeName(NativeNameType.Type, "float")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float AsinfNative(float x)
+		internal static float AsinfNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[115])(x);
@@ -1225,7 +4937,9 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static float Asinf(float x)
+		[NativeName(NativeNameType.Func, "SDL_asinf")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float Asinf([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
 		{
 			float ret = AsinfNative(x);
 			return ret;
@@ -1257,8 +4971,10 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_atan")]
+		[return: NativeName(NativeNameType.Type, "double")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double AtanNative(double x)
+		internal static double AtanNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[116])(x);
@@ -1293,3748 +5009,12 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		public static double Atan(double x)
+		[NativeName(NativeNameType.Func, "SDL_atan")]
+		[return: NativeName(NativeNameType.Type, "double")]
+		public static double Atan([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
 			double ret = AtanNative(x);
 			return ret;
-		}
-
-		/// <summary>
-		/// Compute the arc tangent of `x`.<br/>
-		/// The definition of `y = atan(x)` is `x = tan(y)`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-Pi/2 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = Pi/2`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_atan for dboule-precision floats.<br/>
-		/// To calculate the arc tangent of y / x, use SDL_atan2f.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float AtanfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[117])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[117])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the arc tangent of `x`.<br/>
-		/// The definition of `y = atan(x)` is `x = tan(y)`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-Pi/2 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = Pi/2`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_atan for dboule-precision floats.<br/>
-		/// To calculate the arc tangent of y / x, use SDL_atan2f.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Atanf(float x)
-		{
-			float ret = AtanfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the arc tangent of `y / x`, using the signs of x and y to adjust<br/>
-		/// the result's quadrant.<br/>
-		/// The definition of `z = atan2(x, y)` is `y = x tan(z)`, where the quadrant<br/>
-		/// of z is determined based on the signs of x and y.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-Pi/2 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = Pi/2`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_atan2f for single-precision floats.<br/>
-		/// To calculate the arc tangent of a single value, use SDL_atan.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double Atan2Native(double y, double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double, double>)funcTable[118])(y, x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double, double>)funcTable[118])(y, x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the arc tangent of `y / x`, using the signs of x and y to adjust<br/>
-		/// the result's quadrant.<br/>
-		/// The definition of `z = atan2(x, y)` is `y = x tan(z)`, where the quadrant<br/>
-		/// of z is determined based on the signs of x and y.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-Pi/2 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = Pi/2`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_atan2f for single-precision floats.<br/>
-		/// To calculate the arc tangent of a single value, use SDL_atan.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Atan2(double y, double x)
-		{
-			double ret = Atan2Native(y, x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the arc tangent of `y / x`, using the signs of x and y to adjust<br/>
-		/// the result's quadrant.<br/>
-		/// The definition of `z = atan2(x, y)` is `y = x tan(z)`, where the quadrant<br/>
-		/// of z is determined based on the signs of x and y.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-Pi/2 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = Pi/2`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_atan2 for double-precision floats.<br/>
-		/// To calculate the arc tangent of a single value, use SDL_atanf.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float Atan2FNative(float y, float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float, float>)funcTable[119])(y, x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float, float>)funcTable[119])(y, x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the arc tangent of `y / x`, using the signs of x and y to adjust<br/>
-		/// the result's quadrant.<br/>
-		/// The definition of `z = atan2(x, y)` is `y = x tan(z)`, where the quadrant<br/>
-		/// of z is determined based on the signs of x and y.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-Pi/2 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = Pi/2`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_atan2 for double-precision floats.<br/>
-		/// To calculate the arc tangent of a single value, use SDL_atanf.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Atan2F(float y, float x)
-		{
-			float ret = Atan2FNative(y, x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the ceiling of `x`.<br/>
-		/// The ceiling of `x` is the smallest integer `y` such that `y > x`, i.e `x`<br/>
-		/// rounded up to the nearest integer.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_ceilf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double CeilNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[120])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[120])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the ceiling of `x`.<br/>
-		/// The ceiling of `x` is the smallest integer `y` such that `y > x`, i.e `x`<br/>
-		/// rounded up to the nearest integer.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_ceilf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Ceil(double x)
-		{
-			double ret = CeilNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the ceiling of `x`.<br/>
-		/// The ceiling of `x` is the smallest integer `y` such that `y > x`, i.e `x`<br/>
-		/// rounded up to the nearest integer.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_ceil for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float CeilfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[121])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[121])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the ceiling of `x`.<br/>
-		/// The ceiling of `x` is the smallest integer `y` such that `y > x`, i.e `x`<br/>
-		/// rounded up to the nearest integer.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_ceil for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Ceilf(float x)
-		{
-			float ret = CeilfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Copy the sign of one floating-point value to another.<br/>
-		/// The definition of copysign is that ``copysign(x, y) = abs(x) * sign(y)``.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, ``-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = f``<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_copysignf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double CopysignNative(double x, double y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double, double>)funcTable[122])(x, y);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double, double>)funcTable[122])(x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy the sign of one floating-point value to another.<br/>
-		/// The definition of copysign is that ``copysign(x, y) = abs(x) * sign(y)``.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, ``-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = f``<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_copysignf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Copysign(double x, double y)
-		{
-			double ret = CopysignNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Copy the sign of one floating-point value to another.<br/>
-		/// The definition of copysign is that ``copysign(x, y) = abs(x) * sign(y)``.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, ``-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = f``<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_copysign for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float CopysignfNative(float x, float y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float, float>)funcTable[123])(x, y);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float, float>)funcTable[123])(x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Copy the sign of one floating-point value to another.<br/>
-		/// The definition of copysign is that ``copysign(x, y) = abs(x) * sign(y)``.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, ``-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = f``<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_copysign for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Copysignf(float x, float y)
-		{
-			float ret = CopysignfNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the cosine of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-1 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = 1`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_cosf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double CosNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[124])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[124])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the cosine of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-1 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = 1`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_cosf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Cos(double x)
-		{
-			double ret = CosNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the cosine of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-1 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = 1`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_cos for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float CosfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[125])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[125])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the cosine of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-1 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = 1`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_cos for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Cosf(float x)
-		{
-			float ret = CosfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the exponential of `x`.<br/>
-		/// The definition of `y = exp(x)` is `y = e^x`, where `e` is the base of the<br/>
-		/// natural logarithm. The inverse is the natural logarithm, SDL_log.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// The output will overflow if `exp(x)` is too large to be represented.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_expf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double ExpNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[126])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[126])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the exponential of `x`.<br/>
-		/// The definition of `y = exp(x)` is `y = e^x`, where `e` is the base of the<br/>
-		/// natural logarithm. The inverse is the natural logarithm, SDL_log.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// The output will overflow if `exp(x)` is too large to be represented.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_expf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Exp(double x)
-		{
-			double ret = ExpNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the exponential of `x`.<br/>
-		/// The definition of `y = exp(x)` is `y = e^x`, where `e` is the base of the<br/>
-		/// natural logarithm. The inverse is the natural logarithm, SDL_logf.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// The output will overflow if `exp(x)` is too large to be represented.<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_exp for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float ExpfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[127])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[127])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the exponential of `x`.<br/>
-		/// The definition of `y = exp(x)` is `y = e^x`, where `e` is the base of the<br/>
-		/// natural logarithm. The inverse is the natural logarithm, SDL_logf.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// The output will overflow if `exp(x)` is too large to be represented.<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_exp for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Expf(float x)
-		{
-			float ret = ExpfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the absolute value of `x`<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_fabsf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double FabsNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[128])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[128])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the absolute value of `x`<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_fabsf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Fabs(double x)
-		{
-			double ret = FabsNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the absolute value of `x`<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_fabs for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float FabsfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[129])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[129])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the absolute value of `x`<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_fabs for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Fabsf(float x)
-		{
-			float ret = FabsfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the floor of `x`.<br/>
-		/// The floor of `x` is the largest integer `y` such that `y > x`, i.e `x`<br/>
-		/// rounded down to the nearest integer.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_floorf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double FloorNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[130])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[130])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the floor of `x`.<br/>
-		/// The floor of `x` is the largest integer `y` such that `y > x`, i.e `x`<br/>
-		/// rounded down to the nearest integer.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_floorf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Floor(double x)
-		{
-			double ret = FloorNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the floor of `x`.<br/>
-		/// The floor of `x` is the largest integer `y` such that `y > x`, i.e `x`<br/>
-		/// rounded down to the nearest integer.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_floor for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float FloorfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[131])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[131])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the floor of `x`.<br/>
-		/// The floor of `x` is the largest integer `y` such that `y > x`, i.e `x`<br/>
-		/// rounded down to the nearest integer.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_floor for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Floorf(float x)
-		{
-			float ret = FloorfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Truncate `x` to an integer.<br/>
-		/// Rounds `x` to the next closest integer to 0. This is equivalent to removing<br/>
-		/// the fractional part of `x`, leaving only the integer part.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_truncf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double TruncNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[132])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[132])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Truncate `x` to an integer.<br/>
-		/// Rounds `x` to the next closest integer to 0. This is equivalent to removing<br/>
-		/// the fractional part of `x`, leaving only the integer part.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_truncf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Trunc(double x)
-		{
-			double ret = TruncNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Truncate `x` to an integer.<br/>
-		/// Rounds `x` to the next closest integer to 0. This is equivalent to removing<br/>
-		/// the fractional part of `x`, leaving only the integer part.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_trunc for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float TruncfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[133])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[133])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Truncate `x` to an integer.<br/>
-		/// Rounds `x` to the next closest integer to 0. This is equivalent to removing<br/>
-		/// the fractional part of `x`, leaving only the integer part.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_trunc for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Truncf(float x)
-		{
-			float ret = TruncfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the floating-point remainder of `x / y`<br/>
-		/// Divides `x` by `y`, and returns the remainder.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, `y != 0`<br/>
-		/// Range: `-y <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = y`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_fmodf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double FmodNative(double x, double y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double, double>)funcTable[134])(x, y);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double, double>)funcTable[134])(x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Return the floating-point remainder of `x / y`<br/>
-		/// Divides `x` by `y`, and returns the remainder.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, `y != 0`<br/>
-		/// Range: `-y <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = y`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_fmodf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Fmod(double x, double y)
-		{
-			double ret = FmodNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return the floating-point remainder of `x / y`<br/>
-		/// Divides `x` by `y`, and returns the remainder.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, `y != 0`<br/>
-		/// Range: `-y <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = y`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_fmod for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float FmodfNative(float x, float y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float, float>)funcTable[135])(x, y);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float, float>)funcTable[135])(x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Return the floating-point remainder of `x / y`<br/>
-		/// Divides `x` by `y`, and returns the remainder.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, `y != 0`<br/>
-		/// Range: `-y <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = y`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_fmod for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Fmodf(float x, float y)
-		{
-			float ret = FmodfNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether the value is infinity.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsinfNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, int>)funcTable[136])(x);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<double, int>)funcTable[136])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether the value is infinity.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Isinf(double x)
-		{
-			int ret = IsinfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether the value is infinity.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsinffNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, int>)funcTable[137])(x);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<float, int>)funcTable[137])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether the value is infinity.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Isinff(float x)
-		{
-			int ret = IsinffNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether the value is NaN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsnanNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, int>)funcTable[138])(x);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<double, int>)funcTable[138])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether the value is NaN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Isnan(double x)
-		{
-			int ret = IsnanNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether the value is NaN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsnanfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, int>)funcTable[139])(x);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<float, int>)funcTable[139])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether the value is NaN.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Isnanf(float x)
-		{
-			int ret = IsnanfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double LogNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[140])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[140])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_logf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Log(double x)
-		{
-			double ret = LogNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_log for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float LogfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[141])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[141])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the natural logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_log for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Logf(float x)
-		{
-			float ret = LogfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the base-10 logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_log10f for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double Log10Native(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[142])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[142])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the base-10 logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_log10f for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Log10(double x)
-		{
-			double ret = Log10Native(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the base-10 logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_log10 for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float Log10FNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[143])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[143])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the base-10 logarithm of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// It is an error for `x` to be less than or equal to 0.<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_log10 for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Log10F(float x)
-		{
-			float ret = Log10FNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Split `x` into integer and fractional parts<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_modff for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double ModfNative(double x, double* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double*, double>)funcTable[144])(x, y);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, nint, double>)funcTable[144])(x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Split `x` into integer and fractional parts<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_modff for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Modf(double x, double* y)
-		{
-			double ret = ModfNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Split `x` into integer and fractional parts<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_modff for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Modf(double x, ref double y)
-		{
-			fixed (double* py = &y)
-			{
-				double ret = ModfNative(x, (double*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Split `x` into integer and fractional parts<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_modf for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float ModffNative(float x, float* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float*, float>)funcTable[145])(x, y);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, nint, float>)funcTable[145])(x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Split `x` into integer and fractional parts<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_modf for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Modff(float x, float* y)
-		{
-			float ret = ModffNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Split `x` into integer and fractional parts<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_modf for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Modff(float x, ref float y)
-		{
-			fixed (float* py = &y)
-			{
-				float ret = ModffNative(x, (float*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Raise `x` to the power `y`<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// If `y` is the base of the natural logarithm (e), consider using SDL_exp<br/>
-		/// instead.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_powf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double PowNative(double x, double y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double, double>)funcTable[146])(x, y);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double, double>)funcTable[146])(x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Raise `x` to the power `y`<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// If `y` is the base of the natural logarithm (e), consider using SDL_exp<br/>
-		/// instead.<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_powf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Pow(double x, double y)
-		{
-			double ret = PowNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Raise `x` to the power `y`<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// If `y` is the base of the natural logarithm (e), consider using SDL_exp<br/>
-		/// instead.<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_pow for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float PowfNative(float x, float y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float, float>)funcTable[147])(x, y);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float, float>)funcTable[147])(x, y);
-			#endif
-		}
-
-		/// <summary>
-		/// Raise `x` to the power `y`<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = z <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// If `y` is the base of the natural logarithm (e), consider using SDL_exp<br/>
-		/// instead.<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_pow for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Powf(float x, float y)
-		{
-			float ret = PowfNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Round `x` to the nearest integer.<br/>
-		/// Rounds `x` to the nearest integer. Values halfway between integers will be<br/>
-		/// rounded away from zero.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_roundf for single-precision floats. To get the result as an integer<br/>
-		/// type, use SDL_lround.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double RoundNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[148])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[148])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Round `x` to the nearest integer.<br/>
-		/// Rounds `x` to the nearest integer. Values halfway between integers will be<br/>
-		/// rounded away from zero.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_roundf for single-precision floats. To get the result as an integer<br/>
-		/// type, use SDL_lround.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Round(double x)
-		{
-			double ret = RoundNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Round `x` to the nearest integer.<br/>
-		/// Rounds `x` to the nearest integer. Values halfway between integers will be<br/>
-		/// rounded away from zero.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_round for double-precision floats. To get the result as an integer<br/>
-		/// type, use SDL_lroundf.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float RoundfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[149])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[149])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Round `x` to the nearest integer.<br/>
-		/// Rounds `x` to the nearest integer. Values halfway between integers will be<br/>
-		/// rounded away from zero.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`, y integer<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_round for double-precision floats. To get the result as an integer<br/>
-		/// type, use SDL_lroundf.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Roundf(float x)
-		{
-			float ret = RoundfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Round `x` to the nearest integer representable as a long<br/>
-		/// Rounds `x` to the nearest integer. Values halfway between integers will be<br/>
-		/// rounded away from zero.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `MIN_LONG <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = MAX_LONG`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_lroundf for single-precision floats. To get the result as a<br/>
-		/// floating-point type, use SDL_round.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LroundNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, int>)funcTable[150])(x);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<double, int>)funcTable[150])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Round `x` to the nearest integer representable as a long<br/>
-		/// Rounds `x` to the nearest integer. Values halfway between integers will be<br/>
-		/// rounded away from zero.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `MIN_LONG <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = MAX_LONG`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_lroundf for single-precision floats. To get the result as a<br/>
-		/// floating-point type, use SDL_round.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Lround(double x)
-		{
-			int ret = LroundNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Round `x` to the nearest integer representable as a long<br/>
-		/// Rounds `x` to the nearest integer. Values halfway between integers will be<br/>
-		/// rounded away from zero.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `MIN_LONG <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = MAX_LONG`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_lround for double-precision floats. To get the result as a<br/>
-		/// floating-point type, use SDL_roundf.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LroundfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, int>)funcTable[151])(x);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<float, int>)funcTable[151])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Round `x` to the nearest integer representable as a long<br/>
-		/// Rounds `x` to the nearest integer. Values halfway between integers will be<br/>
-		/// rounded away from zero.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `MIN_LONG <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = MAX_LONG`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_lround for double-precision floats. To get the result as a<br/>
-		/// floating-point type, use SDL_roundf.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Lroundf(float x)
-		{
-			int ret = LroundfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Scale `x` by an integer power of two.<br/>
-		/// Multiplies `x` by the `n`th power of the floating point radix (always 2).<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `n` integer<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_scalbnf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double ScalbnNative(double x, int n)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, int, double>)funcTable[152])(x, n);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, int, double>)funcTable[152])(x, n);
-			#endif
-		}
-
-		/// <summary>
-		/// Scale `x` by an integer power of two.<br/>
-		/// Multiplies `x` by the `n`th power of the floating point radix (always 2).<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `n` integer<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_scalbnf for single-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Scalbn(double x, int n)
-		{
-			double ret = ScalbnNative(x, n);
-			return ret;
-		}
-
-		/// <summary>
-		/// Scale `x` by an integer power of two.<br/>
-		/// Multiplies `x` by the `n`th power of the floating point radix (always 2).<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `n` integer<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_scalbn for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float ScalbnfNative(float x, int n)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, int, float>)funcTable[153])(x, n);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, int, float>)funcTable[153])(x, n);
-			#endif
-		}
-
-		/// <summary>
-		/// Scale `x` by an integer power of two.<br/>
-		/// Multiplies `x` by the `n`th power of the floating point radix (always 2).<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`, `n` integer<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_scalbn for double-precision floats.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Scalbnf(float x, int n)
-		{
-			float ret = ScalbnfNative(x, n);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the sine of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-1 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = 1`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_sinf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double SinNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[154])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[154])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the sine of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-1 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = 1`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_sinf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Sin(double x)
-		{
-			double ret = SinNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the sine of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-1 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = 1`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_sin for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float SinfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[155])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[155])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the sine of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-1 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = 1`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_sin for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Sinf(float x)
-		{
-			float ret = SinfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the square root of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_sqrtf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double SqrtNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[156])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[156])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the square root of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_sqrtf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Sqrt(double x)
-		{
-			double ret = SqrtNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the square root of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_sqrt for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float SqrtfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[157])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[157])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the square root of `x`.<br/>
-		/// Domain: `0 <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `0 <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_sqrt for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Sqrtf(float x)
-		{
-			float ret = SqrtfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the tangent of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_tanf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static double TanNative(double x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[158])(x);
-			#else
-			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[158])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the tangent of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on double-precision floating point values, use<br/>
-		/// SDL_tanf for single-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static double Tan(double x)
-		{
-			double ret = TanNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compute the tangent of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_tan for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float TanfNative(float x)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[159])(x);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[159])(x);
-			#endif
-		}
-
-		/// <summary>
-		/// Compute the tangent of `x`.<br/>
-		/// Domain: `-INF <br/>
-		/// <<br/>
-		/// = x <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// Range: `-INF <br/>
-		/// <<br/>
-		/// = y <br/>
-		/// <<br/>
-		/// = INF`<br/>
-		/// This function operates on single-precision floating point values, use<br/>
-		/// SDL_tan for double-precision floats.<br/>
-		/// This function may use a different approximation across different versions,<br/>
-		/// platforms and configurations. i.e, it can return a different value given<br/>
-		/// the same input on different machines or operating systems, or if SDL is<br/>
-		/// updated.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static float Tanf(float x)
-		{
-			float ret = TanfNative(x);
-			return ret;
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIconv IconvOpenNative(byte* tocode, byte* fromcode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLIconv>)funcTable[160])(tocode, fromcode);
-			#else
-			return (SDLIconv)((delegate* unmanaged[Cdecl]<nint, nint, SDLIconv>)funcTable[160])((nint)tocode, (nint)fromcode);
-			#endif
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(byte* tocode, byte* fromcode)
-		{
-			SDLIconv ret = IconvOpenNative(tocode, fromcode);
-			return ret;
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(ref byte tocode, byte* fromcode)
-		{
-			fixed (byte* ptocode = &tocode)
-			{
-				SDLIconv ret = IconvOpenNative((byte*)ptocode, fromcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(ReadOnlySpan<byte> tocode, byte* fromcode)
-		{
-			fixed (byte* ptocode = tocode)
-			{
-				SDLIconv ret = IconvOpenNative((byte*)ptocode, fromcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(string tocode, byte* fromcode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tocode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tocode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLIconv ret = IconvOpenNative(pStr0, fromcode);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(byte* tocode, ref byte fromcode)
-		{
-			fixed (byte* pfromcode = &fromcode)
-			{
-				SDLIconv ret = IconvOpenNative(tocode, (byte*)pfromcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(byte* tocode, ReadOnlySpan<byte> fromcode)
-		{
-			fixed (byte* pfromcode = fromcode)
-			{
-				SDLIconv ret = IconvOpenNative(tocode, (byte*)pfromcode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(byte* tocode, string fromcode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fromcode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLIconv ret = IconvOpenNative(tocode, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(ref byte tocode, ref byte fromcode)
-		{
-			fixed (byte* ptocode = &tocode)
-			{
-				fixed (byte* pfromcode = &fromcode)
-				{
-					SDLIconv ret = IconvOpenNative((byte*)ptocode, (byte*)pfromcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(ReadOnlySpan<byte> tocode, ReadOnlySpan<byte> fromcode)
-		{
-			fixed (byte* ptocode = tocode)
-			{
-				fixed (byte* pfromcode = fromcode)
-				{
-					SDLIconv ret = IconvOpenNative((byte*)ptocode, (byte*)pfromcode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function allocates a context for the specified character set<br/>
-		/// conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLIconv IconvOpen(string tocode, string fromcode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tocode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tocode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (fromcode != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			SDLIconv ret = IconvOpenNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This function frees a context used for character set conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IconvCloseNative(SDLIconv cd)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIconv, int>)funcTable[161])(cd);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLIconv, int>)funcTable[161])(cd);
-			#endif
-		}
-
-		/// <summary>
-		/// This function frees a context used for character set conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int IconvClose(SDLIconv cd)
-		{
-			int ret = IconvCloseNative(cd);
-			return ret;
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint IconvNative(SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLIconv, byte**, nuint*, byte**, nuint*, nuint>)funcTable[162])(cd, inbuf, inbytesleft, outbuf, outbytesleft);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<SDLIconv, nint, nint, nint, nint, nuint>)funcTable[162])(cd, (nint)inbuf, (nint)inbytesleft, (nint)outbuf, (nint)outbytesleft);
-			#endif
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
-		{
-			nuint ret = IconvNative(cd, inbuf, inbytesleft, outbuf, outbytesleft);
-			return ret;
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
-		{
-			fixed (byte** pinbuf = &inbuf)
-			{
-				nuint ret = IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, outbytesleft);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
-		{
-			fixed (nuint* pinbytesleft = &inbytesleft)
-			{
-				nuint ret = IconvNative(cd, inbuf, (nuint*)pinbytesleft, outbuf, outbytesleft);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
-		{
-			fixed (byte** pinbuf = &inbuf)
-			{
-				fixed (nuint* pinbytesleft = &inbytesleft)
-				{
-					nuint ret = IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, outbuf, outbytesleft);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
-		{
-			fixed (byte** poutbuf = &outbuf)
-			{
-				nuint ret = IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
-		{
-			fixed (byte** pinbuf = &inbuf)
-			{
-				fixed (byte** poutbuf = &outbuf)
-				{
-					nuint ret = IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
-		{
-			fixed (nuint* pinbytesleft = &inbytesleft)
-			{
-				fixed (byte** poutbuf = &outbuf)
-				{
-					nuint ret = IconvNative(cd, inbuf, (nuint*)pinbytesleft, (byte**)poutbuf, outbytesleft);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
-		{
-			fixed (byte** pinbuf = &inbuf)
-			{
-				fixed (nuint* pinbytesleft = &inbytesleft)
-				{
-					fixed (byte** poutbuf = &outbuf)
-					{
-						nuint ret = IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, (byte**)poutbuf, outbytesleft);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
-		{
-			fixed (nuint* poutbytesleft = &outbytesleft)
-			{
-				nuint ret = IconvNative(cd, inbuf, inbytesleft, outbuf, (nuint*)poutbytesleft);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
-		{
-			fixed (byte** pinbuf = &inbuf)
-			{
-				fixed (nuint* poutbytesleft = &outbytesleft)
-				{
-					nuint ret = IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, (nuint*)poutbytesleft);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
-		{
-			fixed (nuint* pinbytesleft = &inbytesleft)
-			{
-				fixed (nuint* poutbytesleft = &outbytesleft)
-				{
-					nuint ret = IconvNative(cd, inbuf, (nuint*)pinbytesleft, outbuf, (nuint*)poutbytesleft);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
-		{
-			fixed (byte** pinbuf = &inbuf)
-			{
-				fixed (nuint* pinbytesleft = &inbytesleft)
-				{
-					fixed (nuint* poutbytesleft = &outbytesleft)
-					{
-						nuint ret = IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, outbuf, (nuint*)poutbytesleft);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
-		{
-			fixed (byte** poutbuf = &outbuf)
-			{
-				fixed (nuint* poutbytesleft = &outbytesleft)
-				{
-					nuint ret = IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
-		{
-			fixed (byte** pinbuf = &inbuf)
-			{
-				fixed (byte** poutbuf = &outbuf)
-				{
-					fixed (nuint* poutbytesleft = &outbytesleft)
-					{
-						nuint ret = IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
-		{
-			fixed (nuint* pinbytesleft = &inbytesleft)
-			{
-				fixed (byte** poutbuf = &outbuf)
-				{
-					fixed (nuint* poutbytesleft = &outbytesleft)
-					{
-						nuint ret = IconvNative(cd, inbuf, (nuint*)pinbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts text between encodings, reading from and writing to<br/>
-		/// a buffer.<br/>
-		/// It returns the number of succesful conversions on success. On error,<br/>
-		/// SDL_ICONV_E2BIG is returned when the output buffer is too small, or<br/>
-		/// SDL_ICONV_EILSEQ is returned when an invalid input sequence is encountered,<br/>
-		/// or SDL_ICONV_EINVAL is returned when an incomplete input sequence is<br/>
-		/// encountered.<br/>
-		/// On exit:<br/>
-		/// - inbuf will point to the beginning of the next multibyte sequence. On<br/>
-		/// error, this is the location of the problematic input sequence. On<br/>
-		/// success, this is the end of the input sequence.<br/>
-		/// - inbytesleft will be set to the number of bytes left to convert, which<br/>
-		/// will be 0 on success.<br/>
-		/// - outbuf will point to the location where to store the next output byte.<br/>
-		/// - outbytesleft will be set to the number of bytes left in the output<br/>
-		/// buffer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint Iconv(SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
-		{
-			fixed (byte** pinbuf = &inbuf)
-			{
-				fixed (nuint* pinbytesleft = &inbytesleft)
-				{
-					fixed (byte** poutbuf = &outbuf)
-					{
-						fixed (nuint* poutbytesleft = &outbytesleft)
-						{
-							nuint ret = IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* IconvStringNative(byte* tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*, nuint, byte*>)funcTable[163])(tocode, fromcode, inbuf, inbytesleft);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nuint, nint>)funcTable[163])((nint)tocode, (nint)fromcode, (nint)inbuf, inbytesleft);
-			#endif
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(byte* tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			byte* ret = IconvStringNative(tocode, fromcode, inbuf, inbytesleft);
-			return ret;
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(byte* tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, fromcode, inbuf, inbytesleft));
-			return ret;
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(ref byte tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			fixed (byte* ptocode = &tocode)
-			{
-				byte* ret = IconvStringNative((byte*)ptocode, fromcode, inbuf, inbytesleft);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(ref byte tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			fixed (byte* ptocode = &tocode)
-			{
-				string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, fromcode, inbuf, inbytesleft));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(ReadOnlySpan<byte> tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			fixed (byte* ptocode = tocode)
-			{
-				byte* ret = IconvStringNative((byte*)ptocode, fromcode, inbuf, inbytesleft);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(ReadOnlySpan<byte> tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			fixed (byte* ptocode = tocode)
-			{
-				string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, fromcode, inbuf, inbytesleft));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(string tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tocode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tocode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = IconvStringNative(pStr0, fromcode, inbuf, inbytesleft);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(string tocode, byte* fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tocode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tocode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, fromcode, inbuf, inbytesleft));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(byte* tocode, ref byte fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			fixed (byte* pfromcode = &fromcode)
-			{
-				byte* ret = IconvStringNative(tocode, (byte*)pfromcode, inbuf, inbytesleft);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Helper function to convert a string's encoding in one call.<br/>
-		/// This function converts a buffer or string between encodings in one pass.<br/>
-		/// The string does not need to be NULL-terminated; this function operates on<br/>
-		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
-		/// character anywhere in the buffer.<br/>
-		/// The returned string is owned by the caller, and should be passed to<br/>
-		/// SDL_free when no longer needed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(byte* tocode, ref byte fromcode, byte* inbuf, nuint inbytesleft)
-		{
-			fixed (byte* pfromcode = &fromcode)
-			{
-				string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, (byte*)pfromcode, inbuf, inbytesleft));
-				return ret;
-			}
 		}
 	}
 }

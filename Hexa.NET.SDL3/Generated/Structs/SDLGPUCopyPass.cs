@@ -15,18 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a copy pass.<br/>
-	/// This handle is transient and should not be held or referenced after<br/>
-	/// SDL_EndGPUCopyPass is called.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUCopyPass")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUCopyPass
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUCopyPass")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUCopyPassPtr : IEquatable<SDLGPUCopyPassPtr>
+	{
+		public SDLGPUCopyPassPtr(SDLGPUCopyPass* handle) { Handle = handle; }
+
+		public SDLGPUCopyPass* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUCopyPassPtr Null => new SDLGPUCopyPassPtr(null);
+
+		public SDLGPUCopyPass this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUCopyPassPtr(SDLGPUCopyPass* handle) => new SDLGPUCopyPassPtr(handle);
+
+		public static implicit operator SDLGPUCopyPass*(SDLGPUCopyPassPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUCopyPassPtr left, SDLGPUCopyPassPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUCopyPassPtr left, SDLGPUCopyPassPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUCopyPassPtr left, SDLGPUCopyPass* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUCopyPassPtr left, SDLGPUCopyPass* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUCopyPassPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUCopyPassPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUCopyPassPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

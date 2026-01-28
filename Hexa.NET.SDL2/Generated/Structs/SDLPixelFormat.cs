@@ -53,7 +53,7 @@ namespace Hexa.NET.SDL2
 		public int Refcount;
 		public unsafe SDLPixelFormat* Next;
 
-		public unsafe SDLPixelFormat(uint format = default, SDLPalette* palette = default, byte bitsPerPixel = default, byte bytesPerPixel = default, byte* padding = default, uint rmask = default, uint gmask = default, uint bmask = default, uint amask = default, byte rloss = default, byte gloss = default, byte bloss = default, byte aloss = default, byte rshift = default, byte gshift = default, byte bshift = default, byte ashift = default, int refcount = default, SDLPixelFormat* next = default)
+		public unsafe SDLPixelFormat(uint format = default, SDLPalettePtr palette = default, byte bitsPerPixel = default, byte bytesPerPixel = default, byte* padding = default, uint rmask = default, uint gmask = default, uint bmask = default, uint amask = default, byte rloss = default, byte gloss = default, byte bloss = default, byte aloss = default, byte rshift = default, byte gshift = default, byte bshift = default, byte ashift = default, int refcount = default, SDLPixelFormat* next = default)
 		{
 			Format = format;
 			Palette = palette;
@@ -80,7 +80,7 @@ namespace Hexa.NET.SDL2
 			Next = next;
 		}
 
-		public unsafe SDLPixelFormat(uint format = default, SDLPalette* palette = default, byte bitsPerPixel = default, byte bytesPerPixel = default, Span<byte> padding = default, uint rmask = default, uint gmask = default, uint bmask = default, uint amask = default, byte rloss = default, byte gloss = default, byte bloss = default, byte aloss = default, byte rshift = default, byte gshift = default, byte bshift = default, byte ashift = default, int refcount = default, SDLPixelFormat* next = default)
+		public unsafe SDLPixelFormat(uint format = default, SDLPalettePtr palette = default, byte bitsPerPixel = default, byte bytesPerPixel = default, Span<byte> padding = default, uint rmask = default, uint gmask = default, uint bmask = default, uint amask = default, byte rloss = default, byte gloss = default, byte bloss = default, byte aloss = default, byte rshift = default, byte gshift = default, byte bshift = default, byte ashift = default, int refcount = default, SDLPixelFormat* next = default)
 		{
 			Format = format;
 			Palette = palette;
@@ -108,6 +108,86 @@ namespace Hexa.NET.SDL2
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure that contains pixel format information.<br/>
+	/// Everything in the pixel format structure is read-only.<br/>
+	/// A pixel format has either a palette or masks. If a palette is used `Rmask`,<br/>
+	/// `Gmask`, `Bmask`, and `Amask` will be 0.<br/>
+	/// An SDL_PixelFormat describes the format of the pixel data stored at the<br/>
+	/// `pixels` field of an SDL_Surface. Every surface stores an SDL_PixelFormat<br/>
+	/// in the `format` field.<br/>
+	/// If you wish to do pixel level modifications on a surface, then<br/>
+	/// understanding how SDL stores its color information is essential.<br/>
+	/// For information on modern pixel color spaces, see the following Wikipedia<br/>
+	/// article: http://en.wikipedia.org/wiki/RGBA_color_space<br/>
+	/// <br/>
+	/// </summary>
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLPixelFormatPtr : IEquatable<SDLPixelFormatPtr>
+	{
+		public SDLPixelFormatPtr(SDLPixelFormat* handle) { Handle = handle; }
+
+		public SDLPixelFormat* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLPixelFormatPtr Null => new SDLPixelFormatPtr(null);
+
+		public SDLPixelFormat this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLPixelFormatPtr(SDLPixelFormat* handle) => new SDLPixelFormatPtr(handle);
+
+		public static implicit operator SDLPixelFormat*(SDLPixelFormatPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLPixelFormatPtr left, SDLPixelFormatPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLPixelFormatPtr left, SDLPixelFormatPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLPixelFormatPtr left, SDLPixelFormat* right) => left.Handle == right;
+
+		public static bool operator !=(SDLPixelFormatPtr left, SDLPixelFormat* right) => left.Handle != right;
+
+		public bool Equals(SDLPixelFormatPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLPixelFormatPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLPixelFormatPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		public ref uint Format => ref Unsafe.AsRef<uint>(&Handle->Format);
+		public ref SDLPalettePtr Palette => ref Unsafe.AsRef<SDLPalettePtr>(&Handle->Palette);
+		public ref byte BitsPerPixel => ref Unsafe.AsRef<byte>(&Handle->BitsPerPixel);
+		public ref byte BytesPerPixel => ref Unsafe.AsRef<byte>(&Handle->BytesPerPixel);
+		public unsafe Span<byte> Padding
+		
+		{
+			get
+			{
+				return new Span<byte>(&Handle->Padding_0, 2);
+			}
+		}
+		public ref uint Rmask => ref Unsafe.AsRef<uint>(&Handle->Rmask);
+		public ref uint Gmask => ref Unsafe.AsRef<uint>(&Handle->Gmask);
+		public ref uint Bmask => ref Unsafe.AsRef<uint>(&Handle->Bmask);
+		public ref uint Amask => ref Unsafe.AsRef<uint>(&Handle->Amask);
+		public ref byte Rloss => ref Unsafe.AsRef<byte>(&Handle->Rloss);
+		public ref byte Gloss => ref Unsafe.AsRef<byte>(&Handle->Gloss);
+		public ref byte Bloss => ref Unsafe.AsRef<byte>(&Handle->Bloss);
+		public ref byte Aloss => ref Unsafe.AsRef<byte>(&Handle->Aloss);
+		public ref byte Rshift => ref Unsafe.AsRef<byte>(&Handle->Rshift);
+		public ref byte Gshift => ref Unsafe.AsRef<byte>(&Handle->Gshift);
+		public ref byte Bshift => ref Unsafe.AsRef<byte>(&Handle->Bshift);
+		public ref byte Ashift => ref Unsafe.AsRef<byte>(&Handle->Ashift);
+		public ref int Refcount => ref Unsafe.AsRef<int>(&Handle->Refcount);
+		public ref SDLPixelFormatPtr Next => ref Unsafe.AsRef<SDLPixelFormatPtr>(&Handle->Next);
 	}
 
 }

@@ -19,36 +19,53 @@ namespace Hexa.NET.SDL3
 	/// Gamepad button event structure (event.gbutton.*)<br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GamepadButtonEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGamepadButtonEvent
 	{
 		/// <summary>
 		/// SDL_EVENT_GAMEPAD_BUTTON_DOWN or SDL_EVENT_GAMEPAD_BUTTON_UP <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "type")]
+		[NativeName(NativeNameType.Type, "SDL_EventType")]
 		public SDLEventType Type;
 
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Reserved;
 		/// <summary>
 		/// In nanoseconds, populated using SDL_GetTicksNS() <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "timestamp")]
+		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "which")]
+		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 		/// <summary>
 		/// The gamepad button (SDL_GamepadButton) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "button")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Button;
 
 		/// <summary>
 		/// true if the button is pressed <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "down")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Down;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
 
 		public unsafe SDLGamepadButtonEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, int which = default, byte button = default, bool down = default, byte padding1 = default, byte padding2 = default)

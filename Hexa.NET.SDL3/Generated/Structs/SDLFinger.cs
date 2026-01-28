@@ -23,27 +23,36 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_Finger")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLFinger
 	{
 		/// <summary>
 		/// the finger ID <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "id")]
+		[NativeName(NativeNameType.Type, "SDL_FingerID")]
 		public long Id;
 
 		/// <summary>
 		/// the x-axis location of the touch event, normalized (0...1) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// the y-axis location of the touch event, normalized (0...1) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// the quantity of pressure applied, normalized (0...1) <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "pressure")]
+		[NativeName(NativeNameType.Type, "float")]
 		public float Pressure;
 
 
@@ -56,6 +65,55 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// Data about a single finger in a multitouch event.<br/>
+	/// Each touch event is a collection of fingers that are simultaneously in<br/>
+	/// contact with the touch device (so a "touch" can be a "multitouch," in<br/>
+	/// reality), and this struct reports details of the specific fingers.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_Finger")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLFingerPtrPtr : IEquatable<SDLFingerPtrPtr>
+	{
+		public SDLFingerPtrPtr(SDLFinger** handle) { Handle = handle; }
+
+		public SDLFinger** Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLFingerPtrPtr Null => new SDLFingerPtrPtr(null);
+
+		public SDLFinger* this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLFingerPtrPtr(SDLFinger** handle) => new SDLFingerPtrPtr(handle);
+
+		public static implicit operator SDLFinger**(SDLFingerPtrPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLFingerPtrPtr left, SDLFingerPtrPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLFingerPtrPtr left, SDLFingerPtrPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLFingerPtrPtr left, SDLFinger** right) => left.Handle == right;
+
+		public static bool operator !=(SDLFingerPtrPtr left, SDLFinger** right) => left.Handle != right;
+
+		public bool Equals(SDLFingerPtrPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLFingerPtrPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLFingerPtrPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }

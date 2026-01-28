@@ -21,41 +21,54 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUTextureLocation")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUTextureLocation
 	{
 		/// <summary>
 		/// The texture used in the copy operation. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "texture")]
+		[NativeName(NativeNameType.Type, "SDL_GPUTexture *")]
 		public unsafe SDLGPUTexture* Texture;
 
 		/// <summary>
 		/// The mip level index of the location. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "mip_level")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint MipLevel;
 
 		/// <summary>
 		/// The layer index of the location. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "layer")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Layer;
 
 		/// <summary>
 		/// The left offset of the location. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "x")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint X;
 
 		/// <summary>
 		/// The top offset of the location. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "y")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Y;
 
 		/// <summary>
 		/// The front offset of the location. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "z")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Z;
 
 
-		public unsafe SDLGPUTextureLocation(SDLGPUTexture* texture = default, uint mipLevel = default, uint layer = default, uint x = default, uint y = default, uint z = default)
+		public unsafe SDLGPUTextureLocation(SDLGPUTexturePtr texture = default, uint mipLevel = default, uint layer = default, uint x = default, uint y = default, uint z = default)
 		{
 			Texture = texture;
 			MipLevel = mipLevel;
@@ -66,6 +79,77 @@ namespace Hexa.NET.SDL3
 		}
 
 
+	}
+
+	/// <summary>
+	/// A structure specifying a location in a texture.<br/>
+	/// Used when copying data from one texture to another.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Typedef, "SDL_GPUTextureLocation")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUTextureLocationPtr : IEquatable<SDLGPUTextureLocationPtr>
+	{
+		public SDLGPUTextureLocationPtr(SDLGPUTextureLocation* handle) { Handle = handle; }
+
+		public SDLGPUTextureLocation* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUTextureLocationPtr Null => new SDLGPUTextureLocationPtr(null);
+
+		public SDLGPUTextureLocation this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUTextureLocationPtr(SDLGPUTextureLocation* handle) => new SDLGPUTextureLocationPtr(handle);
+
+		public static implicit operator SDLGPUTextureLocation*(SDLGPUTextureLocationPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUTextureLocationPtr left, SDLGPUTextureLocationPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUTextureLocationPtr left, SDLGPUTextureLocationPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUTextureLocationPtr left, SDLGPUTextureLocation* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUTextureLocationPtr left, SDLGPUTextureLocation* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUTextureLocationPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUTextureLocationPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUTextureLocationPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
+		/// <summary>
+		/// The texture used in the copy operation. <br/>
+		/// </summary>
+		public ref SDLGPUTexturePtr Texture => ref Unsafe.AsRef<SDLGPUTexturePtr>(&Handle->Texture);
+		/// <summary>
+		/// The mip level index of the location. <br/>
+		/// </summary>
+		public ref uint MipLevel => ref Unsafe.AsRef<uint>(&Handle->MipLevel);
+		/// <summary>
+		/// The layer index of the location. <br/>
+		/// </summary>
+		public ref uint Layer => ref Unsafe.AsRef<uint>(&Handle->Layer);
+		/// <summary>
+		/// The left offset of the location. <br/>
+		/// </summary>
+		public ref uint X => ref Unsafe.AsRef<uint>(&Handle->X);
+		/// <summary>
+		/// The top offset of the location. <br/>
+		/// </summary>
+		public ref uint Y => ref Unsafe.AsRef<uint>(&Handle->Y);
+		/// <summary>
+		/// The front offset of the location. <br/>
+		/// </summary>
+		public ref uint Z => ref Unsafe.AsRef<uint>(&Handle->Z);
 	}
 
 }

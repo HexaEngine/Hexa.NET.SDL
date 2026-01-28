@@ -21,34 +21,51 @@ namespace Hexa.NET.SDL3
 	/// <br/>
 	/// <br/>
 	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUMultisampleState")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUMultisampleState
 	{
 		/// <summary>
 		/// The number of samples to be used in rasterization. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sample_count")]
+		[NativeName(NativeNameType.Type, "SDL_GPUSampleCount")]
 		public SDLGPUSampleCount SampleCount;
 
 		/// <summary>
 		/// Reserved for future use. Must be set to 0. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "sample_mask")]
+		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint SampleMask;
 
 		/// <summary>
 		/// Reserved for future use. Must be set to false. <br/>
 		/// </summary>
+		[NativeName(NativeNameType.Field, "enable_mask")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte EnableMask;
 
-		public byte Padding1;
+		/// <summary>
+		/// true enables the alpha-to-coverage feature. <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "enable_alpha_to_coverage")]
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte EnableAlphaToCoverage;
+
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
+		[NativeName(NativeNameType.Field, "padding3")]
+		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
-		public unsafe SDLGPUMultisampleState(SDLGPUSampleCount sampleCount = default, uint sampleMask = default, bool enableMask = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
+		public unsafe SDLGPUMultisampleState(SDLGPUSampleCount sampleCount = default, uint sampleMask = default, bool enableMask = default, bool enableAlphaToCoverage = default, byte padding2 = default, byte padding3 = default)
 		{
 			SampleCount = sampleCount;
 			SampleMask = sampleMask;
 			EnableMask = enableMask ? (byte)1 : (byte)0;
-			Padding1 = padding1;
+			EnableAlphaToCoverage = enableAlphaToCoverage ? (byte)1 : (byte)0;
 			Padding2 = padding2;
 			Padding3 = padding3;
 		}

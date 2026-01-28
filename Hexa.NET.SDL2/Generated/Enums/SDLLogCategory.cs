@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// assert category is enabled at the WARN level, test is enabled at the<br/>
 	/// VERBOSE level and all other categories are enabled at the ERROR level.<br/>
 	/// </summary>
-	[Flags]
 	public enum SDLLogCategory : int
 	{
 		Application = unchecked(0),

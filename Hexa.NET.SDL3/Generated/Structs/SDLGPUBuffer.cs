@@ -15,18 +15,53 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// An opaque handle representing a buffer.<br/>
-	/// Used for vertices, indices, indirect draw commands, and general compute<br/>
-	/// data.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUBuffer")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGPUBuffer
 	{
 
 
+	}
+
+	[NativeName(NativeNameType.Typedef, "SDL_GPUBuffer")]
+	#if NET5_0_OR_GREATER
+	[DebuggerDisplay("{DebuggerDisplay,nq}")]
+	#endif
+	public unsafe struct SDLGPUBufferPtr : IEquatable<SDLGPUBufferPtr>
+	{
+		public SDLGPUBufferPtr(SDLGPUBuffer* handle) { Handle = handle; }
+
+		public SDLGPUBuffer* Handle;
+
+		public bool IsNull => Handle == null;
+
+		public static SDLGPUBufferPtr Null => new SDLGPUBufferPtr(null);
+
+		public SDLGPUBuffer this[int index] { get => Handle[index]; set => Handle[index] = value; }
+
+		public static implicit operator SDLGPUBufferPtr(SDLGPUBuffer* handle) => new SDLGPUBufferPtr(handle);
+
+		public static implicit operator SDLGPUBuffer*(SDLGPUBufferPtr handle) => handle.Handle;
+
+		public static bool operator ==(SDLGPUBufferPtr left, SDLGPUBufferPtr right) => left.Handle == right.Handle;
+
+		public static bool operator !=(SDLGPUBufferPtr left, SDLGPUBufferPtr right) => left.Handle != right.Handle;
+
+		public static bool operator ==(SDLGPUBufferPtr left, SDLGPUBuffer* right) => left.Handle == right;
+
+		public static bool operator !=(SDLGPUBufferPtr left, SDLGPUBuffer* right) => left.Handle != right;
+
+		public bool Equals(SDLGPUBufferPtr other) => Handle == other.Handle;
+
+		/// <inheritdoc/>
+		public override bool Equals(object obj) => obj is SDLGPUBufferPtr handle && Equals(handle);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => ((nuint)Handle).GetHashCode();
+
+		#if NET5_0_OR_GREATER
+		private string DebuggerDisplay => string.Format("SDLGPUBufferPtr [0x{0}]", ((nuint)Handle).ToString("X"));
+		#endif
 	}
 
 }
